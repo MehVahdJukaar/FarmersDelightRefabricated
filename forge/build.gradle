@@ -130,8 +130,6 @@ dependencies {
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}"))
     annotationProcessor 'net.fabricmc:sponge-mixin:0.12.5+mixin.0.8.5'
 
-   // modRuntimeOnly("org.violetmoon.quark:Quark-4.0-beta-426")
-   // modRuntimeOnly("org.violetmoon.zeta:Zeta-1.0-beta-1")
     modImplementation("curse.maven:jei-238222:4712868")
     modImplementation("curse.maven:repurposed-structures-368293:4823487")
     modImplementation("curse.maven:selene-499980:5093417")

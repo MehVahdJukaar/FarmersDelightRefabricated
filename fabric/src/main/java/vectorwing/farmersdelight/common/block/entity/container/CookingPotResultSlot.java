@@ -6,10 +6,6 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 public class CookingPotResultSlot extends SlotItemHandler
 {
 	public final CookingPotBlockEntity tileEntity;
