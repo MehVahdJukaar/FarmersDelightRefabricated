@@ -9,9 +9,10 @@ import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.client.FarmersDelightClient;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.event.CommonEvents;
+import vectorwing.farmersdelight.common.event.VillagerEvents;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
-import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
 
 public class FarmersDelight implements ModInitializer
@@ -53,9 +54,8 @@ public class FarmersDelight implements ModInitializer
 		ModLootFunctions.LOOT_FUNCTIONS.register();
 		ModLootModifiers.LOOT_MODIFIERS.register();
 
-		WildCropGeneration.load();
-		MinecraftForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);
-
-		MinecraftForge.EVENT_BUS.register(this);
+		VillageStructures.init();
+		CommonEvents.init();
+		VillagerEvents.addTrades();
 	}
 }

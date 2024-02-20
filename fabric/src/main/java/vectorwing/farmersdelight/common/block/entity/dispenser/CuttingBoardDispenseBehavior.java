@@ -15,14 +15,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 
 /**
  * Uses the given item as a tool when facing a Cutting Board.
  */
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class CuttingBoardDispenseBehavior extends OptionalDispenseItemBehavior
 {
 	private static final HashMap<Item, DispenseItemBehavior> DISPENSE_ITEM_BEHAVIOR_HASH_MAP = new HashMap<>();

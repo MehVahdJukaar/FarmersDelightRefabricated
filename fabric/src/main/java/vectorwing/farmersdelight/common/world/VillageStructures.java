@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.world;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +20,10 @@ import java.util.List;
 
 public class VillageStructures
 {
+	public static void init(){
+		ServerLifecycleEvents.SERVER_STARTED.register(VillageStructures::addNewVillageBuilding);
+	}
+
 	public static void addNewVillageBuilding(MinecraftServer  server) {
 		if (!Configuration.GENERATE_VILLAGE_COMPOST_HEAPS.get()) {
 			return;

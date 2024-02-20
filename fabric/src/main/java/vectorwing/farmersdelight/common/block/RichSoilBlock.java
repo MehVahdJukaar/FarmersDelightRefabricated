@@ -1,5 +1,9 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
+import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
+import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -9,11 +13,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.util.TriState;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -21,6 +22,7 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import org.jetbrains.annotations.Nullable;;
 
+@SuppressWarnings("deprecation")
 public class RichSoilBlock extends Block
 {
 	public RichSoilBlock(Properties properties) {
@@ -35,7 +37,7 @@ public class RichSoilBlock extends Block
 			Block aboveBlock = aboveState.getBlock();
 
 			// Do nothing if the plant is unaffected by rich soil
-			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL)) {
+			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
 				return;
 			}
 
@@ -55,10 +57,10 @@ public class RichSoilBlock extends Block
 
 			// If all else fails, and it's a plant, give it a growth boost now and then!
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState) && CommonHooks.canCropGrow(level, pos.above(), aboveState, true)) {
+				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false) && ForgeHooks.onCropsGrowPre(level, pos.above(), aboveState, true)) {
 					growable.performBonemeal(level, level.random, pos.above(), aboveState);
-					//level.levelEvent(1505, pos.above(), 0);
-					CommonHooks.fireCropGrowPost(level, pos.above(), aboveState);
+					level.levelEvent(2005, pos.above(), 0);
+					ForgeHooks.onCropsGrowPost(level, pos.above(), aboveState);
 				}
 			}
 		}
@@ -66,8 +68,8 @@ public class RichSoilBlock extends Block
 
 	@Override
 	@Nullable
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
-		if (toolAction.equals(ItemAbilities.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
+	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+		if (toolAction.equals(ToolActions.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
 			return ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState();
 		}
 		return null;
@@ -75,11 +77,8 @@ public class RichSoilBlock extends Block
 
 
 	@Override
-	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
-		return TriState.DEFAULT;
-
-		// TODO: Figure out how to correctly configure Rich Soil's plant compatibility, since PlantType was removed
-//		PlantType plantType = plantState.getPlantType(world, pos.relative(facing));
-//		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
+	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
+		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
+		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
 	}
 }
