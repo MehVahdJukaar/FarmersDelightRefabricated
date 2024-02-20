@@ -1,1 +1,9 @@
 accessWidener   v2  named
+
+accessible field net/minecraft/world/entity/animal/Chicken FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
+mutable field net/minecraft/world/entity/animal/Chicken FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
+
+accessible field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
+mutable field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
+
+accessible field net/minecraft/world/entity/animal/Parrot TAME_FOOD Ljava/util/Set;

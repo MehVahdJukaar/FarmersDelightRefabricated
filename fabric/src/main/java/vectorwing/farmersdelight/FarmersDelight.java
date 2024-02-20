@@ -6,7 +6,6 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import vectorwing.farmersdelight.client.FarmersDelightClient;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.event.CommonEvents;
@@ -25,13 +24,6 @@ public class FarmersDelight implements ModInitializer
 
 	@Override
 	public void onInitialize() {
-
-		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-		modEventBus.addListener(CommonSetup::init);
-		if (FMLEnvironment.dist.isClient()) {
-			modEventBus.addListener(FarmersDelightClient::init);
-		}
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
@@ -57,5 +49,7 @@ public class FarmersDelight implements ModInitializer
 		VillageStructures.init();
 		CommonEvents.init();
 		VillagerEvents.addTrades();
+
+		CommonSetup.init();
 	}
 }

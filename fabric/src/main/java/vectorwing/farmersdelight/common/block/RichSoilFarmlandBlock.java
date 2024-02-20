@@ -15,7 +15,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.PlantType;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -33,7 +32,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 				return true;
 			}
 		}
-		return net.minecraftforge.common.FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+		return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
 	}
 
 	public static void turnToRichSoil(BlockState state, Level level, BlockPos pos) {
