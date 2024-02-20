@@ -5,9 +5,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 public class CookingPotMealSlot extends SlotItemHandler
 {
 	public CookingPotMealSlot(IItemHandler inventoryIn, int index, int xPosition, int yPosition) {

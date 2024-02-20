@@ -31,10 +31,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -205,30 +201,4 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 	}
 
-	@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-	public static class ToolCarvingEvent
-	{
-		@SubscribeEvent
-		@SuppressWarnings("unused")
-		public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
-			Level level = event.getLevel();
-			BlockPos pos = event.getPos();
-			Player player = event.getEntity();
-			ItemStack heldStack = player.getMainHandItem();
-			BlockEntity tileEntity = level.getBlockEntity(event.getPos());
-
-			if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
-				if (heldStack.getItem() instanceof TieredItem ||
-						heldStack.getItem() instanceof TridentItem ||
-						heldStack.getItem() instanceof ShearsItem) {
-					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
-					if (success) {
-						level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
-						event.setCanceled(true);
-						event.setCancellationResult(InteractionResult.SUCCESS);
-					}
-				}
-			}
-		}
-	}
 }

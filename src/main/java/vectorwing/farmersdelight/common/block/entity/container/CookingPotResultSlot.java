@@ -6,10 +6,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 public class CookingPotResultSlot extends SlotItemHandler
 {
 	public final CookingPotBlockEntity tileEntity;
