@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
-import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -18,6 +16,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.util.TriState;
+import net.neoforged.neoforge.event.EventHooks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 /**
@@ -27,6 +28,8 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 @SuppressWarnings("deprecation")
 public class BuddingBushBlock extends BushBlock
 {
+	public static final MapCodec<BuddingBushBlock> CODEC = simpleCodec(BuddingBushBlock::new);
+
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 4);
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
@@ -41,6 +44,11 @@ public class BuddingBushBlock extends BushBlock
 	}
 
 	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE_BY_AGE[state.getValue(getAgeProperty())];
 	}
@@ -48,11 +56,6 @@ public class BuddingBushBlock extends BushBlock
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(Blocks.FARMLAND);
-	}
-
-	@Override
-	public PlantType getPlantType(BlockGetter world, BlockPos pos) {
-		return PlantType.CROP;
 	}
 
 	public IntegerProperty getAgeProperty() {
@@ -108,7 +111,7 @@ public class BuddingBushBlock extends BushBlock
 	public void growPastMaxAge(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 	}
 
-	protected static float getGrowthSpeed(Block block, BlockGetter level, BlockPos pos) {
+	protected static float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
 		float speed = 1.0F;
 		BlockPos posBelow = pos.below();
 
@@ -116,7 +119,8 @@ public class BuddingBushBlock extends BushBlock
 			for (int posZ = -1; posZ <= 1; ++posZ) {
 				float speedBonus = 0.0F;
 				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				if (stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, (IPlantable) block)) {
+				TriState soilDecision = stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, state);
+				if (soilDecision.isDefault()) {
 					speedBonus = 1.0F;
 					if (stateBelow.getValue(FarmBlock.MOISTURE) > 0 || stateBelow.getBlock() instanceof RichSoilFarmlandBlock richSoil && richSoil.isFertile(stateBelow, level, pos.offset(posX, 0, posZ))) {
 						speedBonus = 3.0F;
@@ -135,6 +139,7 @@ public class BuddingBushBlock extends BushBlock
 		BlockPos posSouth = pos.south();
 		BlockPos posWest = pos.west();
 		BlockPos posEast = pos.east();
+		Block block = state.getBlock();
 		boolean matchesEastWestRow = level.getBlockState(posWest).is(block) || level.getBlockState(posEast).is(block);
 		boolean matchesNorthSouthRow = level.getBlockState(posNorth).is(block) || level.getBlockState(posSouth).is(block);
 		if (matchesEastWestRow && matchesNorthSouthRow) {
@@ -169,7 +174,7 @@ public class BuddingBushBlock extends BushBlock
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
 		return new ItemStack(getBaseSeedId());
 	}
 

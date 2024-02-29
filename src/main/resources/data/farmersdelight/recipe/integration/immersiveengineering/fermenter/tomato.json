@@ -8,10 +8,10 @@
   "type": "immersiveengineering:fermenter",
   "energy": 6400,
   "fluid": {
-    "amount": 80,
-    "id": "immersiveengineering:ethanol"
+    "Amount": 80,
+    "FluidName": "immersiveengineering:ethanol"
   },
   "input": {
-    "tag": "c:crops/tomato"
+    "tag": "forge:crops/tomato"
   }
 }

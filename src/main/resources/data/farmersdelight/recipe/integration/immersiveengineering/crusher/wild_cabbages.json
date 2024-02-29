@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:crusher",
+  "secondaries": [
+    {
+      "chance": 1.0,
+      "conditions": [],
+      "output": {
+        "item": "minecraft:yellow_dye",
+        "count": 1
+      }
+    }
+  ],
+  "result": {
+    "basePredicate": {
+      "item": "farmersdelight:cabbage_seeds"
+    },
+    "count": 1
+  },
+  "input": {
+    "item": "farmersdelight:wild_cabbages"
+  },
+  "energy": 3200
+}

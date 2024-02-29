@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:crusher",
+  "secondaries": [
+    {
+      "chance": 0.1,
+      "conditions": [],
+      "output": {
+        "item": "minecraft:lime_dye",
+        "count": 1
+      }
+    }
+  ],
+  "result": {
+    "basePredicate": {
+      "item": "minecraft:purple_dye"
+    },
+    "count": 2
+  },
+  "input": {
+    "item": "farmersdelight:wild_potatoes"
+  },
+  "energy": 3200
+}

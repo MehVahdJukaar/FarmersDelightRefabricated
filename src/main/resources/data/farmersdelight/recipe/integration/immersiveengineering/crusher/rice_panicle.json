@@ -1,0 +1,30 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:crusher",
+  "secondaries": [
+    {
+      "chance": 1,
+      "conditions": [],
+      "output": {
+        "item": "farmersdelight:straw"
+      }
+    }
+  ],
+  "result": {
+    "basePredicate": {
+      "item": "farmersdelight:rice"
+    },
+    "count": 1
+  },
+  "input": {
+    "item": "farmersdelight:rice_panicle"
+  },
+  "energy": 3200
+}

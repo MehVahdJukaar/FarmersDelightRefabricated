@@ -10,6 +10,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,13 +48,17 @@ public class TomatoVineBlock extends CropBlock
 		registerDefaultState(stateDefinition.any().setValue(getAgeProperty(), 0).setValue(ROPELOGGED, false));
 	}
 
-	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
-		if (!isMature && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
-			return InteractionResult.PASS;
-		} else if (isMature) {
+		return !isMature && stack.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+
+	@Override
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+		int age = state.getValue(getAgeProperty());
+		boolean isMature = age == getMaxAge();
+		if (isMature) {
 			int quantity = 1 + level.random.nextInt(2);
 			Block.popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
 
@@ -65,7 +70,7 @@ public class TomatoVineBlock extends CropBlock
 			level.setBlock(pos, state.setValue(getAgeProperty(), 0), 2);
 			return InteractionResult.SUCCESS;
 		} else {
-			return super.use(state, level, pos, player, hand, hit);
+			return super.useWithoutItem(state, level, pos, player, hit);
 		}
 	}
 
@@ -193,9 +198,8 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	public static void destroyAndPlaceRope(Level level, BlockPos pos) {
-		var configuredRopeBlock = BuiltInRegistries.BLOCK.getOptional(new ResourceLocation(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
+		var configuredRopeBlock = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
 		Block finalRopeBlock = configuredRopeBlock.orElseGet(ModBlocks.ROPE);
-
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
 	}
 

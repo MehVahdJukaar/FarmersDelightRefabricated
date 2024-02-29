@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -10,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +34,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.FarmersDelight;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -42,6 +45,8 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 @SuppressWarnings("deprecation")
 public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
+	public static final MapCodec<CuttingBoardBlock> CODEC = simpleCodec(CuttingBoardBlock::new);
+
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -50,6 +55,11 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	public CuttingBoardBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Override
@@ -63,7 +73,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tileEntity = level.getBlockEntity(pos);
 		if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoardEntity) {
 			ItemStack heldStack = player.getItemInHand(hand);
@@ -72,26 +82,26 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 			if (cuttingBoardEntity.isEmpty()) {
 				if (!offhandStack.isEmpty()) {
 					if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ModTags.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
-						return InteractionResult.PASS; // Pass to off-hand if that item is placeable
+						return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Pass to off-hand if that item is placeable
 					}
 					if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ModTags.OFFHAND_EQUIPMENT)) {
-						return InteractionResult.PASS; // Items in this tag should not be placed from the off-hand
+						return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Items in this tag should not be placed from the off-hand
 					}
 				}
 				if (heldStack.isEmpty()) {
-					return InteractionResult.PASS;
+					return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 				} else if (cuttingBoardEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
 					level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 				}
 
 			} else if (!heldStack.isEmpty()) {
 				ItemStack boardStack = cuttingBoardEntity.getStoredItem().copy();
 				if (cuttingBoardEntity.processStoredItemUsingTool(heldStack, player)) {
 					spawnCuttingParticles(level, pos, boardStack, 5);
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 				}
-				return InteractionResult.CONSUME;
+				return ItemInteractionResult.CONSUME;
 
 			} else if (hand.equals(InteractionHand.MAIN_HAND)) {
 				if (!player.isCreative()) {
@@ -102,10 +112,10 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 					cuttingBoardEntity.removeItem();
 				}
 				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 0.25F, 0.5F);
-				return InteractionResult.SUCCESS;
+				return ItemInteractionResult.SUCCESS;
 			}
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
@@ -203,4 +213,30 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 	}
 
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
+	public static class ToolCarvingEvent
+	{
+		@SubscribeEvent
+		@SuppressWarnings("unused")
+		public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
+			Level level = event.getLevel();
+			BlockPos pos = event.getPos();
+			Player player = event.getEntity();
+			ItemStack heldStack = player.getMainHandItem();
+			BlockEntity tileEntity = level.getBlockEntity(event.getPos());
+
+			if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
+				if (heldStack.getItem() instanceof TieredItem ||
+						heldStack.getItem() instanceof TridentItem ||
+						heldStack.getItem() instanceof ShearsItem) {
+					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
+					if (success) {
+						level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+						event.setCanceled(true);
+						event.setCancellationResult(InteractionResult.SUCCESS);
+					}
+				}
+			}
+		}
+	}
 }

@@ -20,7 +20,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
-import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.util.ObfuscationReflectionHelper;
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
 import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
@@ -30,7 +32,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-public class CommonSetup {
+public class CommonSetup
+{
     public static void init() {
 
         // As the config cannot be loaded on init, we must do this.
@@ -143,5 +146,16 @@ public class CommonSetup {
         ;
 
         Collections.addAll(Parrot.TAME_FOOD, ModItems.CABBAGE_SEEDS.get(), ModItems.TOMATO_SEEDS.get(), ModItems.RICE.get());
+    }
+
+
+    //new common setup
+
+    public static void init(final FMLCommonSetupEvent event) {
+        event.enqueueWork(CommonSetup::registerDispenserBehaviors);
+    }
+
+    public static void registerDispenserBehaviors() {
+        DispenserBlock.registerProjectileBehavior(ModItems.ROTTEN_TOMATO.get());
     }
 }

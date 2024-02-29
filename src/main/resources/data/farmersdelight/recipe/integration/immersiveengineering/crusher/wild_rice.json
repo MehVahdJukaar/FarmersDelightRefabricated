@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:crusher",
+  "secondaries": [
+    {
+      "chance": 1.0,
+      "conditions": [],
+      "output": {
+        "item": "minecraft:green_dye",
+        "count": 2
+      }
+    }
+  ],
+  "result": {
+    "basePredicate": {
+      "item": "farmersdelight:rice"
+    },
+    "count": 1
+  },
+  "input": {
+    "item": "farmersdelight:wild_rice"
+  },
+  "energy": 3200
+}

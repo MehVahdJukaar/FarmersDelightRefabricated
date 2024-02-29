@@ -25,7 +25,6 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 
 ;
 
-@SuppressWarnings("deprecation")
 public class RichSoilBlock extends Block
 {
 	public RichSoilBlock(Properties properties) {
@@ -76,8 +75,8 @@ public class RichSoilBlock extends Block
 	// Look at init method for new impl.
 	@Override
 	@Nullable
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-		if (toolAction.equals(ToolActions.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
+	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
+		if (toolAction.equals(ItemAbilities.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
 			return ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState();
 		}
 		return null;
@@ -85,8 +84,11 @@ public class RichSoilBlock extends Block
 
 
 	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
-		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
-		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
+	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
+		return TriState.DEFAULT;
+
+		// TODO: Figure out how to correctly configure Rich Soil's plant compatibility, since PlantType was removed
+//		PlantType plantType = plantState.getPlantType(world, pos.relative(facing));
+//		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
 	}
 }

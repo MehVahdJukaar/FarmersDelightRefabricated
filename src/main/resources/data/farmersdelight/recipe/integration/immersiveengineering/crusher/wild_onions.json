@@ -1,0 +1,38 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:crusher",
+  "secondaries": [
+    {
+      "chance": 0.2,
+      "conditions": [],
+      "output": {
+        "item": "minecraft:magenta_dye",
+        "count": 3
+      }
+    },
+    {
+      "chance": 0.1,
+      "output": {
+        "item": "minecraft:lime_dye",
+        "count": 1
+      }
+    }
+  ],
+  "result": {
+    "basePredicate": {
+      "item": "minecraft:magenta_dye"
+    },
+    "count": 1
+  },
+  "input": {
+    "item": "farmersdelight:wild_onions"
+  },
+  "energy": 3200
+}

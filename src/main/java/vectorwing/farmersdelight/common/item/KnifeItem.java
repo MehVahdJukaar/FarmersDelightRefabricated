@@ -5,6 +5,7 @@ import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehav
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -35,8 +37,8 @@ import java.util.Set;
 
 public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
 {
-	public KnifeItem(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
-		super(attackDamage, attackSpeed, tier, ModTags.MINEABLE_WITH_KNIFE, properties);
+	public KnifeItem(Tier tier, Properties properties) {
+		super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
 	}
 
 	@Override
@@ -46,8 +48,16 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		stack.hurtAndBreak(1, attacker, (user) -> user.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 		return true;
+	}
+
+	@Override
+	public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
+		if (enchantment.value().isPrimaryItem(new ItemStack(Items.DIAMOND_SWORD)) && !enchantment.is(Enchantments.SWEEPING_EDGE)) {
+			return true;
+		}
+		return super.isPrimaryItemFor(stack, enchantment);
 	}
 
 	public static void init() {
@@ -127,7 +137,7 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 				ItemEntity itemEntity = new ItemEntity(level, (double) pos.getX() + 0.5D + (double) direction.getStepX() * 0.65D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D + (double) direction.getStepZ() * 0.65D, new ItemStack(Items.PUMPKIN_SEEDS, 4));
 				itemEntity.setDeltaMovement(0.05D * (double) direction.getStepX() + level.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double) direction.getStepZ() + level.random.nextDouble() * 0.02D);
 				level.addFreshEntity(itemEntity);
-				toolStack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(context.getHand()));
+				toolStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(context.getHand()));
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
@@ -135,16 +145,17 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		}
 	}
 
-	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
-		Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
-		if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
-			return true;
-		}
-		Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
-		if (DENIED_ENCHANTMENTS.contains(enchantment)) {
-			return false;
-		}
-		return enchantment.category.canEnchant(stack.getItem());
-	}
+    //forge has it disabled
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
+        Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
+        if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
+            return true;
+        }
+        Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
+        if (DENIED_ENCHANTMENTS.contains(enchantment)) {
+            return false;
+        }
+        return enchantment.category.canEnchant(stack.getItem());
+    }
 }

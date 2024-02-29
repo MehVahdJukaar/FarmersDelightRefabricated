@@ -18,12 +18,14 @@ import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
 ;
 
+import javax.annotation.Nullable;
+
 public class StandingCanvasSignBlock extends StandingSignBlock implements CanvasSign
 {
 	private final DyeColor backgroundColor;
 
 	public StandingCanvasSignBlock(@Nullable DyeColor backgroundColor) {
-		super(Properties.copy(Blocks.SPRUCE_SIGN), WoodType.SPRUCE);
+		super(WoodType.SPRUCE, Properties.ofFullCopy(Blocks.SPRUCE_SIGN));
 		this.backgroundColor = backgroundColor;
 	}
 

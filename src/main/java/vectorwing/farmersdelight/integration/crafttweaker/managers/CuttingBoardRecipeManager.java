@@ -31,7 +31,7 @@ public class CuttingBoardRecipeManager implements IRecipeManager
 {
     /**
      * Add a cutting board recipe.
-     * The tool ingredient can be a {@link io.github.fabricators_of_create.porting_lib.tool.ToolAction}. It will get cast implicitly.
+     * The tool ingredient can be a {@link io.github.fabricators_of_create.porting_lib.tool.ItemAbility}. It will get cast implicitly.
      * This allows you to work with any tool that provides that action to Forge.
      *
      * @param name    Name of the recipe to add
@@ -60,6 +60,7 @@ public class CuttingBoardRecipeManager implements IRecipeManager
                         ListUtils.mapArrayIndexSet(results,
                                 (stack) -> new ChanceResult(stack.getData().getInternal(), (float) stack.getPercentage()),
                                 NonNullList.withSize(results.length, ChanceResult.EMPTY)),
+                        BuiltInRegistries.SOUND_EVENT.getOptional(ResourceLocation.parse(sound)))),
                         sound),
                 ""));
     }

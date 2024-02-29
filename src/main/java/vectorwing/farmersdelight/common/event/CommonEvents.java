@@ -20,6 +20,12 @@ import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import vectorwing.farmersdelight.FarmersDelight;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -30,8 +36,8 @@ import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-public class CommonEvents {
-
+public class CommonEvents
+{
     public static void init(){
         LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CommonEvents::handleVanillaSoupEffects);
         UseBlockCallback.EVENT.register(CommonEvents::onSneakPlaceTool);
@@ -101,4 +107,23 @@ public class CommonEvents {
         return InteractionResult.PASS;
     }
 
+    @SubscribeEvent
+    public static void handleVanillaSoupEffects(LivingEntityUseItemEvent.Finish event) {
+        Item food = event.getItem().getItem();
+        LivingEntity entity = event.getEntity();
+
+        if (Configuration.RABBIT_STEW_BUFF.get() && food.equals(Items.RABBIT_STEW)) {
+            return;
+        }
+
+        if (Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get()) {
+            FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
+
+            if (soupEffects != null) {
+                for (FoodProperties.PossibleEffect effect : soupEffects.effects()) {
+                    entity.addEffect(effect.effect());
+                }
+            }
+        }
+    }
 }

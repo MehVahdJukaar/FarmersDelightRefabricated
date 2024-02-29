@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -43,7 +44,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockState aboveState = level.getBlockState(pos.above());
-		return super.canSurvive(state, level, pos) || aboveState.getBlock() instanceof StemGrownBlock;
+		return super.canSurvive(state, level, pos) || aboveState.getBlock().equals(Blocks.MELON) || aboveState.getBlock().equals(Blocks.PUMPKIN);
 	}
 
 	public boolean isFertile(BlockState state, BlockGetter world, BlockPos pos) {
@@ -74,7 +75,8 @@ public class RichSoilFarmlandBlock extends FarmBlock
 				return;
 			}
 
-			BlockState aboveState = level.getBlockState(pos.above());
+			BlockPos abovePos = pos.above();
+			BlockState aboveState = level.getBlockState(abovePos);
 			Block aboveBlock = aboveState.getBlock();
 
 			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
@@ -93,9 +95,15 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	}
 
 	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
-		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
-		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
+	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
+//		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
+//		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
+
+		// TODO: Revisit this method to filter out plants correctly. Also, there's a chance Rich Soil Farmland won't need it anymore.
+		if (plantState.getBlock() instanceof CropBlock) {
+			return TriState.TRUE;
+		}
+		return TriState.DEFAULT;
 	}
 
 	@Override

@@ -1,46 +1,18 @@
 package vectorwing.farmersdelight.common.item.enchantment;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import vectorwing.farmersdelight.common.registry.ModEnchantments;
+import org.apache.commons.lang3.mutable.MutableFloat;
 
-public class BackstabbingEnchantment extends Enchantment
+public class BackstabbingEnchantment
 {
-	public BackstabbingEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... applicableSlots) {
-		super(rarity, category, applicableSlots);
-	}
-
-	@Override
-	public int getMinLevel() {
-		return 1;
-	}
-
-	@Override
-	public int getMaxLevel() {
-		return 3;
-	}
-
-	@Override
-	public int getMinCost(int enchantmentLevel) {
-		return 15 + (enchantmentLevel - 1) * 9;
-	}
-
-	@Override
-	public int getMaxCost(int enchantmentLevel) {
-		return super.getMinCost(enchantmentLevel) + 50;
-	}
-
 	/**
 	 * Determines whether the attacker is facing a 90-100 degree cone behind the target's looking direction.
 	 */
@@ -66,21 +38,25 @@ public class BackstabbingEnchantment extends Enchantment
 		 * stacking values within their LivingHurtEvent equivalent.
 		 */
 		@SuppressWarnings("unused")
-		public static float onKnifeBackstab(LivingEntity entity, DamageSource source, float amount) {
-			Entity attacker = source.getEntity();
-			if (attacker instanceof Player) {
-				ItemStack weapon = ((Player) attacker).getMainHandItem();
-				int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.BACKSTABBING.get(), weapon);
-				if (enchantmentLevel > 0 && isLookingBehindTarget(entity, source.getSourcePosition())) {
-					Level level = entity.getCommandSenderWorld();
-					if (!level.isClientSide) {
-						amount = getBackstabbingDamagePerLevel(amount, enchantmentLevel);
-						level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+		public static void onKnifeBackstab(LivingIncomingDamageEvent event) {
+			Entity attacker = event.getSource().getEntity();
+			if (attacker instanceof LivingEntity living && isLookingBehindTarget(event.getEntity(), event.getSource().getSourcePosition())) {
+				Level level = attacker.level();
+				if (level instanceof ServerLevel serverLevel) {
+					ItemStack weapon = living.getWeaponItem();
+					float preModifiedDamage = event.getAmount(); // since you play a sound on success, we record the original to do a change check later
+					MutableFloat dmg = new MutableFloat(event.getAmount());
+					EnchantmentHelper.runIterationOnItem(weapon, (enchantment, powerLevel) -> {
+						enchantment.value().modifyDamageFilteredValue(ModDataComponents.BACKSTABBING.get(), serverLevel, powerLevel, weapon, attacker, event.getSource(), dmg);
+					});
+
+					if (preModifiedDamage != dmg.getValue()) {
+						event.setAmount(dmg.getValue());
+						serverLevel.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.BLOCKS, 1.0F, 1.0F);
 					}
 				}
 			}
 			return amount;
 		}
 	}
-
 }

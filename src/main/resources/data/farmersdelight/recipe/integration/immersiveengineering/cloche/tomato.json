@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
+    }
+  ],
+  "type": "immersiveengineering:cloche",
+  "input": {
+    "item": "farmersdelight:tomato_seeds"
+  },
+  "render": {
+    "type": "immersiveengineering:crop",
+    "value": "farmersdelight:tomatoes"
+  },
+  "results": [
+    {
+      "Count": 2,
+      "id": "farmersdelight:tomato"
+    }
+  ],
+  "soil": {
+    "item": "minecraft:dirt"
+  },
+  "time": 800
+}

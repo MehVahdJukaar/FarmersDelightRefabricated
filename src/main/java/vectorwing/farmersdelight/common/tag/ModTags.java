@@ -14,7 +14,9 @@ import vectorwing.farmersdelight.FarmersDelight;
  * These tags are used for mod mechanics.
  */
 public class ModTags {
-    // Blocks that are efficiently mined with a Knife.
+    // -- Blocks --
+
+	// Blocks that are efficiently mined with a Knife.
     public static final TagKey<Block> MINEABLE_WITH_KNIFE = modBlockTag("mineable/knife");
 
     // Blocks commonly present in biome surfaces. Populated by "minecraft:dirt" and "minecraft:sand" by default.
@@ -50,16 +52,18 @@ public class ModTags {
     // Candle cakes that should drop the vanilla cake slice when sliced by a knife.
     public static final TagKey<Block> DROPS_CAKE_SLICE = modBlockTag("drops_cake_slice");
 
-    // Items that represent the wild form of a farmable crop.
+    // -- Items --
+
+	// Items which are compatible with the Backstabbing enchantment. Populated by #tools/knives.
+	public static final TagKey<Item> KNIFE_ENCHANTABLE = modItemTag("enchantable/knife");
+
+	// Items that represent the wild form of a farmable crop.
     public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
 
     // Items (ideally tools) that can obtain straw when harvesting grassy plants. Populated by all knives by default.
     public static final TagKey<Item> STRAW_HARVESTERS = modItemTag("straw_harvesters");
 
-    // Foods that drop from mobs that wolves prey upon (sheep, rabbit and chicken).
-    public static final TagKey<Item> WOLF_PREY = modItemTag("wolf_prey");
-
-    // Foods and items that serve as filling for Cabbage Rolls
+    //  Foods and items that serve as filling for Cabbage Rolls
     public static final TagKey<Item> CABBAGE_ROLL_INGREDIENTS = modItemTag("cabbage_roll_ingredients");
 
     // Items commonly held in the off-hand. Cutting Boards won't let them be placed from the off-hand, for convenience.
@@ -115,13 +119,19 @@ public class ModTags {
     private static TagKey<Item> modItemTag(String path) {
         return TagKey.create(Registries.ITEM, new ResourceLocation(FarmersDelight.MODID, path));
     }
+	private static TagKey<Item> modItemTag(String path) {
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+	}
 
+	private static TagKey<Block> modBlockTag(String path) {
+		return BlockTags.create(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+	}
     private static TagKey<Block> modBlockTag(String path) {
         return TagKey.create(Registries.BLOCK, new ResourceLocation(FarmersDelight.MODID, path));
     }
 
     private static TagKey<EntityType<?>> modEntityTag(String path) {
-        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FarmersDelight.MODID, path));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
     }
 
     private static TagKey<Biome> modBiomeTag(String path) {

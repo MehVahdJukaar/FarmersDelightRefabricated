@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.registry;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
@@ -16,7 +16,7 @@ public class ModPlacementModifiers
 
 	public static final Supplier<PlacementModifierType<BiomeTagFilter>> BIOME_TAG = PLACEMENT_MODIFIERS.register("biome_tag", () -> typeConvert(BiomeTagFilter.CODEC));
 
-	private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec) {
+	private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(MapCodec<P> codec) {
 		return () -> codec;
 	}
 }

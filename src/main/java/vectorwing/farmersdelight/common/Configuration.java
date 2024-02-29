@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common;
 
 import com.google.common.collect.ImmutableList;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 import net.minecraft.world.item.DyeColor;
 
@@ -30,10 +31,10 @@ public class Configuration
     public static final String CATEGORY_RECIPE_BOOK = "recipe_book";
     public static Supplier<Boolean> ENABLE_RECIPE_BOOK_COOKING_POT;
 
-    public static final String CATEGORY_OVERRIDES = "overrides";
-    public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS;
-    public static Supplier<Boolean> RABBIT_STEW_JUMP_BOOST;
-    public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD;
+	public static final String CATEGORY_OVERRIDES = "overrides";
+	public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS;
+	public static Supplier<Boolean> RABBIT_STEW_BUFF;
+	public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD;
 
     public static final String CATEGORY_OVERRIDES_STACK_SIZE = "stack_size";
     public static Supplier<Boolean> ENABLE_STACKABLE_SOUP_ITEMS;
@@ -105,8 +106,8 @@ public class Configuration
         COMMON_BUILDER.comment("Vanilla item overrides").push(CATEGORY_OVERRIDES);
         VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("Should soups and stews from vanilla Minecraft grant additional effects, like meals from this mod?")
                 .define("vanillaSoupExtraEffects", true);
-        RABBIT_STEW_JUMP_BOOST = COMMON_BUILDER.comment("Should Rabbit Stew grant users the jumping prowess of a rabbit when eaten?")
-                .define("rabbitStewJumpBoost", true);
+        RABBIT_STEW_BUFF = COMMON_BUILDER.comment("Should Rabbit Stew be buffed with improved food stats?")
+                .define("rabbitStewBuff", true);
         DISPENSER_TOOLS_CUTTING_BOARD = COMMON_BUILDER.comment("Should the Dispenser be able to operate a Cutting Board in front of it?")
                 .define("dispenserUsesToolsOnCuttingBoard", true);
 
