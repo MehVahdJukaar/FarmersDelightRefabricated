@@ -2,11 +2,19 @@
   "minVersion": "0.8",
   "required": true,
   "compatibilityLevel": "JAVA_17",
-  "package": "net.mehvahdjukaar.sawmill.mixins.fabric",
+  "package": "vectorwing.farmersdelight.common.mixin",
   "mixins": [
-    "RecipeManagerMixin"
+    "CampfireBaleMixin",
+    "CuttingBoardDispenserMixin",
+    "KeepRichSoilGiantTreeMixin",
+    "KeepRichSoilTreeMixin",
+    "RabbitsEatCabbageMixin",
+    "SoupItemMixin",
+    "accessor.RecipeManagerAccessor"
   ],
   "client": [
+    "CanvasSignEditScreenMixin",
+    "HideBlockBreakProgressMixin"
   ],
   "injectors": {
     "defaultRequire": 1
