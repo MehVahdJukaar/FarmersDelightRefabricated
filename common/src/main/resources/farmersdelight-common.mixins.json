@@ -4,17 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "package": "vectorwing.common.sawmill.mixin",
   "mixins": [
-    "CampfireBaleMixin",
-    "CuttingBoardDispenserMixin",
-    "KeepRichSoilGiantTreeMixin",
-    "KeepRichSoilTreeMixin",
-    "RabbitsEatCabbageMixin",
-    "SoupItemMixin",
-    "accessor.RecipeManagerAccessor"
+
   ],
   "client": [
-    "CanvasSignEditScreenMixin",
-    "HideBlockBreakProgressMixin"
   ],
   "injectors": {
     "defaultRequire": 1

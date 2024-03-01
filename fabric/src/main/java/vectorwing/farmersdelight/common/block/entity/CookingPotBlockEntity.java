@@ -46,7 +46,6 @@ import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;;
 import java.util.List;
 import java.util.Map;
