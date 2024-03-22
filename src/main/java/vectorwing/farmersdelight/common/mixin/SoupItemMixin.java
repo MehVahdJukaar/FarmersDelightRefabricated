@@ -26,7 +26,7 @@ public abstract class SoupItemMixin extends Item
 	@Inject(at = @At(value = "HEAD"), method = "finishUsingItem", cancellable = true)
 	private void onItemUseFinish(ItemStack stack, Level level, LivingEntity subject, CallbackInfoReturnable<ItemStack> cir) {
 		if (Configuration.ENABLE_STACKABLE_SOUP_ITEMS.get()) {
-			ItemStack container = stack.getCraftingRemainingItem();
+			ItemStack container = stack.getRecipeRemainder();
 			if (container.isEmpty())
 				container = new ItemStack(Items.BOWL);
 
