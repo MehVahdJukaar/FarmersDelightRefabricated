@@ -1,20 +1,20 @@
 package vectorwing.farmersdelight.common.utility;
 
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.IItemHandler;
 
 /**
  * Util for handling ItemStacks and inventories containing them.
  */
 public class ItemUtils
 {
-	public static void dropItems(Level level, BlockPos pos, IItemHandler inventory) {
-		for (int slot = 0; slot < inventory.getSlots(); slot++)
+	public static void dropItems(Level level, BlockPos pos, ItemStackHandler inventory) {
+		for (int slot = 0; slot < inventory.getSlotCount(); slot++)
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
 	}
 

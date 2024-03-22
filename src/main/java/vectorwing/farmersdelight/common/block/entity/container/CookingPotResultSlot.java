@@ -1,9 +1,10 @@
 package vectorwing.farmersdelight.common.block.entity.container;
 
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 
 public class CookingPotResultSlot extends SlotItemHandler
@@ -12,7 +13,7 @@ public class CookingPotResultSlot extends SlotItemHandler
 	private final Player player;
 	private int removeCount;
 
-	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, IItemHandler inventoryIn, int index, int xPosition, int yPosition) {
+	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
 		this.tileEntity = tile;
 		this.player = player;
@@ -24,7 +25,7 @@ public class CookingPotResultSlot extends SlotItemHandler
 	}
 
 	@Override
-	@Nonnull
+	@NotNull
 	public ItemStack remove(int amount) {
 		if (this.hasItem()) {
 			this.removeCount += Math.min(amount, this.getItem().getCount());
