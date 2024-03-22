@@ -37,10 +37,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -71,13 +67,10 @@ public class SkilletItem extends BlockItem
 		this.toolAttributes = builder.build();
 	}
 
-	@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public static class SkilletEvents
 	{
-		@SubscribeEvent
-		public static void playSkilletAttackSound(LivingDamageEvent event) {
-			DamageSource damageSource = event.getSource();
-			Entity attacker = damageSource.getDirectEntity();
+		public static void playSkilletAttackSound(LivingEntity entity, DamageSource source, float amount) {
+            Entity attacker = source.getDirectEntity();
 
 			if (!(attacker instanceof LivingEntity livingEntity)) return;
 			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
