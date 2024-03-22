@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.utility;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -17,13 +18,8 @@ public class ItemUtils
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
 	}
 
-	public static boolean isInventoryEmpty(IItemHandler inventory) {
-		for (int i = 0; i < inventory.getSlots(); i++) {
-			if (!inventory.getStackInSlot(i).isEmpty()) {
-				return false;
-			}
-		}
-		return true;
+	public static boolean isInventoryEmpty(Container inventory) {
+		return inventory.isEmpty();
 	}
 
 	public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
