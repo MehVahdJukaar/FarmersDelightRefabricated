@@ -1,8 +1,10 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "create"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
     }
   ],
   "type": "create:milling",
@@ -13,13 +15,13 @@
   ],
   "results": [
     {
-      "id": "minecraft:beetroot_seeds",
+      "item": "minecraft:beetroot_seeds",
       "count": 1
     },
     {
-      "id": "minecraft:red_dye",
+      "item": "minecraft:red_dye",
       "count": 1
     }
   ],
-  "processing_time": 50
+  "processingTime": 50
 }

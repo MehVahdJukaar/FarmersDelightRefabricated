@@ -1,26 +1,28 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "immersiveengineering"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
     }
   ],
   "type": "immersiveengineering:cloche",
+  "results": [
+    {
+      "item": "farmersdelight:rice_panicle",
+      "count": 2
+    }
+  ],
   "input": {
     "item": "farmersdelight:rice"
   },
-  "render": {
-    "type": "immersiveengineering:crop",
-    "block": "farmersdelight:rice_panicles"
-  },
-  "results": [
-    {
-      "count": 2,
-      "id": "farmersdelight:rice_panicle"
-    }
-  ],
   "soil": {
     "item": "minecraft:dirt"
   },
-  "time": 1000
+  "time": 1000,
+  "render": {
+    "type": "crop",
+    "block": "farmersdelight:rice_panicles"
+  }
 }

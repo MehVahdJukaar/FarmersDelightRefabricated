@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common;
 
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,7 +37,7 @@ public class CommonSetup
 
 
 		ModAdvancements.register();
-		CraftingHelper.register(new VanillaCrateEnabledCondition.Serializer());
+		ResourceConditions.register(VanillaCrateEnabledCondition.ID, jsonObject -> Configuration.ENABLE_VANILLA_CROP_CRATES.get());
 
 		ToolActionIngredient.register();
 	}

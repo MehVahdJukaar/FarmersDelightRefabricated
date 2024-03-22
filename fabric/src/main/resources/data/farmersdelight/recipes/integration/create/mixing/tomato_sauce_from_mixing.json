@@ -1,17 +1,19 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "create"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
     }
   ],
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "c:crops/tomato"
+      "tag": "forge:crops/tomato"
     },
     {
-      "tag": "c:crops/tomato"
+      "tag": "forge:crops/tomato"
     },
     {
       "item": "minecraft:bowl"
@@ -19,7 +21,7 @@
   ],
   "results": [
     {
-      "id": "farmersdelight:tomato_sauce",
+      "item": "farmersdelight:tomato_sauce",
       "count": 1
     }
   ]

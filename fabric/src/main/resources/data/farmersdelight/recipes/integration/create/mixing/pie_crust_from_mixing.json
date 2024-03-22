@@ -1,8 +1,10 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "create"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
     }
   ],
   "type": "create:mixing",
@@ -17,14 +19,13 @@
       "item": "create:wheat_flour"
     },
     {
-      "type": "fluid_tag",
-      "amount": 250,
-      "fluid_tag": "c:milk"
+      "fluidTag": "forge:milk",
+      "amount": 250
     }
   ],
   "results": [
     {
-      "id": "farmersdelight:pie_crust",
+      "item": "farmersdelight:pie_crust",
       "count": 1
     }
   ]

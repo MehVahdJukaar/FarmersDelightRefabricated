@@ -1,26 +1,45 @@
 package vectorwing.farmersdelight.common.crafting.condition;
 
-import com.mojang.serialization.MapCodec;
-import net.neoforged.neoforge.common.conditions.ICondition;
-import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.Configuration;
+import net.minecraft.resources.ResourceLocation;
+import vectorwing.farmersdelight.FarmersDelight;
 
-public class VanillaCrateEnabledCondition implements ICondition
+public class VanillaCrateEnabledCondition
 {
+	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
 
-	public static final MapCodec<VanillaCrateEnabledCondition> CODEC = MapCodec.unit(new VanillaCrateEnabledCondition());
+	/*
+	private final ResourceLocation location;
 
-	public VanillaCrateEnabledCondition() {
+	public VanillaCrateEnabledCondition(ResourceLocation location) {
+		this.location = location;
 	}
 
-	@Override
-	public boolean test(@NotNull IContext context) {
+	public ResourceLocation getID() {
+		return this.location;
+	}
+
+	public boolean test() {
 		return Configuration.ENABLE_VANILLA_CROP_CRATES.get();
 	}
 
-	@Override
-	public @NotNull MapCodec<? extends ICondition> codec() {
-		return CODEC;
-	}
+	public static class Serializer
+	{
+		private final ResourceLocation location;
 
+		public Serializer() {
+			this.location = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
+		}
+
+		public ResourceLocation getID() {
+			return this.location;
+		}
+
+		public VanillaCrateEnabledCondition read(JsonObject json) {
+			return new VanillaCrateEnabledCondition(this.location);
+		}
+
+		public void write(JsonObject json, VanillaCrateEnabledCondition value) {
+		}
+	}
+	 */
 }

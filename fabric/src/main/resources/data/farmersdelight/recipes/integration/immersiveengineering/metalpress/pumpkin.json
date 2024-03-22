@@ -1,18 +1,20 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "immersiveengineering"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
     }
   ],
   "type": "immersiveengineering:metal_press",
-  "energy": 3200,
+  "mold": "immersiveengineering:mold_unpacking",
+  "result": {
+    "item": "farmersdelight:pumpkin_slice",
+    "count": 4
+  },
   "input": {
     "item": "minecraft:pumpkin"
   },
-  "mold": "immersiveengineering:mold_unpacking",
-  "result": {
-    "count": 4,
-    "id": "farmersdelight:pumpkin_slice"
-  }
+  "energy": 3200
 }

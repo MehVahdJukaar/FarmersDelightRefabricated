@@ -1,29 +1,29 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "immersiveengineering"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "immersiveengineering"
+      ]
     }
   ],
   "type": "immersiveengineering:crusher",
-  "energy": 3200,
-  "input": {
-    "item": "farmersdelight:wild_tomatoes"
-  },
-  "result": {
-    "basePredicate": {
-      "item": "farmersdelight:tomato_seeds"
-    },
-    "count": 1
-  },
   "secondaries": [
     {
       "chance": 1.0,
-      "conditions": [],
       "output": {
         "item": "minecraft:green_dye",
         "count": 1
       }
     }
-  ]
+  ],
+  "result": {
+    "base_ingredient": {
+      "item": "farmersdelight:tomato_seeds"
+    }
+  },
+  "input": {
+    "item": "farmersdelight:wild_tomatoes"
+  },
+  "energy": 3200
 }

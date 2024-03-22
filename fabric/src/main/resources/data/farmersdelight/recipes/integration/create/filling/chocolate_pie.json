@@ -1,8 +1,10 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "create"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
     }
   ],
   "type": "create:filling",
@@ -11,14 +13,13 @@
       "item": "farmersdelight:pie_crust"
     },
     {
-      "type": "fluid_tag",
-      "amount": 500,
-      "fluid_tag": "c:chocolates"
+      "fluidTag": "forge:chocolate",
+      "amount": 500
     }
   ],
   "results": [
     {
-      "id": "farmersdelight:chocolate_pie"
+      "item": "farmersdelight:chocolate_pie"
     }
   ]
 }

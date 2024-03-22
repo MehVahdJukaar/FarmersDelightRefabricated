@@ -1,5 +1,5 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
       "type": "farmersdelight:vanilla_crates_enabled"
     }
@@ -16,7 +16,6 @@
     }
   },
   "result": {
-    "count": 1,
-    "id": "farmersdelight:carrot_crate"
+    "item": "farmersdelight:carrot_crate"
   }
 }
