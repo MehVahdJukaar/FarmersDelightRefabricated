@@ -5,16 +5,12 @@ import com.google.gson.GsonBuilder;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
-import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
-import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
-import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 import vectorwing.farmersdelight.common.event.CommonEvents;
 import vectorwing.farmersdelight.common.event.VillagerEvents;
 import vectorwing.farmersdelight.common.item.DogFoodItem;
@@ -70,8 +66,5 @@ public class FarmersDelight implements ModInitializer
 		ModBiomeModifiers.init();
 		DogFoodItem.init();
 		HorseFeedItem.init();
-
-		ItemStorage.SIDED.registerForBlockEntity(CookingPotBlockEntity::getStorage, ModBlockEntityTypes.COOKING_POT.get());
-		ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
 	}
 }
