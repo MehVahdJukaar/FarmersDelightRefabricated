@@ -34,6 +34,9 @@ dependencies {
     for (String module in port_lib_modules.split(",")) {
         modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
     }
+    // modImplementation("curse.maven:forge-config-api-port-fabric-547434:4583000")
+
+
 }
 
 
