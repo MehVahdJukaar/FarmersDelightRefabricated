@@ -30,7 +30,8 @@ public class MilkBottleItem extends DrinkableItem
 
 		if (compatibleEffects.size() > 0) {
 			MobEffectInstance selectedEffect = consumer.getEffect(compatibleEffects.get(level.random.nextInt(compatibleEffects.size())));
-			if (selectedEffect != null && !net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.living.MobEffectEvent.Remove(consumer, selectedEffect))) {
+			// There is no equivalent for MobEffectEvent, people are expected to mixin with instances like this on Fabric, so we don't bother.
+			if (selectedEffect != null) {
 				consumer.removeEffect(selectedEffect.getEffect());
 			}
 		}
