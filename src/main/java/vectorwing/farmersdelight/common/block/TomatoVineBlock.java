@@ -1,7 +1,12 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockStateExtensions;
+import io.github.fabricators_of_create.porting_lib.tool.extensions.BlockExtensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -25,7 +30,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -152,6 +156,7 @@ public class TomatoVineBlock extends CropBlock
 		attemptRopeClimb(level, pos, random);
 	}
 
+	// cant be done. just done staticlaly using tags (or mixins..)
 	@Override
 	public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
 		return state.getValue(ROPELOGGED) && state.is(BlockTags.CLIMBABLE);
@@ -193,8 +198,8 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	public static void destroyAndPlaceRope(Level level, BlockPos pos) {
-		Block configuredRopeBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
-		Block finalRopeBlock = configuredRopeBlock != null ? configuredRopeBlock : ModBlocks.ROPE.get();
+		var configuredRopeBlock = BuiltInRegistries.BLOCK.getOptional(new ResourceLocation(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
+		Block finalRopeBlock = configuredRopeBlock.orElseGet(ModBlocks.ROPE);
 
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
 	}
