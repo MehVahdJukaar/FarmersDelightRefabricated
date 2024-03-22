@@ -23,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
+import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -43,6 +44,8 @@ public class CommonSetup
 
 		ModAdvancements.register();
 		CraftingHelper.register(new VanillaCrateEnabledCondition.Serializer());
+
+		ToolActionIngredient.register();
 	}
 
 	public static void registerStackSizeOverrides() {
