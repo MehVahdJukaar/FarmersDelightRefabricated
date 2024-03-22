@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -28,14 +27,9 @@ public class SyncedBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		return saveWithoutMetadata(registries);
+	public CompoundTag getUpdateTag() {
+		return saveWithoutMetadata();
 	}
-//
-//	@Override
-//	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-//		load(pkt.getTag());
-//	}
 
 	protected void inventoryChanged() {
 		super.setChanged();

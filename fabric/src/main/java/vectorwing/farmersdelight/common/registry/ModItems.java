@@ -28,15 +28,6 @@ public class ModItems
 		return block;
 	}
 
-	public static void registerFuel() {
-		for (RegistryObject<Item> item : ITEMS.getEntries()) {
-			if (item.get() instanceof FuelItem fuel) {
-				FuelRegistry.INSTANCE.add(fuel, fuel.burnTime);
-			} else if (item.get() instanceof FuelBlockItem fuel) {
-				FuelRegistry.INSTANCE.add(fuel, fuel.burnTime);
-			}
-		}
-	}
 
 	// Helper methods
 	public static Item.Properties basicItem() {
