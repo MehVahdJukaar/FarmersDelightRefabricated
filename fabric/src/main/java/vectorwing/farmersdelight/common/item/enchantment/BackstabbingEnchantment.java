@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.item.enchantment;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -12,10 +13,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModEnchantments;
 
 public class BackstabbingEnchantment extends Enchantment
@@ -62,24 +59,27 @@ public class BackstabbingEnchantment extends Enchantment
 		return amount * multiplier;
 	}
 
-	@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public static class BackstabbingEvent
 	{
-		@SubscribeEvent
+		/*
+		 * Moved impl to LivingEntityMixin because PortingLib does not support
+		 * stacking values within their LivingHurtEvent equivalent.
+		 */
 		@SuppressWarnings("unused")
-		public static void onKnifeBackstab(LivingHurtEvent event) {
-			Entity attacker = event.getSource().getEntity();
+		public static float onKnifeBackstab(LivingEntity entity, DamageSource source, float amount) {
+			Entity attacker = source.getEntity();
 			if (attacker instanceof Player) {
 				ItemStack weapon = ((Player) attacker).getMainHandItem();
 				int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.BACKSTABBING.get(), weapon);
-				if (enchantmentLevel > 0 && isLookingBehindTarget(event.getEntity(), event.getSource().getSourcePosition())) {
-					Level level = event.getEntity().getCommandSenderWorld();
+				if (enchantmentLevel > 0 && isLookingBehindTarget(entity, source.getSourcePosition())) {
+					Level level = entity.getCommandSenderWorld();
 					if (!level.isClientSide) {
-						event.setAmount(getBackstabbingDamagePerLevel(event.getAmount(), enchantmentLevel));
+						amount = getBackstabbingDamagePerLevel(amount, enchantmentLevel);
 						level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.BLOCKS, 1.0F, 1.0F);
 					}
 				}
 			}
+			return amount;
 		}
 	}
 
