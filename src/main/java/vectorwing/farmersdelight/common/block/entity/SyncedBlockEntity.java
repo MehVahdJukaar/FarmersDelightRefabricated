@@ -31,11 +31,6 @@ public class SyncedBlockEntity extends BlockEntity
 		return saveWithoutMetadata();
 	}
 
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		load(pkt.getTag());
-	}
-
 	protected void inventoryChanged() {
 		super.setChanged();
 		if (level != null)
