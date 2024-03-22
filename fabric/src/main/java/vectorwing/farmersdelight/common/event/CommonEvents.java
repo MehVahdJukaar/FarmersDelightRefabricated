@@ -3,9 +3,11 @@ package vectorwing.farmersdelight.common.event;
 import com.mojang.datafixers.util.Pair;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityUseItemEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,12 +23,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
@@ -37,9 +34,10 @@ public class CommonEvents {
 
     public static void init(){
         LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CommonEvents::handleVanillaSoupEffects);
+        UseBlockCallback.EVENT.register(CommonEvents::onSneakPlaceTool);
+
         EntityEvents.ON_JOIN_WORLD.register(CommonEvents::onAnimalsJoinWorld);
     }
-
 
 
     private static ItemStack handleVanillaSoupEffects(LivingEntity entity, ItemStack itemStack, int i, ItemStack result) {
@@ -74,6 +72,7 @@ public class CommonEvents {
                     rabbit.goalSelector.addGoal(priority, new TemptGoal(rabbit, 1.0D, Ingredient.of(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get()), false));
             }
         }
+        return true;
     }
 
     public static int getTemptGoalPriority(Mob mob) {
@@ -85,27 +84,21 @@ public class CommonEvents {
     }
 
 
-    @SubscribeEvent
-    @SuppressWarnings("unused")
-    public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
-        Level level = event.getLevel();
-        BlockPos pos = event.getPos();
-        Player player = event.getEntity();
-        ItemStack heldStack = player.getMainHandItem();
-        BlockEntity tileEntity = level.getBlockEntity(event.getPos());
-
-        if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
+    private static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand hand, BlockHitResult hit) {
+        BlockPos pos = hit.getBlockPos();
+        ItemStack heldStack = player.getItemInHand(hand);
+        if (player.isSecondaryUseActive() && !heldStack.isEmpty() && level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity te) {
             if (heldStack.getItem() instanceof TieredItem ||
                     heldStack.getItem() instanceof TridentItem ||
                     heldStack.getItem() instanceof ShearsItem) {
-                boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
+                boolean success = te.carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
                 if (success) {
                     level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
-                    event.setCanceled(true);
-                    event.setCancellationResult(InteractionResult.SUCCESS);
+                    return InteractionResult.sidedSuccess(level.isClientSide);
                 }
             }
         }
+        return InteractionResult.PASS;
     }
 
 }

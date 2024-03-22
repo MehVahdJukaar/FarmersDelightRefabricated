@@ -39,7 +39,7 @@ public class ComfortHealthOverlay {
             return;
         }
 
-        healthIconsOffset = 39; //leftHeight... no equivalent stuff here. will break when mre hearths are displayed
+        healthIconsOffset = 39; //leftHeight... no equivalent stuff here. will break when mre hearts are displayed
         Player player = mc.player;
 
         if (player == null) {
