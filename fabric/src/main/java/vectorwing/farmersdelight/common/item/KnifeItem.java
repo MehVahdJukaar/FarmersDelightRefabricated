@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -31,7 +32,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Set;
 
-public class KnifeItem extends DiggerItem
+public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
 {
 	public KnifeItem(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
 		super(attackDamage, attackSpeed, tier, ModTags.MINEABLE_WITH_KNIFE, properties);
@@ -138,7 +139,6 @@ public class KnifeItem extends DiggerItem
 		}
 	}
 
-	// good luck with this one lol
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
 		Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
