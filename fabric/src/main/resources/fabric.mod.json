@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.mehvahdjukaar.sawmill.FarmersDelight"
+      "vectorwing.farmersdelight.FarmersDelight"
     ],
     "jei_mod_plugin": [
-      "net.mehvahdjukaar.sawmill.integration.JEIPlugin"
+      "vectorwing.farmersdelight.client.FarmersDelightClient"
     ]
   },
   "mixins": [

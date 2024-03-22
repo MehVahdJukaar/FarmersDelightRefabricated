@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,10 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.phys.EntityHitResult;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -45,15 +43,18 @@ public class HorseFeedItem extends Item
 		super(properties);
 	}
 
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
+	public static void init(){
+		UseEntityCallback.EVENT.register(HorseFeedItem.HorseFeedEvent::onHorseFeedApplied);
+	}
+
 	public static class HorseFeedEvent
 	{
-		@SubscribeEvent
-		@SuppressWarnings("unused")
-		public static void onHorseFeedApplied(PlayerInteractEvent.EntityInteract event) {
-			Player player = event.getEntity();
-			Entity target = event.getTarget();
-			ItemStack heldStack = event.getItemStack();
+
+		public static InteractionResult onHorseFeedApplied(Player player, Level level, InteractionHand hand, Entity target,
+														 @Nullable EntityHitResult entityHitResult) {
+			if (player.isSpectator()) return InteractionResult.PASS;
+
+			ItemStack heldStack = player.getItemInHand(hand);
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.HORSE_FEED_USERS)) {
 				boolean isTameable = entity instanceof AbstractHorse;
@@ -76,15 +77,15 @@ public class HorseFeedItem extends Item
 						heldStack.shrink(1);
 					}
 
-					event.setCancellationResult(InteractionResult.SUCCESS);
-					event.setCanceled(true);
+					return InteractionResult.sidedSuccess(level.isClientSide);
 				}
 			}
+			return InteractionResult.PASS;
 		}
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
@@ -96,14 +97,14 @@ public class HorseFeedItem extends Item
 			MutableComponent effectDescription = Component.literal(" ");
 			MutableComponent effectName = Component.translatable(effectInstance.getDescriptionId());
 			effectDescription.append(effectName);
-			MobEffect effect = effectInstance.getEffect().value();
+			MobEffect effect = effectInstance.getEffect();
 
 			if (effectInstance.getAmplifier() > 0) {
 				effectDescription.append(" ").append(Component.translatable("potion.potency." + effectInstance.getAmplifier()));
 			}
 
 			if (effectInstance.getDuration() > 20) {
-				effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F, context.tickRate())).append(")");
+				effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(")");
 			}
 
 			tooltip.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
