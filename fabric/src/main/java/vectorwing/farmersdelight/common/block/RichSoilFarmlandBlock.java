@@ -2,6 +2,8 @@ package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockExtensions;
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockStateExtensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;

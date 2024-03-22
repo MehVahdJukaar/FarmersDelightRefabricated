@@ -2,6 +2,8 @@ package vectorwing.farmersdelight;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.fabricators_of_create.porting_lib.config.ConfigEvents;
+import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
@@ -30,6 +32,7 @@ public class FarmersDelight implements ModInitializer
 	@Override
 	public void onInitialize() {
 
+		//TODO: figure out how to register these
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
 

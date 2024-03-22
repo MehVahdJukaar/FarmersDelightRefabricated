@@ -1,8 +1,12 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockStateExtensions;
+import io.github.fabricators_of_create.porting_lib.tool.extensions.BlockExtensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -10,7 +14,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +30,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -48,17 +50,13 @@ public class TomatoVineBlock extends CropBlock
 		registerDefaultState(stateDefinition.any().setValue(getAgeProperty(), 0).setValue(ROPELOGGED, false));
 	}
 
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		int age = state.getValue(getAgeProperty());
-		boolean isMature = age == getMaxAge();
-		return !isMature && stack.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-	}
-
 	@Override
-	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
-		if (isMature) {
+		if (!isMature && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
+			return InteractionResult.PASS;
+		} else if (isMature) {
 			int quantity = 1 + level.random.nextInt(2);
 			popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
 
@@ -70,7 +68,7 @@ public class TomatoVineBlock extends CropBlock
 			level.setBlock(pos, state.setValue(getAgeProperty(), 0), 2);
 			return InteractionResult.SUCCESS;
 		} else {
-			return super.useWithoutItem(state, level, pos, player, hit);
+			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
@@ -84,10 +82,10 @@ public class TomatoVineBlock extends CropBlock
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
-				float speed = getGrowthSpeed(state, level, pos);
-				if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / speed) + 1) == 0)) {
+				float speed = getGrowthSpeed(this, level, pos);
+				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) (25.0F / speed) + 1) == 0)) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
-					CommonHooks.fireCropGrowPost(level, pos, state);
+					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 				}
 			}
 			attemptRopeClimb(level, pos, random);
@@ -158,6 +156,7 @@ public class TomatoVineBlock extends CropBlock
 		attemptRopeClimb(level, pos, random);
 	}
 
+	// cant be done. just done staticlaly using tags (or mixins..)
 	@Override
 	public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
 		return state.getValue(ROPELOGGED) && state.is(BlockTags.CLIMBABLE);
@@ -199,8 +198,9 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	public static void destroyAndPlaceRope(Level level, BlockPos pos) {
-		Block configuredRopeBlock = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
-		Block finalRopeBlock = configuredRopeBlock != null ? configuredRopeBlock : ModBlocks.ROPE.get();
+		var configuredRopeBlock = BuiltInRegistries.BLOCK.getOptional(new ResourceLocation(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
+		Block finalRopeBlock = configuredRopeBlock.orElseGet(ModBlocks.ROPE);
+
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
 	}
 
