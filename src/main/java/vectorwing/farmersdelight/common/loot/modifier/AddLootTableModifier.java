@@ -3,17 +3,17 @@ package vectorwing.farmersdelight.common.loot.modifier;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.fabricators_of_create.porting_lib.loot.IGlobalLootModifier;
+import io.github.fabricators_of_create.porting_lib.loot.LootModifier;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitter;
@@ -35,7 +35,7 @@ public class AddLootTableModifier extends LootModifier
 		this.lootTable = lootTable;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {
