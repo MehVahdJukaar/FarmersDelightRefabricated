@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -32,7 +33,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Set;
 
-public class KnifeItem extends DiggerItem
+public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
 {
 	public static final Set<ToolAction> KNIFE_ACTIONS = Set.of(ToolActions.SHEARS_CARVE, ToolActions.SWORD_DIG);
 

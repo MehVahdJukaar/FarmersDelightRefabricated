@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -50,7 +51,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @SuppressWarnings({"deprecation", "unused"})
-public class SkilletItem extends BlockItem
+public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorItem
 {
 	public static final Tiers SKILLET_TIER = Tiers.IRON;
 	protected static final UUID FD_ATTACK_KNOCKBACK_UUID = UUID.fromString("e56350e0-8756-464d-92f9-54289ab41e0a");
