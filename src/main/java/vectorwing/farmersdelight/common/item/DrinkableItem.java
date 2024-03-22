@@ -36,7 +36,8 @@ public class DrinkableItem extends ConsumableItem
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		if (heldStack.isEdible()) {
-			if (player.canEat(heldStack.getFoodProperties(player).canAlwaysEat())) {
+			// TODO: >1.20.1, use https://github.com/FabricMC/fabric/pull/3520 instead of this.
+			if (player.canEat(heldStack.getItem().getFoodProperties().canAlwaysEat())) {
 				player.startUsingItem(hand);
 				return InteractionResultHolder.consume(heldStack);
 			} else {
