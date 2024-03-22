@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.registry;
 import com.google.common.collect.Sets;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -25,6 +26,16 @@ public class ModItems
 		RegistryObject<Item> block = ITEMS.register(name, supplier);
 		CREATIVE_TAB_ITEMS.add(block);
 		return block;
+	}
+
+	public static void registerFuel() {
+		for (RegistryObject<Item> item : ITEMS.getEntries()) {
+			if (item.get() instanceof FuelItem fuel) {
+				FuelRegistry.INSTANCE.add(fuel, fuel.burnTime);
+			} else if (item.get() instanceof FuelBlockItem fuel) {
+				FuelRegistry.INSTANCE.add(fuel, fuel.burnTime);
+			}
+		}
 	}
 
 	// Helper methods

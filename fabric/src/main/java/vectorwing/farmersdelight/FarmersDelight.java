@@ -66,5 +66,6 @@ public class FarmersDelight implements ModInitializer
 		ModBiomeModifiers.init();
 		DogFoodItem.init();
 		HorseFeedItem.init();
+		ModItems.registerFuel();
 	}
 }
