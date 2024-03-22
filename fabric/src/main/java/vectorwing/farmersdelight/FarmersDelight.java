@@ -12,6 +12,7 @@ import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 import vectorwing.farmersdelight.common.event.CommonEvents;
 import vectorwing.farmersdelight.common.event.VillagerEvents;
+import vectorwing.farmersdelight.common.item.DogFoodItem;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
 
@@ -56,6 +57,8 @@ public class FarmersDelight implements ModInitializer
 		VillageStructures.init();
 		CommonEvents.init();
 		VillagerEvents.addTrades();
+
+		DogFoodItem.init();
 
 		CommonSetup.init();
 
