@@ -1,70 +1,92 @@
 package vectorwing.farmersdelight.common.crafting.ingredient;
 
-import com.google.gson.JsonElement;
+import com.google.common.base.Suppliers;
 import com.google.gson.JsonObject;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.FarmersDelight;
 
-import org.jetbrains.annotations.Nullable;;
-import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
+import java.util.function.Supplier;
+
+;
 
 @MethodsReturnNonnullByDefault
-public class ToolActionIngredient extends Ingredient
-{
-	public static final Serializer SERIALIZER = new Serializer();
+public class ToolActionIngredient implements CustomIngredient {
+    public static final Serializer SERIALIZER = new Serializer();
+    public static final ResourceLocation SERIALIZER_ID = FarmersDelight.res("tool_action");
 
-	public final ToolAction toolAction;
+    public final ToolAction toolAction;
+    private final Supplier<List<ItemStack>> matchingStacks;
 
-	/**
-	 * Ingredient that checks if the given stack can perform a ToolAction from Forge.
-	 */
-	public ToolActionIngredient(ToolAction toolAction) {
-		super(ForgeRegistries.ITEMS.getValues().stream()
-				.map(ItemStack::new)
-				.filter(stack -> stack.canPerformAction(toolAction))
-				.map(Ingredient.ItemValue::new));
-		this.toolAction = toolAction;
-	}
+    public static void register() {
+        CustomIngredientSerializer.register(SERIALIZER);
+    }
 
-	@Override
-	public boolean test(@Nullable ItemStack stack) {
-		return stack != null && stack.canPerformAction(toolAction);
-	}
+    /**
+     * Ingredient that checks if the given stack can perform a ToolAction from Forge.
+     */
+    public ToolActionIngredient(ToolAction toolAction) {
+        this.matchingStacks = Suppliers.memoize(() -> BuiltInRegistries.ITEM.stream()
+                .map(ItemStack::new)
+                .filter(stack -> stack.canPerformAction(toolAction))
+                .toList());
+        this.toolAction = toolAction;
+    }
 
-	@Override
-	public JsonElement toJson() {
-		JsonObject json = new JsonObject();
-		json.addProperty("type", CraftingHelper.getID(SERIALIZER).toString());
-		json.addProperty("action", toolAction.name());
-		return json;
-	}
+    @Override
+    public List<ItemStack> getMatchingStacks() {
+        return matchingStacks.get();
+    }
 
-	@Override
-	public IIngredientSerializer<? extends Ingredient> getSerializer() {
-		return SERIALIZER;
-	}
+    // no need to compare tags? I think
+    @Override
+    public boolean requiresTesting() {
+        return false;
+    }
 
-	public static class Serializer implements IIngredientSerializer<ToolActionIngredient>
-	{
-		@Override
-		public ToolActionIngredient parse(JsonObject json) {
-			return new ToolActionIngredient(ToolAction.get(json.get("action").getAsString()));
-		}
+    @Override
+    public CustomIngredientSerializer<?> getSerializer() {
+        return SERIALIZER;
+    }
 
-		@Override
-		public ToolActionIngredient parse(FriendlyByteBuf buffer) {
-			return new ToolActionIngredient(ToolAction.get(buffer.readUtf()));
-		}
+    @Override
+    public boolean test(@Nullable ItemStack stack) {
+        return stack != null && stack.canPerformAction(toolAction);
+    }
 
-		@Override
-		public void write(FriendlyByteBuf buffer, ToolActionIngredient ingredient) {
-			buffer.writeUtf(ingredient.toolAction.name());
-		}
-	}
+    public static class Serializer implements CustomIngredientSerializer<ToolActionIngredient> {
+
+        @Override
+        public ResourceLocation getIdentifier() {
+            return SERIALIZER_ID;
+        }
+
+        @Override
+        public ToolActionIngredient read(JsonObject json) {
+            return new ToolActionIngredient(ToolAction.get(json.get("action").getAsString()));
+        }
+
+        @Override
+        public void write(JsonObject json, ToolActionIngredient ingredient) {
+            json.addProperty("action", ingredient.toolAction.name());
+        }
+
+        @Override
+        public ToolActionIngredient read(FriendlyByteBuf buf) {
+            return new ToolActionIngredient(ToolAction.get(buf.readUtf()));
+        }
+
+        @Override
+        public void write(FriendlyByteBuf buffer, ToolActionIngredient ingredient) {
+            buffer.writeUtf(ingredient.toolAction.name());
+        }
+    }
 }
