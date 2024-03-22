@@ -7,3 +7,6 @@ accessible field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft
 mutable field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
 
 accessible field net/minecraft/world/entity/animal/Parrot TAME_FOOD Ljava/util/Set;
+
+accessible field net/minecraft/world/item/Item maxStackSize I
+mutable field net/minecraft/world/item/Item maxStackSize I
