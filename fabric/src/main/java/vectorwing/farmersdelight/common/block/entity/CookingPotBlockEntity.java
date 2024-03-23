@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import com.google.common.collect.Lists;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -36,7 +37,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;
 import vectorwing.farmersdelight.common.block.entity.inventory.CookingPotItemHandler;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
@@ -79,7 +79,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE)
 	);
 
-	private final FDItemStackHandlerContainer inventory;
+	private final ItemStackHandlerContainer inventory;
 	private final ItemStackHandler inputHandler;
 	private final ItemStackHandler outputHandler;
 
@@ -426,7 +426,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return this.isHeated(level, worldPosition);
 	}
 
-	public FDItemStackHandlerContainer getInventory() {
+	public ItemStackHandlerContainer getInventory() {
 		return inventory;
 	}
 
@@ -542,8 +542,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return writeItems(new CompoundTag());
 	}
 
-	private FDItemStackHandlerContainer createHandler() {
-		return new FDItemStackHandlerContainer(INVENTORY_SIZE)
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer(INVENTORY_SIZE)
 		{
 			@Override
 			protected void onContentsChanged(int slot) {

@@ -21,7 +21,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.block.StoveBlock;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -33,7 +32,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	private static final VoxelShape GRILLING_AREA = Block.box(3.0F, 0.0F, 3.0F, 13.0F, 1.0F, 13.0F);
 	private static final int INVENTORY_SLOT_COUNT = 6;
 
-	private final FDItemStackHandlerContainer inventory;
+	private final ItemStackHandlerContainer inventory;
 	private final int[] cookingTimes;
 	private final int[] cookingTimesTotal;
 	private ResourceLocation[] lastRecipeIDs;
@@ -238,8 +237,8 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return writeItems(new CompoundTag());
 	}
 
-	private FDItemStackHandlerContainer createHandler() {
-		return new FDItemStackHandlerContainer(INVENTORY_SLOT_COUNT)
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer(INVENTORY_SLOT_COUNT)
 		{
 			@Override
 			public int getSlotLimit(int slot) {

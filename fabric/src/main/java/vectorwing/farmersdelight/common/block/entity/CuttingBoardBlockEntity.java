@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -26,7 +27,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
@@ -43,8 +43,8 @@ import java.util.Optional;
 
 public class CuttingBoardBlockEntity extends SyncedBlockEntity
 {
-	private final FDItemStackHandlerContainer inventory;
-	private final FDItemStackHandlerContainer inputHandler;
+	private final ItemStackHandlerContainer inventory;
+	private final ItemStackHandlerContainer inputHandler;
 	private ResourceLocation lastRecipeID;
 
 	private boolean isItemCarvingBoard;
@@ -185,7 +185,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return ItemStack.EMPTY;
 	}
 
-	public FDItemStackHandlerContainer getInventory() {
+	public ItemStackHandlerContainer getInventory() {
 		return inventory;
 	}
 
@@ -211,8 +211,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		super.setRemoved();
 	}
 
-	private FDItemStackHandlerContainer createHandler() {
-		return new FDItemStackHandlerContainer()
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer()
 		{
 			@Override
 			public int getSlotLimit(int slot) {

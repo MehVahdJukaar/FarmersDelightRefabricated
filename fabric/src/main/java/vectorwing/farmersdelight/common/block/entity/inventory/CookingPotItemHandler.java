@@ -1,21 +1,22 @@
 package vectorwing.farmersdelight.common.block.entity.inventory;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;;
+import vectorwing.farmersdelight.common.utility.ItemUtils;;
 
 public class CookingPotItemHandler extends ItemStackHandler {
 	private static final int SLOTS_INPUT = 6;
 	private static final int SLOT_CONTAINER_INPUT = 7;
 	private static final int SLOT_MEAL_OUTPUT = 8;
-	private final FDItemStackHandlerContainer itemHandler;
+	private final ItemStackHandlerContainer itemHandler;
 	private final Direction side;
 
-	public CookingPotItemHandler(FDItemStackHandlerContainer itemHandler, @Nullable Direction side) {
+	public CookingPotItemHandler(ItemStackHandlerContainer itemHandler, @Nullable Direction side) {
 		this.itemHandler = itemHandler;
 		this.side = side;
 	}
@@ -40,9 +41,9 @@ public class CookingPotItemHandler extends ItemStackHandler {
 	@NotNull
 	public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
 		if (side == null || side.equals(Direction.UP)) {
-			return slot < SLOTS_INPUT ? itemHandler.insertItem(slot, stack, simulate) : stack;
+			return slot < SLOTS_INPUT ? ItemUtils.insertItem(itemHandler, slot, stack, simulate) : stack;
 		} else {
-			return slot == SLOT_CONTAINER_INPUT ? itemHandler.insertItem(slot, stack, simulate) : stack;
+			return slot == SLOT_CONTAINER_INPUT ? ItemUtils.insertItem(itemHandler, slot, stack, simulate) : stack;
 		}
 	}
 

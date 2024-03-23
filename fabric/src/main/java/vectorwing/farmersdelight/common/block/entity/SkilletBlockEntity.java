@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,7 +21,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -33,7 +33,7 @@ import java.util.Optional;
 
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity
 {
-	private final FDItemStackHandlerContainer inventory = createHandler();
+	private final ItemStackHandlerContainer inventory = createHandler();
 	private int cookingTime;
 	private int cookingTimeTotal;
 	private ResourceLocation lastRecipeID;
@@ -170,7 +170,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		if (recipe.isPresent()) {
 			cookingTimeTotal = SkilletBlock.getSkilletCookingTime(recipe.get().getCookingTime(), fireAspectLevel);
 			boolean wasEmpty = getStoredStack().isEmpty();
-			ItemStack remainderStack = inventory.insertItem(0, addedStack.copy(), false);
+			ItemStack remainderStack =  ItemUtils.insertItem(inventory, 0, addedStack.copy(), false);
 			if (!ItemStack.matches(remainderStack, addedStack)) {
 				lastRecipeID = recipe.get().getId();
 				cookingTime = 0;
@@ -189,7 +189,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return inventory.removeItem(0, getStoredStack().getMaxStackSize());
 	}
 
-	public FDItemStackHandlerContainer getInventory() {
+	public ItemStackHandlerContainer getInventory() {
 		return inventory;
 	}
 
@@ -201,8 +201,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return !getStoredStack().isEmpty();
 	}
 
-	private FDItemStackHandlerContainer createHandler() {
-		return new FDItemStackHandlerContainer()
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer()
 		{
 			@Override
 			protected void onContentsChanged(int slot) {
