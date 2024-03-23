@@ -2,6 +2,8 @@ package vectorwing.farmersdelight.common.block.entity.container;
 
 
 import com.mojang.datafixers.util.Pair;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
+import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -15,19 +17,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
-import vectorwing.farmersdelight.common.block.entity.container.fabric.FDItemStackHandlerContainer;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.Objects;
 
-public class CookingPotMenu extends RecipeBookMenu<FDItemStackHandlerContainer>
+public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper>
 {
 	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = new ResourceLocation(FarmersDelight.MODID, "item/empty_container_slot_bowl");
 
 	public final CookingPotBlockEntity blockEntity;
-	public final FDItemStackHandlerContainer inventory;
+	public final ItemStackHandlerContainer inventory;
 	private final ContainerData cookingPotData;
 	private final ContainerLevelAccess canInteractWithCallable;
 	protected final Level level;
@@ -173,8 +174,8 @@ public class CookingPotMenu extends RecipeBookMenu<FDItemStackHandlerContainer>
 	}
 
 	@Override
-	public boolean recipeMatches(Recipe<? super FDItemStackHandlerContainer> recipe) {
-		return recipe.matches(inventory, level);
+	public boolean recipeMatches(Recipe<? super RecipeWrapper> recipe) {
+		return recipe.matches(new RecipeWrapper(inventory), level);
 	}
 
 	@Override
