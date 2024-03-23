@@ -80,8 +80,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	);
 
 	private final ItemStackHandlerContainer inventory;
-	private final ItemStackHandler inputHandler;
-	private final ItemStackHandler outputHandler;
+	private final CookingPotItemHandler inputHandler;
+	private final CookingPotItemHandler outputHandler;
 
 	private int cookTime;
 	private int cookTimeTotal;
