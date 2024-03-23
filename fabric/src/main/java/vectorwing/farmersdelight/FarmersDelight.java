@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
+import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.event.CommonEvents;
 import vectorwing.farmersdelight.common.event.VillagerEvents;
 import vectorwing.farmersdelight.common.item.DogFoodItem;
@@ -66,5 +68,7 @@ public class FarmersDelight implements ModInitializer
 		ModBiomeModifiers.init();
 		DogFoodItem.init();
 		HorseFeedItem.init();
+		CookingPotBlockEntity.init();
+		CuttingBoardBlockEntity.init();
 	}
 }

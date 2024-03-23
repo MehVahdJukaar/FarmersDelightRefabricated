@@ -5,6 +5,7 @@ import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandle
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
@@ -102,6 +103,10 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		this.cookingPotData = createIntArray();
 		this.usedRecipeTracker = new Object2IntOpenHashMap<>();
 		this.checkNewRecipe = true;
+	}
+
+	public static void init() {
+		ItemStorage.SIDED.registerForBlockEntity(CookingPotBlockEntity::getStorage, ModBlockEntityTypes.COOKING_POT.get());
 	}
 
 	public static ItemStack getMealFromItem(ItemStack cookingPotStack) {

@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
@@ -53,6 +54,10 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		inventory = createHandler();
 		inputHandler = inventory;
 		isItemCarvingBoard = false;
+	}
+
+	public static void init() {
+		ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
 	}
 
 	@Override
