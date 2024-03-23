@@ -51,13 +51,16 @@ public class ItemUtils
 
 		boolean reachedLimit = stack.getCount() > limit;
 
+		ItemStack setStack;
 		if (existing.isEmpty()) {
-			container.setItem(slot, stack);
+			setStack = stack;
 		} else {
-			ItemStack copy = existing.copy();
-			copy.grow(reachedLimit ? limit : stack.getCount());
-			container.setItem(slot, copy);
+			// TODO: Figure out if the game will freeze upon setting the item to the already existing item.
+			setStack = existing;
+			setStack.grow(reachedLimit ? limit : stack.getCount());
 		}
+		// It is required to set the stack for syncing purposes.
+		container.setItem(slot, setStack);
 
 		return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - limit) : ItemStack.EMPTY;
 	}
