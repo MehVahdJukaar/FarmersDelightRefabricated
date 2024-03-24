@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
 import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -25,7 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.phys.HitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -49,38 +50,34 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		return true;
 	}
 
-	public static void init(){
-		//LivingEntityEvents.KNOCKBACK_STRENGTH.register(KnifeItem.KnifeEvents::onKnifeKnockback);
+	public static void init() {
+		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);
 	}
 
-	@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public static class KnifeEvents
 	{
-
-
-		public static double onKnifeKnockback(double v, Player player) {
-
-		}
-		@SubscribeEvent
-		public static void onKnifeKnockback(LivingKnockBackEvent event) {
-			LivingEntity attacker = event.getEntity().getKillCredit();
+		/*
+		 * Moved impl to LivingEntityMixin because PortingLib does not support
+		 * stacking values within their LivingKnockbackEvent equivalent.
+		 */
+		public static double onKnifeKnockback(double strength, LivingEntity entity) {
+			LivingEntity attacker = entity.getKillCredit();
 			ItemStack toolStack = attacker != null ? attacker.getItemInHand(InteractionHand.MAIN_HAND) : ItemStack.EMPTY;
 			if (toolStack.getItem() instanceof KnifeItem) {
-				event.setStrength(event.getOriginalStrength() - 0.1F);
+				strength = strength - 0.1F;
 			}
+			return strength;
 		}
 
-		@SubscribeEvent
-		public static InteractionResult onCakeInteraction(PlayerInteractEvent.RightClickBlock event) {
-			ItemStack toolStack = event.getEntity().getItemInHand(event.getHand());
+		public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, HitResult hitResult) {
+			ItemStack toolStack = player.getItemInHand(hand);
 
 			if (!toolStack.is(ModTags.KNIVES)) {
-				return;
+				return InteractionResult.PASS;
 			}
 
-			Level level = event.getLevel();
-			BlockPos pos = event.getPos();
-			BlockState state = event.getLevel().getBlockState(pos);
+			BlockPos pos = player.blockPosition();
+			BlockState state = level.getBlockState(pos);
 			Block block = state.getBlock();
 
 			if (state.is(ModTags.DROPS_CAKE_SLICE)) {
@@ -91,8 +88,7 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 						-0.05, 0, 0);
 				level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-				event.setCancellationResult(InteractionResult.SUCCESS);
-				event.setCanceled(true);
+				return InteractionResult.SUCCESS;
 			}
 
 			if (block == Blocks.CAKE) {
