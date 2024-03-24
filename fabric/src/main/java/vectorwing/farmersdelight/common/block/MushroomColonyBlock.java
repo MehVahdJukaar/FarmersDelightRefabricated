@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -100,9 +101,8 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int age = state.getValue(COLONY_AGE);
 		BlockState groundState = level.getBlockState(pos.below());
-		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(4) == 0)) {
+		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) && random.nextInt(4) == 0) {
 			level.setBlock(pos, state.setValue(COLONY_AGE, age + 1), 2);
-			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 		}
 	}
 

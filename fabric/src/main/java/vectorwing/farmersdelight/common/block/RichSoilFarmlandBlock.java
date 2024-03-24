@@ -33,7 +33,9 @@ public class RichSoilFarmlandBlock extends FarmBlock
 				return true;
 			}
 		}
-		return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+		// There is no FarmlandWaterManager alternative on Fabric.
+		// return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+		return false;
 	}
 
 	public static void turnToRichSoil(BlockState state, Level level, BlockPos pos) {
@@ -46,7 +48,6 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		return super.canSurvive(state, level, pos) || aboveState.getBlock() instanceof StemGrownBlock;
 	}
 
-	@Override
 	public boolean isFertile(BlockState state, BlockGetter world, BlockPos pos) {
 		if (state.is(ModBlocks.RICH_SOIL_FARMLAND.get()))
 			return state.getValue(RichSoilFarmlandBlock.MOISTURE) > 0;
@@ -83,12 +84,11 @@ public class RichSoilFarmlandBlock extends FarmBlock
 			}
 
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false) && ForgeHooks.onCropsGrowPre(level, pos.above(), aboveState, true)) {
+				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false)) {
 					growable.performBonemeal(level, level.random, pos.above(), aboveState);
 					if (!level.isClientSide) {
 						level.levelEvent(2005, pos.above(), 0);
 					}
-					ForgeHooks.onCropsGrowPost(level, pos.above(), aboveState);
 				}
 			}
 		}
