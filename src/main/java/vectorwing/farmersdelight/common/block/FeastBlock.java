@@ -102,9 +102,9 @@ public class FeastBlock extends Block
 		ItemStack heldStack = player.getItemInHand(hand);
 
 		if (servings > 0) {
-			if (!serving.hasCraftingRemainingItem() || ItemStack.isSameItem(heldStack, serving.getCraftingRemainingItem())) {
+			if (serving.getRecipeRemainder() == null || ItemStack.isSameItem(heldStack, serving.getRecipeRemainder())) {
 				level.setBlock(pos, state.setValue(getServingsProperty(), servings - 1), 3);
-				if (!player.getAbilities().instabuild && serving.hasCraftingRemainingItem()) {
+				if (!player.getAbilities().instabuild && serving.getRecipeRemainder() != null) {
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {
@@ -116,7 +116,7 @@ public class FeastBlock extends Block
 				level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
 				return InteractionResult.SUCCESS;
 			} else {
-				player.displayClientMessage(TextUtils.getTranslation("block.feast.use_container", serving.getCraftingRemainingItem().getHoverName()), true);
+				player.displayClientMessage(TextUtils.getTranslation("block.feast.use_container", serving.getRecipeRemainder().getHoverName()), true);
 			}
 		}
 		return InteractionResult.PASS;

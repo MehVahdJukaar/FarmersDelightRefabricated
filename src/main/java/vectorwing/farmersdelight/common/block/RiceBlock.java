@@ -56,16 +56,14 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 			int age = this.getAge(state);
 			if (age <= this.getMaxAge()) {
 				float chance = 10;
-				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) (25.0F / chance) + 1) == 0)) {
+				if (random.nextInt((int) (25.0F / chance) + 1) == 0) {
 					if (age == this.getMaxAge()) {
 						RicePaniclesBlock riceUpper = (RicePaniclesBlock) ModBlocks.RICE_CROP_PANICLES.get();
 						if (riceUpper.defaultBlockState().canSurvive(level, pos.above()) && level.isEmptyBlock(pos.above())) {
 							level.setBlockAndUpdate(pos.above(), riceUpper.defaultBlockState());
-							net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 						}
 					} else {
 						level.setBlock(pos, this.withAge(age + 1), 2);
-						net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 					}
 				}
 			}
@@ -84,7 +82,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.DIRT);
 	}
 

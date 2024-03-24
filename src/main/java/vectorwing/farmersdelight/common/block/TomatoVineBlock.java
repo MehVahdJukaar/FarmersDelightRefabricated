@@ -83,9 +83,8 @@ public class TomatoVineBlock extends CropBlock
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
 				float speed = getGrowthSpeed(this, level, pos);
-				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) (25.0F / speed) + 1) == 0)) {
+				if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
-					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 				}
 			}
 			attemptRopeClimb(level, pos, random);
@@ -157,7 +156,6 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	// cant be done. just done staticlaly using tags (or mixins..)
-	@Override
 	public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
 		return state.getValue(ROPELOGGED) && state.is(BlockTags.CLIMBABLE);
 	}
