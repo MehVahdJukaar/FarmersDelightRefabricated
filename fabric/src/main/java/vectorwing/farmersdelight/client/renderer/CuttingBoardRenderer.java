@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
@@ -31,7 +32,9 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 					.getItemRenderer();
 
 			poseStack.pushPose();
-			boolean isBlockItem = itemRenderer.getModel(boardStack, cuttingBoardEntity.getLevel(), null, 0).applyTransform(ItemDisplayContext.FIXED, poseStack, false).isGui3d();
+			BakedModel model = itemRenderer.getModel(boardStack, cuttingBoardEntity.getLevel(), null, 0);
+			model.getTransforms().getTransform(ItemDisplayContext.FIXED).apply(false, poseStack);
+			boolean isBlockItem = model.isGui3d();
 			poseStack.popPose();
 
 			if (cuttingBoardEntity.isItemCarvingBoard()) {
