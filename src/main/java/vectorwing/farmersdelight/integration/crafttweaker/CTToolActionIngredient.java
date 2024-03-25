@@ -5,6 +5,7 @@ import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.item.MCItemStackMutable;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ToolAction;
@@ -34,7 +35,7 @@ public class CTToolActionIngredient implements IIngredient {
 
     @Override
     public Ingredient asVanillaIngredient() {
-        return ingredient;
+        return ingredient.toVanilla();
     }
 
     @Override
@@ -44,7 +45,7 @@ public class CTToolActionIngredient implements IIngredient {
 
     @Override
     public IItemStack[] getItems() {
-        ItemStack[] stacks = ingredient.getItems();
+        ItemStack[] stacks = ingredient.toVanilla().getItems();
         IItemStack[] out = new IItemStack[stacks.length];
         for (int i = 0; i < stacks.length; i++) {
             out[i] = new MCItemStackMutable(stacks[i]);
