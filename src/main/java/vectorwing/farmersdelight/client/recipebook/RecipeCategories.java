@@ -7,7 +7,6 @@ import net.minecraft.client.RecipeBookCategories;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.integration.emi.FDRecipeCategories;
 
 import java.util.function.Supplier;
 
