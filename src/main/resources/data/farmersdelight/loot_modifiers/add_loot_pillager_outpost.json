@@ -3,7 +3,7 @@
   "conditions":
   [
     {
-      "condition": "forge:loot_table_id",
+      "condition": "porting_lib:loot_table_id",
       "loot_table_id": "minecraft:chests/pillager_outpost"
     }
   ],
