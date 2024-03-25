@@ -19,6 +19,10 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
+sourceSets.main.resources {
+    srcDirs += 'src/main/generated/resources'
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
