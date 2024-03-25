@@ -1,158 +1,153 @@
 plugins {
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
-    id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-    id "com.modrinth.minotaur" version "2.+"
+    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'maven-publish'
 }
 
-architectury {
-    minecraft = rootProject.minecraft_version
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_group_id
 }
 
-subprojects {
-    apply plugin: "dev.architectury.loom"
-    apply plugin: "io.github.juuxel.loom-quiltflower"
-    apply plugin: "com.matthewprenger.cursegradle"
-    apply plugin: "com.modrinth.minotaur"
+loom {
+    accessWidenerPath = file("src/main/resources/farmersdelight.accesswidener")
+}
 
-    loom {
-        silentMojangMappingsLicense()
+repositories {
+
+    flatDir {
+        dirs 'mods'
     }
 
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered() {
-            it.parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
-            it.officialMojangMappings {
-                setNameSyntheticMembers(false)
-            }
+    mavenLocal()
+
+    maven { url "https://maven.parchmentmc.org" }
+
+    maven {
+        url = "https://www.cursemaven.com"
+        allowInsecureProtocol = true
+    }
+
+    maven {
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
+
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+    }
+
+    maven { url 'https://jitpack.io' }
+
+    maven {
+        url = 'https://maven.neoforged.net'
+    }
+
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven {
+        // JEI
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // CraftTweaker
+        name = "BlameJared"
+        url = "https://maven.blamejared.com/"
+    }
+    maven { url "https://maven.ryanliptak.com/" }
+
+
+    maven { url = "https://maven.quiltmc.org/repository/release" } // QM
+    maven { url = "https://maven.parchmentmc.org" } // Parchment
+    maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
+    maven { url = "https://mvn.devos.one/snapshots/" } // Registrate, Porting Lib, Forge Tags, Milk Lib
+    maven { // for Porting Lib: Mixin Extras, Fabric ASM
+        url = "https://jitpack.io/"
+    }
+    maven { url = "https://cursemaven.com" } // Forge Config API Port
+    maven { url = "https://maven.tterrag.com/" } // Flywheel
+    maven { url = "https://maven.shedaniel.me/" } // REI and deps
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Sodium, Sandwichable
+    maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, Trinkets
+    maven { url = "https://squiddev.cc/maven" } // CC:T
+    maven { url = "https://modmaven.dev" } // Botania
+    maven { // Reach Entity Attributes
+        url = "https://maven.jamieswhiteshirt.com/libs-release"
+        content { includeGroup("com.jamieswhiteshirt") }
+    }
+    maven { url = "https://maven.ladysnake.org/releases" } // CCA, for Trinkets
+}
+
+dependencies {
+    // To change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+    mappings loom.layered() {
+        it.parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
+        it.officialMojangMappings {
+            setNameSyntheticMembers(false)
         }
     }
 
-    var env = System.getenv()
-    var modLoader = name
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
 
-    var changelogFile = rootProject.file("changelog.md")
-    var changelogText = changelogFile.exists() ? changelogFile.text : ""
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
-    if (env.MODRINTH_TOKEN) {
-        modrinth {
-            projectId = "universal-sawmill"
-            uploadFile = tasks.remapJar
-            gameVersions = [rootProject.minecraft_version]
-            loaders = [modLoader]
-            changelog = changelogText
 
-            if (modLoader == "fabric") {
-                dependencies {
-                    required.project "fabric-api"
-                    required.project "moonlight"
-                }
-            } else {
-                dependencies {
-                    required.project "moonlight"
-                }
-            }
-        }
-    }
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${mixin_extras_version}")))
+    annotationProcessor 'net.fabricmc:sponge-mixin:0.12.5+mixin.0.8.5'
 
-    if (env.CURSEFORGE_TOKEN) {
-        curseforge {
-            apiKey = env.CURSEFORGE_TOKEN
-            project {
-                id = rootProject.project_id
-                changelog = changelogText
-                releaseType = 'release'
-                addGameVersion rootProject.minecraft_version
-                addGameVersion modLoader.capitalize()
 
-                mainArtifact(tasks.remapJar)
-
-                if (modLoader == "fabric") {
-                    relations {
-                        requiredDependency "fabric-api"
-                        requiredDependency "selene"
-                    }
-                } else {
-                    relations {
-                        requiredDependency "selene"
-                    }
-                }
-            }
-        }
+    for (String module in port_lib_modules.split(",")) {
+        modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
     }
 }
 
-allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
+processResources {
+    inputs.property "version", project.version
 
-    archivesBaseName = mod_id
-    version = mod_version
-    group = mod_group_id
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
 
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
 
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-
-        flatDir {
-            dirs 'mods'
-        }
-
-        mavenLocal()
-
-        maven { url "https://maven.parchmentmc.org" }
-
-        maven {
-            url = "https://www.cursemaven.com"
-            allowInsecureProtocol = true
-        }
-
-        maven {
-            url "https://maven.firstdarkdev.xyz/snapshots"
-        }
-
-        maven {
-            name = 'Ladysnake Mods'
-            url = 'https://maven.ladysnake.org/releases'
-        }
-
-        maven { url 'https://jitpack.io' }
-
-        maven {
-            url = 'https://maven.neoforged.net'
-        }
-
-        maven {
-            url = "https://api.modrinth.com/maven"
-        }
-
-        maven {
-            // CraftTweaker, JEI
-            name = "BlameJared"
-            url = "https://maven.blamejared.com/"
-        }
-        maven { url "https://maven.ryanliptak.com/" } // AppleSkin
-
-
-        maven { url = "https://maven.parchmentmc.org" } // Parchment
-        maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
-        maven { url = "https://mvn.devos.one/snapshots/" } // Registrate, Porting Lib, Forge Tags, Milk Lib
-        maven { url = "https://maven.shedaniel.me/" } // REI and deps
-        maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
-        maven { // Reach Entity Attributes, for Porting Lib
-            url = "https://maven.jamieswhiteshirt.com/libs-release"
-            content { includeGroup("com.jamieswhiteshirt") }
-        }
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.release = 17
-    }
-
-    java {
-        withSourcesJar()
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
     }
 }
