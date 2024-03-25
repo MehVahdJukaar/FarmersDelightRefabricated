@@ -10,6 +10,7 @@
     "KeepRichSoilTreeMixin",
     "LivingEntityMixin",
     "RabbitsEatCabbageMixin",
+    "RecipeBookSettingsMixin",
     "RecipeBookTypeMixin",
     "SoupItemMixin",
     "accessor.RecipeManagerAccessor"

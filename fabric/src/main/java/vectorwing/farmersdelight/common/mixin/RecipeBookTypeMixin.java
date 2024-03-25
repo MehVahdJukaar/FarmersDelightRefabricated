@@ -28,9 +28,8 @@ public class RecipeBookTypeMixin {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void addCookingRecipeCategory(CallbackInfo ci) {
-        FarmersDelight.RECIPE_TYPE_COOKING = createRecipeBookType("COOKING", $VALUES.length);
         List<RecipeBookType> recipeBookTypeList = new ArrayList<>(List.of($VALUES));
-        recipeBookTypeList.add(FarmersDelight.RECIPE_TYPE_COOKING);
+        recipeBookTypeList.add(createRecipeBookType("COOKING", $VALUES.length));
         $VALUES = recipeBookTypeList.toArray(RecipeBookType[]::new);
     }
 }
