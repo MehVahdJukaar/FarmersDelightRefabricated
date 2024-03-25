@@ -24,9 +24,8 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import java.util.Map;
 
 public class ClientSetupEvents {
-    @SubscribeEvent
-    public static void onRegisterRecipeBookCategories(RegisterRecipeBookCategoriesEvent event) {
-        RecipeCategories.init(event);
+    public static void onRegisterRecipeBookCategories() {
+        RecipeCategories.init();
     }
 
     public static ClientTooltipComponent registerCustomTooltipRenderers(TooltipComponent data) {
