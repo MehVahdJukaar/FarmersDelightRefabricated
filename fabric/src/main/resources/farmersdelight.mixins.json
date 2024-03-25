@@ -9,6 +9,7 @@
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
     "LivingEntityMixin",
+    "PlayerMixin",
     "RabbitsEatCabbageMixin",
     "RecipeBookSettingsMixin",
     "RecipeBookTypeMixin",
