@@ -10,6 +10,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -102,14 +103,14 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	@Override
 	public boolean matches(RecipeWrapper inv, Level level) {
-		java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+		StackedContents stackedContents = new StackedContents();
 		int i = 0;
 
 		for (int j = 0; j < INPUT_SLOTS; ++j) {
 			ItemStack itemstack = inv.getItem(j);
 			if (!itemstack.isEmpty()) {
 				++i;
-				inputs.add(itemstack);
+				stackedContents.accountStack(itemstack, 1);
 			}
 		}
 		// TODO: Figure out what to do here...
