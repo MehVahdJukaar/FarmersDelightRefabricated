@@ -61,7 +61,7 @@ public class RicePaniclesBlock extends CropBlock
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(ModBlocks.RICE_CROP.get());
 	}
 

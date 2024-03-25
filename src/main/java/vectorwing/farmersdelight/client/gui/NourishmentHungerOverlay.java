@@ -49,7 +49,7 @@ public class NourishmentHungerOverlay {
             return;
         }
 
-        foodIconsOffset = gui.rightHeight;
+        foodIconsOffset = 49;
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
 
