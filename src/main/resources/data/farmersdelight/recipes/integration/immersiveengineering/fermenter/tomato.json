@@ -13,7 +13,7 @@
     "amount": 80
   },
   "input": {
-    "tag": "forge:crops/tomato"
+    "tag": "c:crops/tomato"
   },
   "energy": 6400
 }
