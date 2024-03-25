@@ -7,10 +7,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import vectorwing.farmersdelight.common.block.TomatoVineBlock;
@@ -27,7 +27,7 @@ public abstract class LivingEntityMixin extends Entity {
     @ModifyVariable(method = "actuallyHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F"), argsOnly = true)
     private float handleBackstabbingDamage(float original, DamageSource damageSource) {
         if (original > 0) {
-            SkilletItem.SkilletEvents.playSkilletAttackSound((LivingEntity)(Object)this, damageSource, original);
+            SkilletItem.SkilletEvents.playSkilletAttackSound((LivingEntity)(Object)this, damageSource);
             // You'd be multiplying with 0 if you were to do this with any value <= 0.
             return BackstabbingEnchantment.BackstabbingEvent.onKnifeBackstab((LivingEntity)(Object)this, damageSource, original);
         }
