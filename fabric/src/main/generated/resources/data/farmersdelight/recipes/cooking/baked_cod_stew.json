@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:raw_fishes/cod"
+      "tag": "c:raw_fishes/cod"
     },
     {
       "item": "minecraft:potato"
     },
     {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     {
-      "tag": "forge:crops/tomato"
+      "tag": "c:crops/tomato"
     }
   ],
   "recipe_book_tab": "meals",

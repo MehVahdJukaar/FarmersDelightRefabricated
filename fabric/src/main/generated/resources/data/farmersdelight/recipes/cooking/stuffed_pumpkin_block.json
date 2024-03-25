@@ -7,10 +7,10 @@
   "experience": 2.0,
   "ingredients": [
     {
-      "tag": "forge:crops/rice"
+      "tag": "c:crops/rice"
     },
     {
-      "tag": "forge:crops/onion"
+      "tag": "c:crops/onion"
     },
     {
       "item": "minecraft:brown_mushroom"
@@ -19,10 +19,10 @@
       "item": "minecraft:potato"
     },
     {
-      "tag": "forge:berries"
+      "tag": "c:berries"
     },
     {
-      "tag": "forge:vegetables"
+      "tag": "c:vegetables"
     }
   ],
   "recipe_book_tab": "meals",

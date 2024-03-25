@@ -4,7 +4,6 @@
     "minecraft:lush_caves",
     "minecraft:dripstone_caves",
     "minecraft:deep_dark",
-    "#c:is_underground",
-    "#forge:is_underground"
+    "#c:is_underground"
   ]
 }

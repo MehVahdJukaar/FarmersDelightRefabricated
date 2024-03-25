@@ -6,10 +6,10 @@
       "item": "minecraft:baked_potato"
     },
     {
-      "tag": "forge:cooked_beef"
+      "tag": "c:cooked_beef"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     }
   ],
   "result": {

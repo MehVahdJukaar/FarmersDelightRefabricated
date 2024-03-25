@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "m": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "s": {
       "item": "minecraft:stick"

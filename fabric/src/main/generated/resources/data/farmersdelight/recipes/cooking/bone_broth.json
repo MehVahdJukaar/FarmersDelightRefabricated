@@ -4,14 +4,14 @@
   "experience": 0.35,
   "ingredients": [
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     [
       {
         "item": "minecraft:glow_berries"
       },
       {
-        "tag": "forge:mushrooms"
+        "tag": "c:mushrooms"
       },
       {
         "item": "minecraft:hanging_roots"

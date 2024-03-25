@@ -4,23 +4,23 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:dough"
+      "tag": "c:dough"
     },
     {
-      "tag": "forge:crops/cabbage"
+      "tag": "c:crops/cabbage"
     },
     {
-      "tag": "forge:crops/onion"
+      "tag": "c:crops/onion"
     },
     [
       {
-        "tag": "forge:raw_chicken"
+        "tag": "c:raw_chicken"
       },
       {
-        "tag": "forge:raw_pork"
+        "tag": "c:raw_pork"
       },
       {
-        "tag": "forge:raw_beef"
+        "tag": "c:raw_beef"
       },
       {
         "item": "minecraft:brown_mushroom"

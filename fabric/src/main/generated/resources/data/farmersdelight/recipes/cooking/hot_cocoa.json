@@ -4,7 +4,7 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     },
     {
       "item": "minecraft:sugar"

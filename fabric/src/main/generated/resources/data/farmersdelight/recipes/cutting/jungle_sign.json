@@ -11,7 +11,7 @@
     }
   ],
   "tool": {
-    "type": "farmersdelight:tool_action",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "axe_dig"
   }
 }

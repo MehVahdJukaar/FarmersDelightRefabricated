@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:bread"
+      "tag": "c:bread"
     },
     {
-      "tag": "forge:cooked_chicken"
+      "tag": "c:cooked_chicken"
     },
     {
-      "tag": "forge:salad_ingredients"
+      "tag": "c:salad_ingredients"
     },
     {
       "item": "minecraft:carrot"

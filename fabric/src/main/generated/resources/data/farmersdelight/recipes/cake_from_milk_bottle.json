@@ -4,10 +4,10 @@
   "group": "cake",
   "key": {
     "e": {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     "m": {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     },
     "s": {
       "item": "minecraft:sugar"

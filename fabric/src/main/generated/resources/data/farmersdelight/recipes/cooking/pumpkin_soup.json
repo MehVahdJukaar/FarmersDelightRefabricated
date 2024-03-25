@@ -7,13 +7,13 @@
       "item": "farmersdelight:pumpkin_slice"
     },
     {
-      "tag": "forge:salad_ingredients"
+      "tag": "c:salad_ingredients"
     },
     {
-      "tag": "forge:raw_pork"
+      "tag": "c:raw_pork"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     }
   ],
   "recipe_book_tab": "meals",

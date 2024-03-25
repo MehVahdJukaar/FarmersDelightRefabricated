@@ -4,10 +4,10 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:raw_mutton"
+      "tag": "c:raw_mutton"
     },
     {
-      "tag": "forge:pasta"
+      "tag": "c:pasta"
     },
     {
       "item": "farmersdelight:tomato_sauce"

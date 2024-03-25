@@ -7,10 +7,10 @@
       "item": "minecraft:glow_berries"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     },
     {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     {
       "item": "minecraft:sugar"

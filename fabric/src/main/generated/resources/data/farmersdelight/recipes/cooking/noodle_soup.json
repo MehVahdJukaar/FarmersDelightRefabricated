@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:pasta"
+      "tag": "c:pasta"
     },
     {
-      "tag": "forge:cooked_eggs"
+      "tag": "c:cooked_eggs"
     },
     {
       "item": "minecraft:dried_kelp"
     },
     {
-      "tag": "forge:raw_pork"
+      "tag": "c:raw_pork"
     }
   ],
   "recipe_book_tab": "meals",

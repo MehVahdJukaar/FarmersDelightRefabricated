@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:raw_chicken"
+      "tag": "c:raw_chicken"
     },
     {
       "item": "minecraft:carrot"
     },
     {
-      "tag": "forge:salad_ingredients"
+      "tag": "c:salad_ingredients"
     },
     {
-      "tag": "forge:vegetables"
+      "tag": "c:vegetables"
     }
   ],
   "recipe_book_tab": "meals",
