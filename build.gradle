@@ -124,16 +124,32 @@ dependencies {
     modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:${crafttweaker_version}")
 
     //annotationProcessor ctDep
-    annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors:${crafttweaker_ap_version}"
-    annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
-    annotationProcessor "com.google.code.gson:gson:2.8.7" // CT dep
+    // annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors:${crafttweaker_ap_version}"
+    //annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
+    // annotationProcessor "com.google.code.gson:gson:2.8.7" // CT dep
 }
 
 processResources {
-    inputs.property "version", project.version
+    var replaceProperties = [
+            minecraft_version    : minecraft_version,
+            minecraft_min_version: minecraft_min_version,
+            minecraft_max_version: minecraft_max_version,
+
+            mod_id               : mod_id,
+            mod_name             : mod_name,
+            mod_version          : mod_version,
+            mod_license          : mod_license,
+            mod_authors          : mod_authors,
+            mod_description      : mod_description,
+            mod_credits          : mod_credits,
+            mod_homepage         : mod_homepage,
+            mod_github           : mod_github
+    ]
+    // setting them as input
+    inputs.properties replaceProperties
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand replaceProperties + [project: project]
     }
 }
 
