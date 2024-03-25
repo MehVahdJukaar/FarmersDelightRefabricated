@@ -1,29 +1,26 @@
 package vectorwing.farmersdelight.client.recipebook;
 
-import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
+import io.github.fabricators_of_create.porting_lib.recipe_book_categories.RecipeBookRegistry;
 import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.client.event.RegisterRecipeBookCategoriesEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
 import java.util.function.Supplier;
 
 public class RecipeCategories
 {
-	public static final Supplier<RecipeBookCategories> COOKING_SEARCH = Suppliers.memoize(() -> RecipeBookCategories.create("COOKING_SEARCH", new ItemStack(Items.COMPASS)));
-	public static final Supplier<RecipeBookCategories> COOKING_MEALS = Suppliers.memoize(() -> RecipeBookCategories.create("COOKING_MEALS", new ItemStack(ModItems.VEGETABLE_NOODLES.get())));
-	public static final Supplier<RecipeBookCategories> COOKING_DRINKS = Suppliers.memoize(() -> RecipeBookCategories.create("COOKING_DRINKS", new ItemStack(ModItems.APPLE_CIDER.get())));
-	public static final Supplier<RecipeBookCategories> COOKING_MISC = Suppliers.memoize(() -> RecipeBookCategories.create("COOKING_MISC", new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())));
+	// Moved initalizers to RecipeBookCategoriesMixin.
+	public static Supplier<RecipeBookCategories> COOKING_SEARCH;
+	public static Supplier<RecipeBookCategories> COOKING_MEALS;
+	public static Supplier<RecipeBookCategories> COOKING_DRINKS;
+	public static Supplier<RecipeBookCategories> COOKING_MISC;
 
-	public static void init(RegisterRecipeBookCategoriesEvent event) {
-		event.registerBookCategories(FarmersDelight.RECIPE_TYPE_COOKING, ImmutableList.of(COOKING_SEARCH.get(), COOKING_MEALS.get(), COOKING_DRINKS.get(), COOKING_MISC.get()));
-		event.registerAggregateCategory(COOKING_SEARCH.get(), ImmutableList.of(COOKING_MEALS.get(), COOKING_DRINKS.get(), COOKING_MISC.get()));
-		event.registerRecipeCategoryFinder(ModRecipeTypes.COOKING.get(), recipe ->
+	public static void init() {
+		RecipeBookRegistry.registerBookCategories(FarmersDelight.RECIPE_TYPE_COOKING, ImmutableList.of(COOKING_SEARCH.get(), COOKING_MEALS.get(), COOKING_DRINKS.get(), COOKING_MISC.get()));
+		RecipeBookRegistry.registerAggregateCategory(COOKING_SEARCH.get(), ImmutableList.of(COOKING_MEALS.get(), COOKING_DRINKS.get(), COOKING_MISC.get()));
+		RecipeBookRegistry.registerRecipeCategoryFinder(ModRecipeTypes.COOKING.get(), recipe ->
 		{
 			if (recipe instanceof CookingPotRecipe cookingRecipe) {
 				CookingPotRecipeBookTab tab = cookingRecipe.getRecipeBookTab();

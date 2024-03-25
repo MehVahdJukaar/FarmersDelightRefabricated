@@ -10,12 +10,14 @@
     "KeepRichSoilTreeMixin",
     "KeepRichSoilUntrampledMixin",
     "RabbitsEatCabbageMixin",
+    "RecipeBookTypeMixin",
     "SoupItemMixin",
     "accessor.RecipeManagerAccessor"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
-    "HideBlockBreakProgressMixin"
+    "HideBlockBreakProgressMixin",
+    "RecipeBookCategoriesMixin"
   ],
   "injectors": {
     "defaultRequire": 1
