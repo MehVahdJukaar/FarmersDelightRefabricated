@@ -18,7 +18,7 @@
     "main": [
       "vectorwing.farmersdelight.FarmersDelight"
     ],
-    "jei_mod_plugin": [
+    "client": [
       "vectorwing.farmersdelight.client.FarmersDelightClient"
     ]
   },
