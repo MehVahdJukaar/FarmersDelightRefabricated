@@ -113,8 +113,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 				stackedContents.accountStack(itemstack, 1);
 			}
 		}
-		// TODO: Figure out what to do here...
-		return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+		return i == this.inputItems.size() && stackedContents.canCraft(this, null);
 	}
 
 	@Override
