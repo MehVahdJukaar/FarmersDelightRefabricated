@@ -20,11 +20,16 @@
     ],
     "client": [
       "vectorwing.farmersdelight.client.FarmersDelightClient"
+    ],
+    "jei_mod_plugin": [
+      "vectorwing.farmersdelight.integration.jei.JEIPlugin"
+    ],
+    "emi": [
+      "vectorwing.farmersdelight.integration.emi.EMIPlugin"
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json",
-    "${mod_id}-common.mixins.json"
+    "${mod_id}.mixins.json"
   ],
   "depends": {
     "fabric": "*",

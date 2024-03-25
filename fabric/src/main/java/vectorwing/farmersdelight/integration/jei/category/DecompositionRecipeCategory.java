@@ -12,11 +12,12 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -26,13 +27,10 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy>
 {
@@ -78,7 +76,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
-		List<ItemStack> accelerators = ForgeRegistries.BLOCKS.tags().getTag(ModTags.COMPOST_ACTIVATORS).stream().map(ItemStack::new).collect(Collectors.toList());
+		List<ItemStack> accelerators = BuiltInRegistries.BLOCK.getTag(ModTags.COMPOST_ACTIVATORS).stream().flatMap(holders -> holders.stream().map(block -> new ItemStack(block.value()))).collect(Collectors.toList());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);
@@ -104,7 +102,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 		return Collections.emptyList();
 	}
 
-	private static MutableComponent translateKey(@Nonnull String suffix) {
+	private static MutableComponent translateKey(@NotNull String suffix) {
 		return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
 	}
 }

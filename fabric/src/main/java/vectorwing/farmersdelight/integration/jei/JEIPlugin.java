@@ -22,11 +22,9 @@ import vectorwing.farmersdelight.integration.jei.category.CuttingRecipeCategory;
 import vectorwing.farmersdelight.integration.jei.category.DecompositionRecipeCategory;
 import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 @JeiPlugin
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @SuppressWarnings("unused")
 public class JEIPlugin implements IModPlugin

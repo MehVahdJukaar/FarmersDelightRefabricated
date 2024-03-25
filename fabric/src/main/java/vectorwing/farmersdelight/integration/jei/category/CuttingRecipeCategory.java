@@ -23,9 +23,6 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class CuttingRecipeCategory implements IRecipeCategory<CuttingBoardRecipe>
 {
