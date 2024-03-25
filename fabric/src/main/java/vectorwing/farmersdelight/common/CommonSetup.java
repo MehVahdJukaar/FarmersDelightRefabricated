@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
@@ -30,11 +32,21 @@ public class CommonSetup
 {
 	public static void init() {
 
+		// As the config cannot be loaded on init, we must do this.
+		ClientLifecycleEvents.CLIENT_STARTED.register(client -> registerStackSizeOverrides());
+
+		// As the config cannot be loaded on init, we must do this.
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+			// This is already done with integrated servers through the CLIENT_STARTED event,
+			// so we only need to do this on dedicated servers.
+			if (server.isDedicatedServer()) {
+				registerStackSizeOverrides();
+			}
+		});
+
 		registerCompostables();
 		registerDispenserBehaviors();
 		registerAnimalFeeds();
-		registerStackSizeOverrides();
-
 
 		ModAdvancements.register();
 		ResourceConditions.register(VanillaCrateEnabledCondition.ID, jsonObject -> Configuration.ENABLE_VANILLA_CROP_CRATES.get());

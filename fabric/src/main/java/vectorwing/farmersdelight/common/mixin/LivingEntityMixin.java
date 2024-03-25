@@ -39,7 +39,7 @@ public abstract class LivingEntityMixin extends Entity {
         return original && (!(state.getBlock() instanceof TomatoVineBlock tomato) || tomato.isLadder(state, this.level(), pos, (LivingEntity)(Object)this));
     }
 
-    @ModifyVariable(method = "knockback", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "knockback", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private double handleKnifeKnockback(double strength) {
         return KnifeItem.KnifeEvents.onKnifeKnockback(strength, (LivingEntity)(Object)this);
     }

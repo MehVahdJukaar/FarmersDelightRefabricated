@@ -19,9 +19,9 @@ import java.util.function.Predicate;
 public class ModBiomeModifiers {
 
     private static final ResourceKey<PlacedFeature> BROWN_COLONY = modFeature("patch_brown_mushroom_colony");
-    private static final ResourceKey<PlacedFeature> RED_COLONY = modFeature("patch_red_colony");
-    private static final ResourceKey<PlacedFeature> WILD_CABBAGE = modFeature("patch_wild_cabbage");
-    private static final ResourceKey<PlacedFeature> WILD_BEETROOT = modFeature("patch_wild_beetroot");
+    private static final ResourceKey<PlacedFeature> RED_COLONY = modFeature("patch_red_mushroom_colony");
+    private static final ResourceKey<PlacedFeature> WILD_CABBAGE = modFeature("patch_wild_cabbages");
+    private static final ResourceKey<PlacedFeature> WILD_BEETROOT = modFeature("patch_wild_beetroots");
     private static final ResourceKey<PlacedFeature> WILD_CARROTS = modFeature("patch_wild_carrots");
     private static final ResourceKey<PlacedFeature> WILD_ONIONS = modFeature("patch_wild_onions");
     private static final ResourceKey<PlacedFeature> WILD_TOMATOES = modFeature("patch_wild_tomatoes");

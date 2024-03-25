@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.event;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -11,6 +13,11 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 public class VillagerEvents
 {
+
+	public static void init() {
+		// As the config cannot be loaded on init, we must do this.
+		ServerLifecycleEvents.SERVER_STARTING.register(client -> addTrades());
+	}
 
 	public static void addTrades(){
 		if (Configuration.FARMERS_BUY_FD_CROPS.get()) {

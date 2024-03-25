@@ -60,7 +60,7 @@ public class FarmersDelight implements ModInitializer
 
 		VillageStructures.init();
 		CommonEvents.init();
-		VillagerEvents.addTrades();
+		VillagerEvents.init();
 
 
 		CommonSetup.init();

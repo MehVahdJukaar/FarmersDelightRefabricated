@@ -191,8 +191,8 @@ public class StoveBlock extends BaseEntityBlock
 		return null;
 	}
 
+	// TODO: This.
 	@Nullable
-	@Override
 	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
 		return state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
 	}
