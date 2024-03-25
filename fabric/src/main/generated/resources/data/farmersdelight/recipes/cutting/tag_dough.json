@@ -2,7 +2,7 @@
   "type": "farmersdelight:cutting",
   "ingredients": [
     {
-      "tag": "forge:dough"
+      "tag": "c:dough"
     }
   ],
   "result": [
@@ -11,6 +11,6 @@
     }
   ],
   "tool": {
-    "tag": "forge:tools/knives"
+    "tag": "c:tools/knives"
   }
 }

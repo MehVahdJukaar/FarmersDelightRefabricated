@@ -10,13 +10,13 @@
       "item": "minecraft:brown_mushroom"
     },
     {
-      "tag": "forge:pasta"
+      "tag": "c:pasta"
     },
     {
-      "tag": "forge:salad_ingredients"
+      "tag": "c:salad_ingredients"
     },
     {
-      "tag": "forge:vegetables"
+      "tag": "c:vegetables"
     }
   ],
   "recipe_book_tab": "meals",

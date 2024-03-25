@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "fd_chocolate_pie",
   "key": {
     "O": {
       "item": "farmersdelight:pie_crust"
@@ -10,7 +9,7 @@
       "item": "minecraft:cocoa_beans"
     },
     "m": {
-      "tag": "c:foods/milk"
+      "tag": "c:milk"
     },
     "x": {
       "item": "minecraft:sugar"
@@ -22,7 +21,7 @@
     "xOx"
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:chocolate_pie"
-  }
+    "item": "farmersdelight:chocolate_pie"
+  },
+  "show_notification": true
 }

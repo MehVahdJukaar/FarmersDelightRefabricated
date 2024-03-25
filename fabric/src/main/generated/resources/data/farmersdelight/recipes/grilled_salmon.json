@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:foods/cooked_salmon"
+      "tag": "c:cooked_fishes/salmon"
     },
     {
       "item": "minecraft:sweet_berries"
@@ -19,7 +19,6 @@
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:grilled_salmon"
+    "item": "farmersdelight:grilled_salmon"
   }
 }

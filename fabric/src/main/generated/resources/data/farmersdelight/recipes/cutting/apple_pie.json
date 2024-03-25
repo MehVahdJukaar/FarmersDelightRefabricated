@@ -7,13 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 4,
-        "id": "farmersdelight:apple_pie_slice"
-      }
+      "count": 4,
+      "item": "farmersdelight:apple_pie_slice"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

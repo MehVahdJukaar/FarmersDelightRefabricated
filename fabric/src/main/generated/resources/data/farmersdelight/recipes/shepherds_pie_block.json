@@ -6,19 +6,19 @@
       "item": "minecraft:baked_potato"
     },
     {
-      "tag": "c:foods/milk"
+      "tag": "c:milk"
     },
     {
       "item": "minecraft:baked_potato"
     },
     {
-      "tag": "c:foods/cooked_mutton"
+      "tag": "c:cooked_mutton"
     },
     {
-      "tag": "c:foods/cooked_mutton"
+      "tag": "c:cooked_mutton"
     },
     {
-      "tag": "c:foods/cooked_mutton"
+      "tag": "c:cooked_mutton"
     },
     {
       "tag": "c:crops/onion"
@@ -31,7 +31,6 @@
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:shepherds_pie_block"
+    "item": "farmersdelight:shepherds_pie_block"
   }
 }

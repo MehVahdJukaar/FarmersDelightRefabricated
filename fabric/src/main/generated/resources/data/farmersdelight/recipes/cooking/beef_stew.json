@@ -1,9 +1,10 @@
 {
   "type": "farmersdelight:cooking",
+  "cookingtime": 200,
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:foods/raw_beef"
+      "tag": "c:raw_beef"
     },
     {
       "item": "minecraft:carrot"
@@ -14,7 +15,6 @@
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
-    "id": "farmersdelight:beef_stew"
+    "item": "farmersdelight:beef_stew"
   }
 }

@@ -1,5 +1,6 @@
 {
   "type": "farmersdelight:cooking",
+  "cookingtime": 200,
   "experience": 1.0,
   "ingredients": [
     {
@@ -12,12 +13,11 @@
       "item": "minecraft:beetroot"
     },
     {
-      "tag": "c:foods/leafy_green"
+      "tag": "c:salad_ingredients"
     }
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
-    "id": "farmersdelight:vegetable_soup"
+    "item": "farmersdelight:vegetable_soup"
   }
 }

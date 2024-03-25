@@ -7,14 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:dark_oak_planks"
-      }
+      "item": "minecraft:dark_oak_planks"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "axe_dig"
   }
 }

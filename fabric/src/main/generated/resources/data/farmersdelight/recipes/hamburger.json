@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:foods/bread"
+      "tag": "c:bread"
     },
     {
       "item": "farmersdelight:beef_patty"
     },
     {
-      "tag": "c:foods/leafy_green"
+      "tag": "c:salad_ingredients"
     },
     {
       "tag": "c:crops/tomato"
@@ -19,7 +19,6 @@
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:hamburger"
+    "item": "farmersdelight:hamburger"
   }
 }

@@ -3,20 +3,19 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:foods/bread"
+      "tag": "c:bread"
     },
     {
-      "tag": "c:foods/cooked_chicken"
+      "tag": "c:cooked_chicken"
     },
     {
-      "tag": "c:foods/leafy_green"
+      "tag": "c:salad_ingredients"
     },
     {
       "item": "minecraft:carrot"
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:chicken_sandwich"
+    "item": "farmersdelight:chicken_sandwich"
   }
 }

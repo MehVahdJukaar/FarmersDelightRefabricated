@@ -7,14 +7,12 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 4,
-        "id": "minecraft:amethyst_shard"
-      }
+      "count": 4,
+      "item": "minecraft:amethyst_shard"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "pickaxe_dig"
   }
 }

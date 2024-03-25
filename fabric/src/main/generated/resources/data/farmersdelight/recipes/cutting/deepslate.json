@@ -7,14 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:cobbled_deepslate"
-      }
+      "item": "minecraft:cobbled_deepslate"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "pickaxe_dig"
   }
 }

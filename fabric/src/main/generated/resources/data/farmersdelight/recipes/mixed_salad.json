@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:foods/leafy_green"
+      "tag": "c:salad_ingredients"
     },
     {
       "tag": "c:crops/tomato"
@@ -16,7 +16,6 @@
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:mixed_salad"
+    "item": "farmersdelight:mixed_salad"
   }
 }

@@ -6,14 +6,13 @@
       "item": "minecraft:baked_potato"
     },
     {
-      "tag": "c:foods/cooked_beef"
+      "tag": "c:cooked_beef"
     },
     {
-      "tag": "c:foods/milk"
+      "tag": "c:milk"
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:stuffed_potato"
+    "item": "farmersdelight:stuffed_potato"
   }
 }

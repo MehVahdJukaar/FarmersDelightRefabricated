@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:crops/tomato"
+      "tag": "c:crops/tomato"
     },
     {
-      "tag": "forge:crops/onion"
+      "tag": "c:crops/onion"
     },
     {
       "item": "minecraft:beetroot"
     },
     {
-      "tag": "forge:vegetables"
+      "tag": "c:vegetables"
     }
   ],
   "recipe_book_tab": "meals",

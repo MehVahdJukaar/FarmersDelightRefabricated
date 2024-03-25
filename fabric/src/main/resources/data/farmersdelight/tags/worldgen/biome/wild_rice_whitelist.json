@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:is_wet/overworld",
     "#c:is_wet/overworld",
     "minecraft:swamp",
     "minecraft:jungle",

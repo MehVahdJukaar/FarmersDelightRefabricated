@@ -46,7 +46,7 @@ public class ForgeTags
 	public static final TagKey<Item> GRAIN_RICE = forgeItemTag("grain/rice");
 
 	public static final TagKey<Item> MILK = forgeItemTag("milk");
-	public static final TagKey<Item> MILK_BUCKET = forgeItemTag("milk/milk");
+	public static final TagKey<Item> MILK_BUCKET = forgeItemTag("milk_buckets");
 	public static final TagKey<Item> MILK_BOTTLE = forgeItemTag("milk/milk_bottle");
 
 	public static final TagKey<Item> PASTA = forgeItemTag("pasta");
@@ -84,11 +84,11 @@ public class ForgeTags
 	public static final TagKey<Item> TOOLS_SHOVELS = forgeItemTag("tools/shovels");
 
 	private static TagKey<Block> forgeBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", path));
+		return TagKey.create(Registries.BLOCK, new ResourceLocation("c", path));
 	}
 
 	private static TagKey<Item> forgeItemTag(String path) {
-		return TagKey.create(Registries.ITEM, new ResourceLocation("forge", path));
+		return TagKey.create(Registries.ITEM, new ResourceLocation("c", path));
 	}
 
 }

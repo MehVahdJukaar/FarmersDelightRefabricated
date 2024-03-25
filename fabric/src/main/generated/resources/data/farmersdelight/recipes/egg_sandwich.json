@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:bread"
+      "tag": "c:bread"
     },
     {
-      "tag": "forge:cooked_eggs"
+      "tag": "c:cooked_eggs"
     },
     {
-      "tag": "forge:cooked_eggs"
+      "tag": "c:cooked_eggs"
     }
   ],
   "result": {

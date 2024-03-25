@@ -1,13 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "cake",
   "key": {
     "e": {
       "tag": "c:eggs"
     },
     "m": {
-      "tag": "c:foods/milk"
+      "tag": "c:milk"
     },
     "s": {
       "item": "minecraft:sugar"
@@ -22,7 +21,7 @@
     "www"
   ],
   "result": {
-    "count": 1,
-    "id": "minecraft:cake"
-  }
+    "item": "minecraft:cake"
+  },
+  "show_notification": true
 }

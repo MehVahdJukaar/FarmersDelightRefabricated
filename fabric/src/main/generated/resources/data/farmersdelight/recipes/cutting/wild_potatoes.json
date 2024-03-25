@@ -7,20 +7,15 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:potato"
-      }
+      "item": "minecraft:potato"
     },
     {
       "chance": 0.5,
-      "item": {
-        "count": 2,
-        "id": "minecraft:purple_dye"
-      }
+      "count": 2,
+      "item": "minecraft:purple_dye"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

@@ -7,14 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:cobblestone"
-      }
+      "item": "minecraft:cobblestone"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "pickaxe_dig"
   }
 }

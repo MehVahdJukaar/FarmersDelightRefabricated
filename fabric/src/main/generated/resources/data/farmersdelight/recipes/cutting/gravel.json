@@ -7,21 +7,15 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:gravel"
-      }
+      "item": "minecraft:gravel"
     },
     {
       "chance": 0.1,
-      "item": {
-        "count": 1,
-        "id": "minecraft:flint"
-      }
+      "item": "minecraft:flint"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "shovel_dig"
   }
 }

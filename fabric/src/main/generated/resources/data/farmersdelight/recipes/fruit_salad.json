@@ -12,10 +12,10 @@
       "item": "minecraft:melon_slice"
     },
     {
-      "tag": "c:foods/berry"
+      "tag": "c:berries"
     },
     {
-      "tag": "c:foods/berry"
+      "tag": "c:berries"
     },
     {
       "item": "farmersdelight:pumpkin_slice"
@@ -25,7 +25,6 @@
     }
   ],
   "result": {
-    "count": 1,
-    "id": "farmersdelight:fruit_salad"
+    "item": "farmersdelight:fruit_salad"
   }
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:is_hot/overworld",
     "#c:is_hot/overworld",
     "minecraft:desert",
     "minecraft:jungle",

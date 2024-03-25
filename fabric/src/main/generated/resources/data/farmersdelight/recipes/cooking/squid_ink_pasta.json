@@ -1,12 +1,13 @@
 {
   "type": "farmersdelight:cooking",
+  "cookingtime": 200,
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:foods/safe_raw_fish"
+      "tag": "c:raw_fishes"
     },
     {
-      "tag": "c:foods/pasta"
+      "tag": "c:pasta"
     },
     {
       "tag": "c:crops/tomato"
@@ -17,7 +18,6 @@
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
-    "id": "farmersdelight:squid_ink_pasta"
+    "item": "farmersdelight:squid_ink_pasta"
   }
 }

@@ -7,14 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:warped_planks"
-      }
+      "item": "minecraft:warped_planks"
     }
   ],
   "tool": {
-    "type": "farmersdelight:item_ability",
+    "fabric:type": "farmersdelight:tool_action",
     "action": "axe_dig"
   }
 }
