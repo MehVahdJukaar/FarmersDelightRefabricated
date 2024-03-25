@@ -70,7 +70,13 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
 
 	public static class SkilletEvents
 	{
-		public static void playSkilletAttackSound(LivingEntity entity, DamageSource source, float amount) {
+		/*
+		 This is modfiied before the player loses their attack power, and is unmodified as soon as the Skillet sound is played.
+		 This doesn't exist on Forge because they moved the resetting of attack power to after the events are fired.
+		 */
+		public static float attackPower = 0.0F;
+
+		public static void playSkilletAttackSound(LivingEntity entity, DamageSource source) {
             Entity attacker = source.getDirectEntity();
 
 			if (!(attacker instanceof LivingEntity livingEntity)) return;
@@ -78,7 +84,6 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
 
 			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
 			if (livingEntity instanceof Player player) {
-				float attackPower = player.getAttackStrengthScale(0.0F);
 				if (attackPower > 0.8F) {
 					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
 				} else {
@@ -87,6 +92,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
 			} else {
 				livingEntity.getCommandSenderWorld().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
 			}
+			attackPower = 0.0F;
 		}
 	}
 
