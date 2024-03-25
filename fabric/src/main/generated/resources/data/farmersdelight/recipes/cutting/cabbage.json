@@ -7,13 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 2,
-        "id": "farmersdelight:cabbage_leaf"
-      }
+      "count": 2,
+      "item": "farmersdelight:cabbage_leaf"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

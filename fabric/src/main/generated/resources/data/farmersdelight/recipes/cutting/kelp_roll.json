@@ -7,13 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 3,
-        "id": "farmersdelight:kelp_roll_slice"
-      }
+      "count": 3,
+      "item": "farmersdelight:kelp_roll_slice"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

@@ -7,20 +7,15 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "minecraft:carrot"
-      }
+      "item": "minecraft:carrot"
     },
     {
       "chance": 0.5,
-      "item": {
-        "count": 2,
-        "id": "minecraft:light_gray_dye"
-      }
+      "count": 2,
+      "item": "minecraft:light_gray_dye"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

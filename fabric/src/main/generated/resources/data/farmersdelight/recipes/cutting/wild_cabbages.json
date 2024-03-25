@@ -7,20 +7,15 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 1,
-        "id": "farmersdelight:cabbage_seeds"
-      }
+      "item": "farmersdelight:cabbage_seeds"
     },
     {
       "chance": 0.5,
-      "item": {
-        "count": 2,
-        "id": "minecraft:yellow_dye"
-      }
+      "count": 2,
+      "item": "minecraft:yellow_dye"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }

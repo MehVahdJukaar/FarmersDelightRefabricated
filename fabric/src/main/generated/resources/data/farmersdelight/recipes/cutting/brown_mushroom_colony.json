@@ -7,13 +7,11 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 5,
-        "id": "minecraft:brown_mushroom"
-      }
+      "count": 5,
+      "item": "minecraft:brown_mushroom"
     }
   ],
   "tool": {
-    "tag": "c:tools/knife"
+    "tag": "c:tools/knives"
   }
 }
