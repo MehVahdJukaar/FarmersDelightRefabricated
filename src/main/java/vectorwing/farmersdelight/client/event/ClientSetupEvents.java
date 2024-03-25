@@ -12,7 +12,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
-import vectorwing.farmersdelight.client.model.SkilletModel;
 import vectorwing.farmersdelight.client.particle.StarParticle;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
 import vectorwing.farmersdelight.client.recipebook.RecipeCategories;

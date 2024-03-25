@@ -8,7 +8,6 @@ import com.blamejared.crafttweaker_annotations.annotations.Document;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.ToolAction;
 import org.openzen.zencode.java.ZenCodeType;
 import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 
