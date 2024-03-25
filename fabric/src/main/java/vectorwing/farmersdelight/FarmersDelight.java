@@ -28,8 +28,8 @@ public class FarmersDelight implements ModInitializer
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-	// Moved initalizer to RecipeBookTypeMixin.
-	public static RecipeBookType RECIPE_TYPE_COOKING;
+	// Moved initializer to RecipeBookTypeMixin.
+	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.valueOf("COOKING");
 
 	public static ResourceLocation res(String name) {
 		return new ResourceLocation(MODID, name);
@@ -37,7 +37,6 @@ public class FarmersDelight implements ModInitializer
 
 	@Override
 	public void onInitialize() {
-
 		ConfigRegistry.registerConfig(MODID, ConfigType.COMMON, Configuration.COMMON_CONFIG);
 		ConfigRegistry.registerConfig(MODID, ConfigType.CLIENT, Configuration.CLIENT_CONFIG);
 
