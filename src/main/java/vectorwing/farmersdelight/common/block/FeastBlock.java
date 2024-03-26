@@ -102,9 +102,9 @@ public class FeastBlock extends Block
 		ItemStack heldStack = player.getItemInHand(hand);
 
 		if (servings > 0) {
-			if (serving.getRecipeRemainder() == null || ItemStack.isSameItem(heldStack, serving.getRecipeRemainder())) {
+			if (serving.getRecipeRemainder().isEmpty() || ItemStack.isSameItem(heldStack, serving.getRecipeRemainder())) {
 				level.setBlock(pos, state.setValue(getServingsProperty(), servings - 1), 3);
-				if (!player.getAbilities().instabuild && serving.getRecipeRemainder() != null) {
+				if (!player.getAbilities().instabuild && !serving.getRecipeRemainder().isEmpty()) {
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {
