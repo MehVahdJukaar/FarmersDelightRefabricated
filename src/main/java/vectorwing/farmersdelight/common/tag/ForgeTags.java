@@ -84,10 +84,12 @@ public class ForgeTags
 	public static final TagKey<Item> TOOLS_SHOVELS = forgeItemTag("tools/shovels");
 
 	private static TagKey<Block> forgeBlockTag(String path) {
+		// Change namespace to 'c'. Porting Lib does this too.
 		return TagKey.create(Registries.BLOCK, new ResourceLocation("c", path));
 	}
 
 	private static TagKey<Item> forgeItemTag(String path) {
+		// Change namespace to 'c'. Porting Lib does this too.
 		return TagKey.create(Registries.ITEM, new ResourceLocation("c", path));
 	}
 
