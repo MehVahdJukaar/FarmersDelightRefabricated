@@ -117,7 +117,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
         }
 
         widgets.addTooltip((mouseX, mouseY) -> {
-            if (ClientRenderUtils.isCursorInsideBounds(61, 2, 22, 28, mouseX, mouseY)) {
+            if (ClientRenderUtils.isCursorInsideBounds(60, 2, 22, 28, mouseX, mouseY)) {
                 return tooltipComponents;
             }
             return List.of();

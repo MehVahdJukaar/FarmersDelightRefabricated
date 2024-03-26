@@ -14,8 +14,8 @@ import java.util.List;
 
 public class CuttingEmiRecipe implements EmiRecipe {
     private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
-    public static final int OUTPUT_GRID_X = 76;
-    public static final int OUTPUT_GRID_Y = 10;
+    public static final int OUTPUT_GRID_X = 69;
+    public static final int OUTPUT_GRID_Y = 3;
 
     private final ResourceLocation id;
     private final EmiIngredient tool;
@@ -51,21 +51,26 @@ public class CuttingEmiRecipe implements EmiRecipe {
     }
 
     @Override
+    public List<EmiIngredient> getCatalysts() {
+        return List.of(tool);
+    }
+
+    @Override
     public int getDisplayWidth() {
-        return 117;
+        return 111;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 57;
+        return 44;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 0, 0, 117, 57, 0, 0);
+        widgets.addTexture(BACKGROUND, 0, 0, 111, 44, 4, 7);
 
-        widgets.addSlot(tool, 16, 8).drawBack(false);
-        widgets.addSlot(input, 16, 27).drawBack(false);
+        widgets.addSlot(tool, 11, 0).drawBack(false);
+        widgets.addSlot(input, 11, 19).drawBack(false);
 
         int size = outputs.size();
         int centerX = size > 1 ? 1 : 10;
