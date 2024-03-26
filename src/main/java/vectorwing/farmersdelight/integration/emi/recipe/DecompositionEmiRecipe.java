@@ -52,28 +52,28 @@ public class DecompositionEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 122;
+        return 118;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 84;
+        return 80;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 4, 4, 118, 80, 0, 0);
+        widgets.addTexture(BACKGROUND, 0, 0, 118, 80, 0, 0);
 
-        addSlot(widgets, FDRecipeWorkstations.ORGANIC_COMPOST, 12, 29);
-        addSlot(widgets, RICH_SOIL, 96, 29).recipeContext(this);
-        addSlot(widgets, ACCELERATORS, 67, 57);
+        addSlot(widgets, FDRecipeWorkstations.ORGANIC_COMPOST, 8, 25);
+        addSlot(widgets, RICH_SOIL, 92, 25).recipeContext(this);
+        addSlot(widgets, ACCELERATORS, 63, 53);
 
         widgets.addTooltip((mouseX, mouseY) -> {
-            if (ClientRenderUtils.isCursorInsideBounds(44, 42, 11, 11, mouseX, mouseY)) {
+            if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
                 return List.of(LIGHT_TOOLTIP);
-            } else if (ClientRenderUtils.isCursorInsideBounds(57, 42, 11, 11, mouseX, mouseY)) {
+            } else if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
                 return List.of(FLUID_TOOLTIP);
-            } else if (ClientRenderUtils.isCursorInsideBounds(71, 42, 11, 11, mouseX, mouseY)) {
+            } else if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
                 return List.of(ACCELERATORS_TOOLTIP);
             }
             return List.of();

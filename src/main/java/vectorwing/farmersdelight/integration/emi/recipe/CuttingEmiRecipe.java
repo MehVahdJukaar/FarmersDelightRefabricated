@@ -52,20 +52,20 @@ public class CuttingEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 121;
+        return 117;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 61;
+        return 57;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 4, 4, 117, 57, 0, 0);
+        widgets.addTexture(BACKGROUND, 0, 0, 117, 57, 0, 0);
 
-        widgets.addSlot(tool, 20, 12).drawBack(false);
-        widgets.addSlot(input, 20, 31).drawBack(false);
+        widgets.addSlot(tool, 16, 8).drawBack(false);
+        widgets.addSlot(input, 16, 27).drawBack(false);
 
         int size = outputs.size();
         int centerX = size > 1 ? 1 : 10;
@@ -76,7 +76,7 @@ public class CuttingEmiRecipe implements EmiRecipe {
             int yOffset = centerY + ((i / 2) * 19);
 
             EmiIngredient output = outputs.get(i);
-            widgets.addSlot(output, OUTPUT_GRID_X + xOffset + 4, OUTPUT_GRID_Y + yOffset + 4).backgroundTexture(BACKGROUND, output.getChance() < 1 ?  18 : 0, 58).recipeContext(this);
+            widgets.addSlot(output, OUTPUT_GRID_X + xOffset, OUTPUT_GRID_Y + yOffset).backgroundTexture(BACKGROUND, output.getChance() < 1 ?  18 : 0, 58).recipeContext(this);
         }
     }
 }

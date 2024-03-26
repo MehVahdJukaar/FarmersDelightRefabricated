@@ -80,44 +80,44 @@ public class CookingPotEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 120;
+        return 117;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 60;
+        return 56;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 4, 4, 116, 56, 29, 16);
+        widgets.addTexture(BACKGROUND, 0, 0, 116, 56, 29, 16);
 
         int borderSlotSize = 18;
         for (int row = 0; row < 2; ++row) {
             for (int column = 0; column < 3; ++column) {
                 int inputIndex = row * 3 + column;
                 if (inputIndex < inputs.size()) {
-                    addSlot(widgets, inputs.get(inputIndex), (column * borderSlotSize) + 4, (row * borderSlotSize) + 4);
+                    addSlot(widgets, inputs.get(inputIndex), (column * borderSlotSize), (row * borderSlotSize));
                 }
             }
         }
-        addSlot(widgets, output, 98, 13);
-        addSlot(widgets, container, 66, 42);
-        addSlot(widgets, output, 98, 42).recipeContext(this);
+        addSlot(widgets, output, 94, 9);
+        addSlot(widgets, container, 62, 38);
+        addSlot(widgets, output, 94, 38).recipeContext(this);
 
         // Arrow
-        widgets.addAnimatedTexture(BACKGROUND, 64, 13, 24, 17, 176, 15, 1000 * 10, true, false, false);
+        widgets.addAnimatedTexture(BACKGROUND, 60, 9, 24, 17, 176, 15, 1000 * 10, true, false, false);
         // Heat Indicator
-        widgets.addTexture(BACKGROUND, 22, 43, 17, 15, 176, 0);
+        widgets.addTexture(BACKGROUND, 18, 39, 17, 15, 176, 0);
         // Time Icon
-        widgets.addTexture(BACKGROUND, 68, 6, 8, 11, 176, 32);
+        widgets.addTexture(BACKGROUND, 64, 2, 8, 11, 176, 32);
         // Experience Icon
         if (experience > 0) {
-            widgets.addTexture(BACKGROUND, 67,25, 9, 9, 176, 43);
+            widgets.addTexture(BACKGROUND, 63,21, 9, 9, 176, 43);
         }
 
         widgets.addTooltip((mouseX, mouseY) -> {
-            if (ClientRenderUtils.isCursorInsideBounds(65, 6, 22, 28, mouseX, mouseY)) {
+            if (ClientRenderUtils.isCursorInsideBounds(61, 2, 22, 28, mouseX, mouseY)) {
                 return tooltipComponents;
             }
             return List.of();
