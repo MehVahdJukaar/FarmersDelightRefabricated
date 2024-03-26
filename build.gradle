@@ -90,7 +90,7 @@ dependencies {
 
 
     for (String module in port_lib_modules.split(",")) {
-        modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
+        include(modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
     modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
