@@ -43,6 +43,7 @@ public class ClientSetupEvents {
         EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
     }
 
+    /*
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
@@ -53,6 +54,7 @@ public class ClientSetupEvents {
         BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
         modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
     }
+     */
 
     public static void onRegisterRenderers() {
         BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);

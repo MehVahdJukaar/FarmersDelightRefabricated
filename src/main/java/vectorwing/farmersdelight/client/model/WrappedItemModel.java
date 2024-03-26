@@ -4,12 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.model.BakedModelWrapper;
 
 import java.util.List;
 
-public class WrappedItemModel<T extends BakedModel> extends BakedModelWrapper<T>
+public class WrappedItemModel<T extends BakedModel> /*extends BakedModelWrapper<T>*/
 {
+	/*
 	private final List<BakedModel> renderPasses = List.of(this);
 
 	public WrappedItemModel(T originalModel) {
@@ -31,4 +31,5 @@ public class WrappedItemModel<T extends BakedModel> extends BakedModelWrapper<T>
 	public List<BakedModel> getRenderPasses(ItemStack itemStack, boolean fabulous) {
 		return renderPasses;
 	}
+	 */
 }

@@ -17,14 +17,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.SimpleModelState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3f;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;;
 import java.util.*;
 
@@ -33,8 +29,9 @@ import java.util.*;
  */
 
 @SuppressWarnings("deprecation")
-public class SkilletModel implements BakedModel
+public class SkilletModel /*implements BakedModel*/
 {
+	/*
 	private static final ItemModelGenerator ITEM_MODEL_GENERATOR = new ItemModelGenerator();
 
 	private final ModelBakery bakery;
@@ -178,4 +175,5 @@ public class SkilletModel implements BakedModel
 			return this;
 		}
 	}
+	 */
 }
