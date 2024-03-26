@@ -4,11 +4,13 @@ import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
+import io.github.fabricators_of_create.porting_lib.models.geometry.SimpleModelState;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -27,11 +29,10 @@ import java.util.*;
 /**
  * Credits to the Botania Team for the class reference!
  */
-
+/*
 @SuppressWarnings("deprecation")
-public class SkilletModel /*implements BakedModel*/
+public class SkilletModel implements BakedModel
 {
-	/*
 	private static final ItemModelGenerator ITEM_MODEL_GENERATOR = new ItemModelGenerator();
 
 	private final ModelBakery bakery;
@@ -115,7 +116,7 @@ public class SkilletModel /*implements BakedModel*/
 		public CompositeBakedModel(ModelBakery bakery, ItemStack ingredientStack, BakedModel skillet) {
 			super(skillet);
 
-			ResourceLocation ingredientLocation = ForgeRegistries.ITEMS.getKey(ingredientStack.getItem());
+			ResourceLocation ingredientLocation = BuiltInRegistries.ITEM.getKey(ingredientStack.getItem());
 			UnbakedModel ingredientUnbaked = bakery.getModel(new ModelResourceLocation(ingredientLocation, "inventory"));
 			ModelState transform = new SimpleModelState(
 					new Transformation(
@@ -175,5 +176,4 @@ public class SkilletModel /*implements BakedModel*/
 			return this;
 		}
 	}
-	 */
-}
+}*///TODO:

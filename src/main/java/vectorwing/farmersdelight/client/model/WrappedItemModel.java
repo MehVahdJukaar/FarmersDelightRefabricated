@@ -6,10 +6,9 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-
-public class WrappedItemModel<T extends BakedModel> /*extends BakedModelWrapper<T>*/
+/*
+public class WrappedItemModel<T extends BakedModel> extends BakedModelWrapper<T>
 {
-	/*
 	private final List<BakedModel> renderPasses = List.of(this);
 
 	public WrappedItemModel(T originalModel) {
@@ -31,5 +30,4 @@ public class WrappedItemModel<T extends BakedModel> /*extends BakedModelWrapper<
 	public List<BakedModel> getRenderPasses(ItemStack itemStack, boolean fabulous) {
 		return renderPasses;
 	}
-	 */
-}
+}*/

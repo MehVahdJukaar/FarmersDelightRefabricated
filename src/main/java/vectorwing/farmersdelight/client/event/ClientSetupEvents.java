@@ -6,13 +6,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
-import vectorwing.farmersdelight.client.model.SkilletModel;
 import vectorwing.farmersdelight.client.particle.StarParticle;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
 import vectorwing.farmersdelight.client.recipebook.RecipeCategories;
@@ -20,8 +18,6 @@ import vectorwing.farmersdelight.client.renderer.*;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
-
-import java.util.Map;
 
 public class ClientSetupEvents {
     public static void onRegisterRecipeBookCategories() {
@@ -43,7 +39,8 @@ public class ClientSetupEvents {
         EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
     }
 
-    /*
+    //TODO:
+/*
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
@@ -54,8 +51,7 @@ public class ClientSetupEvents {
         BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
         modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
     }
-     */
-
+*/
     public static void onRegisterRenderers() {
         BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);
         BlockEntityRenderers.register(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);

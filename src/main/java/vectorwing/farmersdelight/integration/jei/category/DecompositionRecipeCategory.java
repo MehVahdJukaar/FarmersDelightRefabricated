@@ -32,78 +32,78 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @MethodsReturnNonnullByDefault
-public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy>
-{
-	public static final ResourceLocation UID = new ResourceLocation(FarmersDelight.MODID, "decomposition");
-	private static final int slotSize = 22;
+public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy> {
+    public static final ResourceLocation UID = new ResourceLocation(FarmersDelight.MODID, "decomposition");
+    private static final int slotSize = 22;
 
-	private final Component title;
-	private final IDrawable background;
-	private final IDrawable slotIcon;
-	private final IDrawable icon;
-	private final ItemStack organicCompost;
-	private final ItemStack richSoil;
+    private final Component title;
+    private final IDrawable background;
+    private final IDrawable slotIcon;
+    private final IDrawable icon;
+    private final ItemStack organicCompost;
+    private final ItemStack richSoil;
 
-	public DecompositionRecipeCategory(IGuiHelper helper) {
-		title = TextUtils.getTranslation("jei.decomposition");
-		ResourceLocation backgroundImage = new ResourceLocation(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
-		background = helper.createDrawable(backgroundImage, 0, 0, 118, 80);
-		organicCompost = new ItemStack(ModBlocks.ORGANIC_COMPOST.get());
-		richSoil = new ItemStack(ModItems.RICH_SOIL.get());
-		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, richSoil);
-		slotIcon = helper.createDrawable(backgroundImage, 119, 0, slotSize, slotSize);
-	}
+    public DecompositionRecipeCategory(IGuiHelper helper) {
+        title = TextUtils.getTranslation("jei.decomposition");
+        ResourceLocation backgroundImage = new ResourceLocation(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
+        background = helper.createDrawable(backgroundImage, 0, 0, 118, 80);
+        organicCompost = new ItemStack(ModBlocks.ORGANIC_COMPOST.get());
+        richSoil = new ItemStack(ModItems.RICH_SOIL.get());
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, richSoil);
+        slotIcon = helper.createDrawable(backgroundImage, 119, 0, slotSize, slotSize);
+    }
 
-	@Override
-	public RecipeType<DecompositionDummy> getRecipeType() {
-		return FDRecipeTypes.DECOMPOSITION;
-	}
+    @Override
+    public RecipeType<DecompositionDummy> getRecipeType() {
+        return FDRecipeTypes.DECOMPOSITION;
+    }
 
-	@Override
-	public Component getTitle() {
-		return this.title;
-	}
+    @Override
+    public Component getTitle() {
+        return this.title;
+    }
 
-	@Override
-	public IDrawable getBackground() {
-		return this.background;
-	}
+    @Override
+    public IDrawable getBackground() {
+        return this.background;
+    }
 
-	@Override
-	public IDrawable getIcon() {
-		return this.icon;
-	}
+    @Override
+    public IDrawable getIcon() {
+        return this.icon;
+    }
 
-	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
-		List<ItemStack> accelerators = BuiltInRegistries.BLOCK.getTag(ModTags.COMPOST_ACTIVATORS).stream().flatMap(holders -> holders.stream().map(block -> new ItemStack(block.value()))).collect(Collectors.toList());
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
+        List<ItemStack> accelerators = BuiltInRegistries.BLOCK.getTag(ModTags.COMPOST_ACTIVATORS).get().stream()
+                .map(holders -> new ItemStack(holders.value().asItem())).collect(Collectors.toList());
 
-		builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);
-		builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 64, 54).addItemStacks(accelerators);
-	}
+        builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 64, 54).addItemStacks(accelerators);
+    }
 
-	@Override
-	public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		this.slotIcon.draw(guiGraphics, 63, 53);
-	}
+    @Override
+    public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.slotIcon.draw(guiGraphics, 63, 53);
+    }
 
-	@Override
-	public List<Component> getTooltipStrings(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
-			return ImmutableList.of(translateKey(".light"));
-		}
-		if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
-			return ImmutableList.of(translateKey(".fluid"));
-		}
-		if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
-			return ImmutableList.of(translateKey(".accelerators"));
-		}
-		return Collections.emptyList();
-	}
+    @Override
+    public List<Component> getTooltipStrings(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+        if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
+            return ImmutableList.of(translateKey(".light"));
+        }
+        if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
+            return ImmutableList.of(translateKey(".fluid"));
+        }
+        if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
+            return ImmutableList.of(translateKey(".accelerators"));
+        }
+        return Collections.emptyList();
+    }
 
-	private static MutableComponent translateKey(@NotNull String suffix) {
-		return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
-	}
+    private static MutableComponent translateKey(@NotNull String suffix) {
+        return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
+    }
 }
 
