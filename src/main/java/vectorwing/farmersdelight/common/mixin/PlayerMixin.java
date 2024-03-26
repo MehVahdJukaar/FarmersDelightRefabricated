@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.mixin;
 
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -13,6 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 
 @Mixin(Player.class)
@@ -28,8 +27,8 @@ public abstract class PlayerMixin extends LivingEntity {
         SkilletItem.SkilletEvents.attackPower = this.getAttackStrengthScale(0.0F);
     }
 
-    @Inject(method = "actuallyHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F"))
-    private void handleSkilletAttackSound(DamageSource damageSource, float damageAmount, CallbackInfo ci) {
-        SkilletItem.SkilletEvents.playSkilletAttackSound(this, damageSource);
+    @Inject(method = "hurt", at = @At("HEAD"))
+    private void handleSkilletAttackSound(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        SkilletItem.SkilletEvents.playSkilletAttackSound(this, source);
     }
 }
