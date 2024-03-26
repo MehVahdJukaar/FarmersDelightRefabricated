@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.emi.recipe;
 
-import com.google.common.collect.ImmutableList;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;

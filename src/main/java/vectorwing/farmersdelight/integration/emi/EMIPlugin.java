@@ -15,7 +15,6 @@ import vectorwing.farmersdelight.integration.emi.recipe.CookingPotEmiRecipe;
 import vectorwing.farmersdelight.integration.emi.recipe.CuttingEmiRecipe;
 import vectorwing.farmersdelight.integration.emi.recipe.DecompositionEmiRecipe;
 
-// TODO: Lang entries for tags in en_us.json.
 @EmiEntrypoint
 public class EMIPlugin implements EmiPlugin {
 
