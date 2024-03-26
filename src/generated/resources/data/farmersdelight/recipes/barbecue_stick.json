@@ -10,19 +10,19 @@
     },
     [
       {
-        "tag": "c:cooked_beef"
+        "tag": "c:foods/cooked_meats/cooked_beef"
       },
       {
-        "tag": "c:cooked_pork"
+        "tag": "c:foods/cooked_meats/cooked_pork"
       },
       {
-        "tag": "c:cooked_chicken"
+        "tag": "c:foods/cooked_meats/cooked_chicken"
       },
       {
-        "tag": "c:cooked_mutton"
+        "tag": "c:foods/cooked_meats/cooked_mutton"
       },
       {
-        "tag": "c:cooked_fishes"
+        "tag": "c:foods/cooked_meats/cooked_fishes"
       },
       {
         "item": "minecraft:cooked_rabbit"

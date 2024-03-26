@@ -1,7 +1,7 @@
 {
   "values": [
-    "#c:raw_chicken",
-    "#c:raw_mutton",
+    "#c:foods/raw_meats/raw_chicken",
+    "#c:foods/raw_meats/raw_mutton",
     "minecraft:rabbit"
   ]
 }

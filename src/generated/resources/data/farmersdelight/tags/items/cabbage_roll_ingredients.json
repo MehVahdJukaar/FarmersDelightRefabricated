@@ -1,10 +1,10 @@
 {
   "values": [
-    "#c:raw_pork",
-    "#c:raw_fishes",
-    "#c:raw_chicken",
-    "#c:raw_beef",
-    "#c:raw_mutton",
+    "#c:foods/raw_meats/raw_pork",
+    "#c:foods/raw_fishes",
+    "#c:foods/raw_meats/raw_chicken",
+    "#c:foods/raw_meats/raw_beef",
+    "#c:foods/raw_meats/raw_mutton",
     "#c:eggs",
     "#c:mushrooms",
     "minecraft:carrot",

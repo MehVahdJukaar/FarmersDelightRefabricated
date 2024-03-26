@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:bread"
+      "tag": "c:foods/breads"
     },
     {
-      "tag": "c:cooked_bacon"
+      "tag": "c:foods/cooked_meats/cooked_bacon"
     },
     {
       "tag": "c:salad_ingredients"

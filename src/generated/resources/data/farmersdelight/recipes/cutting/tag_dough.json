@@ -2,7 +2,7 @@
   "type": "farmersdelight:cutting",
   "ingredients": [
     {
-      "tag": "c:dough"
+      "tag": "c:foods/dough"
     }
   ],
   "result": [

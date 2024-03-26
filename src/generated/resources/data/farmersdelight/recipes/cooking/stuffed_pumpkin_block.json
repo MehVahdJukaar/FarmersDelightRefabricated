@@ -19,10 +19,10 @@
       "item": "minecraft:potato"
     },
     {
-      "tag": "c:berries"
+      "tag": "c:foods/berries"
     },
     {
-      "tag": "c:vegetables"
+      "tag": "c:foods/vegetables"
     }
   ],
   "recipe_book_tab": "meals",
