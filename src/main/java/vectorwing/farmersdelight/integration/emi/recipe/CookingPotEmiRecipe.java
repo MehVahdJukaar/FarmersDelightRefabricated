@@ -22,8 +22,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
     private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     private final ResourceLocation id;
-    private final List<EmiIngredient> emiInputs;
-    private final List<EmiIngredient> recipeInputs;
+    private final List<EmiIngredient> inputs;
     private final EmiStack output;
     private final EmiStack container;
     private final int cookTime;
@@ -33,16 +32,12 @@ public class CookingPotEmiRecipe implements EmiRecipe {
     public CookingPotEmiRecipe(ResourceLocation id, List<EmiIngredient> inputs, EmiStack output,
                                EmiStack container, int cookTime, float experience) {
         this.id = id;
-        this.recipeInputs = inputs;
+        this.inputs = inputs;
         this.output = output;
         this.container = container;
         this.cookTime = cookTime;
         this.experience = experience;
         this.tooltipComponents = createTooltipComponents();
-        ImmutableList.Builder<EmiIngredient> emiInputsBuilder = new ImmutableList.Builder<>();
-        emiInputsBuilder.addAll(this.recipeInputs);
-        emiInputsBuilder.add(this.container);
-        this.emiInputs = emiInputsBuilder.build();
     }
 
     private List<ClientTooltipComponent> createTooltipComponents() {
@@ -71,7 +66,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return emiInputs;
+        return inputs;
     }
 
     @Override
@@ -97,8 +92,8 @@ public class CookingPotEmiRecipe implements EmiRecipe {
         for (int row = 0; row < 2; ++row) {
             for (int column = 0; column < 3; ++column) {
                 int inputIndex = row * 3 + column;
-                if (inputIndex < recipeInputs.size()) {
-                    addSlot(widgets, recipeInputs.get(inputIndex), (column * borderSlotSize) + 4, (row * borderSlotSize) + 4);
+                if (inputIndex < inputs.size()) {
+                    addSlot(widgets, inputs.get(inputIndex), (column * borderSlotSize) + 4, (row * borderSlotSize) + 4);
                 }
             }
         }
