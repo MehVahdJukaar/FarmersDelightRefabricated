@@ -15,7 +15,7 @@ loom {
 }
 
 sourceSets.main.resources {
-    srcDirs += 'src/main/generated/resources'
+    srcDirs += 'src/generated/resources'
 }
 
 repositories {
