@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:cooked_fishes/salmon"
+      "tag": "c:foods/cooked_fishes/salmon"
     },
     {
       "item": "minecraft:sweet_berries"
