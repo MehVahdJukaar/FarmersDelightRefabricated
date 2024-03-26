@@ -6,7 +6,7 @@
       "tag": "c:foods/breads"
     },
     {
-      "tag": "c:cooked_chicken"
+      "tag": "c:foods/cooked_meat/cooked_chicken"
     },
     {
       "tag": "c:salad_ingredients"

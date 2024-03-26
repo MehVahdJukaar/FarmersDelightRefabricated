@@ -6,7 +6,7 @@
       "item": "minecraft:baked_potato"
     },
     {
-      "tag": "c:cooked_beef"
+      "tag": "c:foods/cooked_meat/cooked_beef"
     },
     {
       "tag": "c:milks"
