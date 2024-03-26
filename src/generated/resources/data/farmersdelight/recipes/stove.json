@@ -9,7 +9,7 @@
       "item": "minecraft:campfire"
     },
     "i": {
-      "tag": "c:ingots/iron"
+      "tag": "c:iron_ingots"
     }
   },
   "pattern": [
