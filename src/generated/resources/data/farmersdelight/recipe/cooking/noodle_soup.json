@@ -6,7 +6,11 @@
       "tag": "c:foods/pasta"
     },
     {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/cooking/noodle_soup.json
       "tag": "c:foods/cooked_egg"
+========
+      "tag": "c:foods/cooked_meats/cooked_eggs"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/cooking/noodle_soup.json
     },
     {
       "item": "minecraft:dried_kelp"

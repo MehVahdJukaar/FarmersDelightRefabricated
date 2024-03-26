@@ -7,7 +7,11 @@
       "item": "farmersdelight:pie_crust"
     },
     "m": {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/sweet_berry_cheesecake.json
       "tag": "c:foods/milk"
+========
+      "tag": "c:milks"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/sweet_berry_cheesecake.json
     },
     "s": {
       "item": "minecraft:sweet_berries"

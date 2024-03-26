@@ -13,6 +13,10 @@ tasks.named('wrapper', Wrapper).configure {
 version = "${minecraft_version}-${mod_version}"
 group = 'vectorwing.farmersdelight' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
+sourceSets.main.resources {
+    srcDirs += 'src/generated/resources'
+}
+
 repositories {
     maven {
         // JEI

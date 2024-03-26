@@ -3,7 +3,11 @@
   "category": "misc",
   "key": {
     "M": {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/pie_crust.json
       "tag": "c:foods/milk"
+========
+      "tag": "c:milks"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/pie_crust.json
     },
     "w": {
       "item": "minecraft:wheat"

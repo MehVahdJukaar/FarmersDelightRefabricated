@@ -7,7 +7,11 @@
       "tag": "c:eggs"
     },
     "m": {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/cake_from_milk_bottle.json
       "tag": "c:foods/milk"
+========
+      "tag": "c:milks"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/cake_from_milk_bottle.json
     },
     "s": {
       "item": "minecraft:sugar"

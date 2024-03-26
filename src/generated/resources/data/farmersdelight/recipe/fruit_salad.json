@@ -12,10 +12,17 @@
       "item": "minecraft:melon_slice"
     },
     {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/fruit_salad.json
       "tag": "c:foods/berry"
     },
     {
       "tag": "c:foods/berry"
+========
+      "tag": "c:foods/berries"
+    },
+    {
+      "tag": "c:foods/berries"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/fruit_salad.json
     },
     {
       "item": "farmersdelight:pumpkin_slice"

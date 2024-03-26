@@ -12,10 +12,17 @@
       "item": "minecraft:bowl"
     },
     {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/bacon_and_eggs.json
       "tag": "c:foods/cooked_egg"
     },
     {
       "tag": "c:foods/cooked_egg"
+========
+      "tag": "c:foods/cooked_meats/cooked_eggs"
+    },
+    {
+      "tag": "c:foods/cooked_meats/cooked_eggs"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/bacon_and_eggs.json
     }
   ],
   "result": {

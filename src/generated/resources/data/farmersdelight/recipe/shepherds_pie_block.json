@@ -6,7 +6,11 @@
       "item": "minecraft:baked_potato"
     },
     {
+<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/shepherds_pie_block.json
       "tag": "c:foods/milk"
+========
+      "tag": "c:milks"
+>>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/shepherds_pie_block.json
     },
     {
       "item": "minecraft:baked_potato"
