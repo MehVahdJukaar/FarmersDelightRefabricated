@@ -4,10 +4,10 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:raw_mutton"
+      "tag": "c:foods/raw_meats/raw_mutton"
     },
     {
-      "tag": "c:pasta"
+      "tag": "c:foods/pastas"
     },
     {
       "item": "farmersdelight:tomato_sauce"
