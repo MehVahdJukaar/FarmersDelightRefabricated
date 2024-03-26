@@ -24,6 +24,12 @@
     "jei_mod_plugin": [
       "vectorwing.farmersdelight.integration.jei.JEIPlugin"
     ],
+    "rei_client": [
+      "vectorwing.farmersdelight.integration.rei.ClientREIPlugin"
+    ],
+    "rei_server": [
+      "vectorwing.farmersdelight.integration.rei.ServerREIPlugin"
+    ],
     "emi": [
       "vectorwing.farmersdelight.integration.emi.EMIPlugin"
     ]
