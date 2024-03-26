@@ -74,6 +74,11 @@ public class CookingPotEmiRecipe implements EmiRecipe {
     }
 
     @Override
+    public List<EmiIngredient> getCatalysts() {
+        return List.of(container);
+    }
+
+    @Override
     public int getDisplayWidth() {
         return 120;
     }
