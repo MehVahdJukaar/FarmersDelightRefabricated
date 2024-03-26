@@ -484,7 +484,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || meal.getRecipeRemainder().isEmpty();
+		return !mealContainerStack.isEmpty() || !meal.getRecipeRemainder().isEmpty();
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {
