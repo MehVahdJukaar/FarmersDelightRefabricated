@@ -7,7 +7,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = mod_group_id
+    archivesName = "FarmersDelight-Fabric"
 }
 
 loom {
