@@ -105,19 +105,17 @@ dependencies {
     // modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test EMI.
-    /*
     modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // This is also required for EMI as it uses an out of date FAPI.
     modLocalRuntime "net.fabricmc.fabric-api:fabric-api-deprecated:${fabric_api_version}"
-     */
 }
 
 processResources {
