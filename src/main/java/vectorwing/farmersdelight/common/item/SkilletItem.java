@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -52,6 +55,8 @@ import java.util.UUID;
 
 @SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorItem {
+    public static final float FLIP_TIME = 20;
+
     public static final Tiers SKILLET_TIER = Tiers.IRON;
     protected static final UUID FD_ATTACK_KNOCKBACK_UUID = UUID.fromString("e56350e0-8756-464d-92f9-54289ab41e0a");
 
@@ -163,6 +168,13 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
             if (level.random.nextInt(50) == 0) {
                 level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
             }
+            CompoundTag tag = stack.getOrCreateTag();
+            if (tag.contains("FlipTimeStamp")) {
+                long flipTimeStamp = tag.getLong("FlipTimeStamp");
+                if (level.getGameTime() - flipTimeStamp > FLIP_TIME) {
+                    tag.remove("FlipTimeStamp");
+                }
+            }
         }
     }
 
@@ -176,6 +188,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 player.getInventory().placeItemBackInInventory(cookingStack);
                 tag.remove("Cooking");
                 tag.remove("CookTimeHandheld");
+                tag.remove("FlipTimeStamp");
             }
         }
     }
@@ -200,10 +213,39 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 });
                 tag.remove("Cooking");
                 tag.remove("CookTimeHandheld");
+                tag.remove("FlipTimeStamp");
             }
         }
 
         return stack;
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        if (stack.getTagElement("Cooking") != null) {
+            return Math.round(13.0F - (float) getClientPlayerHack().getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack));
+        }else{
+            return super.getBarWidth(stack);
+        }
+    }
+
+    // hack
+    @Environment(EnvType.CLIENT)
+    private static Player getClientPlayerHack(){
+        return Minecraft.getInstance().player;
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        if (stack.getTagElement("Cooking") != null) {
+            return 0xFF8B4F;
+        }
+        else return super.getBarColor(stack);
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return super.isBarVisible(stack) || stack.getTagElement("Cooking") != null;
     }
 
     public static Optional<CampfireCookingRecipe> getCookingRecipe(ItemStack stack, Level level) {
