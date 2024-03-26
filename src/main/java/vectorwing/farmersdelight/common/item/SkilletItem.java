@@ -50,8 +50,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-;
-
 @SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorItem {
     public static final Tiers SKILLET_TIER = Tiers.IRON;
