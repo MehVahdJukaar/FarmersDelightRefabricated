@@ -13,7 +13,7 @@
       "item": "minecraft:beetroot"
     },
     {
-      "tag": "c:vegetables"
+      "tag": "c:foods/vegetables"
     }
   ],
   "recipe_book_tab": "meals",

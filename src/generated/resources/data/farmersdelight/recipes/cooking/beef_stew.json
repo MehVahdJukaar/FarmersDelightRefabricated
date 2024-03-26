@@ -4,7 +4,7 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:raw_beef"
+      "tag": "c:foods/raw_meats/raw_beef"
     },
     {
       "item": "minecraft:carrot"

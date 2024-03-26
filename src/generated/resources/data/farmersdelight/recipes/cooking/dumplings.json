@@ -14,13 +14,13 @@
     },
     [
       {
-        "tag": "c:raw_chicken"
+        "tag": "c:foods/raw_meats/raw_chicken"
       },
       {
-        "tag": "c:raw_pork"
+        "tag": "c:foods/raw_meats/raw_pork"
       },
       {
-        "tag": "c:raw_beef"
+        "tag": "c:foods/raw_meats/raw_beef"
       },
       {
         "item": "minecraft:brown_mushroom"
