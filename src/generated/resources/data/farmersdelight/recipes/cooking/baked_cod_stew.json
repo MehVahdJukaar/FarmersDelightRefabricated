@@ -4,7 +4,7 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:raw_fishes/cod"
+      "tag": "c:foods/raw_fishes/cod"
     },
     {
       "item": "minecraft:potato"
