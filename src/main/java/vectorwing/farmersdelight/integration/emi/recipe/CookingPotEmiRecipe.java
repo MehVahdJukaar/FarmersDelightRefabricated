@@ -41,7 +41,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
         this.tooltipComponents = createTooltipComponents();
         ImmutableList.Builder<EmiIngredient> emiInputsBuilder = new ImmutableList.Builder<>();
         emiInputsBuilder.addAll(this.recipeInputs);
-        emiInputsBuilder.add(this.output);
+        emiInputsBuilder.add(this.container);
         this.emiInputs = emiInputsBuilder.build();
     }
 
