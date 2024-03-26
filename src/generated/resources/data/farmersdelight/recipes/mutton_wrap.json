@@ -6,7 +6,7 @@
       "tag": "c:foods/bread"
     },
     {
-      "tag": "c:cooked_mutton"
+      "tag": "c:foods/cooked_meat/cooked_mutton"
     },
     {
       "tag": "c:salad_ingredients"
