@@ -5,6 +5,7 @@ import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.item.MCItemStackMutable;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
+import com.blamejared.crafttweaker_annotations.annotations.NativeTypeRegistration;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -53,9 +54,25 @@ public class CTToolActionIngredient implements IIngredient {
     }
 
 
-    @ZenCodeType.Expansion("crafttweaker.api.tool.ToolAction")
+    // Originally an extension to CraftTweaker's ToolAction, but that doesn't exist
+    // on Fabric, so this is now a new NativeType.
     @ZenRegister
+    @NativeTypeRegistration(value = ToolAction.class, zenCodeName = "farmersdelight.api.tool.ToolAction")
     public static class ExpandToolAction {
+        @ZenCodeType.Method
+        @ZenCodeType.Getter("name")
+        public static String name(ToolAction internal) {
+
+            return internal.name();
+        }
+
+        @ZenCodeType.Method
+        @ZenCodeType.Getter("commandString")
+        public static String getCommandString(ToolAction internal) {
+
+            return "<toolaction:" + name(internal) + ">";
+        }
+        
         // Support the syntax:
         // <tooltype:axe> as IIngredient
         @ZenCodeType.Method
