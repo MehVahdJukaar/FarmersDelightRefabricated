@@ -9,6 +9,8 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.world.filter.BiomeTagFilter;
 
+import java.util.function.Supplier;
+
 public class ModPlacementModifiers
 {
 	public static final LazyRegistrar<PlacementModifierType<?>> PLACEMENT_MODIFIERS = LazyRegistrar.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), FarmersDelight.MODID);

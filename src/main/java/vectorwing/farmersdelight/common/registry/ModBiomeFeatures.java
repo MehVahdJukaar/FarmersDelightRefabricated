@@ -10,6 +10,8 @@ import vectorwing.farmersdelight.common.world.configuration.WildCropConfiguratio
 import vectorwing.farmersdelight.common.world.feature.WildCropFeature;
 import vectorwing.farmersdelight.common.world.feature.WildRiceFeature;
 
+import java.util.function.Supplier;
+
 public class ModBiomeFeatures
 {
 	public static final LazyRegistrar<Feature<?>> FEATURES = LazyRegistrar.create(BuiltInRegistries.FEATURE, FarmersDelight.MODID);

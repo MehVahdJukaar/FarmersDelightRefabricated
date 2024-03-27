@@ -9,6 +9,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.item.enchantment.BackstabbingEnchantment;
 
+import java.util.function.Supplier;
+
 public class ModEnchantments
 {
     // cant do on fabric :P

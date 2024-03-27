@@ -10,6 +10,8 @@ import vectorwing.farmersdelight.common.loot.modifier.AddItemModifier;
 import vectorwing.farmersdelight.common.loot.modifier.AddLootTableModifier;
 import vectorwing.farmersdelight.common.loot.modifier.PastrySlicingModifier;
 
+import java.util.function.Supplier;
+
 public class ModLootModifiers
 {
 	public static final LazyRegistrar<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = LazyRegistrar.create(PortingLibLoot.GLOBAL_LOOT_MODIFIER_SERIALIZERS_KEY, FarmersDelight.MODID);

@@ -9,6 +9,8 @@ import vectorwing.farmersdelight.common.loot.function.CopyMealFunction;
 import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.loot.function.SmokerCookFunction;
 
+import java.util.function.Supplier;
+
 public class ModLootFunctions
 {
 	public static final LazyRegistrar<LootItemFunctionType> LOOT_FUNCTIONS = LazyRegistrar.create(BuiltInRegistries.LOOT_FUNCTION_TYPE.key(), FarmersDelight.MODID);

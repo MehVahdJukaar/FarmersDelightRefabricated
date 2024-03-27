@@ -8,6 +8,8 @@ import net.minecraft.world.inventory.MenuType;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
+import java.util.function.Supplier;
+
 public class ModMenuTypes
 {
 	public static final LazyRegistrar<MenuType<?>> MENU_TYPES = LazyRegistrar.create(BuiltInRegistries.MENU, FarmersDelight.MODID);

@@ -8,6 +8,8 @@ import net.minecraft.world.entity.MobCategory;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 
+import java.util.function.Supplier;
+
 public class ModEntityTypes
 {
 	public static final LazyRegistrar<EntityType<?>> ENTITIES = LazyRegistrar.create(BuiltInRegistries.ENTITY_TYPE, FarmersDelight.MODID);
