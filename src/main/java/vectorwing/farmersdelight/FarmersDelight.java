@@ -36,6 +36,7 @@ public class FarmersDelight implements ModInitializer
 		return new ResourceLocation(MODID, name);
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	@Override
 	public void onInitialize() {
 		ConfigRegistry.registerConfig(MODID, ConfigType.COMMON, Configuration.COMMON_CONFIG);
@@ -55,7 +56,6 @@ public class FarmersDelight implements ModInitializer
 		ModBiomeFeatures.FEATURES.register();
 		ModCreativeTabs.CREATIVE_TABS.register();
 		ModPlacementModifiers.PLACEMENT_MODIFIERS.register();
-		//ModBiomeModifiers.BIOME_MODIFIER_SERIALIZERS.register();
 		ModLootFunctions.LOOT_FUNCTIONS.register();
 		ModLootModifiers.LOOT_MODIFIERS.register();
 

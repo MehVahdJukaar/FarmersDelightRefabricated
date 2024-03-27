@@ -136,7 +136,8 @@ processResources {
             mod_description      : mod_description,
             mod_credits          : mod_credits,
             mod_homepage         : mod_homepage,
-            mod_github           : mod_github
+            mod_github           : mod_github,
+            port_lib_version     : port_lib_version
     ]
     // setting them as input
     inputs.properties replaceProperties
