@@ -16,6 +16,6 @@ public class ModEnchantments
 
 	public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FarmersDelight.MODID);
 
-	public static final RegistryObject<Enchantment> BACKSTABBING = ENCHANTMENTS.register("backstabbing",
+	public static final Supplier<Enchantment> BACKSTABBING = ENCHANTMENTS.register("backstabbing",
 			() -> new BackstabbingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 }
