@@ -1,3 +1,1 @@
-# Farmers Delight Refabricated
-
-just changed version to 1.20.1
+fixed a server crash
