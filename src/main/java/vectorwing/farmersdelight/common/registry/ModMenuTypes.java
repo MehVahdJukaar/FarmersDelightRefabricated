@@ -8,6 +8,8 @@ import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
+import java.util.function.Supplier;
+
 public class ModMenuTypes
 {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, FarmersDelight.MODID);

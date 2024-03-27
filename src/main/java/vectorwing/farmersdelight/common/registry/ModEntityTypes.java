@@ -8,6 +8,8 @@ import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 
+import java.util.function.Supplier;
+
 public class ModEntityTypes
 {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FarmersDelight.MODID);

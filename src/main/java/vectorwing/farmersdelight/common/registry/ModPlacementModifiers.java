@@ -9,6 +9,8 @@ import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.world.filter.BiomeTagFilter;
 
+import java.util.function.Supplier;
+
 public class ModPlacementModifiers
 {
 	public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), FarmersDelight.MODID);

@@ -10,6 +10,8 @@ import vectorwing.farmersdelight.common.world.configuration.WildCropConfiguratio
 import vectorwing.farmersdelight.common.world.feature.WildCropFeature;
 import vectorwing.farmersdelight.common.world.feature.WildRiceFeature;
 
+import java.util.function.Supplier;
+
 public class ModBiomeFeatures
 {
 	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, FarmersDelight.MODID);

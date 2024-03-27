@@ -11,6 +11,8 @@ import vectorwing.farmersdelight.common.loot.modifier.AddLootTableModifier;
 import vectorwing.farmersdelight.common.loot.modifier.PastrySlicingModifier;
 import vectorwing.farmersdelight.common.loot.modifier.ReplaceItemModifier;
 
+import java.util.function.Supplier;
+
 public class ModLootModifiers
 {
 	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FarmersDelight.MODID);
