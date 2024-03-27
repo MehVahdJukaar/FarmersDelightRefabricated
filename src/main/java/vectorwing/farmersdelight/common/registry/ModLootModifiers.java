@@ -12,6 +12,8 @@ import vectorwing.farmersdelight.common.loot.modifier.ReplaceItemModifier;
 
 import java.util.function.Supplier;
 
+import java.util.function.Supplier;
+
 public class ModLootModifiers
 {
 	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FarmersDelight.MODID);
