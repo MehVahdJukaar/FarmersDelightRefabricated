@@ -9,11 +9,13 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 
+import java.util.function.Supplier;
+
 public class ModCreativeTabs
 {
 	public static final LazyRegistrar<CreativeModeTab> CREATIVE_TABS = LazyRegistrar.create(Registries.CREATIVE_MODE_TAB, FarmersDelight.MODID);
 
-	public static final RegistryObject<CreativeModeTab> TAB_FARMERS_DELIGHT = CREATIVE_TABS.register(FarmersDelight.MODID,
+	public static final Supplier<CreativeModeTab> TAB_FARMERS_DELIGHT = CREATIVE_TABS.register(FarmersDelight.MODID,
 			() -> FabricItemGroup.builder()
 					.title(Component.translatable("itemGroup.farmersdelight"))
 					.icon(() -> new ItemStack(ModBlocks.STOVE.get()))

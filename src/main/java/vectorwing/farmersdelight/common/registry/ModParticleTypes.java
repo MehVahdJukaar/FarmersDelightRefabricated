@@ -8,12 +8,14 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import vectorwing.farmersdelight.FarmersDelight;
 
+import java.util.function.Supplier;
+
 public class ModParticleTypes
 {
 	public static final LazyRegistrar<ParticleType<?>> PARTICLE_TYPES = LazyRegistrar.create(BuiltInRegistries.PARTICLE_TYPE, FarmersDelight.MODID);
 
-	public static final RegistryObject<SimpleParticleType> STAR = PARTICLE_TYPES.register("star",
+	public static final Supplier<SimpleParticleType> STAR = PARTICLE_TYPES.register("star",
 			() -> FabricParticleTypes.simple(true));
-	public static final RegistryObject<SimpleParticleType> STEAM = PARTICLE_TYPES.register("steam",
+	public static final Supplier<SimpleParticleType> STEAM = PARTICLE_TYPES.register("steam",
 			() -> FabricParticleTypes.simple(true));
 }

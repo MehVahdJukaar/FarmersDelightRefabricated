@@ -41,7 +41,6 @@ public class FarmersDelight implements ModInitializer
 	public void onInitialize() {
 		ConfigRegistry.registerConfig(MODID, ConfigType.COMMON, Configuration.COMMON_CONFIG);
 		ConfigRegistry.registerConfig(MODID, ConfigType.CLIENT, Configuration.CLIENT_CONFIG);
-		ModCreativeTabs
 		ModSounds.SOUNDS.register();
 		ModBlocks.BLOCKS.register();
 		ModEffects.EFFECTS.register();

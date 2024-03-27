@@ -12,6 +12,6 @@ public class ModMenuTypes
 {
 	public static final LazyRegistrar<MenuType<?>> MENU_TYPES = LazyRegistrar.create(BuiltInRegistries.MENU, FarmersDelight.MODID);
 
-	public static final RegistryObject<MenuType<CookingPotMenu>> COOKING_POT = MENU_TYPES
+	public static final Supplier<MenuType<CookingPotMenu>> COOKING_POT = MENU_TYPES
 			.register("cooking_pot", () -> new ExtendedScreenHandlerType<>(CookingPotMenu::new));
 }
