@@ -137,16 +137,13 @@ if (env.MODRINTH_TOKEN) {
         uploadFile = tasks.remapJar
         additionalFiles.add(tasks.remapSourcesJar)
         gameVersions = [minecraft_version]
-        loaders = [modLoader]
+        loaders = ["fabric"]
         changelog = changelogText
-        versionNumber = modLoader +"_"+ mod_version
+        versionNumber = "fabric" +"_"+ mod_version
         versionType = "release"
 
-        if (modLoader == "fabric") {
-            dependencies {
-                required.project "fabric-api"
-            }
-        } else {
+        dependencies {
+            required.project "fabric-api"
         }
     }
 }
@@ -160,21 +157,17 @@ if (env.CURSEFORGE_TOKEN) {
             changelogType = 'markdown'
             releaseType = 'release'
             addGameVersion minecraft_version
-            addGameVersion modLoader.capitalize()
+            addGameVersion "Fabric"
 
             mainArtifact(tasks.remapJar)
             addArtifact(tasks.remapSourcesJar)
 
-            if (modLoader == "fabric") {
-                relations {
-                    requiredDependency "fabric-api"
-                }
-            } else {
+            relations {
+                requiredDependency "fabric-api"
             }
         }
     }
 }
-
 
 processResources {
     var replaceProperties = [
