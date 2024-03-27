@@ -40,6 +40,7 @@
   "accessWidener": "${mod_id}.accesswidener",
   "depends": {
     "fabric": "*",
+    "porting_lib": ">=${port_lib_version}",
     "minecraft": ">=${minecraft_min_version} <${minecraft_max_version}"
   }
 }
