@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
-import io.github.fabricators_of_create.porting_lib.models.geometry.SimpleModelState;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

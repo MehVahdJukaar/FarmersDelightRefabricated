@@ -1,6 +1,8 @@
 plugins {
     id 'fabric-loom' version '1.5-SNAPSHOT'
     id 'maven-publish'
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id "com.modrinth.minotaur" version "2.8.4"
 }
 
 version = mod_version
@@ -121,6 +123,58 @@ dependencies {
     modLocalRuntime "net.fabricmc.fabric-api:fabric-api-deprecated:${fabric_api_version}"
      */
 }
+
+
+var env = System.getenv()
+var modLoader = name
+
+var changelogFile = rootProject.file("changelog.md")
+var changelogText = changelogFile.exists() ? changelogFile.text : ""
+
+if (env.MODRINTH_TOKEN) {
+    modrinth {
+        projectId = modrinth_project_id
+        uploadFile = tasks.remapJar
+        additionalFiles.add(tasks.remapSourcesJar)
+        gameVersions = [minecraft_version]
+        loaders = [modLoader]
+        changelog = changelogText
+        versionNumber = modLoader +"_"+ mod_version
+        versionType = "release"
+
+        if (modLoader == "fabric") {
+            dependencies {
+                required.project "fabric-api"
+            }
+        } else {
+        }
+    }
+}
+
+if (env.CURSEFORGE_TOKEN) {
+    curseforge {
+        apiKey = env.CURSEFORGE_TOKEN
+        project {
+            id = project_id
+            changelog = changelogText
+            changelogType = 'markdown'
+            releaseType = 'release'
+            addGameVersion minecraft_version
+            addGameVersion modLoader.capitalize()
+
+            mainArtifact(tasks.remapJar)
+            addArtifact(tasks.remapSourcesJar)
+
+            if (modLoader == "fabric") {
+                relations {
+                    requiredDependency "fabric-api"
+                }
+            } else {
+            }
+        }
+    }
+}
+
 
 processResources {
     var replaceProperties = [
