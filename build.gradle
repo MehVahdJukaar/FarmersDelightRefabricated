@@ -111,6 +111,9 @@ dependencies {
     // Uncomment the below to test REI.
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
+//    modImplementation("curse.maven:farmers-respite-fabric-811003:4754429")
+  //  modImplementation("curse.maven:forge-config-api-port-fabric-547434:4583000")
+
     modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
         exclude(group: "net.fabricmc.fabric-api")
     }

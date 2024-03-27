@@ -14,24 +14,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 
-public class SkilletItemRenderer extends BlockEntityWithoutLevelRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
     public SkilletItemRenderer() {
-        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 
     @Override
-    public void render(ItemStack stack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        this.renderByItem(stack, mode, matrices, vertexConsumers, light, overlay);
-    }
-
-    @Override
-    public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    public void render(ItemStack stack, ItemDisplayContext mode, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         //render block
         poseStack.pushPose();
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, poseStack, buffer, packedLight, packedOverlay);
+        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, poseStack, buffer, light, overlay);
         poseStack.popPose();
 
         CompoundTag tag = stack.getTagElement("Cooking");
@@ -55,8 +49,8 @@ public class SkilletItemRenderer extends BlockEntityWithoutLevelRenderer impleme
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
             var itemRenderer = Minecraft.getInstance().getItemRenderer();
-            itemRenderer.renderStatic(ingredientStack, ItemDisplayContext.FIXED, packedLight,
-                    packedOverlay, poseStack, buffer, null, 0);
+            itemRenderer.renderStatic(ingredientStack, ItemDisplayContext.FIXED, light,
+                    overlay, poseStack, buffer, null, 0);
 
             poseStack.popPose();
         }

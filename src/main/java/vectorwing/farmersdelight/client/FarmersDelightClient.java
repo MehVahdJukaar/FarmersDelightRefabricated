@@ -1,10 +1,6 @@
 package vectorwing.farmersdelight.client;
 
-import dev.architectury.platform.Mod;
 import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents;
-import io.github.fabricators_of_create.porting_lib.registries.mixin.NetworkedRegistryDataAccessor;
-import io.github.fabricators_of_create.porting_lib.util.NetworkDirection;
-import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -13,7 +9,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +48,7 @@ public class FarmersDelightClient implements ClientModInitializer {
                 (stack, world, entity, s) -> stack.getTagElement("Cooking") != null ? 1 : 0);
 
         // skillet flip stuff. could be put in a better place...
-        MouseInputEvents.AFTER_BUTTON.register((button,modifier, action) -> {
+        MouseInputEvents.AFTER_BUTTON.register((button, modifier, action) -> {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1 && action == MouseInputEvents.Action.PRESS) {
                 var player = Minecraft.getInstance().player;
                 if (player != null && player.isUsingItem()) {
@@ -66,7 +61,7 @@ public class FarmersDelightClient implements ClientModInitializer {
 
         // render type stuff
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
-                ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
+                ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
                 ModBlocks.CABBAGE_CROP.get(), ModBlocks.CUTTING_BOARD.get(), ModBlocks.ONION_CROP.get(),
                 ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.WILD_CARROTS.get(),
                 ModBlocks.WILD_ONIONS.get(), ModBlocks.WILD_POTATOES.get(), ModBlocks.WILD_RICE.get(), ModBlocks.WILD_TOMATOES.get(),
