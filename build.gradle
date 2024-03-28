@@ -137,6 +137,7 @@ var changelogText = changelogFile.exists() ? changelogFile.text : ""
 if (env.MODRINTH_TOKEN) {
     modrinth {
         projectId = modrinth_project_id
+        versionName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
         uploadFile = tasks.remapJar
         additionalFiles.add(tasks.remapSourcesJar)
         gameVersions = [minecraft_version]
@@ -162,7 +163,9 @@ if (env.CURSEFORGE_TOKEN) {
             addGameVersion minecraft_version
             addGameVersion "Fabric"
 
-            mainArtifact(tasks.remapJar)
+            mainArtifact(tasks.remapJar) {
+                displayName = "Farmer's Delight ${mod_version.split("-")[1]} - ${minecraft_version}"
+            }
             addArtifact(tasks.remapSourcesJar)
 
             relations {
