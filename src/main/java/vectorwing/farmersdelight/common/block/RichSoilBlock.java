@@ -2,12 +2,15 @@ package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
+import io.github.fabricators_of_create.porting_lib.event.client.InteractEvents;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
+import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +30,10 @@ public class RichSoilBlock extends Block
 {
 	public RichSoilBlock(Properties properties) {
 		super(properties);
+	}
+
+	public static void init() {
+		TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
 	}
 
 	@Override
@@ -65,6 +72,8 @@ public class RichSoilBlock extends Block
 		}
 	}
 
+	// Likely will go unused until PortingLib fixes this.
+	// Look at init method for new impl.
 	@Override
 	@Nullable
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {

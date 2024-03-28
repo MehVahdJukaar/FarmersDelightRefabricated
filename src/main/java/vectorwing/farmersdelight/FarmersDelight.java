@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.block.RichSoilBlock;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.event.CommonEvents;
@@ -73,5 +74,6 @@ public class FarmersDelight implements ModInitializer
 		HorseFeedItem.init();
 		KnifeItem.init();
 		ModNetworking.init();
+		RichSoilBlock.init();
 	}
 }
