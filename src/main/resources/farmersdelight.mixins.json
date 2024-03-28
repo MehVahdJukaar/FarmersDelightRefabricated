@@ -17,6 +17,7 @@
     "RecipeBookSettingsMixin",
     "RecipeBookTypeMixin",
     "SoupItemMixin",
+    "accessor.LootContextAccessor",
     "accessor.RecipeManagerAccessor"
   ],
   "client": [

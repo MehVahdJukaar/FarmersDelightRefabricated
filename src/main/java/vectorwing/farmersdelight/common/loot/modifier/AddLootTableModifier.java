@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.mixin.accessor.LootContextAccessor;
 
 import java.util.function.Supplier;
 
@@ -40,7 +41,9 @@ public class AddLootTableModifier extends LootModifier
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {
 			LootTable extraTable = context.getResolver().getLootTable(this.lootTable);
-			extraTable.getRandomItemsRaw(context, LootTable.createStackSplitter(context.getLevel(), generatedLoot::add));
+			// Use new context to avoid a StackOverflowError.
+			LootContext newContext = new LootContext.Builder(((LootContextAccessor)context).getParams()).create(this.lootTable);
+			extraTable.getRandomItemsRaw(newContext, LootTable.createStackSplitter(context.getLevel(), generatedLoot::add));
 		}
 		return generatedLoot;
 	}
