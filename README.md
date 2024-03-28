@@ -1,6 +1,6 @@
-# Farmer's Delight
+# Farmer's Delight Refabricated
 
-<a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight">
+<a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated">
   <img src="http://cf.way2muchnoise.eu/full_398521_downloads.svg" alt="Curseforge Downloads">
 </a>
 <a href="https://discord.gg/eFsz5SK">
@@ -24,3 +24,19 @@ It's time to farm a little bit of everything!
 Thank you for visiting the repository! If you'd like to contribute with the mod, feel free to check the wiki for more details, or take a look at the issues page!
 
 I am open to constructive feedback about the mod's code: if you spot any glaring mistakes in my code, and/or you know a better way to accomplish something, feel free to open an issue/PR about it. Any help is appreciated!
+
+### Depending on Farmer's Delight Refabricated
+Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://maven.greenhouseteam.dev/).
+
+To do so, assuming you have a field in your gradle.properties named `fdrf_version`.
+```groovy
+repositories {
+    maven {
+        name = "Greenhouse Maven"
+        url = 'https://maven.greenhousteam.dev/releases/'
+    }
+}
+dependencies {
+    modImplementation "vectorwing:FarmersDelight-Refabricated:${fdrf_version}"
+}
+```
