@@ -31,7 +31,7 @@ public class FarmersDelight implements ModInitializer
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 	// Moved initializer to RecipeBookTypeMixin.
-	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.valueOf("COOKING");
+	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.valueOf("FARMERSDELIGHT_COOKING");
 
 	public static ResourceLocation res(String name) {
 		return new ResourceLocation(MODID, name);

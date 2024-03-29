@@ -13,10 +13,10 @@ import java.util.function.Supplier;
 public class RecipeCategories
 {
 	// Moved initializers to RecipeBookCategoriesMixin.
-	public static final Supplier<RecipeBookCategories> COOKING_SEARCH = Suppliers.memoize(() -> RecipeBookCategories.valueOf("COOKING_SEARCH"));
-	public static final Supplier<RecipeBookCategories> COOKING_MEALS = Suppliers.memoize(() -> RecipeBookCategories.valueOf("COOKING_MEALS"));
-	public static final Supplier<RecipeBookCategories> COOKING_DRINKS = Suppliers.memoize(() -> RecipeBookCategories.valueOf("COOKING_DRINKS"));
-	public static final Supplier<RecipeBookCategories> COOKING_MISC = Suppliers.memoize(() -> RecipeBookCategories.valueOf("COOKING_MISC"));
+	public static final Supplier<RecipeBookCategories> COOKING_SEARCH = Suppliers.memoize(() -> RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_SEARCH"));
+	public static final Supplier<RecipeBookCategories> COOKING_MEALS = Suppliers.memoize(() -> RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_MEALS"));
+	public static final Supplier<RecipeBookCategories> COOKING_DRINKS = Suppliers.memoize(() -> RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_DRINKS"));
+	public static final Supplier<RecipeBookCategories> COOKING_MISC = Suppliers.memoize(() -> RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_MISC"));
 
 	public static void init() {
 		RecipeBookRegistry.registerBookCategories(FarmersDelight.RECIPE_TYPE_COOKING, ImmutableList.of(COOKING_SEARCH.get(), COOKING_MEALS.get(), COOKING_DRINKS.get(), COOKING_MISC.get()));
