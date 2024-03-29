@@ -1,2 +1,3 @@
 - Updated PortingLib to fix loot table modifications ([#11](https://github.com/MehVahdJukaar/FarmersDelight/issues/11))
 - Fixed certain classes completely overriding the hover text code. ([#12](https://github.com/MehVahdJukaar/FarmersDelight/issues/12)) 
+- Added sound when flipping items in skillet
