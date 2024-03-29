@@ -23,12 +23,21 @@ body:
     validations:
       required: true
   - type: input
-    id: forge_version
+    id: fabric_version
     attributes:
-      label: NeoForge version
-      description: "For issues regarding the Fabric port, go to: https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues"
+      label: Fabric Loader version
+      description: "For issues regarding the official Forge version, go to: https://github.com/vectorwing/FarmersDelight/issues"
       placeholder: | 
-        Example: 21.0.160
+        Example: 0.15.7
+    validations:
+      required: true
+  - type: input
+    id: fabric_api_version
+    attributes:
+      label: Fabric API version
+      description: "For issues regarding the official Forge version, go to: https://github.com/vectorwing/FarmersDelight/issues"
+      placeholder: |
+        Example: 0.92.0+1.20.1
     validations:
       required: true
   - type: textarea
@@ -70,13 +79,13 @@ body:
     id: has_tested_minimal_instance
     attributes:
       label: Minimal instance
-      description: Have you tried testing the issue on a Minecraft instance containing only Farmer's Delight and mods related to the issue?
+      description: Have you tried testing the issue on a Minecraft instance containing only Farmer's Delight Refabricated and mods related to the issue?
       options:
         - label: I have tested this on a minimal instance
   - type: checkboxes
     id: is_using_performance_mods
     attributes:
       label: Performance and shader mods
-      description: Sometimes, performance and shader mods (for example, Optifine, Rubidium, Oculus etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
+      description: Sometimes, performance and shader mods (for example, Optifine, Sodium, Iris etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
       options:
         - label: I am using performance or shader mods
