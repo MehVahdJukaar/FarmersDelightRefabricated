@@ -90,7 +90,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				double x = (double) pos.getX() + 0.5D;
 				double y = (double) pos.getY() + 0.1D;
 				double z = (double) pos.getZ() + 0.5D;
-				level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+				level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
 			}
 		}
 

@@ -173,7 +173,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 long flipTimeStamp = tag.getLong("FlipTimeStamp");
                 if (level.getGameTime() - flipTimeStamp > FLIP_TIME) {
                     tag.remove("FlipTimeStamp");
-                    level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+                    level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
                 }
             }
         }
