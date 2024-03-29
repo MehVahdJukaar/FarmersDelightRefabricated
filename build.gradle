@@ -139,7 +139,6 @@ if (env.MODRINTH_TOKEN) {
         projectId = modrinth_project_id
         versionName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
         uploadFile = tasks.remapJar
-        additionalFiles.add(tasks.remapSourcesJar)
         gameVersions = [minecraft_version]
         loaders = ["fabric", "quilt"]
         changelog = changelogText
@@ -172,7 +171,6 @@ if (env.CURSEFORGE_TOKEN) {
             mainArtifact(tasks.remapJar) {
                 displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
             }
-            addArtifact(tasks.remapSourcesJar)
 
             relations {
                 requiredDependency "fabric-api"
