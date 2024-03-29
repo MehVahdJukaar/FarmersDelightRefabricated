@@ -141,7 +141,7 @@ if (env.MODRINTH_TOKEN) {
         uploadFile = tasks.remapJar
         additionalFiles.add(tasks.remapSourcesJar)
         gameVersions = [minecraft_version]
-        loaders = ["fabric"]
+        loaders = ["fabric", "quilt"]
         changelog = changelogText
         versionNumber = "fabric" +"_"+ mod_version
         versionType = "release"
@@ -167,6 +167,7 @@ if (env.CURSEFORGE_TOKEN) {
             releaseType = 'release'
             addGameVersion minecraft_version
             addGameVersion "Fabric"
+            addGameVersion "Quilt"
 
             mainArtifact(tasks.remapJar) {
                 displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
