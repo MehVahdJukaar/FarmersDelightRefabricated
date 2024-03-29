@@ -1,2 +1,1 @@
-- Added sound when flipping items in skillet
-- Use modApi for Porting Lib dependency so it will transitively apply to developer environments.
+- Prefixed all recipe book related enums.
