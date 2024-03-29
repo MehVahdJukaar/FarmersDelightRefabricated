@@ -37,6 +37,7 @@ repositories {
         name = "Greenhouse Maven"
         url = 'https://maven.greenhouseteam.dev/releases/'
     }
+    maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
 }
 dependencies {
     modImplementation "vectorwing:FarmersDelight-Refabricated:${fdrf_version}"
