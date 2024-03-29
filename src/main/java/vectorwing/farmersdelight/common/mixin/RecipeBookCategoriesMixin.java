@@ -32,10 +32,10 @@ public class RecipeBookCategoriesMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void addCookingRecipeCategory(CallbackInfo ci) {
         List<RecipeBookCategories> recipeBookTypeList = new ArrayList<>(List.of($VALUES));
-        recipeBookTypeList.add(createRecipeBookCategory("COOKING_SEARCH", $VALUES.length, new ItemStack(Items.COMPASS)));
-        recipeBookTypeList.add(createRecipeBookCategory("COOKING_MEALS", $VALUES.length + 1, new ItemStack(ModItems.VEGETABLE_NOODLES.get())));
-        recipeBookTypeList.add(createRecipeBookCategory("COOKING_DRINKS", $VALUES.length + 2, new ItemStack(ModItems.APPLE_CIDER.get())));
-        recipeBookTypeList.add(createRecipeBookCategory("COOKING_MISC", $VALUES.length + 3, new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())));
+        recipeBookTypeList.add(createRecipeBookCategory("FARMERSDELIGHT_COOKING_SEARCH", $VALUES.length, new ItemStack(Items.COMPASS)));
+        recipeBookTypeList.add(createRecipeBookCategory("FARMERSDELIGHT_COOKING_MEALS", $VALUES.length + 1, new ItemStack(ModItems.VEGETABLE_NOODLES.get())));
+        recipeBookTypeList.add(createRecipeBookCategory("FARMERSDELIGHT_COOKING_DRINKS", $VALUES.length + 2, new ItemStack(ModItems.APPLE_CIDER.get())));
+        recipeBookTypeList.add(createRecipeBookCategory("FARMERSDELIGHT_COOKING_MISC", $VALUES.length + 3, new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())));
         $VALUES = recipeBookTypeList.toArray(RecipeBookCategories[]::new);
     }
 }
