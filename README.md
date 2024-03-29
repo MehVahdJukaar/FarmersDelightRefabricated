@@ -38,6 +38,12 @@ repositories {
         url = 'https://maven.greenhouseteam.dev/releases/'
     }
     maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
+    maven {
+        url "https://maven.jamieswhiteshirt.com/libs-release" // Reach Entity Attributes (Required by Porting Lib)
+        content {
+            includeGroup "com.jamieswhiteshirt"
+        }
+    }
 }
 dependencies {
     modImplementation "vectorwing:FarmersDelight-Refabricated:${fdrf_version}"
