@@ -169,7 +169,7 @@ if (env.CURSEFORGE_TOKEN) {
             addGameVersion "Fabric"
 
             mainArtifact(tasks.remapJar) {
-                displayName = "Farmer's Delight ${mod_version.split("-")[1]} - ${minecraft_version}"
+                displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
             }
             addArtifact(tasks.remapSourcesJar)
 
