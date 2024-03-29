@@ -142,7 +142,7 @@ if (env.MODRINTH_TOKEN) {
         gameVersions = [minecraft_version]
         loaders = ["fabric", "quilt"]
         changelog = changelogText
-        versionNumber = "fabric" +"_"+ mod_version
+        versionNumber = mod_version
         versionType = "release"
 
         dependencies {
