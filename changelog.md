@@ -1,5 +1,2 @@
-fixed rich soil being unable to be tilled. (#6)
-
-fixed crops being unable to be placed on rich soil farmland. (#6)
-
-fixed StackOverflowError crash when modifying certain loot tables (#8)
+- Updated PortingLib to fix loot table modifications ([#11](https://github.com/MehVahdJukaar/FarmersDelight/issues/11))
+- Fixed certain classes completely overriding the hover text code. ([#12](https://github.com/MehVahdJukaar/FarmersDelight/issues/12)) 
