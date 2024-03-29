@@ -86,6 +86,6 @@ body:
     id: is_using_performance_mods
     attributes:
       label: Performance and shader mods
-      description: Sometimes, performance and shader mods (for example, Optifine, Sodium, Iris etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
+      description: Sometimes, performance and shader mods (for example, Sodium, Iris etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
       options:
         - label: I am using performance or shader mods
