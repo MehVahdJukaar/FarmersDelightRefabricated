@@ -148,7 +148,7 @@ if (env.MODRINTH_TOKEN) {
 
         dependencies {
             required.project "fabric-api"
-            embedded.project "porting-lib"
+            embedded.project "porting_lib"
             optional.project "crafttweaker"
             optional.project "jei"
             optional.project "rei"
