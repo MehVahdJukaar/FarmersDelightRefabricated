@@ -148,6 +148,11 @@ if (env.MODRINTH_TOKEN) {
 
         dependencies {
             required.project "fabric-api"
+            embedded.project "porting-lib"
+            optional.project "crafttweaker"
+            optional.project "jei"
+            optional.project "rei"
+            optional.project "emi"
         }
     }
 }
@@ -170,6 +175,11 @@ if (env.CURSEFORGE_TOKEN) {
 
             relations {
                 requiredDependency "fabric-api"
+                embeddedLibrary "porting-lib"
+                optionalDependency "crafttweaker"
+                optionalDependency "jei"
+                optionalDependency "roughly-enough-items"
+                optionalDependency "emi"
             }
         }
     }
