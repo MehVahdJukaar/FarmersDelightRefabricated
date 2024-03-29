@@ -1,13 +1,15 @@
 # Farmer's Delight Refabricated
 
 <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated">
-  <img src="http://cf.way2muchnoise.eu/full_398521_downloads.svg" alt="Curseforge Downloads">
+  <img src="http://cf.way2muchnoise.eu/full_993166_downloads.svg" alt="Curseforge Downloads">
 </a>
 <a href="https://discord.gg/eFsz5SK">
-  <img alt="Discord" src="https://img.shields.io/discord/734511833947439156?color=brightgreen&label=Discord">
+  <img alt="Discord" src="https://img.shields.io/discord/790151253144895508?color=brightgreen&label=Discord">
 </a>
 <br>
-<img src="https://i.imgur.com/aDELzhM.png" width="50%">
+<img src="https://cdn.modrinth.com/data/cached_images/55f4eef09b087d3b08a792e1c7c224e5796cbb71.png" width="50%">
+
+## For the official Forge version of the mod's GitHub, please go [here](https://github.com/vectorwing/FarmersDelight/).
 
 ### Overview
 
