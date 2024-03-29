@@ -33,7 +33,7 @@ To do so, assuming you have a field in your gradle.properties named `fdrf_versio
 repositories {
     maven {
         name = "Greenhouse Maven"
-        url = 'https://maven.greenhousteam.dev/releases/'
+        url = 'https://maven.greenhouseteam.dev/releases/'
     }
 }
 dependencies {
