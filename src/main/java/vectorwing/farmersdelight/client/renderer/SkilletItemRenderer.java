@@ -14,6 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 
+/**
+ * Author: MehVahdJukaar
+ */
 public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
     public SkilletItemRenderer() {
