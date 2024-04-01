@@ -44,7 +44,7 @@ public class FarmersDelight implements ModInitializer
 		ConfigRegistry.registerConfig(MODID, ConfigType.CLIENT, Configuration.CLIENT_CONFIG);
 		ModSounds.SOUNDS.register();
 		ModBlocks.BLOCKS.register();
-		ModEffects.EFFECTS.register();
+		//ModEffects.EFFECTS.register();
 		ModParticleTypes.PARTICLE_TYPES.register();
 		ModItems.ITEMS.register();
 		ModEntityTypes.ENTITIES.register();
