@@ -1,2 +1,3 @@
 - Prefixed all recipe book related enums.
 - Fixed vectorwing not being present within the mod credits.
+- Fixed Dog Food not applying any superclass tooltips.
