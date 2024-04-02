@@ -1,3 +1,3 @@
 - Added more compat layer specifically made for old addons.
 - These include the following:
-- Ocean's Delight, End Delight, Expanded Delight, End Delight and Chef's Delight. 
+- Ocean's Delight, End Delight, Expanded Delight, End Delight, Chef's Delight and Nethers Delight
