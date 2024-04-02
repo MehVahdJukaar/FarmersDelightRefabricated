@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight.common.registry;
 
+import com.google.common.base.Suppliers;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
@@ -14,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.*;
 
@@ -29,11 +33,11 @@ public class ModBlocks
 	}
 
 	// Workstations
-	public static final Supplier<Block> STOVE = BLOCKS.register("stove",
+	public static final Supplier<Block> STOVE = register("stove",
 			() -> new StoveBlock(Block.Properties.copy(Blocks.BRICKS).lightLevel(litBlockEmission(13))));
-	public static final Supplier<Block> COOKING_POT = BLOCKS.register("cooking_pot",
+	public static final Supplier<Block> COOKING_POT = register("cooking_pot",
 			() -> new CookingPotBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
-	public static final Supplier<Block> SKILLET = BLOCKS.register("skillet",
+	public static final Supplier<Block> SKILLET = register("skillet",
 			() -> new SkilletBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
 	public static final Supplier<Block> BASKET = BLOCKS.register("basket",
 			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
@@ -301,4 +305,10 @@ public class ModBlocks
 			() -> new ShepherdsPieBlock(Block.Properties.copy(Blocks.CAKE), ModItems.SHEPHERDS_PIE, true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = BLOCKS.register("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(Block.Properties.copy(Blocks.CAKE)));
+
+	@NotNull
+	private static <T extends Block> Supplier<T> register(String id, Supplier<T> supplier) {
+		return Suppliers.memoize(() ->
+				Registry.register(BuiltInRegistries.BLOCK, FarmersDelight.res(id), supplier.get()));
+	}
 }

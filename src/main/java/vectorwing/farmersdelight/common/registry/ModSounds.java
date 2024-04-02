@@ -1,10 +1,15 @@
 package vectorwing.farmersdelight.common.registry;
 
+import com.google.common.base.Suppliers;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Supplier;
@@ -14,11 +19,11 @@ public class ModSounds
 	public static final LazyRegistrar<SoundEvent> SOUNDS = LazyRegistrar.create(BuiltInRegistries.SOUND_EVENT, FarmersDelight.MODID);
 
 	// Stove
-	public static final Supplier<SoundEvent> BLOCK_STOVE_CRACKLE = SOUNDS.register("block.stove.crackle",
+	public static final Supplier<SoundEvent> BLOCK_STOVE_CRACKLE = register("block.stove.crackle",
 			() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FarmersDelight.MODID, "block.stove.crackle")));
 
 	// Cooking Pot
-	public static final Supplier<SoundEvent> BLOCK_COOKING_POT_BOIL = SOUNDS.register("block.cooking_pot.boil",
+	public static final Supplier<SoundEvent> BLOCK_COOKING_POT_BOIL = register("block.cooking_pot.boil",
 			() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FarmersDelight.MODID, "block.cooking_pot.boil")));
 	public static final Supplier<SoundEvent> BLOCK_COOKING_POT_BOIL_SOUP = SOUNDS.register("block.cooking_pot.boil_soup",
 			() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FarmersDelight.MODID, "block.cooking_pot.boil_soup")));
@@ -51,4 +56,10 @@ public class ModSounds
 			() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FarmersDelight.MODID, "entity.rotten_tomato.throw")));
 	public static final Supplier<SoundEvent> ENTITY_ROTTEN_TOMATO_HIT = SOUNDS.register("entity.rotten_tomato.hit",
 			() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FarmersDelight.MODID, "entity.rotten_tomato.hit")));
+
+	@NotNull
+	private static <T extends SoundEvent> Supplier<T> register(String id, Supplier<T> supplier) {
+		return Suppliers.memoize(() ->
+				Registry.register(BuiltInRegistries.SOUND_EVENT, FarmersDelight.res(id), supplier.get()));
+	}
 }
