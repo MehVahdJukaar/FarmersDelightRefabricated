@@ -1,5 +1,3 @@
-- Prefixed all recipe book related enums.
-- Fixed vectorwing not being present within the mod credits.
-- Fixed Dog Food not applying any superclass tooltips.
-- Added a barebones compat layer just for Fright's Delight and Delight Knives.
-  - Feel free to ask for more compat layers, we'll do it if it seems do-able and simplistic enough, just please accept no as an answer if we say so.
+- Added more compat layer specifically made for old addons.
+- These include the following:
+- Ocean's Delight, End Delight, Expanded Delight, End Delight and Chef's Delight. 
