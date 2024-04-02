@@ -12,8 +12,7 @@ import java.util.function.Supplier;
 @Deprecated(forRemoval = true)
 public enum SoundsRegistry {
     BLOCK_STOVE_CRACKLE(ModSounds.BLOCK_STOVE_CRACKLE),
-    BLOCK_CUTTING_BOARD_KNIFE(ModSounds.BLOCK_CUTTING_BOARD_KNIFE),
-    STOVE(ModSounds.BLOCK_STOVE_CRACKLE);
+    BLOCK_CUTTING_BOARD_KNIFE(ModSounds.BLOCK_CUTTING_BOARD_KNIFE);
 
     private final Supplier<SoundEvent> supplier;
 
