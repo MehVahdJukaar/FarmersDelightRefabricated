@@ -3,6 +3,7 @@
 Below contains an example of how you may detect Farmer's Delight Refabricated following this change.
 ```java
 public static boolean isFDRefabricated() {
-    return FabricLoader.getInstance().getModContainer("farmersdelight").map(container -> container.getMetadata().getVersion().getFriendlyString().split("\\+")[1].contains("refabricated")).orElse(false);
+    // Use Objects#equals to make sure it's null safe for Farmer's Delight Fabric, which should not contain a +.
+    return FabricLoader.getInstance().getModContainer("farmersdelight").map(container -> Objects.equals(container.getMetadata().getVersion().getFriendlyString().split("\\+")[1], "refabricated")).orElse(false);
 }
 ``` 
