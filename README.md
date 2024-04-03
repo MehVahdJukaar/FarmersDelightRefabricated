@@ -46,7 +46,9 @@ repositories {
     }
 }
 dependencies {
-    modImplementation "vectorwing:FarmersDelight-Refabricated:${fdrf_version}"
+    modImplementation("vectorwing:FarmersDelight:${fdrf_version}") {
+        exclude(group: "net.fabricmc")
+    }
 }
 ```
 
