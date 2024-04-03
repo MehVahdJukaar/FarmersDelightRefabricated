@@ -110,28 +110,10 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     // Uncomment the below to test REI.
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+
     modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-
-    // test addons
-    //modImplementation("curse.maven:farmers-respite-fabric-811003:4754429")
-    //modImplementation("curse.maven:forge-config-api-port-fabric-547434:4583000")
-
-    modCompileOnly("curse.maven:farmers-knives-628972:5178087")
-    modImplementation("curse.maven:oceans-delight-841262:4652063")
-    modImplementation("curse.maven:fabric-seasons-delight-compat-859370:4533190")
-    modImplementation("curse.maven:chefs-delight-fabric-736986:4751399")
-    modImplementation("curse.maven:fabric-seasons-413523:4699698")
-    modImplementation("curse.maven:expanded-delight-620770:5177998")
-    modImplementation("curse.maven:ends-delight-662675:4678087")
-    modCompileOnly("curse.maven:slice-and-dice-659674:5184596")
-    modImplementation("draylar.omegaconfig:omega-config-base-1.2.3-1.18.1")
-
-    modImplementation("curse.maven:frights-delight-927591:4857179")
-    modImplementation("curse.maven:nethers-delight-fabric-701831:4778206")
-
-
     // Uncomment the below to test EMI.
     /*
     modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
@@ -140,6 +122,23 @@ dependencies {
     // This is also required for EMI as it uses an out of date FAPI.
     modLocalRuntime "net.fabricmc.fabric-api:fabric-api-deprecated:${fabric_api_version}"
      */
+
+    // test addons
+    //modImplementation("curse.maven:farmers-respite-fabric-811003:4754429")
+    //modImplementation("curse.maven:forge-config-api-port-fabric-547434:4583000")
+    //modImplementation("curse.maven:farmers-knives-628972:5178087")
+    //modImplementation("curse.maven:oceans-delight-841262:4652063")
+    //modImplementation("curse.maven:fabric-seasons-delight-compat-859370:4533190")
+    //modImplementation("curse.maven:chefs-delight-fabric-736986:4751399")
+    //modImplementation("curse.maven:fabric-seasons-413523:4699698")
+    //modImplementation("curse.maven:expanded-delight-620770:5177998")
+    //modImplementation("curse.maven:ends-delight-662675:4678087")
+    //modImplementation("curse.maven:slice-and-dice-659674:5184596")
+    //modImplementation("draylar.omegaconfig:omega-config-base-1.2.3-1.18.1")
+
+    //modImplementation("curse.maven:frights-delight-927591:4857179")
+    //modImplementation("curse.maven:nethers-delight-fabric-701831:4778206")
+
 }
 
 
