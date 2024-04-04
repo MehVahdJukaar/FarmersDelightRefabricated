@@ -21,7 +21,6 @@ The provided links through the mod names will be the Modrinth pages for each ind
 |[Crate Delight](https://modrinth.com/mod/crate-delight)|✅|✅|Does not reference any classes from either mod.
 |[Create Central Kitchen](https://modrinth.com/mod/create-central-kitchen/)|❎|Planned| Previously blocked by Farmer's Delight Fabric not using the same package names, planning on going Multiloader.
 |[Create: Food](https://modrinth.com/mod/create-food/)|✅|❓| No Contact
-|[Create's Delight](https://modrinth.com/mod/creates-delight)|✅|❓| No Contact
 |[Cultural Creators](https://legacy.curseforge.com/minecraft/mc-mods/cultural-creators-fabric-create-and-cultural/)|✅|❓| No Contact
 |[Cultural Delights (Fabric)](https://modrinth.com/mod/cultural-delights-fabric)|✅|❓|[Linked GitHub Issue](https://github.com/mrsterner/Cultural-Delights-Fabric/issues/21)</br>Same as Brewin' And Chewin' (Fabric).
 [Delightful Creators](https://modrinth.com/mod/delightful-creators-fabric/)|✅|❓| No Contact
@@ -40,6 +39,7 @@ The provided links through the mod names will be the Modrinth pages for each ind
 |[Recipe Book Delight](https://modrinth.com/mod/recipe-book-delight)|✅|❎| The Recipe Book is supported by default in Refabricated.
 |[Respite Creators](https://modrinth.com/mod/respite-creators-fabric)|✅|❓| No Contact
 |[Shakshuka Delight](https://modrinth.com/mod/shakshuka-delight)|✅|❓| No Contact
+|[Storage Delight](https://modrinth.com/mod/storage-delight)|✅|✅|
 |[Ube's Delight](https://modrinth.com/mod/ubes-delight)|✅|Planned|[Linked GitHub Issue](https://github.com/ChefMooon/ubes-delight/issues/16)</br>ChefMooon has stated directly to Jukaar that they'll be supporting Refabricated.
 
 # Integrations
@@ -62,5 +62,19 @@ You can do whatever with this, you can crash the client, you can disable/enable 
 public static boolean isFDRefabricated() {
     // Use Objects#equals to make sure it's null safe for Farmer's Delight Fabric, which should not contain a +.
     return FabricLoader.getInstance().getModContainer("farmersdelight").map(container -> Objects.equals(container.getMetadata().getVersion().getFriendlyString().split("\\+")[1], "refabricated")).orElse(false);
+}
+```
+
+If you want to have this check in common code you can also use this alternative approach instead. Note that this will also return true when the forge mod is on.
+Useful for common code uses.
+```java
+public static final boolean HAS_FD_FORGE_OR_REFABRICATED;
+static {
+    try {
+        Class.forName("vectorwing.farmersdelight.FarmersDelight");
+        HAS_FD_FORGE_OR_REFABRICATED = true;
+    } catch (Exception ignored) {
+        HAS_FD_FORGE_OR_REFABRICATED = false;
+    }
 }
 ```
