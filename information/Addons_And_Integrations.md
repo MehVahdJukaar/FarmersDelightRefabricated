@@ -63,3 +63,17 @@ public static boolean isFDRefabricated() {
     return FabricLoader.getInstance().getModContainer("farmersdelight").map(container -> Objects.equals(container.getMetadata().getVersion().getFriendlyString().split("\\+")[1], "refabricated")).orElse(false);
 }
 ```
+
+If you want to have this check in common code you can also use this alternative approach instead. Note that this will also return true when the forge mod is on.
+Useful for common code uses.
+```java
+    public static final boolean HAS_FD_FORGE_OR_REFABRICATED;
+    static {
+        try {
+            Class.forName("vectorwing.farmersdelight.FarmersDelight");
+            isFdRefabricatedOn = true;
+        } catch (Exception ignored) {
+            isFdRefabricatedOn = false;
+        }
+    }
+```
