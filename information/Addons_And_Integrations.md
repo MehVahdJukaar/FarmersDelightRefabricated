@@ -9,8 +9,8 @@ The provided links through the mod names will be the Modrinth pages for each ind
 ❓ - Unknown
 
 # Addons
-|Mod Name|Farmer's Delight Fabric|Farmer's Delight Refabricated| Comments                                                                                                                                                 |
-|---|---|-|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Mod Name|Farmer's Delight Fabric|Farmer's Delight Refabricated| Comments|
+|---|---|---|---|
 |[Autochef's Delight](https://modrinth.com/mod/autochefs-delight)|✅|Potentially planned?| There are branches for `fabric` and `nhoryzon`
 |[Brewin' And Chewin' (Fabric)](https://modrinth.com/mod/brewin-and-chewin-fabric)|✅|Planned| Dev will get to it, MrSterner_ has just been busy.
 |[Cake Delight](https://modrinth.com/mod/cakedelight)|✅|❓| No Contact
@@ -44,7 +44,7 @@ The provided links through the mod names will be the Modrinth pages for each ind
 
 # Integrations
 |Mod Name|Farmer's Delight Fabric|Farmer's Delight Refabricated|Comments|
-|---|---|---|---------------------------------------------------------------------------------------------------|
+|---|---|---|---|
 |[Create Slice and Dice](https://modrinth.com/mod/slice-and-dice)|✅|❓|[Linked GitHub Issue](https://github.com/PssbleTrngle/SliceAndDice/issues/140)
 [EMI Addon: Extra Mod Integrations](https://modrinth.com/mod/extra-mod-integrations)|✅|❎| EMI is supported by default in Refabricated. Does not crash with Refabricated >2.0.13 since 0.4.4.
 |[Every Compat (Wood Good)](https://modrinth.com/mod/every-compat/)|✅[<2.6.40](https://modrinth.com/mod/every-compat/version/1yhdaMcm)|✅>=2.6.40|
