@@ -71,9 +71,9 @@ Useful for common code uses.
     static {
         try {
             Class.forName("vectorwing.farmersdelight.FarmersDelight");
-            isFdRefabricatedOn = true;
+            HAS_FD_FORGE_OR_REFABRICATED = true;
         } catch (Exception ignored) {
-            isFdRefabricatedOn = false;
+            HAS_FD_FORGE_OR_REFABRICATED = false;
         }
     }
 ```
