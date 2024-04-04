@@ -67,13 +67,13 @@ public static boolean isFDRefabricated() {
 If you want to have this check in common code you can also use this alternative approach instead. Note that this will also return true when the forge mod is on.
 Useful for common code uses.
 ```java
-    public static final boolean HAS_FD_FORGE_OR_REFABRICATED;
-    static {
-        try {
-            Class.forName("vectorwing.farmersdelight.FarmersDelight");
-            HAS_FD_FORGE_OR_REFABRICATED = true;
-        } catch (Exception ignored) {
-            HAS_FD_FORGE_OR_REFABRICATED = false;
-        }
+public static final boolean HAS_FD_FORGE_OR_REFABRICATED;
+static {
+    try {
+        Class.forName("vectorwing.farmersdelight.FarmersDelight");
+        HAS_FD_FORGE_OR_REFABRICATED = true;
+    } catch (Exception ignored) {
+        HAS_FD_FORGE_OR_REFABRICATED = false;
     }
+}
 ```
