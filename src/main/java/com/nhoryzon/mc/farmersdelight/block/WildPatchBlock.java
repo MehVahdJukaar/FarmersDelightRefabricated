@@ -1,7 +1,5 @@
 package com.nhoryzon.mc.farmersdelight.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
