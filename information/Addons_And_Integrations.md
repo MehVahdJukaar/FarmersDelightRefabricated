@@ -11,7 +11,7 @@ The provided links through the mod names will be the Modrinth pages for each ind
 # Addons
 |Mod Name|Farmer's Delight Fabric|Farmer's Delight Refabricated| Comments|
 |---|---|---|---|
-|[Autochef's Delight](https://modrinth.com/mod/autochefs-delight)|✅|Potentially planned?| There are branches for `fabric` and `nhoryzon`
+|[Autochef's Delight](https://modrinth.com/mod/autochefs-delight)|✅|✅|Built for Refabricated ever since 1.0.3.
 |[Brewin' And Chewin' (Fabric)](https://modrinth.com/mod/brewin-and-chewin-fabric)|✅|Planned| Dev will get to it, MrSterner_ has just been busy.
 |[Cake Delight](https://modrinth.com/mod/cakedelight)|✅|❓| No Contact
 |[Casualness Delight](https://modrinth.com/mod/casualness-delight)|✅|❓| [Linked GitHub Issue](https://github.com/TsukimiRen/Casualness-Delight/issues/11)
