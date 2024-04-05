@@ -8,8 +8,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import org.jetbrains.annotations.Nullable;
 
-import org.jetbrains.annotations.Nullable;;
+;
 
 public class RopeItem extends FuelBlockItem
 {

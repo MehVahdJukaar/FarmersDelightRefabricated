@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
@@ -39,8 +40,9 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import org.jetbrains.annotations.Nullable;;
 import java.util.Optional;
+
+;
 
 @SuppressWarnings("deprecation")
 public class StoveBlock extends BaseEntityBlock

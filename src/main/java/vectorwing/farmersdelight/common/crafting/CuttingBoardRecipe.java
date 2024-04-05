@@ -17,15 +17,17 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
-import org.jetbrains.annotations.Nullable;;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class CuttingBoardRecipe implements Recipe<RecipeWrapper>

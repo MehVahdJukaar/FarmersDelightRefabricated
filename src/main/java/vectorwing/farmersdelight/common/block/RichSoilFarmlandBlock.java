@@ -2,8 +2,6 @@ package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
-import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockExtensions;
-import io.github.fabricators_of_create.porting_lib.extensions.extensions.BlockStateExtensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

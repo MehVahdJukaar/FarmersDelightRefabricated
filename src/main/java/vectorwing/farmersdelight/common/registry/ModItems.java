@@ -2,8 +2,6 @@ package vectorwing.farmersdelight.common.registry;
 
 import com.google.common.collect.Sets;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;

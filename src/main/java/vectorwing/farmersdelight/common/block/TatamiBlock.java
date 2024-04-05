@@ -17,8 +17,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import org.jetbrains.annotations.Nullable;
 
-import org.jetbrains.annotations.Nullable;;
+;
 
 @SuppressWarnings("deprecation")
 public class TatamiBlock extends Block

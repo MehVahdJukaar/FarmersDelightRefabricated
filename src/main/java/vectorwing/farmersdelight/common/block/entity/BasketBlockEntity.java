@@ -21,14 +21,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.BasketBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import org.jetbrains.annotations.Nullable;;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+;
 
 public class BasketBlockEntity extends RandomizableContainerBlockEntity implements Basket
 {

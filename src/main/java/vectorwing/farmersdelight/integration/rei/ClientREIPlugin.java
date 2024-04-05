@@ -5,15 +5,10 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandler;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
-import mezz.jei.api.constants.VanillaTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
@@ -26,7 +21,11 @@ import vectorwing.farmersdelight.integration.rei.categories.CuttingCategory;
 import vectorwing.farmersdelight.integration.rei.categories.DecompositionCategory;
 import vectorwing.farmersdelight.integration.rei.display.CookingPotDisplay;
 import vectorwing.farmersdelight.integration.rei.display.CuttingDisplay;
-import vectorwing.farmersdelight.integration.rei.display.DecompositionDisplay;;import java.util.List;
+import vectorwing.farmersdelight.integration.rei.display.DecompositionDisplay;
+
+import java.util.List;
+
+;
 
 public class ClientREIPlugin implements REIClientPlugin {
 

@@ -1,40 +1,39 @@
 package vectorwing.farmersdelight.common.advancement;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.Criterion;
+import com.google.gson.JsonObject;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import vectorwing.farmersdelight.common.registry.ModAdvancements;
-
-import java.util.Optional;
+import vectorwing.farmersdelight.FarmersDelight;
 
 public class CuttingBoardTrigger extends SimpleCriterionTrigger<CuttingBoardTrigger.TriggerInstance>
 {
-	@Override
-	public Codec<TriggerInstance> codec() {
-		return CuttingBoardTrigger.TriggerInstance.CODEC;
+	private static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "use_cutting_board");
+
+	public ResourceLocation getId() {
+		return ID;
 	}
 
 	public void trigger(ServerPlayer player) {
 		this.trigger(player, TriggerInstance::test);
 	}
 
-	public static record TriggerInstance(
-			Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance
-	{
-		public static final Codec<CuttingBoardTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create(
-				builder -> builder.group(
-								EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(CuttingBoardTrigger.TriggerInstance::player))
-						.apply(builder, CuttingBoardTrigger.TriggerInstance::new)
-		);
+	@Override
+	protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext conditionsParser) {
+		return new TriggerInstance(player);
+	}
 
-		public static Criterion<TriggerInstance> simple() {
-			return ModAdvancements.USE_CUTTING_BOARD.get().createCriterion(
-					new CuttingBoardTrigger.TriggerInstance(Optional.empty())
-			);
+	public static class TriggerInstance extends AbstractCriterionTriggerInstance
+	{
+		public TriggerInstance(ContextAwarePredicate player) {
+			super(CuttingBoardTrigger.ID, player);
+		}
+
+		public static TriggerInstance simple() {
+			return new TriggerInstance(ContextAwarePredicate.ANY);
 		}
 
 		public boolean test() {

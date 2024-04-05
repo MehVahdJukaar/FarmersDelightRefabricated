@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.loot.IGlobalLootModifier;
 import io.github.fabricators_of_create.porting_lib.loot.PortingLibLoot;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.loot.modifier.AddItemModifier;
 import vectorwing.farmersdelight.common.loot.modifier.AddLootTableModifier;

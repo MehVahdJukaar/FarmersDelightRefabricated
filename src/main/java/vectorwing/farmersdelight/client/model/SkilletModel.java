@@ -1,30 +1,5 @@
 package vectorwing.farmersdelight.client.model;
 
-import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import com.mojang.math.Transformation;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
-import org.joml.Vector3f;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.registry.ModItems;
-
-import org.jetbrains.annotations.Nullable;;
-import java.util.*;
-
 /**
  * Credits to the Botania Team for the class reference!
  */

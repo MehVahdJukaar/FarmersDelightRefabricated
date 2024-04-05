@@ -22,9 +22,10 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-import org.jetbrains.annotations.Nullable;;
+;
 
 @SuppressWarnings("deprecation")
 public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, BonemealableBlock

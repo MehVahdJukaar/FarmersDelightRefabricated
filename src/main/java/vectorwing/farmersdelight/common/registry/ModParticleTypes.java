@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.registry;
 
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;

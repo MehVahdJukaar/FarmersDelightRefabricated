@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.registry;
 
 import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;

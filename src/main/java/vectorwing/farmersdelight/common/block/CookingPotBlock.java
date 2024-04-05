@@ -41,6 +41,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.state.CookingPotSupport;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -48,7 +49,7 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import org.jetbrains.annotations.Nullable;;
+;
 
 @SuppressWarnings("deprecation")
 public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock

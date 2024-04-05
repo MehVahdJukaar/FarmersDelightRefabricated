@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -30,8 +31,9 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import org.jetbrains.annotations.Nullable;;
 import java.util.List;
+
+;
 
 public class HorseFeedItem extends Item
 {
