@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.mixin;
 
-import com.google.common.base.Suppliers;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

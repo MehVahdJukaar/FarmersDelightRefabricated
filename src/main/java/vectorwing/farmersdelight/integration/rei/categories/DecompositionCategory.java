@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.rei.categories;
 
-import com.google.common.collect.ImmutableList;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -10,8 +9,6 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -19,13 +16,10 @@ import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
-import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
-import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
 import vectorwing.farmersdelight.integration.rei.display.DecompositionDisplay;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DecompositionCategory implements DisplayCategory<DecompositionDisplay> {

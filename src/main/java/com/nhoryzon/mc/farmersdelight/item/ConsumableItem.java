@@ -1,7 +1,5 @@
 package com.nhoryzon.mc.farmersdelight.item;
 
-import net.minecraft.world.item.Tier;
-
 // Dont use!
 @Deprecated(forRemoval = true)
 public class ConsumableItem extends vectorwing.farmersdelight.common.item.ConsumableItem {
