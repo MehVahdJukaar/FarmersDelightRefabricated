@@ -60,5 +60,5 @@ dependencies {
 
 Replace the `x`s with the current version number.
 ```properties
-fdfr_version=1.20.1-x.x.x+refabricated
+fdrf_version=1.20.1-x.x.x+refabricated
 ```
