@@ -58,7 +58,7 @@ public class FeastBlock extends Block
 		super(properties);
 		this.servingItem = servingItem;
 		this.hasLeftovers = hasLeftovers;
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(getServingsProperty(), getMaxServings()));
+		this.registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(getServingsProperty(), getMaxServings()));
 	}
 
 	public IntegerProperty getServingsProperty() {

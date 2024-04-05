@@ -17,8 +17,6 @@ import vectorwing.farmersdelight.common.mixin.accessor.LootContextAccessor;
 
 import java.util.function.Supplier;
 
-import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitter;
-
 /**
  * Credits to Commoble for this implementation!
  */

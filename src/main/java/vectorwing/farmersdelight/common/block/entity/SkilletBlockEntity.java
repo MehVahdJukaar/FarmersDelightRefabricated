@@ -20,6 +20,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -31,6 +32,8 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 import java.util.Optional;
 
 import static vectorwing.farmersdelight.common.item.SkilletItem.FLIP_TIME;
+
+;
 
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity
 {
