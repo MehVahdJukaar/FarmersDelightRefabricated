@@ -102,7 +102,14 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 
 	@Override
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-		return 0;
+		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
+		long extracted = 0;
+        for (ItemStackHandlerSlot slot : getSlotsContaining(resource.getItem())) {
+            extracted += slot.extract(resource, maxAmount - extracted, transaction);
+            if (extracted >= maxAmount)
+                break;
+        }
+		return extracted;
 	}
 
 
