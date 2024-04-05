@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import vectorwing.farmersdelight.common.block.WildCropBlock;
 
 // Dont use!
@@ -19,7 +20,7 @@ public class WildPatchBlock extends WildCropBlock {
     }
 
     public WildPatchBlock(OffsetType offsetType) {
-        this(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).sounds(SoundType.CROP).offset(offsetType));
+        this(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS).sound(SoundType.CROP).offsetType(offsetType));
     }
 
 }
