@@ -59,6 +59,7 @@ repositories {
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
     maven { url = "https://mvn.devos.one/snapshots/" } // Registrate, Porting Lib, Forge Tags, Milk Lib
+    maven { url = "https://mvn.devos.one/releases/" }
     maven { // for Porting Lib: Fabric ASM
         url = "https://jitpack.io/"
     }
