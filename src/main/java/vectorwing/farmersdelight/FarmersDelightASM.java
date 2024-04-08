@@ -23,10 +23,11 @@ public class FarmersDelightASM implements Runnable {
         String recipeBookTypeTarget = remapper.mapClassName("intermediary", "net.minecraft.class_5421");
         ClassTinkerers.enumBuilder(recipeBookTypeTarget).addEnum(COOKING_RECIPE_BOOK_TYPE).build();
         String recipeBookCategoriesTarget = remapper.mapClassName("intermediary", "net.minecraft.class_314");
-        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, "[Lnet/minecraft/world/item/ItemStack;").addEnum(COOKING_SEARCH_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(Items.COMPASS)}}).build();
-        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, "[Lnet/minecraft/world/item/ItemStack;").addEnum(COOKING_MEALS_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.VEGETABLE_NOODLES.get())}}).build();
-        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, "[Lnet/minecraft/world/item/ItemStack;").addEnum(COOKING_DRINKS_RECIPE_BOOK_CATEGORY,() -> new Object[]{new ItemStack[]{new ItemStack(ModItems.APPLE_CIDER.get())}}).build();
-        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, "[Lnet/minecraft/world/item/ItemStack;").addEnum(COOKING_MISC_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())}}).build();
+        String itemStackParamType = "[" + remapper.mapClassName("intermediary", "net.minecraft.class_1799");
+        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, itemStackParamType).addEnum(COOKING_SEARCH_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(Items.COMPASS)}}).build();
+        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, itemStackParamType).addEnum(COOKING_MEALS_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.VEGETABLE_NOODLES.get())}}).build();
+        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, itemStackParamType).addEnum(COOKING_DRINKS_RECIPE_BOOK_CATEGORY,() -> new Object[]{new ItemStack[]{new ItemStack(ModItems.APPLE_CIDER.get())}}).build();
+        ClassTinkerers.enumBuilder(recipeBookCategoriesTarget, itemStackParamType).addEnum(COOKING_MISC_RECIPE_BOOK_CATEGORY, () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())}}).build();
         String enchantmentTarget = remapper.mapClassName("intermediary", "net.minecraft.class_1886");
         ClassTinkerers.enumBuilder(enchantmentTarget).addEnumSubclass(KNIFE_ENCHANTMENT_CATEGORY, "vectorwing.farmersdelight.common.item.enchantment.category.KnifeEnchantmentCategory").build();
     }
