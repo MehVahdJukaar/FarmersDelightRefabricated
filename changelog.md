@@ -1,6 +1,1 @@
-- Implement previously forgotten `extract` method within the Cooking Pot inventory, which should improve compatibility with content that utilises the Fabric Transfer API.
-- Update `ru_ru.json` ([#18](https://github.com/MehVahdJukaar/FarmersDelight/pull/18))
-- Expanded compat layer, improvements to compat layer ([#20](https://github.com/MehVahdJukaar/FarmersDelight/pull/20)).
-- Update to use Fabric ASM for enum additions.
-- Added KNIFE EnchantmentCategory. ([#24](https://github.com/MehVahdJukaar/FarmersDelight/pull/24))
-- Updated PortingLib to 2.3.2+1.20.1.
+- Fix client startup crash.
