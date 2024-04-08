@@ -13,20 +13,12 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModEnchantments;
 
 public class BackstabbingEnchantment extends Enchantment
 {
 	public BackstabbingEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... applicableSlots) {
 		super(rarity, category, applicableSlots);
-	}
-
-	// This does not implement the super method, which will break other mods
-	// that modify it. There's not much I can really do about this.
-	@Override
-	public boolean canEnchant(ItemStack stack) {
-		return stack.getItem() instanceof KnifeItem;
 	}
 
 	@Override

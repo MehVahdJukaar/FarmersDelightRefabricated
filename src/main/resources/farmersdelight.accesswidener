@@ -19,3 +19,5 @@ mutable field net/minecraft/world/level/levelgen/structure/pools/StructureTempla
 
 accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
 extendable method net/minecraft/core/dispenser/DefaultDispenseItemBehavior dispense (Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+
+extendable class net/minecraft/world/item/enchantment/EnchantmentCategory

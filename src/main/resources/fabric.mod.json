@@ -24,6 +24,9 @@
     "client": [
       "vectorwing.farmersdelight.client.FarmersDelightClient"
     ],
+    "mm:early_risers": [
+      "vectorwing.farmersdelight.FarmersDelightASM"
+    ],
     "jei_mod_plugin": [
       "vectorwing.farmersdelight.integration.jei.JEIPlugin"
     ],
