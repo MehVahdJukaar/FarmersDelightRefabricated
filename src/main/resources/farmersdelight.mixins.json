@@ -15,15 +15,13 @@
     "PlayerMixin",
     "RabbitsEatCabbageMixin",
     "RecipeBookSettingsMixin",
-    "RecipeBookTypeMixin",
     "SoupItemMixin",
     "accessor.LootContextAccessor",
     "accessor.RecipeManagerAccessor"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
-    "HideBlockBreakProgressMixin",
-    "RecipeBookCategoriesMixin"
+    "HideBlockBreakProgressMixin"
   ],
   "injectors": {
     "defaultRequire": 1
