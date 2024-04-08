@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
@@ -31,7 +32,7 @@ public class FarmersDelight implements ModInitializer
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 	// Moved initializer to RecipeBookTypeMixin.
-	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.valueOf("FARMERSDELIGHT_COOKING");
+	public static final RecipeBookType RECIPE_TYPE_COOKING = ClassTinkerers.getEnum(RecipeBookType.class, FarmersDelightASM.COOKING_RECIPE_BOOK_TYPE);
 
 	public static ResourceLocation res(String name) {
 		return new ResourceLocation(MODID, name);
