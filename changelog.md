@@ -1,1 +1,1 @@
-- Fix client startup crash.
+- Fix mod homepage link in fabric.mod.json.
