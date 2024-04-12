@@ -22,7 +22,7 @@
         "tag": "c:foods/cooked_meats/cooked_mutton"
       },
       {
-        "tag": "c:foods/cooked_meats/cooked_fishes"
+        "tag": "c:foods/cooked_fishes"
       },
       {
         "item": "minecraft:cooked_rabbit"

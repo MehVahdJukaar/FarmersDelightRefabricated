@@ -1,1 +1,2 @@
-- Implement previously forgotten `extract` method within the Cooking Pot inventory, which should improve compatibility with content that utilises the Fabric Transfer API.
+- fixed some dye tags
+- fixed barbecue stick recipe
