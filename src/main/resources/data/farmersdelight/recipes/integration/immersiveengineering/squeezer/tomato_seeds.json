@@ -10,7 +10,7 @@
   "type": "immersiveengineering:squeezer",
   "fluid": {
     "fluid": "immersiveengineering:plantoil",
-    "amount": 60
+    "amount": 4860
   },
   "input": {
     "item": "farmersdelight:tomato_seeds"

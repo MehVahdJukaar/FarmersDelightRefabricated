@@ -10,7 +10,7 @@
   "type": "immersiveengineering:fermenter",
   "fluid": {
     "fluid": "immersiveengineering:ethanol",
-    "amount": 80
+    "amount": 6480
   },
   "input": {
     "tag": "c:crops/tomato"
