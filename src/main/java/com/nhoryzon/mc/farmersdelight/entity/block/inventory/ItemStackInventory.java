@@ -40,10 +40,6 @@ public interface ItemStackInventory extends Container {
         return copy;
     }
 
-    default int size() {
-        return getContainerSize();
-    }
-
     @Override
     default int getContainerSize() {
         return getItems().size();
@@ -54,17 +50,10 @@ public interface ItemStackInventory extends Container {
         return getItems().stream().allMatch(ItemStack::isEmpty);
     }
 
-    default ItemStack getStack(int slot) {
-        return getItem(slot);
-    }
     @Override
     default ItemStack getItem(int slot) {
         validateSlotIndex(slot);
         return getItems().get(slot);
-    }
-
-    default ItemStack removeStack(int slot, int amount) {
-        return removeItem(slot, amount);
     }
 
     @Override
@@ -77,10 +66,6 @@ public interface ItemStackInventory extends Container {
         return result;
     }
 
-    default ItemStack removeStack(int slot) {
-        return removeItemNoUpdate(slot);
-    }
-
     @Override
     default ItemStack removeItemNoUpdate(int slot) {
         ItemStack result = ContainerHelper.takeItem(getItems(), slot);
@@ -89,10 +74,6 @@ public interface ItemStackInventory extends Container {
             onContentsChanged(slot);
         }
         return result;
-    }
-
-    default void setStack(int slot, ItemStack stack) {
-        setItem(slot, stack);
     }
 
     @Override
@@ -104,26 +85,14 @@ public interface ItemStackInventory extends Container {
         onContentsChanged(slot);
     }
 
-    default void clear() {
-        clearContent();
-    }
-
     @Override
     default void clearContent() {
         getItems().clear();
     }
 
-    default void markDirty() {
-        setChanged();
-    }
-
     @Override
     default void setChanged() {
         // No-op
-    }
-
-    default boolean canPlayerUse(Player player) {
-        return stillValid(player);
     }
 
     @Override
