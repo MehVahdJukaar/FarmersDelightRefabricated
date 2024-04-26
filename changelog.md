@@ -1,1 +1,1 @@
-- Fix mod homepage link in fabric.mod.json.
+- Fixed Yarn remapping conflicts regarding a compat layer class.
