@@ -1,2 +1,4 @@
+- Renamed a few tags, added backwards compatibilities for old tags and Farmer's Delight Fabric tags.
 - Fixed Yarn remapping conflicts regarding a compat layer class.
-- Fixed compat recipes using mB instead of droplets.
+- Fixed cutting automation only working for one item type. ([#33](https://github.com/MehVahdJukaar/FarmersDelight/issues/33))
+- Fixed compat recipes using mB instead of droplets. ([#36](https://github.com/MehVahdJukaar/FarmersDelight/issues/36), [#37](https://github.com/MehVahdJukaar/FarmersDelight/issues/37))
