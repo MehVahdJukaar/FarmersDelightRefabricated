@@ -43,11 +43,17 @@ repositories {
         name = "Greenhouse Maven"
         url = 'https://maven.greenhouseteam.dev/releases/'
     }
-    maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
+    maven { url "https://mvn.devos.one/releases/" } // Porting Lib
     maven {
         url "https://maven.jamieswhiteshirt.com/libs-release" // Reach Entity Attributes (Required by Porting Lib)
         content {
             includeGroup "com.jamieswhiteshirt"
+        }
+    }
+    maven {
+        url "https://jitpack.io/" // Fabric ASM
+        content {
+            excludeGroup "io.github.fabricators_of_create"
         }
     }
 }
