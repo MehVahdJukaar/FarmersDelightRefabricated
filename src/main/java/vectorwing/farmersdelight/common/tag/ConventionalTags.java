@@ -42,7 +42,7 @@ public class ConventionalTags
 	public static final TagKey<Item> FOODS_DOUGHS_WHEAT = cItemTag("foods/doughs/wheat");
 
 	public static final TagKey<Item> FOODS_PASTAS = cItemTag("foods/pastas");
-	public static final TagKey<Item> FOODS_PASTA_RAW_PASTA = cItemTag("foods/pastas/raw_pasta");
+	public static final TagKey<Item> FOODS_PASTA_RAW_PASTAS = cItemTag("foods/pastas/raw_pastas");
 
 	public static final TagKey<Item> FOODS_RAW_FISHES = cItemTag("foods/raw_fishes");
 	public static final TagKey<Item> FOODS_RAW_FISHES_COD = cItemTag("foods/raw_fishes/cod");
