@@ -1,3 +1,1 @@
-- Fixed Cooking Pot interaction with Hoppers ([#39](https://github.com/MehVahdJukaar/FarmersDelight/issues/39))
-- Update es_mx (Spanish - Mexico) lang file ([#40](https://github.com/MehVahdJukaar/FarmersDelight/pull/40)) - TheLegendOfSaram
 - Add by_by (Belarusian) lang file ([#38](https://github.com/MehVahdJukaar/FarmersDelight/pull/38)) - observr
