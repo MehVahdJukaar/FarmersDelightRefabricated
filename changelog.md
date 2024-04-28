@@ -1,4 +1,3 @@
-- Renamed a few tags, added backwards compatibilities for old tags and Farmer's Delight Fabric tags.
-- Fixed Yarn remapping conflicts regarding a compat layer class.
-- Fixed cutting automation only working for one item type. ([#33](https://github.com/MehVahdJukaar/FarmersDelight/issues/33))
-- Fixed compat recipes using mB instead of droplets. ([#36](https://github.com/MehVahdJukaar/FarmersDelight/issues/36), [#37](https://github.com/MehVahdJukaar/FarmersDelight/issues/37))
+- Fixed Cooking Pot interaction with Hoppers ([#39](https://github.com/MehVahdJukaar/FarmersDelight/issues/39))
+- Update es_mx (Spanish - Mexico) lang file ([#40](https://github.com/MehVahdJukaar/FarmersDelight/pull/40)) - TheLegendOfSaram
+- Add by_by (Belarusian) lang file ([#38](https://github.com/MehVahdJukaar/FarmersDelight/pull/38)) - observr

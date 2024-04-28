@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity.inventory;
 
+import com.google.common.collect.Iterators;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerSlot;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlottedStackStorage;
@@ -7,6 +8,7 @@ import io.github.fabricators_of_create.porting_lib.util.DualSortedSetIterator;
 import it.unimi.dsi.fastutil.objects.ObjectAVLTreeSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.Direction;
@@ -102,7 +104,7 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
 		long extracted = 0;
-        for (ItemStackHandlerSlot slot : getSlotsContaining(resource.getItem())) {
+        for (ItemStackHandlerSlot slot : getSlotsContaining(resource.getItem(), true)) {
             extracted += slot.extract(resource, maxAmount - extracted, transaction);
             if (extracted >= maxAmount)
                 break;
@@ -112,8 +114,8 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 
 
 	private Iterator<ItemStackHandlerSlot> getInsertableSlotsFor(ItemVariant resource) {
-		SortedSet<ItemStackHandlerSlot> slots = getSlotsContaining(resource.getItem());
-		SortedSet<ItemStackHandlerSlot> emptySlots = getSlotsContaining(Items.AIR);
+		SortedSet<ItemStackHandlerSlot> slots = getSlotsContaining(resource.getItem(), false);
+		SortedSet<ItemStackHandlerSlot> emptySlots = getSlotsContaining(Items.AIR, false);
 		if (slots.isEmpty()) {
 			return emptySlots.isEmpty() ? Collections.emptyIterator() : emptySlots.iterator();
 		} else {
@@ -121,15 +123,15 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 		}
 	}
 
-	private SortedSet<ItemStackHandlerSlot> getSlotsContaining(Item item) {
-		return itemHandler.getSlotsContaining(item).stream().filter(storageViews -> isValidSlot(storageViews.getIndex())).collect(Collectors.toCollection(() -> new ObjectAVLTreeSet<>(Comparator.comparingInt(ItemStackHandlerSlot::getIndex))));
+	private SortedSet<ItemStackHandlerSlot> getSlotsContaining(Item item, boolean output) {
+		return itemHandler.getSlotsContaining(item).stream().filter(storageViews -> isValidInputSlot(storageViews.getIndex(), output)).collect(Collectors.toCollection(() -> new ObjectAVLTreeSet<>(Comparator.comparingInt(ItemStackHandlerSlot::getIndex))));
 	}
 
-	private boolean isValidSlot(int slot) {
+	private boolean isValidInputSlot(int slot, boolean output) {
 		if (side == null || side.equals(Direction.UP)) {
 			return slot < SLOTS_INPUT;
 		} else {
-			return slot == SLOT_CONTAINER_INPUT;
+			return output ? slot == SLOT_MEAL_OUTPUT : slot == SLOT_CONTAINER_INPUT;
 		}
 	}
 
@@ -147,7 +149,19 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 		if (side == null || side.equals(Direction.UP)) {
 			return slot < SLOTS_INPUT ? itemHandler.extractSlot(slot, resource, maxAmount, transaction) : 0;
 		} else {
-			return slot == SLOT_CONTAINER_INPUT ? itemHandler.extractSlot(slot, resource, maxAmount, transaction) : 0;
+			return slot == SLOT_MEAL_OUTPUT ? itemHandler.extractSlot(slot, resource, maxAmount, transaction) : 0;
 		}
+	}
+
+	@Override
+	public Iterator<StorageView<ItemVariant>> iterator() {
+		return Iterators.filter(itemHandler.iterator(), input -> {
+			if (!(input instanceof ItemStackHandlerSlot slot))
+				return false;
+			if (side == null || side.equals(Direction.UP))
+				return slot.getIndex() < SLOTS_INPUT;
+			else
+				return slot.getIndex() == SLOT_MEAL_OUTPUT;
+		});
 	}
 }
