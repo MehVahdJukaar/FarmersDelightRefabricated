@@ -16,16 +16,16 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Autochef's Delight](https://modrinth.com/mod/autochefs-delight)|✅|✅|Built for Refabricated ever since 1.0.3.
 |[Brewin' And Chewin' (Fabric)](https://modrinth.com/mod/brewin-and-chewin-fabric)|✅|✅|
 |[Cake Delight](https://modrinth.com/mod/cakedelight)|✅|❓| No Contact
-|[Casualness Delight](https://modrinth.com/mod/casualness-delight)|✅|❓| [Linked GitHub Issue](https://github.com/TsukimiRen/Casualness-Delight/issues/11)
+|[Casualness Delight](https://modrinth.com/mod/casualness-delight)|✅|✅>=0.4-FDR|
 |[Chef's Delight](https://modrinth.com/mod/chefs-delight)|✅|➖| No Contact
 |[Coffee Delight](https://modrinth.com/mod/coffee-delight)|✅|❓| [Linked GitHub Issue](https://github.com/AmarokIce/CoffeeDelight/issues/11)
-|[Corn Delight [Fabric/Quilt]](https://legacy.curseforge.com/minecraft/mc-mods/corn-delight-fabric)|✅|Planned|
+|[Corn Delight [Fabric/Quilt]](https://legacy.curseforge.com/minecraft/mc-mods/corn-delight-fabric)|✅<1.1|✅>=1.1|
 |[Crate Delight](https://modrinth.com/mod/crate-delight)|✅|✅|Does not reference any classes from either mod.
 |[Create Central Kitchen](https://modrinth.com/mod/create-central-kitchen/)|❎|Planned| Previously blocked by Farmer's Delight Fabric not using the same package names, planning on going Multiloader.
 |[Create: Food](https://modrinth.com/mod/create-food/)|✅|✅|
 |[Cultural Creators](https://legacy.curseforge.com/minecraft/mc-mods/cultural-creators-fabric-create-and-cultural/)|✅|❓| No Contact
-|[Cultural Delights (Fabric)](https://modrinth.com/mod/cultural-delights-fabric)|✅|❓|[Linked GitHub Issue](https://github.com/mrsterner/Cultural-Delights-Fabric/issues/21)</br>Same as Brewin' And Chewin' (Fabric).
-[Delightful Creators](https://modrinth.com/mod/delightful-creators-fabric/)|✅|❓| No Contact
+|[Cultural Delights (Fabric)](https://modrinth.com/mod/cultural-delights-fabric)|✅<=0.14.12|✅>=1.0.0|
+[Delightful Creators](https://modrinth.com/mod/delightful-creators-fabric/)|✅|❓| [Linked GitHub Issue](https://github.com/Flomik10002/DelightfulCreatorsFabric/issues/14)
 |[End's Delight](https://modrinth.com/mod/ends-delight/)|Has specific FDF versions|Has specific FDRF versions|
 |[Expanded Delight](https://modrinth.com/mod/expanded-delight)|✅<0.3.1|✅>=0.3.1|
 |[Fabric Seasons: Delight Compat](https://modrinth.com/mod/fabric-seasons-delight-compat)|✅|➖`*`|[Linked GitHub Issue](https://github.com/lucaargolo/fabric-seasons-delight-compat/issues/4)<br/>Incompatible due to mixins into Farmer's Delight Fabric.<br/>The developer has also been contacted through Discord, but has not responded.|
@@ -37,9 +37,9 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Nether's Delight (Fabric)](https://legacy.curseforge.com/minecraft/mc-mods/nethers-delight-fabric/)|✅|➖|Use Nether's Delight Refabricated for Refabricated.
 |[Nether's Delight Refabricated](https://modrinth.com/mod/nethers-delight-refabricated/)|❎|✅|
 |[Ocean's Delight](https://modrinth.com/mod/oceans-delight)|Has specific FDF versions|Has specific FDRF versions|
-|[Pineapple Delight](https://modrinth.com/mod/pineapple-delight)|✅|❓|[Linked GitHub Issue](https://github.com/AmarokIce/PineappleDelight/issues/15)
+|[Pineapple Delight](https://modrinth.com/mod/pineapple-delight)|✅<1.0.11|✅>=1.0.11|
 |[Recipe Book Delight](https://modrinth.com/mod/recipe-book-delight)|✅|❎| The Recipe Book is supported by default in Refabricated.
-|[Respite Creators](https://modrinth.com/mod/respite-creators-fabric)|✅|❓| No Contact
+|[Respite Creators](https://modrinth.com/mod/respite-creators-fabric)|✅|❓| [Linked GitHub Issue](https://github.com/Flomik10002/RespiteCreatorsFabric/issues/4)
 |[Shakshuka Delight](https://modrinth.com/mod/shakshuka-delight)|✅|❓| No Contact
 |[Storage Delight](https://modrinth.com/mod/storage-delight)|✅|✅|
 |[Ube's Delight](https://modrinth.com/mod/ubes-delight)|✅|✅>=0.1.5.3|
@@ -50,7 +50,7 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Create Slice and Dice](https://modrinth.com/mod/slice-and-dice)|✅|✅|
 [EMI Addon: Extra Mod Integrations](https://modrinth.com/mod/extra-mod-integrations)|✅|❎| EMI is supported by default in Refabricated. Does not crash with Refabricated >2.0.13 since 0.4.4.
 |[Every Compat (Wood Good)](https://modrinth.com/mod/every-compat/)|✅[<2.6.40](https://modrinth.com/mod/every-compat/version/1yhdaMcm)|✅>=2.6.40|
-|[Fruitful Fun](https://modrinth.com/mod/fruitful-fun)|✅|✅|Supports Refabricated ever since 7.3.1
+|[Fruitful Fun](https://modrinth.com/mod/fruitful-fun)|✅|✅>=7.3.1|
 |[Hearty Meals](https://modrinth.com/mod/hearty-meals/)|✅|✅>=1.20-6|
 |[Supplementaries](https://modrinth.com/mod/supplementaries/)|✅[<2.8.8](https://modrinth.com/mod/supplementaries/version/q0MRm1Nc)|✅>=2.8.8|
 
