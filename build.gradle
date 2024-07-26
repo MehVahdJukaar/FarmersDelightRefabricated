@@ -109,7 +109,7 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
     // Uncomment the below to test JEI.
-    modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+    // modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
