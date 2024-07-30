@@ -10,7 +10,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BellBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -33,12 +36,12 @@ public class RopeBlock extends IronBarsBlock
 	public RopeBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any()
-				.setValue(CrossCollisionBlock.NORTH, false)
-				.setValue(CrossCollisionBlock.SOUTH, false)
-				.setValue(CrossCollisionBlock.EAST, false)
-				.setValue(CrossCollisionBlock.WEST, false)
+				.setValue(NORTH, false)
+				.setValue(SOUTH, false)
+				.setValue(EAST, false)
+				.setValue(WEST, false)
 				.setValue(TIED_TO_BELL, false)
-				.setValue(CrossCollisionBlock.WATERLOGGED, false)
+				.setValue(WATERLOGGED, false)
 		);
 	}
 
@@ -112,7 +115,7 @@ public class RopeBlock extends IronBarsBlock
 
 	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		if (state.getValue(CrossCollisionBlock.WATERLOGGED)) {
+		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
@@ -122,12 +125,12 @@ public class RopeBlock extends IronBarsBlock
 		}
 
 		return facing.getAxis().isHorizontal()
-				? state.setValue(TIED_TO_BELL, tiedToBell).setValue(CrossCollisionBlock.PROPERTY_BY_DIRECTION.get(facing), this.attachsTo(facingState, facingState.isFaceSturdy(level, facingPos, facing.getOpposite())))
+				? state.setValue(TIED_TO_BELL, tiedToBell).setValue(PROPERTY_BY_DIRECTION.get(facing), this.attachsTo(facingState, facingState.isFaceSturdy(level, facingPos, facing.getOpposite())))
 				: super.updateShape(state.setValue(TIED_TO_BELL, tiedToBell), facing, facingState, level, currentPos, facingPos);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(CrossCollisionBlock.NORTH, CrossCollisionBlock.EAST, CrossCollisionBlock.WEST, CrossCollisionBlock.SOUTH, CrossCollisionBlock.WATERLOGGED, TIED_TO_BELL);
+		builder.add(NORTH, EAST, WEST, SOUTH, WATERLOGGED, TIED_TO_BELL);
 	}
 }

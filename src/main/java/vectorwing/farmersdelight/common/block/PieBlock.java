@@ -98,9 +98,12 @@ public class PieBlock extends Block
 			return InteractionResult.PASS;
 		} else {
 			ItemStack sliceStack = this.getPieSliceItem();
+			ItemStack sliceCopy = sliceStack.copy();
 			FoodProperties sliceFood = sliceStack.getItem().getFoodProperties();
 
 			playerIn.getFoodData().eat(sliceStack.getItem(), sliceStack);
+			// Refabricated: We don't need an equivalent I think? Please complain to us Slice of Life devs if necessary.
+			// ForgeEventFactory.onItemUseFinish(playerIn, sliceCopy, 0, ItemStack.EMPTY);
 			if (this.getPieSliceItem().getItem().isEdible() && sliceFood != null) {
 				for (Pair<MobEffectInstance, Float> pair : sliceFood.getEffects()) {
 					if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {

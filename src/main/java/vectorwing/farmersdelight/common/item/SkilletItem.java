@@ -144,6 +144,10 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
 
             Optional<CampfireCookingRecipe> recipe = getCookingRecipe(cookingStack, level);
             if (recipe.isPresent()) {
+                if (player.isUnderWater()) {
+                    player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
+                    return InteractionResultHolder.pass(skilletStack);
+                }
                 ItemStack cookingStackCopy = cookingStack.copy();
                 ItemStack cookingStackUnit = cookingStackCopy.split(1);
                 skilletStack.getOrCreateTag().put("Cooking", cookingStackUnit.serializeNBT());

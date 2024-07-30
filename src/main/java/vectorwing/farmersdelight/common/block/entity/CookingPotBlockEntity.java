@@ -300,12 +300,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	}
 
 	public ItemStack getContainer() {
-		ItemStack mealStack = getMeal();
-		if (!mealStack.isEmpty() && !mealContainerStack.isEmpty()) {
-			return mealContainerStack;
-		} else {
-			return mealStack.getRecipeRemainder();
-		}
+        ItemStack mealStack = getMeal();
+        if (mealStack.isEmpty() || mealContainerStack.isEmpty()) return mealStack.getRecipeRemainder();
+        return mealContainerStack;
 	}
 
 	private boolean hasInput() {
@@ -480,6 +477,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	public ItemStack useHeldItemOnMeal(ItemStack container) {
 		if (isContainerValid(container) && !getMeal().isEmpty()) {
 			container.shrink(1);
+            inventoryChanged();
 			return getMeal().split(1);
 		}
 		return ItemStack.EMPTY;
@@ -489,14 +487,11 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return !mealContainerStack.isEmpty() || !meal.getRecipeRemainder().isEmpty();
 	}
 
-	public boolean isContainerValid(ItemStack containerItem) {
-		if (containerItem.isEmpty()) return false;
-		if (!mealContainerStack.isEmpty()) {
-			return ItemStack.isSameItem(mealContainerStack, containerItem);
-		} else {
-			return ItemStack.isSameItem(getMeal(), containerItem);
-		}
-	}
+    public boolean isContainerValid(ItemStack containerItem) {
+        if (containerItem.isEmpty()) return false;
+        if (!mealContainerStack.isEmpty()) return ItemStack.isSameItem(mealContainerStack, containerItem);
+        return ItemStack.isSameItem(getMeal(), containerItem);
+    }
 
 	@Override
 	public Component getName() {

@@ -2,6 +2,9 @@ package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
 import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
+import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
+import io.github.fabricators_of_create.porting_lib.tool.extensions.ItemStackExtensions;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,9 +37,11 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Set;
 
-public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
+public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem, ItemStackExtensions
 {
-	public KnifeItem(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
+    public static final Set<ToolAction> KNIFE_ACTIONS = Set.of(ToolActions.SHEARS_CARVE);
+
+    public KnifeItem(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
 		super(attackDamage, attackSpeed, tier, ModTags.MINEABLE_WITH_KNIFE, properties);
 	}
 
@@ -50,6 +55,11 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		stack.hurtAndBreak(1, attacker, (user) -> user.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 		return true;
 	}
+
+    @Override
+    public boolean canPerformAction(ToolAction toolAction) {
+        return KNIFE_ACTIONS.contains(toolAction);
+    }
 
 	public static void init() {
 		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);

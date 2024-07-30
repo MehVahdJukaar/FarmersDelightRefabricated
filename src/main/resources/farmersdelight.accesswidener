@@ -8,6 +8,9 @@ mutable field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/wo
 
 accessible field net/minecraft/world/entity/animal/Parrot TAME_FOOD Ljava/util/Set;
 
+accessible field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+mutable field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 
 accessible field net/minecraft/world/item/Item maxStackSize I
