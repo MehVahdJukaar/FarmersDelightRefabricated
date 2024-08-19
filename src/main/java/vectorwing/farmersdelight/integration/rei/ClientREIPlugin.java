@@ -1,8 +1,10 @@
 package vectorwing.farmersdelight.integration.rei;
 
+import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandler;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
@@ -10,6 +12,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
+import vectorwing.farmersdelight.client.gui.CookingPotScreen;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
@@ -46,6 +49,11 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.WILD_POTATOES.get(), Items.POTATO)), Component.translatable("item.minecraft.potato")).lines(TextUtils.getTranslation("jei.info.wild_potatoes")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.WILD_TOMATOES.get(), ModItems.TOMATO.get())), Component.translatable("item.farmersdelight.tomato")).lines(TextUtils.getTranslation("jei.info.wild_tomatoes")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.WILD_RICE.get(), ModItems.RICE_PANICLE.get())), Component.translatable("item.farmersdelight.rice")).lines(TextUtils.getTranslation("jei.info.wild_rice")));
+    }
+
+    @Override
+    public void registerScreens(ScreenRegistry registry) {
+        registry.registerContainerClickArea(new Rectangle(89, 25, 24, 17), CookingPotScreen.class, REICategoryIdentifiers.COOKING);
     }
 
     @Override
