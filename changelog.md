@@ -1,2 +1,2 @@
-- Fixed rich soil not working well with all crops
-- Add by_by (Belarusian) lang file ([#38](https://github.com/MehVahdJukaar/FarmersDelight/pull/38)) - observr
+- Fixed being unable to click the Cooking Pot Screen's arrow with REI to access all Cooking Pot recipes. ([#51](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/51))
+- Fixed Cooking Pot meals only storing servings up to an item's stack limit. ([#65](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/65))
