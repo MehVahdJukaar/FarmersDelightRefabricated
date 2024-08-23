@@ -1,2 +1,1 @@
-- Fixed being unable to click the Cooking Pot Screen's arrow with REI to access all Cooking Pot recipes. ([#51](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/51))
-- Fixed Cooking Pot meals only storing servings up to an item's stack limit. ([#65](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/65))
+- Make EMI tag translations consistent with the Forge version of the mod.
