@@ -73,10 +73,10 @@ public class ClientSetupEvents
 		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
 	}
 
-	public static void onModelRegister(ModelLoadingPlugin.Context event) {
-		event.addModels(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
-	}
-
+//	public static void onModelRegister(ModelLoadingPlugin.Context event) {
+//		event.addModels(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
+//	}
+//
 //	@SubscribeEvent
 //	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
 //		Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
