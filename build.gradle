@@ -94,13 +94,7 @@ dependencies {
     }
 
     for (String module in port_lib_modules.split(",")) {
-        //include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
-        include(modApi("io.github.fabricators_of_create.Porting-Lib:porting_lib_$module:$port_lib_version"))
-    }
-    // TODO: Remove this below block when Porting Lib has a full release.
-    for (String module in port_lib_included_modules.split(",")) {
-        //include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
-        modApi("io.github.fabricators_of_create.Porting-Lib:porting_lib_$module:$port_lib_version")
+        include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
     modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
