@@ -152,7 +152,7 @@ if (env.MODRINTH_TOKEN) {
         projectId = modrinth_project_id
         versionName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
         uploadFile = tasks.remapJar
-        gameVersions = [minecraft_version]
+        gameVersions = project.minecraft_supported_versions.split(",")
         loaders = ["fabric", "quilt"]
         changelog = changelogText
         versionNumber = mod_version
@@ -177,7 +177,9 @@ if (env.CURSEFORGE_TOKEN) {
             changelog = changelogText
             changelogType = 'markdown'
             releaseType = 'release'
-            addGameVersion minecraft_version
+            for (String mcVersion : project.minecraft_supported_versions.split(",")) {
+                addGameVersion mcVersion
+            }
             addGameVersion "Fabric"
             addGameVersion "Quilt"
 
