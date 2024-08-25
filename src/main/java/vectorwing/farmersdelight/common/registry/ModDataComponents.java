@@ -41,7 +41,7 @@ public class ModDataComponents
 			"backstabbing", builder -> builder.persistent(ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
 			));
 
-	// Refabricated.
+	// Refabricated
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP = DATA_COMPONENTS.registerComponentType(
 			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
 	);

@@ -33,7 +33,6 @@ public class FarmersDelightClient implements ClientModInitializer {
     public void onInitializeClient() {
         ItemTooltipCallback.EVENT.register(TooltipEvents::addTooltipToVanillaSoups);
         TooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
-        ModelLoadingPlugin.register(ClientSetupEvents::onModelRegister);
         ClientSetupEvents.registerRecipeBookCategories();
         ClientSetupEvents.onRegisterRenderers();
         ClientSetupEvents.registerParticles();
@@ -53,7 +52,7 @@ public class FarmersDelightClient implements ClientModInitializer {
                 var player = Minecraft.getInstance().player;
                 if (player != null && player.isUsingItem()) {
                     if (player.getUseItem().getItem() instanceof SkilletItem) {
-                        ClientPlayNetworking.send(new ModNetworking.FlipSkilletMessage());
+                        ClientPlayNetworking.send(ModNetworking.FlipSkilletMessage.INSTANCE);
                     }
                 }
             }
