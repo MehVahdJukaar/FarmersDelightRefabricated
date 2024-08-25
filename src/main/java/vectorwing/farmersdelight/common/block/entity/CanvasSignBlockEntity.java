@@ -13,6 +13,11 @@ public class CanvasSignBlockEntity extends SignBlockEntity
 	}
 
 	@Override
+	public boolean isValidBlockState(BlockState blockState) {
+		return this.getType().isValid(blockState);
+	}
+
+	@Override
 	public BlockEntityType<?> getType() {
 		return ModBlockEntityTypes.CANVAS_SIGN.get();
 	}
