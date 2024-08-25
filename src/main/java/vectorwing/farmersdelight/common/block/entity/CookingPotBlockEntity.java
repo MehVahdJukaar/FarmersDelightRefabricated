@@ -539,14 +539,14 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			@Override
 			public int getSlotLimit(int slot) {
 				if (slot == MEAL_DISPLAY_SLOT)
-					return Math.max(64, getStackInSlot(slot).getMaxStackSize());
-				return getStackInSlot(slot).getMaxStackSize();
+					return Math.max(64, super.getSlotLimit(slot));
+				return super.getSlotLimit(slot);
 			}
 
 			@Override
 			protected int getStackLimit(int slot, ItemVariant resource) {
 				if (slot == MEAL_DISPLAY_SLOT)
-					return Math.max(64, getStackInSlot(slot).getMaxStackSize());
+					return Math.max(64, super.getStackLimit(slot, resource));
 				return super.getStackLimit(slot, resource);
 			}
 
