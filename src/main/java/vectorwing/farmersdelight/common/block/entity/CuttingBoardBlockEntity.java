@@ -1,15 +1,14 @@
 package vectorwing.farmersdelight.common.block.entity;
 
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -23,13 +22,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import vectorwing.farmersdelight.FarmersDelight;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
@@ -38,20 +35,16 @@ import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
-import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class CuttingBoardBlockEntity extends SyncedBlockEntity
 {
 	private final ItemStackHandlerContainer inventory;
-	private final ItemStackHandlerContainer inputHandler;
 	private ResourceLocation lastRecipeID;
 	private final RecipeManager.CachedCheck<SingleRecipeInput, CuttingBoardRecipe> quickCheck;
 
@@ -60,11 +53,20 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntityTypes.CUTTING_BOARD.get(), pos, state);
 		inventory = createHandler();
-		inputHandler = inventory;
 		isItemCarvingBoard = false;
 		quickCheck = RecipeManager.createCheck(ModRecipeTypes.CUTTING.get());
 	}
 
+	public static void init() {
+		ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
+	}
+
+	@NotNull
+	public Storage<ItemVariant> getStorage(@Nullable Direction side) {
+		return getInventory();
+	}
+
+	/*
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
@@ -73,10 +75,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 				(be, context) -> be.getInventory()
 		);
 	}
-
-	public static void init() {
-		ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
-	}
+	 */
 
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
@@ -97,10 +96,10 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 
 		if (isItemCarvingBoard) return false;
 
-		Optional<CuttingBoardRecipe> matchingRecipe = getMatchingRecipe(toolStack, player);
+		Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getMatchingRecipe(toolStack, player);
 
 		matchingRecipe.ifPresent(recipe -> {
-			List<ItemStack> results = recipe.rollResults(level.random, EnchantmentHelper.getTagEnchantmentLevel(level.holder(Enchantments.FORTUNE).get(), toolStack));
+			List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.FORTUNE), toolStack));
 			for (ItemStack resultStack : results) {
 				Direction direction = getBlockState().getValue(CuttingBoardBlock.FACING).getCounterClockWise();
 				ItemUtils.spawnItemEntity(level, resultStack.copy(),
@@ -108,11 +107,11 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 						direction.getStepX() * 0.2F, 0.0F, direction.getStepZ() * 0.2F);
 			}
 			if (!level.isClientSide) {
-				toolStack.hurtAndBreak(1, (ServerLevel) level, player, (item) -> {
+				toolStack.hurtAndBreak(1, (ServerLevel) level, (ServerPlayer) player, (item) -> {
 				});
 			}
 
-			playProcessingSound(recipe.getSoundEventID(), toolStack, getStoredItem());
+			playProcessingSound(recipe.value().getSoundEvent().orElse(null), toolStack, getStoredItem());
 			removeItem();
 			if (player instanceof ServerPlayer) {
 				ModAdvancements.USE_CUTTING_BOARD.get().trigger((ServerPlayer) player);
@@ -122,31 +121,29 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return matchingRecipe.isPresent();
 	}
 
-    private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player) {
-        if (level == null) return Optional.empty();
+	private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player) {
+		if (level == null) return Optional.empty();
 
-        Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new SingleRecipeInput(getStoredItem()), level);
-        if (recipe.isPresent()) {
-            if (recipe.get().value().getTool().test(toolStack)) {
-                return recipe;
-            } else if (player != null) {
-                player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool"), true);
-            }
-        } else if (player != null) {
-            player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item"), true);
-        }
+		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new SingleRecipeInput(getStoredItem()), level);
+		if (recipe.isPresent()) {
+			if (recipe.get().value().getTool().test(toolStack)) {
+				return recipe;
+			} else if (player != null) {
+				player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool"), true);
+			}
+		} else if (player != null) {
+			player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item"), true);
+		}
 
-        return Optional.empty();
-    }
+		return Optional.empty();
+	}
 
-	public void playProcessingSound(String soundEventID, ItemStack tool, ItemStack boardItem) {
-		SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(soundEventID));
-
+	public void playProcessingSound(@Nullable SoundEvent sound, ItemStack tool, ItemStack boardItem) {
 		if (sound != null) {
 			playSound(sound, 1.0F, 1.0F);
-		} else if (tool.is(Tags.Items.TOOLS_SHEAR)) {
+		} else if (tool.is(ConventionalItemTags.SHEAR_TOOLS)) {
 			playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
-		} else if (tool.is(CommonTags.TOOLS_KNIVES)) {
+		} else if (tool.is(CommonTags.TOOLS_KNIFE)) {
 			playSound(ModSounds.BLOCK_CUTTING_BOARD_KNIFE.get(), 0.8F, 1.0F);
 		} else if (boardItem.getItem() instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
@@ -183,7 +180,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	public ItemStack removeItem() {
 		if (!isEmpty()) {
 			isItemCarvingBoard = false;
-			ItemStack item = inventory.removeItem(0, 1);
+			ItemStack item = getStoredItem().split(1);
 			inventoryChanged();
 			return item;
 		}
@@ -204,11 +201,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 
 	public boolean isItemCarvingBoard() {
 		return isItemCarvingBoard;
-	}
-
-	@NotNull
-	public Storage<ItemVariant> getStorage(@Nullable Direction side) {
-		return inputHandler;
 	}
 
 	@Override

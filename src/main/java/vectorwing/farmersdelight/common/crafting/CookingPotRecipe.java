@@ -1,15 +1,13 @@
 package vectorwing.farmersdelight.common.crafting;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.google.gson.JsonParseException;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
-import io.github.fabricators_of_create.porting_lib.util.CraftingHelper;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -17,21 +15,17 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
-import java.util.EnumSet;
-
-;
+import java.util.Optional;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
 {
 	public static final int INPUT_SLOTS = 6;
 
-	private final ResourceLocation id;
 	private final String group;
 	private final CookingPotRecipeBookTab tab;
 	private final NonNullList<Ingredient> inputItems;
@@ -41,8 +35,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	private final float experience;
 	private final int cookTime;
 
-	public CookingPotRecipe(ResourceLocation id, String group, @Nullable CookingPotRecipeBookTab tab, NonNullList<Ingredient> inputItems, ItemStack output, ItemStack container, float experience, int cookTime) {
-		this.id = id;
+	public CookingPotRecipe(String group, @Nullable CookingPotRecipeBookTab tab, NonNullList<Ingredient> inputItems, ItemStack output, ItemStack container, float experience, int cookTime) {
 		this.group = group;
 		this.tab = tab;
 		this.inputItems = inputItems;
@@ -59,11 +52,6 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		this.containerOverride = container;
 		this.experience = experience;
 		this.cookTime = cookTime;
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return this.id;
 	}
 
 	@Override
@@ -116,7 +104,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			ItemStack itemstack = inv.getItem(j);
 			if (!itemstack.isEmpty()) {
 				++i;
-				stackedContents.accountStack(itemstack, 1);
+				stackedContents.accountStack(itemstack);
 			}
 		}
 		return i == this.inputItems.size() && stackedContents.canCraft(this, null);
@@ -151,7 +139,6 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		if (Float.compare(that.getExperience(), getExperience()) != 0) return false;
 		if (getCookTime() != that.getCookTime()) return false;
-		if (!getId().equals(that.getId())) return false;
 		if (!getGroup().equals(that.getGroup())) return false;
 		if (tab != that.tab) return false;
 		if (!inputItems.equals(that.inputItems)) return false;
@@ -161,8 +148,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	@Override
 	public int hashCode() {
-		int result = getId().hashCode();
-		result = 31 * result + getGroup().hashCode();
+		int result = getGroup().hashCode();
 		result = 31 * result + (getRecipeBookTab() != null ? getRecipeBookTab().hashCode() : 0);
 		result = 31 * result + inputItems.hashCode();
 		result = 31 * result + output.hashCode();
@@ -177,7 +163,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::getGroup),
 				CookingPotRecipeBookTab.CODEC.optionalFieldOf("recipe_book_tab").xmap(optional -> optional.orElse(null), Optional::of).forGetter(CookingPotRecipe::getRecipeBookTab),
-				Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").xmap(ingredients -> {
+				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").xmap(ingredients -> {
 					NonNullList<Ingredient> nonNullList = NonNullList.create();
 					nonNullList.addAll(ingredients);
 					return nonNullList;
@@ -215,7 +201,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 			float experienceIn = buffer.readFloat();
 			int cookTimeIn = buffer.readVarInt();
-			return new CookingPotRecipe(recipeId, groupIn, tabIn, inputItemsIn, outputIn, container, experienceIn, cookTimeIn);
+			return new CookingPotRecipe(groupIn, tabIn, inputItemsIn, outputIn, container, experienceIn, cookTimeIn);
 		}
 
 		private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {

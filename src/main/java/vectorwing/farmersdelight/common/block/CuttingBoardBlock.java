@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -13,8 +14,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -34,13 +34,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.FarmersDelight;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
-
-;
 
 @SuppressWarnings("deprecation")
 public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
@@ -55,6 +52,10 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	public CuttingBoardBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+	}
+
+	public static void init() {
+		UseBlockCallback.EVENT.register(CuttingBoardBlock.ToolCarvingEvent::onSneakPlaceTool);
 	}
 
 	@Override
@@ -158,7 +159,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
-		return Block.canSupportRigidBlock(level, floorPos) || Block.canSupportCenter(level, floorPos, Direction.UP);
+		return canSupportRigidBlock(level, floorPos) || canSupportCenter(level, floorPos, Direction.UP);
 	}
 
 	@Override
@@ -213,17 +214,13 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 	}
 
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class ToolCarvingEvent
 	{
-		@SubscribeEvent
 		@SuppressWarnings("unused")
-		public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
-			Level level = event.getLevel();
-			BlockPos pos = event.getPos();
-			Player player = event.getEntity();
+		public static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand hand, BlockHitResult hit) {
+			BlockPos pos = hit.getBlockPos();
 			ItemStack heldStack = player.getMainHandItem();
-			BlockEntity tileEntity = level.getBlockEntity(event.getPos());
+			BlockEntity tileEntity = level.getBlockEntity(pos);
 
 			if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
 				if (heldStack.getItem() instanceof TieredItem ||
@@ -232,11 +229,11 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
 					if (success) {
 						level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
-						event.setCanceled(true);
-						event.setCancellationResult(InteractionResult.SUCCESS);
+						return InteractionResult.SUCCESS;
 					}
 				}
 			}
+			return InteractionResult.PASS;
 		}
 	}
 }

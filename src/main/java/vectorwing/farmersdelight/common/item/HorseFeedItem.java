@@ -22,7 +22,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import vectorwing.farmersdelight.FarmersDelight;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
@@ -33,8 +32,6 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
-
-;
 
 public class HorseFeedItem extends Item
 {
@@ -52,11 +49,7 @@ public class HorseFeedItem extends Item
 
 	public static class HorseFeedEvent
 	{
-
-		public static InteractionResult onHorseFeedApplied(Player player, Level level, InteractionHand hand, Entity target,
-														 @Nullable EntityHitResult entityHitResult) {
-			if (player.isSpectator()) return InteractionResult.PASS;
-
+		public static InteractionResult onHorseFeedApplied(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult entityHitResult) {
 			ItemStack heldStack = player.getItemInHand(hand);
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.HORSE_FEED_USERS)) {
@@ -80,7 +73,7 @@ public class HorseFeedItem extends Item
 						heldStack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					return InteractionResult.SUCCESS;
 				}
 			}
 			return InteractionResult.PASS;
@@ -89,7 +82,6 @@ public class HorseFeedItem extends Item
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

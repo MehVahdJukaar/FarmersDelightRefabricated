@@ -24,7 +24,7 @@ public class VillageStructures
 		ServerLifecycleEvents.SERVER_STARTED.register(VillageStructures::addNewVillageBuilding);
 	}
 
-	public static void addNewVillageBuilding(MinecraftServer  server) {
+	public static void addNewVillageBuilding(final MinecraftServer server) {
 		if (!Configuration.GENERATE_VILLAGE_COMPOST_HEAPS.get()) {
 			return;
 		}

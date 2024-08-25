@@ -3,14 +3,18 @@ package vectorwing.farmersdelight.common;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Refabricated: Deprecated: Look at {@link vectorwing.farmersdelight.FarmersDelightASM}.
+ */
+@Deprecated
 public class EnumParameters
 {
+	/*
 	public static final EnumProxy<RecipeBookCategories> PROXY_COOKING_SEARCH = new EnumProxy<>(
 			RecipeBookCategories.class, (Supplier<List<ItemStack>>) () -> List.of(new ItemStack(Items.COMPASS))
 	);
@@ -23,4 +27,5 @@ public class EnumParameters
 	public static final EnumProxy<RecipeBookCategories> PROXY_COOKING_MISC = new EnumProxy<>(
 			RecipeBookCategories.class, (Supplier<List<ItemStack>>) () -> List.of(new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get()))
 	);
+	 */
 }

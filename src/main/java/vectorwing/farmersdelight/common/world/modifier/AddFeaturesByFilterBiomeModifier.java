@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.world.modifier;
 
-import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -9,6 +7,10 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.Optional;
 
+/**
+ * Deprecated: Look at {@link vectorwing.farmersdelight.common.registry.ModBiomeModifiers} instead.
+ */
+@Deprecated
 public record AddFeaturesByFilterBiomeModifier(
 		HolderSet<Biome> allowedBiomes,
 		Optional<HolderSet<Biome>> deniedBiomes,
@@ -18,7 +20,6 @@ public record AddFeaturesByFilterBiomeModifier(
 		GenerationStep.Decoration step
 )
 {
-	// Moved to ModBiomeModifiers.
 	/*
 	@Override
 	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
@@ -26,10 +27,10 @@ public record AddFeaturesByFilterBiomeModifier(
 			if (deniedBiomes.isPresent() && this.deniedBiomes.get().contains(biome)) {
 				return;
 			}
-			if (minimumTemperature.isPresent() && biome.get().getBaseTemperature() < minimumTemperature.get()) {
+			if (minimumTemperature.isPresent() && biome.value().getBaseTemperature() < minimumTemperature.get()) {
 				return;
 			}
-			if (maximumTemperature.isPresent() && biome.get().getBaseTemperature() > maximumTemperature.get()) {
+			if (maximumTemperature.isPresent() && biome.value().getBaseTemperature() > maximumTemperature.get()) {
 				return;
 			}
 			BiomeGenerationSettingsBuilder generationSettings = builder.getGenerationSettings();

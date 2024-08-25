@@ -1,14 +1,10 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
-import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -38,7 +34,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	}
 
 	public static void turnToRichSoil(BlockState state, Level level, BlockPos pos) {
-		level.setBlockAndUpdate(pos, Block.pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));
+		level.setBlockAndUpdate(pos, pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));
 	}
 
 	@Override
@@ -63,13 +59,13 @@ public class RichSoilFarmlandBlock extends FarmBlock
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		int moisture = state.getValue(FarmBlock.MOISTURE);
+		int moisture = state.getValue(MOISTURE);
 		if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
 			if (moisture > 0) {
-				level.setBlock(pos, state.setValue(FarmBlock.MOISTURE, moisture - 1), 2);
+				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
 			}
 		} else if (moisture < 7) {
-			level.setBlock(pos, state.setValue(FarmBlock.MOISTURE, 7), 2);
+			level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
 		} else if (moisture == 7) {
 			if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
 				return;
@@ -84,16 +80,15 @@ public class RichSoilFarmlandBlock extends FarmBlock
 			}
 
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false)) {
-					growable.performBonemeal(level, level.random, pos.above(), aboveState);
-					if (!level.isClientSide) {
-						level.levelEvent(2005, pos.above(), 0);
-					}
+				if (growable.isValidBonemealTarget(level, abovePos, aboveState)) {
+					growable.performBonemeal(level, level.random, abovePos, aboveState);
+					level.levelEvent(1505, abovePos, 15);
 				}
 			}
 		}
 	}
 
+	/*
 	@Override
 	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
 //		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
@@ -105,6 +100,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		}
 		return TriState.DEFAULT;
 	}
+	 */
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

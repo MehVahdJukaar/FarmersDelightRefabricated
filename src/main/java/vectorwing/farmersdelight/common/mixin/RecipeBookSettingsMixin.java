@@ -25,7 +25,7 @@ public class RecipeBookSettingsMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void modifyTagFields(CallbackInfo ci) {
         Map<RecipeBookType, Pair<String, String>> newMap = new HashMap<>(TAG_FIELDS);
-        newMap.put(FarmersDelight.RECIPE_TYPE_COOKING, Pair.of("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable"));
+        newMap.put(RecipeBookType.valueOf("FARMERSDELIGHT_COOKING"), Pair.of("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable"));
         TAG_FIELDS = Map.copyOf(newMap);
     }
 }

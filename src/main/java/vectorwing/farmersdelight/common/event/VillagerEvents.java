@@ -6,38 +6,34 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.BasicItemListing;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.neoforge.event.village.WandererTradesEvent;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-
-@Mod.EventBusSubscriber(modid = FarmersDelight.MODID)
-@ParametersAreNonnullByDefault
 public class VillagerEvents
 {
-
 	public static void init() {
 		// As the config cannot be loaded on init, we must do this.
-		ServerLifecycleEvents.SERVER_STARTING.register(client -> addTrades());
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+			onVillagerTrades();
+			onWandererTrades();
+		});
 	}
 
-	public static void addTrades(){
-		if (Configuration.FARMERS_BUY_FD_CROPS.get()) {
-			TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, (trades) -> {
-				trades.add(emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
-				trades.add(emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
-			});
+	public static void onVillagerTrades() {
+		if (!Configuration.FARMERS_BUY_FD_CROPS.get()) return;
 
-			TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 2, (trades) -> {
-				trades.add(emeraldForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
-				trades.add(emeraldForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
-			});
-		}
+		TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, (trades) -> {
+			trades.add(emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
+			trades.add(emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
+		});
+
+		TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 2, (trades) -> {
+			trades.add(emeraldForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
+			trades.add(emeraldForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
+		});
+	}
+
+	public static void onWandererTrades() {
 		if (Configuration.WANDERING_TRADER_SELLS_FD_ITEMS.get()) {
 			TradeOfferHelper.registerWanderingTraderOffers(0, (trades) -> {
 				trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12));
@@ -48,8 +44,6 @@ public class VillagerEvents
 		}
 	}
 
-
-	// BasicItemListing does not exist on Fabric.
 	public static VillagerTrades.ItemListing emeraldForItemsTrade(ItemLike item, int count, int maxTrades, int xp) {
 		return new VillagerTrades.EmeraldForItems(item, count, maxTrades, xp);
 	}

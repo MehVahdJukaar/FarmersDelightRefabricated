@@ -23,10 +23,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -35,8 +31,6 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
-
-;
 
 public class DogFoodItem extends ConsumableItem
 {
@@ -55,11 +49,8 @@ public class DogFoodItem extends ConsumableItem
 
 	public static class DogFoodEvent
 	{
-
 		public static InteractionResult onDogFoodApplied(Player player, Level level, InteractionHand hand, Entity target,
-														 @Nullable EntityHitResult entityHitResult) {
-			if (player.isSpectator()) return InteractionResult.PASS;
-
+											@Nullable EntityHitResult entityHitResult) {
 			ItemStack itemStack = player.getItemInHand(hand);
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.DOG_FOOD_USERS)) {
@@ -84,17 +75,15 @@ public class DogFoodItem extends ConsumableItem
 						itemStack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					return InteractionResult.SUCCESS;
 				}
 			}
 			return InteractionResult.PASS;
 		}
-
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

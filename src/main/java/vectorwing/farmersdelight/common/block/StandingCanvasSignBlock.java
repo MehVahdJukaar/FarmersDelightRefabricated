@@ -16,10 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
-;
-
-import javax.annotation.Nullable;
-
 public class StandingCanvasSignBlock extends StandingSignBlock implements CanvasSign
 {
 	private final DyeColor backgroundColor;

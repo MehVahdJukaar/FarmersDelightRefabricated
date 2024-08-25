@@ -34,7 +34,6 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-;
 
 @SuppressWarnings("deprecation")
 public class TomatoVineBlock extends CropBlock
@@ -60,10 +59,10 @@ public class TomatoVineBlock extends CropBlock
 		boolean isMature = age == getMaxAge();
 		if (isMature) {
 			int quantity = 1 + level.random.nextInt(2);
-			Block.popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
+			popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
 
 			if (level.random.nextFloat() < 0.05) {
-				Block.popResource(level, pos, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
+				popResource(level, pos, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
 			}
 
 			level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
@@ -80,11 +79,11 @@ public class TomatoVineBlock extends CropBlock
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!level.isAreaLoaded(pos, 1)) return;
+		if (!level.hasChunksAt(pos.offset(-1, -1 , -1), pos.offset(1, 1, 1))) return;
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
-				float speed = CropBlock.getGrowthSpeed(this, level, pos);
+				float speed = getGrowthSpeed(state.getBlock(), level, pos);
 				if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
 				}
@@ -157,7 +156,6 @@ public class TomatoVineBlock extends CropBlock
 		attemptRopeClimb(level, pos, random);
 	}
 
-	// cant be done. just done staticlaly using tags (or mixins..)
 	public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
 		return state.getValue(ROPELOGGED) && state.is(BlockTags.CLIMBABLE);
 	}
@@ -198,8 +196,8 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	public static void destroyAndPlaceRope(Level level, BlockPos pos) {
-		var configuredRopeBlock = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
-		Block finalRopeBlock = configuredRopeBlock.orElseGet(ModBlocks.ROPE);
+		Block configuredRopeBlock = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
+		Block finalRopeBlock = configuredRopeBlock != null ? configuredRopeBlock : ModBlocks.ROPE.get();
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
 	}
 

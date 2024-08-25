@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
 import com.mojang.serialization.MapCodec;
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;

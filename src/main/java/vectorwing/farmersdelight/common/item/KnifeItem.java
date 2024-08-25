@@ -1,8 +1,9 @@
 package vectorwing.farmersdelight.common.item;
 
-import com.google.common.collect.Sets;
-import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
+import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -27,18 +28,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
-import java.util.Set;
-
-public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
+public class KnifeItem extends DiggerItem
 {
 	public KnifeItem(Tier tier, Properties properties) {
 		super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
+	}
+
+	public static void init() {
+		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);
 	}
 
 	@Override
@@ -52,16 +54,11 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		return true;
 	}
 
-	@Override
-	public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.value().isPrimaryItem(new ItemStack(Items.DIAMOND_SWORD)) && !enchantment.is(Enchantments.SWEEPING_EDGE)) {
-			return true;
+	public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
+		if (context == EnchantingContext.PRIMARY && enchantment.is(Enchantments.SWEEPING_EDGE)) {
+			return false;
 		}
-		return super.isPrimaryItemFor(stack, enchantment);
-	}
-
-	public static void init() {
-		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);
+		return super.canBeEnchantedWith(stack, enchantment, context);
 	}
 
 	public static class KnifeEvents
@@ -79,7 +76,7 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 			return strength;
 		}
 
-		public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, HitResult hitResult) {
+		public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
 			ItemStack toolStack = player.getItemInHand(hand);
 
 			if (!toolStack.is(ModTags.KNIVES)) {
@@ -117,7 +114,6 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 			}
 			return InteractionResult.PASS;
 		}
-
 	}
 
 	@Override
@@ -145,17 +141,16 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		}
 	}
 
-    //forge has it disabled
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
-        Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
-        if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
-            return true;
-        }
-        Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
-        if (DENIED_ENCHANTMENTS.contains(enchantment)) {
-            return false;
-        }
-        return enchantment.category.canEnchant(stack.getItem());
-    }
+//	@Override
+//	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
+//		Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
+//		if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
+//			return true;
+//		}
+//		Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
+//		if (DENIED_ENCHANTMENTS.contains(enchantment)) {
+//			return false;
+//		}
+//		return enchantment.category.canEnchant(stack.getItem());
+//	}
 }

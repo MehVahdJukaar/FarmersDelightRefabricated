@@ -1,45 +1,28 @@
 package vectorwing.farmersdelight.common.crafting.condition;
 
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.serialization.MapCodec;
+import io.github.fabricators_of_create.porting_lib.conditions.ICondition;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
+import net.minecraft.core.HolderLookup;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.Configuration;
 
-public class VanillaCrateEnabledCondition
+public class VanillaCrateEnabledCondition implements ICondition
 {
-	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
+	public static final MapCodec<VanillaCrateEnabledCondition> CODEC = MapCodec.unit(new VanillaCrateEnabledCondition());
+	public static final ResourceConditionType<VanillaCrateEnabledCondition> TYPE = ResourceConditionType.create(FarmersDelight.res("vanilla_crates_enabled"), CODEC);
 
-	/*
-	private final ResourceLocation location;
-
-	public VanillaCrateEnabledCondition(ResourceLocation location) {
-		this.location = location;
+	public VanillaCrateEnabledCondition() {
 	}
 
-	public ResourceLocation getID() {
-		return this.location;
-	}
-
-	public boolean test() {
+	@Override
+	public boolean test(HolderLookup.@Nullable Provider provider, IContext iContext) {
 		return Configuration.ENABLE_VANILLA_CROP_CRATES.get();
 	}
 
-	public static class Serializer
-	{
-		private final ResourceLocation location;
-
-		public Serializer() {
-			this.location = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
-		}
-
-		public ResourceLocation getID() {
-			return this.location;
-		}
-
-		public VanillaCrateEnabledCondition read(JsonObject json) {
-			return new VanillaCrateEnabledCondition(this.location);
-		}
-
-		public void write(JsonObject json, VanillaCrateEnabledCondition value) {
-		}
+	@Override
+	public ResourceConditionType<?> getType() {
+		return TYPE;
 	}
-	 */
 }

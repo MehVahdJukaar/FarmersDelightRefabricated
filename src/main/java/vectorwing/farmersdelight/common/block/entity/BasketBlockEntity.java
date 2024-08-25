@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import vectorwing.farmersdelight.common.block.BasketBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -254,5 +255,16 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 			int facing = state.getValue(BasketBlock.FACING).get3DDataValue();
 			blockEntity.updateHopper(() -> pullItems(level, blockEntity, facing));
 		}
+	}
+
+	// Thanks Porting Lib...
+	@Override
+	public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
+		return new CompoundTag();
+	}
+
+	@Override
+	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
+
 	}
 }
