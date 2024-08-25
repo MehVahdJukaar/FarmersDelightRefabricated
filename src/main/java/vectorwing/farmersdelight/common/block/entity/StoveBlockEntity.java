@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.block.entity;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -8,9 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +15,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -30,7 +27,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	private static final VoxelShape GRILLING_AREA = Block.box(3.0F, 0.0F, 3.0F, 13.0F, 1.0F, 13.0F);
 	private static final int INVENTORY_SLOT_COUNT = 6;
 
-	private final ItemStackHandlerContainer inventory;
+	private final ItemStackHandler inventory;
 	private final int[] cookingTimes;
 	private final int[] cookingTimesTotal;
 
@@ -87,7 +84,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		} else if (isStoveLit) {
 			stove.cookAndOutputItems();
 		} else {
-			for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
+			for (int i = 0; i < stove.inventory.getSlots(); ++i) {
 				if (stove.cookingTimes[i] > 0) {
 					stove.cookingTimes[i] = Mth.clamp(stove.cookingTimes[i] - 2, 0, stove.cookingTimesTotal[i]);
 				}
@@ -96,7 +93,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	}
 
 	public static void animationTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
-		for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
+		for (int i = 0; i < stove.inventory.getSlots(); ++i) {
 			if (!stove.inventory.getStackInSlot(i).isEmpty() && level.random.nextFloat() < 0.2F) {
 				Vec2 stoveItemVector = stove.getStoveItemOffset(i);
 				Direction direction = state.getValue(StoveBlock.FACING);
@@ -118,14 +115,14 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		if (level == null) return;
 
 		boolean didInventoryChange = false;
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
+		for (int i = 0; i < inventory.getSlots(); ++i) {
 			ItemStack stoveStack = inventory.getStackInSlot(i);
 			if (!stoveStack.isEmpty()) {
 				++cookingTimes[i];
 				if (cookingTimes[i] >= cookingTimesTotal[i]) {
-					Optional<CampfireCookingRecipe> recipe = getMatchingRecipe(stoveStack);
+					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(stoveStack);
 					if (recipe.isPresent()) {
-						ItemStack resultStack = recipe.get().getResultItem(level.registryAccess());
+						ItemStack resultStack = recipe.get().value().getResultItem(level.registryAccess());
 						if (!resultStack.isEmpty()) {
 							ItemUtils.spawnItemEntity(level, resultStack.copy(),
 									worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
@@ -144,7 +141,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	}
 
 	public int getNextEmptySlot() {
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
+		for (int i = 0; i < inventory.getSlots(); ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
 			if (slotStack.isEmpty()) {
 				return i;
@@ -153,14 +150,13 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return -1;
 	}
 
-	public boolean addItem(ItemStack itemStackIn, CampfireCookingRecipe recipe, int slot) {
-		if (0 <= slot && slot < inventory.getSlotCount()) {
+	public boolean addItem(ItemStack itemStackIn, RecipeHolder<CampfireCookingRecipe> recipe, int slot) {
+		if (0 <= slot && slot < inventory.getSlots()) {
 			ItemStack slotStack = inventory.getStackInSlot(slot);
 			if (slotStack.isEmpty()) {
-				cookingTimesTotal[slot] = recipe.getCookingTime();
+				cookingTimesTotal[slot] = recipe.value().getCookingTime();
 				cookingTimes[slot] = 0;
 				inventory.setStackInSlot(slot, itemStackIn.split(1));
-				lastRecipeIDs[slot] = recipe.getId();
 				inventoryChanged();
 				return true;
 			}
@@ -168,12 +164,12 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return false;
 	}
 
-    public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack) {
-        if (level == null) return Optional.empty();
-        return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), this.level);
-    }
+	public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack) {
+		if (level == null) return Optional.empty();
+		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), this.level);
+	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return this.inventory;
 	}
 
@@ -199,34 +195,13 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return OFFSETS[index];
 	}
 
-	private void addParticles() {
-		if (level == null) return;
-
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
-			if (!inventory.getStackInSlot(i).isEmpty() && level.random.nextFloat() < 0.2F) {
-				Vec2 stoveItemVector = getStoveItemOffset(i);
-				Direction direction = getBlockState().getValue(StoveBlock.FACING);
-				int directionIndex = direction.get2DDataValue();
-				Vec2 offset = directionIndex % 2 == 0 ? stoveItemVector : new Vec2(stoveItemVector.y, stoveItemVector.x);
-
-				double x = ((double) worldPosition.getX() + 0.5D) - (direction.getStepX() * offset.x) + (direction.getClockWise().getStepX() * offset.x);
-				double y = (double) worldPosition.getY() + 1.0D;
-				double z = ((double) worldPosition.getZ() + 0.5D) - (direction.getStepZ() * offset.y) + (direction.getClockWise().getStepZ() * offset.y);
-
-				for (int k = 0; k < 3; ++k) {
-					level.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 5.0E-4D, 0.0D);
-				}
-			}
-		}
-	}
-
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		return writeItems(new CompoundTag(), registries);
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer(INVENTORY_SLOT_COUNT)
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler(INVENTORY_SLOT_COUNT)
 		{
 			@Override
 			public int getSlotLimit(int slot) {

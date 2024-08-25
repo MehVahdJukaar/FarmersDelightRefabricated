@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_beetroot_crate",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_beetroot_crate"
     ]
   ],
   "rewards": {

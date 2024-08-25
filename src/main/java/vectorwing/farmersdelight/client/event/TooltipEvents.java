@@ -8,27 +8,30 @@ import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import vectorwing.farmersdelight.FarmersDelight;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
 
 import java.util.List;
 
-
+@EventBusSubscriber(modid = FarmersDelight.MODID, value = Dist.CLIENT)
 public class TooltipEvents
 {
-
-	public static void addTooltipToVanillaSoups(ItemStack itemStack, TooltipFlag tooltipFlag, List<Component> tooltip) {
+	@SubscribeEvent
+	public static void addTooltipToVanillaSoups(ItemTooltipEvent event) {
 		if (!Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get()) {
 			return;
 		}
 
-		Item food = itemStack.getItem();
+		Item food = event.getItemStack().getItem();
 		FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
 
 		if (soupEffects != null) {
+			List<Component> tooltip = event.getToolTip();
 			for (FoodProperties.PossibleEffect effect : soupEffects.effects()) {
 				MobEffectInstance effectInstance = effect.effect();
 				MutableComponent effectText = Component.translatable(effectInstance.getDescriptionId());
@@ -40,6 +43,4 @@ public class TooltipEvents
 			}
 		}
 	}
-
-
 }

@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_cabbage_crate",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_cabbage_crate"
     ]
   ],
   "rewards": {

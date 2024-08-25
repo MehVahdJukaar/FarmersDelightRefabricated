@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -22,10 +23,9 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-;
+import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, BonemealableBlock
@@ -34,12 +34,12 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	public WildRiceBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, true).setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, true).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(DoublePlantBlock.HALF, WATERLOGGED);
+		builder.add(HALF, WATERLOGGED);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
 		return state.is(BlockTags.DIRT) || state.is(Blocks.SAND);
 	}
 
@@ -64,17 +64,17 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		level.setBlock(pos.above(), this.defaultBlockState().setValue(WATERLOGGED, false).setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
+		level.setBlock(pos.above(), this.defaultBlockState().setValue(WATERLOGGED, false).setValue(HALF, DoubleBlockHalf.UPPER), 3);
 	}
 
 	@Override
 	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
 		BlockState currentState = super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
-		DoubleBlockHalf half = stateIn.getValue(DoublePlantBlock.HALF);
+		DoubleBlockHalf half = stateIn.getValue(HALF);
 		if (!currentState.isAir()) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.getValue(DoublePlantBlock.HALF) != half) {
+		if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.getValue(HALF) != half) {
 			return half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
 		} else {
 			return Blocks.AIR.defaultBlockState();
@@ -94,19 +94,19 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER;
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
+		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER
+		return state.getValue(HALF) == DoubleBlockHalf.LOWER
 				? Fluids.WATER.getSource(false)
 				: Fluids.EMPTY.defaultFluidState();
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return true;
 	}
 
@@ -117,6 +117,6 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		Block.popResource(level, pos, new ItemStack(this));
+		popResource(level, pos, new ItemStack(this));
 	}
 }

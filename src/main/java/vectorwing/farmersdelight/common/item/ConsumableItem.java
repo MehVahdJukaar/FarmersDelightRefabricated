@@ -13,13 +13,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
-
-;
 
 public class ConsumableItem extends Item
 {
@@ -54,7 +52,7 @@ public class ConsumableItem extends Item
 			this.affectConsumer(stack, level, consumer);
 		}
 
-		ItemStack containerStack = stack.getRecipeRemainder();
+		ItemStack containerStack = stack.getCraftingRemainingItem();
 
 		if (stack.getFoodProperties(consumer) != null) {
 			super.finishUsingItem(stack, level, consumer);
@@ -91,7 +89,6 @@ public class ConsumableItem extends Item
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
 		if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			if (this.hasCustomTooltip) {
 				MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + BuiltInRegistries.ITEM.getKey(this).getPath());

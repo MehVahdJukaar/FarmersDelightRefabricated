@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.item;
 
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class DrinkableItem extends ConsumableItem
 {
@@ -37,8 +41,7 @@ public class DrinkableItem extends ConsumableItem
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		if (heldStack.getFoodProperties(player) != null) {
-			// TODO: >1.20.1, use https://github.com/FabricMC/fabric/pull/3520 instead of this.
-			if (player.canEat(heldStack.getItem().getFoodProperties().canAlwaysEat())) {
+			if (player.canEat(heldStack.getFoodProperties(player).canAlwaysEat())) {
 				player.startUsingItem(hand);
 				return InteractionResultHolder.consume(heldStack);
 			} else {

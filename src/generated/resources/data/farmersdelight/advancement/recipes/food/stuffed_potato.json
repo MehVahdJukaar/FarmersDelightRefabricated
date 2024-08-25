@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_baked_potato",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_baked_potato"
     ]
   ],
   "rewards": {

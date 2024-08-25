@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.IShearable;
 import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
 public class SandyShrubBlock extends BushBlock implements IShearable, BonemealableBlock
@@ -39,12 +39,12 @@ public class SandyShrubBlock extends BushBlock implements IShearable, Bonemealab
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(BlockTags.SAND);
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return true;
 	}
 

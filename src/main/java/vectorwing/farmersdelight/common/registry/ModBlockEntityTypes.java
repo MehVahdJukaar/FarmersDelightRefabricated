@@ -1,8 +1,9 @@
 package vectorwing.farmersdelight.common.registry;
 
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.*;
 
@@ -10,13 +11,13 @@ import java.util.function.Supplier;
 
 public class ModBlockEntityTypes
 {
-	public static final LazyRegistrar<BlockEntityType<?>> TILES = LazyRegistrar.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, FarmersDelight.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FarmersDelight.MODID);
 
 	public static final Supplier<BlockEntityType<StoveBlockEntity>> STOVE = TILES.register("stove",
 			() -> BlockEntityType.Builder.of(StoveBlockEntity::new, ModBlocks.STOVE.get()).build(null));
 	public static final Supplier<BlockEntityType<CookingPotBlockEntity>> COOKING_POT = TILES.register("cooking_pot",
 			() -> BlockEntityType.Builder.of(CookingPotBlockEntity::new, ModBlocks.COOKING_POT.get()).build(null));
-	public static final Supplier<BlockEntityType<BasketBlockEntity>> BASKET = TILES.register("basket",
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BasketBlockEntity>> BASKET = TILES.register("basket",
 			() -> BlockEntityType.Builder.of(BasketBlockEntity::new, ModBlocks.BASKET.get()).build(null));
 	public static final Supplier<BlockEntityType<CuttingBoardBlockEntity>> CUTTING_BOARD = TILES.register("cutting_board",
 			() -> BlockEntityType.Builder.of(CuttingBoardBlockEntity::new, ModBlocks.CUTTING_BOARD.get()).build(null));

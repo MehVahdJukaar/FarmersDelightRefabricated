@@ -1,9 +1,9 @@
 package vectorwing.farmersdelight.common.utility;
 
+import io.github.fabricators_of_create.porting_lib.util.DeferredHolder;
+import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.UnaryOperator;
 

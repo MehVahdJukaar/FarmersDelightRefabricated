@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -22,9 +21,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import vectorwing.farmersdelight.FarmersDelight;
-import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -32,9 +32,8 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
-
-;
 
 public class HorseFeedItem extends Item
 {
@@ -46,18 +45,15 @@ public class HorseFeedItem extends Item
 		super(properties);
 	}
 
-	public static void init(){
-		UseEntityCallback.EVENT.register(HorseFeedItem.HorseFeedEvent::onHorseFeedApplied);
-	}
-
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class HorseFeedEvent
 	{
-
-		public static InteractionResult onHorseFeedApplied(Player player, Level level, InteractionHand hand, Entity target,
-														 @Nullable EntityHitResult entityHitResult) {
-			if (player.isSpectator()) return InteractionResult.PASS;
-
-			ItemStack heldStack = player.getItemInHand(hand);
+		@SubscribeEvent
+		@SuppressWarnings("unused")
+		public static void onHorseFeedApplied(PlayerInteractEvent.EntityInteract event) {
+			Player player = event.getEntity();
+			Entity target = event.getTarget();
+			ItemStack heldStack = event.getItemStack();
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.HORSE_FEED_USERS)) {
 				boolean isTameable = entity instanceof AbstractHorse;
@@ -80,16 +76,15 @@ public class HorseFeedItem extends Item
 						heldStack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					event.setCancellationResult(InteractionResult.SUCCESS);
+					event.setCanceled(true);
 				}
 			}
-			return InteractionResult.PASS;
 		}
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

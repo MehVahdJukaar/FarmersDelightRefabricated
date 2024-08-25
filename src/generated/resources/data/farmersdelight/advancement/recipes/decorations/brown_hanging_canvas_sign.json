@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_hanging_canvas_sign",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_hanging_canvas_sign"
     ]
   ],
   "rewards": {

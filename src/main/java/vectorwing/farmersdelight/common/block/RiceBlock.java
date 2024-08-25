@@ -8,6 +8,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -28,11 +29,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.CommonHooks;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-;
+import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer
@@ -65,14 +66,16 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 			int age = this.getAge(state);
 			if (age <= this.getMaxAge()) {
 				float chance = 10;
-				if (random.nextInt((int) (25.0F / chance) + 1) == 0) {
+				if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / chance) + 1) == 0)) {
 					if (age == this.getMaxAge()) {
 						RicePaniclesBlock riceUpper = (RicePaniclesBlock) ModBlocks.RICE_CROP_PANICLES.get();
 						if (riceUpper.defaultBlockState().canSurvive(level, pos.above()) && level.isEmptyBlock(pos.above())) {
 							level.setBlockAndUpdate(pos.above(), riceUpper.defaultBlockState());
+							CommonHooks.fireCropGrowPost(level, pos, state);
 						}
 					} else {
 						level.setBlock(pos, this.withAge(age + 1), 2);
+						CommonHooks.fireCropGrowPost(level, pos, state);
 					}
 				}
 			}
@@ -91,7 +94,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.DIRT);
 	}
 
@@ -150,7 +153,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		BlockState upperState = level.getBlockState(pos.above());
 		if (upperState.getBlock() instanceof RicePaniclesBlock) {
 			return !((RicePaniclesBlock) upperState.getBlock()).isMaxAge(upperState);
@@ -176,7 +179,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 			BlockState top = level.getBlockState(pos.above());
 			if (top.getBlock() == ModBlocks.RICE_CROP_PANICLES.get()) {
 				BonemealableBlock growable = (BonemealableBlock) level.getBlockState(pos.above()).getBlock();
-				if (growable.isValidBonemealTarget(level, pos.above(), top, false)) {
+				if (growable.isValidBonemealTarget(level, pos.above(), top)) {
 					growable.performBonemeal(level, level.random, pos.above(), top);
 				}
 			} else {
@@ -196,7 +199,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	}
 
 	@Override
-	public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
 		return false;
 	}
 

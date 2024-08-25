@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_dried_kelp",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_dried_kelp"
     ]
   ],
   "rewards": {

@@ -1,8 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
-import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -27,7 +25,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -35,7 +36,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Set;
 
-public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
+public class KnifeItem extends DiggerItem
 {
 	public KnifeItem(Tier tier, Properties properties) {
 		super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
@@ -54,40 +55,35 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 
 	@Override
 	public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.value().isPrimaryItem(new ItemStack(Items.DIAMOND_SWORD)) && !enchantment.is(Enchantments.SWEEPING_EDGE)) {
-			return true;
+		if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
+			return false;
 		}
 		return super.isPrimaryItemFor(stack, enchantment);
 	}
 
-	public static void init() {
-		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);
-	}
-
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class KnifeEvents
 	{
-		/*
-		 * Moved impl to LivingEntityMixin because PortingLib does not support
-		 * stacking values within their LivingKnockbackEvent equivalent.
-		 */
-		public static double onKnifeKnockback(double strength, LivingEntity entity) {
-			LivingEntity attacker = entity.getKillCredit();
+		@SubscribeEvent
+		public static void onKnifeKnockback(LivingKnockBackEvent event) {
+			LivingEntity attacker = event.getEntity().getKillCredit();
 			ItemStack toolStack = attacker != null ? attacker.getItemInHand(InteractionHand.MAIN_HAND) : ItemStack.EMPTY;
 			if (toolStack.getItem() instanceof KnifeItem) {
-				strength = strength - 0.1F;
+				event.setStrength(event.getOriginalStrength() - 0.1F);
 			}
-			return strength;
 		}
 
-		public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, HitResult hitResult) {
-			ItemStack toolStack = player.getItemInHand(hand);
+		@SubscribeEvent
+		public static void onCakeInteraction(PlayerInteractEvent.RightClickBlock event) {
+			ItemStack toolStack = event.getEntity().getItemInHand(event.getHand());
 
 			if (!toolStack.is(ModTags.KNIVES)) {
-				return InteractionResult.PASS;
+				return;
 			}
 
-			BlockPos pos = player.blockPosition();
-			BlockState state = level.getBlockState(pos);
+			Level level = event.getLevel();
+			BlockPos pos = event.getPos();
+			BlockState state = event.getLevel().getBlockState(pos);
 			Block block = state.getBlock();
 
 			if (state.is(ModTags.DROPS_CAKE_SLICE)) {
@@ -98,7 +94,8 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 						-0.05, 0, 0);
 				level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-				return InteractionResult.SUCCESS;
+				event.setCancellationResult(InteractionResult.SUCCESS);
+				event.setCanceled(true);
 			}
 
 			if (block == Blocks.CAKE) {
@@ -113,11 +110,10 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 						-0.05, 0, 0);
 				level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-				return InteractionResult.sidedSuccess(level.isClientSide);
+				event.setCancellationResult(InteractionResult.SUCCESS);
+				event.setCanceled(true);
 			}
-			return InteractionResult.PASS;
 		}
-
 	}
 
 	@Override
@@ -145,17 +141,16 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
 		}
 	}
 
-    //forge has it disabled
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
-        Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
-        if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
-            return true;
-        }
-        Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
-        if (DENIED_ENCHANTMENTS.contains(enchantment)) {
-            return false;
-        }
-        return enchantment.category.canEnchant(stack.getItem());
-    }
+//	@Override
+//	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.world.item.enchantment.Enchantment enchantment) {
+//		Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
+//		if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
+//			return true;
+//		}
+//		Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
+//		if (DENIED_ENCHANTMENTS.contains(enchantment)) {
+//			return false;
+//		}
+//		return enchantment.category.canEnchant(stack.getItem());
+//	}
 }

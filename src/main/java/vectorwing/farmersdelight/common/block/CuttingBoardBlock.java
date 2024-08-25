@@ -13,8 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -34,13 +33,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import vectorwing.farmersdelight.FarmersDelight;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-;
+import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
@@ -158,7 +159,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
-		return Block.canSupportRigidBlock(level, floorPos) || Block.canSupportCenter(level, floorPos, Direction.UP);
+		return canSupportRigidBlock(level, floorPos) || canSupportCenter(level, floorPos, Direction.UP);
 	}
 
 	@Override

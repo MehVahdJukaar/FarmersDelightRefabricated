@@ -21,13 +21,13 @@ public class BuddingTomatoBlock extends BuddingBushBlock implements Bonemealable
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+	protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
 		return pState.is(ModBlocks.RICH_SOIL_FARMLAND.get()) || pState.is(Blocks.FARMLAND);
 	}
 
 	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		if (state.getValue(AGE) == 4) {
+		if (state.getValue(BuddingBushBlock.AGE) == 4) {
 			level.setBlock(currentPos, ModBlocks.TOMATO_CROP.get().defaultBlockState(), 3);
 		}
 		return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
@@ -44,7 +44,7 @@ public class BuddingTomatoBlock extends BuddingBushBlock implements Bonemealable
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return true;
 	}
 

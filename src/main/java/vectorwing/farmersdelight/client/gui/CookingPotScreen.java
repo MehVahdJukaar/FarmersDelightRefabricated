@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
@@ -46,11 +47,11 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 		this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
 		this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
 		if (Configuration.ENABLE_RECIPE_BOOK_COOKING_POT.get()) {
-			this.addRenderableWidget(new ImageButton(this.leftPos + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_LOCATION, (button) ->
+			this.addRenderableWidget(new ImageButton(this.leftPos + 5, this.height / 2 - 49, 20, 18, RECIPE_BUTTON, (button) ->
 			{
 				this.recipeBookComponent.toggleVisibility();
 				this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
-				((ImageButton) button).setPosition(this.leftPos + 5, this.height / 2 - 49);
+				button.setPosition(this.leftPos + 5, this.height / 2 - 49);
 			}));
 		} else {
 			this.recipeBookComponent.hide();

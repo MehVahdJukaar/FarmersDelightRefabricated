@@ -1,16 +1,19 @@
 package vectorwing.farmersdelight.common.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -54,7 +57,7 @@ public class BuddingBushBlock extends BushBlock
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(Blocks.FARMLAND);
 	}
 
@@ -89,13 +92,14 @@ public class BuddingBushBlock extends BushBlock
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = getAge(state);
 			if (age <= getMaxAge()) {
-				float growthSpeed = getGrowthSpeed(this, level, pos);
-				if (random.nextInt((int) (25.0F / growthSpeed) + 1) == 0) {
+				float growthSpeed = getGrowthSpeed(state, level, pos);
+				if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / growthSpeed) + 1) == 0)) {
 					if (isMaxAge(state)) {
 						growPastMaxAge(state, level, pos, random);
 					} else {
 						level.setBlockAndUpdate(pos, getStateForAge(age + 1));
 					}
+					CommonHooks.fireCropGrowPost(level, pos, state);
 				}
 			}
 		}
@@ -122,7 +126,7 @@ public class BuddingBushBlock extends BushBlock
 				TriState soilDecision = stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, state);
 				if (soilDecision.isDefault()) {
 					speedBonus = 1.0F;
-					if (stateBelow.getValue(FarmBlock.MOISTURE) > 0 || stateBelow.getBlock() instanceof RichSoilFarmlandBlock richSoil && richSoil.isFertile(stateBelow, level, pos.offset(posX, 0, posZ))) {
+					if (stateBelow.isFertile(level, pos.offset(posX, 0, posZ))) {
 						speedBonus = 3.0F;
 					}
 				}
@@ -162,7 +166,7 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+		if (entity instanceof Ravager && EventHooks.canEntityGrief(level, entity)) {
 			level.destroyBlock(pos, true, entity);
 		}
 

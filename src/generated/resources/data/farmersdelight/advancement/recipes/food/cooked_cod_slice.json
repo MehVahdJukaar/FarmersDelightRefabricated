@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "cooked_cod_slice",
-      "has_the_recipe"
+      "has_the_recipe",
+      "cooked_cod_slice"
     ]
   ],
   "rewards": {

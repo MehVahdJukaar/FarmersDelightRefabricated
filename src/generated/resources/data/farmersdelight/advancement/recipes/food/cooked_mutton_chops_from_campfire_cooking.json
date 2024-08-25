@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "cooked_mutton_chops",
-      "has_the_recipe"
+      "has_the_recipe",
+      "cooked_mutton_chops"
     ]
   ],
   "rewards": {

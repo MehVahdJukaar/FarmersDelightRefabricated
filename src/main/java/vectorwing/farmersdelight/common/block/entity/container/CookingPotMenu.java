@@ -2,9 +2,6 @@ package vectorwing.farmersdelight.common.block.entity.container;
 
 
 import com.mojang.datafixers.util.Pair;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,10 +9,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
@@ -30,7 +29,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "item/empty_container_slot_bowl");
 
 	public final CookingPotBlockEntity blockEntity;
-	public final ItemStackHandlerContainer inventory;
+	public final ItemStackHandler inventory;
 	private final ContainerData cookingPotData;
 	private final ContainerLevelAccess canInteractWithCallable;
 	protected final Level level;
@@ -104,7 +103,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 
 	@Override
 	public boolean stillValid(Player playerIn) {
-		return AbstractContainerMenu.stillValid(canInteractWithCallable, playerIn, ModBlocks.COOKING_POT.get());
+		return stillValid(canInteractWithCallable, playerIn, ModBlocks.COOKING_POT.get());
 	}
 
 	@Override
@@ -163,7 +162,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 
 	@Override
 	public void fillCraftSlotsStackedContents(StackedContents helper) {
-		for (int i = 0; i < inventory.getSlotCount(); i++) {
+		for (int i = 0; i < inventory.getSlots(); i++) {
 			helper.accountSimpleStack(inventory.getStackInSlot(i));
 		}
 	}

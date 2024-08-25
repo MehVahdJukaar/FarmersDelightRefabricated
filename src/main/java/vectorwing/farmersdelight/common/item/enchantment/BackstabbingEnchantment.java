@@ -9,7 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import org.apache.commons.lang3.mutable.MutableFloat;
+import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.registry.ModDataComponents;
 
 public class BackstabbingEnchantment
 {
@@ -31,12 +36,10 @@ public class BackstabbingEnchantment
 		return amount * multiplier;
 	}
 
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class BackstabbingEvent
 	{
-		/*
-		 * Moved impl to LivingEntityMixin because PortingLib does not support
-		 * stacking values within their LivingHurtEvent equivalent.
-		 */
+		@SubscribeEvent
 		@SuppressWarnings("unused")
 		public static void onKnifeBackstab(LivingIncomingDamageEvent event) {
 			Entity attacker = event.getSource().getEntity();
@@ -56,7 +59,6 @@ public class BackstabbingEnchantment
 					}
 				}
 			}
-			return amount;
 		}
 	}
 }

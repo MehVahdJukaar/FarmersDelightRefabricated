@@ -2,9 +2,6 @@ package vectorwing.farmersdelight.common.crafting;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -17,8 +14,8 @@ import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 
 public class FoodServingRecipe extends CustomRecipe
 {
-	public FoodServingRecipe(ResourceLocation id, CraftingBookCategory category) {
-		super(id, category);
+	public FoodServingRecipe(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override
@@ -69,8 +66,8 @@ public class FoodServingRecipe extends CustomRecipe
 
 		for (int i = 0; i < remainders.size(); ++i) {
 			ItemStack selectedStack = input.getItem(i);
-			if (!selectedStack.getRecipeRemainder().isEmpty()) {
-				remainders.set(i, selectedStack.getRecipeRemainder());
+			if (selectedStack.hasCraftingRemainingItem()) {
+				remainders.set(i, selectedStack.getCraftingRemainingItem());
 			} else if (selectedStack.is(ModItems.COOKING_POT.get())) {
 				CookingPotBlockEntity.takeServingFromItem(selectedStack);
 				ItemStack newCookingPotStack = selectedStack.copy();

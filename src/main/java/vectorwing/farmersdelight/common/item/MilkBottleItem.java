@@ -31,8 +31,7 @@ public class MilkBottleItem extends DrinkableItem
 
 		if (!compatibleEffects.isEmpty()) {
 			MobEffectInstance selectedEffect = consumer.getEffect(compatibleEffects.get(level.random.nextInt(compatibleEffects.size())));
-			// There is no equivalent for MobEffectEvent, people are expected to mixin with instances like this on Fabric, so we don't bother.
-			if (selectedEffect != null) {
+			if (selectedEffect != null && !net.neoforged.neoforge.event.EventHooks.onEffectRemoved(consumer, selectedEffect, EffectCures.MILK)) {
 				consumer.removeEffect(selectedEffect.getEffect());
 			}
 		}

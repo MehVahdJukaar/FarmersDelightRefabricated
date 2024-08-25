@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_campfire",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_campfire"
     ]
   ],
   "rewards": {

@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,7 +33,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 import net.neoforged.neoforge.common.ItemAbilities;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -44,9 +41,8 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
-
-;
 
 @SuppressWarnings("deprecation")
 public class StoveBlock extends BaseEntityBlock
@@ -107,7 +103,7 @@ public class StoveBlock extends BaseEntityBlock
 			if (stoveSlot < 0 || stoveEntity.isStoveBlockedAbove()) {
 				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 			}
-			Optional<CampfireCookingRecipe> recipe = stoveEntity.getMatchingRecipe(heldStack);
+			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = stoveEntity.getMatchingRecipe(heldStack);
 			if (recipe.isPresent()) {
 				if (!level.isClientSide && stoveEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack, recipe.get(), stoveSlot)) {
 					return ItemInteractionResult.SUCCESS;
@@ -196,15 +192,15 @@ public class StoveBlock extends BaseEntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		if (state.getValue(LIT)) {
-			return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level.isClientSide
+			return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level.isClientSide
 					? StoveBlockEntity::animationTick
 					: StoveBlockEntity::cookingTick);
 		}
 		return null;
 	}
 
-	// TODO: This.
 	@Nullable
+	@Override
 	public PathType getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
 		return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
 	}

@@ -1,11 +1,11 @@
 package vectorwing.farmersdelight.common.registry;
 
 import com.google.common.collect.Sets;
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public class ModItems
 {
-	public static final LazyRegistrar<Item> ITEMS = LazyRegistrar.create(BuiltInRegistries.ITEM, FarmersDelight.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, FarmersDelight.MODID);
 	public static LinkedHashSet<Supplier<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
 	public static Supplier<Item> registerWithTab(final String name, final Supplier<Item> supplier) {
@@ -25,7 +25,6 @@ public class ModItems
 		CREATIVE_TAB_ITEMS.add(block);
 		return block;
 	}
-
 
 	// Helper methods
 	public static Item.Properties basicItem() {

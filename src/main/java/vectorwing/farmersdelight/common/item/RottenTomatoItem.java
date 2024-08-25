@@ -15,6 +15,8 @@ import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class RottenTomatoItem extends Item implements ProjectileItem
 {
 	public RottenTomatoItem(Properties properties) {

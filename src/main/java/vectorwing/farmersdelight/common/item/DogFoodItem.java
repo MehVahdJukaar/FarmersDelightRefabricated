@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,8 +20,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -34,9 +31,8 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
-
-;
 
 public class DogFoodItem extends ConsumableItem
 {
@@ -49,18 +45,15 @@ public class DogFoodItem extends ConsumableItem
 		super(properties);
 	}
 
-	public static void init(){
-		UseEntityCallback.EVENT.register(DogFoodItem.DogFoodEvent::onDogFoodApplied);
-	}
-
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class DogFoodEvent
 	{
-
-		public static InteractionResult onDogFoodApplied(Player player, Level level, InteractionHand hand, Entity target,
-														 @Nullable EntityHitResult entityHitResult) {
-			if (player.isSpectator()) return InteractionResult.PASS;
-
-			ItemStack itemStack = player.getItemInHand(hand);
+		@SubscribeEvent
+		@SuppressWarnings("unused")
+		public static void onDogFoodApplied(PlayerInteractEvent.EntityInteract event) {
+			Player player = event.getEntity();
+			Entity target = event.getTarget();
+			ItemStack itemStack = event.getItemStack();
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.DOG_FOOD_USERS)) {
 				boolean isTameable = entity instanceof TamableAnimal;
@@ -79,22 +72,20 @@ public class DogFoodItem extends ConsumableItem
 						entity.level().addParticle(ModParticleTypes.STAR.get(), entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
 					}
 
-					if (itemStack.getRecipeRemainder() != ItemStack.EMPTY && !player.isCreative()) {
-						player.addItem(itemStack.getRecipeRemainder());
+					if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
+						player.addItem(itemStack.getCraftingRemainingItem());
 						itemStack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					event.setCancellationResult(InteractionResult.SUCCESS);
+					event.setCanceled(true);
 				}
 			}
-			return InteractionResult.PASS;
 		}
-
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

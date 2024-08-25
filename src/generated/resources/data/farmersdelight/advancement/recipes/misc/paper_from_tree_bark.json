@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_tree_bark",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_tree_bark"
     ]
   ],
   "rewards": {

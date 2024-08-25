@@ -1,20 +1,19 @@
 package vectorwing.farmersdelight.common.registry;
 
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Supplier;
 
 public class ModParticleTypes
 {
-	public static final LazyRegistrar<ParticleType<?>> PARTICLE_TYPES = LazyRegistrar.create(BuiltInRegistries.PARTICLE_TYPE, FarmersDelight.MODID);
+	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Registries.PARTICLE_TYPE, FarmersDelight.MODID);
 
 	public static final Supplier<SimpleParticleType> STAR = PARTICLE_TYPES.register("star",
-			() -> FabricParticleTypes.simple(true));
+			() -> new SimpleParticleType(true));
 	public static final Supplier<SimpleParticleType> STEAM = PARTICLE_TYPES.register("steam",
-			() -> FabricParticleTypes.simple(true));
+			() -> new SimpleParticleType(true));
 }

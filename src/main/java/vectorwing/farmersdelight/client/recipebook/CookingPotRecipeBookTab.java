@@ -11,6 +11,14 @@ public enum CookingPotRecipeBookTab
 	DRINKS("drinks"),
 	MISC("misc");
 
+	public static final Codec<CookingPotRecipeBookTab> CODEC = Codec.STRING.flatXmap(s -> {
+		CookingPotRecipeBookTab tab = findByName(s);
+		if (tab == null) {
+			return DataResult.error(() -> "Optional field 'recipe_book_tab' does not match any valid tab. If defined, must be one of the following: " + EnumSet.allOf(CookingPotRecipeBookTab.class));
+		}
+		return DataResult.success(tab);
+	}, tab -> DataResult.success(tab.toString()));
+
 	public final String name;
 
 	CookingPotRecipeBookTab(String name) {

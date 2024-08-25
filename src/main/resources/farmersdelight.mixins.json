@@ -1,23 +1,11 @@
 {
-  "minVersion": "0.8",
   "required": true,
   "package": "vectorwing.farmersdelight.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BushBlockMixin",
     "CampfireBaleMixin",
-    "CropBlockMixin",
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
-    "KeepRichSoilTreeMixin",
-    "LivingEntityMixin",
-    "PitcherCropBlockMixin",
-    "PlayerMixin",
-    "RabbitsEatCabbageMixin",
-    "RecipeBookSettingsMixin",
-    "SoupItemMixin",
-    "accessor.LootContextAccessor",
-    "accessor.RecipeManagerAccessor",
     "KeepRichSoilTreeMixin"
   ],
   "client": [
@@ -26,5 +14,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "minVersion": "0.8"
 }

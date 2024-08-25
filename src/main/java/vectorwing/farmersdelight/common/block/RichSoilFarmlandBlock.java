@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
-import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.FarmlandWaterManager;
+import net.neoforged.neoforge.common.util.TriState;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -32,13 +33,11 @@ public class RichSoilFarmlandBlock extends FarmBlock
 				return true;
 			}
 		}
-		// There is no FarmlandWaterManager alternative on Fabric.
-		// return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
-		return false;
+		return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
 	}
 
 	public static void turnToRichSoil(BlockState state, Level level, BlockPos pos) {
-		level.setBlockAndUpdate(pos, Block.pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));
+		level.setBlockAndUpdate(pos, pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));
 	}
 
 	@Override
@@ -47,6 +46,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		return super.canSurvive(state, level, pos) || aboveState.getBlock().equals(Blocks.MELON) || aboveState.getBlock().equals(Blocks.PUMPKIN);
 	}
 
+	@Override
 	public boolean isFertile(BlockState state, BlockGetter world, BlockPos pos) {
 		if (state.is(ModBlocks.RICH_SOIL_FARMLAND.get()))
 			return state.getValue(RichSoilFarmlandBlock.MOISTURE) > 0;
@@ -63,13 +63,13 @@ public class RichSoilFarmlandBlock extends FarmBlock
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		int moisture = state.getValue(FarmBlock.MOISTURE);
+		int moisture = state.getValue(MOISTURE);
 		if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
 			if (moisture > 0) {
-				level.setBlock(pos, state.setValue(FarmBlock.MOISTURE, moisture - 1), 2);
+				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
 			}
 		} else if (moisture < 7) {
-			level.setBlock(pos, state.setValue(FarmBlock.MOISTURE, 7), 2);
+			level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
 		} else if (moisture == 7) {
 			if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
 				return;
@@ -84,11 +84,10 @@ public class RichSoilFarmlandBlock extends FarmBlock
 			}
 
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false)) {
-					growable.performBonemeal(level, level.random, pos.above(), aboveState);
-					if (!level.isClientSide) {
-						level.levelEvent(2005, pos.above(), 0);
-					}
+				if (growable.isValidBonemealTarget(level, abovePos, aboveState) && CommonHooks.canCropGrow(level, abovePos, aboveState, true)) {
+					growable.performBonemeal(level, level.random, abovePos, aboveState);
+					//level.levelEvent(1505, abovePos, 15);
+					CommonHooks.fireCropGrowPost(level, abovePos, aboveState);
 				}
 			}
 		}
