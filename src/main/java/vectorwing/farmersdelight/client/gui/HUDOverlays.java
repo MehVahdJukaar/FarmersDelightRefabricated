@@ -29,8 +29,8 @@ import java.util.Random;
 
 public class HUDOverlays
 {
-	public static int healthIconsOffset = 49;
-	public static int foodIconsOffset = 49;
+	public static int healthIconsOffset = 39;
+	public static int foodIconsOffset = 39;
 	private static final ResourceLocation MOD_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
 	public static void register() {
@@ -126,6 +126,10 @@ public class HUDOverlays
 		Random rand = new Random();
 		rand.setSeed(ticks * 312871);
 
+		// Refabricated: Depth
+		RenderSystem.disableDepthTest();
+		RenderSystem.depthMask(false);
+
 		RenderSystem.enableBlend();
 
 		for (int j = 0; j < 10; ++j) {
@@ -150,6 +154,10 @@ public class HUDOverlays
 		}
 
 		RenderSystem.disableBlend();
+
+		// Refabricated: Depth
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
 	}
 
 	public static void drawComfortOverlay(Player player, Minecraft minecraft, GuiGraphics graphics, int left, int top) {
@@ -171,6 +179,10 @@ public class HUDOverlays
 		int comfortSheen = ticks % 50;
 		int comfortHeartFrame = comfortSheen % 2;
 		int[] textureWidth = {5, 9};
+
+		// Refabricated: Depth
+		RenderSystem.disableDepthTest();
+		RenderSystem.depthMask(false);
 
 		RenderSystem.enableBlend();
 
@@ -194,5 +206,9 @@ public class HUDOverlays
 		}
 
 		RenderSystem.disableBlend();
+
+		// Refabricated: Depth
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
 	}
 }
