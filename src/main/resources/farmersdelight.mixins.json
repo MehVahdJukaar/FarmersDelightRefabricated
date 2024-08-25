@@ -4,13 +4,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AllowRichSoilMixin",
-    "BushBlockMixin",
     "CampfireBaleMixin",
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
     "LivingEntityMixin",
-    "PitcherCropBlockMixin",
     "PlayerMixin",
     "RecipeBookSettingsMixin"
   ],
