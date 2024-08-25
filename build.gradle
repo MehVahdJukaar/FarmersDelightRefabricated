@@ -66,10 +66,6 @@ repositories {
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
-    maven { // Reach Entity Attributes
-        url = "https://maven.jamieswhiteshirt.com/libs-release"
-        content { includeGroup("com.jamieswhiteshirt") }
-    }
     maven { url 'https://maven.draylar.dev/releases/' }
     mavenCentral() // Mixin Extras
 }
