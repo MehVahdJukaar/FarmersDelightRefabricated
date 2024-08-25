@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -56,7 +57,7 @@ public class ConsumableItem extends Item
 
 		ItemStack containerStack = stack.getRecipeRemainder();
 
-		if (stack.getFoodProperties(consumer) != null) {
+		if (stack.get(DataComponents.FOOD) != null) {
 			super.finishUsingItem(stack, level, consumer);
 		} else {
 			Player player = consumer instanceof Player ? (Player) consumer : null;

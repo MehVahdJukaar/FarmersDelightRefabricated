@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
 
@@ -21,8 +22,8 @@ public class CuttingDisplay extends BasicDisplay {
     private EntryIngredient tool;
     private List<Pair<EntryIngredient, Float>> chanceResults;
 
-    public CuttingDisplay(CuttingBoardRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), recipe.getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(), Optional.of(recipe.getId()), EntryIngredients.ofIngredient(recipe.getTool()), recipe.getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList());
+    public CuttingDisplay(RecipeHolder<CuttingBoardRecipe> recipe) {
+        this(EntryIngredients.ofIngredients(recipe.value().getIngredients()), recipe.value().getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(), Optional.of(recipe.id()), EntryIngredients.ofIngredient(recipe.value().getTool()), recipe.value().getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList());
     }
 
     public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, CompoundTag tag) {

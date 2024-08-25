@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookingPotEmiRecipe implements EmiRecipe {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     private final ResourceLocation id;
     private final List<EmiIngredient> inputs;

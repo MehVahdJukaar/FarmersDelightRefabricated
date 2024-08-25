@@ -1,9 +1,11 @@
 package vectorwing.farmersdelight.common.entity;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.UnknownNullability;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModSounds;
@@ -68,5 +71,16 @@ public class RottenTomatoEntity extends ThrowableItemProjectile
 			this.playSound(ModSounds.ENTITY_ROTTEN_TOMATO_HIT.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 			this.discard();
 		}
+	}
+
+	// Thanks Porting Lib...
+	@Override
+	public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
+		return new CompoundTag();
+	}
+
+	@Override
+	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
+
 	}
 }

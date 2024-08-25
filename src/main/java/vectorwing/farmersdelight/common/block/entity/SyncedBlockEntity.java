@@ -9,8 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-
-;
+import org.jetbrains.annotations.UnknownNullability;
 
 /**
  * Simple BlockEntity with networking boilerplate.
@@ -41,5 +40,16 @@ public class SyncedBlockEntity extends BlockEntity
 		super.setChanged();
 		if (level != null)
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+	}
+
+	// Thanks Porting Lib...
+	@Override
+	public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+		return new CompoundTag();
+	}
+
+	@Override
+	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
+
 	}
 }

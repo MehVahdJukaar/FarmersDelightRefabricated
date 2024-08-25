@@ -2,6 +2,8 @@ package vectorwing.farmersdelight.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.BlockItem;
@@ -11,14 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 
-public class SkilletItemRenderer extends BlockEntityWithoutLevelRenderer
-{
+public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 	public SkilletItemRenderer() {
-		super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 	}
 
 	@Override
-	public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+	public void render(ItemStack stack, ItemDisplayContext mode, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
 		//render block
 		poseStack.pushPose();
 		BlockItem item = ((BlockItem) stack.getItem());
@@ -26,7 +26,7 @@ public class SkilletItemRenderer extends BlockEntityWithoutLevelRenderer
 		Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, poseStack, buffer, packedLight, packedOverlay);
 		poseStack.popPose();
 
-		ItemStackWrapper stackWrapper = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
+		ItemStackWrapper stackWrapper = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
 		ItemStack ingredientStack = stackWrapper.getStack();
 
 		if (!ingredientStack.isEmpty()) {

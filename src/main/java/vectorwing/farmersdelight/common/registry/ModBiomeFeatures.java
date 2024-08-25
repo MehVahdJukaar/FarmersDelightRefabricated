@@ -1,9 +1,9 @@
 package vectorwing.farmersdelight.common.registry;
 
+import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.world.configuration.WildCropConfiguration;
 import vectorwing.farmersdelight.common.world.feature.WildCropFeature;

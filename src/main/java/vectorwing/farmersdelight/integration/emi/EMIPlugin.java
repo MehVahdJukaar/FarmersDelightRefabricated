@@ -6,6 +6,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
@@ -30,14 +31,14 @@ public class EMIPlugin implements EmiPlugin {
         //TODO: add ability to client on recipe arrow. we can also do it directly from recipe screen
 
 
-        for (CookingPotRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COOKING.get())) {
-            registry.addRecipe(new CookingPotEmiRecipe(recipe.getId(), recipe.getIngredients().stream().map(EmiIngredient::of).toList(),
-                    EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())), EmiStack.of(recipe.getOutputContainer()), recipe.getCookTime(), recipe.getExperience()));
+        for (RecipeHolder<CookingPotRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COOKING.get())) {
+            registry.addRecipe(new CookingPotEmiRecipe(recipe.id(), recipe.value().getIngredients().stream().map(EmiIngredient::of).toList(),
+                    EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())), EmiStack.of(recipe.value().getOutputContainer()), recipe.value().getCookTime(), recipe.value().getExperience()));
         }
 
-        for (CuttingBoardRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CUTTING.get())) {
-            registry.addRecipe(new CuttingEmiRecipe(recipe.getId(), EmiIngredient.of(recipe.getTool()), EmiIngredient.of(recipe.getIngredients().get(0)),
-                    recipe.getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.stack()).setChance(chanceResult.chance())).toList()));
+        for (RecipeHolder<CuttingBoardRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CUTTING.get())) {
+            registry.addRecipe(new CuttingEmiRecipe(recipe.id(), EmiIngredient.of(recipe.value().getTool()), EmiIngredient.of(recipe.value().getIngredients().get(0)),
+                    recipe.value().getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.stack()).setChance(chanceResult.chance())).toList()));
         }
         registry.addRecipe(new DecompositionEmiRecipe());
     }

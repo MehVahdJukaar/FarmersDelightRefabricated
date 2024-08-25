@@ -37,8 +37,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.block.entity.BasketBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
-import javax.annotation.Nullable;
-
 @SuppressWarnings("deprecation")
 public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
