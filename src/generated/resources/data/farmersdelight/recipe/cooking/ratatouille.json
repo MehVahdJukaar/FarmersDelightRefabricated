@@ -12,7 +12,7 @@
       "item": "minecraft:beetroot"
     },
     {
-      "type": "neoforge:difference",
+      "fabric:type": "fabric:difference",
       "base": {
         "tag": "c:foods/vegetable"
       },

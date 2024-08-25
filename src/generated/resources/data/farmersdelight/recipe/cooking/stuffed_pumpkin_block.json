@@ -23,7 +23,7 @@
       "tag": "c:foods/berry"
     },
     {
-      "type": "neoforge:difference",
+      "fabric:type": "fabric:difference",
       "base": {
         "tag": "c:foods/vegetable"
       },

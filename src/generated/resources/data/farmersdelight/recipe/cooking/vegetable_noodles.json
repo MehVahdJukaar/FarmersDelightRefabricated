@@ -15,7 +15,7 @@
       "tag": "c:foods/leafy_green"
     },
     {
-      "type": "neoforge:difference",
+      "fabric:type": "fabric:difference",
       "base": {
         "tag": "c:foods/vegetable"
       },

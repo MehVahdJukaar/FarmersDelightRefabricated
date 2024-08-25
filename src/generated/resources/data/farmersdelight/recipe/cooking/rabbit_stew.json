@@ -16,8 +16,8 @@
       "item": "minecraft:carrot"
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "fabric:type": "fabric:any",
+      "ingredients": [
         {
           "item": "minecraft:brown_mushroom"
         },
