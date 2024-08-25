@@ -29,8 +29,9 @@ public class ModNetworking {
 
     public static class FlipSkilletMessage implements CustomPacketPayload {
         public static final ResourceLocation ID = FarmersDelight.res("flip_skillet");
+        public static final FlipSkilletMessage INSTANCE = new FlipSkilletMessage();
         public static final Type<FlipSkilletMessage> TYPE = new Type<>(ID);
-        public static final StreamCodec<RegistryFriendlyByteBuf, FlipSkilletMessage> STREAM_CODEC = StreamCodec.unit(new FlipSkilletMessage());
+        public static final StreamCodec<RegistryFriendlyByteBuf, FlipSkilletMessage> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
         public FlipSkilletMessage() {
         }

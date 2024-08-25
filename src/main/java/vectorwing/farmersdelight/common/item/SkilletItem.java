@@ -1,7 +1,10 @@
 package vectorwing.farmersdelight.common.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -50,6 +53,8 @@ import java.util.Optional;
 @SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem
 {
+	public static final float FLIP_TIME = 20;
+
 	public static final Tiers SKILLET_TIER = Tiers.IRON;
 	protected static final ResourceLocation FD_ATTACK_KNOCKBACK_UUID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "base_attack_knockback");
 
@@ -165,6 +170,13 @@ public class SkilletItem extends BlockItem
 			if (level.random.nextInt(50) == 0) {
 				level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
 			}
+			if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
+				long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+				if (level.getGameTime() - flipTimeStamp > FLIP_TIME) {
+					stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+					level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+				}
+			}
 		}
 	}
 
@@ -177,6 +189,7 @@ public class SkilletItem extends BlockItem
 				player.getInventory().placeItemBackInInventory(cookingStack);
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
+				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
 			}
 		}
 	}
@@ -200,10 +213,38 @@ public class SkilletItem extends BlockItem
 				});
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
+				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
 			}
 		}
 
 		return stack;
+	}
+
+	@Override
+	public int getBarWidth(ItemStack stack) {
+		if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
+			return Math.round(13.0F - (float) getClientPlayerHack().getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack, getClientPlayerHack()));
+		}else{
+			return super.getBarWidth(stack);
+		}
+	}
+
+	// hack
+	@Environment(EnvType.CLIENT)
+	private static Player getClientPlayerHack(){
+		return Minecraft.getInstance().player;
+	}
+	@Override
+	public int getBarColor(ItemStack stack) {
+		if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
+			return 0xFF8B4F;
+		}
+		else return super.getBarColor(stack);
+	}
+
+	@Override
+	public boolean isBarVisible(ItemStack stack) {
+		return super.isBarVisible(stack) || stack.has(ModDataComponents.COOKING_TIME_LENGTH.get());
 	}
 
 	public static Optional<RecipeHolder<CampfireCookingRecipe>> getCookingRecipe(ItemStack stack, Level level) {
