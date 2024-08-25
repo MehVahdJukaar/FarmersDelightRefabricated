@@ -1,28 +1,25 @@
 package vectorwing.farmersdelight.common.event;
 
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingEntityUseItemEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
 
-@EventBusSubscriber(modid = FarmersDelight.MODID)
 public class CommonEvents
 {
-	@SubscribeEvent
-	public static void handleVanillaSoupEffects(LivingEntityUseItemEvent.Finish event) {
-		Item food = event.getItem().getItem();
-		LivingEntity entity = event.getEntity();
+	public static void init() {
+		LivingEntityUseItemEvent.Finish.EVENT.register(CommonEvents::handleVanillaSoupEffects);
+	}
+
+	public static void handleVanillaSoupEffects(LivingEntityUseItemEvent.Finish finish) {
+		Item food = finish.getItem().getItem();
 
 		if (Configuration.RABBIT_STEW_BUFF.get() && food.equals(Items.RABBIT_STEW)) {
-			return;
+			finish.getEntity().addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
 		}
 
 		if (Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get()) {
@@ -30,7 +27,7 @@ public class CommonEvents
 
 			if (soupEffects != null) {
 				for (FoodProperties.PossibleEffect effect : soupEffects.effects()) {
-					entity.addEffect(effect.effect());
+					finish.getEntity().addEffect(effect.effect());
 				}
 			}
 		}

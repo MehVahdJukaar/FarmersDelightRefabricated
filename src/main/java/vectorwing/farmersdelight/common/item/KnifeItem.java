@@ -1,6 +1,9 @@
 package vectorwing.farmersdelight.common.item;
 
-import com.google.common.collect.Sets;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
+import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -25,21 +28,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-
-import java.util.Set;
 
 public class KnifeItem extends DiggerItem
 {
 	public KnifeItem(Tier tier, Properties properties) {
 		super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
+	}
+
+	public static void init() {
+		UseBlockCallback.EVENT.register(KnifeItem.KnifeEvents::onCakeInteraction);
 	}
 
 	@Override
@@ -53,37 +54,37 @@ public class KnifeItem extends DiggerItem
 		return true;
 	}
 
-	@Override
-	public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
+	public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
+		if (context == EnchantingContext.PRIMARY && enchantment.is(Enchantments.SWEEPING_EDGE)) {
 			return false;
 		}
-		return super.isPrimaryItemFor(stack, enchantment);
+		return super.canBeEnchantedWith(stack, enchantment, context);
 	}
 
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class KnifeEvents
 	{
-		@SubscribeEvent
-		public static void onKnifeKnockback(LivingKnockBackEvent event) {
-			LivingEntity attacker = event.getEntity().getKillCredit();
+		/*
+		 * Moved impl to LivingEntityMixin because PortingLib does not support
+		 * stacking values within their LivingKnockbackEvent equivalent.
+		 */
+		public static double onKnifeKnockback(double strength, LivingEntity entity) {
+			LivingEntity attacker = entity.getKillCredit();
 			ItemStack toolStack = attacker != null ? attacker.getItemInHand(InteractionHand.MAIN_HAND) : ItemStack.EMPTY;
 			if (toolStack.getItem() instanceof KnifeItem) {
-				event.setStrength(event.getOriginalStrength() - 0.1F);
+				strength = strength - 0.1F;
 			}
+			return strength;
 		}
 
-		@SubscribeEvent
-		public static void onCakeInteraction(PlayerInteractEvent.RightClickBlock event) {
-			ItemStack toolStack = event.getEntity().getItemInHand(event.getHand());
+		public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+			ItemStack toolStack = player.getItemInHand(hand);
 
 			if (!toolStack.is(ModTags.KNIVES)) {
-				return;
+				return InteractionResult.PASS;
 			}
 
-			Level level = event.getLevel();
-			BlockPos pos = event.getPos();
-			BlockState state = event.getLevel().getBlockState(pos);
+			BlockPos pos = player.blockPosition();
+			BlockState state = level.getBlockState(pos);
 			Block block = state.getBlock();
 
 			if (state.is(ModTags.DROPS_CAKE_SLICE)) {
@@ -94,8 +95,7 @@ public class KnifeItem extends DiggerItem
 						-0.05, 0, 0);
 				level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-				event.setCancellationResult(InteractionResult.SUCCESS);
-				event.setCanceled(true);
+				return InteractionResult.SUCCESS;
 			}
 
 			if (block == Blocks.CAKE) {
@@ -110,9 +110,9 @@ public class KnifeItem extends DiggerItem
 						-0.05, 0, 0);
 				level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-				event.setCancellationResult(InteractionResult.SUCCESS);
-				event.setCanceled(true);
+				return InteractionResult.sidedSuccess(level.isClientSide);
 			}
+			return InteractionResult.PASS;
 		}
 	}
 

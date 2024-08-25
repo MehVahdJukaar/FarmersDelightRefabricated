@@ -1,18 +1,16 @@
 package vectorwing.farmersdelight.common.world.modifier;
 
-import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.neoforged.neoforge.common.world.BiomeGenerationSettingsBuilder;
-import net.neoforged.neoforge.common.world.BiomeModifier;
-import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
-import vectorwing.farmersdelight.common.registry.ModBiomeModifiers;
 
 import java.util.Optional;
 
+/**
+ * Deprecated: Look at {@link vectorwing.farmersdelight.common.registry.ModBiomeModifiers} instead.
+ */
+@Deprecated
 public record AddFeaturesByFilterBiomeModifier(
 		HolderSet<Biome> allowedBiomes,
 		Optional<HolderSet<Biome>> deniedBiomes,
@@ -20,9 +18,9 @@ public record AddFeaturesByFilterBiomeModifier(
 		Optional<Float> maximumTemperature,
 		HolderSet<PlacedFeature> features,
 		GenerationStep.Decoration step
-) implements BiomeModifier
+)
 {
-
+	/*
 	@Override
 	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
 		if (phase == Phase.ADD && this.allowedBiomes.contains(biome)) {
@@ -44,4 +42,5 @@ public record AddFeaturesByFilterBiomeModifier(
 	public MapCodec<? extends BiomeModifier> codec() {
 		return ModBiomeModifiers.ADD_FEATURES_BY_FILTER.get();
 	}
+	 */
 }

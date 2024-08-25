@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-;
-
 public record WildCropConfiguration(int tries, int xzSpread, int ySpread, Holder<PlacedFeature> primaryFeature, Holder<PlacedFeature> secondaryFeature, @Nullable Holder<PlacedFeature> floorFeature
 ) implements FeatureConfiguration
 {

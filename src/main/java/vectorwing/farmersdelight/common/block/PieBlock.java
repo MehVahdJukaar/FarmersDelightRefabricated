@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -97,7 +98,7 @@ public class PieBlock extends Block
 			return InteractionResult.PASS;
 		} else {
 			ItemStack sliceStack = this.getPieSliceItem();
-			FoodProperties sliceFood = sliceStack.getItem().getFoodProperties(sliceStack, playerIn);
+			FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
 
 			if (sliceFood != null) {
 				playerIn.getFoodData().eat(sliceFood);

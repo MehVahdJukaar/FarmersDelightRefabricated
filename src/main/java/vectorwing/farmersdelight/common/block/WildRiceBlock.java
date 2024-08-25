@@ -23,9 +23,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, BonemealableBlock
@@ -53,7 +52,7 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
 		return state.is(BlockTags.DIRT) || state.is(Blocks.SAND);
 	}
 

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuttingCategory implements DisplayCategory<CuttingDisplay> {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
     public static final int OUTPUT_GRID_X = 76;
     public static final int OUTPUT_GRID_Y = 10;
 

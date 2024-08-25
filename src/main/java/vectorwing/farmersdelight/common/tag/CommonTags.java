@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.tag;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -87,11 +88,11 @@ public class CommonTags
 //	public static final TagKey<Item> TOOLS_SHOVELS = commonItemTag("tools/shovels");
 
 	private static TagKey<Block> commonBlockTag(String path) {
-		return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", path));
+		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", path));
 	}
 
 	private static TagKey<Item> commonItemTag(String path) {
-		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", path));
+		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
 	}
 
 }

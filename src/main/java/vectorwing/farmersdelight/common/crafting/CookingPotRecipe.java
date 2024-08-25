@@ -7,20 +7,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.RecipeMatcher;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
@@ -44,8 +43,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		if (!container.isEmpty()) {
 			this.container = container;
-		} else if (!output.getCraftingRemainingItem().isEmpty()) {
-			this.container = output.getCraftingRemainingItem();
+		} else if (!output.getRecipeRemainder().isEmpty()) {
+			this.container = output.getRecipeRemainder();
 		} else {
 			this.container = ItemStack.EMPTY;
 		}
@@ -98,17 +97,17 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	@Override
 	public boolean matches(RecipeWrapper inv, Level level) {
-		java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+		StackedContents stackedContents = new StackedContents();
 		int i = 0;
 
 		for (int j = 0; j < INPUT_SLOTS; ++j) {
 			ItemStack itemstack = inv.getItem(j);
 			if (!itemstack.isEmpty()) {
 				++i;
-				inputs.add(itemstack);
+				stackedContents.accountStack(itemstack);
 			}
 		}
-		return i == this.inputItems.size() && RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+		return i == this.inputItems.size() && stackedContents.canCraft(this, null);
 	}
 
 	@Override
@@ -164,7 +163,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::getGroup),
 				CookingPotRecipeBookTab.CODEC.optionalFieldOf("recipe_book_tab").xmap(optional -> optional.orElse(null), Optional::of).forGetter(CookingPotRecipe::getRecipeBookTab),
-				Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").xmap(ingredients -> {
+				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").xmap(ingredients -> {
 					NonNullList<Ingredient> nonNullList = NonNullList.create();
 					nonNullList.addAll(ingredients);
 					return nonNullList;

@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,8 +31,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.Tags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 @SuppressWarnings("deprecation")
@@ -74,7 +73,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.isSolidRender(level, pos);
 	}
 
@@ -85,7 +84,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		if (floorState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
 			return true;
 		} else {
-			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && floorState.canSustainPlant(level, floorPos, net.minecraft.core.Direction.UP, state).isDefault();
+			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && this.mayPlaceOn(state, level, pos);
 		}
 	}
 
@@ -93,7 +92,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 	public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		int age = state.getValue(COLONY_AGE);
 
-		if (age > 0 && heldStack.is(Tags.Items.TOOLS_SHEAR)) {
+		if (age > 0 && heldStack.is(ConventionalItemTags.SHEAR_TOOLS)) {
 			popResource(level, pos, getCloneItemStack(level, pos, state));
 			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
@@ -114,9 +113,8 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int age = state.getValue(COLONY_AGE);
 		BlockState groundState = level.getBlockState(pos.below());
-		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) && CommonHooks.canCropGrow(level, pos, state, random.nextInt(4) == 0)) {
+		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) &&  random.nextInt(4) == 0) {
 			level.setBlock(pos, state.setValue(COLONY_AGE, age + 1), 2);
-			CommonHooks.fireCropGrowPost(level, pos, state);
 		}
 	}
 

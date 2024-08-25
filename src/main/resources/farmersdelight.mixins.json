@@ -3,10 +3,16 @@
   "package": "vectorwing.farmersdelight.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AllowRichSoilMixin",
+    "BushBlockMixin",
     "CampfireBaleMixin",
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
-    "KeepRichSoilTreeMixin"
+    "KeepRichSoilTreeMixin",
+    "LivingEntityMixin",
+    "PitcherCropBlockMixin",
+    "PlayerMixin",
+    "RecipeBookSettingsMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",

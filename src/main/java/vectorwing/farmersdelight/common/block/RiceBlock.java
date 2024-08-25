@@ -29,11 +29,9 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer
@@ -61,21 +59,19 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.tick(state, level, pos, random);
-		if (!level.isAreaLoaded(pos, 1)) return;
+		if (!level.hasChunksAt(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) return;
 		if (level.getRawBrightness(pos.above(), 0) >= 6) {
 			int age = this.getAge(state);
 			if (age <= this.getMaxAge()) {
 				float chance = 10;
-				if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / chance) + 1) == 0)) {
+				if (random.nextInt((int) (25.0F / chance) + 1) == 0) {
 					if (age == this.getMaxAge()) {
 						RicePaniclesBlock riceUpper = (RicePaniclesBlock) ModBlocks.RICE_CROP_PANICLES.get();
 						if (riceUpper.defaultBlockState().canSurvive(level, pos.above()) && level.isEmptyBlock(pos.above())) {
 							level.setBlockAndUpdate(pos.above(), riceUpper.defaultBlockState());
-							CommonHooks.fireCropGrowPost(level, pos, state);
 						}
 					} else {
 						level.setBlock(pos, this.withAge(age + 1), 2);
-						CommonHooks.fireCropGrowPost(level, pos, state);
 					}
 				}
 			}
@@ -94,7 +90,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.DIRT);
 	}
 

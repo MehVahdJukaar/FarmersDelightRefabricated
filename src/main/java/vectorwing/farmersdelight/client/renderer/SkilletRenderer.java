@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -10,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 
@@ -26,7 +26,7 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity>
 	@Override
 	public void render(SkilletBlockEntity skilletEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
 		Direction direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
-		IItemHandler inventory = skilletEntity.getInventory();
+		ItemStackHandlerContainer inventory = skilletEntity.getInventory();
 		int posLong = (int) skilletEntity.getBlockPos().asLong();
 
 		ItemStack stack = inventory.getStackInSlot(0);

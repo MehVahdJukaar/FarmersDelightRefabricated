@@ -27,14 +27,13 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class TomatoVineBlock extends CropBlock
@@ -80,14 +79,13 @@ public class TomatoVineBlock extends CropBlock
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!level.isAreaLoaded(pos, 1)) return;
+		if (!level.hasChunksAt(pos.offset(-1, -1 , -1), pos.offset(1, 1, 1))) return;
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
-				float speed = getGrowthSpeed(state, level, pos);
-				if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / speed) + 1) == 0)) {
+				float speed = getGrowthSpeed(state.getBlock(), level, pos);
+				if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
-					CommonHooks.fireCropGrowPost(level, pos, state);
 				}
 			}
 			attemptRopeClimb(level, pos, random);
@@ -158,7 +156,6 @@ public class TomatoVineBlock extends CropBlock
 		attemptRopeClimb(level, pos, random);
 	}
 
-	@Override
 	public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
 		return state.getValue(ROPELOGGED) && state.is(BlockTags.CLIMBABLE);
 	}

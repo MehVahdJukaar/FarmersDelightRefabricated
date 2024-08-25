@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,8 +14,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.level.GameRules;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
@@ -30,23 +29,13 @@ import java.util.Random;
 
 public class HUDOverlays
 {
-	public static int healthIconsOffset;
-	public static int foodIconsOffset;
+	public static int healthIconsOffset = 49;
+	public static int foodIconsOffset = 49;
 	private static final ResourceLocation MOD_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
-	public static void register(RegisterGuiLayersEvent event) {
-		event.registerBelow(
-				VanillaGuiLayers.PLAYER_HEALTH,
-				ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "health_offset"),
-				(guiGraphics, deltaTracker) -> healthIconsOffset = Minecraft.getInstance().gui.leftHeight
-		);
-		event.registerBelow(
-				VanillaGuiLayers.FOOD_LEVEL,
-				ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "food_offset"),
-				(guiGraphics, deltaTracker) -> foodIconsOffset = Minecraft.getInstance().gui.rightHeight
-		);
-		event.registerAbove(VanillaGuiLayers.PLAYER_HEALTH, ComfortOverlay.ID, new ComfortOverlay());
-		event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, NourishmentOverlay.ID, new NourishmentOverlay());
+	public static void register() {
+		HudRenderCallback.EVENT.register(ComfortOverlay.INSTANCE::render);
+		HudRenderCallback.EVENT.register(NourishmentOverlay.INSTANCE::render);
 	}
 
 	public static abstract class BaseOverlay implements LayeredDraw.Layer
@@ -75,6 +64,9 @@ public class HUDOverlays
 	{
 		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "nourishment");
 
+		// Refabricated
+		protected static final NourishmentOverlay INSTANCE = new NourishmentOverlay();
+
 		@Override
 		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {
 			FoodData stats = player.getFoodData();
@@ -101,6 +93,9 @@ public class HUDOverlays
 	public static class ComfortOverlay extends BaseOverlay
 	{
 		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "comfort");
+
+		// Refabricated
+		protected static final ComfortOverlay INSTANCE = new ComfortOverlay();
 
 		@Override
 		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {

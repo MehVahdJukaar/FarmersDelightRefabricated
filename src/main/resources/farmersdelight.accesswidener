@@ -1,23 +1,13 @@
 accessWidener   v2  named
 
-accessible field net/minecraft/world/entity/animal/Chicken FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
-mutable field net/minecraft/world/entity/animal/Chicken FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
-
-accessible field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
-mutable field net/minecraft/world/entity/animal/Pig FOOD_ITEMS Lnet/minecraft/world/item/crafting/Ingredient;
-
-accessible field net/minecraft/world/entity/animal/Parrot TAME_FOOD Ljava/util/Set;
-
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
-
-accessible field net/minecraft/world/item/Item maxStackSize I
-mutable field net/minecraft/world/item/Item maxStackSize I
 
 accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool templates Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
 mutable field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
 
 accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
-extendable method net/minecraft/core/dispenser/DefaultDispenseItemBehavior dispense (Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+extendable method net/minecraft/core/dispenser/DefaultDispenseItemBehavior dispense (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
 
-extendable class net/minecraft/world/item/enchantment/EnchantmentCategory
+accessible method net/minecraft/world/item/enchantment/EnchantmentHelper runIterationOnItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V
+accessible method net/minecraft/world/item/enchantment/Enchantment modifyDamageFilteredValue (Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V

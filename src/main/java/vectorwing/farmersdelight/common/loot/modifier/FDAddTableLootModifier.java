@@ -10,10 +10,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.neoforge.common.loot.AddTableLootModifier;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitter;
@@ -21,7 +20,7 @@ import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitt
 /**
  * Credits to Commoble for this implementation!
  */
-public class FDAddTableLootModifier extends AddTableLootModifier
+public class FDAddTableLootModifier extends AddLootTableModifier
 {
 	public static final Supplier<MapCodec<FDAddTableLootModifier>> CODEC = Suppliers.memoize(() ->
 			RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
@@ -35,7 +34,7 @@ public class FDAddTableLootModifier extends AddTableLootModifier
 		this.lootTable = lootTable;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {

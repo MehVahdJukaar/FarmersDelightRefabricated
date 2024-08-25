@@ -7,6 +7,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
 
@@ -18,8 +19,8 @@ public class CookingPotDisplay extends BasicDisplay {
     private int cookTime;
     private float experience;
 
-    public CookingPotDisplay(CookingPotRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), List.of(EntryIngredients.of(recipe.getResultItem(REGISTRY_ACCESS.get()))), Optional.of(recipe.getId()), EntryIngredients.of(recipe.getOutputContainer()), recipe.getCookTime(), recipe.getExperience());
+    public CookingPotDisplay(RecipeHolder<CookingPotRecipe> recipe) {
+        this(EntryIngredients.ofIngredients(recipe.value().getIngredients()), List.of(EntryIngredients.of(recipe.value().getResultItem(registryAccess()))), Optional.of(recipe.id()), EntryIngredients.of(recipe.value().getOutputContainer()), recipe.value().getCookTime(), recipe.value().getExperience());
     }
 
     public CookingPotDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, CompoundTag tag) {

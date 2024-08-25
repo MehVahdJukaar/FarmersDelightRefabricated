@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookingPotCategory implements DisplayCategory<CookingPotDisplay> {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     @Override
     public CategoryIdentifier<? extends CookingPotDisplay> getCategoryIdentifier() {

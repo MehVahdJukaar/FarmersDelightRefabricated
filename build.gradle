@@ -63,6 +63,7 @@ repositories {
     maven { // for Porting Lib: Fabric ASM
         url = "https://jitpack.io/"
     }
+    maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     maven { // Reach Entity Attributes
@@ -96,18 +97,25 @@ dependencies {
         //include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
         include(modApi("io.github.fabricators_of_create.Porting-Lib:porting_lib_$module:$port_lib_version"))
     }
+    // TODO: Remove this below block when Porting Lib has a full release.
+    for (String module in port_lib_included_modules.split(",")) {
+        //include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+        modApi("io.github.fabricators_of_create.Porting-Lib:porting_lib_$module:$port_lib_version")
+    }
 
     modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
-    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-1.20.1:${crafttweaker_version}")
+    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
-    // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-1.20.1:${crafttweaker_version}")
+    // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
     // Uncomment the below to test JEI.
     // modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
+    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
+    modCompileOnly("dev.architectury:architectury-fabric:13.0.6")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     // Uncomment the below to test REI.

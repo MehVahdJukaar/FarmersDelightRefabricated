@@ -1,31 +1,28 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.util.TriState;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import javax.annotation.Nullable;
-
 public class RichSoilBlock extends Block
 {
 	public RichSoilBlock(Properties properties) {
 		super(properties);
+	}
+
+	public static void init() {
+		TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
 	}
 
 	@Override
@@ -56,15 +53,15 @@ public class RichSoilBlock extends Block
 
 			// If all else fails, and it's a plant, give it a growth boost now and then!
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState) && CommonHooks.canCropGrow(level, pos.above(), aboveState, true)) {
+				if (growable.isValidBonemealTarget(level, pos.above(), aboveState)) {
 					growable.performBonemeal(level, level.random, pos.above(), aboveState);
-					//level.levelEvent(1505, pos.above(), 0);
-					CommonHooks.fireCropGrowPost(level, pos.above(), aboveState);
+					level.levelEvent(1505, pos.above(), 0);
 				}
 			}
 		}
 	}
 
+	/*
 	@Override
 	@Nullable
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
@@ -83,4 +80,5 @@ public class RichSoilBlock extends Block
 //		PlantType plantType = plantState.getPlantType(world, pos.relative(facing));
 //		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
 	}
+	 */
 }

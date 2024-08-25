@@ -40,7 +40,7 @@ public class ItemUtils
 		int limit = Math.min(container.getSlotLimit(slot), stack.getMaxStackSize());
 
 		if (!existing.isEmpty()) {
-			if (!ItemHandlerHelper.canItemStacksStack(stack, existing))
+			if (!ItemStack.isSameItemSameComponents(stack, existing))
 				return stack;
 
 			limit -= existing.getCount();
@@ -62,6 +62,6 @@ public class ItemUtils
 		// It is required to set the stack for syncing purposes.
 		container.setItem(slot, setStack);
 
-		return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - limit) : ItemStack.EMPTY;
+		return reachedLimit ? stack.copyWithCount(stack.getCount() - limit) : ItemStack.EMPTY;
 	}
 }

@@ -82,11 +82,11 @@ public class ConventionalTags
 	public static final TagKey<Item> TOOLS_KNIVES = cItemTag("tools/knives");
 
 	private static TagKey<Block> cBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, new ResourceLocation("c", path));
+		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", path));
 	}
 
 	private static TagKey<Item> cItemTag(String path) {
-		return TagKey.create(Registries.ITEM, new ResourceLocation("c", path));
+		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
 	}
 
 }

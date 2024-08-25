@@ -3,17 +3,14 @@ package vectorwing.farmersdelight.common.item.enchantment;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import org.apache.commons.lang3.mutable.MutableFloat;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 
 public class BackstabbingEnchantment
@@ -36,29 +33,31 @@ public class BackstabbingEnchantment
 		return amount * multiplier;
 	}
 
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class BackstabbingEvent
 	{
-		@SubscribeEvent
+		/*
+		 * Moved impl to LivingEntityMixin because PortingLib does not support
+		 * stacking values within their LivingHurtEvent equivalent.
+		 */
 		@SuppressWarnings("unused")
-		public static void onKnifeBackstab(LivingIncomingDamageEvent event) {
-			Entity attacker = event.getSource().getEntity();
-			if (attacker instanceof LivingEntity living && isLookingBehindTarget(event.getEntity(), event.getSource().getSourcePosition())) {
+		public static float onKnifeBackstab(LivingEntity entity, DamageSource source, float amount) {
+			Entity attacker = source.getEntity();
+			if (attacker instanceof LivingEntity living && isLookingBehindTarget(entity, source.getSourcePosition())) {
 				Level level = attacker.level();
 				if (level instanceof ServerLevel serverLevel) {
-					ItemStack weapon = living.getWeaponItem();
-					float preModifiedDamage = event.getAmount(); // since you play a sound on success, we record the original to do a change check later
-					MutableFloat dmg = new MutableFloat(event.getAmount());
+					ItemStack weapon = living.getWeaponItem(); // since you play a sound on success, we record the original to do a change check later
+					MutableFloat dmg = new MutableFloat(amount);
 					EnchantmentHelper.runIterationOnItem(weapon, (enchantment, powerLevel) -> {
-						enchantment.value().modifyDamageFilteredValue(ModDataComponents.BACKSTABBING.get(), serverLevel, powerLevel, weapon, attacker, event.getSource(), dmg);
+						enchantment.value().modifyDamageFilteredValue(ModDataComponents.BACKSTABBING.get(), serverLevel, powerLevel, weapon, attacker, source, dmg);
 					});
 
-					if (preModifiedDamage != dmg.getValue()) {
-						event.setAmount(dmg.getValue());
+					if (amount != dmg.getValue()) {
+						amount = dmg.getValue();
 						serverLevel.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.BLOCKS, 1.0F, 1.0F);
 					}
 				}
 			}
+			return amount;
 		}
 	}
 }

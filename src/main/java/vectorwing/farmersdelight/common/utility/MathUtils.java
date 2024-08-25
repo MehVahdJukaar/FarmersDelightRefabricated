@@ -1,9 +1,9 @@
 package vectorwing.farmersdelight.common.utility;
 
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -20,14 +20,14 @@ public class MathUtils
 	 * @param handler The inventory to compare.
 	 * @return The redstone signal strength.
 	 */
-	public static int calcRedstoneFromItemHandler(@Nullable IItemHandlerModifiable handler) {
+	public static int calcRedstoneFromItemHandler(@Nullable ItemStackHandler handler) {
 		if (handler == null) {
 			return 0;
 		} else {
 			int i = 0;
 			float f = 0.0F;
 
-			for (int j = 0; j < handler.getSlots(); ++j) {
+			for (int j = 0; j < handler.getSlotCount(); ++j) {
 				ItemStack itemstack = handler.getStackInSlot(j);
 				if (!itemstack.isEmpty()) {
 					f += (float) itemstack.getCount() / (float) Math.min(handler.getSlotLimit(j), itemstack.getMaxStackSize());
@@ -35,7 +35,7 @@ public class MathUtils
 				}
 			}
 
-			f = f / (float) handler.getSlots();
+			f = f / (float) handler.getSlotCount();
 			return net.minecraft.util.Mth.floor(f * 14.0F) + (i > 0 ? 1 : 0);
 		}
 	}
