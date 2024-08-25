@@ -126,10 +126,6 @@ public class HUDOverlays
 		Random rand = new Random();
 		rand.setSeed(ticks * 312871);
 
-		// Refabricated: Depth
-		RenderSystem.disableDepthTest();
-		RenderSystem.depthMask(false);
-
 		RenderSystem.enableBlend();
 
 		for (int j = 0; j < 10; ++j) {
@@ -154,10 +150,6 @@ public class HUDOverlays
 		}
 
 		RenderSystem.disableBlend();
-
-		// Refabricated: Depth
-		RenderSystem.depthMask(true);
-		RenderSystem.enableDepthTest();
 	}
 
 	public static void drawComfortOverlay(Player player, Minecraft minecraft, GuiGraphics graphics, int left, int top) {
@@ -179,10 +171,6 @@ public class HUDOverlays
 		int comfortSheen = ticks % 50;
 		int comfortHeartFrame = comfortSheen % 2;
 		int[] textureWidth = {5, 9};
-
-		// Refabricated: Depth
-		RenderSystem.disableDepthTest();
-		RenderSystem.depthMask(false);
 
 		RenderSystem.enableBlend();
 
@@ -206,9 +194,5 @@ public class HUDOverlays
 		}
 
 		RenderSystem.disableBlend();
-
-		// Refabricated: Depth
-		RenderSystem.depthMask(true);
-		RenderSystem.enableDepthTest();
 	}
 }
