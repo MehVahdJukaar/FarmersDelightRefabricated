@@ -8,14 +8,12 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.event.ClientSetupEvents;
 import vectorwing.farmersdelight.client.event.TooltipEvents;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
@@ -39,7 +37,6 @@ public class FarmersDelightClient implements ClientModInitializer {
         ClientSetupEvents.registerRecipeBookCategories();
         ClientSetupEvents.onRegisterRenderers();
         ClientSetupEvents.registerParticles();
-
 
         MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
 

@@ -6,8 +6,8 @@
       "tag": "c:bones"
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "fabric:type": "fabric:any",
+      "ingredients": [
         {
           "item": "minecraft:glow_berries"
         },

@@ -37,7 +37,7 @@ public class FarmersDelight implements ModInitializer
 
 		ModSounds.SOUNDS.register();
 		ModBlocks.BLOCKS.register();
-		ModEffects.EFFECTS.register();
+		ModEffects.register();
 		ModParticleTypes.PARTICLE_TYPES.register();
 		ModItems.ITEMS.register();
 		ModDataComponents.DATA_COMPONENTS.register();
@@ -59,7 +59,6 @@ public class FarmersDelight implements ModInitializer
 		VillageStructures.init();
 		CommonEvents.init();
 		VillagerEvents.init();
-
 
 		CommonSetup.registerDispenserBehaviors();
 

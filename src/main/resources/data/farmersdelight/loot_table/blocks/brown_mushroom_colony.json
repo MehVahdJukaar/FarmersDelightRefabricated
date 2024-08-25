@@ -82,7 +82,7 @@
                     "terms": [
                       {
                         "ability": "shears_dig",
-                        "condition": "neoforge:can_item_perform_ability"
+                        "condition": "porting_lib:can_item_perform_ability"
                       },
                       {
                         "condition": "minecraft:match_tool",
@@ -126,7 +126,7 @@
                   "terms": [
                     {
                       "ability": "shears_dig",
-                      "condition": "neoforge:can_item_perform_ability"
+                      "condition": "porting_lib:can_item_perform_ability"
                     },
                     {
                       "condition": "minecraft:match_tool",
