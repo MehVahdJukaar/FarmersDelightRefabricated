@@ -54,7 +54,11 @@ repositories {
         name = "Greenhouse Maven"
         url = 'https://repo.greenhouse.house/releases/'
     }
-    maven { url "https://mvn.devos.one/releases/" } // Porting Lib
+//  maven { url "https://mvn.devos.one/releases/" } // Porting Lib
+    maven {
+        name = "Greenhouse Maven (Snapshots)" // Temporary Porting Lib Fork for 1.21
+        url = 'https://repo.greenhouse.house/snapshots/'
+    }
     maven {
         url "https://jitpack.io/" // Fabric ASM
         content {
