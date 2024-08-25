@@ -33,6 +33,17 @@ I am open to constructive feedback about the mod's code: if you spot any glaring
 
 [Addons/Integration support for both ports.](./information/Addons_And_Integrations.md)
 
+### Building the early 1.21 versions.
+Porting Lib has not released yet, so we have made our own fork of Porting Lib for the time being.
+This is a temporary solution, and it leads to a more difficult build process.
+
+For the time being, please report Porting Lib issues to this repository, as they do not have an official release.
+
+1. Clone this branch of this repository https://github.com/MerchantPug/Porting-Lib/tree/early/1.21/fdrf.
+2. Rename your Git branch to `1.21`, otherwise building the jars will not work as intended.
+3. Run `publishToMavenLocal` through the workspace. This will put your files on local maven.
+4. Refresh Farmer's Delight Refabricated upon running publishToMavenLocal.
+
 ### Depending on Farmer's Delight Refabricated
 Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://repo.greenhouse.house/).
 
