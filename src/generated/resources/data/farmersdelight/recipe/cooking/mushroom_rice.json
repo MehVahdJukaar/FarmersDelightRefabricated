@@ -12,8 +12,8 @@
       "tag": "c:crops/rice"
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "fabric:type": "fabric:any",
+      "ingredients": [
         {
           "item": "minecraft:carrot"
         },
