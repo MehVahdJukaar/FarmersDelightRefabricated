@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.registry;
 
-import com.google.common.base.Supplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
