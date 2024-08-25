@@ -10,7 +10,8 @@
     "KeepRichSoilTreeMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "RecipeBookSettingsMixin"
+    "RecipeBookSettingsMixin",
+    "accessor.LootContextAccessor"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
