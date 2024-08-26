@@ -1,2 +1,1 @@
-- Fixed Comfort and Nourishment overlays being positioned incorrectly.
-- Fixed crash when creating Farmer's Delight modified loot.
+- Fixed crash when tomatoes attempt to grow.
