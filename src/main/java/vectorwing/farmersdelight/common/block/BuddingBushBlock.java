@@ -121,7 +121,7 @@ public class BuddingBushBlock extends BushBlock
 			for (int posZ = -1; posZ <= 1; ++posZ) {
 				float speedBonus = 1.0F;
 				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				if (stateBelow.getValue(FarmBlock.MOISTURE) > 0 || stateBelow.getBlock() instanceof RichSoilFarmlandBlock richSoil && richSoil.isFertile(stateBelow, level, pos.offset(posX, 0, posZ))) {
+				if (stateBelow.hasProperty(FarmBlock.MOISTURE) && stateBelow.getValue(FarmBlock.MOISTURE) > 0) {
 					speedBonus = 3.0F;
 				}
 
