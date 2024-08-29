@@ -17,9 +17,9 @@ import vectorwing.farmersdelight.common.tag.ModTags;
  * This is the bare minimum to keep parity with Forge.
  */
 @Mixin(BushBlock.class)
-public class BushBlockMixin {
+public class SugarCaneBlockMixin {
     @ModifyReturnValue(method = "canSurvive", at = @At("RETURN"))
-    private boolean farmersdelightrefabricated$allowPlantsOnBushes(boolean original, BlockState state, LevelReader level, BlockPos pos) {
+    private boolean farmersdelightrefabricated$allowPlantsOnSugarCane(boolean original, BlockState state, LevelReader level, BlockPos pos) {
         if (state.getBlock() != (Object)this)
             return original;
 
