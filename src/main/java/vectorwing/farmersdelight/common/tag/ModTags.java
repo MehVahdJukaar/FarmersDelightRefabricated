@@ -112,6 +112,9 @@ public class ModTags {
     public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = modBiomeTag("wild_tomatoes_whitelist");
     public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = modBiomeTag("wild_tomatoes_blacklist");
 
+    public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
+    public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
+
     private static TagKey<Item> modItemTag(String path) {
         return TagKey.create(Registries.ITEM, new ResourceLocation(FarmersDelight.MODID, path));
     }
