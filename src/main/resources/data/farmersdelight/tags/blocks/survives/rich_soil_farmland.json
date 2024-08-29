@@ -1,0 +1,20 @@
+{
+  "values": [
+    "farmersdelight:budding_tomatoes",
+    "farmersdelight:cabbages",
+    "farmersdelight:onions",
+    "farmersdelight:tomatoes",
+    "farmersdelight:rice",
+    "minecraft:beetroots",
+    "minecraft:carrots",
+    "minecraft:potatoes",
+    "minecraft:torchflower_crop",
+    "minecraft:wheat",
+    "#minecraft:saplings",
+    "#minecraft:small_flowers",
+    "#minecraft:tall_flowers",
+    "minecraft:grass",
+    "minecraft:tall_grass",
+    "minecraft:large_fern"
+  ]
+}

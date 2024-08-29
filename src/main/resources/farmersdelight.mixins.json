@@ -3,14 +3,20 @@
   "package": "vectorwing.farmersdelight.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AllowRichSoilMixin",
+    "BushBlockMixin",
+    "CactusBlockMixin",
     "CampfireBaleMixin",
+    "CropBlockMixin",
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
     "LivingEntityMixin",
+    "MushroomBlockMixin",
+    "PitcherCropBlockMixin",
     "PlayerMixin",
     "RecipeBookSettingsMixin",
+    "StemBlockMixin",
+    "SugarCaneBlockMixin",
     "accessor.LootContextAccessor"
   ],
   "client": [
