@@ -83,6 +83,10 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		BlockState floorState = level.getBlockState(floorPos);
 		if (floorState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
 			return true;
+		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilBlock) {
+			return !this.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL);
+		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilFarmlandBlock) {
+			return this.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND);
 		} else {
 			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && this.mayPlaceOn(state, level, pos);
 		}
