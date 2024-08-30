@@ -6,5 +6,5 @@
   - `farmersdelight:survives/rich_soil_farmland` Survives on rich soil.
     - Should contain plants considered crops or plains.
     - For example: Tomatoes, Saplings, Fern.
-- The original behaviour is preserved if neither tag contains have the block you are trying to place.
+- The original behavior is preserved if neither tag contains have the block you are trying to place.
 - This should also make catching edge cases with these features easier going forth.
