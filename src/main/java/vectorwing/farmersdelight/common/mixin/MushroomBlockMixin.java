@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
 import vectorwing.farmersdelight.common.block.RichSoilFarmlandBlock;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.SoilUtils;
 
 /**
  * Fabric should <b>really</b> have an event for this...
@@ -24,10 +24,10 @@ public class MushroomBlockMixin {
             return original;
 
         if (level.getBlockState(pos.below()).getBlock() instanceof RichSoilBlock)
-            return !((Block)(Object)this).builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL);
+            return SoilUtils.isAbleToPlaceRichSoil((Block)(Object) this);
 
         if (level.getBlockState(pos.below()).getBlock() instanceof RichSoilFarmlandBlock)
-            return ((Block)(Object)this).builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND);
+            return SoilUtils.isAbleToPlaceRichSoilFarmland((Block)(Object) this);
 
         return original;
     }
