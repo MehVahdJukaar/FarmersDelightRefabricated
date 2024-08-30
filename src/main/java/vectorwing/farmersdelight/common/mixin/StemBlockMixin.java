@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
 import vectorwing.farmersdelight.common.block.RichSoilFarmlandBlock;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.SoilUtils;
 
 /**
  * Fabric should <b>really</b> have an event for this...
@@ -20,10 +20,10 @@ public class StemBlockMixin {
     @ModifyExpressionValue(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
     private boolean mynethersdelightrefabricated$modifyRandomTickCallForStems(boolean original, @Local(ordinal = 1) BlockState below) {
         if (below.getBlock() instanceof RichSoilBlock)
-            return !((Block)(Object)this).builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL);
+            return SoilUtils.isAbleToPlaceRichSoil((Block)(Object) this);
 
         if (below.getBlock() instanceof RichSoilFarmlandBlock)
-            return ((Block)(Object)this).builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND);
+            return SoilUtils.isAbleToPlaceRichSoilFarmland((Block)(Object) this);
 
         return original;
     }
