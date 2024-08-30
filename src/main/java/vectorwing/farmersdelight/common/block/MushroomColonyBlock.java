@@ -29,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.SoilUtils;
 
 import java.util.function.Supplier;
 
@@ -73,9 +74,9 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		if (floorState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
 			return true;
 		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilBlock) {
-			return !this.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL);
+			return SoilUtils.isAbleToPlaceRichSoil(this);
 		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilFarmlandBlock) {
-			return this.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND);
+			return SoilUtils.isAbleToPlaceRichSoilFarmland(this);
 		} else {
 			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && floorState.canSustainPlant(level, floorPos, net.minecraft.core.Direction.UP, this);
 		}
