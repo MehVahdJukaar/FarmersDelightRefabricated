@@ -1,2 +1,2 @@
-- Fixed inability to place Rice on Rich Soil.
-- Fixed ability to place Pitcher Pods on Rich Soil.
+- Fixed crash when placing Mangrove Cabinet.
+- Fixed invalid tag reference to Pitcher Crops.
