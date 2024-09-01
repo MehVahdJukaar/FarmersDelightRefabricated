@@ -15,7 +15,7 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |---|---|---|---|
 |[Autochef's Delight](https://modrinth.com/mod/autochefs-delight)|✅|✅|Built for Refabricated ever since 1.0.3.
 |[Brewin' And Chewin' (Fabric)](https://modrinth.com/mod/brewin-and-chewin-fabric)|✅|✅|
-|[Cake Delight](https://modrinth.com/mod/cakedelight)|✅|❓| No Contact
+|[Cake Delight](https://modrinth.com/mod/cakedelight)|✅<=3.0.2|✅>3.0.3| No Contact
 |[Casualness Delight](https://modrinth.com/mod/casualness-delight)|✅|✅>=0.4-FDR|
 |[Chef's Delight](https://modrinth.com/mod/chefs-delight)|✅|➖| No Contact
 |[Coffee Delight](https://modrinth.com/mod/coffee-delight)|✅|❓| [Linked GitHub Issue](https://github.com/AmarokIce/CoffeeDelight/issues/11)
@@ -23,9 +23,9 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Crate Delight](https://modrinth.com/mod/crate-delight)|✅|✅|Does not reference any classes from either mod.
 |[Create Central Kitchen](https://modrinth.com/mod/create-central-kitchen/)|❎|Planned| Previously blocked by Farmer's Delight Fabric not using the same package names, planning on going Multiloader.
 |[Create: Food](https://modrinth.com/mod/create-food/)|✅|✅|
-|[Cultural Creators](https://legacy.curseforge.com/minecraft/mc-mods/cultural-creators-fabric-create-and-cultural/)|✅|❓| No Contact
+|[Cultural Creators](https://legacy.curseforge.com/minecraft/mc-mods/cultural-creators-fabric-create-and-cultural/)|✅1.0.0|✅>=1.1.0| No Contact
 |[Cultural Delights (Fabric)](https://modrinth.com/mod/cultural-delights-fabric)|✅<=0.14.12|✅>=1.0.0|
-[Delightful Creators](https://modrinth.com/mod/delightful-creators-fabric/)|✅|❓| [Linked GitHub Issue](https://github.com/Flomik10002/DelightfulCreatorsFabric/issues/14)
+|[Delightful Creators](https://modrinth.com/mod/delightful-creators-fabric/)|✅<=1.1.8|✅>=1.3|
 |[End's Delight](https://modrinth.com/mod/ends-delight/)|Has specific FDF versions|Has specific FDRF versions|
 |[Expanded Delight](https://modrinth.com/mod/expanded-delight)|✅<0.3.1|✅>=0.3.1|
 |[Fabric Seasons: Delight Compat](https://modrinth.com/mod/fabric-seasons-delight-compat)|✅|➖`*`|[Linked GitHub Issue](https://github.com/lucaargolo/fabric-seasons-delight-compat/issues/4)<br/>Incompatible due to mixins into Farmer's Delight Fabric.<br/>The developer has also been contacted through Discord, but has not responded.|
@@ -39,7 +39,7 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Ocean's Delight](https://modrinth.com/mod/oceans-delight)|Has specific FDF versions|Has specific FDRF versions|
 |[Pineapple Delight](https://modrinth.com/mod/pineapple-delight)|✅<1.0.11|✅>=1.0.11|
 |[Recipe Book Delight](https://modrinth.com/mod/recipe-book-delight)|✅|❎| The Recipe Book is supported by default in Refabricated.
-|[Respite Creators](https://modrinth.com/mod/respite-creators-fabric)|✅|❓| [Linked GitHub Issue](https://github.com/Flomik10002/RespiteCreatorsFabric/issues/4)
+|[Respite Creators](https://modrinth.com/mod/respite-creators-fabric)|✅<=1.2.0|✅>=1.3.0|
 |[Shakshuka Delight](https://modrinth.com/mod/shakshuka-delight)|✅|❓| No Contact
 |[Storage Delight](https://modrinth.com/mod/storage-delight)|✅|✅|
 |[Ube's Delight](https://modrinth.com/mod/ubes-delight)|✅|✅>=0.1.5.3|
