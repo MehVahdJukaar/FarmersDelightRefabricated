@@ -272,7 +272,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		if (!mealStack.isEmpty() && !mealContainerStack.isEmpty()) {
 			return mealContainerStack;
 		} else {
-			return mealStack.getRecipeRemainder();
+			return mealStack.getRecipeRemainder() == null ? ItemStack.EMPTY : mealStack.getRecipeRemainder();
 		}
 	}
 
