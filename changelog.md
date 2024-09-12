@@ -1,1 +1,2 @@
-- Removed broken Craft Tweaker integration. Will be re added later when Porting Lib properly updates
+- Fixed Beetroot Soup, Mushroom Stew and Rabbit Stew not stacking to 16 [#86](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/86)
+- Fixed Rabbit Stew keeping its vanilla food values.
