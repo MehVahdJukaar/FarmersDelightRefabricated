@@ -30,6 +30,7 @@ Pull Requests are encouraged, if you have an addon/integration that is not liste
 |[Expanded Delight](https://modrinth.com/mod/expanded-delight)|✅<0.3.1|✅>=0.3.1|
 |[Fabric Seasons: Delight Compat](https://modrinth.com/mod/fabric-seasons-delight-compat)|✅|➖`*`|[Linked GitHub Issue](https://github.com/lucaargolo/fabric-seasons-delight-compat/issues/4)<br/>Incompatible due to mixins into Farmer's Delight Fabric.<br/>The developer has also been contacted through Discord, but has not responded.|
 |[Farmer's Knives](https://modrinth.com/mod/farmers-knives)|✅<3.2|✅>=3.2|
+|[Farmer's Respite](https://www.curseforge.com/minecraft/mc-mods/farmers-respite-fabric)|✅<3.0|✅>=3.0|
 |[Fright's Delight](https://modrinth.com/mod/frights-delight/version/fabric-1.20.1-1.0.2)|✅|✅>=1.0.2|
 |[Just Enough Farmer's Recipes](https://legacy.curseforge.com/minecraft/mc-mods/farmers-delight-jei-plugin)|✅|❎| JEI is supported by default in Refabricated.
 |[Kebab's Delight](https://legacy.curseforge.com/minecraft/mc-mods/kebabs-delight)|✅|❓| No Contact
