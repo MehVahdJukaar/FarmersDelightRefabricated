@@ -73,6 +73,6 @@ public class FarmersDelight implements ModInitializer
 		KnifeItem.init();
 		ModNetworking.init();
 		RichSoilBlock.init();
-		CompostableHelper.init();
+		CompostableHelper.apply();
 	}
 }
