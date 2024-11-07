@@ -1,2 +1,4 @@
 - Updated for parity with Farmer's Delight 1.2.5
 - Fixed DFU acting up when upgrading a world with a Rotten Tomato in it.
+- Rewrote Skillet Flipping to be bound to the Attack key rather than being hardcoded to left click.
+- Fixed Farmer's Delight Dough not working with Create recipes. [#47](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/47).
