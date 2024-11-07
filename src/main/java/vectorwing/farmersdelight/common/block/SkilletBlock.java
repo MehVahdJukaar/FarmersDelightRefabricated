@@ -162,7 +162,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, SUPPORT);
+        builder.add(FACING, SUPPORT, WATERLOGGED);
     }
 
     @Override
