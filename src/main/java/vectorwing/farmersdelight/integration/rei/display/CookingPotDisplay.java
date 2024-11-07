@@ -19,7 +19,7 @@ public class CookingPotDisplay extends BasicDisplay {
     private float experience;
 
     public CookingPotDisplay(CookingPotRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), List.of(EntryIngredients.of(recipe.getResultItem(REGISTRY_ACCESS.get()))), Optional.of(recipe.getId()), EntryIngredients.of(recipe.getOutputContainer()), recipe.getCookTime(), recipe.getExperience());
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), List.of(EntryIngredients.of(recipe.getResultItem(registryAccess()))), Optional.of(recipe.getId()), EntryIngredients.of(recipe.getOutputContainer()), recipe.getCookTime(), recipe.getExperience());
     }
 
     public CookingPotDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, CompoundTag tag) {
