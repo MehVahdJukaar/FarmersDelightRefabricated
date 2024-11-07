@@ -49,7 +49,7 @@ public class FarmersDelightClient implements ClientModInitializer {
 
         // Obscure Fabric event to the rescue!
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
-            if (player != null && !player.isSpectator() && player.isUsingItem() && player.getUseItem().getItem() instanceof SkilletItem && clickCount != 0) {
+            if (player != null && !player.isSpectator() && player.isUsingItem() && player.getUseItem().getItem() instanceof SkilletItem && clickCount != 0 && !player.getUseItem().has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
                 ClientPlayNetworking.send(ModNetworking.FlipSkilletMessage.INSTANCE);
             }
             return false;
