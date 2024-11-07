@@ -1,2 +1,4 @@
-- 
+- Rewrote Skillet Flipping to be bound to the Attack key rather than being hardcoded to left click. 
+- Fixed Farmer's Delight Dough not working with Create recipes. [#47](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/47).
+- Update REI integration to latest REI, fixing the Cooking Pot integration. [#100](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/100).
 - Remove enum extension of EnchantmentCategory for knives as it was causing problems inside developer environments.
