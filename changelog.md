@@ -1,2 +1,2 @@
-- Fixed crash when placing Mangrove Cabinet.
-- Fixed invalid tag reference to Pitcher Crops.
+- 
+- Remove enum extension of EnchantmentCategory for knives as it was causing problems inside developer environments.

@@ -14,10 +14,8 @@ import java.util.function.Supplier;
 
 public class ModEnchantments
 {
-    public static final EnchantmentCategory KNIFE = ClassTinkerers.getEnum(EnchantmentCategory.class, FarmersDelightASM.KNIFE_ENCHANTMENT_CATEGORY);
-
 	public static final LazyRegistrar<Enchantment> ENCHANTMENTS = LazyRegistrar.create(BuiltInRegistries.ENCHANTMENT, FarmersDelight.MODID);
 
 	public static final Supplier<Enchantment> BACKSTABBING = ENCHANTMENTS.register("backstabbing",
-			() -> new BackstabbingEnchantment(Enchantment.Rarity.UNCOMMON, KNIFE, EquipmentSlot.MAINHAND));
+			() -> new BackstabbingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 }
