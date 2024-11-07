@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
@@ -46,16 +47,12 @@ public class FarmersDelightClient implements ClientModInitializer {
         ItemProperties.register(ModItems.SKILLET.get(), ResourceLocation.withDefaultNamespace("cooking"),
                 (stack, world, entity, s) -> stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY).getStack().isEmpty() ? 0 : 1);
 
-        // skillet flip stuff. could be put in a better place...
-        MouseInputEvents.AFTER_BUTTON.register((button, modifier, action) -> {
-            if (button == GLFW.GLFW_MOUSE_BUTTON_1 && action == MouseInputEvents.Action.PRESS) {
-                var player = Minecraft.getInstance().player;
-                if (player != null && player.isUsingItem()) {
-                    if (player.getUseItem().getItem() instanceof SkilletItem) {
-                        ClientPlayNetworking.send(ModNetworking.FlipSkilletMessage.INSTANCE);
-                    }
-                }
+        // Obscure Fabric event to the rescue!
+        ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
+            if (player != null && !player.isSpectator() && player.isUsingItem() && player.getUseItem().getItem() instanceof SkilletItem && clickCount != 0) {
+                ClientPlayNetworking.send(ModNetworking.FlipSkilletMessage.INSTANCE);
             }
+            return false;
         });
 
         // render type stuff
