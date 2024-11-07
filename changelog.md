@@ -1,2 +1,2 @@
-- Fixed Beetroot Soup, Mushroom Stew and Rabbit Stew not stacking to 16 [#86](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/86)
-- Fixed Rabbit Stew keeping its vanilla food values.
+- Updated for parity with Farmer's Delight 1.2.5
+- Fixed DFU acting up when upgrading a world with a Rotten Tomato in it.
