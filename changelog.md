@@ -1,1 +1,1 @@
-- Fix crash when hitting entities.
+- Fixed crashes when using an axe on blocks.
