@@ -199,7 +199,9 @@ processResources {
             mod_credits          : mod_credits,
             mod_homepage         : mod_homepage,
             mod_github           : mod_github,
-            port_lib_version     : port_lib_version
+            port_lib_version     : port_lib_version,
+            fabric_loader_version: fabric_loader_version,
+            fabric_api_version   : fabric_api_version
     ]
     // setting them as input
     inputs.properties replaceProperties
