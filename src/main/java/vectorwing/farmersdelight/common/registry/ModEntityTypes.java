@@ -18,5 +18,5 @@ public class ModEntityTypes
 					.sized(0.25F, 0.25F)
 					.clientTrackingRange(4)
 					.updateInterval(10)
-					.build("rotten_tomato")));
+					.build()));
 }

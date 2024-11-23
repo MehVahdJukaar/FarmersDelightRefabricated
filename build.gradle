@@ -66,7 +66,6 @@ repositories {
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
-    maven { url 'https://maven.draylar.dev/releases/' }
     maven { url 'https://repo.greenhouse.house/snapshots/' } // Temporary Porting Lib
     mavenCentral() // Mixin Extras
 }
@@ -91,7 +90,10 @@ dependencies {
     }
 
     for (String module in port_lib_modules.split(",")) {
-        include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+        include(modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+    }
+    for (String module in port_lib_temp_modules.split(",")) {
+        include(modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
     modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
@@ -121,23 +123,6 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
      */
-
-    // test addons
-    //modImplementation("curse.maven:farmers-respite-fabric-811003:4754429")
-    //modImplementation("curse.maven:forge-config-api-port-fabric-547434:4583000")
-    //modImplementation("curse.maven:farmers-knives-628972:5178087")
-    //modImplementation("curse.maven:oceans-delight-841262:4652063")
-    //modImplementation("curse.maven:fabric-seasons-delight-compat-859370:4533190")
-    //modImplementation("curse.maven:chefs-delight-fabric-736986:4751399")
-    //modImplementation("curse.maven:fabric-seasons-413523:4699698")
-    //modImplementation("curse.maven:expanded-delight-620770:5177998")
-    //modImplementation("curse.maven:ends-delight-662675:4678087")
-    //modImplementation("curse.maven:slice-and-dice-659674:5184596")
-    //modImplementation("draylar.omegaconfig:omega-config-base-1.2.3-1.18.1")
-    //modImplementation("dev.draylar.omega-config:omega-config-base:${project.omega_version}")
-    //modImplementation("curse.maven:frights-delight-927591:4857179")
-    //modImplementation("curse.maven:nethers-delight-fabric-701831:4778206")
-
 }
 
 

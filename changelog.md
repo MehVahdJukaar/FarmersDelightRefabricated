@@ -1,2 +1,1 @@
-- Fixed Beetroot Soup, Mushroom Stew and Rabbit Stew not stacking to 16 [#86](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/86)
-- Fixed Rabbit Stew keeping its vanilla food values.
+- Fixed crashes when using an axe on blocks.
