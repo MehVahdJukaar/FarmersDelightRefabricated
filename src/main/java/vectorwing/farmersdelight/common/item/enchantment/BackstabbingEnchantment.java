@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.item.enchantment;
 
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingTableBehaviorEnchantment;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,9 +15,10 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModEnchantments;
 
-public class BackstabbingEnchantment extends Enchantment
+public class BackstabbingEnchantment extends Enchantment implements CustomEnchantingTableBehaviorEnchantment
 {
 	public BackstabbingEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... applicableSlots) {
 		super(rarity, category, applicableSlots);
@@ -83,4 +86,16 @@ public class BackstabbingEnchantment extends Enchantment
 		}
 	}
 
+    @Override
+    public boolean canEnchant(ItemStack stack) {
+        return stack.getItem() instanceof KnifeItem;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+        if (stack.getItem() instanceof CustomEnchantingBehaviorItem custom) {
+            return custom.canApplyAtEnchantingTable(stack, this);
+        }
+        return stack.getItem() instanceof KnifeItem;
+    }
 }

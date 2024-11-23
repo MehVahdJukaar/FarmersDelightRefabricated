@@ -197,6 +197,7 @@
   "item.farmersdelight.shepherds_pie": "Plato de pastel de carne",
   "block.farmersdelight.rice_roll_medley_block": "Mezcla de rollos de arroz",
 
+
   "item.farmersdelight.dog_food": "Comida para perro",
   "item.farmersdelight.horse_feed": "Comida para caballo",
 
@@ -318,6 +319,7 @@
   "farmersdelight.jei.info.wild_tomatoes": "Los tomates se pueden encontrar comúnmente como planta silvestre en tierras áridas, como sabanas y desiertos.",
   "farmersdelight.jei.info.wild_rice": "El arroz se puede encontrar comúnmente como planta silvestre en los estanques de tierras húmedas, como pantanos y selvas.",
 
+
   "emi.category.farmersdelight.cooking": "Cocinando",
   "emi.category.farmersdelight.cutting": "Picando",
   "emi.category.farmersdelight.decomposition": "Descomposición",
@@ -412,4 +414,5 @@
   "tag.item.farmersdelight.tools.knives": "Cuchillos",
   "tag.item.farmersdelight.wild_crops": "Cultivos silvestres",
   "tag.item.farmersdelight.wolf_prey": "Presa del lobo"
+
 }

@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -12,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
@@ -28,6 +31,7 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class CommonSetup {
@@ -130,6 +134,9 @@ public class CommonSetup {
     }
 
     public static void registerAnimalFeeds() {
+    }
+
+    public static void registerItemSetAdditions() {
         Ingredient newChickenFood = Ingredient.of(ModItems.CABBAGE_SEEDS.get(), ModItems.TOMATO_SEEDS.get(), ModItems.RICE.get());
         Chicken.FOOD_ITEMS = Ingredient.of(Stream.concat(Arrays.stream(Chicken.FOOD_ITEMS.getItems()), Arrays.stream(newChickenFood.getItems())));
         {
@@ -143,5 +150,16 @@ public class CommonSetup {
         ;
 
         Collections.addAll(Parrot.TAME_FOOD, ModItems.CABBAGE_SEEDS.get(), ModItems.TOMATO_SEEDS.get(), ModItems.RICE.get());
+
+        Set<Item> newWantedItems = Sets.newHashSet(
+                ModItems.CABBAGE.get(),
+                ModItems.TOMATO.get(),
+                ModItems.ONION.get(),
+                ModItems.RICE.get(),
+                ModItems.CABBAGE_SEEDS.get(),
+                ModItems.TOMATO_SEEDS.get(),
+                ModItems.RICE_PANICLE.get());
+        newWantedItems.addAll(Villager.WANTED_ITEMS);
+        Villager.WANTED_ITEMS = ImmutableSet.copyOf(newWantedItems);
     }
 }

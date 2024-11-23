@@ -28,40 +28,39 @@ public class RopeItem extends FuelBlockItem
 
 		if (state.getBlock() != block) {
 			return context;
-		} else {
-			Direction direction;
-			if (context.isSecondaryUseActive()) {
-				direction = context.getClickedFace();
-			} else {
-				direction = Direction.DOWN;
-			}
-
-			int i = 0;
-			BlockPos.MutableBlockPos blockpos$mutable = (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(direction);
-
-			while (i < 256) {
-				state = level.getBlockState(blockpos$mutable);
-				if (state.getBlock() != this.getBlock()) {
-					FluidState fluid = state.getFluidState();
-					if (!fluid.is(FluidTags.WATER) && !fluid.isEmpty()) {
-						return null;
-					}
-					if (state.canBeReplaced(context)) {
-						return BlockPlaceContext.at(context, blockpos$mutable, direction);
-					}
-					break;
-				}
-
-				if (direction != Direction.DOWN) {
-					return context;
-				}
-
-				blockpos$mutable.move(direction);
-				++i;
-			}
-
-			return null;
 		}
+        Direction direction;
+        if (context.isSecondaryUseActive()) {
+            direction = context.getClickedFace();
+        } else {
+            direction = Direction.DOWN;
+        }
+
+        int i = 0;
+        BlockPos.MutableBlockPos blockpos$mutable = (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(direction);
+
+        while (i < 256) {
+            state = level.getBlockState(blockpos$mutable);
+            if (state.getBlock() != this.getBlock()) {
+                FluidState fluid = state.getFluidState();
+                if (!fluid.is(FluidTags.WATER) && !fluid.isEmpty()) {
+                    return null;
+                }
+                if (state.canBeReplaced(context)) {
+                    return BlockPlaceContext.at(context, blockpos$mutable, direction);
+                }
+                break;
+            }
+
+            if (direction != Direction.DOWN) {
+                return context;
+            }
+
+            blockpos$mutable.move(direction);
+            ++i;
+        }
+
+        return null;
 	}
 
 	@Override

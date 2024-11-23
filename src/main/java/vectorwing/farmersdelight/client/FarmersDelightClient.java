@@ -1,18 +1,16 @@
 package vectorwing.farmersdelight.client;
 
-import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
-import net.minecraft.client.Minecraft;
+import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.glfw.GLFW;
 import vectorwing.farmersdelight.client.event.ClientSetupEvents;
 import vectorwing.farmersdelight.client.event.TooltipEvents;
 import vectorwing.farmersdelight.client.gui.ComfortHealthOverlay;
@@ -47,16 +45,12 @@ public class FarmersDelightClient implements ClientModInitializer {
         ItemProperties.register(ModItems.SKILLET.get(), new ResourceLocation("cooking"),
                 (stack, world, entity, s) -> stack.getTagElement("Cooking") != null ? 1 : 0);
 
-        // skillet flip stuff. could be put in a better place...
-        MouseInputEvents.AFTER_BUTTON.register((button, modifier, action) -> {
-            if (button == GLFW.GLFW_MOUSE_BUTTON_1 && action == MouseInputEvents.Action.PRESS) {
-                var player = Minecraft.getInstance().player;
-                if (player != null && player.isUsingItem()) {
-                    if (player.getUseItem().getItem() instanceof SkilletItem) {
-                        ModNetworking.CHANNEL.sendToServer(new ModNetworking.FlipSkilletMessage());
-                    }
-                }
+        // Obscure Fabric event to the rescue!
+        ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
+            if (player != null && !player.isSpectator() && player.isUsingItem() && player.getUseItem().getItem() instanceof SkilletItem && clickCount != 0) {
+                ModNetworking.CHANNEL.sendToServer(new ModNetworking.FlipSkilletMessage());
             }
+            return false;
         });
 
         // render type stuff
