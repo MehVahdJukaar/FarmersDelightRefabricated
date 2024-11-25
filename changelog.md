@@ -1,3 +1,5 @@
 - fixed skillet flipping interpolation being broken in 1.21
 - skillet wont play the item equip animation no more while cooking
 - skillet itself will also animate when flipping stuff
+- improved skillet flipping sounds
+- added requirement for latest fabric api
