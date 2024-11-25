@@ -36,7 +36,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
@@ -156,19 +155,19 @@ public class SkilletItem extends BlockItem {
 
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
-        if (entity instanceof Player player) {
-            Vec3 pos = player.position();
-            double x = pos.x() + 0.5D;
-            double y = pos.y();
-            double z = pos.z() + 0.5D;
-            if (level.random.nextInt(50) == 0) {
-                level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+        if (entity instanceof Player p) {
+            if (!level.isClientSide && level.random.nextInt(50) == 0) {
+                //level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
             }
             if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
                 long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
-                if (level.getGameTime() - flipTimeStamp > FLIP_TIME) {
+                long l = level.getGameTime() - flipTimeStamp;
+                if (l > FLIP_TIME) {
                     stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
-                    level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+                } else if (l == FLIP_TIME - 8 && level.isClientSide) {
+                    //why does it need to play early? idk
+                    //plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
+                    level.playSound(p, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
                 }
             }
         }
