@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class Configuration
 {
@@ -13,58 +12,59 @@ public class Configuration
 
 	// COMMON
 	public static final String CATEGORY_SETTINGS = "settings";
-	public static Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
-	public static Supplier<Boolean> FARMERS_BUY_FD_CROPS;
-	public static Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
-	public static Supplier<Double> RICH_SOIL_BOOST_CHANCE;
-	public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
-	public static Supplier<Boolean> ENABLE_ROPE_REELING;
-	public static Supplier<List<? extends String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
+	public static ModConfigSpec.BooleanValue ENABLE_VANILLA_CROP_CRATES;
+	public static ModConfigSpec.BooleanValue FARMERS_BUY_FD_CROPS;
+	public static ModConfigSpec.BooleanValue WANDERING_TRADER_SELLS_FD_ITEMS;
+	public static ModConfigSpec.DoubleValue RICH_SOIL_BOOST_CHANCE;
+	public static ModConfigSpec.DoubleValue CUTTING_BOARD_FORTUNE_BONUS;
+	public static ModConfigSpec.BooleanValue ENABLE_ROPE_REELING;
+	public static ModConfigSpec.ConfigValue<List<? extends String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
 
 	public static final String CATEGORY_FARMING = "farming";
-	public static Supplier<String> DEFAULT_TOMATO_VINE_ROPE;
-	public static Supplier<Boolean> ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
+	public static ModConfigSpec.ConfigValue<String> DEFAULT_TOMATO_VINE_ROPE;
+	public static ModConfigSpec.BooleanValue ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
 
 	public static final String CATEGORY_RECIPE_BOOK = "recipe_book";
-	public static Supplier<Boolean> ENABLE_RECIPE_BOOK_COOKING_POT;
+	public static ModConfigSpec.BooleanValue ENABLE_RECIPE_BOOK_COOKING_POT;
 
 	public static final String CATEGORY_OVERRIDES = "overrides";
-	public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS;
-	public static Supplier<Boolean> RABBIT_STEW_BUFF;
-	public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD;
+	public static ModConfigSpec.BooleanValue VANILLA_SOUP_EXTRA_EFFECTS;
+	public static ModConfigSpec.BooleanValue RABBIT_STEW_BUFF;
+	public static ModConfigSpec.BooleanValue DISPENSER_TOOLS_CUTTING_BOARD;
 
 	public static final String CATEGORY_OVERRIDES_STACK_SIZE = "stack_size";
-	public static Supplier<Boolean> ENABLE_STACKABLE_SOUP_ITEMS;
-	public static Supplier<List<? extends String>> SOUP_ITEM_LIST;
+	public static ModConfigSpec.BooleanValue ENABLE_STACKABLE_SOUP_ITEMS;
+	public static ModConfigSpec.ConfigValue<List<? extends String>> SOUP_ITEM_LIST;
 
 	public static final String CATEGORY_WORLD = "world";
-	public static Supplier<Boolean> GENERATE_FD_CHEST_LOOT;
-	public static Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
-	public static Supplier<Boolean> GENERATE_WILD_CABBAGES;
-	public static Supplier<Integer> CHANCE_WILD_CABBAGES;
-	public static Supplier<Boolean> GENERATE_WILD_BEETROOTS;
-	public static Supplier<Integer> CHANCE_WILD_BEETROOTS;
-	public static Supplier<Boolean> GENERATE_WILD_POTATOES;
-	public static Supplier<Integer> CHANCE_WILD_POTATOES;
-	public static Supplier<Boolean> GENERATE_WILD_ONIONS;
-	public static Supplier<Integer> CHANCE_WILD_ONIONS;
-	public static Supplier<Boolean> GENERATE_WILD_CARROTS;
-	public static Supplier<Integer> CHANCE_WILD_CARROTS;
-	public static Supplier<Boolean> GENERATE_WILD_TOMATOES;
-	public static Supplier<Integer> CHANCE_WILD_TOMATOES;
-	public static Supplier<Boolean> GENERATE_WILD_RICE;
-	public static Supplier<Integer> CHANCE_WILD_RICE;
-	public static Supplier<Boolean> GENERATE_BROWN_MUSHROOM_COLONIES;
-	public static Supplier<Integer> CHANCE_BROWN_MUSHROOM_COLONIES;
-	public static Supplier<Boolean> GENERATE_RED_MUSHROOM_COLONIES;
-	public static Supplier<Integer> CHANCE_RED_MUSHROOM_COLONIES;
+	public static ModConfigSpec.BooleanValue GENERATE_FD_CHEST_LOOT;
+	public static ModConfigSpec.BooleanValue GENERATE_VILLAGE_COMPOST_HEAPS;
+	public static ModConfigSpec.BooleanValue GENERATE_VILLAGE_FARM_FD_CROPS;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_CABBAGES;
+	public static ModConfigSpec.IntValue CHANCE_WILD_CABBAGES;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_BEETROOTS;
+	public static ModConfigSpec.IntValue CHANCE_WILD_BEETROOTS;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_POTATOES;
+	public static ModConfigSpec.IntValue CHANCE_WILD_POTATOES;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_ONIONS;
+	public static ModConfigSpec.IntValue CHANCE_WILD_ONIONS;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_CARROTS;
+	public static ModConfigSpec.IntValue CHANCE_WILD_CARROTS;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_TOMATOES;
+	public static ModConfigSpec.IntValue CHANCE_WILD_TOMATOES;
+	public static ModConfigSpec.BooleanValue GENERATE_WILD_RICE;
+	public static ModConfigSpec.IntValue CHANCE_WILD_RICE;
+	public static ModConfigSpec.BooleanValue GENERATE_BROWN_MUSHROOM_COLONIES;
+	public static ModConfigSpec.IntValue CHANCE_BROWN_MUSHROOM_COLONIES;
+	public static ModConfigSpec.BooleanValue GENERATE_RED_MUSHROOM_COLONIES;
+	public static ModConfigSpec.IntValue CHANCE_RED_MUSHROOM_COLONIES;
 
 	// CLIENT
 	public static final String CATEGORY_CLIENT = "client";
 
-	public static Supplier<Boolean> NOURISHED_HUNGER_OVERLAY;
-	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY;
-	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP;
+	public static ModConfigSpec.BooleanValue NOURISHED_HUNGER_OVERLAY;
+	public static ModConfigSpec.BooleanValue COMFORT_HEALTH_OVERLAY;
+	public static ModConfigSpec.BooleanValue FOOD_EFFECT_TOOLTIP;
 
 	static {
 		ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
@@ -120,8 +120,10 @@ public class Configuration
 		COMMON_BUILDER.comment("World generation").push(CATEGORY_WORLD);
 		GENERATE_FD_CHEST_LOOT = COMMON_BUILDER.comment("Should this mod add some of its items (ropes, seeds, knives, meals etc.) as extra chest loot across Minecraft?")
 				.define("generateFDChestLoot", true);
-		GENERATE_VILLAGE_COMPOST_HEAPS = COMMON_BUILDER.comment("Generate Compost Heaps across all village biomes")
+		GENERATE_VILLAGE_COMPOST_HEAPS = COMMON_BUILDER.comment("Should FD generate Compost Heaps across all village biomes?")
 				.define("genVillageCompostHeaps", true);
+		GENERATE_VILLAGE_FARM_FD_CROPS = COMMON_BUILDER.comment("Should FD crops show up planted randomly in various village farms?")
+				.define("genFDCropsOnVillageFarms", true);
 
 		COMMON_BUILDER.comment("Wild Cabbage generation").push("wild_cabbages");
 		CHANCE_WILD_CABBAGES = COMMON_BUILDER.comment("Chance of generating clusters. Smaller value = more frequent.")

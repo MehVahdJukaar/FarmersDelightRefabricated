@@ -49,8 +49,8 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.Optional;
 
-@SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem {
+
     public static final float FLIP_TIME = 18;
 
     public static final Tiers SKILLET_TIER = Tiers.IRON;
@@ -282,7 +282,7 @@ public class SkilletItem extends BlockItem {
 
     @Override
     public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
-        if (context == EnchantingContext.PRIMARY && enchantment.is(Enchantments.SWEEPING_EDGE)) {
+        if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
             return false;
         }
         return super.canBeEnchantedWith(stack, enchantment, context);

@@ -11,3 +11,6 @@ extendable method net/minecraft/core/dispenser/DefaultDispenseItemBehavior dispe
 
 accessible method net/minecraft/world/item/enchantment/EnchantmentHelper runIterationOnItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V
 accessible method net/minecraft/world/item/enchantment/Enchantment modifyDamageFilteredValue (Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+
+accessible field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
+mutable field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;

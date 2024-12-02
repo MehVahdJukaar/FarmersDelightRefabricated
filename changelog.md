@@ -1,5 +1,7 @@
-- fixed skillet flipping interpolation being broken in 1.21
-- skillet wont play the item equip animation no more while cooking
-- skillet itself will also animate when flipping stuff
-- improved skillet flipping sounds
-- added requirement for latest fabric api
+- Updated the mod to match Farmer's Delight 1.2.6.
+- Fixed EMI Decomposition category throwing an error in dev mode.
+- Fixed skillet flipping interpolation being broken in 1.21
+- Skillet wont play the item equip animation no more while cooking
+- Skillet itself will also animate when flipping stuff
+- Improved Skillet flipping sounds
+- Added requirement for latest Fabric API

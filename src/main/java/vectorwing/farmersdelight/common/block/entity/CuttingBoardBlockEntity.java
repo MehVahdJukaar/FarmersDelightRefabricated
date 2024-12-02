@@ -21,7 +21,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
@@ -31,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
+import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipeInput;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
@@ -45,9 +45,8 @@ import java.util.Optional;
 public class CuttingBoardBlockEntity extends SyncedBlockEntity
 {
 	private final ItemStackHandlerContainer inventory;
+	private final RecipeManager.CachedCheck<CuttingBoardRecipeInput, CuttingBoardRecipe> quickCheck;
 	private ResourceLocation lastRecipeID;
-	private final RecipeManager.CachedCheck<SingleRecipeInput, CuttingBoardRecipe> quickCheck;
-
 	private boolean isItemCarvingBoard;
 
 	public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
@@ -57,25 +56,14 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		quickCheck = RecipeManager.createCheck(ModRecipeTypes.CUTTING.get());
 	}
 
-	public static void init() {
-		ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
-	}
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
+    }
 
-	@NotNull
-	public Storage<ItemVariant> getStorage(@Nullable Direction side) {
-		return getInventory();
-	}
-
-	/*
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
-				ModBlockEntityTypes.CUTTING_BOARD.get(),
-				(be, context) -> be.getInventory()
-		);
-	}
-	 */
+    @NotNull
+    public Storage<ItemVariant> getStorage(@Nullable Direction side) {
+        return getInventory();
+    }
 
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
@@ -99,7 +87,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getMatchingRecipe(toolStack, player);
 
 		matchingRecipe.ifPresent(recipe -> {
-			List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.FORTUNE), toolStack));
+			List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FORTUNE), toolStack));
 			for (ItemStack resultStack : results) {
 				Direction direction = getBlockState().getValue(CuttingBoardBlock.FACING).getCounterClockWise();
 				ItemUtils.spawnItemEntity(level, resultStack.copy(),
@@ -124,7 +112,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player) {
 		if (level == null) return Optional.empty();
 
-		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new SingleRecipeInput(getStoredItem()), level);
+		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new CuttingBoardRecipeInput(getStoredItem(), toolStack), level);
 		if (recipe.isPresent()) {
 			if (recipe.get().value().getTool().test(toolStack)) {
 				return recipe;

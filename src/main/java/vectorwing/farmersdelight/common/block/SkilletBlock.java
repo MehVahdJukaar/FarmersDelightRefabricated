@@ -61,7 +61,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	public SkilletBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override
