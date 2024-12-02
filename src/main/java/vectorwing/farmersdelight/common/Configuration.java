@@ -10,18 +10,18 @@ import java.util.function.Supplier;
 @SuppressWarnings("all")
 public class Configuration
 {
-	public static ModConfigSpec COMMON_CONFIG;
-	public static ModConfigSpec CLIENT_CONFIG;
+    public static ModConfigSpec COMMON_CONFIG;
+    public static ModConfigSpec CLIENT_CONFIG;
 
-	// COMMON
-	public static final String CATEGORY_SETTINGS = "settings";
-	public static Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
-	public static Supplier<Boolean> FARMERS_BUY_FD_CROPS;
-	public static Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
-	public static Supplier<Double> RICH_SOIL_BOOST_CHANCE;
-	public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
-	public static Supplier<Boolean> ENABLE_ROPE_REELING;
-	public static Supplier<List<? extends String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
+    // COMMON
+    public static final String CATEGORY_SETTINGS = "settings";
+    public static Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
+    public static Supplier<Boolean> FARMERS_BUY_FD_CROPS;
+    public static Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
+    public static Supplier<Double> RICH_SOIL_BOOST_CHANCE;
+    public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
+    public static Supplier<Boolean> ENABLE_ROPE_REELING;
+    public static Supplier<List<? extends String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
 
     public static final String CATEGORY_FARMING = "farming";
     public static Supplier<String> DEFAULT_TOMATO_VINE_ROPE;
@@ -42,6 +42,7 @@ public class Configuration
     public static final String CATEGORY_WORLD = "world";
     public static Supplier<Boolean> GENERATE_FD_CHEST_LOOT;
     public static Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
+    public static Supplier<Boolean> GENERATE_VILLAGE_FARM_FD_CROPS;
     public static Supplier<Boolean> GENERATE_WILD_CABBAGES;
     public static Supplier<Integer> CHANCE_WILD_CABBAGES;
     public static Supplier<Boolean> GENERATE_WILD_BEETROOTS;
@@ -122,8 +123,10 @@ public class Configuration
         COMMON_BUILDER.comment("World generation").push(CATEGORY_WORLD);
         GENERATE_FD_CHEST_LOOT = COMMON_BUILDER.comment("Should this mod add some of its items (ropes, seeds, knives, meals etc.) as extra chest loot across Minecraft?")
                 .define("generateFDChestLoot", true);
-        GENERATE_VILLAGE_COMPOST_HEAPS = COMMON_BUILDER.comment("Generate Compost Heaps across all village biomes")
+        GENERATE_VILLAGE_COMPOST_HEAPS = COMMON_BUILDER.comment("Should FD generate Compost Heaps across all village biomes?")
                 .define("genVillageCompostHeaps", true);
+        GENERATE_VILLAGE_FARM_FD_CROPS = COMMON_BUILDER.comment("Should FD crops show up planted randomly in various village farms?")
+                .define("genFDCropsOnVillageFarms", true);
 
         COMMON_BUILDER.comment("Wild Cabbage generation").push("wild_cabbages");
         CHANCE_WILD_CABBAGES = COMMON_BUILDER.comment("Chance of generating clusters. Smaller value = more frequent.")
