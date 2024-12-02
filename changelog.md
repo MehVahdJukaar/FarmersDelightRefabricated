@@ -1,2 +1,3 @@
+- Merged with upstream 1.2.6.
 - Fixed EMI Decomposition category throwing an error in dev mode.
 - Fixed Farmer's Delight Dough not working with Create recipes for real this time. [#47](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/47).
