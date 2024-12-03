@@ -26,8 +26,6 @@ repositories {
         dirs 'mods'
     }
 
-    mavenLocal()
-
     maven { url "https://maven.parchmentmc.org" }
 
     maven {
@@ -58,16 +56,23 @@ repositories {
 
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
-    maven { url = "https://mvn.devos.one/snapshots/" } // Registrate, Porting Lib, Forge Tags, Milk Lib
-    maven { url = "https://mvn.devos.one/releases/" }
-    maven { // for Porting Lib: Fabric ASM
-        url = "https://jitpack.io/"
+    maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
+    exclusiveContent {
+        forRepository {
+            maven {
+                url = "https://jitpack.io"
+            }
+        }
+        filter {
+            includeGroup "com.github.Chocohead"
+        }
     }
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     maven { url 'https://repo.greenhouse.house/snapshots/' } // Temporary Porting Lib
     mavenCentral() // Mixin Extras
+    mavenLocal() // Porting Lib (temporary)
 }
 
 dependencies {
@@ -78,7 +83,7 @@ dependencies {
         it.officialMojangMappings {
             setNameSyntheticMembers(false)
         }
-        it.parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
+        it.parchment("org.parchmentmc.data:parchment-${project.parchment_version}")
     }
 
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
@@ -87,12 +92,9 @@ dependencies {
 
     include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
         exclude (group: "net.fabricmc.fabric-api")
-    }
+    }\
 
     for (String module in port_lib_modules.split(",")) {
-        include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
-    }
-    for (String module in port_lib_temp_modules.split(",")) {
         include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
