@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.item;
 
-import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import io.github.fabricators_of_create.porting_lib.tool.ItemAbilities;
 import io.github.fabricators_of_create.porting_lib.tool.ItemAbility;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -35,7 +34,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Set;
 
-public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem
+public class KnifeItem extends DiggerItem
 {
 	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE);
 

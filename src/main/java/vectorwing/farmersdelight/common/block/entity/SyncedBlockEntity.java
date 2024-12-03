@@ -41,15 +41,4 @@ public class SyncedBlockEntity extends BlockEntity
 		if (level != null)
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
-
-	// Thanks Porting Lib...
-	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-		return new CompoundTag();
-	}
-
-	@Override
-	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-
-	}
 }

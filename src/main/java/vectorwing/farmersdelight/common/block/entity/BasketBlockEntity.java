@@ -253,15 +253,4 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 			blockEntity.updateHopper(() -> pullItems(level, blockEntity, facing));
 		}
 	}
-
-	// Thanks Porting Lib...
-	@Override
-	public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-		return new CompoundTag();
-	}
-
-	@Override
-	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-
-	}
 }

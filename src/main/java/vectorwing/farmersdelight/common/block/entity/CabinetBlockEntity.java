@@ -132,15 +132,4 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 		double z = (double) worldPosition.getZ() + 0.5D + (double) cabinetFacingVector.getZ() / 2.0D;
 		level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
 	}
-
-	// Thanks Porting Lib...
-	@Override
-	public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-		return new CompoundTag();
-	}
-
-	@Override
-	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-
-	}
 }
