@@ -1,1 +1,1 @@
-- Fixed crash with Skillet [#119]([https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/119](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/119))
+- Fixed crash with Skillet ([#119](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/119))
