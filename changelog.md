@@ -1,6 +1,6 @@
 - Update to official Porting Lib 1.21.1 build.
   - Issues for Porting Lib should now be reported to the [Fabricators-of-Create/PortingLib](https://github.com/Fabricators-of-Create/Porting-Lib).
-- Re-add CraftTweaker compat.
+- Re-added CraftTweaker compat.
 
 ## For Developers
 - Porting Lib is now imported from https://mvn.devos.one/snapshots/. Please use this instead of Greenhouse's Snapshot branch
