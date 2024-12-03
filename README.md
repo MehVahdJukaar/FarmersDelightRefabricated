@@ -37,6 +37,8 @@ I am open to constructive feedback about the mod's code: if you spot any glaring
 **Porting Lib for 1.21.1 is in beta**. Please be considerate when reporting bugs to them.
 You may report any bugs to [Fabricators-Of-Create/Porting-Lib](https://github.com/Fabricators-of-Create/Porting-Lib)
 
+Porting Lib is also not ABI stable as of right now, things could break between updates. Please report any breakage from updated Porting Libs to us.
+
 ### Depending on Farmer's Delight Refabricated
 Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://repo.greenhouse.house/).
 
