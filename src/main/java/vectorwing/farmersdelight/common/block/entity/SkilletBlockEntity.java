@@ -17,7 +17,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -136,7 +135,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		compound.putInt("CookTime", cookingTime);
 		compound.putInt("CookTimeTotal", cookingTimeTotal);
-		compound.put("Skillet", skilletStack.save(registries));
+		compound.put("Skillet", skilletStack.saveOptional(registries));
 	}
 
 	public ItemStack getSkilletAsItem() {
