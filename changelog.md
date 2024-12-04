@@ -1,2 +1,3 @@
 - Set minimum required Fabric Loader version to 0.16.7 so Porting Lib won't silently fail.
 - Updated `fabric` dependency in `fabric.mod.json` to `fabric-api` to be more clear.
+- Updated Porting Lib to include a hotfix for inventory screen crashes.
