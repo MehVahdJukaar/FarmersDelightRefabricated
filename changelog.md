@@ -1,2 +1,1 @@
-- Set minimum required Fabric Loader version to 0.16.7 so Porting Lib won't silently fail.
-- Updated `fabric` dependency in `fabric.mod.json` to `fabric-api` to be more clear.
+- Fixed incorrect Fabric Loader required dependency reference in fabric.mod.json.
