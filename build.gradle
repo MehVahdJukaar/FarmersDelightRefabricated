@@ -52,10 +52,10 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven { url "https://maven.ryanliptak.com/" } // AppleSkin
-
-
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
+    maven { url "https://repo.greenhouse.house/snapshots/" } // Porting Lib Hotfixes
+    maven { url = "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
     maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
     exclusiveContent {
         forRepository {

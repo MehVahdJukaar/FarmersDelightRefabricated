@@ -49,7 +49,11 @@ repositories {
         name = "Greenhouse Maven"
         url = 'https://repo.greenhouse.house/releases/'
     }
-    maven { url "https://mvn.devos.one/snapshots/" } // Porting Lib
+    maven {
+        name = "Greenhouse Maven"
+        url = 'https://repo.greenhouse.house/snapshots/' // Porting Lib Hotfixes
+    }
+    maven { url "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
     maven {
         url "https://jitpack.io/" // Fabric ASM
         content {
@@ -60,6 +64,8 @@ repositories {
 dependencies {
     modImplementation("vectorwing:FarmersDelight:${fdrf_version}") {
         exclude(group: "net.fabricmc")
+        // exclude(group: "io.github.fabricators-of-create") 
+        // If you want to exclude Porting Lib to instead provide your own version of Porting Lib, uncomment the above line..
     }
 }
 ```
