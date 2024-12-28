@@ -1,1 +1,2 @@
-- Fixed incorrect Fabric Loader required dependency reference in fabric.mod.json.
+- Fix Skillets being waterlogged by default.
+- Fix Wandering Trader trades. [(#124)](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/124)
