@@ -35,7 +35,7 @@ public class VillagerEvents
 
 	public static void onWandererTrades() {
 		if (Configuration.WANDERING_TRADER_SELLS_FD_ITEMS.get()) {
-			TradeOfferHelper.registerWanderingTraderOffers(0, (trades) -> {
+			TradeOfferHelper.registerWanderingTraderOffers(1, (trades) -> {
 				trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12));
 				trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12));
 				trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12));
