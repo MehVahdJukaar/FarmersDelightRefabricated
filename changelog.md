@@ -1,3 +1,3 @@
-- Updated Porting Lib to include a hotfix for #122.
-
-Updated README to explain some extra addon stuff.
+- Fixed upgrading worlds sometimes failing due to a faulty mixin in Porting Lib.
+- Fix invalid tags from Porting Lib.
+- Fix Wandering Trader trades. ([#124](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/124))
