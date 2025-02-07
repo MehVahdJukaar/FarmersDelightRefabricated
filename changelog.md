@@ -1,3 +1,2 @@
-- Fixed upgrading worlds sometimes failing due to a faulty mixin in Porting Lib.
-- Fix invalid tags from Porting Lib.
-- Fix Wandering Trader trades. ([#124](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/124))
+- Updated to match Farmer's Delight 1.2.7.
+- Fixed tools being unable to be slotted into the cutting board.
