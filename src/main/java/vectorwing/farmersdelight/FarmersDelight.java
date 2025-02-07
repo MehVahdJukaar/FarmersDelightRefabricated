@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
@@ -67,6 +68,7 @@ public class FarmersDelight implements ModInitializer
 		// new stuff
 		ModBiomeModifiers.init();
 		CookingPotBlockEntity.init();
+		CuttingBoardBlock.init();
 		CuttingBoardBlockEntity.init();
 		DogFoodItem.init();
 		HorseFeedItem.init();
