@@ -1,2 +1,3 @@
-- Fix Skillets being waterlogged by default.
-- Fix Wandering Trader trades. ([#124](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/124))
+- Updated to match Farmer's Delight 1.2.7.
+- Fixed mobs being allowed to pathfind over lit stoves. [#130](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/130)
+- Fixed tools being unable to be slotted into the cutting board. [#143](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/143)

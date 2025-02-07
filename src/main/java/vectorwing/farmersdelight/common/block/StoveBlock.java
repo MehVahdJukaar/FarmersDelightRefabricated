@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,6 +54,7 @@ public class StoveBlock extends BaseEntityBlock
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+		LandPathNodeTypesRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
 	}
 
 	@Override
@@ -193,9 +195,17 @@ public class StoveBlock extends BaseEntityBlock
 		return null;
 	}
 
-	// TODO: This.
+	/**
+	 * Refabricated: Deprecated but kept for cross-loader code. Use {@link StoveBlock#getBlockPathType(BlockState, BlockGetter, BlockPos)} instead.
+	 */
 	@Nullable
+	@Deprecated
 	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+		return getBlockPathType(state, world, pos);
+	}
+
+	@Nullable
+	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos) {
 		return state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
 	}
 
