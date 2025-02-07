@@ -1,2 +1,2 @@
 - Updated to match Farmer's Delight 1.2.7.
-- Fixed tools being unable to be slotted into the cutting board.
+- Fixed tools being unable to be slotted into the cutting board. [#143](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/143)
