@@ -1,11 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Sets;
-import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
-import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
-import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
-import io.github.fabricators_of_create.porting_lib.tool.extensions.ItemStackExtensions;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -39,7 +34,7 @@ import java.util.Set;
 
 public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorItem, ItemStackExtensions
 {
-    public static final Set<ToolAction> KNIFE_ACTIONS = Set.of(ToolActions.SHEARS_CARVE);
+    public static final Set<ToolAction> KNIFE_ACTIONS = Set.of(ToolActions.SHEARS_CARVE, ToolActions.SWORD_DIG);
 
     public KnifeItem(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
 		super(attackDamage, attackSpeed, tier, ModTags.MINEABLE_WITH_KNIFE, properties);
