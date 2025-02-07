@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
+import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -39,7 +40,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public SkilletBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntityTypes.SKILLET.get(), pos, state);
-		skilletStack = ItemStack.EMPTY;
+		skilletStack = new ItemStack(ModItems.SKILLET.get());
 		quickCheck = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
 	}
 
@@ -135,7 +136,9 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		compound.putInt("CookTime", cookingTime);
 		compound.putInt("CookTimeTotal", cookingTimeTotal);
-		compound.put("Skillet", skilletStack.saveOptional(registries));
+		if (!skilletStack.isEmpty()) {
+			compound.put("Skillet", skilletStack.save(registries));
+		}
 	}
 
 	public ItemStack getSkilletAsItem() {

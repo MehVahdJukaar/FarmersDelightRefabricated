@@ -149,19 +149,11 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	@Override
 	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
-		// TODO: Verify if this works properly on a server.
-		ItemStack stack = super.getCloneItemStack(level, pos, state);
-		Optional<SkilletBlockEntity> blockEntity = level.getBlockEntity(pos, ModBlockEntityTypes.SKILLET.get());
-		return blockEntity.map(SkilletBlockEntity::getSkilletAsItem).orElse(stack);
+		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
+			return skillet.getSkilletAsItem();
+		}
 
-//		SkilletBlockEntity skilletEntity = (SkilletBlockEntity) level.getBlockEntity(pos);
-//		CompoundTag nbt = new CompoundTag();
-//		if (skilletEntity != null) {
-//			skilletEntity.writeSkilletItem(nbt);
-//		}
-//		if (!nbt.isEmpty()) {
-//			stack = ItemStack.of(nbt.getCompound("Skillet"));
-//		}
+		return super.getCloneItemStack(level, pos, state);
 	}
 
 	@Override

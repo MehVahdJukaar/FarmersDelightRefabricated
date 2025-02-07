@@ -8,7 +8,6 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -33,7 +32,7 @@ public class RichSoilBlock extends Block
 			Block aboveBlock = aboveState.getBlock();
 
 			// Do nothing if the plant is unaffected by rich soil
-			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
+			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL)) {
 				return;
 			}
 

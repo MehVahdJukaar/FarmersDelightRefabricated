@@ -36,7 +36,7 @@ import java.util.Set;
 
 public class KnifeItem extends DiggerItem
 {
-	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE);
+	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE, ItemAbilities.SWORD_DIG);
 
     public KnifeItem(Tier tier, Properties properties) {
         super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
