@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.entity.events.PlayerInteractionEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -11,8 +13,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -50,6 +51,10 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	public CuttingBoardBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+	}
+
+	public static void init() {
+		UseBlockCallback.EVENT.register(ToolCarvingEvent::onSneakPlaceTool);
 	}
 
 	@Override
@@ -203,4 +208,24 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 	}
 
+	public static class ToolCarvingEvent {
+		public static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand handl, BlockHitResult result) {
+			BlockPos pos = result.getBlockPos();
+			ItemStack heldStack = player.getMainHandItem();
+			BlockEntity tileEntity = level.getBlockEntity(pos);
+
+			if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
+				if (heldStack.getItem() instanceof TieredItem ||
+						heldStack.getItem() instanceof TridentItem ||
+						heldStack.getItem() instanceof ShearsItem) {
+					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
+					if (success) {
+						level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+						return InteractionResult.SUCCESS;
+					}
+				}
+			}
+			return InteractionResult.PASS;
+		}
+	}
 }
