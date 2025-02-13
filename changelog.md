@@ -1,3 +1,2 @@
-- Reworked the Skillet flipping animation to be a bit less drastic, faster and to operate on a 180 degree flip.
-- Reimplemented sizzle sound whilst using the skillet.
+- Backported 1.21.1's Skillet flip animation rework.
 - Fixed incompatibilities with mods that change where the GUI is located. [#82](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/82)
