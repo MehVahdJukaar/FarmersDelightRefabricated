@@ -25,11 +25,7 @@ public class NourishmentHungerOverlay {
     public static int foodIconsOffset;
     private static final ResourceLocation MOD_ICONS_TEXTURE = new ResourceLocation(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
-    public static void init() {
-        HudRenderCallback.EVENT.register(NourishmentHungerOverlay::onRenderGuiOverlayPost);
-    }
-
-    private static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
+    public static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
         var gui = mc.gui;
         if (!mc.options.hideGui && mc.gameMode.canHurtPlayer()) {

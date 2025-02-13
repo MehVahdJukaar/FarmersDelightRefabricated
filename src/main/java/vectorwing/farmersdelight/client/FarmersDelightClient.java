@@ -37,9 +37,6 @@ public class FarmersDelightClient implements ClientModInitializer {
 
         MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
 
-        NourishmentHungerOverlay.init();
-        ComfortHealthOverlay.init();
-
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.SKILLET.get(), new SkilletItemRenderer());
         // could have been done with item renderer but this way we can have easier control over item positioning using the model json
         ItemProperties.register(ModItems.SKILLET.get(), new ResourceLocation("cooking"),

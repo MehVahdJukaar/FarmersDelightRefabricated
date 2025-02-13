@@ -1,3 +1,3 @@
-- Updated to match Farmer's Delight 1.2.7.
-- Fixed mobs being allowed to pathfind over lit stoves. [#130](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/130)
-- Fixed tools being unable to be slotted into the cutting board. [#143](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/143)
+- Reworked the Skillet flipping animation to be a bit less drastic, faster and to operate on a 180 degree flip.
+- Reimplemented sizzle sound whilst using the skillet.
+- Fixed incompatibilities with mods that change where the GUI is located. [#82](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/82)

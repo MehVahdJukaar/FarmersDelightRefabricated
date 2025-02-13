@@ -22,11 +22,7 @@ public class ComfortHealthOverlay {
     protected static int healthIconsOffset;
     private static final ResourceLocation MOD_ICONS_TEXTURE = new ResourceLocation(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
-    public static void init() {
-        HudRenderCallback.EVENT.register(ComfortHealthOverlay::onRenderGuiOverlayPost);
-    }
-
-    private static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
+    public static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
         var gui = mc.gui;
         if (!mc.options.hideGui && mc.gameMode.canHurtPlayer()) {
