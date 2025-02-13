@@ -51,7 +51,7 @@ import java.util.Optional;
 
 public class SkilletItem extends BlockItem {
 
-    public static final float FLIP_TIME = 18;
+    public static final float FLIP_TIME = 12;
 
     public static final Tiers SKILLET_TIER = Tiers.IRON;
     protected static final ResourceLocation FD_ATTACK_KNOCKBACK_UUID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "base_attack_knockback");
@@ -143,6 +143,7 @@ public class SkilletItem extends BlockItem {
                 ItemStack cookingStackUnit = cookingStackCopy.split(1);
                 skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
                 skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().getCookingTime());
+                skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
                 player.startUsingItem(hand);
                 player.setItemInHand(otherHand, cookingStackCopy);
                 return InteractionResultHolder.consume(skilletStack);
@@ -155,20 +156,22 @@ public class SkilletItem extends BlockItem {
 
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
-        if (entity instanceof Player p) {
-            if (!level.isClientSide && level.random.nextInt(50) == 0) {
-                //level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
-            }
+        if (entity instanceof Player player) {
             if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
                 long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                 long l = level.getGameTime() - flipTimeStamp;
                 if (l > FLIP_TIME) {
                     stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+                    stack.set(ModDataComponents.SKILLET_FLIPPED.get(), !stack.getOrDefault(ModDataComponents.SKILLET_FLIPPED.get(), false));
                 } else if (l == FLIP_TIME - 8 && level.isClientSide) {
                     //why does it need to play early? idk
                     //plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
-                    level.playSound(p, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+                    level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+                } else if (level.isClientSide && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
+                    level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
                 }
+            } else if (level.isClientSide && level.random.nextInt(50) == 0) {
+                level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
             }
         }
     }
@@ -183,6 +186,7 @@ public class SkilletItem extends BlockItem {
                 stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
                 stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+                stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
         }
     }
@@ -207,6 +211,7 @@ public class SkilletItem extends BlockItem {
                 stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
                 stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+                stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
         }
 
