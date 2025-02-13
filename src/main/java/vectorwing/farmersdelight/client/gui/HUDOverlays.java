@@ -33,9 +33,13 @@ public class HUDOverlays
 	public static int foodIconsOffset = 39;
 	private static final ResourceLocation MOD_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
+	/**
+	 * Moved to GuiMixin.
+	 */
+	@Deprecated
 	public static void register() {
-		HudRenderCallback.EVENT.register(ComfortOverlay.INSTANCE::render);
-		HudRenderCallback.EVENT.register(NourishmentOverlay.INSTANCE::render);
+//		HudRenderCallback.EVENT.register(ComfortOverlay.INSTANCE::render);
+//		HudRenderCallback.EVENT.register(NourishmentOverlay.INSTANCE::render);
 	}
 
 	public static abstract class BaseOverlay implements LayeredDraw.Layer
@@ -65,7 +69,7 @@ public class HUDOverlays
 		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "nourishment");
 
 		// Refabricated
-		protected static final NourishmentOverlay INSTANCE = new NourishmentOverlay();
+		public static final NourishmentOverlay INSTANCE = new NourishmentOverlay();
 
 		@Override
 		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {
@@ -95,7 +99,7 @@ public class HUDOverlays
 		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "comfort");
 
 		// Refabricated
-		protected static final ComfortOverlay INSTANCE = new ComfortOverlay();
+		public static final ComfortOverlay INSTANCE = new ComfortOverlay();
 
 		@Override
 		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {
