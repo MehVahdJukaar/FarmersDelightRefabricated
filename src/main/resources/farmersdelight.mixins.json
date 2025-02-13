@@ -26,7 +26,8 @@
   "client": [
     "CanvasSignEditScreenMixin",
     "GuiMixin",
-    "HideBlockBreakProgressMixin"
+    "HideBlockBreakProgressMixin",
+    "HumanoidModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

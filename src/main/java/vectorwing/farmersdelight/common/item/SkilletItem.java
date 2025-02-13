@@ -10,6 +10,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -53,9 +54,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-@SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorItem {
-    public static final float FLIP_TIME = 20;
+
+    public static final float FLIP_TIME = 12;
 
     public static final Tiers SKILLET_TIER = Tiers.IRON;
     protected static final UUID FD_ATTACK_KNOCKBACK_UUID = UUID.fromString("e56350e0-8756-464d-92f9-54289ab41e0a");
@@ -152,6 +153,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 ItemStack cookingStackUnit = cookingStackCopy.split(1);
                 skilletStack.getOrCreateTag().put("Cooking", cookingStackUnit.serializeNBT());
                 skilletStack.getOrCreateTag().putInt("CookTimeHandheld", recipe.get().getCookingTime());
+                skilletStack.getOrCreateTag().putBoolean("Flipped", false);
                 player.startUsingItem(hand);
                 player.setItemInHand(otherHand, cookingStackCopy);
                 return InteractionResultHolder.consume(skilletStack);
@@ -177,6 +179,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 long flipTimeStamp = tag.getLong("FlipTimeStamp");
                 if (level.getGameTime() - flipTimeStamp > FLIP_TIME) {
                     tag.remove("FlipTimeStamp");
+                    tag.putBoolean("Flipped", tag.getBoolean("Flipped"));
                     level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
                 }
             }
@@ -194,6 +197,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 tag.remove("Cooking");
                 tag.remove("CookTimeHandheld");
                 tag.remove("FlipTimeStamp");
+                tag.remove("Flipped");
             }
         }
     }
@@ -219,6 +223,7 @@ public class SkilletItem extends BlockItem implements CustomEnchantingBehaviorIt
                 tag.remove("Cooking");
                 tag.remove("CookTimeHandheld");
                 tag.remove("FlipTimeStamp");
+                tag.remove("Flipped");
             }
         }
 
