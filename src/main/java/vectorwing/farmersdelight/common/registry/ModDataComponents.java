@@ -45,4 +45,7 @@ public class ModDataComponents
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP = DATA_COMPONENTS.registerComponentType(
 			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
 	);
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SKILLET_FLIPPED = DATA_COMPONENTS.registerComponentType(
+			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
+	);
 }
