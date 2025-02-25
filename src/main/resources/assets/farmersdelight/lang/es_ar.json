@@ -206,8 +206,8 @@
   "effect.farmersdelight.nourishment": "Nutrición",
   "effect.farmersdelight.comfort": "Comodidad",
 
-  "effect.farmersdelight.nourishment.0.desc": "Previene la pérdida de hambre, excepto cuando se usa la saturación para curar el daño.",
-  "effect.farmersdelight.comfort.0.desc": "Proporciona regeneración natural, sin importar el hambre que tengas.",
+  "effect.farmersdelight.nourishment.description": "Previene la pérdida de hambre, excepto cuando se usa la saturación para curar el daño.",
+  "effect.farmersdelight.comfort.description": "Proporciona regeneración natural, sin importar el hambre que tengas.",
 
   "enchantment.farmersdelight.backstabbing": "Puñalada por la espalda",
   "enchantment.farmersdelight.backstabbing.desc": "Amplifica el daño al golpear a un objetivo por detrás.",

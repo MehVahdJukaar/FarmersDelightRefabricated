@@ -205,8 +205,8 @@
   "effect.farmersdelight.nourishment": "滋補",
   "effect.farmersdelight.comfort": "療癒",
 
-  "effect.farmersdelight.nourishment.0.desc": "除非需要回復血量，否則不再減少飽食度。",
-  "effect.farmersdelight.comfort.0.desc": "無視飢餓值，提供玩家自然回復效果。",
+  "effect.farmersdelight.nourishment.description": "除非需要回復血量，否則不再減少飽食度。",
+  "effect.farmersdelight.comfort.description": "無視飢餓值，提供玩家自然回復效果。",
 
   "enchantment.farmersdelight.backstabbing": "背刺",
   "enchantment.farmersdelight.backstabbing.desc": "從背後攻擊時的傷害增加。",
