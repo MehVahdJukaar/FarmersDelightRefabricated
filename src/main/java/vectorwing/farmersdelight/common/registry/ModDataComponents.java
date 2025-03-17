@@ -8,17 +8,15 @@ import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
-import vectorwing.farmersdelight.common.utility.RegistryUtils;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 import static vectorwing.farmersdelight.refabricated.RegUtils.regComponent;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regEnchComponent;
 
 public class ModDataComponents
 {
-	public static final RegistryUtils.EnchantmentEffectComponents ENCHANTMENT_EFFECT_COMPONENTS = RegistryUtils.createEnchantmentEffectComponents(FarmersDelight.MODID);
-
 	// Cooking Pot
 	public static final Supplier<DataComponentType<ItemStackWrapper>> MEAL =regComponent(
 			"meal", builder -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
@@ -37,7 +35,7 @@ public class ModDataComponents
 	);
 
 	// Enchantment Effects
-	public static final Supplier<DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = ENCHANTMENT_EFFECT_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = regEnchComponent(
 			"backstabbing", builder -> builder.persistent(
 					ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
 			));
