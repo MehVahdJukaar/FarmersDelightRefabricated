@@ -1,8 +1,6 @@
 package vectorwing.farmersdelight.common.registry;
 
 import com.mojang.serialization.Codec;
-import io.github.fabricators_of_create.porting_lib.util.DeferredHolder;
-import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.enchantment.ConditionalEffect;
@@ -13,38 +11,42 @@ import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.utility.RegistryUtils;
 
 import java.util.List;
+import java.util.function.Supplier;
+
+import static vectorwing.farmersdelight.refabricated.FabricUtils.regComponent;
 
 public class ModDataComponents
 {
 	public static final RegistryUtils.EnchantmentEffectComponents ENCHANTMENT_EFFECT_COMPONENTS = RegistryUtils.createEnchantmentEffectComponents(FarmersDelight.MODID);
 
 	// Cooking Pot
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemStackWrapper>> MEAL = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<ItemStackWrapper>> MEAL =regComponent(
 			"meal", builder -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
 	);
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemStackWrapper>> CONTAINER = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<ItemStackWrapper>> CONTAINER =regComponent(
 			"container", builder -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
 	);
 
 	// Skillet
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COOKING_TIME_LENGTH = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<Integer>> COOKING_TIME_LENGTH =regComponent(
 			"cooking_time_length", (builder) -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT)
 	);
 
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemStackWrapper>> SKILLET_INGREDIENT = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<ItemStackWrapper>> SKILLET_INGREDIENT =regComponent(
 			"skillet_ingredient", (builder) -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
 	);
 
 	// Enchantment Effects
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = ENCHANTMENT_EFFECT_COMPONENTS.registerComponentType(
-			"backstabbing", builder -> builder.persistent(ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
+	public static final Supplier<DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = ENCHANTMENT_EFFECT_COMPONENTS.registerComponentType(
+			"backstabbing", builder -> builder.persistent(
+					ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
 			));
 
 	// Refabricated
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP =regComponent(
 			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
 	);
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SKILLET_FLIPPED = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED =regComponent(
 			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
 	);
 

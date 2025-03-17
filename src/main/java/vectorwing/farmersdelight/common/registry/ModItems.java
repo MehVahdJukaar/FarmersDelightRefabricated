@@ -1,12 +1,9 @@
 package vectorwing.farmersdelight.common.registry;
 
 import com.google.common.collect.Sets;
-import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
 
@@ -14,13 +11,15 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static vectorwing.farmersdelight.refabricated.FabricUtils.regItem;
+
 @SuppressWarnings("unused")
 public class ModItems
 {
 	public static LinkedHashSet<Supplier<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
 	public static Supplier<Item> registerWithTab(final String name, final Supplier<Item> supplier) {
-		Supplier<Item> block = ITEMS.register(name, supplier);
+		Supplier<Item> block = regItem(name, supplier);
 		CREATIVE_TAB_ITEMS.add(block);
 		return block;
 	}
