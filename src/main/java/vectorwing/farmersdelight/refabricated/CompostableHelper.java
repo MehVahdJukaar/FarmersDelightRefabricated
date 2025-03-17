@@ -1,18 +1,16 @@
-package vectorwing.farmersdelight;
+package vectorwing.farmersdelight.refabricated;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.ComposterBlock;
 
 //This is hacky and tbh not even needed but hey
 public class CompostableHelper {
-    protected static void apply() {
+
+    public static void apply() {
         JsonElement je = new Gson().fromJson(COMPOSTABLES, JsonElement.class);
         if (je != null) {
             var j = je.getAsJsonObject().get("values");
