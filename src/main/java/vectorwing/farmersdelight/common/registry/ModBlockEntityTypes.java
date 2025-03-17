@@ -11,8 +11,6 @@ import java.util.function.Supplier;
 
 public class ModBlockEntityTypes
 {
-	public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FarmersDelight.MODID);
-
 	public static final Supplier<BlockEntityType<StoveBlockEntity>> STOVE = TILES.register("stove",
 			() -> BlockEntityType.Builder.of(StoveBlockEntity::new, ModBlocks.STOVE.get()).build());
 	public static final Supplier<BlockEntityType<CookingPotBlockEntity>> COOKING_POT = TILES.register("cooking_pot",
@@ -111,4 +109,8 @@ public class ModBlockEntityTypes
 							ModBlocks.RED_HANGING_CANVAS_WALL_SIGN.get(),
 							ModBlocks.BLACK_HANGING_CANVAS_WALL_SIGN.get())
 					.build());
+
+	public static void touch() {
+
+	}
 }

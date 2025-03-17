@@ -16,7 +16,6 @@ import java.util.List;
 
 public class ModDataComponents
 {
-	public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(FarmersDelight.MODID);
 	public static final RegistryUtils.EnchantmentEffectComponents ENCHANTMENT_EFFECT_COMPONENTS = RegistryUtils.createEnchantmentEffectComponents(FarmersDelight.MODID);
 
 	// Cooking Pot
@@ -48,4 +47,8 @@ public class ModDataComponents
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SKILLET_FLIPPED = DATA_COMPONENTS.registerComponentType(
 			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
 	);
+
+	public static void touch() {
+
+	}
 }

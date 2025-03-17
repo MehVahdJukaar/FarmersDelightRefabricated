@@ -17,7 +17,6 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public class ModItems
 {
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, FarmersDelight.MODID);
 	public static LinkedHashSet<Supplier<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
 	public static Supplier<Item> registerWithTab(final String name, final Supplier<Item> supplier) {
@@ -449,4 +448,8 @@ public class ModItems
 			() -> new DogFoodItem(bowlFoodItem(FoodValues.DOG_FOOD)));
 	public static final Supplier<Item> HORSE_FEED = registerWithTab("horse_feed",
 			() -> new HorseFeedItem(basicItem().stacksTo(16)));
+
+	public static void touch() {
+
+	}
 }

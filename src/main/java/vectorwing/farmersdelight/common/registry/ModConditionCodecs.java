@@ -18,4 +18,8 @@ public class ModConditionCodecs
 	public static void register() {
 		ResourceConditions.register(VanillaCrateEnabledCondition.TYPE);
 	}
+
+	public static void touch() {
+
+	}
 }
