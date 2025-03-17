@@ -14,8 +14,7 @@ import java.util.function.Supplier;
 
 public class ModLootModifiers
 {
-	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(PortingLibLoot.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FarmersDelight.MODID);
-
+	//oh noe
 	public static final Supplier<MapCodec<AddItemModifier>> ADD_ITEM = LOOT_MODIFIERS.register("add_item", AddItemModifier.CODEC);
     public static final Supplier<MapCodec<ReplaceItemModifier>> REPLACE_ITEM = LOOT_MODIFIERS.register("replace_item", ReplaceItemModifier.CODEC);
 	public static final Supplier<MapCodec<FDAddTableLootModifier>> ADD_LOOT_TABLE = LOOT_MODIFIERS.register("add_loot_table", FDAddTableLootModifier.CODEC);

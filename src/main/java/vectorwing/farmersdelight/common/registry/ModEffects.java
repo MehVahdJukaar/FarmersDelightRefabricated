@@ -15,4 +15,8 @@ public class ModEffects
 
 	public static void register() {
 	}
+
+	public static void touch() {
+
+	}
 }

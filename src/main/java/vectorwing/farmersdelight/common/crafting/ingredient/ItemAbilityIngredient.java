@@ -37,7 +37,10 @@ public class ItemAbilityIngredient implements CustomIngredient
 		CustomIngredientSerializer.register(SERIALIZER);
 	}
 
-	protected void dissolve() {
+    public static void touch() {
+    }
+
+    protected void dissolve() {
 		if (this.itemStacks == null) {
 			itemStacks = BuiltInRegistries.ITEM.stream()
 					.map(ItemStack::new)

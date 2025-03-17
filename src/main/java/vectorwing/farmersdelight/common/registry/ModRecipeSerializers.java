@@ -1,23 +1,23 @@
 package vectorwing.farmersdelight.common.registry;
 
-import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.FoodServingRecipe;
 
 import java.util.function.Supplier;
 
-public class ModRecipeSerializers
-{
-	public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, FarmersDelight.MODID);
+import static vectorwing.farmersdelight.refabricated.FabricUtils.regRecipeSerializer;
 
-	public static final Supplier<RecipeSerializer<?>> COOKING = RECIPE_SERIALIZERS.register("cooking", CookingPotRecipe.Serializer::new);
-	public static final Supplier<RecipeSerializer<?>> CUTTING = RECIPE_SERIALIZERS.register("cutting", CuttingBoardRecipe.Serializer::new);
+public class ModRecipeSerializers {
+    public static final Supplier<RecipeSerializer<?>> COOKING = regRecipeSerializer("cooking", CookingPotRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<?>> CUTTING = regRecipeSerializer("cutting", CuttingBoardRecipe.Serializer::new);
 
-	public static final Supplier<SimpleCraftingRecipeSerializer<?>> FOOD_SERVING =
-			RECIPE_SERIALIZERS.register("food_serving", () -> new SimpleCraftingRecipeSerializer<>(FoodServingRecipe::new));
+    public static final Supplier<SimpleCraftingRecipeSerializer<?>> FOOD_SERVING =
+            regRecipeSerializer("food_serving", () -> new SimpleCraftingRecipeSerializer<>(FoodServingRecipe::new));
+
+	public static void touch() {
+
+	}
 }

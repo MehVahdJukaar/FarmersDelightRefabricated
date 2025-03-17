@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight;
 
-import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
-import io.github.fabricators_of_create.porting_lib.config.ModConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -34,29 +32,24 @@ public class FarmersDelight implements ModInitializer
 
 	@Override
 	public void onInitialize() {
-		ConfigRegistry.registerConfig(MODID, ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
-		ConfigRegistry.registerConfig(MODID, ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
+		Configuration.touch();
 
-		ModSounds.SOUNDS.register();
-		ModBlocks.BLOCKS.register();
-		ModEffects.register();
-		ModParticleTypes.PARTICLE_TYPES.register();
-		ModItems.ITEMS.register();
-		ModDataComponents.DATA_COMPONENTS.register();
-		ModDataComponents.ENCHANTMENT_EFFECT_COMPONENTS.register();
-		ModEntityTypes.ENTITIES.register();
-		ModBlockEntityTypes.TILES.register();
-		ModMenuTypes.MENU_TYPES.register();
-		ModRecipeTypes.RECIPE_TYPES.register();
-		ModRecipeSerializers.RECIPE_SERIALIZERS.register();
-		ModBiomeFeatures.FEATURES.register();
-		ModCreativeTabs.CREATIVE_TABS.register();
-		ModPlacementModifiers.PLACEMENT_MODIFIERS.register();
-		ModLootFunctions.LOOT_FUNCTIONS.register();
-		ModLootModifiers.LOOT_MODIFIERS.register();
-		ModConditionCodecs.register();
-		ItemAbilityIngredient.register();
-		ModAdvancements.TRIGGERS.register();
+		ModSounds.touch();
+		ModBlocks.touch();
+		ModEffects.touch();
+		ModParticleTypes.touch();
+		ModItems.touch();
+		ModDataComponents.touch();
+		ModDataComponents.touch();
+		ModEntityTypes.touch();
+		ModBlockEntityTypes.touch();
+		ModMenuTypes.touch();
+		ModRecipeTypes.touch();
+		ModRecipeSerializers.touch();
+		ModBiomeFeatures.touch();
+		ModConditionCodecs.touch();
+		ItemAbilityIngredient.touch();
+		ModAdvancements.touch();
 
 		VillageStructures.init();
 		CommonEvents.init();

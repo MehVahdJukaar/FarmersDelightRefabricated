@@ -200,4 +200,8 @@ public class Configuration {
             CLIENT_CONFIG = null;
         }
     }
+
+    public static void touch() {
+
+    }
 }

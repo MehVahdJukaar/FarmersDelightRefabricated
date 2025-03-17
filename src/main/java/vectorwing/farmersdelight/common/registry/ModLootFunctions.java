@@ -11,8 +11,6 @@ import java.util.function.Supplier;
 
 public class ModLootFunctions
 {
-	public static final DeferredRegister<LootItemFunctionType<?>> LOOT_FUNCTIONS = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, FarmersDelight.MODID);
-
 	public static final Supplier<LootItemFunctionType<CopySkilletFunction>> COPY_SKILLET = LOOT_FUNCTIONS.register("copy_skillet", () -> new LootItemFunctionType<>(CopySkilletFunction.CODEC));
 	public static final Supplier<LootItemFunctionType<SmokerCookFunction>> SMOKER_COOK = LOOT_FUNCTIONS.register("smoker_cook", () -> new LootItemFunctionType<>(SmokerCookFunction.CODEC));
 }
