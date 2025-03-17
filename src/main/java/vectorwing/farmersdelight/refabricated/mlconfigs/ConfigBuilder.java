@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.refabricated.mlconfigs;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +24,8 @@ import java.util.function.Supplier;
 public abstract class ConfigBuilder {
 
     public static final Logger LOGGER = LogManager.getLogger("FD ML Configs");
+    public static final boolean YACL = FabricLoader.getInstance().isModLoaded("yet-another-config-lib");
+    public static final boolean CLOTH_CONFIG = FabricLoader.getInstance().isModLoaded("cloth-config");
 
     protected final Map<String, String> comments = new HashMap<>();
     private String currentComment;

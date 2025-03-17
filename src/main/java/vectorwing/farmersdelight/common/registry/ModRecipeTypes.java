@@ -8,7 +8,7 @@ import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regRecipe;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regRecipe;
 
 public class ModRecipeTypes {
     public static final Supplier<RecipeType<CookingPotRecipe>> COOKING = regRecipe("cooking", () -> registerRecipeType("cooking"));

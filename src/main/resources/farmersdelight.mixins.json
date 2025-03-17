@@ -17,7 +17,8 @@
     "RecipeBookSettingsMixin",
     "StemBlockMixin",
     "SugarCaneBlockMixin",
-    "accessor.LootContextAccessor"
+    "accessor.LootContextAccessor",
+    "refabricated.LivingEntityMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",

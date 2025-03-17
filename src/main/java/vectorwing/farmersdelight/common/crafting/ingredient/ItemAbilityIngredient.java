@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.crafting.ingredient;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.fabricators_of_create.porting_lib.tool.ItemAbility;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -14,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class ItemAbilityIngredient implements CustomIngredient
 
 	@Override
 	public boolean test(@Nullable ItemStack stack) {
-		return stack != null && stack.canPerformAction(itemAbility);
+		return stack != null &&  itemAbility.canPerformAction(stack);
 	}
 
 	public ItemAbility getItemAbility() {

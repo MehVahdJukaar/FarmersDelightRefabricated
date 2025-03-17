@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
-import io.github.fabricators_of_create.porting_lib.tool.ItemAbilities;
 import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -8,7 +8,7 @@ import vectorwing.farmersdelight.common.world.feature.WildRiceFeature;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regFeature;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regFeature;
 
 public class ModBiomeFeatures {
     public static final Supplier<Feature<RandomPatchConfiguration>> WILD_RICE = regFeature("wild_rice", () -> new WildRiceFeature(RandomPatchConfiguration.CODEC));

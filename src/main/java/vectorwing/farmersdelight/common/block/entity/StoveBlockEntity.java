@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.block.entity;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -19,6 +18,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.refabricated.ItemStackHandlerContainer;
 
 import java.util.Optional;
 

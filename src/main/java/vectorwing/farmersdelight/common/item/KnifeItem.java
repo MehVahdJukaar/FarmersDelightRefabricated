@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.item;
 
-import io.github.fabricators_of_create.porting_lib.tool.ItemAbilities;
-import io.github.fabricators_of_create.porting_lib.tool.ItemAbility;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.core.BlockPos;
@@ -31,12 +29,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.Set;
 
 public class KnifeItem extends DiggerItem
 {
-	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE, ItemAbilities.SWORD_DIG);
+    //uhmm whats this for??
+	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbility.SHEARS_CARVE, ItemAbility.SWORD_DIG);
 
     public KnifeItem(Tier tier, Properties properties) {
         super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);

@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.item;
 
-import io.github.fabricators_of_create.porting_lib.entity.EffectCures;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
