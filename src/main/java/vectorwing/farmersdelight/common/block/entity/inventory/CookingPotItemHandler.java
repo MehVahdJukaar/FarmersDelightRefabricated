@@ -14,7 +14,9 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.refabricated.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerSlot;
+import vectorwing.farmersdelight.refabricated.inventory.SlottedStackStorage;
 
 import java.util.Collections;
 import java.util.Comparator;

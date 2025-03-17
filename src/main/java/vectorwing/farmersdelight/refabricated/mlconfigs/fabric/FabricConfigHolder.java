@@ -17,6 +17,8 @@ import org.jetbrains.annotations.ApiStatus;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigType;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
+import vectorwing.farmersdelight.refabricated.mlconfigs.integration.cloth_config.ClothConfigCompat;
+import vectorwing.farmersdelight.refabricated.mlconfigs.integration.yacl.YACLCompat;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
