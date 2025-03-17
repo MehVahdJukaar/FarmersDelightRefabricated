@@ -37,8 +37,9 @@ public class ItemAbilityIngredient implements CustomIngredient
 		CustomIngredientSerializer.register(SERIALIZER);
 	}
 
-    public static void touch() {
-    }
+	public static void touch() {
+
+	}
 
     protected void dissolve() {
 		if (this.itemStacks == null) {

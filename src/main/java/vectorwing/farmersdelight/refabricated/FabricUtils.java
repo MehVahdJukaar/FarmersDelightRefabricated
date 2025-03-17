@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import vectorwing.farmersdelight.FarmersDelight;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 // put general fabric stuff here
@@ -78,6 +79,12 @@ public class FabricUtils {
 
     public static <B extends DataComponentType<?>> Supplier<B> regComponent(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.DATA_COMPONENT_TYPE);
+    }
+
+    public static <A> Supplier<DataComponentType<A>> regComponent(String name, Consumer<DataComponentType.Builder<A>> stuff) {
+        DataComponentType.Builder<A> builder = DataComponentType.builder();
+        stuff.accept(builder);
+        return register(name, builder::build, BuiltInRegistries.DATA_COMPONENT_TYPE);
     }
 
     public static <B extends MobEffect> Supplier<B> regEffect(String name, Supplier<B> supplier) {
