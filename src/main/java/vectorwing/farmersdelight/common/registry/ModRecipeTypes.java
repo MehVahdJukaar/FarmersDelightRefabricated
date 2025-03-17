@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.registry;
 
-import io.github.fabricators_of_create.porting_lib.util.DeferredRegister;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -10,19 +8,21 @@ import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 
 import java.util.function.Supplier;
 
-public class ModRecipeTypes
-{
-	public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, FarmersDelight.MODID);
+import static vectorwing.farmersdelight.refabricated.FabricUtils.regRecipe;
 
-	public static final Supplier<RecipeType<CookingPotRecipe>> COOKING = RECIPE_TYPES.register("cooking", () -> registerRecipeType("cooking"));
-	public static final Supplier<RecipeType<CuttingBoardRecipe>> CUTTING = RECIPE_TYPES.register("cutting", () -> registerRecipeType("cutting"));
+public class ModRecipeTypes {
+    public static final Supplier<RecipeType<CookingPotRecipe>> COOKING = regRecipe("cooking", () -> registerRecipeType("cooking"));
+    public static final Supplier<RecipeType<CuttingBoardRecipe>> CUTTING = regRecipe("cutting", () -> registerRecipeType("cutting"));
 
-	public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
-		return new RecipeType<>()
-		{
-			public String toString() {
-				return FarmersDelight.MODID + ":" + identifier;
-			}
-		};
-	}
+    public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
+        return new RecipeType<>() {
+            public String toString() {
+                return FarmersDelight.MODID + ":" + identifier;
+            }
+        };
+    }
+
+    public static void touch() {
+
+    }
 }
