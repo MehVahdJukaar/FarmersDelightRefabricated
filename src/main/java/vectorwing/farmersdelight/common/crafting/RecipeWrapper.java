@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.crafting;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 /**
  * Refabricated: Wrapper for ItemStackHandler.

@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.utility;
 
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Random;
 

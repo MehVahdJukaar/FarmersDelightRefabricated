@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
 
 public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 {

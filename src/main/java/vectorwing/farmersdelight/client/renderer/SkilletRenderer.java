@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
 
 import java.util.Random;
 

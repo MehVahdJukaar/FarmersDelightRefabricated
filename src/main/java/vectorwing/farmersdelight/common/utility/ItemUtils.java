@@ -7,6 +7,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
 
 /**
  * Util for handling ItemStacks and inventories containing them.

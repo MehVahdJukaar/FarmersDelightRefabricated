@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
-public class SandyShrubBlock extends BushBlock implements IShearable, BonemealableBlock
+public class SandyShrubBlock extends BushBlock implements BonemealableBlock
 {
 	public static final MapCodec<SandyShrubBlock> CODEC = simpleCodec(SandyShrubBlock::new);
 
