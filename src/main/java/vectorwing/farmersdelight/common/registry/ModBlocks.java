@@ -16,7 +16,7 @@ import vectorwing.farmersdelight.common.block.*;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regBlock;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regBlock;
 
 public class ModBlocks
 {

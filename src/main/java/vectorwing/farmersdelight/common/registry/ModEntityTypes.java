@@ -6,7 +6,7 @@ import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regEntity;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regEntity;
 
 public class ModEntityTypes {
     public static final Supplier<EntityType<RottenTomatoEntity>> ROTTEN_TOMATO = regEntity("rotten_tomato", () -> (

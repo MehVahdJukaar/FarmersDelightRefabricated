@@ -8,7 +8,7 @@ import vectorwing.farmersdelight.common.crafting.FoodServingRecipe;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regRecipeSerializer;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regRecipeSerializer;
 
 public class ModRecipeSerializers {
     public static final Supplier<RecipeSerializer<?>> COOKING = regRecipeSerializer("cooking", CookingPotRecipe.Serializer::new);

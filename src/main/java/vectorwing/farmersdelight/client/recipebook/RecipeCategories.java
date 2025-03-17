@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.client.recipebook;
 
 import com.google.common.collect.ImmutableList;
-import io.github.fabricators_of_create.porting_lib.recipe_book_categories.RecipeBookRegistry;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.inventory.RecipeBookType;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;

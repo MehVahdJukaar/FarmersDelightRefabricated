@@ -8,7 +8,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regTab;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regTab;
 
 public class ModCreativeTabs {
     public static final Supplier<CreativeModeTab> TAB_FARMERS_DELIGHT = regTab(FarmersDelight.MODID,

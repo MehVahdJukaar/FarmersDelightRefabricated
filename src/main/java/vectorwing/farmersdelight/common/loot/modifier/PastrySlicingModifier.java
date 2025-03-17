@@ -3,8 +3,6 @@ package vectorwing.farmersdelight.common.loot.modifier;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.fabricators_of_create.porting_lib.loot.IGlobalLootModifier;
-import io.github.fabricators_of_create.porting_lib.loot.LootModifier;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
@@ -17,15 +15,12 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.PieBlock;
+import vectorwing.farmersdelight.refabricated.LootModifier;
 
 import java.util.function.Supplier;
 
 public class PastrySlicingModifier extends LootModifier
 {
-	public static final Supplier<MapCodec<PastrySlicingModifier>> CODEC = Suppliers.memoize(() ->
-			RecordCodecBuilder.mapCodec(inst -> LootModifier.codecStart(inst)
-					.and(BuiltInRegistries.ITEM.byNameCodec().fieldOf("slice").forGetter((m) -> m.pastrySlice))
-					.apply(inst, PastrySlicingModifier::new)));
 
 	public static final int MAX_CAKE_BITES = 7;
 	public static final int MAX_PIE_BITES = 4;
@@ -37,7 +32,7 @@ public class PastrySlicingModifier extends LootModifier
 	 * If the block is a PieBlock, it drops up to 4 slices.
 	 * Otherwise, this does nothing.
 	 */
-	protected PastrySlicingModifier(LootItemCondition[] conditionsIn, Item pastrySliceIn) {
+	public PastrySlicingModifier(LootItemCondition[] conditionsIn, Item pastrySliceIn) {
 		super(conditionsIn);
 		this.pastrySlice = pastrySliceIn;
 	}
@@ -60,8 +55,4 @@ public class PastrySlicingModifier extends LootModifier
 		return generatedLoot;
 	}
 
-	@Override
-	public MapCodec<? extends IGlobalLootModifier> codec() {
-		return CODEC.get();
-	}
 }

@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.utility;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 

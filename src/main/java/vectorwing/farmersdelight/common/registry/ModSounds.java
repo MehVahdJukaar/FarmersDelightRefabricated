@@ -6,7 +6,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regSound;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regSound;
 
 public class ModSounds
 {

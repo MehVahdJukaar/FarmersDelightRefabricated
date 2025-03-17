@@ -7,11 +7,11 @@ import com.blamejared.crafttweaker.api.ingredient.transformer.IngredientTransfor
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.item.MCItemStackMutable;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
-import io.github.fabricators_of_create.porting_lib.tool.ItemAbility;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 import vectorwing.farmersdelight.common.crafting.ingredient.ItemAbilityIngredient;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 @Document("mods/FarmersDelight/ItemAbilityIngredient")
 @ZenRegister

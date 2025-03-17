@@ -5,7 +5,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regParticle;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regParticle;
 
 public class ModParticleTypes {
     public static final Supplier<SimpleParticleType> STAR = regParticle("star",

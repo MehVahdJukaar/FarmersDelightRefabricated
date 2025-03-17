@@ -21,6 +21,9 @@ import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+import static vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder.CLOTH_CONFIG;
+import static vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder.YACL;
+
 public final class FabricConfigHolder extends ModConfigHolder {
 
     @ApiStatus.Internal
@@ -103,7 +106,7 @@ public final class FabricConfigHolder extends ModConfigHolder {
     @Override
     @Environment(EnvType.CLIENT)
     public Screen makeScreen(Screen parent, ResourceLocation background) {
-        if (ConfigBuilder.YACL) {
+        if (YACL) {
             return YACLCompat.makeScreen(parent, this, background);
         } else if (CLOTH_CONFIG) {
             return ClothConfigCompat.makeScreen(parent, this, background);
@@ -128,7 +131,6 @@ public final class FabricConfigHolder extends ModConfigHolder {
         this.onRefresh();
     }
 
-    @EventCalled
     private void onPlayerLoggedIn(ServerGamePacketListenerImpl listener, PacketSender sender, MinecraftServer minecraftServer) {
         //send this configuration to connected clients
         syncConfigsToPlayer(listener.player);

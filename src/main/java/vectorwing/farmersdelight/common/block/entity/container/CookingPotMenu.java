@@ -19,6 +19,7 @@ import vectorwing.farmersdelight.common.crafting.RecipeWrapper;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.ItemStackHandlerContainer;
 
 import java.util.Objects;
 
