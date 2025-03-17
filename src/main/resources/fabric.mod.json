@@ -38,6 +38,9 @@
     ],
     "emi": [
       "vectorwing.farmersdelight.integration.emi.EMIPlugin"
+    ],
+    "modmenu": [
+      "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
