@@ -13,7 +13,7 @@ import vectorwing.farmersdelight.common.utility.RegistryUtils;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regComponent;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regComponent;
 
 public class ModDataComponents
 {

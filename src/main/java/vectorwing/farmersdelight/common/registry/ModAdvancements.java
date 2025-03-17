@@ -4,7 +4,7 @@ import vectorwing.farmersdelight.common.advancement.CuttingBoardTrigger;
 
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regTrigger;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regTrigger;
 
 public class ModAdvancements
 {

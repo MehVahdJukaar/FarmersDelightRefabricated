@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 // put general fabric stuff here
-public class FabricUtils {
+public class RegUtils {
 
     public static <R, T extends R> Supplier<T> register(String name, Supplier<T> supplier, Registry<R> reg) {
         T object = supplier.get();
@@ -89,6 +89,10 @@ public class FabricUtils {
 
     public static <B extends MobEffect> Supplier<B> regEffect(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.MOB_EFFECT);
+    }
+
+    public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunc(String name, Supplier<B> supplier) {
+        return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
     }
 
     public static <B extends Item> Supplier<B> regItem(String name, Supplier<B> supplier) {

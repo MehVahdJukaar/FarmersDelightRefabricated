@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static vectorwing.farmersdelight.refabricated.FabricUtils.regItem;
+import static vectorwing.farmersdelight.refabricated.RegUtils.regItem;
 
 @SuppressWarnings("unused")
 public class ModItems
