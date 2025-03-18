@@ -166,11 +166,12 @@ public class LootModificationEvents {
         // scavenging_leather
         if (key.location().getPath().startsWith("entities/")) {
             HolderLookup<EntityType<?>> lookup = registries.lookupOrThrow(Registries.ENTITY_TYPE);
-            Holder<EntityType<?>> entityType = lookup.getOrThrow(ResourceKey.create(Registries.ENTITY_TYPE, key.location().withPath(s -> s.substring(9))));
+            var entityType = lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, key.location()
+                    .withPath(s -> s.substring(9))));
             // Make sure we only add to the necessary entity loot tables by loading the tag early.
             // Otherwise, you'd be modifying every entity with a condition that's never true, which seems like a no-no.
             // TODO: Figure out if we need to even load the tag early or if we should modify no matter what with a `this` entity property.
-            if (TagUtils.isDropsLeatherTag(entityType, lookup)) {
+            if (entityType.isPresent() && TagUtils.isDropsLeatherTag(entityType.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER)
                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
                                 EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
