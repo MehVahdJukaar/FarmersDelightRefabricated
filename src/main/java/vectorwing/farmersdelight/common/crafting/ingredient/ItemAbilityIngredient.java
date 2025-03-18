@@ -33,7 +33,7 @@ public class ItemAbilityIngredient implements CustomIngredient
 		this.itemAbility = itemAbility;
 	}
 
-	public static void touch() {
+	public static void init() {
 		CustomIngredientSerializer.register(SERIALIZER);
 	}
 

@@ -47,7 +47,6 @@ public class FarmersDelight implements ModInitializer
 		ModRecipeTypes.touch();
 		ModRecipeSerializers.touch();
 		ModBiomeFeatures.touch();
-		ItemAbilityIngredient.touch();
 		ModAdvancements.touch();
 		ModPlacementModifiers.touch();
 		ModLootFunctions.touch();
@@ -69,6 +68,7 @@ public class FarmersDelight implements ModInitializer
 		KnifeItem.init();
 		ModNetworking.init();
 		RichSoilBlock.init();
+		ItemAbilityIngredient.init();
 
 		CompostableHelper.apply();
 	}
