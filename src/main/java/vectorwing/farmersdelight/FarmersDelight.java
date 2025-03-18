@@ -19,6 +19,7 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.networking.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
+import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
 
@@ -58,6 +59,7 @@ public class FarmersDelight implements ModInitializer
 		CommonSetup.registerDispenserBehaviors();
 
 		// new stuff
+		CanItemPerformAbilityCondition.touch();
 		LootModificationEvents.init();
 		ModBiomeModifiers.init();
 		CookingPotBlockEntity.init();
