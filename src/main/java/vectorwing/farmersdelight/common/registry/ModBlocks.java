@@ -246,11 +246,11 @@ public class ModBlocks
 
 	// Pastries
 	public static final Supplier<Block> APPLE_PIE = regBlock("apple_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.APPLE_PIE_SLICE));
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.APPLE_PIE_SLICE.get())); //dont kill double lambda
 	public static final Supplier<Block> SWEET_BERRY_CHEESECAKE = regBlock("sweet_berry_cheesecake",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.SWEET_BERRY_CHEESECAKE_SLICE));
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
 	public static final Supplier<Block> CHOCOLATE_PIE = regBlock("chocolate_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.CHOCOLATE_PIE_SLICE));
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.CHOCOLATE_PIE_SLICE.get()));
 
 	// Wild Crops
 	public static final Supplier<Block> SANDY_SHRUB = regBlock("sandy_shrub",
@@ -287,13 +287,13 @@ public class ModBlocks
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock("roast_chicken_block",
-			() -> new RoastChickenBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.ROAST_CHICKEN, true));
+			() -> new RoastChickenBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.ROAST_CHICKEN.get(), true));
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock("stuffed_pumpkin_block",
-			() -> new FeastBlock(Block.Properties.ofFullCopy(Blocks.PUMPKIN), ModItems.STUFFED_PUMPKIN, false));
+			() -> new FeastBlock(Block.Properties.ofFullCopy(Blocks.PUMPKIN), ()->ModItems.STUFFED_PUMPKIN.get(), false));
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock("honey_glazed_ham_block",
-			() -> new HoneyGlazedHamBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.HONEY_GLAZED_HAM, true));
+			() -> new HoneyGlazedHamBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.HONEY_GLAZED_HAM.get(), true));
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
-			() -> new ShepherdsPieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.SHEPHERDS_PIE, true));
+			() -> new ShepherdsPieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(Block.Properties.ofFullCopy(Blocks.CAKE)));
 

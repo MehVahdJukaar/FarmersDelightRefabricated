@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
+import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,54 +15,52 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class RiceRollMedleyBlock extends FeastBlock
-{
-	public static final IntegerProperty ROLL_SERVINGS = IntegerProperty.create("servings", 0, 8);
+public class RiceRollMedleyBlock extends FeastBlock {
+    public static final IntegerProperty ROLL_SERVINGS = IntegerProperty.create("servings", 0, 8);
 
-	protected static final VoxelShape PLATE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
-	protected static final VoxelShape FOOD_SHAPE = Shapes.joinUnoptimized(PLATE_SHAPE, Block.box(2.0D, 2.0D, 2.0D, 14.0D, 4.0D, 14.0D), BooleanOp.OR);
+    protected static final VoxelShape PLATE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
+    protected static final VoxelShape FOOD_SHAPE = Shapes.joinUnoptimized(PLATE_SHAPE, Block.box(2.0D, 2.0D, 2.0D, 14.0D, 4.0D, 14.0D), BooleanOp.OR);
 
-	public final List<Supplier<Item>> riceRollServings = Arrays.asList(
-			ModItems.COD_ROLL,
-			ModItems.COD_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.KELP_ROLL_SLICE,
-			ModItems.KELP_ROLL_SLICE,
-			ModItems.KELP_ROLL_SLICE
-	);
+    public final Supplier<List<Item>> riceRollServings = Suppliers.memoize(() -> List.of(
+                    ModItems.COD_ROLL.get(),
+                    ModItems.COD_ROLL.get(),
+                    ModItems.SALMON_ROLL.get(),
+                    ModItems.SALMON_ROLL.get(),
+                    ModItems.SALMON_ROLL.get(),
+                    ModItems.KELP_ROLL_SLICE.get(),
+                    ModItems.KELP_ROLL_SLICE.get(),
+                    ModItems.KELP_ROLL_SLICE.get())
+    );
 
-	public RiceRollMedleyBlock(Properties properties) {
-		super(properties, ModItems.SALMON_ROLL, true);
-	}
+    public RiceRollMedleyBlock(Properties properties) {
+        super(properties, () -> ModItems.SALMON_ROLL.get(), true);
+    }
 
-	@Override
-	public IntegerProperty getServingsProperty() {
-		return ROLL_SERVINGS;
-	}
+    @Override
+    public IntegerProperty getServingsProperty() {
+        return ROLL_SERVINGS;
+    }
 
-	@Override
-	public int getMaxServings() {
-		return 8;
-	}
+    @Override
+    public int getMaxServings() {
+        return 8;
+    }
 
-	@Override
-	public ItemStack getServingItem(BlockState state) {
-		return new ItemStack(riceRollServings.get(state.getValue(getServingsProperty()) - 1).get());
-	}
+    @Override
+    public ItemStack getServingItem(BlockState state) {
+        return new ItemStack(riceRollServings.get().get(state.getValue(getServingsProperty()) - 1));
+    }
 
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return state.getValue(getServingsProperty()) == 0 ? PLATE_SHAPE : FOOD_SHAPE;
-	}
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return state.getValue(getServingsProperty()) == 0 ? PLATE_SHAPE : FOOD_SHAPE;
+    }
 
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, ROLL_SERVINGS);
-	}
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, ROLL_SERVINGS);
+    }
 }
