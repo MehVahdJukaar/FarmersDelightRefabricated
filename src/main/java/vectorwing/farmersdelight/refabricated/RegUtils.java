@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Consumer;
@@ -110,5 +111,9 @@ public class RegUtils {
 
     public static <B extends CriterionTrigger<?>> Supplier<B> regTrigger(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.TRIGGER_TYPES);
+    }
+
+    public static <B extends LootItemConditionType> Supplier<B> regLootCond(String name, Supplier<B> supplier) {
+        return register(name, supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
     }
 }
