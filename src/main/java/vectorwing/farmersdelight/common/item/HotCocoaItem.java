@@ -8,6 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.common.registry.ModEffects;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,12 +27,12 @@ public class HotCocoaItem extends DrinkableItem
 
 		while (itr.hasNext()) {
 			MobEffectInstance effect = itr.next();
-			if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL) && effect.getCures().contains(EffectCures.MILK)) {
+			if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL) && !effect.getEffect().is(ModTags.HOT_COCOA_IGNORED)) {
 				compatibleEffects.add(effect.getEffect());
 			}
 		}
 
-		if (compatibleEffects.size() > 0) {
+		if (!compatibleEffects.isEmpty()) {
 			MobEffectInstance selectedEffect = consumer.getEffect(compatibleEffects.get(level.random.nextInt(compatibleEffects.size())));
 			// There is no equivalent for MobEffectEvent, people are expected to mixin with instances like this on Fabric, so we don't bother.
 			if (selectedEffect != null) {

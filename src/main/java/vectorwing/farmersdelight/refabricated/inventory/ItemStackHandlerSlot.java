@@ -1,14 +1,13 @@
 package vectorwing.farmersdelight.refabricated.inventory;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleItemStorage;
 
-public class ItemStackHandlerSlot {
-    public int getIndex() {
-        return 0;
-    }
+public class ItemStackHandlerSlot extends SingleItemStorage {
+    public ItemStackHandlerSlot() {}
 
-    public long extract(ItemVariant resource, long l, TransactionContext transaction) {
-        return 0;
+    @Override
+    protected long getCapacity(ItemVariant variant) {
+        return 64;
     }
 }

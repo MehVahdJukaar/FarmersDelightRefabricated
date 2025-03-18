@@ -43,13 +43,12 @@ import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.block.entity.inventory.CookingPotItemHandler;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.crafting.RecipeWrapper;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
 
 import java.util.List;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE)
 	);
 
-	private final ItemStackHandlerContainer inventory;
+	private final ItemStackHandler inventory;
 	private final CookingPotItemHandler inputHandler;
 	private final CookingPotItemHandler outputHandler;
 
@@ -396,7 +395,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		return this.isHeated(level, worldPosition);
 	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
@@ -533,8 +532,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		tag.remove("container");
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer(INVENTORY_SIZE)
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler(INVENTORY_SIZE)
 		{
 			@Override
 			public int getSlotLimit(int slot) {
@@ -544,7 +543,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			}
 
 			@Override
-			protected int getStackLimit(int slot, ItemVariant resource) {
+			public int getStackLimit(int slot, ItemVariant resource) {
 				if (slot == MEAL_DISPLAY_SLOT)
 					return Math.max(64, super.getStackLimit(slot, resource));
 				return super.getStackLimit(slot, resource);

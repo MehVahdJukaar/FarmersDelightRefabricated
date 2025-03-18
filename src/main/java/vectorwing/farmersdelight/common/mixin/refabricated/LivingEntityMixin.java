@@ -1,19 +1,15 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vectorwing.farmersdelight.common.event.CommonEvents;
 
-@Mixin(ItemStack.class)
-public class LivingEntityMixin {
-
-    @Inject(method = "finishUsingItem", at = @At(value = "TAIL"))
-    private void fdrf$onItemUseFinished(Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
-        CommonEvents.onItemUseFinished(level, livingEntity, (ItemStack) (Object) this);
+@Mixin(LivingEntity.class)
+public abstract class LivingEntityMixin extends Entity {
+    public LivingEntityMixin(EntityType<?> entityType, Level level) {
+        super(entityType, level);
     }
+
 }

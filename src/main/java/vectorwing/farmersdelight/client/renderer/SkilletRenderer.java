@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity>
 	@Override
 	public void render(SkilletBlockEntity skilletEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
 		Direction direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
-		ItemStackHandlerContainer inventory = skilletEntity.getInventory();
+		ItemStackHandler inventory = skilletEntity.getInventory();
 		int posLong = (int) skilletEntity.getBlockPos().asLong();
 
 		ItemStack stack = inventory.getStackInSlot(0);
