@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.mixin;
+package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.stats.RecipeBookSettings;
@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.HashMap;
 import java.util.Map;

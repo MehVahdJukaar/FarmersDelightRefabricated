@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.mixin;
+package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;

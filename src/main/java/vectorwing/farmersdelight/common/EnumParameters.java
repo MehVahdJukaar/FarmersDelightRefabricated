@@ -1,15 +1,9 @@
 package vectorwing.farmersdelight.common;
 
-import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import vectorwing.farmersdelight.common.registry.ModItems;
-
-import java.util.List;
-import java.util.function.Supplier;
+import vectorwing.farmersdelight.refabricated.FarmersDelightASM;
 
 /**
- * Refabricated: Deprecated: Look at {@link vectorwing.farmersdelight.FarmersDelightASM}.
+ * Refabricated: Deprecated: Look at {@link FarmersDelightASM}.
  */
 @Deprecated
 public class EnumParameters

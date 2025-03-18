@@ -19,6 +19,7 @@ import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import javax.annotation.Nullable;
 import java.util.Optional;

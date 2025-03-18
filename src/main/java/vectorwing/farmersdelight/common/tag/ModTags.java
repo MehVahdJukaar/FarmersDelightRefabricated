@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -114,7 +115,8 @@ public class ModTags
 	// Entities that should be given a TemptGoal for Horse Feed, allowing players to call them with it.
 	public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
 
-	// new tags
+	// Refabricated: new tags
+	// TODO: 1.22, move these to their own subdirectory.
 	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");
 	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = modBiomeTag("has_red_mushroom_colony");
 	public static final TagKey<Biome> HAS_WILD_CABBAGE = modBiomeTag("has_wild_cabbage");
@@ -136,6 +138,11 @@ public class ModTags
     public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
     public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = modBlockTag("does_not_survive/rich_soil_farmland");
 
+	public static final TagKey<EntityType<?>> DROPS_LEATHER = modEntityTag("drops_leather");
+
+	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = modEffectTag("ignored/hot_cocoa");
+	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = modEffectTag("ignored/milk_bottle");
+
 	private static TagKey<Item> modItemTag(String path) {
 		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
@@ -150,5 +157,9 @@ public class ModTags
 
 	private static TagKey<Biome> modBiomeTag(String path) {
 		return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+	}
+
+	private static TagKey<MobEffect> modEffectTag(String path) {
+		return TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 }

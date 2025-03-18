@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.mixin;
+package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
@@ -17,9 +17,9 @@ import vectorwing.farmersdelight.common.utility.SoilUtils;
  * This is the bare minimum to keep parity with Forge.
  */
 @Mixin(BushBlock.class)
-public class SugarCaneBlockMixin {
+public class BushBlockMixin {
     @ModifyReturnValue(method = "canSurvive", at = @At("RETURN"))
-    private boolean farmersdelightrefabricated$allowPlantsOnSugarCane(boolean original, BlockState state, LevelReader level, BlockPos pos) {
+    private boolean farmersdelightrefabricated$allowPlantsOnBushes(boolean original, BlockState state, LevelReader level, BlockPos pos) {
         if (state.getBlock() != (Object)this)
             return original;
 
