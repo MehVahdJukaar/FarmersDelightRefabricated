@@ -182,6 +182,7 @@ public class Configuration {
         builder.pop();
 
         COMMON_CONFIG = builder.build();
+        COMMON_CONFIG.forceLoad(); //need for data component event that's fired very early
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             ConfigBuilder clientBuilder = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.CLIENT);
@@ -196,6 +197,7 @@ public class Configuration {
             clientBuilder.pop();
 
             CLIENT_CONFIG = clientBuilder.build();
+            CLIENT_CONFIG.forceLoad();
         }else{
             CLIENT_CONFIG = null;
         }
