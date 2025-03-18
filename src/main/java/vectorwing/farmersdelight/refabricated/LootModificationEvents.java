@@ -71,7 +71,6 @@ public class LootModificationEvents {
     public static final ResourceKey<LootTable> FD_VILLAGE_TAIGA_HOUSE = key("chests/fd_village_taiga_house");
 
     public static void init() {
-        //man this wont cut it....
         LootTableEvents.MODIFY.register(LootModificationEvents::modifyTable);
     }
 
@@ -223,8 +222,8 @@ public class LootModificationEvents {
         // slicing_candle_cake
         if (key.location().getPath().startsWith("blocks/")) {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
-            Holder<Block> block = lookup.getOrThrow(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(9))));
-            if (TagUtils.isCandleDropsCakeSliceTag(block, lookup)) {
+            var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(7))));
+            if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
                 tableBuilder.modifyPools(builder -> builder.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
                         EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))))));
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.CAKE).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))));
