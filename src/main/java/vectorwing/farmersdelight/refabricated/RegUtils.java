@@ -24,7 +24,6 @@ import vectorwing.farmersdelight.FarmersDelight;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-// put general fabric stuff here
 public class RegUtils {
 
     public static <R, T extends R> Supplier<T> register(String name, Supplier<T> supplier, Registry<R> reg) {
