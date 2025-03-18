@@ -16,4 +16,8 @@ public class ModPlacementModifiers
 	private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(MapCodec<P> codec) {
 		return () -> codec;
 	}
+
+	public static void touch(){
+
+	}
 }
