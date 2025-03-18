@@ -12,4 +12,8 @@ public class ModLootFunctions
 {
 	public static final Supplier<LootItemFunctionType<CopySkilletFunction>> COPY_SKILLET = regLootFunc("copy_skillet", () -> new LootItemFunctionType<>(CopySkilletFunction.CODEC));
 	public static final Supplier<LootItemFunctionType<SmokerCookFunction>> SMOKER_COOK = regLootFunc("smoker_cook", () -> new LootItemFunctionType<>(SmokerCookFunction.CODEC));
+
+	public static void touch() {
+
+	}
 }
