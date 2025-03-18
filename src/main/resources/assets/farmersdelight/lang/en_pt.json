@@ -205,8 +205,8 @@
   "effect.farmersdelight.nourishment": "Belly's Full",
   "effect.farmersdelight.comfort": "Heart's Warm",
 
-  "effect.farmersdelight.nourishment.0.desc": "Ye can't get hungry, lest yer belly be digestin' food ta heal ye.",
-  "effect.farmersdelight.comfort.0.desc": "Yer body gon' heal up slowly, no matter if ye're starvin' or not.",
+  "effect.farmersdelight.nourishment.description": "Ye can't get hungry, lest yer belly be digestin' food ta heal ye.",
+  "effect.farmersdelight.comfort.description": "Yer body gon' heal up slowly, no matter if ye're starvin' or not.",
 
   "enchantment.farmersdelight.backstabbing": "Mutiny",
   "enchantment.farmersdelight.backstabbing.desc": "Strikes true at the heart o' yer victim, be their backs turned on ye.",
