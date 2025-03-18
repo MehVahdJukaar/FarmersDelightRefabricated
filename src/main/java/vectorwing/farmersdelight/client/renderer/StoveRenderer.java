@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 {
@@ -24,7 +24,7 @@ public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 	public void render(StoveBlockEntity stoveEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {
 		Direction direction = stoveEntity.getBlockState().getValue(StoveBlock.FACING).getOpposite();
 
-		ItemStackHandlerContainer inventory = stoveEntity.getInventory();
+		ItemStackHandler inventory = stoveEntity.getInventory();
 		int posLong = (int) stoveEntity.getBlockPos().asLong();
 
 		for (int i = 0; i < inventory.getSlotCount(); ++i) {

@@ -1,3 +1,7 @@
-- Reworked the Skillet flipping animation to be a bit less drastic, faster and to operate on a 180 degree flip.
-- Reimplemented sizzle sound whilst using the skillet.
-- Fixed incompatibilities with mods that change where the GUI is located. [#82](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/82)
+- Removed Porting Lib as a dependency.
+  - Parts of the mod have been rewritten because of this.
+- Added a new entity tag for Leather Dropping mobs. `farmersdelight:drops_leather`. Used with knives to make sure that leather dropping entities will drop an extra leather upon death.
+- Added new mob effect tags for whether a mob effect is ignored by Milk Bottles and Hot Cocoa. These tags are:
+    - `farmersdelight:ignored/hot_cocoa`
+    - `farmersdelight:ignored/milk_bottle`
+  - Hot Cocoa still follows the harmful effect ruling, Beneficial/Neutral effect clearing cannot be enabled for Hot Cocoa through these tags.

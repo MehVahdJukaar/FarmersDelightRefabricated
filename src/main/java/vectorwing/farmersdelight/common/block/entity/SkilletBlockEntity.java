@@ -23,13 +23,13 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Optional;
 
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity
 {
-	private final ItemStackHandlerContainer inventory = createHandler();
+	private final ItemStackHandler inventory = createHandler();
 	private int cookingTime;
 	private int cookingTimeTotal;
 
@@ -99,7 +99,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 						direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 
 				cookingTime = 0;
-				inventory.removeItem(0, 1);
+				inventory.removeItem(0, 1, true);
 			}
 		}
 	}
@@ -159,7 +159,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				return addedStack;
 			}
 			boolean wasEmpty = getStoredStack().isEmpty();
-			ItemStack remainderStack = ItemUtils.insertItem(inventory, 0, addedStack.copy(), false);
+			ItemStack remainderStack = inventory.insertItem(0, addedStack.copy(), false);
 			if (!ItemStack.matches(remainderStack, addedStack)) {
 				cookingTimeTotal = SkilletBlock.getSkilletCookingTime(recipe.get().value().getCookingTime(), fireAspectLevel);
 				cookingTime = 0;
@@ -175,10 +175,10 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	public ItemStack removeItem() {
-		return inventory.removeItem(0, getStoredStack().getMaxStackSize());
+		return inventory.removeItem(0, getStoredStack().getMaxStackSize(), true);
 	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
@@ -190,8 +190,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return !getStoredStack().isEmpty();
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer()
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler()
 		{
 			@Override
 			protected void onContentsChanged(int slot) {

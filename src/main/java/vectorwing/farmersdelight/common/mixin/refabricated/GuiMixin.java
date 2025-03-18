@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.mixin;
+package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;

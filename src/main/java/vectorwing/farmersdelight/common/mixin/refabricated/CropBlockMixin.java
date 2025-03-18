@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.mixin;
+package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

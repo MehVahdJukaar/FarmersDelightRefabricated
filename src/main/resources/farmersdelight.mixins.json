@@ -3,28 +3,31 @@
   "package": "vectorwing.farmersdelight.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BushBlockMixin",
-    "CactusBlockMixin",
     "CampfireBaleMixin",
-    "CropBlockMixin",
     "CuttingBoardDispenserMixin",
-    "DoublePlantBlockMixin",
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
-    "LivingEntityMixin",
-    "MushroomBlockMixin",
-    "PlayerMixin",
-    "RecipeBookSettingsMixin",
-    "StemBlockMixin",
-    "SugarCaneBlockMixin",
     "accessor.LootContextAccessor",
-    "refabricated.LivingEntityMixin"
+    "refabricated.BushBlockMixin",
+    "refabricated.CactusBlockMixin",
+    "refabricated.CropBlockMixin",
+    "refabricated.DoublePlantBlockMixin",
+    "refabricated.ItemStackMixin",
+    "refabricated.LivingEntityMixin",
+    "refabricated.Mixin_ReloadableServerRegistries",
+    "refabricated.MushroomBlockMixin",
+    "refabricated.PlayerMixin",
+    "refabricated.RecipeBookSettingsMixin",
+    "refabricated.StemBlockMixin",
+    "refabricated.SugarCaneBlockMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
-    "GuiMixin",
     "HideBlockBreakProgressMixin",
-    "HumanoidModelMixin"
+    "refabricated.ClientRecipeBookMixin",
+    "refabricated.GuiMixin",
+    "refabricated.HumanoidModelMixin",
+    "refabricated.RecipeBookCategoriesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

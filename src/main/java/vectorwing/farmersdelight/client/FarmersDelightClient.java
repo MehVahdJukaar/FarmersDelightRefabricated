@@ -30,7 +30,6 @@ public class FarmersDelightClient implements ClientModInitializer {
     public void onInitializeClient() {
         ItemTooltipCallback.EVENT.register(TooltipEvents::addTooltipToVanillaSoups);
         TooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
-        ClientSetupEvents.registerRecipeBookCategories();
         ClientSetupEvents.onRegisterRenderers();
         ClientSetupEvents.registerParticles();
 

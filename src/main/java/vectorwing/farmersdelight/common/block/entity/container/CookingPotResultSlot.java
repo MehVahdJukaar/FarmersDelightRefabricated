@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.SlotItemHandler;
 
 public class CookingPotResultSlot extends SlotItemHandler
@@ -13,7 +13,7 @@ public class CookingPotResultSlot extends SlotItemHandler
 	private final Player player;
 	private int removeCount;
 
-	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, ItemStackHandlerContainer inventoryIn, int index, int xPosition, int yPosition) {
+	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
 		this.tileEntity = tile;
 		this.player = player;

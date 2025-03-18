@@ -37,14 +37,14 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.List;
 import java.util.Optional;
 
 public class CuttingBoardBlockEntity extends SyncedBlockEntity
 {
-	private final ItemStackHandlerContainer inventory;
+	private final ItemStackHandler inventory;
 	private final RecipeManager.CachedCheck<CuttingBoardRecipeInput, CuttingBoardRecipe> quickCheck;
 	private ResourceLocation lastRecipeID;
 	private boolean isItemCarvingBoard;
@@ -175,7 +175,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return ItemStack.EMPTY;
 	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
@@ -196,8 +196,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		super.setRemoved();
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer()
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler()
 		{
 			@Override
 			public int getSlotLimit(int slot) {

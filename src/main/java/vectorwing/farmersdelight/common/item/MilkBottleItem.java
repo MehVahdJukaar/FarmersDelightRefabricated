@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,7 +24,7 @@ public class MilkBottleItem extends DrinkableItem
 
 		while (itr.hasNext()) {
 			MobEffectInstance effect = itr.next();
-			if (effect.getCures().contains(EffectCures.MILK)) {
+			if (!effect.getEffect().is(ModTags.MILK_BOTTLE_IGNORED)) {
 				compatibleEffects.add(effect.getEffect());
 			}
 		}

@@ -34,7 +34,7 @@ public class FDAddTableLootModifier extends LootModifier {
         if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {
             // Refabricated: The game will loop if we don't make a new context.
             LootContext extraContext = new LootContext.Builder(((LootContextAccessor) context).getParams()).create(Optional.empty());
-            extraContext.setQueriedLootTableId(this.lootTable.location());
+//            extraContext.setQueriedLootTableId(this.lootTable.location());
             context.getResolver().get(Registries.LOOT_TABLE, this.lootTable).ifPresent((extraTable) -> {
                 extraTable.value().getRandomItemsRaw(extraContext, createStackSplitter(context.getLevel(), generatedLoot::add));
             });
