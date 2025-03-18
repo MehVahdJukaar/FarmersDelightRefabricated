@@ -65,7 +65,8 @@ public class TagUtils {
     private static <T> Map<ResourceLocation, List<TagLoader.EntryWithSource>> loadTag(TagKey<T> tagKey) {
         Map<ResourceLocation, List<TagLoader.EntryWithSource>> map = Maps.newHashMap();
 
-        for(Map.Entry<ResourceLocation, List<Resource>> entry : resourceManager.listResourceStacks("tags/" + tagKey.registry().location() + "/" + tagKey.location().getPath() + ".json", resourceLocation -> tagKey.location().getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
+        for (Map.Entry<ResourceLocation, List<Resource>> entry : resourceManager.listResourceStacks("tags/" +
+                tagKey.registry().location().getNamespace() + "/" + tagKey.registry().location().getPath() + "/" + tagKey.location().getPath() + ".json", resourceLocation -> tagKey.location().getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
             loadIndividualTag(entry, map);
         }
 
@@ -76,7 +77,7 @@ public class TagUtils {
         ResourceLocation fileKey = entry.getKey();
         ResourceLocation fileToId = CONVERTER.fileToId(fileKey);
 
-        for(Resource resource : entry.getValue()) {
+        for (Resource resource : entry.getValue()) {
             try (Reader reader = resource.openAsReader()) {
                 JsonElement jsonElement = JsonParser.parseReader(reader);
                 List<TagLoader.EntryWithSource> list = map.getOrDefault(fileToId, new ArrayList<>());
@@ -91,7 +92,7 @@ public class TagUtils {
                         list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
                         return false;
                     }, resourceLocation -> {
-                        for(Map.Entry<ResourceLocation, List<Resource>> innerEntry : resourceManager.listResourceStacks(CONVERTER.idToFile(resourceLocation).getPath(), resourceLocation1 -> resourceLocation1.getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
+                        for (Map.Entry<ResourceLocation, List<Resource>> innerEntry : resourceManager.listResourceStacks(CONVERTER.idToFile(resourceLocation).getPath(), resourceLocation1 -> resourceLocation1.getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
                             loadIndividualTag(innerEntry, map);
                         }
                         list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
