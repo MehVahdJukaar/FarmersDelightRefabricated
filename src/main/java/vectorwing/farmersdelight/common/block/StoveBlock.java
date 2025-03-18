@@ -39,6 +39,7 @@ import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.Optional;
 
@@ -66,7 +67,7 @@ public class StoveBlock extends BaseEntityBlock
 		Item heldItem = heldStack.getItem();
 
 		if (state.getValue(LIT)) {
-			if (heldStack.canPerformAction(ItemAbilities.SHOVEL_DIG)) {
+			if (ItemAbility.SHOVEL_DIG.canPerformAction(heldStack)) {
 				extinguish(state, level, pos);
 				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				return ItemInteractionResult.SUCCESS;

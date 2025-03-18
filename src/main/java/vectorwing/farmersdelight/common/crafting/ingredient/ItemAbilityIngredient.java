@@ -45,7 +45,7 @@ public class ItemAbilityIngredient implements CustomIngredient
 		if (this.itemStacks == null) {
 			itemStacks = BuiltInRegistries.ITEM.stream()
 					.map(ItemStack::new)
-					.filter(stack -> stack.canPerformAction(itemAbility))
+					.filter(itemAbility::canPerformAction)
 					.toList();
 		}
 	}
