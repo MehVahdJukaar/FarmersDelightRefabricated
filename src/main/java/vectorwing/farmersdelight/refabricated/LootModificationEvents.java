@@ -18,7 +18,7 @@ public class LootModificationEvents {
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries){
-
+//tableBuilder.modifyPools()
     }
 
     private static final List<LootModifier> LOOT_MODIFIERS = List.of(

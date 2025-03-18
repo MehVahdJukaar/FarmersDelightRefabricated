@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public enum ItemAbility implements StringRepresentable {
     //just contains stuff fd has. Could have been hardcoded, Hoping that keeping like this will make it easier to merge
-    SHEARS_CARVE, SWORD_DIG; //just add needed ones, same names as neo so we can keep the recipe as is
+    SHEARS_CARVE, SWORD_DIG, SHOVEL_DIG; //just add needed ones, same names as neo so we can keep the recipe as is
 
     @Override
     public String getSerializedName() {
@@ -26,7 +26,7 @@ public enum ItemAbility implements StringRepresentable {
         return switch (this) {
             case SHEARS_CARVE -> stack.is(ConventionalItemTags.SHEAR_TOOLS);
             case SWORD_DIG -> stack.is(ItemTags.SWORDS);
-            default -> false;
+            case SHOVEL_DIG -> stack.is(ItemTags.SHOVELS);
         };
     }
 }

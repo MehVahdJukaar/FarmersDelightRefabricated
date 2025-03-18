@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.refabricated.mlconfigs.fabric;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ConfigSubCategory extends ConfigEntry {
             }
             return;
         }
-        Moonlight.LOGGER.warn("Config file had missing category {}", this.name);
+        ConfigBuilder.LOGGER.warn("Config file had missing category {}", this.name);
     }
 
     @Override

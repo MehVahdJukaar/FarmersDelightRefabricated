@@ -72,15 +72,4 @@ public class RottenTomatoEntity extends ThrowableItemProjectile
 			this.discard();
 		}
 	}
-
-	// Thanks Porting Lib...
-	@Override
-	public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-		return new CompoundTag();
-	}
-
-	@Override
-	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-
-	}
 }
