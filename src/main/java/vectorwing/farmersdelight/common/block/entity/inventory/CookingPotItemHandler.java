@@ -75,8 +75,7 @@ public class CookingPotItemHandler implements SlottedStackStorage {
 
 	// Fabric
 	@Override
-	@NotNull
-	public ItemStack getStackInSlot(int slot) {
+	public @NotNull ItemStack getStackInSlot(int slot) {
 		return itemHandler.getStackInSlot(slot);
 	}
 
