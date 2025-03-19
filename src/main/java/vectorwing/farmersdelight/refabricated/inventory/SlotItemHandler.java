@@ -9,42 +9,39 @@ import net.minecraft.world.item.ItemStack;
 
 public class SlotItemHandler extends Slot {
     private static final Container EMPTY_INVENTORY = new SimpleContainer(0);
-    private final ItemHandler itemHandler;
-    protected final int index;
+    private final ItemStackHandler itemHandler;
 
     public SlotItemHandler(ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
         super(EMPTY_INVENTORY, index, xPosition, yPosition);
         this.itemHandler = inventoryIn;
-        this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public ItemHandler getItemHandler() {
-        return itemHandler;
     }
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return !stack.isEmpty() && itemHandler.isItemValid(index, stack);
+        return !stack.isEmpty() && itemHandler.isItemValid(getContainerSlot(), stack);
     }
 
     @Override
     public ItemStack getItem() {
-        return itemHandler.getStackInSlot(index);
+        return itemHandler.getStackInSlot(getContainerSlot());
     }
 
     @Override
     public void set(ItemStack stack) {
-        itemHandler.setStackInSlot(index, stack);
+        itemHandler.setStackInSlot(getContainerSlot(), stack);
         setChanged();
     }
 
     @Override
+    public ItemStack remove(int amount) {
+        ItemStack stack = itemHandler.removeItem(getContainerSlot(), amount, false);
+        setChanged();
+        return stack;
+    }
+
+    @Override
     public int getMaxStackSize() {
-        return itemHandler.getSlotLimit(index);
+        return itemHandler.getSlotLimit(getContainerSlot());
     }
 
     @Override
@@ -52,8 +49,13 @@ public class SlotItemHandler extends Slot {
         int maxInput = stack.getMaxStackSize();
         int remainder;
         try (Transaction transaction = Transaction.openOuter()) {
-            remainder = (int) itemHandler.insertSlot(index, ItemVariant.of(stack), maxInput, transaction);
+            remainder = (int) itemHandler.insertSlot(getContainerSlot(), ItemVariant.of(stack), maxInput, transaction);
         }
-        return maxInput - remainder;
+        return remainder;
     }
+
+    public ItemHandler getItemHandler() {
+        return itemHandler;
+    }
+
 }
