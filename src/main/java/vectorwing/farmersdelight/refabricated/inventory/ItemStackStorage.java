@@ -8,8 +8,8 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemStackHandlerSlot extends SingleItemStorage {
-    public ItemStackHandlerSlot() {}
+public class ItemStackStorage extends SingleItemStorage {
+    public ItemStackStorage() {}
 
     @Override
     protected long getCapacity(ItemVariant variant) {

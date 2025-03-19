@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.refabricated.inventory;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.collect.Iterators;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -39,7 +38,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStackHandler(int size) {
         this.slots = new ObjectArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            slots.add(new ItemStackHandlerSlot());
+            slots.add(new ItemStackStorage());
         }
     }
 
@@ -72,6 +71,11 @@ public class ItemStackHandler implements ItemHandler {
         if (!getSlot(slot).isResourceBlank())
             removeItem(slot, getSlotLimit(slot), false);
         insertItem(slot, stack, false);
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        return removeItem(slot, amount, false);
     }
 
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
@@ -126,7 +130,7 @@ public class ItemStackHandler implements ItemHandler {
     @Override
     public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         StoragePreconditions.notBlankNotNegative(resource, maxAmount);
-        SortedSet<SingleItemStorage> slots = getSlotsContaining(resource.getItem());
+        SortedSet<SingleItemStorage> slots = getSlotsContaining(resource);
         if (slots.isEmpty())
             return 0;
         long extracted = 0;
@@ -154,8 +158,8 @@ public class ItemStackHandler implements ItemHandler {
         return amount;
     }
 
-    public SortedSet<SingleItemStorage> getSlotsContaining(Item item) {
-        return slots.stream().filter(storageViews -> storageViews.getResource().getItem() == item).collect(Collectors.toCollection(ObjectLinkedOpenHashSet::new));
+    public SortedSet<SingleItemStorage> getSlotsContaining(ItemVariant resource) {
+        return slots.stream().filter(storageViews -> storageViews.getResource().equals(resource)).collect(Collectors.toCollection(ObjectLinkedOpenHashSet::new));
     }
 
     public Iterator<SingleItemStorage> getInsertableSlotsFor(ItemVariant resource) {

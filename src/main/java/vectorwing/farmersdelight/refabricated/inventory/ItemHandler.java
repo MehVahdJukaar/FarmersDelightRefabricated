@@ -10,7 +10,9 @@ public interface ItemHandler extends SlottedStorage<ItemVariant> {
     int getSlotLimit(int slot);
 
     ItemStack getStackInSlot(int slot);
+    void commitModifiedStacks();
     void setStackInSlot(int slot, ItemStack stack);
+    ItemStack removeItem(int slot, int amount);
 
     boolean isItemValid(int slot, ItemStack stack);
 
