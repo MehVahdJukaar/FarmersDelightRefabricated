@@ -1,6 +1,7 @@
 ## Major Changes
 - Removed Porting Lib as a dependency.
   - Parts of the mod have been rewritten because of this.
+- The mod can now run on base 1.21, for all the retrogrades out there. Now please stop asking.
 
 ## Datapack Changes
 - Due to Porting Lib's removal, `portinglib:can_item_perform_ability` no longer exists, and has been replaced with `farmersdelight:can_item_perform_ability`.
@@ -12,6 +13,7 @@
   - Hot Cocoa still follows the harmful effect ruling, Beneficial/Neutral effect clearing cannot be enabled for Hot Cocoa through these tags.
 
 ## Bugfixes
+- Fixed packet decode failure upon attempting to join servers without Farmer's Delight Refabricated. [#56](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/56)
 - Fixed a classloading issue preventing the ItemLike (Mojmap) interface from having mixins applied. [#77](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/77)
 - Fixed Pumpkins being cut into slices when the Knife used to break the block has Silk Touch. [#141](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/141)
 - Fixed the inability to cut cake when using a knife on a cake.
