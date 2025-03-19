@@ -129,7 +129,7 @@ publishMods {
     file = remapJar.archiveFile
     changelog = changelogText
     type = STABLE
-    displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}\""
+    displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
     version = mod_version
 
     modLoaders.add("fabric")
