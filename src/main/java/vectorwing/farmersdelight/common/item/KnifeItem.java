@@ -65,10 +65,6 @@ public class KnifeItem extends DiggerItem
 
     public static class KnifeEvents
     {
-        /*
-         * Moved impl to LivingEntityMixin because PortingLib does not support
-         * stacking values within their LivingKnockbackEvent equivalent.
-         */
         public static double onKnifeKnockback(double strength, LivingEntity entity) {
             LivingEntity attacker = entity.getKillCredit();
             ItemStack toolStack = attacker != null ? attacker.getItemInHand(InteractionHand.MAIN_HAND) : ItemStack.EMPTY;
@@ -79,13 +75,16 @@ public class KnifeItem extends DiggerItem
         }
 
         public static InteractionResult onCakeInteraction(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+            if (player.isSpectator()) // Fabric does not check spectator.
+                return InteractionResult.PASS;
+
             ItemStack toolStack = player.getItemInHand(hand);
 
             if (!toolStack.is(ModTags.KNIVES)) {
                 return InteractionResult.PASS;
             }
 
-            BlockPos pos = player.blockPosition();
+            BlockPos pos = hitResult.getBlockPos();
             BlockState state = level.getBlockState(pos);
             Block block = state.getBlock();
 

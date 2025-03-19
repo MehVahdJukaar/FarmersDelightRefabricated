@@ -14,6 +14,8 @@
 ## Bugfixes
 - Fixed a classloading issue preventing the ItemLike (Mojmap) interface from having mixins applied. [#77](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/77)
 - Fixed Pumpkins being cut into slices when the Knife used to break the block has Silk Touch. [#141](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/141)
+- Fixed the inability to cut cake when using a knife on a cake.
+- Fixed event based block and entity interactions being processed whilst the player is in spectator.
 
 # Addon Migration Primer (2.x.x -> 3.x.x)
 ## Packages
