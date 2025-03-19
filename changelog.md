@@ -21,6 +21,11 @@
 - Fixed event based block and entity interactions being processed whilst the player is in spectator.
 
 # Addon Migration Primer (2.x.x -> 3.x.x)
+
+If you have an addon, you will need to update if you utilise any Porting Lib systems in your mod.
+
+I'd suggest opening up your game and seeing if the mod works with this update out of the bat if you're unsure about whether you've used Porting Lib content or not.
+
 ## Packages
 A few classes have had their packages changed around to separate our custom additions from the base Farmer's Delight where we can.
 These classes can be found inside `vectorwing.farmersdelight.refabricated`.
@@ -38,12 +43,13 @@ You should probably use tag checks for loot conditions and recipes if you aren't
 
 ## Loot Modifications
 Porting Lib's Forge inspired Loot Modification system has been replaced with native Fabric API loot modifications.
+
 The main difference being that Fabric's system directly modifies the loot table on load, rather than applying to the returned items from a loot table each time.
 
 https://docs.fabricmc.net/develop/events#listening-to-loot-table-loading
 
 ## Inventories
-DUe to Porting Lib's removal, we have made our own inventory that hooks into Fabric's Transfer API.
+We have made our own inventory that hooks into Fabric's Transfer API to replace Porting Lib's inventory code.
 
 Some of the classes and renames made to be closer to NeoForge's naming for parity are...
 - `SlottedStackStorage` -> `ItemHandler`. A basic interface for item inventories, extends Fabric's SlottedStorage.
@@ -51,8 +57,10 @@ Some of the classes and renames made to be closer to NeoForge's naming for parit
 - `ItemStackHandlerContainer` -> `ItemStackHandler`. - An item inventory implementation.
 - `ItemStackHandlerSlot` -> `ItemStackStorage`. - An single item inside an `ItemStackHandler`.
 - `RecipeWrapper` - A wrapper for `ItemStackHandler`. for recipe checks. Moved from `common.utility` to the `refabricated` package.
+
 All of these classes are contained inside the `vectorwing.farmersdelight.refabricated.inventory` package.
 
 Due to how Fabric's Transfer API works, you are unable to directly modify an obtained ItemStack from `ItemHandler#getStackInSlot` without running `ItemHandler#commitModifiedStacks` after you have made your changes.
 
+## Closing Notes
 If you're an addon dev and are struggling to update your mod, please reach out to me through the [Greenhouse Modding Discord](https://discord.greenhouse.house/) - Pug
