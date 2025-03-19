@@ -135,7 +135,7 @@ publishMods {
     modLoaders.add("fabric")
 
     curseforge {
-        projectId = "123456"
+        projectId = curseforge_project_id
 
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
