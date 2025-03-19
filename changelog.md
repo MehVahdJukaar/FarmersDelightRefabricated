@@ -47,7 +47,7 @@ DUe to Porting Lib's removal, we have made our own inventory that hooks into Fab
 
 Some of the classes and renames made to be closer to NeoForge's naming for parity are...
 - `SlottedStackStorage` -> `ItemHandler`. A basic interface for item inventories, extends Fabric's SlottedStorage.
-- `SlotItemHandler` -> `ItemHandlerSlot`. A `Slot` (Mojmap) implementation for a single `ItemStackHandler` slot.
+- `SlotItemHandler` -> `ItemHandlerSlot`. A `Slot` (Mojmap) implementation for a single `ItemHandler` slot.
 - `ItemStackHandlerContainer` -> `ItemStackHandler`. - An item inventory implementation.
 - `ItemStackHandlerSlot` -> `ItemStackStorage`. - An single item inside an `ItemStackHandler`.
 - `RecipeWrapper` - A wrapper for `ItemStackHandler`. for recipe checks. Moved from `common.utility` to the `refabricated` package.
