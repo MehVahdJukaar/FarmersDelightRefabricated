@@ -24,7 +24,7 @@
 
 If you have an addon, you will need to update if you utilise any Porting Lib systems in your mod.
 
-I'd suggest opening up your game and seeing if the mod works with this update out of the bat if you're unsure about whether you've used Porting Lib content or not.
+I'd suggest launching your game with Farmer's Delight 3.0.0, and seeing if your mod crashes or has inconsistent behaviour if you're unsure about whether you've used Porting Lib content or not.
 
 ## Packages
 A few classes have had their packages changed around to separate our custom additions from the base Farmer's Delight where we can.
