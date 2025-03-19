@@ -9,10 +9,6 @@ public class SlotItemHandler extends Slot {
     private static final Container EMPTY_INVENTORY = new SimpleContainer(0);
     private final ItemStackHandler itemHandler;
 
-    // These two fields are required to allow any item from `getItem` to be modified provided you use setChanged() after the modification.
-    private ItemStack refStack;
-    private ItemStack getStack;
-
     public SlotItemHandler(ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
         super(EMPTY_INVENTORY, index, xPosition, yPosition);
         this.itemHandler = inventoryIn;
@@ -25,9 +21,7 @@ public class SlotItemHandler extends Slot {
 
     @Override
     public ItemStack getItem() {
-        getStack = itemHandler.getStackInSlot(getContainerSlot());
-        refStack = getStack.copy();
-        return getStack;
+        return itemHandler.getStackInSlot(getContainerSlot());
     }
 
     @Override
@@ -54,9 +48,6 @@ public class SlotItemHandler extends Slot {
 
     @Override
     public void setChanged() {
-        if (refStack != null && getStack != null && !ItemStack.matches(refStack, getStack))
-            itemHandler.setStackInSlot(getContainerSlot(), getStack);
-        refStack = null;
-        getStack = null;
+        itemHandler.commitModifiedStacks();
     }
 }
