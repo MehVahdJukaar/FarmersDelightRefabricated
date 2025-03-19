@@ -50,6 +50,9 @@ public class HorseFeedItem extends Item
 	public static class HorseFeedEvent
 	{
 		public static InteractionResult onHorseFeedApplied(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult entityHitResult) {
+			if (player.isSpectator())
+				return InteractionResult.PASS;
+
 			ItemStack heldStack = player.getItemInHand(hand);
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.HORSE_FEED_USERS)) {
