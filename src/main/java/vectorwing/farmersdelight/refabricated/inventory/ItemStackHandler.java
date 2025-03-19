@@ -2,6 +2,8 @@ package vectorwing.farmersdelight.refabricated.inventory;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import it.unimi.dsi.fastutil.ints.IntImmutableList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;

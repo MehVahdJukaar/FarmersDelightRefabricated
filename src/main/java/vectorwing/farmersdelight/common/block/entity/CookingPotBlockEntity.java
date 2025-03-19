@@ -1,6 +1,8 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.IntImmutableList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -56,6 +58,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
@@ -535,6 +538,12 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			@Override
 			protected void onContentsChanged(int slot) {
 				inventoryChanged();
+			}
+
+			// Refabricated: Input Slot Indexes for RecipeWrapper.
+			@Override
+			public IntList getInputSlotIndexes() {
+				return IntImmutableList.of(IntStream.range(0, 6).toArray());
 			}
 		};
 	}
