@@ -327,9 +327,11 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
 			}
-			if (!slotStack.isEmpty())
+			if (!slotStack.isEmpty()) {
 				slotStack.shrink(1);
+			}
 		}
+		inventory.commitModifiedStacks();
 		return true;
 	}
 
@@ -419,6 +421,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			mealStack.shrink(mealCount);
 			outputStack.grow(mealCount);
 		}
+		inventory.commitModifiedStacks();
 	}
 
 	private void useStoredContainersOnMeal() {
@@ -437,6 +440,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 				containerInputStack.shrink(mealCount);
 				outputStack.grow(mealCount);
 			}
+			inventory.commitModifiedStacks();
 		}
 	}
 

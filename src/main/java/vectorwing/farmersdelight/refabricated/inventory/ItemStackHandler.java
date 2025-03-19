@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.refabricated.inventory;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Iterators;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
@@ -19,11 +21,16 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 // Made into a Fabric Storage Wrapper so we can have minimal changes compared to the NeoForge branch.
 public class ItemStackHandler implements ItemHandler {
     private final List<SingleItemStorage> slots;
+    // Required to allow ItemStacks obtained from getStackInSlot to be directly modified.
+    private final Cache<Integer, StackReference> stackRefs = CacheBuilder.newBuilder()
+            .expireAfterWrite(15, TimeUnit.SECONDS) // 15s is overkill for most use cases, but it's to be safe.
+            .build();
 
     public ItemStackHandler() {
         this(1);
@@ -43,7 +50,22 @@ public class ItemStackHandler implements ItemHandler {
 
     public ItemStack getStackInSlot(int slot) {
         var slotRef = slots.get(slot);
-        return slotRef.getResource().toStack((int)slotRef.getAmount());
+        ItemStack stackRef = slotRef.getResource().toStack((int)slotRef.getAmount());
+        stackRefs.put(slot, new StackReference(stackRef.copy(), stackRef));
+        return stackRef;
+    }
+
+    public void commitModifiedStacks() {
+        var stackMap = stackRefs.asMap();
+        if (stackMap.isEmpty())
+            return;
+        for (Map.Entry<Integer, StackReference> stackRef : stackMap.entrySet()) {
+            if (!ItemStack.matches(stackRef.getValue().original(), stackRef.getValue().current())) {
+                setStackInSlot(stackRef.getKey(), stackRef.getValue().current());
+                onContentsChanged(stackRef.getKey());
+            }
+            stackRefs.invalidate(stackRef.getKey());
+        }
     }
 
     public void setStackInSlot(int slot, ItemStack stack) {
@@ -136,16 +158,10 @@ public class ItemStackHandler implements ItemHandler {
         return slots.stream().filter(storageViews -> storageViews.getResource().getItem() == item).collect(Collectors.toCollection(ObjectLinkedOpenHashSet::new));
     }
 
-    public SortedSet<SingleItemStorage> getEmptySlots() {
-        return slots.stream().filter(SingleItemStorage::isResourceBlank).collect(Collectors.toCollection(ObjectLinkedOpenHashSet::new));
-    }
-
     public Iterator<SingleItemStorage> getInsertableSlotsFor(ItemVariant resource) {
-        SortedSet<SingleItemStorage> slots = getSlotsContaining(resource.getItem());
-        SortedSet<SingleItemStorage> emptySlots =  getEmptySlots();
-        if (slots.isEmpty())
-            return emptySlots.isEmpty() ? Collections.emptyIterator() : emptySlots.iterator();
-        return emptySlots.isEmpty() ? slots.iterator() : Iterators.concat(slots.iterator(), emptySlots.iterator());
+        return slots.stream()
+                .filter(views -> views.isResourceBlank() || views.getResource().equals(resource))
+                .iterator();
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -180,6 +196,10 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     protected void onContentsChanged(int slot) {
+
+    }
+
+    protected record StackReference(ItemStack original, ItemStack current) {
 
     }
 }
