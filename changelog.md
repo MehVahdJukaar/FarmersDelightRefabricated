@@ -16,6 +16,7 @@
 - Fixed packet decode failure upon attempting to join servers without Farmer's Delight Refabricated. [#56](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/56)
 - Fixed a classloading issue preventing the ItemLike (Mojmap) interface from having mixins applied. [#77](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/77)
 - Fixed Pumpkins being cut into slices when the Knife used to break the block has Silk Touch. [#141](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/141)
+- Fixed recipes sometimes being incorrect due to the game not accounting for individual stacks in the recipe check. [#150](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/150)
 - Fixed the inability to cut cake when using a knife on a cake.
 - Fixed event based block and entity interactions being processed whilst the player is in spectator.
 
