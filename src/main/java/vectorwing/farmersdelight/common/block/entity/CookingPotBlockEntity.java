@@ -451,7 +451,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	public ItemStack useHeldItemOnMeal(ItemStack container) {
 		if (isContainerValid(container) && !getMeal().isEmpty()) {
 			container.shrink(1);
-			return getMeal().split(1);
+			ItemStack split = getMeal().split(1);
+			inventory.commitModifiedStacks();
+			return split;
 		}
 		return ItemStack.EMPTY;
 	}
