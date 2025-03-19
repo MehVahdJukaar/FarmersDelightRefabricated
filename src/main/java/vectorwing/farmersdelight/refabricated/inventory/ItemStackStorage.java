@@ -9,7 +9,11 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemStackStorage extends SingleItemStorage {
-    public ItemStackStorage() {}
+    public final int index;
+
+    public ItemStackStorage(int index) {
+        this.index = index;
+    }
 
     @Override
     protected long getCapacity(ItemVariant variant) {

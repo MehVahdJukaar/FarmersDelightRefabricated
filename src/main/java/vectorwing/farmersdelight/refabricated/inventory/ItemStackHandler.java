@@ -5,7 +5,6 @@ import com.google.common.cache.CacheBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.base.SingleItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
@@ -15,7 +14,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +23,7 @@ import java.util.stream.Collectors;
 
 // Made into a Fabric Storage Wrapper so we can have minimal changes compared to the NeoForge branch.
 public class ItemStackHandler implements ItemHandler {
-    private final List<SingleItemStorage> slots;
+    private final List<ItemStackStorage> slots;
     // Required to allow ItemStacks obtained from getStackInSlot to be directly modified.
     private final Cache<Integer, StackReference> stackRefs = CacheBuilder.newBuilder()
             .expireAfterWrite(15, TimeUnit.SECONDS) // 15s is overkill for most use cases, but it's to be safe.
@@ -38,7 +36,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStackHandler(int size) {
         this.slots = new ObjectArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            slots.add(new ItemStackStorage());
+            slots.add(new ItemStackStorage(i));
         }
     }
 
@@ -79,8 +77,10 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        if (stack.isEmpty())
+            return stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction);
+            stack = stack.copyWithCount(stack.getCount() - (int)insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction));
             if (!simulate)
                 transaction.commit();
         }
@@ -90,7 +90,7 @@ public class ItemStackHandler implements ItemHandler {
     public @NotNull ItemStack removeItem(int slot, int amount, boolean simulate) {
         ItemStack stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = getStackInSlot(slot).copyWithCount((int)getSlot(slot).extract(ItemVariant.of(getStackInSlot(slot)), amount, transaction));
+            stack = getStackInSlot(slot).copyWithCount((int)extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
             if (!simulate)
                 transaction.commit();
         }
@@ -118,11 +118,12 @@ public class ItemStackHandler implements ItemHandler {
     public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         StoragePreconditions.notBlankNotNegative(resource, maxAmount);
         long inserted = 0;
-        for (Iterator<SingleItemStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
-            SingleItemStorage storage = it.next();
+        for (Iterator<ItemStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
+            ItemStackStorage storage = it.next();
             inserted += storage.insert(resource, maxAmount, transaction);
             if (inserted >= maxAmount)
                 break;
+            onContentsChanged(storage.index);
         }
         return inserted;
     }
@@ -130,14 +131,15 @@ public class ItemStackHandler implements ItemHandler {
     @Override
     public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         StoragePreconditions.notBlankNotNegative(resource, maxAmount);
-        SortedSet<SingleItemStorage> slots = getSlotsContaining(resource);
+        SortedSet<ItemStackStorage> slots = getSlotsContaining(resource);
         if (slots.isEmpty())
             return 0;
         long extracted = 0;
-        for (SingleItemStorage slot : slots) {
-            extracted += slot.extract(resource, maxAmount - extracted, transaction);
+        for (ItemStackStorage storage : slots) {
+            extracted += storage.extract(resource, maxAmount - extracted, transaction);
             if (extracted >= maxAmount)
                 break;
+            onContentsChanged(storage.index);
         }
         return extracted;
     }
@@ -153,16 +155,18 @@ public class ItemStackHandler implements ItemHandler {
 
     @Override
     public long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
+        if (resource.isBlank())
+            return 0;
         long amount = slots.get(slot).extract(resource, maxAmount, transaction);
         onContentsChanged(slot);
         return amount;
     }
 
-    public SortedSet<SingleItemStorage> getSlotsContaining(ItemVariant resource) {
+    public SortedSet<ItemStackStorage> getSlotsContaining(ItemVariant resource) {
         return slots.stream().filter(storageViews -> storageViews.getResource().equals(resource)).collect(Collectors.toCollection(ObjectLinkedOpenHashSet::new));
     }
 
-    public Iterator<SingleItemStorage> getInsertableSlotsFor(ItemVariant resource) {
+    public Iterator<ItemStackStorage> getInsertableSlotsFor(ItemVariant resource) {
         return slots.stream()
                 .filter(views -> views.isResourceBlank() || views.getResource().equals(resource))
                 .iterator();
