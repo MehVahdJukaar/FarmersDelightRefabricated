@@ -51,6 +51,7 @@ public class FarmersDelight implements ModInitializer
 		ModAdvancements.touch();
 		ModPlacementModifiers.touch();
 		ModLootFunctions.touch();
+		ModCreativeTabs.touch();
 
 		VillageStructures.init();
 		CommonModBusEvents.init();

@@ -17,4 +17,8 @@ public class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModBlocks.STOVE.get()))
                     .displayItems((parameters, output) -> ModItems.CREATIVE_TAB_ITEMS.forEach((item) -> output.accept(item.get())))
                     .build());
+
+    public static void touch() {
+
+    }
 }
