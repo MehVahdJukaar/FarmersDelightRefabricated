@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class RecipeBookSettingsMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void modifyTagFields(CallbackInfo ci) {
         Map<RecipeBookType, Pair<String, String>> newMap = new HashMap<>(TAG_FIELDS);
-        newMap.put(RecipeBookType.valueOf("FARMERSDELIGHT_COOKING"), Pair.of("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable"));
+        newMap.put(FDRecipeBookTypes.COOKING, Pair.of("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable"));
         TAG_FIELDS = Map.copyOf(newMap);
     }
 }
