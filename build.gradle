@@ -54,9 +54,6 @@ repositories {
     maven { url "https://maven.ryanliptak.com/" } // AppleSkin
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
-    maven { url "https://repo.greenhouse.house/snapshots/" } // Porting Lib Hotfixes
-    maven { url = "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
-    maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
     exclusiveContent {
         forRepository {
             maven {
@@ -70,7 +67,6 @@ repositories {
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
-    maven { url 'https://repo.greenhouse.house/snapshots/' } // Temporary Porting Lib
     mavenCentral() // Mixin Extras
     mavenLocal() // Porting Lib (temporary)
 }
