@@ -324,6 +324,9 @@
   "emi.category.farmersdelight.cutting": "Cutting Board",
   "emi.category.farmersdelight.decomposition": "Decomposition",
 
+  "tag.item.c.eggs": "Eggs",
+  "tag.item.c.mushrooms": "Mushrooms",
+
   "tag.item.c.crops.cabbage": "Cabbage Crops",
   "tag.item.c.crops.grain": "Grain Crops",
   "tag.item.c.crops.onion": "Onion Crops",
