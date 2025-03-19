@@ -50,6 +50,6 @@
   "depends": {
     "fabricloader": ">=0.16",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": ">=${minecraft_min_version} <={minecraft_max_version}"
   }
 }
