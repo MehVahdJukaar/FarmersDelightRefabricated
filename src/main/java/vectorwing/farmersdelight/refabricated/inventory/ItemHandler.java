@@ -7,16 +7,13 @@ import net.minecraft.world.item.ItemStack;
 
 public interface ItemHandler extends SlottedStorage<ItemVariant> {
     int getSlotCount();
-
     int getSlotLimit(int slot);
 
     ItemStack getStackInSlot(int slot);
-
     void setStackInSlot(int slot, ItemStack stack);
 
     boolean isItemValid(int slot, ItemStack stack);
 
     long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction);
-
     long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction);
 }

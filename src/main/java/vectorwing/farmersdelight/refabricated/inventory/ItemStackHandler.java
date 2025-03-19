@@ -41,19 +41,15 @@ public class ItemStackHandler implements ItemHandler {
         return true;
     }
 
-    public int getSlot(SingleItemStorage storage) {
-        return slots.indexOf(storage);
-    }
-
     public ItemStack getStackInSlot(int slot) {
-        return slots.get(slot).getResource().toStack();
+        var slotRef = slots.get(slot);
+        return slotRef.getResource().toStack((int)slotRef.getAmount());
     }
 
     public void setStackInSlot(int slot, ItemStack stack) {
-        try (Transaction transaction = Transaction.openOuter()) {
-            int limit = Math.min(getSlotLimit(slot), stack.getCount());
-            insertSlot(slot, ItemVariant.of(stack), limit, transaction);
-        }
+        if (!getSlot(slot).isResourceBlank())
+            removeItem(slot, getSlotLimit(slot), false);
+        insertItem(slot, stack, false);
     }
 
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
@@ -68,12 +64,9 @@ public class ItemStackHandler implements ItemHandler {
     public @NotNull ItemStack removeItem(int slot, int amount, boolean simulate) {
         ItemStack stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = getStackInSlot(slot).copy();
-            extract(ItemVariant.of(stack), amount, transaction);
-            if (!simulate) {
+            stack = getStackInSlot(slot).copyWithCount((int)getSlot(slot).extract(ItemVariant.of(getStackInSlot(slot)), amount, transaction));
+            if (!simulate)
                 transaction.commit();
-                stack.setCount(Math.max(stack.getCount(), amount));
-            }
         }
         return stack;
     }
@@ -98,8 +91,14 @@ public class ItemStackHandler implements ItemHandler {
     @Override
     public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         StoragePreconditions.notBlankNotNegative(resource, maxAmount);
-
-        return 0;
+        long inserted = 0;
+        for (Iterator<SingleItemStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
+            SingleItemStorage storage = it.next();
+            inserted += storage.insert(resource, maxAmount, transaction);
+            if (inserted >= maxAmount)
+                break;
+        }
+        return inserted;
     }
 
     @Override
@@ -119,12 +118,18 @@ public class ItemStackHandler implements ItemHandler {
 
     @Override
     public long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        return slots.get(slot).insert(resource, maxAmount, transaction);
+        if (resource.isBlank())
+            return 0;
+        long amount = slots.get(slot).insert(resource, maxAmount, transaction);
+        onContentsChanged(slot);
+        return amount;
     }
 
     @Override
     public long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        return slots.get(slot).extract(resource, maxAmount, transaction);
+        long amount = slots.get(slot).extract(resource, maxAmount, transaction);
+        onContentsChanged(slot);
+        return amount;
     }
 
     public SortedSet<SingleItemStorage> getSlotsContaining(Item item) {
@@ -174,5 +179,7 @@ public class ItemStackHandler implements ItemHandler {
         }
     }
 
-    protected void onContentsChanged(int slot) {}
+    protected void onContentsChanged(int slot) {
+
+    }
 }
