@@ -50,6 +50,6 @@ Some of the classes and renames made to be closer to NeoForge's naming for parit
 - `RecipeWrapper` - A wrapper for `ItemStackHandler`. for recipe checks. Moved from `common.utility` to the `refabricated` package.
 All of these classes are contained inside the `vectorwing.farmersdelight.refabricated.inventory` package.
 
-Due to how Fabric's Transfer API works, you are unable to directly modify an obtained ItemStack from `ItemStackHandler`.
+Due to how Fabric's Transfer API works, you are unable to directly modify an obtained ItemStack from `ItemHandler#getStackInSlot` without running `ItemHandler#commitModifiedStacks` after you have made your changes.
 
 If you're an addon dev and are struggling to update your mod, please reach out to me through the [Greenhouse Modding Discord](https://discord.greenhouse.house/) - Pug
