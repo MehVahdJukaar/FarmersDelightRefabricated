@@ -192,6 +192,9 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+        for (int i = 0; i < slots.size(); ++i) {
+            setStackInSlot(i, ItemStack.EMPTY);
+        }
         ListTag listTag = tag.getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < listTag.size(); ++i) {
             CompoundTag compound = listTag.getCompound(i);
