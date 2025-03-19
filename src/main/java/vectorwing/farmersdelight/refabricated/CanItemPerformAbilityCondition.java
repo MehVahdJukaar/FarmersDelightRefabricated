@@ -18,7 +18,7 @@ public record CanItemPerformAbilityCondition(ItemAbility ability) implements Loo
     ).apply(inst, CanItemPerformAbilityCondition::new));
     public static final Supplier<LootItemConditionType> TYPE = RegUtils.regLootCond("can_item_perform_ability", () -> new LootItemConditionType(CODEC));
 
-    public static void touch() {
+    public static void init() {
 
     }
 
