@@ -14,3 +14,39 @@
 ## Bugfixes
 - Fixed a classloading issue preventing the ItemLike (Mojmap) interface from having mixins applied. [#77](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/77)
 - Fixed Pumpkins being cut into slices when the Knife used to break the block has Silk Touch. [#141](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/141)
+
+# Addon Migration Primer (2.x.x -> 3.x.x)
+## Packages
+A few classes have had their packages changed around to separate our custom additions from the base Farmer's Delight where we can.
+These classes can be found inside `vectorwing.farmersdelight.refabricated`.
+
+## Configs
+Referenced config values should remain the same, as Jukaar's config format is very close to the Porting Lib/Forge syntax.
+If you were using Porting Lib as a config, you're best to go out and find a new config solution. There's like a million of them, write your own like I did (this post was made by Pug) if you're feeling cautious.
+
+## Registration
+Registration has been refactored a little bit, but types are the same as before. Some class definitions may have moved around to suit classloading needs, but that's a case by case scenario.
+
+## Item Abilities
+Porting Lib's Item Abilities have been replaced with an enum that references specific Minecraft or Conventional item tags.
+You should probably use tag checks for loot conditions and recipes if you aren't us, simply because we hardcode our Item Abilities to only be what we personally need.
+
+## Loot Modifications
+Porting Lib's Forge inspired Loot Modification system has been replaced with native FabricAPI loot modifications.
+The main difference being that Fabric's system directly modifies the loot table on load, rather than applying to the returned items from a loot table each time.
+https://docs.fabricmc.net/develop/events#listening-to-loot-table-loading
+
+## Inventories
+DUe to Porting Lib's removal, we have made our own inventory that hooks into Fabric's Transfer API.
+
+Some of the classes and renames made to be closer to NeoForge's naming for parity are...
+- `SlottedStackStorage` -> `ItemHandler`. A basic interface for item inventories, extends Fabric's SlottedStorage.
+- `SlotItemHandler` -> `ItemHandlerSlot`. A `Slot` (Mojmap) implementation for a single `ItemStackHandler` slot.
+- `ItemStackHandlerContainer` -> `ItemStackHandler`. - An item inventory implementation.
+- `ItemStackHandlerSlot` -> `ItemStackStorage`. - An single item inside an `ItemStackHandler`.
+- `RecipeWrapper` - A wrapper for `ItemStackHandler`. for recipe checks. Moved from `common.utility` to the `refabricated` package.
+All of these classes are contained inside the `vectorwing.farmersdelight.refabricated.inventory` package.
+
+Due to how Fabric's Transfer API works, you are unable to directly modify an obtained ItemStack from `ItemStackHandler`.
+
+If you're an addon dev and are struggling to update your mod, please reach out to me through the [Greenhouse Modding Discord](https://discord.greenhouse.house/) - Pug
