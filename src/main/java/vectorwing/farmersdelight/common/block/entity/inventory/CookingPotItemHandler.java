@@ -14,6 +14,7 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class CookingPotItemHandler implements ItemHandler {
 	private static final int SLOTS_INPUT = 6;
@@ -69,17 +70,26 @@ public class CookingPotItemHandler implements ItemHandler {
 	}
 
 	@Override
+	public void commitModifiedStacks() {
+		itemHandler.commitModifiedStacks();
+	}
+
+	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
 		this.itemHandler.setStackInSlot(slot, stack);
 	}
 
 	@Override
+	public ItemStack removeItem(int slot, int amount) {
+		return null;
+	}
+
+	@Override
 	public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
-		long inserted = 0;
-		Iterator<SingleItemStorage> itr = itemHandler.getInsertableSlotsFor(resource);
-		while (itr.hasNext()) {
-			SingleItemStorage slot = itr.next();
+		long inserted = 0;;
+		for (Iterator<SingleItemStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
+			SingleItemStorage slot = it.next();
 			inserted += slot.insert(resource, maxAmount - inserted, transaction);
 			if (inserted >= maxAmount)
 				break;
@@ -91,19 +101,13 @@ public class CookingPotItemHandler implements ItemHandler {
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
 		long extracted = 0;
-		for (SingleItemStorage slot : itemHandler.getSlotsContaining(resource.getItem())) {
-			extracted += slot.extract(resource, maxAmount - extracted, transaction);
-			if (extracted >= maxAmount)
-				break;
-		}
+        for (Iterator<SingleItemStorage> it = getSlotsContaining(resource); it.hasNext(); ) {
+            SingleItemStorage slot = it.next();
+            extracted += slot.extract(resource, maxAmount - extracted, transaction);
+            if (extracted >= maxAmount)
+                break;
+        }
 		return extracted;
-	}
-
-	private boolean isValidInputSlot(int slot, boolean output) {
-		if (side == null || side.equals(Direction.UP)) {
-			return slot < SLOTS_INPUT;
-		}
-		return output ? slot == SLOT_MEAL_OUTPUT : slot == SLOT_CONTAINER_INPUT;
 	}
 
 	@Override
@@ -126,6 +130,24 @@ public class CookingPotItemHandler implements ItemHandler {
 	public Iterator<StorageView<ItemVariant>> iterator() {
 		if (side == null || side.equals(Direction.UP))
 			return (Iterator) itemHandler.getSlots().subList(0, SLOTS_INPUT).iterator();
-		return itemHandler.getSlots().get(SLOT_MEAL_OUTPUT).iterator();
+		return (Iterator) List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT)).iterator();
+	}
+
+	private Iterator<SingleItemStorage> getInsertableSlotsFor(ItemVariant resource) {
+		var slots = (side == null || side.equals(Direction.UP)) ?
+				itemHandler.getSlots().subList(0, SLOTS_INPUT) :
+				List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT));
+		return (Iterator) slots.stream()
+				.filter(views -> views.isResourceBlank() || views.getResource().equals(resource))
+				.iterator();
+	}
+
+	private Iterator<SingleItemStorage> getSlotsContaining(ItemVariant resource) {
+		var slots = (side == null || side.equals(Direction.UP)) ?
+				itemHandler.getSlots().subList(0, SLOTS_INPUT) :
+				List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT));
+		return (Iterator) slots.stream()
+				.filter(views -> views.getResource().equals(resource))
+				.iterator();
 	}
 }

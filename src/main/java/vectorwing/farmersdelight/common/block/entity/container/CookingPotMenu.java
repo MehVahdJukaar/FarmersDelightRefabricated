@@ -19,7 +19,7 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
-import vectorwing.farmersdelight.refabricated.inventory.SlotItemHandler;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
 
 import java.util.Objects;
 
@@ -53,7 +53,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 		int borderSlotSize = 18;
 		for (int row = 0; row < 2; ++row) {
 			for (int column = 0; column < 3; ++column) {
-				this.addSlot(new SlotItemHandler(inventory, (row * 3) + column,
+				this.addSlot(new ItemHandlerSlot(inventory, (row * 3) + column,
 						inputStartX + (column * borderSlotSize),
 						inputStartY + (row * borderSlotSize)));
 			}
@@ -63,7 +63,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 		this.addSlot(new CookingPotMealSlot(inventory, 6, 124, 26));
 
 		// Bowl Input
-		this.addSlot(new SlotItemHandler(inventory, 7, 92, 55)
+		this.addSlot(new ItemHandlerSlot(inventory, 7, 92, 55)
 		{
 			public Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
 				return Pair.of(InventoryMenu.BLOCK_ATLAS, EMPTY_CONTAINER_SLOT_BOWL);

@@ -5,11 +5,11 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class SlotItemHandler extends Slot {
+public class ItemHandlerSlot extends Slot {
     private static final Container EMPTY_INVENTORY = new SimpleContainer(0);
-    private final ItemStackHandler itemHandler;
+    private final ItemHandler itemHandler;
 
-    public SlotItemHandler(ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
+    public ItemHandlerSlot(ItemHandler inventoryIn, int index, int xPosition, int yPosition) {
         super(EMPTY_INVENTORY, index, xPosition, yPosition);
         this.itemHandler = inventoryIn;
     }
@@ -32,7 +32,7 @@ public class SlotItemHandler extends Slot {
 
     @Override
     public ItemStack remove(int amount) {
-        ItemStack stack = itemHandler.removeItem(getContainerSlot(), amount, false);
+        ItemStack stack = itemHandler.removeItem(getContainerSlot(), amount);
         setChanged();
         return stack;
     }

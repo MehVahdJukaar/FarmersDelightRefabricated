@@ -4,10 +4,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
-import vectorwing.farmersdelight.refabricated.inventory.SlotItemHandler;
 
-public class CookingPotResultSlot extends SlotItemHandler
+public class CookingPotResultSlot extends ItemHandlerSlot
 {
 	public final CookingPotBlockEntity tileEntity;
 	private final Player player;
