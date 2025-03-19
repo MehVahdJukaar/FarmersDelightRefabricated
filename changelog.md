@@ -34,6 +34,7 @@ You should probably use tag checks for loot conditions and recipes if you aren't
 ## Loot Modifications
 Porting Lib's Forge inspired Loot Modification system has been replaced with native FabricAPI loot modifications.
 The main difference being that Fabric's system directly modifies the loot table on load, rather than applying to the returned items from a loot table each time.
+
 https://docs.fabricmc.net/develop/events#listening-to-loot-table-loading
 
 ## Inventories
