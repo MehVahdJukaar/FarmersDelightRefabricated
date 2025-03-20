@@ -19,7 +19,7 @@ import java.util.concurrent.Executor;
  * @see TagUtils
  */
 @Mixin(ReloadableServerRegistries.class)
-public class Mixin_ReloadableServerRegistries {
+public class ReloadableServerRegistriesMixin {
     @Inject(method = "method_58276", at = @At(value = "HEAD"))
     private static <T> void enchiridion$setLootTableAccess(RegistryOps registryOps, ResourceManager resourceManager, Executor executor, LootDataType<T> lootDataType, CallbackInfoReturnable<CompletableFuture> cir) {
         if (lootDataType != LootDataType.TABLE)
