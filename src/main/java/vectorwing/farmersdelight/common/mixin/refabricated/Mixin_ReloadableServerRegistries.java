@@ -30,7 +30,6 @@ public class Mixin_ReloadableServerRegistries {
 
     @Inject(method = "method_58288", at = @At("RETURN"))
     private static void enchiridion$clearLootTableAccess(LayeredRegistryAccess layeredRegistryAccess, List list, CallbackInfoReturnable<LayeredRegistryAccess> cir) {
-        TagUtils.setLootTableResourceManager(null);
         TagUtils.resetEarlyTagCollections();
     }
 }
