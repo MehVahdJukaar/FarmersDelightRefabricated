@@ -67,7 +67,6 @@ repositories {
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     mavenCentral() // Mixin Extras
-    mavenLocal() // Porting Lib (temporary)
 }
 
 dependencies {
@@ -181,7 +180,6 @@ processResources {
             mod_credits          : mod_credits,
             mod_homepage         : mod_homepage,
             mod_github           : mod_github,
-            port_lib_version     : port_lib_version,
             fabric_loader_version: fabric_loader_version,
             fabric_api_version   : fabric_api_version
     ]
