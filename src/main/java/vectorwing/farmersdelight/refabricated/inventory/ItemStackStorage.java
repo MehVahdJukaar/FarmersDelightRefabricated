@@ -10,14 +10,16 @@ import net.minecraft.world.item.ItemStack;
 
 public class ItemStackStorage extends SingleItemStorage {
     public final int index;
+    private final ItemStackHandler handler;
 
-    public ItemStackStorage(int index) {
+    public ItemStackStorage(int index, ItemStackHandler handler) {
         this.index = index;
+        this.handler = handler;
     }
 
     @Override
     protected long getCapacity(ItemVariant variant) {
-        return 64;
+        return handler.getSlotLimit(index);
     }
 
     @Override

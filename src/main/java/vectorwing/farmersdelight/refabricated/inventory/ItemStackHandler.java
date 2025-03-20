@@ -2,8 +2,6 @@ package vectorwing.farmersdelight.refabricated.inventory;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import it.unimi.dsi.fastutil.ints.IntImmutableList;
-import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -38,7 +36,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStackHandler(int size) {
         this.slots = new ObjectArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            slots.add(new ItemStackStorage(i));
+            slots.add(new ItemStackStorage(i, this));
         }
     }
 
@@ -61,7 +59,6 @@ public class ItemStackHandler implements ItemHandler {
         for (Map.Entry<Integer, StackReference> stackRef : stackMap.entrySet()) {
             if (!ItemStack.matches(stackRef.getValue().original(), stackRef.getValue().current())) {
                 setStackInSlot(stackRef.getKey(), stackRef.getValue().current());
-                onContentsChanged(stackRef.getKey());
             }
             stackRefs.invalidate(stackRef.getKey());
         }
@@ -86,6 +83,7 @@ public class ItemStackHandler implements ItemHandler {
             if (!simulate)
                 transaction.commit();
         }
+        onContentsChanged(slot);
         return stack;
     }
 
@@ -96,11 +94,12 @@ public class ItemStackHandler implements ItemHandler {
             if (!simulate)
                 transaction.commit();
         }
+        onContentsChanged(slot);
         return stack;
     }
 
     public int getSlotLimit(int slot) {
-        return (int) slots.get(slot).getCapacity();
+        return 64;
     }
 
     public int getStackLimit(int slot, ItemVariant resource) {
@@ -122,10 +121,13 @@ public class ItemStackHandler implements ItemHandler {
         long inserted = 0;
         for (Iterator<ItemStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
             ItemStackStorage storage = it.next();
-            inserted += storage.insert(resource, maxAmount, transaction);
+            long thisInsert = storage.insert(resource, maxAmount, transaction);
+            if (thisInsert > 0) {
+                onContentsChanged(storage.index);
+                inserted += thisInsert;
+            }
             if (inserted >= maxAmount)
                 break;
-            onContentsChanged(storage.index);
         }
         return inserted;
     }
@@ -138,10 +140,13 @@ public class ItemStackHandler implements ItemHandler {
             return 0;
         long extracted = 0;
         for (ItemStackStorage storage : slots) {
-            extracted += storage.extract(resource, maxAmount - extracted, transaction);
+            long thisExtract = storage.extract(resource, maxAmount, transaction);
+            if (thisExtract > 0) {
+                onContentsChanged(storage.index);
+                extracted += thisExtract;
+            }
             if (extracted >= maxAmount)
                 break;
-            onContentsChanged(storage.index);
         }
         return extracted;
     }
