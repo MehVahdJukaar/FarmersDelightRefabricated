@@ -78,6 +78,8 @@ public class LootModificationEvents {
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
+        if (!source.isBuiltin()) // Will return if the current loot table is modified via datapack.
+            return;
         chestLoot(key, tableBuilder, source, registries);
         scavengingLoot(key, tableBuilder, source, registries);
         slicingLoot(key, tableBuilder, source, registries);
@@ -243,9 +245,8 @@ public class LootModificationEvents {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
             var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(7))));
             if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
-                tableBuilder.modifyPools(builder -> builder.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                        EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))))));
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))));
+                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
+                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES)))));
             }
         }
         // slicing_chocolate_pie
