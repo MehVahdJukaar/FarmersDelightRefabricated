@@ -2,4 +2,4 @@
 - Fixed leather droppers not dropping more leather when killed with a knife.
 - Fixed Cutting Board's Hopper interactions not updating the displayed item.
 - Fixed a dupe bug involving the Cutting Board's Hopper interactions,
-- Fixed the Cutting Board allowing more than 1 item at a time.
+- Fixed Cutting Boards allowing more than 1 item at a time.
