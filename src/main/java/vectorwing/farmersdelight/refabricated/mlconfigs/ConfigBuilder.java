@@ -137,7 +137,9 @@ public abstract class ConfigBuilder {
     }
 
     public Component description(String name) {
-        return Component.translatable(translationKey(name));
+        //no translation since forge mod doesnt have them. uncomment if they get added
+        //return Component.translatable(translationKey(name));
+        return Component.literal(name);
     }
 
     public Component tooltip(String name) {
