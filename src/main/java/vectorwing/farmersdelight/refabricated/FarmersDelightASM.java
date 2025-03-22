@@ -1,9 +1,9 @@
 package vectorwing.farmersdelight.refabricated;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import com.google.common.base.Suppliers;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -31,18 +31,20 @@ public class FarmersDelightASM implements Runnable {
     }
 
     public static Supplier<Object[]> getSearchCategoryStacks() {
-        return Suppliers.memoize(() -> new Object[]{new Object[]{new ItemStack(Items.COMPASS)}});
+        // Requires a Supplier based workaround to make sure that ItemLike isn't loaded.
+        // See https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/77
+        return () -> new Object[]{new ItemStack[]{new ItemStack(((Supplier<Item>)() -> Items.COMPASS).get())}};
     }
 
     public static Supplier<Object[]> getMealsCategoryStacks() {
-        return Suppliers.memoize(() -> new Object[]{new Object[]{new ItemStack(ModItems.VEGETABLE_NOODLES.get())}});
+        return () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.VEGETABLE_NOODLES.get())}};
     }
 
     public static Supplier<Object[]> getDrinksCategoryStacks() {
-        return Suppliers.memoize(() -> new Object[]{new Object[]{new ItemStack(ModItems.APPLE_CIDER.get())}});
+        return () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.APPLE_CIDER.get())}};
     }
 
     public static Supplier<Object[]> getMiscCategoryStacks() {
-        return Suppliers.memoize(() -> new Object[]{new Object[]{new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())}});
+        return () -> new Object[]{new ItemStack[]{new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get())}};
     }
 }

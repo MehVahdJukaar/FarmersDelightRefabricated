@@ -16,3 +16,5 @@ accessible method net/minecraft/world/item/enchantment/Enchantment modifyDamageF
 
 accessible field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
 mutable field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
+
+accessible class net/minecraft/stats/RecipeBookSettings$TypeSettings

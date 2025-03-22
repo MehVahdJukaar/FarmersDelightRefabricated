@@ -1,13 +1,10 @@
 package vectorwing.farmersdelight.common.utility;
 
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 

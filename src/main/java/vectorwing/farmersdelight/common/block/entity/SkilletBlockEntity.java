@@ -99,7 +99,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 						direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 
 				cookingTime = 0;
-				inventory.removeItem(0, 1, true);
+				inventory.removeItem(0, 1, false);
 			}
 		}
 	}
@@ -175,7 +175,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	public ItemStack removeItem() {
-		return inventory.removeItem(0, getStoredStack().getMaxStackSize(), true);
+		return inventory.removeItem(0, getStoredStack().getMaxStackSize(), false);
 	}
 
 	public ItemStackHandler getInventory() {

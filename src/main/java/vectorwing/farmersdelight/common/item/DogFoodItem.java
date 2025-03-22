@@ -51,6 +51,9 @@ public class DogFoodItem extends ConsumableItem
 	{
 		public static InteractionResult onDogFoodApplied(Player player, Level level, InteractionHand hand, Entity target,
 											@Nullable EntityHitResult entityHitResult) {
+			if (player.isSpectator())
+				return InteractionResult.PASS;
+
 			ItemStack itemStack = player.getItemInHand(hand);
 
 			if (target instanceof LivingEntity entity && target.getType().is(ModTags.DOG_FOOD_USERS)) {

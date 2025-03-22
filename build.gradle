@@ -1,8 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.7-SNAPSHOT'
     id 'maven-publish'
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-    id "com.modrinth.minotaur" version "2.8.4"
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 version = mod_version + "+refabricated"
@@ -54,9 +53,6 @@ repositories {
     maven { url "https://maven.ryanliptak.com/" } // AppleSkin
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
-    maven { url "https://repo.greenhouse.house/snapshots/" } // Porting Lib Hotfixes
-    maven { url = "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
-    maven { url = "https://mvn.devos.one/releases/" } // Porting Lib
     exclusiveContent {
         forRepository {
             maven {
@@ -70,9 +66,7 @@ repositories {
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
-    maven { url 'https://repo.greenhouse.house/snapshots/' } // Temporary Porting Lib
     mavenCentral() // Mixin Extras
-    mavenLocal() // Porting Lib (temporary)
 }
 
 dependencies {
@@ -122,67 +116,52 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test EMI.
-    /*
-    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-     */
+//    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
+//        exclude(group: "net.fabricmc.fabric-api")
+//    }
 }
-
-
-var env = System.getenv()
-var modLoader = name
 
 var changelogFile = rootProject.file("changelog.md")
 var changelogText = changelogFile.exists() ? changelogFile.text : ""
 
-if (env.MODRINTH_TOKEN) {
-    modrinth {
-        projectId = modrinth_project_id
-        versionName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
-        uploadFile = tasks.remapJar
-        gameVersions = project.minecraft_supported_versions.split(",").toList()
-        loaders = ["fabric", "quilt"]
-        changelog = changelogText
-        versionNumber = mod_version
-        versionType = "release"
+publishMods {
+    file = remapJar.archiveFile
+    changelog = changelogText
+    type = STABLE
+    displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
+    version = mod_version
 
-        dependencies {
-            required.project "fabric-api"
-            optional.project "crafttweaker"
-            optional.project "jei"
-            optional.project "rei"
-            optional.project "emi"
-        }
-    }
-}
+    modLoaders.add("fabric")
 
-if (env.CURSEFORGE_TOKEN) {
     curseforge {
-        apiKey = env.CURSEFORGE_TOKEN
-        project {
-            id = project_id
-            changelog = changelogText
-            changelogType = 'markdown'
-            releaseType = 'release'
-            for (String mcVersion : project.minecraft_supported_versions.split(",")) {
-                addGameVersion mcVersion
-            }
-            addGameVersion "Fabric"
-            addGameVersion "Quilt"
+        projectId = curseforge_project_id
 
-            mainArtifact(tasks.remapJar) {
-                displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
-            }
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
-            relations {
-                requiredDependency "fabric-api"
-                optionalDependency "crafttweaker"
-                optionalDependency "jei"
-                optionalDependency "roughly-enough-items"
-                optionalDependency "emi"
-            }
-        }
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+        javaVersions.add(JavaVersion.VERSION_21)
+
+        clientRequired = true
+        serverRequired = true
+
+        requires("fabric-api")
+        optional("crafttweaker")
+        optional("jei")
+        optional("roughly-enough-items")
+        optional("emi")
+    }
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = modrinth_project_id
+
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+
+        requires("fabric-api")
+        optional("crafttweaker")
+        optional("jei")
+        optional("rei")
+        optional("emi")
     }
 }
 
@@ -201,7 +180,6 @@ processResources {
             mod_credits          : mod_credits,
             mod_homepage         : mod_homepage,
             mod_github           : mod_github,
-            port_lib_version     : port_lib_version,
             fabric_loader_version: fabric_loader_version,
             fabric_api_version   : fabric_api_version
     ]

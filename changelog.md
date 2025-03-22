@@ -1,7 +1,5 @@
-- Removed Porting Lib as a dependency.
-  - Parts of the mod have been rewritten because of this.
-- Added a new entity tag for Leather Dropping mobs. `farmersdelight:drops_leather`. Used with knives to make sure that leather dropping entities will drop an extra leather upon death.
-- Added new mob effect tags for whether a mob effect is ignored by Milk Bottles and Hot Cocoa. These tags are:
-    - `farmersdelight:ignored/hot_cocoa`
-    - `farmersdelight:ignored/milk_bottle`
-  - Hot Cocoa still follows the harmful effect ruling, Beneficial/Neutral effect clearing cannot be enabled for Hot Cocoa through these tags.
+- Fixed Apple Pie, Candle Cake, Chocolate Pie and Sweet Berry Cheesecake not dropping slices when broken with a knife.
+- Fixed leather droppers not dropping more leather when killed with a knife.
+- Fixed Cutting Board's Hopper interactions not updating the displayed item.
+- Fixed a dupe bug involving the Cutting Board's Hopper interactions,
+- Fixed Cutting Boards allowing more than 1 item at a time.

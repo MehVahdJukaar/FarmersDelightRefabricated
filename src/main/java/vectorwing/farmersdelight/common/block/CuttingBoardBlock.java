@@ -216,8 +216,10 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	public static class ToolCarvingEvent
 	{
-		@SuppressWarnings("unused")
 		public static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand hand, BlockHitResult hit) {
+			if (player.isSpectator())
+				return InteractionResult.PASS;
+
 			BlockPos pos = hit.getBlockPos();
 			ItemStack heldStack = player.getMainHandItem();
 			BlockEntity tileEntity = level.getBlockEntity(pos);

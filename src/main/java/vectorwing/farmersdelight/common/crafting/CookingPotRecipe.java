@@ -98,17 +98,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	@Override
 	public boolean matches(RecipeWrapper inv, Level level) {
-		StackedContents stackedContents = new StackedContents();
-		int i = 0;
-
-		for (int j = 0; j < INPUT_SLOTS; ++j) {
-			ItemStack itemstack = inv.getItem(j);
-			if (!itemstack.isEmpty()) {
-				++i;
-				stackedContents.accountStack(itemstack);
-			}
-		}
-		return i == this.inputItems.size() && stackedContents.canCraft(this, null);
+		return inv.ingredientAmount() == this.inputItems.size() && inv.stackedContents().canCraft(this, null);
 	}
 
 	@Override

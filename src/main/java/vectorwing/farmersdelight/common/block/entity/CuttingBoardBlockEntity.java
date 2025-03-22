@@ -169,7 +169,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		if (!isEmpty()) {
 			isItemCarvingBoard = false;
 			ItemStack item = getStoredItem().split(1);
-			inventoryChanged();
+			inventory.commitModifiedStacks();
+//			inventoryChanged();
 			return item;
 		}
 		return ItemStack.EMPTY;

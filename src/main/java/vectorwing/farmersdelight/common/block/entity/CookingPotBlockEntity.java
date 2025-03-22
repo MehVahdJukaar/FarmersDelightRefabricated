@@ -1,6 +1,8 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.IntImmutableList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -53,6 +55,7 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
@@ -331,9 +334,11 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
 			}
-			if (!slotStack.isEmpty())
+			if (!slotStack.isEmpty()) {
 				slotStack.shrink(1);
+			}
 		}
+		inventory.commitModifiedStacks();
 		return true;
 	}
 
@@ -423,6 +428,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			mealStack.shrink(mealCount);
 			outputStack.grow(mealCount);
 		}
+		inventory.commitModifiedStacks();
 	}
 
 	private void useStoredContainersOnMeal() {
@@ -441,13 +447,16 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 				containerInputStack.shrink(mealCount);
 				outputStack.grow(mealCount);
 			}
+			inventory.commitModifiedStacks();
 		}
 	}
 
 	public ItemStack useHeldItemOnMeal(ItemStack container) {
 		if (isContainerValid(container) && !getMeal().isEmpty()) {
 			container.shrink(1);
-			return getMeal().split(1);
+			ItemStack split = getMeal().split(1);
+			inventory.commitModifiedStacks();
+			return split;
 		}
 		return ItemStack.EMPTY;
 	}
@@ -552,6 +561,12 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			@Override
 			protected void onContentsChanged(int slot) {
 				inventoryChanged();
+			}
+
+			// Refabricated: Input Slot Indexes for RecipeWrapper.
+			@Override
+			public IntList getInputSlotIndexes() {
+				return IntImmutableList.of(IntStream.range(0, 6).toArray());
 			}
 		};
 	}
