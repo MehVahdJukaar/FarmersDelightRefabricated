@@ -58,7 +58,7 @@ public class FarmersDelight implements ModInitializer
 		CommonModBusEvents.init();
 		VillagerEvents.init();
 
-		CommonSetup.registerDispenserBehaviors();
+		CommonSetup.init();
 
 		// new stuff
 		VanillaCrateEnabledCondition.init();

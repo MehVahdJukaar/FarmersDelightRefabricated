@@ -2,6 +2,9 @@ accessWidener   v2  named
 
 accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
 
+accessible field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+mutable field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 
 accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool templates Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
