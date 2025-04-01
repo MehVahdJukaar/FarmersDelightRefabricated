@@ -1,9 +1,9 @@
 {
   "values": [
     "farmersdelight:cabbages",
-    "farmersdelight:budding_tomatoes",
-    "farmersdelight:tomatoes",
     "farmersdelight:onions",
-    "farmersdelight:rice"
+    "farmersdelight:rice_panicles",
+    "farmersdelight:tomatoes",
+    "farmersdelight:budding_tomatoes"
   ]
 }
