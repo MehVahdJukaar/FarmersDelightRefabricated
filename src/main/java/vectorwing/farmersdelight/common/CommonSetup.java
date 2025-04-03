@@ -53,6 +53,7 @@ public class CommonSetup {
 
         registerCompostables();
         registerDispenserBehaviors();
+        registerItemSetAdditions();
         registerAnimalFeeds();
 
         ModAdvancements.register();
@@ -139,15 +140,9 @@ public class CommonSetup {
     public static void registerItemSetAdditions() {
         Ingredient newChickenFood = Ingredient.of(ModItems.CABBAGE_SEEDS.get(), ModItems.TOMATO_SEEDS.get(), ModItems.RICE.get());
         Chicken.FOOD_ITEMS = Ingredient.of(Stream.concat(Arrays.stream(Chicken.FOOD_ITEMS.getItems()), Arrays.stream(newChickenFood.getItems())));
-        {
-        }
-        ;
 
         Ingredient newPigFood = Ingredient.of(ModItems.CABBAGE.get(), ModItems.TOMATO.get());
         Pig.FOOD_ITEMS = Ingredient.of(Stream.concat(Arrays.stream(Pig.FOOD_ITEMS.getItems()), Arrays.stream(newPigFood.getItems())));
-        {
-        }
-        ;
 
         Collections.addAll(Parrot.TAME_FOOD, ModItems.CABBAGE_SEEDS.get(), ModItems.TOMATO_SEEDS.get(), ModItems.RICE.get());
 
