@@ -50,13 +50,13 @@ public class LootModificationEvents {
     private static final ResourceKey<LootTable> ENTITIES_RABBIT = vanillaKey("entities/rabbit");
     private static final ResourceKey<LootTable> ENTITIES_SHULKER = vanillaKey("entities/shulker");
     private static final ResourceKey<LootTable> ENTITIES_SPIDER = vanillaKey("entities/spider");
+    private static final ResourceKey<LootTable> BLOCKS_WHEAT = vanillaKey("blocks/wheat");
 
     private static final ResourceKey<LootTable> BLOCKS_APPLE_PIE = key("blocks/apple_pie");
     private static final ResourceKey<LootTable> BLOCKS_CHOCOLATE_PIE = key("blocks/chocolate_pie");
     private static final ResourceKey<LootTable> BLOCKS_RICE_PANICLES = key("blocks/rice_panicles");
     private static final ResourceKey<LootTable> BLOCKS_SANDY_SHRUB = key("blocks/sandy_shrub");
     private static final ResourceKey<LootTable> BLOCKS_SWEET_BERRY_CHEESECAKE = key("blocks/sweet_berry_cheesecake");
-    private static final ResourceKey<LootTable> BLOCKS_WHEAT = key("blocks/wheat");
 
     public static final ResourceKey<LootTable> FD_ABANDONED_MINESHAFT = key("chests/fd_abandoned_mineshaft");
     public static final ResourceKey<LootTable> FD_BASTION_HOGLIN_STABLE = key("chests/fd_bastion_hoglin_stable");
