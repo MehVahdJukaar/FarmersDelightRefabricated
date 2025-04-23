@@ -42,7 +42,7 @@ public class LootModificationEvents {
     private static final ResourceKey<LootTable> BLOCKS_CAKE = vanillaKey("blocks/cake");
     private static final ResourceKey<LootTable> BLOCKS_PUMPKIN = vanillaKey("blocks/pumpkin");
     private static final ResourceKey<LootTable> BLOCKS_SHORT_GRASS = vanillaKey("blocks/short_grass");
-    private static final ResourceKey<LootTable> BLOCKS_TALL_GRASS = vanillaKey("blocks/taill_grass");
+    private static final ResourceKey<LootTable> BLOCKS_TALL_GRASS = vanillaKey("blocks/tall_grass");
     private static final ResourceKey<LootTable> ENTITIES_CAVE_SPIDER = vanillaKey("entities/cave_spider");
     private static final ResourceKey<LootTable> ENTITIES_CHICKEN = vanillaKey("entities/chicken");
     private static final ResourceKey<LootTable> ENTITIES_HOGLIN = vanillaKey("entities/hoglin");
