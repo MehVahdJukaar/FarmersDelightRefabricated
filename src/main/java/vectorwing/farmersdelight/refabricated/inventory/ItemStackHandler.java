@@ -17,7 +17,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -45,13 +49,22 @@ public class ItemStackHandler implements ItemHandler {
         return true;
     }
 
+    @Override
     public ItemStack getStackInSlot(int slot) {
         var slotRef = slots.get(slot);
-        ItemStack stackRef = slotRef.getResource().toStack((int)slotRef.getAmount());
-        stackRefs.put(slot, new StackReference(stackRef.copy(), stackRef));
-        return stackRef;
+        try {
+           StackReference ref = stackRefs.get(slot, () -> {
+                var stack = slotRef.getResource().toStack((int) slotRef.getAmount();
+                return new StackReference(stack.copy(), stack);
+            });
+            return ref.current();
+
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    @Override
     public void commitModifiedStacks() {
         var stackMap = stackRefs.asMap();
         if (stackMap.isEmpty())
@@ -79,7 +92,7 @@ public class ItemStackHandler implements ItemHandler {
         if (stack.isEmpty())
             return stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = stack.copyWithCount(stack.getCount() - (int)insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction));
+            stack = stack.copyWithCount(stack.getCount() - (int) insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction));
             if (!simulate)
                 transaction.commit();
         }
@@ -90,7 +103,7 @@ public class ItemStackHandler implements ItemHandler {
     public @NotNull ItemStack removeItem(int slot, int amount, boolean simulate) {
         ItemStack stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = getStackInSlot(slot).copyWithCount((int)extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
+            stack = getStackInSlot(slot).copyWithCount((int) extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
             if (!simulate)
                 transaction.commit();
         }
