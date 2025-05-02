@@ -1,5 +1,1 @@
-- Fixed Apple Pie, Candle Cake, Chocolate Pie and Sweet Berry Cheesecake not dropping slices when broken with a knife.
-- Fixed leather droppers not dropping more leather when killed with a knife.
-- Fixed Cutting Board's Hopper interactions not updating the displayed item.
-- Fixed a dupe bug involving the Cutting Board's Hopper interactions,
-- Fixed Cutting Boards allowing more than 1 item at a time.
+- fixed an issue with inventories
