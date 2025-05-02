@@ -125,8 +125,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(stoveStack);
 					if (recipe.isPresent()) {
 						ItemStack resultStack = recipe.get().value().getResultItem(level.registryAccess());
-						if (!resultStack.isEmpty()) {
-							ItemUtils.spawnItemEntity(level, resultStack.copy(),
+						if (!resultStack.isEmpty()) {ItemUtils.spawnItemEntity(level, resultStack.copy(),
 									worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
 									level.random.nextGaussian() * (double) 0.01F, 0.1F, level.random.nextGaussian() * (double) 0.01F);
 						}

@@ -54,7 +54,7 @@ public class ItemStackHandler implements ItemHandler {
         var slotRef = slots.get(slot);
         try {
            StackReference ref = stackRefs.get(slot, () -> {
-                var stack = slotRef.getResource().toStack((int) slotRef.getAmount();
+                var stack = slotRef.getResource().toStack((int) slotRef.getAmount());
                 return new StackReference(stack.copy(), stack);
             });
             return ref.current();
@@ -81,6 +81,8 @@ public class ItemStackHandler implements ItemHandler {
         if (!getSlot(slot).isResourceBlank())
             removeItem(slot, getSlotLimit(slot), false);
         insertItem(slot, stack, false);
+
+        commitModifiedStacks();
     }
 
     @Override
