@@ -71,18 +71,23 @@ public class ItemStackHandler implements ItemHandler {
             return;
         for (Map.Entry<Integer, StackReference> stackRef : stackMap.entrySet()) {
             if (!ItemStack.matches(stackRef.getValue().original(), stackRef.getValue().current())) {
-                setStackInSlot(stackRef.getKey(), stackRef.getValue().current());
+                setStackInSlotInternal(stackRef.getKey(), stackRef.getValue().current());
             }
             stackRefs.invalidate(stackRef.getKey());
         }
     }
 
     public void setStackInSlot(int slot, ItemStack stack) {
+        setStackInSlotInternal(slot, stack);
+
+        commitModifiedStacks();
+    }
+
+    //TODO: this is horrible
+    private void setStackInSlotInternal(int slot, ItemStack stack) {
         if (!getSlot(slot).isResourceBlank())
             removeItem(slot, getSlotLimit(slot), false);
         insertItem(slot, stack, false);
-
-        commitModifiedStacks();
     }
 
     @Override
