@@ -53,7 +53,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStack getStackInSlot(int slot) {
         var slotRef = slots.get(slot);
         try {
-           StackReference ref = stackRefs.get(slot, () -> {
+            StackReference ref = stackRefs.get(slot, () -> {
                 var stack = slotRef.getResource().toStack((int) slotRef.getAmount());
                 return new StackReference(stack.copy(), stack);
             });
@@ -75,6 +75,7 @@ public class ItemStackHandler implements ItemHandler {
             }
             stackRefs.invalidate(stackRef.getKey());
         }
+        stackRefs.cleanUp();
     }
 
     public void setStackInSlot(int slot, ItemStack stack) {
@@ -96,6 +97,7 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        stackRefs.invalidate(slot);
         if (stack.isEmpty())
             return stack;
         try (Transaction transaction = Transaction.openOuter()) {
@@ -108,6 +110,7 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     public @NotNull ItemStack removeItem(int slot, int amount, boolean simulate) {
+        stackRefs.invalidate(slot);
         ItemStack stack;
         try (Transaction transaction = Transaction.openOuter()) {
             stack = getStackInSlot(slot).copyWithCount((int) extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
