@@ -1,1 +1,1 @@
-- fixed the food duplication miracle
+- fixed an issue in which inventories that wanted to drop items were not clearing their content properly
