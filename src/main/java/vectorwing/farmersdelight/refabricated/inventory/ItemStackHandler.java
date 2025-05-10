@@ -96,6 +96,10 @@ public class ItemStackHandler implements ItemHandler {
         return removeItem(slot, amount, false);
     }
 
+    public ItemStack removeItem(int slot) {
+        return removeItem(slot, getSlot(slot).getSlotCount(), false);
+    }
+
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         stackRefs.invalidate(slot);
         if (stack.isEmpty())
