@@ -2,8 +2,6 @@ package vectorwing.farmersdelight.refabricated.inventory;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import it.unimi.dsi.fastutil.ints.IntImmutableList;
-import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -19,7 +17,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -38,7 +40,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStackHandler(int size) {
         this.slots = new ObjectArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            slots.add(new ItemStackStorage(i));
+            slots.add(new ItemStackStorage(i, this));
         }
     }
 
@@ -47,27 +49,43 @@ public class ItemStackHandler implements ItemHandler {
         return true;
     }
 
+    @Override
     public ItemStack getStackInSlot(int slot) {
         var slotRef = slots.get(slot);
-        ItemStack stackRef = slotRef.getResource().toStack((int)slotRef.getAmount());
-        stackRefs.put(slot, new StackReference(stackRef.copy(), stackRef));
-        return stackRef;
+        try {
+            StackReference ref = stackRefs.get(slot, () -> {
+                var stack = slotRef.getResource().toStack((int) slotRef.getAmount());
+                return new StackReference(stack.copy(), stack);
+            });
+            return ref.current();
+
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    @Override
     public void commitModifiedStacks() {
         var stackMap = stackRefs.asMap();
         if (stackMap.isEmpty())
             return;
         for (Map.Entry<Integer, StackReference> stackRef : stackMap.entrySet()) {
             if (!ItemStack.matches(stackRef.getValue().original(), stackRef.getValue().current())) {
-                setStackInSlot(stackRef.getKey(), stackRef.getValue().current());
-                onContentsChanged(stackRef.getKey());
+                setStackInSlotInternal(stackRef.getKey(), stackRef.getValue().current());
             }
             stackRefs.invalidate(stackRef.getKey());
         }
+        stackRefs.cleanUp();
     }
 
     public void setStackInSlot(int slot, ItemStack stack) {
+        setStackInSlotInternal(slot, stack);
+
+        commitModifiedStacks();
+    }
+
+    //TODO: this is horrible
+    private void setStackInSlotInternal(int slot, ItemStack stack) {
         if (!getSlot(slot).isResourceBlank())
             removeItem(slot, getSlotLimit(slot), false);
         insertItem(slot, stack, false);
@@ -78,29 +96,37 @@ public class ItemStackHandler implements ItemHandler {
         return removeItem(slot, amount, false);
     }
 
+    public ItemStack removeItem(int slot) {
+        return removeItem(slot, getSlot(slot).getSlotCount(), false);
+    }
+
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        stackRefs.invalidate(slot);
         if (stack.isEmpty())
             return stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = stack.copyWithCount(stack.getCount() - (int)insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction));
+            stack = stack.copyWithCount(stack.getCount() - (int) insertSlot(slot, ItemVariant.of(stack), stack.getCount(), transaction));
             if (!simulate)
                 transaction.commit();
         }
+        onContentsChanged(slot);
         return stack;
     }
 
     public @NotNull ItemStack removeItem(int slot, int amount, boolean simulate) {
+        stackRefs.invalidate(slot);
         ItemStack stack;
         try (Transaction transaction = Transaction.openOuter()) {
-            stack = getStackInSlot(slot).copyWithCount((int)extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
+            stack = getStackInSlot(slot).copyWithCount((int) extractSlot(slot, ItemVariant.of(getStackInSlot(slot)), amount, transaction));
             if (!simulate)
                 transaction.commit();
         }
+        onContentsChanged(slot);
         return stack;
     }
 
     public int getSlotLimit(int slot) {
-        return (int) slots.get(slot).getCapacity();
+        return 64;
     }
 
     public int getStackLimit(int slot, ItemVariant resource) {
@@ -122,10 +148,13 @@ public class ItemStackHandler implements ItemHandler {
         long inserted = 0;
         for (Iterator<ItemStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
             ItemStackStorage storage = it.next();
-            inserted += storage.insert(resource, maxAmount, transaction);
+            long thisInsert = storage.insert(resource, maxAmount, transaction);
+            if (thisInsert > 0) {
+                onContentsChanged(storage.index);
+                inserted += thisInsert;
+            }
             if (inserted >= maxAmount)
                 break;
-            onContentsChanged(storage.index);
         }
         return inserted;
     }
@@ -138,10 +167,13 @@ public class ItemStackHandler implements ItemHandler {
             return 0;
         long extracted = 0;
         for (ItemStackStorage storage : slots) {
-            extracted += storage.extract(resource, maxAmount - extracted, transaction);
+            long thisExtract = storage.extract(resource, maxAmount, transaction);
+            if (thisExtract > 0) {
+                onContentsChanged(storage.index);
+                extracted += thisExtract;
+            }
             if (extracted >= maxAmount)
                 break;
-            onContentsChanged(storage.index);
         }
         return extracted;
     }

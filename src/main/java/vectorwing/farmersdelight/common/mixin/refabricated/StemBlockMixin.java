@@ -18,7 +18,7 @@ import vectorwing.farmersdelight.common.utility.SoilUtils;
 @Mixin(StemBlock.class)
 public class StemBlockMixin {
     @ModifyExpressionValue(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-    private boolean mynethersdelightrefabricated$modifyRandomTickCallForStems(boolean original, @Local(ordinal = 1) BlockState below) {
+    private boolean fdrf$modifyRandomTickCallForStems(boolean original, @Local(ordinal = 1) BlockState below) {
         if (below.getBlock() instanceof RichSoilBlock)
             return SoilUtils.isAbleToPlaceRichSoil((Block)(Object) this);
 

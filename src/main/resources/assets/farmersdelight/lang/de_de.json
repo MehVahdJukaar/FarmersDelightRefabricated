@@ -130,7 +130,7 @@
   "item.farmersdelight.ham": "Schinken",
   "item.farmersdelight.smoked_ham": "Räucherschinken",
 
-  "item.farmersdelight.pie_crust": "Kuchenkruste", 
+  "item.farmersdelight.pie_crust": "Kuchenkruste",
   "item.farmersdelight.cake_slice": "Kuchenstück",
   "item.farmersdelight.apple_pie_slice": "Apfelkuchenstück",
   "item.farmersdelight.sweet_berry_cheesecake_slice": "Süßbeerenkäsekuchenstück",
@@ -205,8 +205,8 @@
   "effect.farmersdelight.nourishment": "Gesättigt",
   "effect.farmersdelight.comfort": "Komfort",
 
-  "effect.farmersdelight.nourishment.0.desc": "Verhindert Hungerverlust, es sei denn es wird Leben regeneriert.",
-  "effect.farmersdelight.comfort.0.desc": "Verleiht Immunität gegenüber Hunger, Langsamkeit und Schwäche",
+  "effect.farmersdelight.nourishment.description": "Verhindert Hungerverlust, es sei denn es wird Leben regeneriert.",
+  "effect.farmersdelight.comfort.description": "Verleiht Immunität gegenüber Hunger, Langsamkeit und Schwäche",
 
   "enchantment.farmersdelight.backstabbing": "Hinterhalt",
   "enchantment.farmersdelight.backstabbing.desc": "Mehr Schaden durch Angriffe von hinten.",
@@ -236,7 +236,7 @@
   "farmersdelight.advancement.craft_knife": "Jagen und sammeln",
   "farmersdelight.advancement.craft_knife.desc": "Stelle ein Messer her um mehr Material von Pflanzen und Tieren zu sammeln",
   "farmersdelight.advancement.harvest_straw": "Nach Strohhalmen greifen",
-  "farmersdelight.advancement.harvest_straw.desc": "Ernte krautige Pflanzen und Feldfrüchte mit einem Küchenmesser, um Stroh zu bekommen.",  
+  "farmersdelight.advancement.harvest_straw.desc": "Ernte krautige Pflanzen und Feldfrüchte mit einem Küchenmesser, um Stroh zu bekommen.",
   "farmersdelight.advancement.place_organic_compost": "Fortgeschrittene Kompostierung",
   "farmersdelight.advancement.place_organic_compost.desc": "Platziere ein wenig organischen Kompost. Es kompostiert besser wenn es mit Sonne, Wasser oder Pilzen in Kontakt ist",
   "farmersdelight.advancement.get_rich_soil": "Pflanzenfutter",

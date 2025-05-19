@@ -32,8 +32,6 @@ public class TagUtils {
     private static Collection<Holder<Block>> earlyDropsCakeTag;
     private static Collection<Holder<EntityType<?>>> earlyDropsLeatherTag;
 
-    private static final FileToIdConverter CONVERTER = FileToIdConverter.json("tags/entity_type");
-
     // This exists so we don't modify literally every loot table in the game just to add loot to a few
     public static boolean isCandleDropsCakeSliceTag(Holder<Block> block, HolderLookup<Block> lookup) {
         if (earlyDropsCakeTag == null) {
@@ -62,47 +60,47 @@ public class TagUtils {
         return earlyDropsLeatherTag.contains(entityType);
     }
 
-    private static <T> Map<ResourceLocation, List<TagLoader.EntryWithSource>> loadTag(TagKey<T> tagKey) {
+    public static <T> Map<ResourceLocation, List<TagLoader.EntryWithSource>> loadTag(TagKey<T> tagKey) {
         Map<ResourceLocation, List<TagLoader.EntryWithSource>> map = Maps.newHashMap();
+        String tagRegistryLocation = (tagKey.registry().location().getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE) ? "" : tagKey.registry().location().getNamespace() + "/")  + tagKey.registry().location().getPath();
+        ResourceLocation jsonPath = ResourceLocation.fromNamespaceAndPath(tagKey.location().getNamespace(), "tags/" +
+                tagRegistryLocation + "/" + tagKey.location().getPath() + ".json");
 
-        for (Map.Entry<ResourceLocation, List<Resource>> entry : resourceManager.listResourceStacks("tags/" +
-                tagKey.registry().location().getNamespace() + "/" + tagKey.registry().location().getPath() + "/" + tagKey.location().getPath() + ".json", resourceLocation -> tagKey.location().getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
-            loadIndividualTag(entry, map);
+        for (Resource entry : resourceManager.getResourceStack(jsonPath)) {
+            loadIndividualTag(tagRegistryLocation, jsonPath, entry, map);
         }
 
         return map;
     }
 
-    private static void loadIndividualTag(Map.Entry<ResourceLocation, List<Resource>> entry, Map<ResourceLocation, List<TagLoader.EntryWithSource>> map) {
-        ResourceLocation fileKey = entry.getKey();
-        ResourceLocation fileToId = CONVERTER.fileToId(fileKey);
-
-        for (Resource resource : entry.getValue()) {
-            try (Reader reader = resource.openAsReader()) {
-                JsonElement jsonElement = JsonParser.parseReader(reader);
-                List<TagLoader.EntryWithSource> list = map.getOrDefault(fileToId, new ArrayList<>());
-                TagFile tagFile = TagFile.CODEC.parse(new Dynamic<>(JsonOps.INSTANCE, jsonElement)).getOrThrow();
-                if (tagFile.replace()) {
-                    list.clear();
-                }
-
-                tagFile.entries().forEach((tagEntry) -> {
-                    // Return value is unused, this was the easiest way to determine whether this was a tag or not.
-                    tagEntry.verifyIfPresent(resourceLocation -> {
-                        list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
-                        return false;
-                    }, resourceLocation -> {
-                        for (Map.Entry<ResourceLocation, List<Resource>> innerEntry : resourceManager.listResourceStacks(CONVERTER.idToFile(resourceLocation).getPath(), resourceLocation1 -> resourceLocation1.getNamespace().equals(resourceLocation.getNamespace())).entrySet()) {
-                            loadIndividualTag(innerEntry, map);
-                        }
-                        list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
-                        return false;
-                    });
-                });
-                map.putIfAbsent(fileToId, list);
-            } catch (Exception ignored) {
-                // The game should throw an exception itself upon failure.
+    private static void loadIndividualTag(String tagRegistryLocation, ResourceLocation fileLocation, Resource resource, Map<ResourceLocation, List<TagLoader.EntryWithSource>> map) {
+        FileToIdConverter converter = FileToIdConverter.json("tags/" + tagRegistryLocation);
+        ResourceLocation fileToId = converter.fileToId(fileLocation);
+        try (Reader reader = resource.openAsReader()) {
+            JsonElement jsonElement = JsonParser.parseReader(reader);
+            List<TagLoader.EntryWithSource> list = map.getOrDefault(fileToId, new ArrayList<>());
+            TagFile tagFile = TagFile.CODEC.parse(new Dynamic<>(JsonOps.INSTANCE, jsonElement)).getOrThrow();
+            if (tagFile.replace()) {
+                list.clear();
             }
+
+            tagFile.entries().forEach((tagEntry) -> {
+                // Return value is unused, this was the easiest way to determine whether this was a tag or not.
+                tagEntry.verifyIfPresent(resourceLocation -> {
+                    list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
+                    return false;
+                }, resourceLocation -> {
+                    for (Resource innerEntry : resourceManager.getResourceStack(converter.idToFile(resourceLocation))) {
+                        loadIndividualTag(tagRegistryLocation, resourceLocation, innerEntry, map);
+                    }
+                    list.add(new TagLoader.EntryWithSource(tagEntry, resource.sourcePackId()));
+                    return false;
+                });
+            });
+            map.putIfAbsent(fileToId, list);
+        } catch (Exception ignored) {
+            // The game should throw an exception itself upon failure.
+
         }
     }
 
@@ -111,6 +109,7 @@ public class TagUtils {
     }
 
     public static void resetEarlyTagCollections() {
+        resourceManager = null;
         earlyDropsCakeTag = null;
         earlyDropsLeatherTag = null;
     }

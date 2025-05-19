@@ -205,8 +205,8 @@
   "effect.farmersdelight.nourishment": "Nutrição",
   "effect.farmersdelight.comfort": "Conforto",
 
-  "effect.farmersdelight.nourishment.0.desc": "Previne perda de fome, exceto quando puder curar-se com saturação.",
-  "effect.farmersdelight.comfort.0.desc": "Concede regeneração natural, não importa o quão faminto você estiver.",
+  "effect.farmersdelight.nourishment.description": "Previne perda de fome, exceto quando puder curar-se com saturação.",
+  "effect.farmersdelight.comfort.description": "Concede regeneração natural, não importa o quão faminto você estiver.",
 
   "enchantment.farmersdelight.backstabbing": "Punhalada nas costas",
   "enchantment.farmersdelight.backstabbing.desc": "Amplifica o dano ao atingir um alvo pelas costas.",

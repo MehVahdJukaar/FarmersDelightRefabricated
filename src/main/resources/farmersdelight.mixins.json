@@ -13,10 +13,10 @@
     "refabricated.DoublePlantBlockMixin",
     "refabricated.ItemStackMixin",
     "refabricated.LivingEntityMixin",
-    "refabricated.Mixin_ReloadableServerRegistries",
     "refabricated.MushroomBlockMixin",
     "refabricated.PlayerMixin",
     "refabricated.RecipeBookSettingsMixin",
+    "refabricated.ReloadableServerRegistriesMixin",
     "refabricated.ServerRecipeBookMixin",
     "refabricated.StemBlockMixin",
     "refabricated.SugarCaneBlockMixin"

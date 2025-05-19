@@ -42,7 +42,7 @@ public class LootModificationEvents {
     private static final ResourceKey<LootTable> BLOCKS_CAKE = vanillaKey("blocks/cake");
     private static final ResourceKey<LootTable> BLOCKS_PUMPKIN = vanillaKey("blocks/pumpkin");
     private static final ResourceKey<LootTable> BLOCKS_SHORT_GRASS = vanillaKey("blocks/short_grass");
-    private static final ResourceKey<LootTable> BLOCKS_TALL_GRASS = vanillaKey("blocks/taill_grass");
+    private static final ResourceKey<LootTable> BLOCKS_TALL_GRASS = vanillaKey("blocks/tall_grass");
     private static final ResourceKey<LootTable> ENTITIES_CAVE_SPIDER = vanillaKey("entities/cave_spider");
     private static final ResourceKey<LootTable> ENTITIES_CHICKEN = vanillaKey("entities/chicken");
     private static final ResourceKey<LootTable> ENTITIES_HOGLIN = vanillaKey("entities/hoglin");
@@ -50,13 +50,13 @@ public class LootModificationEvents {
     private static final ResourceKey<LootTable> ENTITIES_RABBIT = vanillaKey("entities/rabbit");
     private static final ResourceKey<LootTable> ENTITIES_SHULKER = vanillaKey("entities/shulker");
     private static final ResourceKey<LootTable> ENTITIES_SPIDER = vanillaKey("entities/spider");
+    private static final ResourceKey<LootTable> BLOCKS_WHEAT = vanillaKey("blocks/wheat");
 
     private static final ResourceKey<LootTable> BLOCKS_APPLE_PIE = key("blocks/apple_pie");
     private static final ResourceKey<LootTable> BLOCKS_CHOCOLATE_PIE = key("blocks/chocolate_pie");
     private static final ResourceKey<LootTable> BLOCKS_RICE_PANICLES = key("blocks/rice_panicles");
     private static final ResourceKey<LootTable> BLOCKS_SANDY_SHRUB = key("blocks/sandy_shrub");
     private static final ResourceKey<LootTable> BLOCKS_SWEET_BERRY_CHEESECAKE = key("blocks/sweet_berry_cheesecake");
-    private static final ResourceKey<LootTable> BLOCKS_WHEAT = key("blocks/wheat");
 
     public static final ResourceKey<LootTable> FD_ABANDONED_MINESHAFT = key("chests/fd_abandoned_mineshaft");
     public static final ResourceKey<LootTable> FD_BASTION_HOGLIN_STABLE = key("chests/fd_bastion_hoglin_stable");
@@ -78,6 +78,8 @@ public class LootModificationEvents {
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
+        if (!source.isBuiltin()) // Will return if the current loot table is modified via datapack.
+            return;
         chestLoot(key, tableBuilder, source, registries);
         scavengingLoot(key, tableBuilder, source, registries);
         slicingLoot(key, tableBuilder, source, registries);
@@ -243,9 +245,8 @@ public class LootModificationEvents {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
             var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(7))));
             if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
-                tableBuilder.modifyPools(builder -> builder.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                        EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))))));
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))));
+                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
+                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES)))));
             }
         }
         // slicing_chocolate_pie
