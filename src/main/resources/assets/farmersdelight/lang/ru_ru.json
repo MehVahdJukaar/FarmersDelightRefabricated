@@ -327,11 +327,11 @@
   "tag.item.c.eggs": "Яйца",
   "tag.item.c.mushrooms": "Грибы",
 
-  "tag.item.c.crops.cabbage": "Капустные культуры",
-  "tag.item.c.crops.grain": "Зерновые культуры",
-  "tag.item.c.crops.onion": "Луковые культуры",
-  "tag.item.c.crops.rice": "Рисовые культуры",
-  "tag.item.c.crops.tomato": "Томатные культуры",
+  "tag.item.c.crops.cabbage": "Капуста",
+  "tag.item.c.crops.grain": "Зерновые",
+  "tag.item.c.crops.onion": "Лук",
+  "tag.item.c.crops.rice": "Рис",
+  "tag.item.c.crops.tomato": "Томаты",
   "tag.item.c.foods.cabbage": "Капуста",
   "tag.item.c.foods.cooked_bacon": "Жареный бекон",
   "tag.item.c.foods.cooked_beef": "Жареная говядина",
@@ -357,7 +357,6 @@
   "tag.item.c.foods.raw_salmon": "Сырой лосось",
   "tag.item.c.foods.safe_raw_fish": "Безопасная сырая рыба",
   "tag.item.c.foods.tomato": "Томаты",
-  "tag.item.c.tools.knife": "Ножи",
   "tag.item.c.seeds": "Семена",
 
   "tag.item.farmersdelight.cabbage_roll_ingredients": "Ингредиенты для голубцов",
@@ -371,5 +370,6 @@
   "tag.item.farmersdelight.serving_containers": "Сервировочные контейнеры",
   "tag.item.farmersdelight.straw_harvesters": "Сборщики соломы",
   "tag.item.farmersdelight.tools.knives": "Ножи",
-  "tag.item.farmersdelight.wild_crops": "Дикорастущие культуры"
+  "tag.item.farmersdelight.wild_crops": "Дикорастущие культуры",
+  "tag.item.farmersdelight.wolf_prey": "Волчья добыча"
 }
