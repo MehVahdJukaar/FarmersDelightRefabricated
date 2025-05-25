@@ -57,7 +57,7 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(Blocks.FARMLAND);
+		return state.getBlock() instanceof FarmBlock;
 	}
 
 	public IntegerProperty getAgeProperty() {
