@@ -1,1 +1,2 @@
-- fixed an issue in which inventories that wanted to drop items were not clearing their content properly
+fixed another quirk with inventories
+improved farmland detection for crops

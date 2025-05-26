@@ -17,6 +17,7 @@ public class ItemUtils
 		for (int slot = 0; slot < inventory.getSlotCount(); slot++)
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
 					inventory.removeItem(slot));
+		inventory.commitModifiedStacks();
 	}
 
 	public static boolean isInventoryEmpty(ItemHandler inventory) {
