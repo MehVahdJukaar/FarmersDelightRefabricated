@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
+//some sort of glue between a forge lke interface and fabric system. Not very successful.. todo: go back to simple forge like impl
 public interface ItemHandler extends SlottedStorage<ItemVariant> {
     int getSlotCount();
     int getSlotLimit(int slot);

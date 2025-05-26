@@ -53,7 +53,8 @@ public class StoveBlock extends BaseEntityBlock
 
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
+				.setValue(LIT, true));
 		LandPathNodeTypesRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
 	}
 
