@@ -29,8 +29,11 @@ import java.util.stream.Collectors;
 public class ItemStackHandler implements ItemHandler {
     private final List<ItemStackStorage> slots;
     // Required to allow ItemStacks obtained from getStackInSlot to be directly modified.
+    // todo: really these are a terrible idea and cause so many issues. Mut be removed
+    //moreover the api seems messy and the fact tha you must call commitModifiedStacks is very error prone and leads to desyncs
     private final Cache<Integer, StackReference> stackRefs = CacheBuilder.newBuilder()
-            .expireAfterWrite(15, TimeUnit.SECONDS) // 15s is overkill for most use cases, but it's to be safe.
+            .expireAfterWrite(15, TimeUnit.SECONDS)  //this timer causes so many hard to track inconsistencies when stacks arent synced
+            // 15s is overkill for most use cases, but it's to be safe. Sill any timer is factually wrong as i a tick would take more than that (think of debug) they will be out of sync
             .build();
 
     public ItemStackHandler() {
@@ -122,6 +125,7 @@ public class ItemStackHandler implements ItemHandler {
                 transaction.commit();
         }
         onContentsChanged(slot);
+        commitModifiedStacks();
         return stack;
     }
 
