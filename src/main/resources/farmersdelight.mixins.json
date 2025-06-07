@@ -11,6 +11,7 @@
     "KeepRichSoilUntrampledMixin",
     "RabbitsEatCabbageMixin",
     "RecipeBookSettingsMixin",
+    "ServerRecipeBookMixin",
     "SoupItemMixin",
     "accessor.LootContextAccessor",
     "accessor.RecipeManagerAccessor"
