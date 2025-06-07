@@ -361,6 +361,7 @@
   "emi.category.farmersdelight.cutting": "Cutting Board",
   "emi.category.farmersdelight.decomposition": "Decomposition",
 
+  "tag.item.c.bones": "Bones",
   "tag.item.c.eggs": "Eggs",
   "tag.item.c.mushrooms": "Mushrooms",
 
@@ -396,6 +397,15 @@
   "tag.item.c.foods.tomato": "Tomatoes",
   "tag.item.c.tools.knife": "Knives",
   "tag.item.c.seeds": "Seeds",
+  "tag.item.c.storage_blocks.beetroot": "Beetroot Storage Blocks",
+  "tag.item.c.storage_blocks.cabbage": "Cabbage Storage Blocks",
+  "tag.item.c.storage_blocks.carrot": "Carrot Storage Blocks",
+  "tag.item.c.storage_blocks.onion": "Onion Storage Blocks",
+  "tag.item.c.storage_blocks.potato": "Potato Storage Blocks",
+  "tag.item.c.storage_blocks.rice": "Rice Storage Blocks",
+  "tag.item.c.storage_blocks.rice_panicle": "Rice Panicle Storage Blocks",
+  "tag.item.c.storage_blocks.straw": "Straw Storage Blocks",
+  "tag.item.c.storage_blocks.tomato": "Tomato Storage Blocks",
 
   "tag.item.farmersdelight.cabbage_roll_ingredients": "Cabbage Roll Ingredients",
   "tag.item.farmersdelight.cabinets": "Cabinets",
