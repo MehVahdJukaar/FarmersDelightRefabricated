@@ -31,7 +31,7 @@
   "block.farmersdelight.tomato_crate": "箱装番茄",
   "block.farmersdelight.onion_crate": "箱装洋葱",
   "block.farmersdelight.rice_bale": "稻米块",
-  "block.farmersdelight.rice_bag": "稻米袋",
+  "block.farmersdelight.rice_bag": "袋装稻米",
   "block.farmersdelight.straw_bale": "稻草",
 
   "block.farmersdelight.canvas_sign": "粗布告示牌",
@@ -261,7 +261,7 @@
   "farmersdelight.advancement.plant_all_crops": "轮作",
   "farmersdelight.advancement.plant_all_crops.desc": "种植所有你找得到的水果、蔬菜，或是菌类！",
 
-  "farmersdelight.advancement.place_campfire": "点燃篝火",
+  "farmersdelight.advancement.place_campfire": "点燃营火",
   "farmersdelight.advancement.place_campfire.desc": "放置一个营火，让夜晚不再寒冷",
   "farmersdelight.advancement.use_skillet": "移动厨房",
   "farmersdelight.advancement.use_skillet.desc": "煎锅能让你轻松烹饪食物。在另一只手上把食物拿好，然后离热源近些！",

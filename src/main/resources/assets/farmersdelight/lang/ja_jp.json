@@ -207,8 +207,6 @@
 
   "effect.farmersdelight.nourishment.description": "体力を回復する場合を除き、空腹ゲージの減少を防ぐ",
   "effect.farmersdelight.comfort.description": "空腹、移動速度低下、弱体化に対しての耐性を与える",
-  "effect.farmersdelight.nourishment.description": "体力を回復する場合を除き、空腹ゲージの減少を防ぐ",
-  "effect.farmersdelight.comfort.description": "空腹、移動速度低下、弱体化に対しての耐性を与える",
 
   "enchantment.farmersdelight.backstabbing": "不意打ち",
   "enchantment.farmersdelight.backstabbing.desc": "背後から攻撃した際のダメージを増加させます。",

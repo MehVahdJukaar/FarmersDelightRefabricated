@@ -87,6 +87,18 @@ public class ForgeTags
 	public static final TagKey<Item> TOOLS_PICKAXES = minecraftItemTag("pickaxes");
 	public static final TagKey<Item> TOOLS_SHOVELS = minecraftItemTag("shovels");
 
+	public static final TagKey<Item> BUCKETS_WATER = forgeItemTag("buckets/water");
+
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_CARROT = forgeItemTag("storage_blocks/carrot");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_POTATO = forgeItemTag("storage_blocks/potato");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_BEETROOT = forgeItemTag("storage_blocks/beetroot");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_CABBAGE = forgeItemTag("storage_blocks/cabbage");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_TOMATO = forgeItemTag("storage_blocks/tomato");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_ONION = forgeItemTag("storage_blocks/onion");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_RICE = forgeItemTag("storage_blocks/rice");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_RICE_PANICLE = forgeItemTag("storage_blocks/rice_panicle");
+	public static final TagKey<Item> STORAGE_BLOCKS_ITEM_STRAW = forgeItemTag("storage_blocks/straw");
+
 	private static TagKey<Block> forgeBlockTag(String path) {
 		// Change namespace to 'c'. Porting Lib does this too.
 		return TagKey.create(Registries.BLOCK, new ResourceLocation("c", path));

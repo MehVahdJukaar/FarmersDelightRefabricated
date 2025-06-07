@@ -53,8 +53,19 @@ public class ModTags {
     // Blocks which cause Campfires to emit signal smoke when placed underneath them.
     public static final TagKey<Block> CAMPFIRE_SIGNAL_SMOKE = modBlockTag("campfire_signal_smoke");
 
-    // Items that represent the wild form of a farmable crop.
-    public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
+    ////////////////
+
+	// Items that represent a meal: prepared food contained in a bowl or plate.
+	public static final TagKey<Item> MEALS = modItemTag("meals");
+
+	// Items that represent a drink: a bottled consumable that isn't a potion.
+	public static final TagKey<Item> DRINKS = modItemTag("drinks");
+
+	// Items that represent a feast: a larger, placeable meal which can serve many portions.
+	public static final TagKey<Item> FEASTS = modItemTag("feasts");
+
+	// Items that represent the wild form of a farmable crop.
+	public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
 
     // Items (ideally tools) that can obtain straw when harvesting grassy plants. Populated by all knives by default.
     public static final TagKey<Item> STRAW_HARVESTERS = modItemTag("straw_harvesters");
@@ -98,6 +109,7 @@ public class ModTags {
     // Entities that should be given a TemptGoal for Horse Feed, allowing players to call them with it.
     public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
 
+    ////////////////
 
     // new tags
     public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");

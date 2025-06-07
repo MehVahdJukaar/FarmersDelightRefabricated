@@ -14,6 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -36,9 +38,10 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		return false;
 	}
 
-	public static void turnToRichSoil(BlockState state, Level level, BlockPos pos) {
+	public static void turnToRichSoil(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
 		level.setBlockAndUpdate(pos, Block.pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));
-	}
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, state));
+    }
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -56,7 +59,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
 		if (!state.canSurvive(level, pos)) {
-			turnToRichSoil(state, level, pos);
+			turnToRichSoil(null, state, level, pos);
 		}
 	}
 
@@ -104,7 +107,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, float fallDistance) {
-		// Rich Soil is immune to trampling
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
 	}
 }

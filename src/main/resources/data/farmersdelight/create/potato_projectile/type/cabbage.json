@@ -1,0 +1,13 @@
+{
+  "items": [
+    "farmersdelight:cabbage"
+  ],
+  "damage": 7,
+  "reload_ticks": 15,
+  "knockback": 2,
+  "sound_pitch": 0.8,
+  "velocity_multiplier": 1.1,
+  "render_mode": {
+    "type": "create:tumble"
+  }
+}

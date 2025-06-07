@@ -11,6 +11,7 @@
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
+    "KeepRichSoilUntrampledMixin",
     "LivingEntityMixin",
     "MushroomBlockMixin",
     "PitcherCropBlockMixin",

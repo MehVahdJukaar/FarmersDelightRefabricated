@@ -21,6 +21,7 @@ import vectorwing.farmersdelight.integration.jei.category.CookingRecipeCategory;
 import vectorwing.farmersdelight.integration.jei.category.CuttingRecipeCategory;
 import vectorwing.farmersdelight.integration.jei.category.DecompositionRecipeCategory;
 import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
+import vectorwing.farmersdelight.integration.jei.resource.DoughRecipeMaker;
 
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class JEIPlugin implements IModPlugin
 		registration.addRecipes(FDRecipeTypes.CUTTING, modRecipes.getCuttingBoardRecipes());
 		registration.addRecipes(FDRecipeTypes.DECOMPOSITION, ImmutableList.of(new DecompositionDummy()));
 
+		registration.addRecipes(RecipeTypes.CRAFTING, DoughRecipeMaker.createRecipe());
+
+		registration.addIngredientInfo(new ItemStack(ModItems.WHEAT_DOUGH.get()), VanillaTypes.ITEM_STACK, TextUtils.getTranslation("jei.info.dough"));
 		registration.addIngredientInfo(new ItemStack(ModItems.STRAW.get()), VanillaTypes.ITEM_STACK, TextUtils.getTranslation("jei.info.straw"));
 		registration.addIngredientInfo(new ItemStack(ModItems.HAM.get()), VanillaTypes.ITEM_STACK, TextUtils.getTranslation("jei.info.ham"));
 		registration.addIngredientInfo(new ItemStack(ModItems.SMOKED_HAM.get()), VanillaTypes.ITEM_STACK, TextUtils.getTranslation("jei.info.ham"));
