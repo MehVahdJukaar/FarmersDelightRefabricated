@@ -54,7 +54,7 @@ public class ItemStackHandler implements ItemHandler {
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (stack.isEmpty())
             return ItemStack.EMPTY;
-        if (isItemValid(slot, stack))
+        if (!isItemValid(slot, stack))
             return stack;
         ItemStack existing = stacks.get(slot);
         int limit = getSlotLimit(slot);
