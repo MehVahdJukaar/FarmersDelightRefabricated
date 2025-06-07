@@ -38,8 +38,18 @@ public class CookingPotItemHandler implements ItemHandler {
 	}
 
 	@Override
-	public SingleSlotStorage<ItemVariant> getSlot(int slot) {
-		return itemHandler.getSlot(slot);
+	public @NotNull ItemStack getStackInSlot(int slot) {
+		return itemHandler.getStackInSlot(slot);
+	}
+
+	@Override
+	public int getSlotLimit(int slot) {
+		return itemHandler.getSlotLimit(slot);
+	}
+
+	@Override
+	public void setStackInSlot(int slot, ItemStack stack) {
+		this.itemHandler.setStackInSlot(slot, stack);
 	}
 
 	@NotNull
@@ -53,37 +63,15 @@ public class CookingPotItemHandler implements ItemHandler {
 	@NotNull
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
 		if (side == null || side.equals(Direction.UP)) {
-			return slot < SLOTS_INPUT ? itemHandler.removeItem(slot, amount, simulate) : ItemStack.EMPTY;
+			return slot < SLOTS_INPUT ? itemHandler.extractItem(slot, amount, simulate) : ItemStack.EMPTY;
 		}
-		return slot == SLOT_MEAL_OUTPUT ? itemHandler.removeItem(slot, amount, simulate) : ItemStack.EMPTY;
+		return slot == SLOT_MEAL_OUTPUT ? itemHandler.extractItem(slot, amount, simulate) : ItemStack.EMPTY;
 	}
 
 	@Override
-	public int getSlotLimit(int slot) {
-		return itemHandler.getSlotLimit(slot);
+	public SingleSlotStorage<ItemVariant> getSlot(int slot) {
+		return itemHandler.getSlot(slot);
 	}
-
-	// Fabric
-	@Override
-	public @NotNull ItemStack getStackInSlot(int slot) {
-		return itemHandler.getStackInSlot(slot);
-	}
-
-	@Override
-	public void commitModifiedStacks() {
-		itemHandler.commitModifiedStacks();
-	}
-
-	@Override
-	public void setStackInSlot(int slot, ItemStack stack) {
-		this.itemHandler.setStackInSlot(slot, stack);
-	}
-
-	@Override
-	public ItemStack removeItem(int slot, int amount) {
-		return null;
-	}
-
 	@Override
 	public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
@@ -108,22 +96,6 @@ public class CookingPotItemHandler implements ItemHandler {
                 break;
         }
 		return extracted;
-	}
-
-	@Override
-	public long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
-		if (side == null || side.equals(Direction.UP)) {
-			return slot < SLOTS_INPUT ? itemHandler.insertSlot(slot, resource, maxAmount, transaction) : 0;
-		}
-		return slot == SLOT_CONTAINER_INPUT ? itemHandler.insertSlot(slot, resource, maxAmount, transaction) : 0;
-	}
-
-	@Override
-	public long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
-		if (side == null || side.equals(Direction.UP)) {
-			return slot < SLOTS_INPUT ? itemHandler.extractSlot(slot, resource, maxAmount, transaction) : 0;
-		}
-		return slot == SLOT_MEAL_OUTPUT ? itemHandler.extractSlot(slot, resource, maxAmount, transaction) : 0;
 	}
 
 	@Override
