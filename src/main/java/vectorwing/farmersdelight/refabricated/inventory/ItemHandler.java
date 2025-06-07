@@ -35,4 +35,13 @@ public interface ItemHandler extends SlottedStorage<ItemVariant> {
     default ItemStack removeItem(int slot, int amount) {
         return extractItem(slot, amount, false);
     }
+
+    @Deprecated(forRemoval = true, since = "3.1.0")
+    default long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
+        return getSlot(slot).insert(resource, maxAmount, transaction);
+    }
+    @Deprecated(forRemoval = true, since = "3.1.0")
+    default long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
+        return getSlot(slot).extract(resource, maxAmount, transaction);
+    }
 }
