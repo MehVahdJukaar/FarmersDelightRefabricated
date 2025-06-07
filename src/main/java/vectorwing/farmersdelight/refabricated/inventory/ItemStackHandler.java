@@ -12,11 +12,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ItemStackHandler implements ItemHandler {
     private final NonNullList<ItemStack> stacks;
@@ -144,6 +142,11 @@ public class ItemStackHandler implements ItemHandler {
 
     protected void onContentsChanged(int slot) {}
 
+    @Deprecated(forRemoval = true, since = "3.1.0")
+    public ItemStack removeItem(int slot, int amount, boolean simulate) {
+        return extractItem(slot, amount, simulate);
+    }
+
     @Override
     public SingleSlotStorage<ItemVariant> getSlot(int slot) {
         return fabricWrappers.get(slot);
@@ -192,7 +195,9 @@ public class ItemStackHandler implements ItemHandler {
     }
 
     @Override
-    public Iterator<StorageView<ItemVariant>> iterator() {
-        return fabricWrappers.stream().map(storageView -> (StorageView<ItemVariant>)storageView).iterator();
+    public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
+        return getSlots().stream()
+                .map(storageViews -> (StorageView<ItemVariant>)storageViews)
+                .iterator();
     }
 }
