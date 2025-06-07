@@ -18,6 +18,7 @@
     "PlayerMixin",
     "RabbitsEatCabbageMixin",
     "RecipeBookSettingsMixin",
+    "ServerRecipeBookMixin",
     "SoupItemMixin",
     "StemBlockMixin",
     "SugarCaneBlockMixin",

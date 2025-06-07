@@ -41,6 +41,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         // could have been done with item renderer but this way we can have easier control over item positioning using the model json
         ItemProperties.register(ModItems.SKILLET.get(), new ResourceLocation("cooking"),
                 (stack, world, entity, s) -> stack.getTagElement("Cooking") != null ? 1 : 0);
+        ModNetworking.initClient();
 
         // Obscure Fabric event to the rescue!
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
