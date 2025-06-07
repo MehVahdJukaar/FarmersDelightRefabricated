@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.block.entity.inventory;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.base.SingleItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
@@ -15,6 +15,7 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CookingPotItemHandler implements ItemHandler {
 	private static final int SLOTS_INPUT = 6;
@@ -76,8 +77,8 @@ public class CookingPotItemHandler implements ItemHandler {
 	public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
 		long inserted = 0;;
-		for (Iterator<SingleItemStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
-			SingleItemStorage slot = it.next();
+		for (Iterator<SingleStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
+			SingleStackStorage slot = it.next();
 			inserted += slot.insert(resource, maxAmount - inserted, transaction);
 			if (inserted >= maxAmount)
 				break;
@@ -89,8 +90,8 @@ public class CookingPotItemHandler implements ItemHandler {
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
 		long extracted = 0;
-        for (Iterator<SingleItemStorage> it = getSlotsContaining(resource); it.hasNext(); ) {
-            SingleItemStorage slot = it.next();
+        for (Iterator<SingleStackStorage> it = getSlotsContaining(resource); it.hasNext(); ) {
+			SingleStackStorage slot = it.next();
             extracted += slot.extract(resource, maxAmount - extracted, transaction);
             if (extracted >= maxAmount)
                 break;
@@ -101,25 +102,27 @@ public class CookingPotItemHandler implements ItemHandler {
 	@Override
 	public Iterator<StorageView<ItemVariant>> iterator() {
 		if (side == null || side.equals(Direction.UP))
-			return (Iterator) itemHandler.getSlots().subList(0, SLOTS_INPUT).iterator();
-		return (Iterator) List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT)).iterator();
+			return itemHandler.getSlots().subList(0, SLOTS_INPUT).stream().map(storageView -> (StorageView<ItemVariant>)storageView).iterator();
+		return Stream.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT)).map(storageView -> (StorageView<ItemVariant>)storageView).iterator();
 	}
 
-	private Iterator<SingleItemStorage> getInsertableSlotsFor(ItemVariant resource) {
+	private Iterator<SingleStackStorage> getInsertableSlotsFor(ItemVariant resource) {
 		var slots = (side == null || side.equals(Direction.UP)) ?
 				itemHandler.getSlots().subList(0, SLOTS_INPUT) :
-				List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT));
-		return (Iterator) slots.stream()
+				List.of(itemHandler.getSlots().get(SLOT_CONTAINER_INPUT));
+		return slots.stream()
 				.filter(views -> views.isResourceBlank() || views.getResource().equals(resource))
+				.map(storageView -> (SingleStackStorage)storageView)
 				.iterator();
 	}
 
-	private Iterator<SingleItemStorage> getSlotsContaining(ItemVariant resource) {
+	private Iterator<SingleStackStorage> getSlotsContaining(ItemVariant resource) {
 		var slots = (side == null || side.equals(Direction.UP)) ?
 				itemHandler.getSlots().subList(0, SLOTS_INPUT) :
 				List.of(itemHandler.getSlots().get(SLOT_MEAL_OUTPUT));
-		return (Iterator) slots.stream()
+		return slots.stream()
 				.filter(views -> views.getResource().equals(resource))
+				.map(storageView -> (SingleStackStorage)storageView)
 				.iterator();
 	}
 }
