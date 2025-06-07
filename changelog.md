@@ -1,2 +1,2 @@
-fixed another quirk with inventories
-improved farmland detection for crops
+- Fixed error log when starting server due to a missing client class. [#174](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/174)
+- Added missing item tag translations.
