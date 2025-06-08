@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
@@ -154,9 +157,20 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && super.canSurvive(state, level, pos);
+		/*
+		TriState soilDecision = level.getBlockState(pos.below()).canSustainPlant(level, pos.below(), Direction.UP, state);
+		if (!soilDecision.isDefault()) {
+			return soilDecision.isTrue();
+		} else {
+			return hasSufficientLight(level, pos) && super.canSurvive(state, level, pos);
+		}*/
+		//not sure about this. forge code above
+		return hasSufficientLight(level, pos) && super.canSurvive(state, level, pos);
 	}
 
+	public static boolean hasSufficientLight(LevelReader level, BlockPos pos) {
+		return level.getRawBrightness(pos, 0) >= 8;
+	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {

@@ -12,14 +12,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import javax.annotation.Nullable;
 
 public class RichSoilFarmlandBlock extends FarmBlock
 {
@@ -116,6 +114,6 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
 		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
-		// Rich Soil is immune to trampling
+		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
 	}
 }

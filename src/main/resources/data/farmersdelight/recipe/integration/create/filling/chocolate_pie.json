@@ -7,19 +7,26 @@
       ]
     }
   ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
   "type": "create:filling",
   "ingredients": [
     {
       "item": "farmersdelight:pie_crust"
     },
     {
-      "fluidTag": "c:chocolate",
-      "amount": 40500
+      "type": "fluid_tag",
+      "amount": 500,
+      "fluid_tag": "c:chocolates"
     }
   ],
   "results": [
     {
-      "item": "farmersdelight:chocolate_pie"
+      "id": "farmersdelight:chocolate_pie"
     }
   ]
 }

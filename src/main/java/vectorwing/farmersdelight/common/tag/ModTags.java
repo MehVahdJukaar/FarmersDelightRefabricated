@@ -67,6 +67,12 @@ public class ModTags
 	// Items that represent a feast: a larger, placeable meal which can serve many portions.
 	public static final TagKey<Item> FEASTS = modItemTag("feasts");
 
+	// Items that represent a meal: prepared food contained in a bowl or plate.
+	public static final TagKey<Item> MEALS = modItemTag("meals");
+
+	// Items that represent a drink: a bottled consumable that isn't a potion.
+	public static final TagKey<Item> DRINKS = modItemTag("drinks");
+
 	// Items that represent the wild form of a farmable crop.
 	public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
 

@@ -221,7 +221,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			if (recipe.isPresent() && cookingPot.canCook(recipe.get().value())) {
 				didInventoryChange = cookingPot.processCooking(recipe.get(), cookingPot);
 			} else {
-				cookingPot.cookTime = 0;
+				cookingPot.cookTime = Mth.clamp(cookingPot.cookTime - 2, 0, cookingPot.cookTimeTotal);
 			}
 		} else if (cookingPot.cookTime > 0) {
 			cookingPot.cookTime = Mth.clamp(cookingPot.cookTime - 2, 0, cookingPot.cookTimeTotal);
@@ -287,7 +287,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	protected boolean canCook(CookingPotRecipe recipe) {
 		if (hasInput()) {
-			ItemStack resultStack = recipe.getResultItem(this.level.registryAccess());
+			ItemStack resultStack = recipe.assemble(new RecipeWrapper(this.inventory), this.level.registryAccess());
 			if (resultStack.isEmpty()) {
 				return false;
 			} else {
@@ -318,7 +318,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		cookTime = 0;
 		mealContainerStack = recipe.value().getOutputContainer();
-		ItemStack resultStack = recipe.value().getResultItem(this.level.registryAccess());
+		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory), this.level.registryAccess());
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
 			inventory.setStackInSlot(MEAL_DISPLAY_SLOT, resultStack.copy());

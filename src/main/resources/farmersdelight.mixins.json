@@ -19,7 +19,9 @@
     "refabricated.ReloadableServerRegistriesMixin",
     "refabricated.ServerRecipeBookMixin",
     "refabricated.StemBlockMixin",
-    "refabricated.SugarCaneBlockMixin"
+    "refabricated.SugarCaneBlockMixin",
+    "KeepRichSoilTreeMixin",
+    "KeepRichSoilUntrampledMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",

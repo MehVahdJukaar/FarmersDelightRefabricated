@@ -309,6 +309,7 @@
   "farmersdelight.jei.decomposition.fluid": "Sped up by adjacent water",
   "farmersdelight.jei.decomposition.accelerators": "Sped up by adjacent activators (see below)",
 
+  "farmersdelight.jei.info.dough": "Wheat can be turned into Dough by crafting it with a Water Bucket. But don't worry, the bucket's water won't be depleted!",
   "farmersdelight.jei.info.straw": "A dry plant fiber used in crafting. Obtained by cutting grassy crops and plants with a Knife.",
   "farmersdelight.jei.info.knife": "A lightweight melee weapon, with fast swings and gentle damage.\n\nThey can harvest Straw from grasses, and guarantee secondary drops from animals.",
   "farmersdelight.jei.info.ham": "A large cut of meat from a Pig or Hoglin's leg.\n\nYou will need something lighter than a Sword to cut one...",
