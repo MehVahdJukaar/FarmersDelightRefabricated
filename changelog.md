@@ -1,4 +1,5 @@
 ## Changes
+- Updated for parity with Farmer's Delight 1.2.8.
 - Updated inventory code to be more similar to NeoForge's code. Fixing many potential duplication bugs in the process.
 
 ## Bugfixes
