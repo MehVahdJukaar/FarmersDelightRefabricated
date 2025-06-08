@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemHandlerStackWrapper extends SingleStackStorage {
-    private final ItemStackHandler handler;
+    private final ItemHandler handler;
     private final int slot;
 
-    public ItemHandlerStackWrapper(ItemStackHandler handler, int slot) {
+    public ItemHandlerStackWrapper(ItemHandler handler, int slot) {
         this.handler = handler;
         this.slot = slot;
     }

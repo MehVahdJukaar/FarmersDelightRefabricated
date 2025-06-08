@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block.entity.inventory;
 
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.block.entity.Basket;
+import vectorwing.farmersdelight.refabricated.inventory.InvWrapper;
 
 public class BasketInvWrapper extends InvWrapper {
     protected final Basket basket;
