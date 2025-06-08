@@ -338,7 +338,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 				slotStack.shrink(1);
 			}
 		}
-		inventory.commitModifiedStacks();
 		return true;
 	}
 
@@ -428,7 +427,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			mealStack.shrink(mealCount);
 			outputStack.grow(mealCount);
 		}
-		inventory.commitModifiedStacks();
 	}
 
 	private void useStoredContainersOnMeal() {
@@ -447,16 +445,13 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 				containerInputStack.shrink(mealCount);
 				outputStack.grow(mealCount);
 			}
-			inventory.commitModifiedStacks();
 		}
 	}
 
 	public ItemStack useHeldItemOnMeal(ItemStack container) {
 		if (isContainerValid(container) && !getMeal().isEmpty()) {
 			container.shrink(1);
-			ItemStack split = getMeal().split(1);
-			inventory.commitModifiedStacks();
-			return split;
+            return getMeal().split(1);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -549,13 +544,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 				if (slot == MEAL_DISPLAY_SLOT)
 					return Math.max(64, super.getSlotLimit(slot));
 				return super.getSlotLimit(slot);
-			}
-
-			@Override
-			public int getStackLimit(int slot, ItemVariant resource) {
-				if (slot == MEAL_DISPLAY_SLOT)
-					return Math.max(64, super.getStackLimit(slot, resource));
-				return super.getStackLimit(slot, resource);
 			}
 
 			@Override

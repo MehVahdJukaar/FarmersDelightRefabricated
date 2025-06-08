@@ -32,7 +32,7 @@ public class ItemHandlerSlot extends Slot {
 
     @Override
     public ItemStack remove(int amount) {
-        ItemStack stack = itemHandler.removeItem(getContainerSlot(), amount);
+        ItemStack stack = itemHandler.extractItem(getContainerSlot(), amount, false);
         setChanged();
         return stack;
     }
@@ -44,10 +44,5 @@ public class ItemHandlerSlot extends Slot {
 
     public ItemHandler getItemHandler() {
         return itemHandler;
-    }
-
-    @Override
-    public void setChanged() {
-        itemHandler.commitModifiedStacks();
     }
 }

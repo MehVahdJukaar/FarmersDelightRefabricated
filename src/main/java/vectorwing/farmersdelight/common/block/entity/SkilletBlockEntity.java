@@ -92,8 +92,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 						direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 
 				cookingTime = 0;
-				inventory.removeItem(0, 1, false);
-				inventory.commitModifiedStacks();
+				inventory.extractItem(0, 1, false);
 			}
 		}
 	}
@@ -148,7 +147,6 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		if (recipe.isPresent() && getStoredStack().isEmpty()) {
 			boolean wasEmpty = getStoredStack().isEmpty();
 			ItemStack remainderStack = inventory.insertItem(0, addedStack.copy(), false);
-			inventory.commitModifiedStacks();
 			if (!ItemStack.matches(remainderStack, addedStack)) {
 				cookingTimeTotal = SkilletBlock.getSkilletCookingTime(recipe.get().value().getCookingTime(), fireAspectLevel);
 				cookingTime = 0;
@@ -164,7 +162,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	public ItemStack removeItem() {
-		return inventory.removeItem(0, getStoredStack().getMaxStackSize(), false);
+		return inventory.extractItem(0, getStoredStack().getMaxStackSize(), false);
 	}
 
 	public ItemStackHandler getInventory() {
