@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+=============================================================================
+This software includes code from the NeoForge project
+https://github.com/neoforged/NeoForge/
+For specifically InvWrapper and ItemStackHandler logic.
+
+NeoForge is licensed under the LGPL 2.1 license.
+You may read the license here:
+https://github.com/neoforged/NeoForge/blob/1.21.x/LICENSE.txt
+
+Some files may include others' licenses. Please read the top of the file
+for information on other licenses.
+=============================================================================

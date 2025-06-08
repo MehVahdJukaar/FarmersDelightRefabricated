@@ -1,36 +1,29 @@
+/**
+ * Copyright (c) Forge Development LLC and contributors
+ * SPDX-License-Identifier: LGPL-2.1-only
+ * <href>https://github.com/neoforged/NeoForge/blob/1.21.1/src/main/java/net/neoforged/neoforge/items/wrapper/InvWrapper.java</href>
+ * <br>
+ * This class uses exact logic from NeoForge's InvWrapper class but with minor cleanup for readability.
+ */
 package vectorwing.farmersdelight.refabricated.inventory;
 
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.CrashReport;
-import net.minecraft.ReportedException;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-
-public class ItemStackHandler implements ItemHandler {
+public class ItemStackHandler extends FabricWrappedInventory {
     private final NonNullList<ItemStack> stacks;
-    private final List<ItemHandlerStackWrapper> fabricWrappers;
 
     public ItemStackHandler() {
         this(1);
     }
 
     public ItemStackHandler(int size) {
+        super(size);
         this.stacks = NonNullList.withSize(size, ItemStack.EMPTY);
-        ItemHandlerStackWrapper[] wrappers = new ItemHandlerStackWrapper[size];
-        for (int i = 0; i < size; ++i) {
-            wrappers[i] = new ItemHandlerStackWrapper(this, i);
-        }
-        fabricWrappers = Arrays.asList(wrappers);
     }
 
     public int getSlotCount() {
@@ -147,57 +140,4 @@ public class ItemStackHandler implements ItemHandler {
         return extractItem(slot, amount, simulate);
     }
 
-    @Override
-    public SingleSlotStorage<ItemVariant> getSlot(int slot) {
-        return fabricWrappers.get(slot);
-    }
-
-    @Override
-    public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        long amount = 0;
-        try {
-            for (ItemHandlerStackWrapper wrapper : fabricWrappers) {
-                amount += wrapper.insert(resource, maxAmount - amount, transaction);
-                if (amount == maxAmount)
-                    return maxAmount;
-            }
-        } catch (Exception ex) {
-            CrashReport report = CrashReport.forThrowable(ex, "Inserting resources into slots");
-            report.addCategory("Slotted insertion details")
-                    .setDetail("Slots", () -> Objects.toString(fabricWrappers, null))
-                    .setDetail("Resource", () -> Objects.toString(resource, null))
-                    .setDetail("Max amount", maxAmount)
-                    .setDetail("Transaction", transaction);
-            throw new ReportedException(report);
-        }
-        return amount;
-    }
-
-    @Override
-    public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        long amount = 0;
-        try {
-            for (ItemHandlerStackWrapper wrapper : fabricWrappers) {
-                amount += wrapper.extract(resource, maxAmount - amount, transaction);
-                if (amount == maxAmount)
-                    return maxAmount;
-            }
-        } catch (Exception ex) {
-            CrashReport report = CrashReport.forThrowable(ex, "Inserting resources into slots");
-            report.addCategory("Slotted insertion details")
-                    .setDetail("Slots", () -> Objects.toString(fabricWrappers, null))
-                    .setDetail("Resource", () -> Objects.toString(resource, null))
-                    .setDetail("Max amount", maxAmount)
-                    .setDetail("Transaction", transaction);
-            throw new ReportedException(report);
-        }
-        return amount;
-    }
-
-    @Override
-    public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
-        return getSlots().stream()
-                .map(storageViews -> (StorageView<ItemVariant>)storageViews)
-                .iterator();
-    }
 }
