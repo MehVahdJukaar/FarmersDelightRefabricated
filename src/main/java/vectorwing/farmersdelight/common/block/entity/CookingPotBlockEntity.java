@@ -57,6 +57,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -166,12 +167,14 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 		cookTime = compound.getIntOr("CookTime", 0);
 		cookTimeTotal = compound.getIntOr("CookTimeTotal", 0);
-		mealContainerStack = ItemStack.parse(registries, compound.getCompoundOrEmpty("Container")).orElse(ItemStack.EMPTY);
+		if (compound.getCompound("Container").isPresent()) {
+			mealContainerStack = ItemStack.parse(registries, compound.getCompound("Container").get()).orElse(ItemStack.EMPTY);
+		}
 		if (compound.getString("CustomName").isPresent()) {
 			customName = Component.Serializer.fromJson(compound.getString("CustomName").get(), registries);
 		}
 		usedRecipeTracker.clear();
-		usedRecipeTracker.putAll(compound.read("RecipesUsed", RECIPES_USED_CODEC).orElseThrow());
+		usedRecipeTracker.putAll(compound.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Collections.emptyMap()));
 	}
 
 	@Override

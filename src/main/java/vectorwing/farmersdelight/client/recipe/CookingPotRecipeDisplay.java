@@ -11,11 +11,12 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 import java.util.List;
+import java.util.Optional;
 
-public record CookingPotRecipeDisplay(List<SlotDisplay> ingredients, SlotDisplay container, SlotDisplay result, SlotDisplay craftingStation, int duration, float experience) implements RecipeDisplay {
+public record CookingPotRecipeDisplay(List<SlotDisplay> ingredients, Optional<SlotDisplay> container, SlotDisplay result, SlotDisplay craftingStation, int duration, float experience) implements RecipeDisplay {
     public static final MapCodec<CookingPotRecipeDisplay> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SlotDisplay.CODEC.listOf().fieldOf("ingredients").forGetter(CookingPotRecipeDisplay::ingredients),
-            SlotDisplay.CODEC.fieldOf("container").forGetter(CookingPotRecipeDisplay::container),
+            SlotDisplay.CODEC.optionalFieldOf("container").forGetter(CookingPotRecipeDisplay::container),
             SlotDisplay.CODEC.fieldOf("result").forGetter(CookingPotRecipeDisplay::result),
             SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(CookingPotRecipeDisplay::craftingStation),
             Codec.INT.fieldOf("duration").forGetter(CookingPotRecipeDisplay::duration),
@@ -24,7 +25,7 @@ public record CookingPotRecipeDisplay(List<SlotDisplay> ingredients, SlotDisplay
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipeDisplay> STREAM_CODEC = StreamCodec.composite(
             SlotDisplay.STREAM_CODEC.apply(ByteBufCodecs.list()), CookingPotRecipeDisplay::ingredients,
-            SlotDisplay.STREAM_CODEC, CookingPotRecipeDisplay::container,
+            ByteBufCodecs.optional(SlotDisplay.STREAM_CODEC), CookingPotRecipeDisplay::container,
             SlotDisplay.STREAM_CODEC, CookingPotRecipeDisplay::result,
             SlotDisplay.STREAM_CODEC, CookingPotRecipeDisplay::craftingStation,
             ByteBufCodecs.INT, CookingPotRecipeDisplay::duration,

@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class CookingPotMenu extends RecipeBookMenu
 {
-	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "item/empty_container_slot_bowl");
+	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
 
 	public final CookingPotBlockEntity blockEntity;
 	public final ItemStackHandler inventory;

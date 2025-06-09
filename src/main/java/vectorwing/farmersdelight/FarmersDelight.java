@@ -41,7 +41,6 @@ public class FarmersDelight implements ModInitializer
 		ModSounds.touch();
 		ModBlocks.touch();
 		ModEffects.touch();
-		ModConsumeEffectTypes.touch();
 		ModParticleTypes.touch();
 		ModItems.touch();
 		ModDataComponents.touch();
@@ -76,6 +75,8 @@ public class FarmersDelight implements ModInitializer
 		ModNetworking.init();
 		RichSoilBlock.init();
 		ItemAbilityIngredient.init();
+		ModConsumeEffectTypes.touch();
+		ModRecipeDisplays.touch();
 
 		CompostableHelper.apply();
 	}
