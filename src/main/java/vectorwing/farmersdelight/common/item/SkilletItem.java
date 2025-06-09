@@ -205,6 +205,11 @@ public class SkilletItem extends BlockItem {
                         CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
                     }
                 });
+
+                InteractionHand otherHand = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+                ItemStack otherHandStack = player.getItemInHand(otherHand);
+                otherHandStack.shrink(1);
+
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                 stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
