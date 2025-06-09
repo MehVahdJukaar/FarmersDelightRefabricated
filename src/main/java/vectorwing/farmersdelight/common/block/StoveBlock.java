@@ -112,7 +112,7 @@ public class StoveBlock extends BaseEntityBlock
 			}
 			if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack)) {
 				if (level instanceof ServerLevel serverLevel && stoveEntity.addItem(serverLevel, player.getAbilities().instabuild ? heldStack.copy() : heldStack, stoveSlot)) {
-					return InteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS_SERVER;
 				}
 				return InteractionResult.CONSUME;
 			}
