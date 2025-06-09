@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.GameRules;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vectorwing.farmersdelight.common.CommonSetup;
@@ -79,5 +82,8 @@ public class FarmersDelight implements ModInitializer
 		ModRecipeDisplays.touch();
 
 		CompostableHelper.apply();
+
+		ServerPlayerEvents.JOIN.register(serverPlayer ->
+				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION))));
 	}
 }

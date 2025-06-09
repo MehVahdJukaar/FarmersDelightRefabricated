@@ -11,13 +11,14 @@ import vectorwing.farmersdelight.common.networking.ModNetworking;
 
 @Mixin(GameRules.class)
 public class GameRulesMixin {
+    // Silly little workaround for gamerules not being synced to the client.
     @ModifyArgs(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;register(Ljava/lang/String;Lnet/minecraft/world/level/GameRules$Category;Lnet/minecraft/world/level/GameRules$Type;)Lnet/minecraft/world/level/GameRules$Key;"))
     private static void fdrf$modifyNaturalRegenerationGameRule(Args args) {
         if (args.get(0).equals("naturalRegeneration")) {
-            GameRulesTypeAccessor<Boolean> typeAccessor = args.get(2);
+            GameRulesTypeAccessor<GameRules.BooleanValue> typeAccessor = args.get(2);
             typeAccessor.fdrf$setCallback(typeAccessor.fdrf$getCallback().andThen((server, bool) -> {
                 for (ServerPlayer serverPlayer : server.getPlayerList().getPlayers()) {
-                    ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(bool));
+                    ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(bool.get()));
                 }
             }));
             args.set(2, typeAccessor);
