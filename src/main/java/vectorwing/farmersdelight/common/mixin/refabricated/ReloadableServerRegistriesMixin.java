@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.ReloadableServerRegistries;
@@ -21,15 +22,15 @@ import java.util.concurrent.Executor;
 @Mixin(ReloadableServerRegistries.class)
 public class ReloadableServerRegistriesMixin {
     @Inject(method = "method_58276", at = @At(value = "HEAD"))
-    private static <T> void enchiridion$setLootTableAccess(RegistryOps registryOps, ResourceManager resourceManager, Executor executor, LootDataType<T> lootDataType, CallbackInfoReturnable<CompletableFuture> cir) {
+    private static <T> void fdrf$setLootTableAccess(RegistryOps registryOps, ResourceManager resourceManager, Executor executor, LootDataType<T> lootDataType, CallbackInfoReturnable<CompletableFuture> cir) {
         if (lootDataType != LootDataType.TABLE)
             return;
 
         TagUtils.setLootTableResourceManager(resourceManager);
     }
 
-    @Inject(method = "method_58288", at = @At("RETURN"))
-    private static void enchiridion$clearLootTableAccess(LayeredRegistryAccess layeredRegistryAccess, List list, CallbackInfoReturnable<LayeredRegistryAccess> cir) {
+    @Inject(method = "method_61247", at = @At("RETURN"))
+    private static void fdrf$clearLootTableAccess(LayeredRegistryAccess layeredRegistryAccess, HolderLookup.Provider provider, List list, CallbackInfoReturnable<ReloadableServerRegistries.LoadResult> cir) {
         TagUtils.resetEarlyTagCollections();
     }
 }

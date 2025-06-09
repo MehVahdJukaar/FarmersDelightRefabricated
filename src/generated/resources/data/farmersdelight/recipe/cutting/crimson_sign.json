@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:crimson_sign"
-    }
+    "minecraft:crimson_sign"
   ],
   "result": [
     {

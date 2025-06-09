@@ -1,27 +1,13 @@
 {
   "type": "farmersdelight:cooking",
+  "category": "meals",
   "experience": 1.0,
   "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "item": "minecraft:beetroot"
-    },
-    {
-      "fabric:type": "fabric:difference",
-      "base": {
-        "tag": "c:foods/vegetable"
-      },
-      "subtracted": {
-        "item": "minecraft:melon_slice"
-      }
-    }
+    "#c:crops/tomato",
+    "#c:crops/onion",
+    "minecraft:beetroot",
+    "#c:foods/vegetable"
   ],
-  "recipe_book_tab": "meals",
   "result": {
     "count": 1,
     "id": "farmersdelight:ratatouille"

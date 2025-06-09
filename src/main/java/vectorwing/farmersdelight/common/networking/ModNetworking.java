@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.client.FarmersDelightClient;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
@@ -22,6 +23,7 @@ public class ModNetworking {
 
     public static void init() {
         PayloadTypeRegistry.playS2C().register(SendRecipeBookValuesMessage.TYPE, SendRecipeBookValuesMessage.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(SendNaturalRegenerationValueMessage.TYPE, SendNaturalRegenerationValueMessage.STREAM_CODEC);
 
         PayloadTypeRegistry.playC2S().register(FlipSkilletMessage.TYPE, FlipSkilletMessage.STREAM_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(FlipSkilletMessage.TYPE, (payload, context) -> payload.handle(context.server(), context.player()));
@@ -30,6 +32,7 @@ public class ModNetworking {
 
     public static void initClient() {
         ClientPlayNetworking.registerGlobalReceiver(SendRecipeBookValuesMessage.TYPE, (payload, context) -> payload.handle());
+        ClientPlayNetworking.registerGlobalReceiver(SendNaturalRegenerationValueMessage.TYPE, (payload, context) -> payload.handle());
     }
 
     public static class FlipSkilletMessage implements CustomPacketPayload {
@@ -47,10 +50,12 @@ public class ModNetworking {
         }
 
         public void handle(MinecraftServer server, ServerPlayer player) {
-            ItemStack stack = player.getUseItem();
-            if (stack.getItem() instanceof SkilletItem) {
-                stack.set(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get(), player.level().getGameTime());
-            }
+            server.execute(() -> {
+                ItemStack stack = player.getUseItem();
+                if (stack.getItem() instanceof SkilletItem) {
+                    stack.set(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get(), player.level().getGameTime());
+                }
+            });
         }
     }
 
@@ -79,6 +84,29 @@ public class ModNetworking {
                 recipeBook.setOpen(FDRecipeBookTypes.COOKING, open);
                 recipeBook.setFiltering(FDRecipeBookTypes.COOKING, filtering);
             });
+        }
+    }
+
+    public record SendNaturalRegenerationValueMessage(boolean value) implements CustomPacketPayload {
+        public static final ResourceLocation ID = FarmersDelight.res("send_natural_regeneration_value");
+        public static final Type<SendNaturalRegenerationValueMessage> TYPE = new Type<>(ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, SendNaturalRegenerationValueMessage> STREAM_CODEC = StreamCodec.of(SendNaturalRegenerationValueMessage::write, SendNaturalRegenerationValueMessage::new);
+
+        public SendNaturalRegenerationValueMessage(FriendlyByteBuf buf) {
+            this(buf.readBoolean());
+        }
+
+        public static void write(RegistryFriendlyByteBuf buf, SendNaturalRegenerationValueMessage message) {
+            buf.writeBoolean(message.value);
+        }
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public void handle() {
+            Minecraft.getInstance().execute(() -> FarmersDelightClient.naturalRegenerationEnabled = value);
         }
     }
 }

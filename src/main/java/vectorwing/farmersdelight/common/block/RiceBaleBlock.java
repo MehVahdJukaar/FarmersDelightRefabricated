@@ -13,12 +13,12 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 
 @SuppressWarnings("deprecation")
 public class RiceBaleBlock extends Block
 {
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final Property<Direction> FACING = BlockStateProperties.FACING;
 
 	public RiceBaleBlock(Properties properties) {
 		super(properties);
@@ -27,7 +27,7 @@ public class RiceBaleBlock extends Block
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, float fallDistance) {
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, double fallDistance) {
 		entityIn.causeFallDamage(fallDistance, 0.2F, level.damageSources().fall());
 	}
 

@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -27,8 +28,8 @@ public abstract class PlayerMixin extends LivingEntity {
         SkilletItem.SkilletEvents.attackPower = this.getAttackStrengthScale(0.0F);
     }
 
-    @Inject(method = "hurt", at = @At("HEAD"))
-    private void handleSkilletAttackSound(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At("HEAD"))
+    private void handleSkilletAttackSound(ServerLevel level, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         SkilletItem.SkilletEvents.playSkilletAttackSound(this, source);
     }
 }

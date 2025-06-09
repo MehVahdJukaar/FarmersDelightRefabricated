@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:birch_wood"
-    }
+    "minecraft:birch_wood"
   ],
   "result": [
     {

@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:oak_log"
-    }
+    "minecraft:oak_log"
   ],
   "result": [
     {

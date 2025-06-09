@@ -13,12 +13,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
-public class SandyShrubBlock extends BushBlock implements BonemealableBlock
+public class SandyShrubBlock extends VegetationBlock implements BonemealableBlock
 {
 	public static final MapCodec<SandyShrubBlock> CODEC = simpleCodec(SandyShrubBlock::new);
 
@@ -29,7 +30,7 @@ public class SandyShrubBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
+	protected MapCodec<? extends VegetationBlock> codec() {
 		return CODEC;
 	}
 
@@ -55,7 +56,7 @@ public class SandyShrubBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((value) -> value.getHolder(WildCropGeneration.FEATURE_PATCH_SANDY_SHRUB)).ifPresent((value) -> {
+		level.registryAccess().get(Registries.CONFIGURED_FEATURE).flatMap((value) -> value.value().get(WildCropGeneration.FEATURE_PATCH_SANDY_SHRUB)).ifPresent((value) -> {
 			value.value().place(level, level.getChunkSource().getGenerator(), random, pos.above());
 		});
 	}

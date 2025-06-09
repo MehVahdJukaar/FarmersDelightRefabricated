@@ -2,11 +2,13 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
@@ -16,15 +18,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.Nullable;
 
-;
-
-@SuppressWarnings("deprecation")
 public class TatamiBlock extends Block
 {
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final Property<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty PAIRED = BooleanProperty.create("paired");
 
 	public TatamiBlock(BlockBehaviour.Properties properties) {
@@ -57,18 +56,26 @@ public class TatamiBlock extends Block
 			BlockState facingState = level.getBlockState(facingPos);
 			if (facingState.getBlock() == this && !facingState.getValue(PAIRED)) {
 				level.setBlock(facingPos, state.setValue(FACING, state.getValue(FACING).getOpposite()).setValue(PAIRED, true), 3);
-				level.blockUpdated(pos, Blocks.AIR);
+				level.updateNeighborsAt(pos, Blocks.AIR);
 				state.updateNeighbourShapes(level, pos, 3);
 			}
 		}
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(
+			BlockState stateIn,
+			LevelReader level,
+			ScheduledTickAccess scheduledTickAccess,
+			BlockPos currentPos,
+			Direction facing,
+			BlockPos facingPos,
+			BlockState facingState,
+			RandomSource random) {
 		if (facing.equals(stateIn.getValue(FACING)) && stateIn.getValue(PAIRED) && level.getBlockState(facingPos).getBlock() != this) {
 			return stateIn.setValue(PAIRED, false);
 		}
-		return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
+		return super.updateShape(stateIn, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
 	}
 
 	@Override

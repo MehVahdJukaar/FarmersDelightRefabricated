@@ -1,8 +1,5 @@
 ## Changes
-- Updated for parity with Farmer's Delight 1.2.8.
-- Updated inventory code to be more similar to NeoForge's code. Fixing many potential duplication bugs in the process.
-
-## Bugfixes
-- Fixed error log when starting server due to a missing client class. [#174](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/174)
-- Fixed Comparators not updating when taking items from or cutting with a Cutting Board.
-- Added missing item tag translations.
+- Updated to 1.21.6.
+- Wandering Traders will now trade 12 of each of their seed/rice items.
+- Wandering Traders no longer trade Onions.
+  - None of the root vegetables are traded by Wandering Traders.

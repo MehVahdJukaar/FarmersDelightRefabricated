@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "fd_canvas_sign",
   "ingredients": [
-    {
-      "tag": "farmersdelight:canvas_signs"
-    },
-    {
-      "tag": "c:dyes/brown"
-    }
+    "#farmersdelight:canvas_signs",
+    "#c:dyes/brown"
   ],
   "result": {
     "count": 1,

@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +41,7 @@ public class FarmersDelight implements ModInitializer
 		ModSounds.touch();
 		ModBlocks.touch();
 		ModEffects.touch();
+		ModConsumeEffectTypes.touch();
 		ModParticleTypes.touch();
 		ModItems.touch();
 		ModDataComponents.touch();

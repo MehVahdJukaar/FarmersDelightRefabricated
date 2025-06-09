@@ -6,10 +6,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
 
@@ -23,11 +23,10 @@ public class TooltipEvents
 		}
 
 		Item food = stack.getItem();
-		FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
+		ApplyStatusEffectsConsumeEffect soupEffects = FoodValues.ConsumableValues.VANILLA_SOUP_EFFECTS.get(food);
 
 		if (soupEffects != null) {
-			for (FoodProperties.PossibleEffect effect : soupEffects.effects()) {
-				MobEffectInstance effectInstance = effect.effect();
+			for (MobEffectInstance effectInstance : soupEffects.effects()) {
 				MutableComponent effectText = Component.translatable(effectInstance.getDescriptionId());
 				Player player = Minecraft.getInstance().player;
 				if (effectInstance.getDuration() > 20) {

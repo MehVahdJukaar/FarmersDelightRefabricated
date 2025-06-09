@@ -2,33 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:baked_potato"
-    },
-    {
-      "tag": "c:foods/milk"
-    },
-    {
-      "item": "minecraft:baked_potato"
-    },
-    {
-      "tag": "c:foods/cooked_mutton"
-    },
-    {
-      "tag": "c:foods/cooked_mutton"
-    },
-    {
-      "tag": "c:foods/cooked_mutton"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "tag": "c:crops/onion"
-    }
+    "minecraft:baked_potato",
+    "#c:foods/milk",
+    "minecraft:baked_potato",
+    "#c:foods/cooked_mutton",
+    "#c:foods/cooked_mutton",
+    "#c:foods/cooked_mutton",
+    "#c:crops/onion",
+    "minecraft:bowl",
+    "#c:crops/onion"
   ],
   "result": {
     "count": 1,

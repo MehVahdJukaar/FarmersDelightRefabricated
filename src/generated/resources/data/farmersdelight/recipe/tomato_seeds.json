@@ -3,12 +3,8 @@
   "category": "misc",
   "ingredients": [
     [
-      {
-        "item": "farmersdelight:tomato"
-      },
-      {
-        "item": "farmersdelight:rotten_tomato"
-      }
+      "farmersdelight:tomato",
+      "farmersdelight:rotten_tomato"
     ]
   ],
   "result": {

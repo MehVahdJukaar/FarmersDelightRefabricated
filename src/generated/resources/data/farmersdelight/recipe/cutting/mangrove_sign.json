@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:mangrove_sign"
-    }
+    "minecraft:mangrove_sign"
   ],
   "result": [
     {

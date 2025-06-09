@@ -7,27 +7,27 @@
     "CuttingBoardDispenserMixin",
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
-    "refabricated.BushBlockMixin",
+    "KeepRichSoilUntrampledMixin",
     "refabricated.CactusBlockMixin",
     "refabricated.CropBlockMixin",
-    "refabricated.DoublePlantBlockMixin",
-    "refabricated.ItemStackMixin",
+    "refabricated.FoodDataAccessor",
+    "refabricated.GameRulesMixin",
+    "refabricated.GameRulesTypeAccessor",
+    "refabricated.GhostSlotsInvoker",
     "refabricated.LivingEntityMixin",
     "refabricated.MushroomBlockMixin",
     "refabricated.PlayerMixin",
     "refabricated.RecipeBookSettingsMixin",
     "refabricated.ReloadableServerRegistriesMixin",
-    "refabricated.ServerRecipeBookMixin",
     "refabricated.StemBlockMixin",
-    "refabricated.SugarCaneBlockMixin"
+    "refabricated.VegetationBlockMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
     "HideBlockBreakProgressMixin",
-    "refabricated.ClientRecipeBookMixin",
+    "refabricated.BlockModelWrapperAccessor",
     "refabricated.GuiMixin",
-    "refabricated.HumanoidModelMixin",
-    "refabricated.RecipeBookCategoriesMixin"
+    "refabricated.HumanoidModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

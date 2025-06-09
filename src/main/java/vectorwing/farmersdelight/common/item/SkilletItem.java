@@ -9,11 +9,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -53,17 +53,17 @@ public class SkilletItem extends BlockItem {
 
     public static final float FLIP_TIME = 12;
 
-    public static final Tiers SKILLET_TIER = Tiers.IRON;
+    public static final ToolMaterial SKILLET_MATERIAL = ToolMaterial.IRON;
     protected static final ResourceLocation FD_ATTACK_KNOCKBACK_UUID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "base_attack_knockback");
 
     public SkilletItem(Block block, Item.Properties properties) {
-        super(block, properties.durability(SKILLET_TIER.getUses()));
-        float attackDamage = 5.0F + SKILLET_TIER.getAttackDamageBonus();
+        super(block, properties.durability(SKILLET_MATERIAL.durability()));
+        float attackDamage = 5.0F + SKILLET_MATERIAL.attackDamageBonus();
     }
 
-    public static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed) {
+    public static ItemAttributeModifiers createAttributes(ToolMaterial material, float attackDamage, float attackSpeed) {
         return ItemAttributeModifiers.builder()
-                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage + material.attackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
     }
@@ -80,16 +80,6 @@ public class SkilletItem extends BlockItem {
         }
 
         return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
-    }
-
-    @Override
-    public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-        return !player.isCreative();
-    }
-
-    @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return true;
     }
 
     @Override
@@ -122,7 +112,7 @@ public class SkilletItem extends BlockItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack skilletStack = player.getItemInHand(hand);
         if (isPlayerNearHeatSource(player, level)) {
             InteractionHand otherHand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
@@ -130,28 +120,30 @@ public class SkilletItem extends BlockItem {
 
             if (!skilletStack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY).getStack().isEmpty()) {
                 player.startUsingItem(hand);
-                return InteractionResultHolder.pass(skilletStack);
+                return InteractionResult.PASS;
             }
 
-            Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, level);
-            if (recipe.isPresent()) {
-                if (player.isUnderWater()) {
-                    player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
-                    return InteractionResultHolder.pass(skilletStack);
+            if (level instanceof ServerLevel serverLevel) {
+                Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, serverLevel);
+                if (recipe.isPresent()) {
+                    if (player.isUnderWater()) {
+                        player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
+                        return InteractionResult.PASS;
+                    }
+                    ItemStack cookingStackCopy = cookingStack.copy();
+                    ItemStack cookingStackUnit = cookingStackCopy.split(1);
+                    skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
+                    skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().cookingTime());
+                    skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
+                    player.startUsingItem(hand);
+                    player.setItemInHand(otherHand, cookingStackCopy);
+                    return InteractionResult.CONSUME;
+                } else {
+                    player.displayClientMessage(TextUtils.getTranslation("item.skillet.how_to_cook"), true);
                 }
-                ItemStack cookingStackCopy = cookingStack.copy();
-                ItemStack cookingStackUnit = cookingStackCopy.split(1);
-                skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
-                skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().getCookingTime());
-                skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
-                player.startUsingItem(hand);
-                player.setItemInHand(otherHand, cookingStackCopy);
-                return InteractionResultHolder.consume(skilletStack);
-            } else {
-                player.displayClientMessage(TextUtils.getTranslation("item.skillet.how_to_cook"), true);
             }
         }
-        return InteractionResultHolder.pass(skilletStack);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -177,7 +169,7 @@ public class SkilletItem extends BlockItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player player) {
             ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
             if (!storedStack.getStack().isEmpty()) {
@@ -189,15 +181,16 @@ public class SkilletItem extends BlockItem {
                 stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
         }
+        return super.releaseUsing(stack, level, entity, timeLeft);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        if (entity instanceof Player player) {
+        if (entity instanceof Player player && level instanceof ServerLevel serverLevel) {
             ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
             if (!storedStack.getStack().isEmpty()) {
                 ItemStack cookingStack = storedStack.getStack();
-                Optional<RecipeHolder<CampfireCookingRecipe>> cookingRecipe = getCookingRecipe(cookingStack, level);
+                Optional<RecipeHolder<CampfireCookingRecipe>> cookingRecipe = getCookingRecipe(cookingStack, serverLevel);
 
                 cookingRecipe.ifPresent((recipe) -> {
                     ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack), level.registryAccess());
@@ -245,11 +238,11 @@ public class SkilletItem extends BlockItem {
         return super.isBarVisible(stack) || stack.has(ModDataComponents.COOKING_TIME_LENGTH.get());
     }
 
-    public static Optional<RecipeHolder<CampfireCookingRecipe>> getCookingRecipe(ItemStack stack, Level level) {
+    public static Optional<RecipeHolder<CampfireCookingRecipe>> getCookingRecipe(ItemStack stack, ServerLevel level) {
         if (stack.isEmpty()) {
             return Optional.empty();
         }
-        return level.getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(stack), level);
+        return level.recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(stack), level);
     }
 
     @Override
@@ -261,11 +254,6 @@ public class SkilletItem extends BlockItem {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return SKILLET_TIER.getRepairIngredient().test(repair) || super.isValidRepairItem(toRepair, repair);
     }
 
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
@@ -292,12 +280,6 @@ public class SkilletItem extends BlockItem {
         }
         return super.canBeEnchantedWith(stack, enchantment, context);
     }
-
-    @Override
-    public int getEnchantmentValue() {
-        return SKILLET_TIER.getEnchantmentValue();
-    }
-
 
     public static class SkilletEvents {
         /*

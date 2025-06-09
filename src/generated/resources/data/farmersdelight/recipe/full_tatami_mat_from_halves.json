@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "fd_full_tatami_mat",
   "ingredients": [
-    {
-      "item": "farmersdelight:half_tatami_mat"
-    },
-    {
-      "item": "farmersdelight:half_tatami_mat"
-    }
+    "farmersdelight:half_tatami_mat",
+    "farmersdelight:half_tatami_mat"
   ],
   "result": {
     "count": 1,

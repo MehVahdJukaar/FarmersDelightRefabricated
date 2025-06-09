@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:leather_horse_armor"
-    }
+    "minecraft:leather_horse_armor"
   ],
   "result": [
     {
@@ -13,7 +11,5 @@
       }
     }
   ],
-  "tool": {
-    "tag": "c:tools/shear"
-  }
+  "tool": "#c:tools/shear"
 }

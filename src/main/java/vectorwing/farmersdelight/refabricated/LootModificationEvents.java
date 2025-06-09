@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -133,34 +135,36 @@ public class LootModificationEvents {
     private static void scavengingLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
         HolderLookup<Enchantment> enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
 
+
+
         // scavenging_feather
         if (key == ENTITIES_CHICKEN) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.FEATHER)
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                     )))));
         }
         // scavenging_ham_from_hoglin and scavenging_smoked_ham_from_hoglin
         if (key == ENTITIES_HOGLIN) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.HAM.get())
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                             )).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(false)))))))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.SMOKED_HAM.get())
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                             )).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)))))));
         }
         // scavenging_ham_from_pig and scavenging_smoked_ham_from_pig
         if (key == ENTITIES_PIG) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.HAM.get())
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                                     )).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(false))))
                                     .and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, 0.5F, 0.1F)))))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.SMOKED_HAM.get())
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                                    EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                             )).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)))
                                     .and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, 0.5F, 0.1F))))));
         }
@@ -168,20 +172,27 @@ public class LootModificationEvents {
         if (key == BLOCKS_PUMPKIN) {
             tableBuilder.modifyPools(builder -> builder.conditionally(
                     MatchTool.toolMatches(ItemPredicate.Builder.item()
-                            .of(ModTags.KNIVES)
+                            .of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)
                     ).and(MatchTool.toolMatches(ItemPredicate.Builder.item()
-                            .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(
-                                    new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY)
-                            )))).invert()
-                    ).invert().build())
-            ).withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
+                            .withComponents(DataComponentMatchers.Builder.components()
+                                    .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
+                                            List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))
+                                    )).build()
+                            )
+                    ).invert()).build()
+            ).with(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
                             .when(MatchTool.toolMatches(ItemPredicate.Builder.item()
-                                    .of(ModTags.KNIVES)
+                                    .of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)
                             ).and(MatchTool.toolMatches(ItemPredicate.Builder.item()
-                                    .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(
-                                            new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY)
-                                    )))).invert()
-                            )).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))));
+                                    .withComponents(DataComponentMatchers.Builder.components()
+                                            .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
+                                                    List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))
+                                            )).build()
+                                    )
+                            ).invert()))
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
+                    .build())
+            );
         }
         // scavenging_leather
         if (key.location().getPath().startsWith("entities/")) {
@@ -194,7 +205,7 @@ public class LootModificationEvents {
             if (entityType.isPresent() && TagUtils.isDropsLeatherTag(entityType.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER)
                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                                EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                         )))));
             }
         }
@@ -203,7 +214,7 @@ public class LootModificationEvents {
         if (key == ENTITIES_RABBIT) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.RABBIT_HIDE)
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                     )))));
         }
 
@@ -211,7 +222,7 @@ public class LootModificationEvents {
         if (key == ENTITIES_SHULKER) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.SHULKER_SHELL)
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                     )))));
         }
 
@@ -219,7 +230,7 @@ public class LootModificationEvents {
         if (key == ENTITIES_SHULKER) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.SHULKER_SHELL)
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                     )))));
         }
 
@@ -228,7 +239,7 @@ public class LootModificationEvents {
         if (key == ENTITIES_SPIDER || key == ENTITIES_CAVE_SPIDER) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.STRING)
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                     )))));
         }
     }
@@ -236,32 +247,32 @@ public class LootModificationEvents {
     private static void slicingLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
         // slicing_apple_pie
         if (key == BLOCKS_APPLE_PIE)
-            pastrySlicing(tableBuilder, ModBlocks.APPLE_PIE.get(), ModItems.APPLE_PIE_SLICE.get(), PieBlock.BITES, 4);
+            pastrySlicing(tableBuilder, ModBlocks.APPLE_PIE.get(), ModItems.APPLE_PIE_SLICE.get(), PieBlock.BITES, 4, registries);
         // slicing_cake
         if (key == BLOCKS_CAKE)
-            pastrySlicing(tableBuilder, Blocks.CAKE, ModItems.CAKE_SLICE.get(), CakeBlock.BITES, 7);
+            pastrySlicing(tableBuilder, Blocks.CAKE, ModItems.CAKE_SLICE.get(), CakeBlock.BITES, 7, registries);
         // slicing_candle_cake
         if (key.location().getPath().startsWith("blocks/")) {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
             var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(7))));
             if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
-                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES)))));
+                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)))));
             }
         }
         // slicing_chocolate_pie
         if (key == BLOCKS_CHOCOLATE_PIE)
-            pastrySlicing(tableBuilder, ModBlocks.CHOCOLATE_PIE.get(), ModItems.CHOCOLATE_PIE_SLICE.get(), PieBlock.BITES, 4);
+            pastrySlicing(tableBuilder, ModBlocks.CHOCOLATE_PIE.get(), ModItems.CHOCOLATE_PIE_SLICE.get(), PieBlock.BITES, 4, registries);
         // slicing_sweet_berry_cheesecake
         if (key == BLOCKS_SWEET_BERRY_CHEESECAKE)
-            pastrySlicing(tableBuilder, ModBlocks.SWEET_BERRY_CHEESECAKE.get(), ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(), PieBlock.BITES, 4);
+            pastrySlicing(tableBuilder, ModBlocks.SWEET_BERRY_CHEESECAKE.get(), ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(), PieBlock.BITES, 4, registries);
     }
 
-    public static void pastrySlicing(LootTable.Builder tableBuilder, Block block, ItemLike slice, IntegerProperty property, int maxValue) {
-        tableBuilder.modifyPools(builder -> builder.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES)).invert()));
+    public static void pastrySlicing(LootTable.Builder tableBuilder, Block block, ItemLike slice, IntegerProperty property, int maxValue, HolderLookup.Provider registries) {
+        tableBuilder.modifyPools(builder -> builder.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)).invert()));
         for (int value : property.getPossibleValues()) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(slice).apply(SetItemCountFunction.setCount(ConstantValue.exactly(maxValue - value))))
-                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES))
+                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
                             .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, value)))));
         }
@@ -269,31 +280,31 @@ public class LootModificationEvents {
 
     private static void straw(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
         if (key == BLOCKS_SHORT_GRASS || key == BLOCKS_TALL_GRASS)
-            strawChance02(tableBuilder);
+            strawChance02(tableBuilder, registries);
         if (key == BLOCKS_SANDY_SHRUB)
-            strawChance03(tableBuilder);
+            strawChance03(tableBuilder, registries);
         if (key == BLOCKS_RICE_PANICLES)
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
-                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.STRAW_HARVESTERS))
+                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.STRAW_HARVESTERS))
                             .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RICE_CROP_PANICLES.get())
                                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 3))))));
         if (key == BLOCKS_WHEAT)
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
-                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.STRAW_HARVESTERS))
+                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.STRAW_HARVESTERS))
                             .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WHEAT)
                                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))))));
     }
 
-    public static void strawChance02(LootTable.Builder tableBuilder) {
+    public static void strawChance02(LootTable.Builder tableBuilder, HolderLookup.Provider registries) {
         tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
                 .when(LootItemRandomChanceCondition.randomChance(0.3F)
-                        .and(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.STRAW_HARVESTERS))))));
+                        .and(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.STRAW_HARVESTERS))))));
     }
 
-    public static void strawChance03(LootTable.Builder tableBuilder) {
+    public static void strawChance03(LootTable.Builder tableBuilder, HolderLookup.Provider registries) {
         tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
                 .when(LootItemRandomChanceCondition.randomChance(0.3F)
-                        .and(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.STRAW_HARVESTERS))))));
+                        .and(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.STRAW_HARVESTERS))))));
     }
 
     private static ResourceKey<LootTable> vanillaKey(String path) {

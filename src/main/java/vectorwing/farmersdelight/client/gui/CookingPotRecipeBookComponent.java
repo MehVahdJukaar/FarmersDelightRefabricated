@@ -1,21 +1,30 @@
 package vectorwing.farmersdelight.client.gui;
 
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.screens.recipebook.GhostSlots;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.context.ContextMap;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.FurnaceRecipeDisplay;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.client.recipe.CookingPotRecipeDisplay;
+import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.common.mixin.refabricated.GhostSlotsInvoker;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
-public class CookingPotRecipeBookComponent extends RecipeBookComponent
+public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPotMenu>
 {
 	protected static final WidgetSprites RECIPE_BOOK_BUTTONS = new WidgetSprites(
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),
@@ -23,9 +32,26 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled_highlighted"),
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled_highlighted"));
 
+	public CookingPotRecipeBookComponent(CookingPotMenu menu, List<RecipeBookComponent.TabInfo> list) {
+		super(menu, list);
+	}
+
 	@Override
 	protected void initFilterButtonTextures() {
 		this.filterButton.initTextureValues(RECIPE_BOOK_BUTTONS);
+	}
+
+	@Override
+	protected boolean isCraftingSlot(Slot slot) {
+		return switch (slot.index) {
+			case 0, 1, 2, 3, 4, 5 -> true;
+			default -> false;
+		};
+	}
+
+	@Override
+	protected void selectMatchingRecipes(RecipeCollection possibleRecipes, StackedItemContents stackedItemContents) {
+		possibleRecipes.selectRecipes(stackedItemContents, recipeDisplay -> recipeDisplay instanceof CookingPotRecipeDisplay);
 	}
 
 	public void hide() {
@@ -39,20 +65,17 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent
 	}
 
 	@Override
-	public void setupGhostRecipe(RecipeHolder<?> recipe, List<Slot> slots) {
-		ItemStack resultStack = recipe.value().getResultItem(this.minecraft.level.registryAccess());
-		this.ghostRecipe.setRecipe(recipe);
-		if (slots.get(6).getItem().isEmpty()) {
-			this.ghostRecipe.addIngredient(Ingredient.of(resultStack), (slots.get(6)).x, (slots.get(6)).y);
-		}
+	protected void fillGhostRecipe(GhostSlots ghostSlots, RecipeDisplay recipeDisplay, ContextMap contextMap) {
+		((GhostSlotsInvoker)ghostSlots).fdrf$setResult(this.menu.getSlot(6), contextMap, recipeDisplay.result());
+		if (recipeDisplay instanceof CookingPotRecipeDisplay cookingPotRecipeDisplay) {
+			for (int i = 0; i < cookingPotRecipeDisplay.ingredients().size(); ++i) {
+				SlotDisplay display = cookingPotRecipeDisplay.ingredients().get(i);
+				((GhostSlotsInvoker)ghostSlots).fdrf$setInput(menu.getSlot(i), contextMap, display);
+			}
 
-		if (recipe.value() instanceof CookingPotRecipe cookingRecipe) {
-			ItemStack containerStack = cookingRecipe.getOutputContainer();
-			if (!containerStack.isEmpty()) {
-				this.ghostRecipe.addIngredient(Ingredient.of(containerStack), (slots.get(7)).x, (slots.get(7)).y);
+			if (menu.getSlot(7).getItem().isEmpty()) {
+				((GhostSlotsInvoker)ghostSlots).fdrf$setInput(menu.getSlot(7), contextMap, cookingPotRecipeDisplay.container());
 			}
 		}
-
-		this.placeRecipe(this.menu.getGridWidth(), this.menu.getGridHeight(), this.menu.getResultSlotIndex(), recipe, recipe.value().getIngredients().iterator(), 0);
 	}
 }

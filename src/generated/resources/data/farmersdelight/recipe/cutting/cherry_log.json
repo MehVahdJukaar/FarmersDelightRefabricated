@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:cherry_log"
-    }
+    "minecraft:cherry_log"
   ],
   "result": [
     {

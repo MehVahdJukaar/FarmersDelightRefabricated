@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "O": {
-      "item": "farmersdelight:pie_crust"
-    },
-    "c": {
-      "item": "minecraft:cocoa_beans"
-    },
-    "m": {
-      "tag": "c:foods/milk"
-    },
-    "x": {
-      "item": "minecraft:sugar"
-    }
+    "O": "farmersdelight:pie_crust",
+    "c": "minecraft:cocoa_beans",
+    "m": "#c:foods/milk",
+    "x": "minecraft:sugar"
   },
   "pattern": [
     "ccc",

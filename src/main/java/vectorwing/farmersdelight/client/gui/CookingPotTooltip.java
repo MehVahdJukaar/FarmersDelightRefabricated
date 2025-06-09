@@ -25,7 +25,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 	}
 
 	@Override
-	public int getHeight() {
+	public int getHeight(Font font) {
 		return mealStack.isEmpty() ? textSpacing : textSpacing + ITEM_SIZE;
 	}
 
@@ -42,7 +42,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 	}
 
 	@Override
-	public void renderImage(Font font, int mouseX, int mouseY, GuiGraphics gui) {
+	public void renderImage(Font font, int mouseX, int mouseY, int width, int height, GuiGraphics gui) {
 		if (mealStack.isEmpty()) return;
 		gui.renderItem(mealStack, mouseX, mouseY + textSpacing, 0);
 	}
@@ -65,7 +65,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 		}
 	}
 
-	public static record CookingPotTooltipComponent(ItemStack mealStack) implements TooltipComponent
+	public record CookingPotTooltipComponent(ItemStack mealStack) implements TooltipComponent
 	{
 	}
 }

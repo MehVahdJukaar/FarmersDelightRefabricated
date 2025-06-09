@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:cherry_trapdoor"
-    }
+    "minecraft:cherry_trapdoor"
   ],
   "result": [
     {

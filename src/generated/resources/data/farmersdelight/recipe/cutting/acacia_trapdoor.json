@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:acacia_trapdoor"
-    }
+    "minecraft:acacia_trapdoor"
   ],
   "result": [
     {

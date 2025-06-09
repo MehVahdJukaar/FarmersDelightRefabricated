@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "fd_canvas_sign",
   "ingredients": [
-    {
-      "tag": "farmersdelight:canvas_signs"
-    },
-    {
-      "tag": "c:dyes/orange"
-    }
+    "#farmersdelight:canvas_signs",
+    "#c:dyes/orange"
   ],
   "result": {
     "count": 1,

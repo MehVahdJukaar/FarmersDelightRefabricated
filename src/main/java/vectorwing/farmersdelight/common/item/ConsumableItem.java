@@ -13,14 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
-
-;
+import java.util.function.Consumer;
 
 public class ConsumableItem extends Item
 {
@@ -91,15 +90,14 @@ public class ConsumableItem extends Item
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			if (this.hasCustomTooltip) {
 				MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + BuiltInRegistries.ITEM.getKey(this).getPath());
-				tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
+				tooltipAdder.accept(textEmpty.withStyle(ChatFormatting.BLUE));
 			}
 			if (this.hasFoodEffectTooltip) {
-				TextUtils.addFoodEffectTooltip(stack, tooltip::add, 1.0F, context.tickRate());
+				TextUtils.addFoodEffectTooltip(stack, tooltipAdder::accept, 1.0F, context.tickRate());
 			}
 		}
 	}

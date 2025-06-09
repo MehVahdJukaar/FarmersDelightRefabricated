@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "r": {
-      "item": "farmersdelight:rope"
-    }
+    "r": "farmersdelight:rope"
   },
   "pattern": [
     "rr",

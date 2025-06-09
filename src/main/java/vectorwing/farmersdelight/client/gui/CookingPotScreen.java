@@ -8,6 +8,8 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
+import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -15,10 +17,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.awt.*;
@@ -32,7 +39,14 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 	private static final Rectangle HEAT_ICON = new Rectangle(47, 55, 17, 15);
 	private static final Rectangle PROGRESS_ARROW = new Rectangle(89, 25, 0, 17);
 
-	private final CookingPotRecipeBookComponent recipeBookComponent = new CookingPotRecipeBookComponent();
+	private static final SearchRecipeBookCategory COOKING_SEARCH_CATEGORY = SearchRecipeBookCategory.valueOf("FARMERSDELIGHT_COOKING");
+	private static final List<RecipeBookComponent.TabInfo> TABS = List.of(
+			new RecipeBookComponent.TabInfo(COOKING_SEARCH_CATEGORY),
+			new RecipeBookComponent.TabInfo(ModItems.VEGETABLE_NOODLES.get(), ModRecipeBookCategories.COOKING_MEALS.get()),
+			new RecipeBookComponent.TabInfo(ModItems.APPLE_CIDER.get(), ModRecipeBookCategories.COOKING_DRINKS.get()),
+			new RecipeBookComponent.TabInfo(ModItems.DUMPLINGS.get(), ModItems.TOMATO_SAUCE.get(), ModRecipeBookCategories.COOKING_MISC.get())
+	);
+	private final CookingPotRecipeBookComponent recipeBookComponent = new CookingPotRecipeBookComponent(this.menu, TABS);
 	private boolean widthTooNarrow;
 
 	public CookingPotScreen(CookingPotMenu screenContainer, Inventory inv, Component titleIn) {
@@ -44,7 +58,7 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 		super.init();
 		this.widthTooNarrow = this.width < 379;
 		this.titleLabelX = 28;
-		this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
+		this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow);
 		this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
 		if (Configuration.ENABLE_RECIPE_BOOK_COOKING_POT.get()) {
 			this.addRenderableWidget(new ImageButton(this.leftPos + 5, this.height / 2 - 49, 20, 18, RECIPE_BUTTON, (button) ->
@@ -75,12 +89,12 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 		} else {
 			super.render(gui, mouseX, mouseY, partialTicks);
 			this.recipeBookComponent.render(gui, mouseX, mouseY, partialTicks);
-			this.recipeBookComponent.renderGhostRecipe(gui, this.leftPos, this.topPos, false, partialTicks);
+			this.recipeBookComponent.renderGhostRecipe(gui, true);
 		}
 
 		this.renderMealDisplayTooltip(gui, mouseX, mouseY);
 		this.renderHeatIndicatorTooltip(gui, mouseX, mouseY);
-		this.recipeBookComponent.renderTooltip(gui, this.leftPos, this.topPos, mouseX, mouseY);
+		this.recipeBookComponent.renderTooltip(gui, mouseX, mouseY, hoveredSlot);
 	}
 
 	private void renderHeatIndicatorTooltip(GuiGraphics gui, int mouseX, int mouseY) {
@@ -96,10 +110,10 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 				List<Component> tooltip = new ArrayList<>();
 
 				ItemStack mealStack = this.hoveredSlot.getItem();
-				tooltip.add(((MutableComponent) mealStack.getItem().getDescription()).withStyle(mealStack.getRarity().color()));
+				tooltip.add(Component.translatable(mealStack.getItem().getDescriptionId()).withStyle(mealStack.getRarity().color()));
 
 				ItemStack containerStack = this.menu.blockEntity.getContainer();
-				String container = !containerStack.isEmpty() ? containerStack.getItem().getDescription().getString() : "";
+				String container = !containerStack.isEmpty() ? Component.translatable(mealStack.getItem().getDescriptionId()).getString() : "";
 
 				tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
 
@@ -123,16 +137,16 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 		if (this.minecraft == null)
 			return;
 
-		gui.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+		gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
 		// Render heat icon
 		if (this.menu.isHeated()) {
-			gui.blit(BACKGROUND_TEXTURE, this.leftPos + HEAT_ICON.x, this.topPos + HEAT_ICON.y, 176, 0, HEAT_ICON.width, HEAT_ICON.height);
+			gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos + HEAT_ICON.x, this.topPos + HEAT_ICON.y, 176, 0, HEAT_ICON.width, HEAT_ICON.height, 256, 256);
 		}
 
 		// Render progress arrow
 		int l = this.menu.getCookProgressionScaled();
-		gui.blit(BACKGROUND_TEXTURE, this.leftPos + PROGRESS_ARROW.x, this.topPos + PROGRESS_ARROW.y, 176, 15, l + 1, PROGRESS_ARROW.height);
+		gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos + PROGRESS_ARROW.x, this.topPos + PROGRESS_ARROW.y, 176, 15, l + 1, PROGRESS_ARROW.height, 256, 256);
 	}
 
 	@Override
@@ -166,15 +180,14 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 		this.recipeBookComponent.recipesUpdated();
 	}
 
+	@Override
+	public void fillGhostRecipe(RecipeDisplay recipeDisplay) {
+
+	}
+
 //	@Override
 //	public void removed() {
 //		this.recipeBookComponent.removed();
 //		super.removed();
 //	}
-
-	@Override
-	@NotNull
-	public RecipeBookComponent getRecipeBookComponent() {
-		return this.recipeBookComponent;
-	}
 }

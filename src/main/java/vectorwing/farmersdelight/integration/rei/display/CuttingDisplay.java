@@ -1,33 +1,62 @@
 package vectorwing.farmersdelight.integration.rei.display;
 
-import com.google.common.collect.ImmutableList;
-import it.unimi.dsi.fastutil.Pair;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import me.shedaniel.rei.plugin.common.displays.crafting.CraftingDisplay;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CuttingDisplay extends BasicDisplay {
+public class CuttingDisplay extends BasicDisplay implements CraftingDisplay {
     private EntryIngredient tool;
     private List<Pair<EntryIngredient, Float>> chanceResults;
 
-    public CuttingDisplay(RecipeHolder<CuttingBoardRecipe> recipe) {
-        this(EntryIngredients.ofIngredients(recipe.value().getIngredients()), recipe.value().getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(), Optional.of(recipe.id()), EntryIngredients.ofIngredient(recipe.value().getTool()), recipe.value().getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList());
-    }
+    private static final StreamCodec<RegistryFriendlyByteBuf, Pair<EntryIngredient, Float>> CHANCE_RESULTS_STREAM_CODEC = StreamCodec.composite(
+            EntryIngredient.streamCodec(), Pair::getFirst,
+            ByteBufCodecs.FLOAT, Pair::getSecond,
+            Pair::new
+    );
 
-    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, CompoundTag tag) {
-        this(inputs, outputs, location, EntryIngredient.of(EntryStack.read(tag.getCompound("tool"))), deserializeChanceResults(tag));
+    public static final DisplaySerializer<CuttingDisplay> SERIALIZER = DisplaySerializer.of(
+            RecordCodecBuilder.mapCodec(inst -> inst.group(
+                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(CuttingDisplay::getInputEntries),
+                    EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(CuttingDisplay::getOutputEntries),
+                    ResourceLocation.CODEC.optionalFieldOf("location").forGetter(CuttingDisplay::getDisplayLocation),
+                    EntryIngredient.codec().fieldOf("tool").forGetter(CuttingDisplay::getTool),
+                    Codec.pair(EntryIngredient.codec(), Codec.FLOAT).listOf().fieldOf("chance_results").forGetter(CuttingDisplay::getRollableOutputs)
+            ).apply(inst, CuttingDisplay::new)),
+            StreamCodec.composite(
+                    EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), CuttingDisplay::getInputEntries,
+                    EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), CuttingDisplay::getOutputEntries,
+                    ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), CuttingDisplay::getDisplayLocation,
+                    EntryIngredient.streamCodec(), CuttingDisplay::getTool,
+                    CHANCE_RESULTS_STREAM_CODEC.apply(ByteBufCodecs.list()), CuttingDisplay::getRollableOutputs,
+                    CuttingDisplay::new
+            ));
+
+    public CuttingDisplay(RecipeHolder<CuttingBoardRecipe> recipe) {
+        this(List.of(EntryIngredients.ofIngredient(recipe.value().getInput())),
+                recipe.value().getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(),
+                Optional.of(recipe.id().location()),
+                EntryIngredients.ofIngredient(recipe.value().getTool()),
+                recipe.value().getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList()
+        );
     }
 
     public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, EntryIngredient tool, List<Pair<EntryIngredient, Float>> chanceResults) {
@@ -44,25 +73,28 @@ public class CuttingDisplay extends BasicDisplay {
     }
 
 
-    private static List<Pair<EntryIngredient, Float>> deserializeChanceResults(CompoundTag tag) {
-        ImmutableList.Builder<Pair<EntryIngredient, Float>> builder = new ImmutableList.Builder<>();
-        ListTag innerTag = tag.getList("chance_results", Tag.TAG_COMPOUND);
-        for (int i = 0; i < innerTag.size(); ++i) {
-            CompoundTag entry = innerTag.getCompound(i);
-            builder.add(Pair.of(EntryIngredient.of(EntryStack.read(entry.getCompound("stack"))), entry.getFloat("chance")));
-        }
-        return builder.build();
-    }
-
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
         return REICategoryIdentifiers.CUTTING;
     }
 
-    public static Serializer<CuttingDisplay> serializer() {
-        return Serializer.of(CuttingDisplay::new, (display, tag) -> {
-            display.tool = EntryIngredient.of(EntryStack.read(tag.getCompound("tool")));
-            display.chanceResults = deserializeChanceResults(tag);
-        });
+    @Override
+    public @Nullable DisplaySerializer<? extends Display> getSerializer() {
+        return SERIALIZER;
+    }
+
+    @Override
+    public boolean isShapeless() {
+        return false;
+    }
+
+    @Override
+    public int getWidth() {
+        return 1;
+    }
+
+    @Override
+    public int getHeight() {
+        return 1;
     }
 }

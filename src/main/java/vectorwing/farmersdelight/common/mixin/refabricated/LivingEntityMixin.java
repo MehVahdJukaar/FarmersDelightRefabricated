@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.mixin.refabricated;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -23,8 +24,8 @@ public abstract class LivingEntityMixin extends Entity {
         super(entityType, level);
     }
 
-    @ModifyVariable(method = "hurt", at = @At("HEAD"), argsOnly = true)
-    private float handleBackstabbingDamage(float original, DamageSource source) {
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true)
+    private float handleBackstabbingDamage(float original, ServerLevel serverLevel, DamageSource source) {
         if (original > 0) {
             SkilletItem.SkilletEvents.playSkilletAttackSound((LivingEntity)(Object)this, source);
             // You'd be multiplying with 0 if you were to do this with any value <= 0.

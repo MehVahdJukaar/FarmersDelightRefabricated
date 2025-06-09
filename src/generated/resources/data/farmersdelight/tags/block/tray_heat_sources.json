@@ -2,7 +2,6 @@
   "values": [
     "minecraft:lava",
     "#minecraft:campfires",
-    "#minecraft:fire",
-    {"id":"decorative_blocks:braziers","required":false}
+    "#minecraft:fire"
   ]
 }

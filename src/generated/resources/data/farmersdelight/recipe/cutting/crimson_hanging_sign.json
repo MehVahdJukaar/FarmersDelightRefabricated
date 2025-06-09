@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:crimson_hanging_sign"
-    }
+    "minecraft:crimson_hanging_sign"
   ],
   "result": [
     {

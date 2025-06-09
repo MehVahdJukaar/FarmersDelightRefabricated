@@ -5,25 +5,24 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.ConsumableListener;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,7 +35,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public class PieBlock extends Block
 {
-	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
 
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
@@ -68,12 +67,12 @@ public class PieBlock extends Block
 	}
 
 	@Override
-	public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	public InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (heldStack.is(ModTags.KNIVES)) {
 			return cutSlice(level, pos, state, player);
 		}
 
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
@@ -99,13 +98,13 @@ public class PieBlock extends Block
 		} else {
 			ItemStack sliceStack = this.getPieSliceItem();
 			FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
+			Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
 
 			if (sliceFood != null) {
 				playerIn.getFoodData().eat(sliceFood);
-				for (FoodProperties.PossibleEffect effect : sliceFood.effects()) {
-					if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
-						playerIn.addEffect(effect.effect());
-					}
+				sliceStack.getAllOfType(ConsumableListener.class).forEach(consumableListener -> consumableListener.onConsume(level, playerIn, sliceStack, sliceConsumable));
+				if (!level.isClientSide) {
+					sliceConsumable.onConsumeEffects().forEach(consumeEffect -> consumeEffect.apply(level, sliceStack, playerIn));
 				}
 			}
 
@@ -115,7 +114,7 @@ public class PieBlock extends Block
 			} else {
 				level.removeBlock(pos, false);
 			}
-			level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+			level.playSound(null, pos, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 0.8F, 0.8F);
 			return InteractionResult.SUCCESS;
 		}
 	}
@@ -123,7 +122,7 @@ public class PieBlock extends Block
 	/**
 	 * Cuts off a bite and drops a slice item, without feeding the player.
 	 */
-	protected ItemInteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player) {
+	protected InteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player) {
 		int bites = state.getValue(BITES);
 		if (bites < getMaxBites() - 1) {
 			level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
@@ -135,12 +134,20 @@ public class PieBlock extends Block
 		ItemUtils.spawnItemEntity(level, this.getPieSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
 				direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15);
 		level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		return facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
+	public BlockState updateShape(
+			BlockState stateIn,
+			LevelReader level,
+			ScheduledTickAccess scheduledTickAccess,
+			BlockPos currentPos,
+			Direction facing,
+			BlockPos facingPos,
+			BlockState facingState,
+			RandomSource random) {
+		return facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
@@ -21,7 +22,7 @@ public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 	}
 
 	@Override
-	public void render(StoveBlockEntity stoveEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {
+	public void render(StoveBlockEntity stoveEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn, Vec3 cameraPos) {
 		Direction direction = stoveEntity.getBlockState().getValue(StoveBlock.FACING).getOpposite();
 
 		ItemStackHandler inventory = stoveEntity.getInventory();

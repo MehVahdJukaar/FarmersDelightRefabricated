@@ -1,22 +1,26 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.*;
+import vectorwing.farmersdelight.refabricated.RegUtils;
 
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
-
-import static vectorwing.farmersdelight.refabricated.RegUtils.regBlock;
 
 public class ModBlocks
 {
@@ -24,278 +28,264 @@ public class ModBlocks
 		return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
 	}
 
+	private static ResourceKey<Block> key(String path) {
+		return ResourceKey.create(Registries.BLOCK, FarmersDelight.res(path));
+	}
+
+	private static ResourceKey<LootTable> lootTableKey(String path) {
+		return ResourceKey.create(Registries.LOOT_TABLE, FarmersDelight.res(path));
+	}
+
+	private static Supplier<Block> regCanvasSign(@Nullable DyeColor color) {
+		String path = (color != null ? (color + "_") : "") + "canvas_sign";
+		return regBlock(path, properties -> new StandingCanvasSignBlock(properties, color), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SIGN));
+	}
+
+	private static Supplier<Block> regWallCanvasSign(@Nullable DyeColor color) {
+		String path = (color != null ? (color + "_") : "") + "canvas_wall_sign";
+		String basePath = (color != null ? (color + "_") : "") + "canvas_sign";
+		return regBlock(path, properties -> new WallCanvasSignBlock(properties, color), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SIGN)
+				.overrideLootTable(Optional.of(lootTableKey(basePath))));
+	}
+
+	private static Supplier<Block> regHangingCanvasSign(@Nullable DyeColor color) {
+		String path = (color != null ? (color + "_") : "") + "hanging_canvas_sign";
+		return regBlock(path, properties -> new CeilingHangingCanvasSignBlock(properties, color), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_HANGING_SIGN));
+	}
+
+	private static Supplier<Block> regWallHangingCanvasSign(@Nullable DyeColor color) {
+		String path = (color != null ? (color + "_") : "") + "wall_hanging_canvas_sign";
+		String basePath = (color != null ? (color + "_") : "") + "hanging_canvas_sign";
+		return regBlock(path, properties -> new WallHangingCanvasSignBlock(properties, color), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_HANGING_SIGN)
+				.overrideLootTable(Optional.of(lootTableKey(basePath))));
+	}
+
+	private static Supplier<Block> regBlock(final String name, final Function<BlockBehaviour.Properties, Block> function, final BlockBehaviour.Properties properties) {
+		properties.setId(key(name));
+		return RegUtils.regBlock(name, () -> function.apply(properties));
+	}
+
 	// Workstations
 	public static final Supplier<Block> STOVE = regBlock("stove",
-			() -> new StoveBlock(Block.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(litBlockEmission(13))));
+			StoveBlock::new, Block.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(litBlockEmission(13)));
 	public static final Supplier<Block> COOKING_POT = regBlock("cooking_pot",
-			() -> new CookingPotBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
+			CookingPotBlock::new, Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN));
 	public static final Supplier<Block> SKILLET = regBlock("skillet",
-			() -> new SkilletBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
+			SkilletBlock::new, Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN));
 	public static final Supplier<Block> BASKET = regBlock("basket",
-			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
+			BasketBlock::new, Block.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD));
 	public static final Supplier<Block> CUTTING_BOARD = regBlock("cutting_board",
-			() -> new CuttingBoardBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F).sound(SoundType.WOOD)));
+			CuttingBoardBlock::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F).sound(SoundType.WOOD));
 
 	// Crop Storage
 	public static final Supplier<Block> CARROT_CRATE = regBlock("carrot_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> POTATO_CRATE = regBlock("potato_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> BEETROOT_CRATE = regBlock("beetroot_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> CABBAGE_CRATE = regBlock("cabbage_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> TOMATO_CRATE = regBlock("tomato_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> ONION_CRATE = regBlock("onion_crate",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final Supplier<Block> RICE_BALE = regBlock("rice_bale",
-			() -> new RiceBaleBlock(Block.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
+			RiceBaleBlock::new, Block.Properties.ofFullCopy(Blocks.HAY_BLOCK));
 	public static final Supplier<Block> RICE_BAG = regBlock("rice_bag",
-			() -> new Block(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+			Block::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL));
 	public static final Supplier<Block> STRAW_BALE = regBlock("straw_bale",
-			() -> new StrawBaleBlock(Block.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
+			StrawBaleBlock::new, Block.Properties.ofFullCopy(Blocks.HAY_BLOCK));
 
 	// Building
 	public static final Supplier<Block> ROPE = regBlock("rope",
-			() -> new RopeBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollission().noOcclusion().strength(0.2F).sound(SoundType.WOOL)));
+			RopeBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollission().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> SAFETY_NET = regBlock("safety_net",
-			() -> new SafetyNetBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL)));
+			SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> OAK_CABINET = regBlock("oak_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> SPRUCE_CABINET = regBlock("spruce_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> BIRCH_CABINET = regBlock("birch_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> JUNGLE_CABINET = regBlock("jungle_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> ACACIA_CABINET = regBlock("acacia_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> DARK_OAK_CABINET = regBlock("dark_oak_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> MANGROVE_CABINET = regBlock("mangrove_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> CHERRY_CABINET = regBlock("cherry_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.CHERRY_WOOD)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.CHERRY_WOOD));
 	public static final Supplier<Block> BAMBOO_CABINET = regBlock("bamboo_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.BAMBOO_WOOD)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.BAMBOO_WOOD));
+	public static final Supplier<Block> PALE_OAK_CABINET = regBlock("pale_oak_cabinet",
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> CRIMSON_CABINET = regBlock("crimson_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD));
 	public static final Supplier<Block> WARPED_CABINET = regBlock("warped_cabinet",
-			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD)));
+			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD));
 	public static final Supplier<Block> CANVAS_RUG = regBlock("canvas_rug",
-			() -> new CanvasRugBlock(Block.Properties.ofFullCopy(Blocks.WHITE_CARPET).sound(SoundType.GRASS).strength(0.2F)));
+			CanvasRugBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_CARPET).sound(SoundType.GRASS).strength(0.2F));
 	public static final Supplier<Block> TATAMI = regBlock("tatami",
-			() -> new TatamiBlock(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+			TatamiBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL));
 	public static final Supplier<Block> FULL_TATAMI_MAT = regBlock("full_tatami_mat",
-			() -> new TatamiMatBlock(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F)));
+			TatamiMatBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F));
 	public static final Supplier<Block> HALF_TATAMI_MAT = regBlock("half_tatami_mat",
-			() -> new TatamiHalfMatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY)));
+			TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY));
 
-	public static final Supplier<Block> CANVAS_SIGN = regBlock("canvas_sign",
-			() -> new StandingCanvasSignBlock(null));
-	public static final Supplier<Block> WHITE_CANVAS_SIGN = regBlock("white_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.WHITE));
-	public static final Supplier<Block> ORANGE_CANVAS_SIGN = regBlock("orange_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.ORANGE));
-	public static final Supplier<Block> MAGENTA_CANVAS_SIGN = regBlock("magenta_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.MAGENTA));
-	public static final Supplier<Block> LIGHT_BLUE_CANVAS_SIGN = regBlock("light_blue_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.LIGHT_BLUE));
-	public static final Supplier<Block> YELLOW_CANVAS_SIGN = regBlock("yellow_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.YELLOW));
-	public static final Supplier<Block> LIME_CANVAS_SIGN = regBlock("lime_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.LIME));
-	public static final Supplier<Block> PINK_CANVAS_SIGN = regBlock("pink_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.PINK));
-	public static final Supplier<Block> GRAY_CANVAS_SIGN = regBlock("gray_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.GRAY));
-	public static final Supplier<Block> LIGHT_GRAY_CANVAS_SIGN = regBlock("light_gray_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.LIGHT_GRAY));
-	public static final Supplier<Block> CYAN_CANVAS_SIGN = regBlock("cyan_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.CYAN));
-	public static final Supplier<Block> PURPLE_CANVAS_SIGN = regBlock("purple_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.PURPLE));
-	public static final Supplier<Block> BLUE_CANVAS_SIGN = regBlock("blue_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.BLUE));
-	public static final Supplier<Block> BROWN_CANVAS_SIGN = regBlock("brown_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.BROWN));
-	public static final Supplier<Block> GREEN_CANVAS_SIGN = regBlock("green_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.GREEN));
-	public static final Supplier<Block> RED_CANVAS_SIGN = regBlock("red_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.RED));
-	public static final Supplier<Block> BLACK_CANVAS_SIGN = regBlock("black_canvas_sign",
-			() -> new StandingCanvasSignBlock(DyeColor.BLACK));
+	public static final Supplier<Block> CANVAS_SIGN = regCanvasSign(null);
+	public static final Supplier<Block> WHITE_CANVAS_SIGN = regCanvasSign(DyeColor.WHITE);
+	public static final Supplier<Block> ORANGE_CANVAS_SIGN = regCanvasSign(DyeColor.ORANGE);
+	public static final Supplier<Block> MAGENTA_CANVAS_SIGN = regCanvasSign(DyeColor.MAGENTA);
+	public static final Supplier<Block> LIGHT_BLUE_CANVAS_SIGN = regCanvasSign(DyeColor.LIGHT_BLUE);
+	public static final Supplier<Block> YELLOW_CANVAS_SIGN = regCanvasSign(DyeColor.YELLOW);
+	public static final Supplier<Block> LIME_CANVAS_SIGN = regCanvasSign(DyeColor.LIME);
+	public static final Supplier<Block> PINK_CANVAS_SIGN = regCanvasSign(DyeColor.PINK);
+	public static final Supplier<Block> GRAY_CANVAS_SIGN = regCanvasSign(DyeColor.GRAY);
+	public static final Supplier<Block> LIGHT_GRAY_CANVAS_SIGN = regCanvasSign(DyeColor.LIGHT_GRAY);
+	public static final Supplier<Block> CYAN_CANVAS_SIGN = regCanvasSign(DyeColor.CYAN);
+	public static final Supplier<Block> PURPLE_CANVAS_SIGN = regCanvasSign(DyeColor.PURPLE);
+	public static final Supplier<Block> BLUE_CANVAS_SIGN = regCanvasSign(DyeColor.BLUE);
+	public static final Supplier<Block> BROWN_CANVAS_SIGN = regCanvasSign(DyeColor.BROWN);
+	public static final Supplier<Block> GREEN_CANVAS_SIGN = regCanvasSign(DyeColor.GREEN);
+	public static final Supplier<Block> RED_CANVAS_SIGN = regCanvasSign(DyeColor.RED);
+	public static final Supplier<Block> BLACK_CANVAS_SIGN = regCanvasSign(DyeColor.BLACK);
 
-	public static final Supplier<Block> CANVAS_WALL_SIGN = regBlock("canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(CANVAS_SIGN.get()), null));
-	public static final Supplier<Block> WHITE_CANVAS_WALL_SIGN = regBlock("white_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(WHITE_CANVAS_SIGN.get()), DyeColor.WHITE));
-	public static final Supplier<Block> ORANGE_CANVAS_WALL_SIGN = regBlock("orange_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(ORANGE_CANVAS_SIGN.get()), DyeColor.ORANGE));
-	public static final Supplier<Block> MAGENTA_CANVAS_WALL_SIGN = regBlock("magenta_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(MAGENTA_CANVAS_SIGN.get()), DyeColor.MAGENTA));
-	public static final Supplier<Block> LIGHT_BLUE_CANVAS_WALL_SIGN = regBlock("light_blue_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(LIGHT_BLUE_CANVAS_SIGN.get()), DyeColor.LIGHT_BLUE));
-	public static final Supplier<Block> YELLOW_CANVAS_WALL_SIGN = regBlock("yellow_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(YELLOW_CANVAS_SIGN.get()), DyeColor.YELLOW));
-	public static final Supplier<Block> LIME_CANVAS_WALL_SIGN = regBlock("lime_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(LIME_CANVAS_SIGN.get()), DyeColor.LIME));
-	public static final Supplier<Block> PINK_CANVAS_WALL_SIGN = regBlock("pink_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(PINK_CANVAS_SIGN.get()), DyeColor.PINK));
-	public static final Supplier<Block> GRAY_CANVAS_WALL_SIGN = regBlock("gray_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(GRAY_CANVAS_SIGN.get()), DyeColor.GRAY));
-	public static final Supplier<Block> LIGHT_GRAY_CANVAS_WALL_SIGN = regBlock("light_gray_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(LIGHT_GRAY_CANVAS_SIGN.get()), DyeColor.LIGHT_GRAY));
-	public static final Supplier<Block> CYAN_CANVAS_WALL_SIGN = regBlock("cyan_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(CYAN_CANVAS_SIGN.get()), DyeColor.CYAN));
-	public static final Supplier<Block> PURPLE_CANVAS_WALL_SIGN = regBlock("purple_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(PURPLE_CANVAS_SIGN.get()), DyeColor.PURPLE));
-	public static final Supplier<Block> BLUE_CANVAS_WALL_SIGN = regBlock("blue_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(BLUE_CANVAS_SIGN.get()), DyeColor.BLUE));
-	public static final Supplier<Block> BROWN_CANVAS_WALL_SIGN = regBlock("brown_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(BROWN_CANVAS_SIGN.get()), DyeColor.BROWN));
-	public static final Supplier<Block> GREEN_CANVAS_WALL_SIGN = regBlock("green_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(GREEN_CANVAS_SIGN.get()), DyeColor.GREEN));
-	public static final Supplier<Block> RED_CANVAS_WALL_SIGN = regBlock("red_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(RED_CANVAS_SIGN.get()), DyeColor.RED));
-	public static final Supplier<Block> BLACK_CANVAS_WALL_SIGN = regBlock("black_canvas_wall_sign",
-			() -> new WallCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_SIGN).dropsLike(BLACK_CANVAS_SIGN.get()), DyeColor.BLACK));
+	public static final Supplier<Block> CANVAS_WALL_SIGN = regWallCanvasSign(null);
+	public static final Supplier<Block> WHITE_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.WHITE);
+	public static final Supplier<Block> ORANGE_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.ORANGE);
+	public static final Supplier<Block> MAGENTA_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.MAGENTA);
+	public static final Supplier<Block> LIGHT_BLUE_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.LIGHT_BLUE);
+	public static final Supplier<Block> YELLOW_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.YELLOW);
+	public static final Supplier<Block> LIME_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.LIME);
+	public static final Supplier<Block> PINK_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.PINK);
+	public static final Supplier<Block> GRAY_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.GRAY);
+	public static final Supplier<Block> LIGHT_GRAY_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.LIGHT_GRAY);
+	public static final Supplier<Block> CYAN_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.CYAN);
+	public static final Supplier<Block> PURPLE_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.PURPLE);
+	public static final Supplier<Block> BLUE_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.BLUE);
+	public static final Supplier<Block> BROWN_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.BROWN);
+	public static final Supplier<Block> GREEN_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.GREEN);;
+	public static final Supplier<Block> RED_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.RED);
+	public static final Supplier<Block> BLACK_CANVAS_WALL_SIGN = regWallCanvasSign(DyeColor.BLACK);
 
-	public static final Supplier<Block> HANGING_CANVAS_SIGN = regBlock("hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(null));
-	public static final Supplier<Block> WHITE_HANGING_CANVAS_SIGN = regBlock("white_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.WHITE));
-	public static final Supplier<Block> ORANGE_HANGING_CANVAS_SIGN = regBlock("orange_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.ORANGE));
-	public static final Supplier<Block> MAGENTA_HANGING_CANVAS_SIGN = regBlock("magenta_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.MAGENTA));
-	public static final Supplier<Block> LIGHT_BLUE_HANGING_CANVAS_SIGN = regBlock("light_blue_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.LIGHT_BLUE));
-	public static final Supplier<Block> YELLOW_HANGING_CANVAS_SIGN = regBlock("yellow_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.YELLOW));
-	public static final Supplier<Block> LIME_HANGING_CANVAS_SIGN = regBlock("lime_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.LIME));
-	public static final Supplier<Block> PINK_HANGING_CANVAS_SIGN = regBlock("pink_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.PINK));
-	public static final Supplier<Block> GRAY_HANGING_CANVAS_SIGN = regBlock("gray_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.GRAY));
-	public static final Supplier<Block> LIGHT_GRAY_HANGING_CANVAS_SIGN = regBlock("light_gray_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.LIGHT_GRAY));
-	public static final Supplier<Block> CYAN_HANGING_CANVAS_SIGN = regBlock("cyan_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.CYAN));
-	public static final Supplier<Block> PURPLE_HANGING_CANVAS_SIGN = regBlock("purple_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.PURPLE));
-	public static final Supplier<Block> BLUE_HANGING_CANVAS_SIGN = regBlock("blue_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.BLUE));
-	public static final Supplier<Block> BROWN_HANGING_CANVAS_SIGN = regBlock("brown_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.BROWN));
-	public static final Supplier<Block> GREEN_HANGING_CANVAS_SIGN = regBlock("green_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.GREEN));
-	public static final Supplier<Block> RED_HANGING_CANVAS_SIGN = regBlock("red_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.RED));
-	public static final Supplier<Block> BLACK_HANGING_CANVAS_SIGN = regBlock("black_hanging_canvas_sign",
-			() -> new CeilingHangingCanvasSignBlock(DyeColor.BLACK));
+	public static final Supplier<Block> HANGING_CANVAS_SIGN = regHangingCanvasSign(null);
+	public static final Supplier<Block> WHITE_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.WHITE);
+	public static final Supplier<Block> ORANGE_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.ORANGE);
+	public static final Supplier<Block> MAGENTA_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.MAGENTA);
+	public static final Supplier<Block> LIGHT_BLUE_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.LIGHT_BLUE);
+	public static final Supplier<Block> YELLOW_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.YELLOW);
+	public static final Supplier<Block> LIME_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.LIME);
+	public static final Supplier<Block> PINK_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.PINK);
+	public static final Supplier<Block> GRAY_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.GRAY);
+	public static final Supplier<Block> LIGHT_GRAY_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.LIGHT_GRAY);
+	public static final Supplier<Block> CYAN_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.CYAN);
+	public static final Supplier<Block> PURPLE_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.PURPLE);
+	public static final Supplier<Block> BLUE_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.BLUE);
+	public static final Supplier<Block> BROWN_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.BROWN);
+	public static final Supplier<Block> GREEN_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.GREEN);
+	public static final Supplier<Block> RED_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.RED);
+	public static final Supplier<Block> BLACK_HANGING_CANVAS_SIGN = regHangingCanvasSign(DyeColor.BLACK);
 
-	public static final Supplier<Block> HANGING_CANVAS_WALL_SIGN = regBlock("wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(HANGING_CANVAS_SIGN.get()), null));
-	public static final Supplier<Block> WHITE_HANGING_CANVAS_WALL_SIGN = regBlock("white_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(WHITE_HANGING_CANVAS_SIGN.get()), DyeColor.WHITE));
-	public static final Supplier<Block> ORANGE_HANGING_CANVAS_WALL_SIGN = regBlock("orange_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(ORANGE_HANGING_CANVAS_SIGN.get()), DyeColor.ORANGE));
-	public static final Supplier<Block> MAGENTA_HANGING_CANVAS_WALL_SIGN = regBlock("magenta_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(MAGENTA_HANGING_CANVAS_SIGN.get()), DyeColor.MAGENTA));
-	public static final Supplier<Block> LIGHT_BLUE_HANGING_CANVAS_WALL_SIGN = regBlock("light_blue_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(LIGHT_BLUE_HANGING_CANVAS_SIGN.get()), DyeColor.LIGHT_BLUE));
-	public static final Supplier<Block> YELLOW_HANGING_CANVAS_WALL_SIGN = regBlock("yellow_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(YELLOW_HANGING_CANVAS_SIGN.get()), DyeColor.YELLOW));
-	public static final Supplier<Block> LIME_HANGING_CANVAS_WALL_SIGN = regBlock("lime_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(LIME_HANGING_CANVAS_SIGN.get()), DyeColor.LIME));
-	public static final Supplier<Block> PINK_HANGING_CANVAS_WALL_SIGN = regBlock("pink_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(PINK_HANGING_CANVAS_SIGN.get()), DyeColor.PINK));
-	public static final Supplier<Block> GRAY_HANGING_CANVAS_WALL_SIGN = regBlock("gray_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(GRAY_HANGING_CANVAS_SIGN.get()), DyeColor.GRAY));
-	public static final Supplier<Block> LIGHT_GRAY_HANGING_CANVAS_WALL_SIGN = regBlock("light_gray_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(LIGHT_GRAY_HANGING_CANVAS_SIGN.get()), DyeColor.LIGHT_GRAY));
-	public static final Supplier<Block> CYAN_HANGING_CANVAS_WALL_SIGN = regBlock("cyan_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(CYAN_HANGING_CANVAS_SIGN.get()), DyeColor.CYAN));
-	public static final Supplier<Block> PURPLE_HANGING_CANVAS_WALL_SIGN = regBlock("purple_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(PURPLE_HANGING_CANVAS_SIGN.get()), DyeColor.PURPLE));
-	public static final Supplier<Block> BLUE_HANGING_CANVAS_WALL_SIGN = regBlock("blue_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(BLUE_HANGING_CANVAS_SIGN.get()), DyeColor.BLUE));
-	public static final Supplier<Block> BROWN_HANGING_CANVAS_WALL_SIGN = regBlock("brown_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(BROWN_HANGING_CANVAS_SIGN.get()), DyeColor.BROWN));
-	public static final Supplier<Block> GREEN_HANGING_CANVAS_WALL_SIGN = regBlock("green_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(GREEN_HANGING_CANVAS_SIGN.get()), DyeColor.GREEN));
-	public static final Supplier<Block> RED_HANGING_CANVAS_WALL_SIGN = regBlock("red_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(RED_HANGING_CANVAS_SIGN.get()), DyeColor.RED));
-	public static final Supplier<Block> BLACK_HANGING_CANVAS_WALL_SIGN = regBlock("black_wall_hanging_canvas_sign",
-			() -> new WallHangingCanvasSignBlock(Block.Properties.ofFullCopy(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(BLACK_HANGING_CANVAS_SIGN.get()), DyeColor.BLACK));
+	public static final Supplier<Block> HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(null);
+	public static final Supplier<Block> WHITE_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.WHITE);
+	public static final Supplier<Block> ORANGE_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.ORANGE);
+	public static final Supplier<Block> MAGENTA_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.MAGENTA);
+	public static final Supplier<Block> LIGHT_BLUE_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.LIGHT_BLUE);
+	public static final Supplier<Block> YELLOW_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.YELLOW);
+	public static final Supplier<Block> LIME_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.LIME);
+	public static final Supplier<Block> PINK_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.PINK);
+	public static final Supplier<Block> GRAY_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.GRAY);
+	public static final Supplier<Block> LIGHT_GRAY_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.LIGHT_GRAY);
+	public static final Supplier<Block> CYAN_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.CYAN);
+	public static final Supplier<Block> PURPLE_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.PURPLE);
+	public static final Supplier<Block> BLUE_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.BLUE);
+	public static final Supplier<Block> BROWN_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.BROWN);
+	public static final Supplier<Block> GREEN_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.GREEN);
+	public static final Supplier<Block> RED_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.RED);
+	public static final Supplier<Block> BLACK_HANGING_CANVAS_WALL_SIGN = regWallHangingCanvasSign(DyeColor.BLACK);
 
 	// Composting
 	public static final Supplier<Block> BROWN_MUSHROOM_COLONY = regBlock("brown_mushroom_colony",
-			() -> new MushroomColonyBlock(Items.BROWN_MUSHROOM.builtInRegistryHolder(), Block.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM)));
+			(properties) -> new MushroomColonyBlock(Items.BROWN_MUSHROOM.builtInRegistryHolder(), properties),
+			Block.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM));
 	public static final Supplier<Block> RED_MUSHROOM_COLONY = regBlock("red_mushroom_colony",
-			() -> new MushroomColonyBlock(Items.RED_MUSHROOM.builtInRegistryHolder(), Block.Properties.ofFullCopy(Blocks.RED_MUSHROOM)));
+			(properties) -> new MushroomColonyBlock(Items.RED_MUSHROOM.builtInRegistryHolder(), properties),
+			Block.Properties.ofFullCopy(Blocks.RED_MUSHROOM));
 	public static final Supplier<Block> ORGANIC_COMPOST = regBlock("organic_compost",
-			() -> new OrganicCompostBlock(Block.Properties.ofFullCopy(Blocks.DIRT).strength(1.2F).sound(SoundType.CROP)));
+            OrganicCompostBlock::new, Block.Properties.ofFullCopy(Blocks.DIRT).strength(1.2F).sound(SoundType.CROP));
 	public static final Supplier<Block> RICH_SOIL = regBlock("rich_soil",
-			() -> new RichSoilBlock(Block.Properties.ofFullCopy(Blocks.DIRT).randomTicks()));
+			RichSoilBlock::new, Block.Properties.ofFullCopy(Blocks.DIRT).randomTicks());
 	public static final Supplier<Block> RICH_SOIL_FARMLAND = regBlock("rich_soil_farmland",
-			() -> new RichSoilFarmlandBlock(Block.Properties.ofFullCopy(Blocks.FARMLAND)));
+			RichSoilFarmlandBlock::new, Block.Properties.ofFullCopy(Blocks.FARMLAND));
 
 	// Pastries
 	public static final Supplier<Block> APPLE_PIE = regBlock("apple_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.APPLE_PIE_SLICE.get())); //dont kill double lambda
+			(properties) -> new PieBlock(properties, () -> ModItems.APPLE_PIE_SLICE.get()), //dont kill double lambda
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 	public static final Supplier<Block> SWEET_BERRY_CHEESECAKE = regBlock("sweet_berry_cheesecake",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
+			(properties) -> new PieBlock(properties, () -> ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()),
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 	public static final Supplier<Block> CHOCOLATE_PIE = regBlock("chocolate_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.CHOCOLATE_PIE_SLICE.get()));
+			(properties) -> new PieBlock(properties, () -> ModItems.CHOCOLATE_PIE_SLICE.get()),
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 
 	// Wild Crops
 	public static final Supplier<Block> SANDY_SHRUB = regBlock("sandy_shrub",
-			() -> new SandyShrubBlock(Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+            SandyShrubBlock::new, Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 
 	public static final Supplier<Block> WILD_CABBAGES = regBlock("wild_cabbages",
-			() -> new WildCropBlock(MobEffects.DAMAGE_BOOST, 6, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.STRENGTH, 6, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_ONIONS = regBlock("wild_onions",
-			() -> new WildCropBlock(MobEffects.FIRE_RESISTANCE, 6, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.FIRE_RESISTANCE, 6, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_TOMATOES = regBlock("wild_tomatoes",
-			() -> new WildCropBlock(MobEffects.POISON, 10, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.POISON, 10, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_CARROTS = regBlock("wild_carrots",
-			() -> new WildCropBlock(MobEffects.DIG_SLOWDOWN, 6, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.MINING_FATIGUE, 6, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_POTATOES = regBlock("wild_potatoes",
-			() -> new WildCropBlock(MobEffects.CONFUSION, 8, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.NAUSEA, 8, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_BEETROOTS = regBlock("wild_beetroots",
-			() -> new WildCropBlock(MobEffects.WATER_BREATHING, 8, Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+			(properties) -> new WildCropBlock(MobEffects.WATER_BREATHING, 8, properties),
+			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_RICE = regBlock("wild_rice",
-			() -> new WildRiceBlock(Block.Properties.ofFullCopy(Blocks.TALL_GRASS)));
+            WildRiceBlock::new, Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 
 	// Crops
 	public static final Supplier<Block> CABBAGE_CROP = regBlock("cabbages",
-			() -> new CabbageBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
+			CabbageBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT));
 	public static final Supplier<Block> ONION_CROP = regBlock("onions",
-			() -> new OnionBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
+			OnionBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT));
 	public static final Supplier<Block> BUDDING_TOMATO_CROP = regBlock("budding_tomatoes",
-			() -> new BuddingTomatoBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
+			BuddingTomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP = regBlock("tomatoes",
-			() -> new TomatoVineBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
+			TomatoVineBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
-			() -> new RiceBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).strength(0.2F)));
+			RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",
-			() -> new RicePaniclesBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
+			RicePaniclesBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock("roast_chicken_block",
-			() -> new RoastChickenBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.ROAST_CHICKEN.get(), true));
+			(properties) -> new RoastChickenBlock(properties, () -> ModItems.ROAST_CHICKEN.get(), true),
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock("stuffed_pumpkin_block",
-			() -> new FeastBlock(Block.Properties.ofFullCopy(Blocks.PUMPKIN), ()->ModItems.STUFFED_PUMPKIN.get(), false));
+			(properties) -> new FeastBlock(properties, () -> ModItems.STUFFED_PUMPKIN.get(), false),
+			Block.Properties.ofFullCopy(Blocks.PUMPKIN));
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock("honey_glazed_ham_block",
-			() -> new HoneyGlazedHamBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.HONEY_GLAZED_HAM.get(), true));
+			(properties) -> new HoneyGlazedHamBlock(properties, () -> ModItems.HONEY_GLAZED_HAM.get(), true),
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
-			() -> new ShepherdsPieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true));
+			(properties) -> new ShepherdsPieBlock(properties, () -> ModItems.SHEPHERDS_PIE.get(), true),
+			Block.Properties.ofFullCopy(Blocks.CAKE));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
-			() -> new RiceRollMedleyBlock(Block.Properties.ofFullCopy(Blocks.CAKE)));
+            RiceRollMedleyBlock::new, Block.Properties.ofFullCopy(Blocks.CAKE));
 
 	public static void touch() {
 

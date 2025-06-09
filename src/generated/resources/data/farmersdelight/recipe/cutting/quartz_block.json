@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:quartz_block"
-    }
+    "minecraft:quartz_block"
   ],
   "result": [
     {

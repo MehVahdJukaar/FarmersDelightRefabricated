@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.Configuration;
@@ -18,6 +20,11 @@ public record ChanceResult(ItemStack stack, float chance)
 			ItemStack.CODEC.fieldOf("item").forGetter(ChanceResult::stack),
 			Codec.FLOAT.optionalFieldOf("chance", 1.0f).forGetter(ChanceResult::chance)
 	).apply(inst, ChanceResult::new));
+	public static final StreamCodec<RegistryFriendlyByteBuf, ChanceResult> STREAM_CODEC = StreamCodec.composite(
+			ItemStack.STREAM_CODEC, ChanceResult::stack,
+			ByteBufCodecs.FLOAT, ChanceResult::chance,
+			ChanceResult::new
+	);
 
 
 	public ItemStack rollOutput(RandomSource rand, int fortuneLevel) {
@@ -31,14 +38,5 @@ public record ChanceResult(ItemStack stack, float chance)
 		ItemStack out = stack.copy();
 		out.setCount(outputAmount);
 		return out;
-	}
-
-	public void write(RegistryFriendlyByteBuf buffer) {
-		ItemStack.STREAM_CODEC.encode(buffer, stack());
-		buffer.writeFloat(chance());
-	}
-
-	public static ChanceResult read(RegistryFriendlyByteBuf buffer) {
-		return new ChanceResult(ItemStack.STREAM_CODEC.decode(buffer), buffer.readFloat());
 	}
 }
