@@ -108,7 +108,7 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
     }
 
     public static void applyTransform(HumanoidModel<?> model, SkilletEntityRenderState renderState, HumanoidArm arm) {
-        long time = renderState.getSkilletFlipTimestamp();
+        long time = renderState.fdrf$getSkilletFlipTimestamp();
         if (time == -1)
             return;
         float partialTicks = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false);

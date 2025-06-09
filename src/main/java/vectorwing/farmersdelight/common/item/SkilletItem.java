@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,10 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -43,6 +41,7 @@ import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -123,25 +122,30 @@ public class SkilletItem extends BlockItem {
                 return InteractionResult.PASS;
             }
 
-            if (level instanceof ServerLevel serverLevel) {
-                Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, serverLevel);
-                if (recipe.isPresent()) {
+                if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(cookingStack)) {
                     if (player.isUnderWater()) {
                         player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
                         return InteractionResult.PASS;
                     }
-                    ItemStack cookingStackCopy = cookingStack.copy();
-                    ItemStack cookingStackUnit = cookingStackCopy.split(1);
-                    skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
-                    skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().cookingTime());
-                    skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
-                    player.startUsingItem(hand);
-                    player.setItemInHand(otherHand, cookingStackCopy);
+                    if (level instanceof ServerLevel serverLevel) {
+                        ItemStack cookingStackCopy = cookingStack.copy();
+                        ItemStack cookingStackUnit = cookingStackCopy.split(1);
+
+                        Optional<RecipeHolder<CampfireCookingRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(cookingStack), serverLevel);
+                        if (recipe.isEmpty())
+                            return InteractionResult.CONSUME;
+
+                        skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
+                        skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().cookingTime());
+                        skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
+
+                        player.startUsingItem(hand);
+                        player.setItemInHand(otherHand, cookingStackCopy);
+                    }
                     return InteractionResult.CONSUME;
                 } else {
                     player.displayClientMessage(TextUtils.getTranslation("item.skillet.how_to_cook"), true);
                 }
-            }
         }
         return InteractionResult.PASS;
     }
@@ -201,8 +205,6 @@ public class SkilletItem extends BlockItem {
                         CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
                     }
                 });
-                stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
-                stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                 stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
@@ -214,7 +216,7 @@ public class SkilletItem extends BlockItem {
     @Override
     public int getBarWidth(ItemStack stack) {
         if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
-            return Math.round(13.0F - (float) getClientPlayerHack().getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack, getClientPlayerHack()));
+            return Mth.clamp(Math.round(13.0F - (getUseDuration(stack, getClientPlayerHack()) + getClientPlayerHack().getUseItemRemainingTicks()) * 13.0F / getUseDuration(stack, getClientPlayerHack())), 0, 13);
         } else {
             return super.getBarWidth(stack);
         }

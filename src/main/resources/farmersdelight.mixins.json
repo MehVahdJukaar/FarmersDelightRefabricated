@@ -27,7 +27,9 @@
     "HideBlockBreakProgressMixin",
     "refabricated.BlockModelWrapperAccessor",
     "refabricated.GuiMixin",
-    "refabricated.HumanoidModelMixin"
+    "refabricated.HumanoidMobRendererMixin",
+    "refabricated.HumanoidModelMixin",
+    "refabricated.HumanoidRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
