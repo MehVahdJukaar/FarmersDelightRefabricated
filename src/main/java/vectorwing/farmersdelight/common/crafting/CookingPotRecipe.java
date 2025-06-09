@@ -9,14 +9,19 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.client.recipe.CookingPotRecipeDisplay;
+import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
 {
@@ -84,6 +89,16 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	@Override
 	public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
 		return ModRecipeTypes.COOKING.get();
+	}
+
+	@Override
+	public List<RecipeDisplay> display() {
+		return List.of(new CookingPotRecipeDisplay(this.input().stream().map(Ingredient::display).toList(),
+				container.isEmpty() ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(container)),
+				new SlotDisplay.ItemStackSlotDisplay(this.result()),
+				new SlotDisplay.ItemSlotDisplay(ModItems.COOKING_POT.get()),
+				cookTime,
+				experience));
 	}
 
 	@Override

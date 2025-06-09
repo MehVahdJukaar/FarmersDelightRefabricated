@@ -16,6 +16,7 @@ import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -126,5 +127,9 @@ public class RegUtils {
 
     public static <B extends ConsumeEffect.Type<?>> Supplier<B> regConsumeEffectType(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.CONSUME_EFFECT_TYPE);
+    }
+
+    public static <B extends RecipeDisplay.Type<?>> Supplier<B> regRecipeDisplay(String name, Supplier<B> supplier) {
+        return register(name, supplier, BuiltInRegistries.RECIPE_DISPLAY);
     }
 }

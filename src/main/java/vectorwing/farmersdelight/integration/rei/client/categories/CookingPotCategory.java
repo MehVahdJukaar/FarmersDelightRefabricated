@@ -24,6 +24,7 @@ import vectorwing.farmersdelight.integration.rei.display.CookingPotDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPotDisplay> {
     private static final Component TITLE = Component.translatable("farmersdelight.jei.cooking");;
@@ -73,7 +74,7 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
     public List<Widget> setupDisplay(ClientsidedCookingPotDisplay display, Rectangle bounds) {
         List<EntryIngredient> recipeIngredients = display.getInputEntries();
         List<EntryIngredient> resultStack = display.getOutputEntries();
-        EntryIngredient containerStack = display.getOutputContainer();
+        Optional<EntryIngredient> containerStack = display.getOutputContainer();
 
         Point startPoint = new Point(bounds.getCenterX() - 58, bounds.getCenterY() - 28);
 
@@ -95,9 +96,7 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 10)).entries(resultStack.get(0)).disableBackground());
 
         Slot containerSlot = Widgets.createSlot(new Point(startPoint.x + 63, startPoint.y + 39));
-        if (!containerStack.isEmpty()) {
-            containerSlot.entries(containerStack);
-        }
+        containerStack.ifPresent(containerSlot::entries);
         widgets.add(containerSlot);
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 39)).entries(resultStack.get(0)));

@@ -4,6 +4,7 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.recipebook.GhostSlots;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
+import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.context.ContextMap;
@@ -20,20 +21,30 @@ import vectorwing.farmersdelight.client.recipe.CookingPotRecipeDisplay;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.mixin.refabricated.GhostSlotsInvoker;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
 public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPotMenu>
 {
+	private static final SearchRecipeBookCategory COOKING_SEARCH_CATEGORY = SearchRecipeBookCategory.valueOf("FARMERSDELIGHT_COOKING");
+
 	protected static final WidgetSprites RECIPE_BOOK_BUTTONS = new WidgetSprites(
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled"),
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled_highlighted"),
 			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled_highlighted"));
+	private static final List<RecipeBookComponent.TabInfo> TABS = List.of(
+			new RecipeBookComponent.TabInfo(COOKING_SEARCH_CATEGORY),
+			new RecipeBookComponent.TabInfo(ModItems.VEGETABLE_NOODLES.get(), ModRecipeBookCategories.COOKING_MEALS.get()),
+			new RecipeBookComponent.TabInfo(ModItems.APPLE_CIDER.get(), ModRecipeBookCategories.COOKING_DRINKS.get()),
+			new RecipeBookComponent.TabInfo(ModItems.DUMPLINGS.get(), ModItems.TOMATO_SAUCE.get(), ModRecipeBookCategories.COOKING_MISC.get())
+	);
 
-	public CookingPotRecipeBookComponent(CookingPotMenu menu, List<RecipeBookComponent.TabInfo> list) {
-		super(menu, list);
+	public CookingPotRecipeBookComponent(CookingPotMenu menu) {
+		super(menu, TABS);
 	}
 
 	@Override
@@ -54,10 +65,6 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 		possibleRecipes.selectRecipes(stackedItemContents, recipeDisplay -> recipeDisplay instanceof CookingPotRecipeDisplay);
 	}
 
-	public void hide() {
-		this.setVisible(false);
-	}
-
 	@Override
 	@NotNull
 	protected Component getRecipeFilterName() {
@@ -73,8 +80,8 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 				((GhostSlotsInvoker)ghostSlots).fdrf$setInput(menu.getSlot(i), contextMap, display);
 			}
 
-			if (menu.getSlot(7).getItem().isEmpty()) {
-				((GhostSlotsInvoker)ghostSlots).fdrf$setInput(menu.getSlot(7), contextMap, cookingPotRecipeDisplay.container());
+			if (menu.getSlot(7).getItem().isEmpty() && cookingPotRecipeDisplay.container().isPresent()) {
+				((GhostSlotsInvoker)ghostSlots).fdrf$setInput(menu.getSlot(7), contextMap, cookingPotRecipeDisplay.container().get());
 			}
 		}
 	}
