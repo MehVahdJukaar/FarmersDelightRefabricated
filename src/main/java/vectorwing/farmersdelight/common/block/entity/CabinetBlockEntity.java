@@ -10,12 +10,14 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -75,6 +77,15 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	}
 
 	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		BlockEntity tileEntity = level.getBlockEntity(pos);
+		if (tileEntity instanceof Container) {
+			Containers.dropContents(level, pos, (Container) tileEntity);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
+	@Override
 	public int getContainerSize() {
 		return 27;
 	}
@@ -126,7 +137,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	private void playSound(BlockState state, SoundEvent sound) {
 		if (level == null) return;
 
-		Vec3i cabinetFacingVector = state.getValue(CabinetBlock.FACING).getNormal();
+		Vec3i cabinetFacingVector = state.getValue(CabinetBlock.FACING).getUnitVec3i();
 		double x = (double) worldPosition.getX() + 0.5D + (double) cabinetFacingVector.getX() / 2.0D;
 		double y = (double) worldPosition.getY() + 0.5D + (double) cabinetFacingVector.getY() / 2.0D;
 		double z = (double) worldPosition.getZ() + 0.5D + (double) cabinetFacingVector.getZ() / 2.0D;

@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -19,7 +19,9 @@ public class FuelItem extends Item
 	public FuelItem(Properties properties, int burnTime) {
 		super(properties);
 		this.burnTime = burnTime;
-		FuelRegistry.INSTANCE.add(this, this.burnTime);
+		FuelRegistryEvents.BUILD.register((builder, context) -> {
+			builder.add(this, burnTime);
+		});
 	}
 
 	public int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType) {

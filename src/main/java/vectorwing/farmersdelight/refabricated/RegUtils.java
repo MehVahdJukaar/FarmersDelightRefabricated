@@ -12,6 +12,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.consume_effects.ConsumeEffect;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -115,5 +117,14 @@ public class RegUtils {
 
     public static <B extends LootItemConditionType> Supplier<B> regLootCond(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
+    }
+
+
+    public static <B extends RecipeBookCategory> Supplier<B> regRecipeBookCategory(String name, Supplier<B> supplier) {
+        return register(name, supplier, BuiltInRegistries.RECIPE_BOOK_CATEGORY);
+    }
+
+    public static <B extends ConsumeEffect.Type<?>> Supplier<B> regConsumeEffectType(String name, Supplier<B> supplier) {
+        return register(name, supplier, BuiltInRegistries.CONSUME_EFFECT_TYPE);
     }
 }

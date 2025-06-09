@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -32,12 +33,13 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class HorseFeedItem extends Item
 {
 	public static final List<MobEffectInstance> EFFECTS = Lists.newArrayList(
-			new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 1),
-			new MobEffectInstance(MobEffects.JUMP, 6000, 0));
+			new MobEffectInstance(MobEffects.SPEED, 6000, 1),
+			new MobEffectInstance(MobEffects.JUMP_BOOST, 6000, 0));
 
 	public HorseFeedItem(Properties properties) {
 		super(properties);
@@ -84,13 +86,13 @@ public class HorseFeedItem extends Item
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 
 		MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.horse_feed.when_feeding");
-		tooltip.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
+		tooltipAdder.accept(textWhenFeeding.withStyle(ChatFormatting.GRAY));
 
 		for (MobEffectInstance effectInstance : EFFECTS) {
 			MutableComponent effectDescription = Component.literal(" ");
@@ -106,7 +108,7 @@ public class HorseFeedItem extends Item
 				effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F, context.tickRate())).append(")");
 			}
 
-			tooltip.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
+			tooltipAdder.accept(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
 		}
 	}
 

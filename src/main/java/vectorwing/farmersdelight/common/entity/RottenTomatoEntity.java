@@ -28,11 +28,11 @@ public class RottenTomatoEntity extends ThrowableItemProjectile
 	}
 
 	public RottenTomatoEntity(Level level, LivingEntity entity) {
-		super(ModEntityTypes.ROTTEN_TOMATO.get(), entity, level);
+		super(ModEntityTypes.ROTTEN_TOMATO.get(), entity, level, ModItems.ROTTEN_TOMATO.get().getDefaultInstance());
 	}
 
 	public RottenTomatoEntity(Level level, double x, double y, double z) {
-		super(ModEntityTypes.ROTTEN_TOMATO.get(), x, y, z, level);
+		super(ModEntityTypes.ROTTEN_TOMATO.get(), x, y, z, level, ModItems.ROTTEN_TOMATO.get().getDefaultInstance());
 	}
 
 	@Override

@@ -1,0 +1,17 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "farmersdelight:skillet/is_cooking",
+    "on_true": {
+      "type": "minecraft:special",
+      "base": "farmersdelight:item/skillet_cooking",
+      "model": {
+        "type": "farmersdelight:skillet"
+      }
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "farmersdelight:item/skillet"
+    }
+  }
+}

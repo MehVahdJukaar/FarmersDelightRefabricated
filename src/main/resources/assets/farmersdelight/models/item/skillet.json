@@ -1,13 +1,5 @@
 {
   "parent": "farmersdelight:block/skillet",
-  "overrides": [
-    {
-      "predicate": {
-        "cooking": 1
-      },
-      "model": "farmersdelight:item/skillet_cooking"
-    }
-  ],
   "display": {
     "thirdperson_righthand": {
       "rotation": [90, 0, 80],

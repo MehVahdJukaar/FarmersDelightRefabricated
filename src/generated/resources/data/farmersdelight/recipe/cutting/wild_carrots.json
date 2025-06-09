@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "farmersdelight:wild_carrots"
-    }
+    "farmersdelight:wild_carrots"
   ],
   "result": [
     {
@@ -20,7 +18,5 @@
       }
     }
   ],
-  "tool": {
-    "tag": "c:tools/knife"
-  }
+  "tool": "#c:tools/knife"
 }

@@ -15,7 +15,10 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.List;
@@ -40,35 +43,40 @@ public class TextUtils
 	 * An alternate version of PotionUtils.addPotionTooltip, that obtains the item's food-property potion effects instead.
 	 */
 	public static void addFoodEffectTooltip(ItemStack stack, Consumer<Component> tooltipAdder, float durationFactor, float tickRate) {
-		FoodProperties foodStats = stack.get(DataComponents.FOOD);
-		if (foodStats == null) {
+		Consumable consumable = stack.get(DataComponents.CONSUMABLE);
+		if (consumable == null) {
 			return;
 		}
 
-		List<FoodProperties.PossibleEffect> effectList = foodStats.effects();
+		List<ConsumeEffect> consumeEffectList = consumable.onConsumeEffects();
 		List<Pair<Holder<Attribute>, AttributeModifier>> attributeList = Lists.newArrayList();
 		MutableComponent mutableComponent;
 
-		if (effectList.isEmpty()) {
+		if (consumeEffectList.isEmpty()) {
 			tooltipAdder.accept(NO_EFFECTS);
 		} else {
-			for (FoodProperties.PossibleEffect possibleEffect : effectList) {
-				MobEffectInstance instance = possibleEffect.effect();
-				mutableComponent = Component.translatable(instance.getDescriptionId());
-				MobEffect effect = instance.getEffect().value();
-				effect.createModifiers(instance.getAmplifier(), (attributeHolder, attributeModifier) -> {
-					attributeList.add(new Pair<>(attributeHolder, attributeModifier));
-				});
+			for (ConsumeEffect possibleConsumeEffect : consumeEffectList) {
+				if (!(possibleConsumeEffect instanceof ApplyStatusEffectsConsumeEffect statusEffectsEffect))
+					continue;
 
-				if (instance.getAmplifier() > 0) {
-					mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, Component.translatable("potion.potency." + instance.getAmplifier()));
+				List<MobEffectInstance> effectList = statusEffectsEffect.effects();
+				for (MobEffectInstance instance : effectList) {
+					mutableComponent = Component.translatable(instance.getDescriptionId());
+					MobEffect effect = instance.getEffect().value();
+					effect.createModifiers(instance.getAmplifier(), (attributeHolder, attributeModifier) -> {
+						attributeList.add(new Pair<>(attributeHolder, attributeModifier));
+					});
+
+					if (instance.getAmplifier() > 0) {
+						mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, Component.translatable("potion.potency." + instance.getAmplifier()));
+					}
+
+					if (instance.getDuration() > 20) {
+						mutableComponent = Component.translatable("potion.withDuration", mutableComponent, MobEffectUtil.formatDuration(instance, durationFactor, tickRate));
+					}
+
+					tooltipAdder.accept(mutableComponent.withStyle(effect.getCategory().getTooltipFormatting()));
 				}
-
-				if (instance.getDuration() > 20) {
-					mutableComponent = Component.translatable("potion.withDuration", mutableComponent, MobEffectUtil.formatDuration(instance, durationFactor, tickRate));
-				}
-
-				tooltipAdder.accept(mutableComponent.withStyle(effect.getCategory().getTooltipFormatting()));
 			}
 		}
 

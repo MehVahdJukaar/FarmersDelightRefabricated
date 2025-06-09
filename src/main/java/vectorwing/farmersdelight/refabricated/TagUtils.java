@@ -22,22 +22,21 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class TagUtils {
     private static ResourceManager resourceManager;
     // Vanilla loads tags after Loot Tables are loaded, so we need to do something about that.
-    private static Collection<Holder<Block>> earlyDropsCakeTag;
-    private static Collection<Holder<EntityType<?>>> earlyDropsLeatherTag;
+    private static List<Holder<Block>> earlyDropsCakeTag;
+    private static List<Holder<EntityType<?>>> earlyDropsLeatherTag;
 
     // This exists so we don't modify literally every loot table in the game just to add loot to a few
     public static boolean isCandleDropsCakeSliceTag(Holder<Block> block, HolderLookup<Block> lookup) {
         if (earlyDropsCakeTag == null) {
-            TagLoader<Holder<Block>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.BLOCK, rl)), "tags/block");
-            var dropsLeatherMap = loadTag(ModTags.DROPS_CAKE_SLICE);
-            Map<ResourceLocation, Collection<Holder<Block>>> loaded = loader.build(dropsLeatherMap);
+            TagLoader<Holder<Block>> loader = new TagLoader<>((rl, bl) -> lookup.get(ResourceKey.create(Registries.BLOCK, rl)), "tags/block");
+            Map<ResourceLocation, List<TagLoader.EntryWithSource>> dropsLeatherMap = loadTag(ModTags.DROPS_CAKE_SLICE);
+            Map<ResourceLocation, List<Holder<Block>>> loaded = loader.build(dropsLeatherMap);
             earlyDropsCakeTag = loaded.get(ModTags.DROPS_CAKE_SLICE.location());
             if (earlyDropsCakeTag == null)
                 earlyDropsCakeTag = List.of();
@@ -49,9 +48,9 @@ public class TagUtils {
     // This exists so we don't modify literally every loot table in the game just to add loot to a few
     public static boolean isDropsLeatherTag(Holder<EntityType<?>> entityType, HolderLookup<EntityType<?>> lookup) {
         if (earlyDropsLeatherTag == null) {
-            TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
+            TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>((rl, bl) -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
             var dropsLeatherMap = loadTag(ModTags.DROPS_LEATHER);
-            Map<ResourceLocation, Collection<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
+            Map<ResourceLocation, List<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
             earlyDropsLeatherTag = loaded.get(ModTags.DROPS_LEATHER.location());
             if (earlyDropsLeatherTag == null)
                 earlyDropsLeatherTag = List.of();

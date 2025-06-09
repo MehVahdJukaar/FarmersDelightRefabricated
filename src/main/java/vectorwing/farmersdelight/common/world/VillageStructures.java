@@ -29,8 +29,8 @@ public class VillageStructures
 
 	public static void addNewVillageBuilding(MinecraftServer server) {
 		if (Configuration.GENERATE_VILLAGE_COMPOST_HEAPS.get()) {
-			Registry<StructureTemplatePool> templatePools = server.registryAccess().registry(Registries.TEMPLATE_POOL).get();
-			Registry<StructureProcessorList> processorLists = server.registryAccess().registry(Registries.PROCESSOR_LIST).get();
+			Registry<StructureTemplatePool> templatePools = server.registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
+			Registry<StructureProcessorList> processorLists = server.registryAccess().lookupOrThrow(Registries.PROCESSOR_LIST);
 
 			VillageStructures.addBuildingToPool(templatePools, processorLists, ResourceLocation.parse("minecraft:village/plains/houses"), FarmersDelight.MODID + ":village/houses/plains_compost_pile", 5);
 			VillageStructures.addBuildingToPool(templatePools, processorLists, ResourceLocation.parse("minecraft:village/snowy/houses"), FarmersDelight.MODID + ":village/houses/snowy_compost_pile", 3);
@@ -40,7 +40,7 @@ public class VillageStructures
 		}
 
 		if (Configuration.GENERATE_VILLAGE_FARM_FD_CROPS.get()) {
-			Registry<StructureProcessorList> processorLists = server.registryAccess().registry(Registries.PROCESSOR_LIST).orElseThrow();
+			Registry<StructureProcessorList> processorLists = server.registryAccess().lookupOrThrow(Registries.PROCESSOR_LIST);
 
 			StructureProcessor temperateCropProcessor = new RuleProcessor(List.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.WHEAT, 0.3F), AlwaysTrueTest.INSTANCE, ModBlocks.CABBAGE_CROP.get().defaultBlockState()),
@@ -69,11 +69,11 @@ public class VillageStructures
 	}
 
 	public static void addBuildingToPool(Registry<StructureTemplatePool> templatePoolRegistry, Registry<StructureProcessorList> processorListRegistry, ResourceLocation poolRL, String nbtPieceRL, int weight) {
-		StructureTemplatePool pool = templatePoolRegistry.get(poolRL);
+		StructureTemplatePool pool = templatePoolRegistry.getValue(poolRL);
 		if (pool == null) return;
 
 		ResourceLocation emptyProcessor = ResourceLocation.withDefaultNamespace("empty");
-		Holder<StructureProcessorList> processorHolder = processorListRegistry.getHolderOrThrow(ResourceKey.create(Registries.PROCESSOR_LIST, emptyProcessor));
+		Holder<StructureProcessorList> processorHolder = processorListRegistry.getOrThrow(ResourceKey.create(Registries.PROCESSOR_LIST, emptyProcessor));
 
 		SinglePoolElement piece = SinglePoolElement.single(nbtPieceRL, processorHolder).apply(StructureTemplatePool.Projection.RIGID);
 

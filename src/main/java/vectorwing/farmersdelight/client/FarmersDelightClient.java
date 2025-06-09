@@ -4,27 +4,28 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.item.ConditionalItemModel;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
+import net.minecraft.client.renderer.special.SpecialModelRenderers;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.event.ClientSetupEvents;
 import vectorwing.farmersdelight.client.event.TooltipEvents;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
-import vectorwing.farmersdelight.client.gui.HUDOverlays;
+import vectorwing.farmersdelight.client.model.SkilletCookingConditionalItemModelProperty;
 import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
 import vectorwing.farmersdelight.common.item.SkilletItem;
-import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.networking.ModNetworking;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
-import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 
 public class FarmersDelightClient implements ClientModInitializer {
+    public static boolean naturalRegenerationEnabled = false;
 
     @Override
     public void onInitializeClient() {
@@ -35,12 +36,7 @@ public class FarmersDelightClient implements ClientModInitializer {
 
         MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
 
-        HUDOverlays.register();
-
-        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.SKILLET.get(), new SkilletItemRenderer());
-        // could have been done with item renderer but this way we can have easier control over item positioning using the model json
-        ItemProperties.register(ModItems.SKILLET.get(), ResourceLocation.withDefaultNamespace("cooking"),
-                (stack, world, entity, s) -> stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY).getStack().isEmpty() ? 0 : 1);
+        SpecialModelRenderers.ID_MAPPER.put(SkilletItemRenderer.ID, SkilletItemRenderer.Unbaked.CODEC);
         ModNetworking.initClient();
 
         // Obscure Fabric event to the rescue!
@@ -60,5 +56,10 @@ public class FarmersDelightClient implements ClientModInitializer {
                 ModBlocks.RICE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
                 ModBlocks.ROAST_CHICKEN_BLOCK.get(), ModBlocks.SANDY_SHRUB.get(), ModBlocks.ROPE.get(),
                 ModBlocks.CANVAS_RUG.get(), ModBlocks.COOKING_POT.get(), ModBlocks.SAFETY_NET.get());
+
+        ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.res("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
+
+        // Do this to load the class.
+        SearchRecipeBookCategory.valueOf("FARMERSDELIGHT_COOKING");
     }
 }

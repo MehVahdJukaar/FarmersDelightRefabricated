@@ -5,11 +5,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -20,6 +22,7 @@ import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class StoveBlockEntity extends SyncedBlockEntity
@@ -45,17 +48,17 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 		if (tag.contains("Inventory")) {
-			inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+			inventory.deserializeNBT(registries, tag.getCompoundOrEmpty("Inventory"));
 		} else {
 			inventory.deserializeNBT(registries, tag);
 		}
-		if (tag.contains("CookingTimes", 11)) {
-			int[] arrayCookingTimes = tag.getIntArray("CookingTimes");
+		if (tag.getIntArray("CookingTimes").isPresent()) {
+			int[] arrayCookingTimes = tag.getIntArray("CookingTimes").get();
 			System.arraycopy(arrayCookingTimes, 0, cookingTimes, 0, Math.min(cookingTimesTotal.length, arrayCookingTimes.length));
 		}
 
-		if (tag.contains("CookingTotalTimes", 11)) {
-			int[] arrayCookingTimesTotal = tag.getIntArray("CookingTotalTimes");
+		if (tag.getIntArray("CookingTotalTimes").isPresent()) {
+			int[] arrayCookingTimesTotal = tag.getIntArray("CookingTotalTimes").get();
 			System.arraycopy(arrayCookingTimesTotal, 0, cookingTimesTotal, 0, Math.min(cookingTimesTotal.length, arrayCookingTimesTotal.length));
 		}
 	}
@@ -73,7 +76,17 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return compound;
 	}
 
-	public static void cookingTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		BlockEntity tileEntity = level.getBlockEntity(pos);
+		if (tileEntity instanceof StoveBlockEntity) {
+			ItemUtils.dropItems(level, pos, ((StoveBlockEntity) tileEntity).getInventory());
+		}
+
+		super.preRemoveSideEffects(pos, state);
+	}
+
+	public static void cookingTick(ServerLevel level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
 		boolean isStoveLit = state.getValue(StoveBlock.LIT);
 
 		if (stove.isStoveBlockedAbove()) {
@@ -82,7 +95,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 				stove.inventoryChanged();
 			}
 		} else if (isStoveLit) {
-			stove.cookAndOutputItems();
+			stove.cookAndOutputItems(level);
 		} else {
 			for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
 				if (stove.cookingTimes[i] > 0) {
@@ -111,7 +124,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		}
 	}
 
-	private void cookAndOutputItems() {
+	private void cookAndOutputItems(ServerLevel serverLevel) {
 		if (level == null) return;
 
 		boolean didInventoryChange = false;
@@ -120,9 +133,9 @@ public class StoveBlockEntity extends SyncedBlockEntity
 			if (!stoveStack.isEmpty()) {
 				++cookingTimes[i];
 				if (cookingTimes[i] >= cookingTimesTotal[i]) {
-					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(stoveStack);
+					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(stoveStack, serverLevel);
 					if (recipe.isPresent()) {
-						ItemStack resultStack = recipe.get().value().getResultItem(level.registryAccess());
+						ItemStack resultStack = recipe.get().value().assemble(new SingleRecipeInput(stoveStack), serverLevel.registryAccess());
 						if (!resultStack.isEmpty()) {ItemUtils.spawnItemEntity(level, resultStack.copy(),
 									worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
 									level.random.nextGaussian() * (double) 0.01F, 0.1F, level.random.nextGaussian() * (double) 0.01F);
@@ -149,11 +162,14 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return -1;
 	}
 
-	public boolean addItem(ItemStack itemStackIn, RecipeHolder<CampfireCookingRecipe> recipe, int slot) {
-		if (0 <= slot && slot < inventory.getSlotCount()) {
+	public boolean addItem(ServerLevel serverLevel, ItemStack itemStackIn, int slot) {
+		Optional<RecipeHolder<CampfireCookingRecipe>> optional = serverLevel.recipeAccess()
+				.getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(itemStackIn), level);
+
+		if (optional.isPresent() && 0 <= slot && slot < inventory.getSlotCount()) {
 			ItemStack slotStack = inventory.getStackInSlot(slot);
 			if (slotStack.isEmpty()) {
-				cookingTimesTotal[slot] = recipe.value().getCookingTime();
+				cookingTimesTotal[slot] = optional.get().value().cookingTime();
 				cookingTimes[slot] = 0;
 				inventory.setStackInSlot(slot, itemStackIn.split(1));
 				inventoryChanged();
@@ -163,9 +179,8 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return false;
 	}
 
-	public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack) {
-		if (level == null) return Optional.empty();
-		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), this.level);
+	public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack, ServerLevel serverLevel) {
+		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel);
 	}
 
 	public ItemStackHandler getInventory() {

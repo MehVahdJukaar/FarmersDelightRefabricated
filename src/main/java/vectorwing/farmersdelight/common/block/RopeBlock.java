@@ -2,13 +2,12 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.BellBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,7 +26,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-@SuppressWarnings("deprecation")
 public class RopeBlock extends IronBarsBlock
 {
 	public static final BooleanProperty TIED_TO_BELL = BooleanProperty.create("tied_to_bell");
@@ -63,7 +61,7 @@ public class RopeBlock extends IronBarsBlock
 		if (Configuration.ENABLE_ROPE_REELING.get() && player.isSecondaryUseActive()) {
 			if (player.getAbilities().mayBuild && (player.getAbilities().instabuild || player.getInventory().add(new ItemStack(this.asItem())))) {
 				BlockPos.MutableBlockPos reelingPos = pos.mutable().move(Direction.DOWN);
-				int minBuildHeight = level.getMinBuildHeight();
+				int minBuildHeight = level.getMinY();
 
 				while (reelingPos.getY() >= minBuildHeight) {
 					BlockState blockStateBelow = level.getBlockState(reelingPos);
@@ -72,7 +70,7 @@ public class RopeBlock extends IronBarsBlock
 					} else {
 						reelingPos.move(Direction.UP);
 						level.destroyBlock(reelingPos, false, player);
-						return InteractionResult.sidedSuccess(level.isClientSide);
+						return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
 					}
 				}
 			}
@@ -112,9 +110,17 @@ public class RopeBlock extends IronBarsBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(
+			BlockState state,
+			LevelReader level,
+			ScheduledTickAccess scheduledTickAccess,
+			BlockPos currentPos,
+			Direction facing,
+			BlockPos facingPos,
+			BlockState facingState,
+			RandomSource random) {
 		if (state.getValue(CrossCollisionBlock.WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+			scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
 		boolean tiedToBell = state.getValue(TIED_TO_BELL);
@@ -124,7 +130,7 @@ public class RopeBlock extends IronBarsBlock
 
 		return facing.getAxis().isHorizontal()
 				? state.setValue(TIED_TO_BELL, tiedToBell).setValue(CrossCollisionBlock.PROPERTY_BY_DIRECTION.get(facing), this.attachsTo(facingState, facingState.isFaceSturdy(level, facingPos, facing.getOpposite())))
-				: super.updateShape(state.setValue(TIED_TO_BELL, tiedToBell), facing, facingState, level, currentPos, facingPos);
+				: super.updateShape(state.setValue(TIED_TO_BELL, tiedToBell), level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
 	}
 
 	@Override

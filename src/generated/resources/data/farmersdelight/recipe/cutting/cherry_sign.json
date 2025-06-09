@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:cherry_sign"
-    }
+    "minecraft:cherry_sign"
   ],
   "result": [
     {

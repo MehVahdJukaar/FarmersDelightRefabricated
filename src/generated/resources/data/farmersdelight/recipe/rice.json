@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fd_rice",
   "ingredients": [
-    {
-      "item": "farmersdelight:rice_panicle"
-    }
+    "farmersdelight:rice_panicle"
   ],
   "result": {
     "count": 1,

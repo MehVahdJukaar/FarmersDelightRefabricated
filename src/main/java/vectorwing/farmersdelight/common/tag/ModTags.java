@@ -143,6 +143,9 @@ public class ModTags
 	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = modEffectTag("ignored/hot_cocoa");
 	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = modEffectTag("ignored/milk_bottle");
 
+	// Latest Minecraft Version Tags
+	public static final TagKey<Item> FLINT_TOOL_MATERIALS = modItemTag("flint_tool_materials");
+
 	private static TagKey<Item> modItemTag(String path) {
 		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}

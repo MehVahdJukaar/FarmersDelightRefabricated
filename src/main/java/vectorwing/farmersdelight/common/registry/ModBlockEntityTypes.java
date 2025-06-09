@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import vectorwing.farmersdelight.common.block.entity.*;
 
@@ -10,17 +11,17 @@ import static vectorwing.farmersdelight.refabricated.RegUtils.regBlockEntity;
 public class ModBlockEntityTypes
 {
 	public static final Supplier<BlockEntityType<StoveBlockEntity>> STOVE = regBlockEntity("stove",
-			() -> BlockEntityType.Builder.of(StoveBlockEntity::new, ModBlocks.STOVE.get()).build());
+			() -> FabricBlockEntityTypeBuilder.create(StoveBlockEntity::new, ModBlocks.STOVE.get()).build());
 	public static final Supplier<BlockEntityType<CookingPotBlockEntity>> COOKING_POT = regBlockEntity("cooking_pot",
-			() -> BlockEntityType.Builder.of(CookingPotBlockEntity::new, ModBlocks.COOKING_POT.get()).build());
+			() -> FabricBlockEntityTypeBuilder.create(CookingPotBlockEntity::new, ModBlocks.COOKING_POT.get()).build());
 	public static final Supplier<BlockEntityType<BasketBlockEntity>> BASKET = regBlockEntity("basket",
-			() -> BlockEntityType.Builder.of(BasketBlockEntity::new, ModBlocks.BASKET.get()).build());
+			() -> FabricBlockEntityTypeBuilder.create(BasketBlockEntity::new, ModBlocks.BASKET.get()).build());
 	public static final Supplier<BlockEntityType<CuttingBoardBlockEntity>> CUTTING_BOARD = regBlockEntity("cutting_board",
-			() -> BlockEntityType.Builder.of(CuttingBoardBlockEntity::new, ModBlocks.CUTTING_BOARD.get()).build());
+			() -> FabricBlockEntityTypeBuilder.create(CuttingBoardBlockEntity::new, ModBlocks.CUTTING_BOARD.get()).build());
 	public static final Supplier<BlockEntityType<SkilletBlockEntity>> SKILLET = regBlockEntity("skillet",
-			() -> BlockEntityType.Builder.of(SkilletBlockEntity::new, ModBlocks.SKILLET.get()).build());
+			() -> FabricBlockEntityTypeBuilder.create(SkilletBlockEntity::new, ModBlocks.SKILLET.get()).build());
 	public static final Supplier<BlockEntityType<CabinetBlockEntity>> CABINET = regBlockEntity("cabinet",
-			() -> BlockEntityType.Builder.of(CabinetBlockEntity::new,
+			() -> FabricBlockEntityTypeBuilder.create(CabinetBlockEntity::new,
 							ModBlocks.OAK_CABINET.get(),
 							ModBlocks.BIRCH_CABINET.get(),
 							ModBlocks.SPRUCE_CABINET.get(),
@@ -30,11 +31,12 @@ public class ModBlockEntityTypes
 							ModBlocks.MANGROVE_CABINET.get(),
 							ModBlocks.BAMBOO_CABINET.get(),
 							ModBlocks.CHERRY_CABINET.get(),
+							ModBlocks.PALE_OAK_CABINET.get(),
 							ModBlocks.CRIMSON_CABINET.get(),
 							ModBlocks.WARPED_CABINET.get())
 					.build());
 	public static final Supplier<BlockEntityType<CanvasSignBlockEntity>> CANVAS_SIGN = regBlockEntity("canvas_sign",
-			() -> BlockEntityType.Builder.of(CanvasSignBlockEntity::new,
+			() -> FabricBlockEntityTypeBuilder.create(CanvasSignBlockEntity::new,
 							ModBlocks.CANVAS_SIGN.get(),
 							ModBlocks.WHITE_CANVAS_SIGN.get(),
 							ModBlocks.ORANGE_CANVAS_SIGN.get(),
@@ -71,7 +73,7 @@ public class ModBlockEntityTypes
 							ModBlocks.BLACK_CANVAS_WALL_SIGN.get())
 					.build());
 	public static final Supplier<BlockEntityType<HangingCanvasSignBlockEntity>> HANGING_CANVAS_SIGN = regBlockEntity("hanging_canvas_sign",
-			() -> BlockEntityType.Builder.of(HangingCanvasSignBlockEntity::new,
+			() -> FabricBlockEntityTypeBuilder.create(HangingCanvasSignBlockEntity::new,
 							ModBlocks.HANGING_CANVAS_SIGN.get(),
 							ModBlocks.WHITE_HANGING_CANVAS_SIGN.get(),
 							ModBlocks.ORANGE_HANGING_CANVAS_SIGN.get(),

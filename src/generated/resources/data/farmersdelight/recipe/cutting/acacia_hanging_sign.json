@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:acacia_hanging_sign"
-    }
+    "minecraft:acacia_hanging_sign"
   ],
   "result": [
     {

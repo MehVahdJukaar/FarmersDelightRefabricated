@@ -2,33 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "item": "minecraft:bread"
-    },
-    {
-      "item": "minecraft:carrot"
-    },
-    {
-      "item": "minecraft:cooked_chicken"
-    },
-    {
-      "item": "minecraft:baked_potato"
-    },
-    {
-      "item": "minecraft:carrot"
-    },
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "item": "minecraft:baked_potato"
-    }
+    "#c:crops/onion",
+    "#c:eggs",
+    "minecraft:bread",
+    "minecraft:carrot",
+    "minecraft:cooked_chicken",
+    "minecraft:baked_potato",
+    "minecraft:carrot",
+    "minecraft:bowl",
+    "minecraft:baked_potato"
   ],
   "result": {
     "count": 1,

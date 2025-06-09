@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:crimson_trapdoor"
-    }
+    "minecraft:crimson_trapdoor"
   ],
   "result": [
     {

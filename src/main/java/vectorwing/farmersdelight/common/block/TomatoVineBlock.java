@@ -10,7 +10,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,10 +46,10 @@ public class TomatoVineBlock extends CropBlock
 		registerDefaultState(stateDefinition.any().setValue(getAgeProperty(), 0).setValue(ROPELOGGED, false));
 	}
 
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
-		return !isMature && stack.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		return !isMature && stack.is(Items.BONE_MEAL) ? InteractionResult.CONSUME : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override
@@ -187,16 +186,24 @@ public class TomatoVineBlock extends CropBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(
+			BlockState state,
+			LevelReader level,
+			ScheduledTickAccess scheduledTickAccess,
+			BlockPos currentPos,
+			Direction facing,
+			BlockPos facingPos,
+			BlockState facingState,
+			RandomSource random) {
 		if (!state.canSurvive(level, currentPos)) {
-			level.scheduleTick(currentPos, this, 1);
+			scheduledTickAccess.scheduleTick(currentPos, this, 1);
 		}
 
 		return state;
 	}
 
 	public static void destroyAndPlaceRope(Level level, BlockPos pos) {
-		Block configuredRopeBlock = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
+		Block configuredRopeBlock = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
 		Block finalRopeBlock = configuredRopeBlock != null ? configuredRopeBlock : ModBlocks.ROPE.get();
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
 	}

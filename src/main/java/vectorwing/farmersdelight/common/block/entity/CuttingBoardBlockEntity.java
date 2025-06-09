@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -22,8 +23,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -68,8 +71,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
-		isItemCarvingBoard = compound.getBoolean("IsItemCarved");
-		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+		isItemCarvingBoard = compound.getBooleanOr("IsItemCarved", false);
+		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 	}
 
 	@Override
@@ -79,15 +82,25 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		compound.putBoolean("IsItemCarved", isItemCarvingBoard);
 	}
 
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		BlockEntity tileEntity = level.getBlockEntity(pos);
+		if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoard) {
+			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), cuttingBoard.getStoredItem());
+		}
+
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {
-		if (level == null) return false;
+		if (!(level instanceof ServerLevel serverLevel)) return false;
 
 		if (isItemCarvingBoard) return false;
 
-		Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getMatchingRecipe(toolStack, player);
+		Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getMatchingRecipe(toolStack, player, serverLevel);
 
 		matchingRecipe.ifPresent(recipe -> {
-			List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FORTUNE), toolStack));
+			List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), toolStack));
 			for (ItemStack resultStack : results) {
 				Direction direction = getBlockState().getValue(CuttingBoardBlock.FACING).getCounterClockWise();
 				ItemUtils.spawnItemEntity(level, resultStack.copy(),
@@ -109,10 +122,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return matchingRecipe.isPresent();
 	}
 
-	private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player) {
-		if (level == null) return Optional.empty();
-
-		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new CuttingBoardRecipeInput(getStoredItem(), toolStack), level);
+	private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player, ServerLevel serverLevel) {
+		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new CuttingBoardRecipeInput(getStoredItem(), toolStack), serverLevel);
 		if (recipe.isPresent()) {
 			if (recipe.get().value().getTool().test(toolStack)) {
 				return recipe;

@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:mangrove_door"
-    }
+    "minecraft:mangrove_door"
   ],
   "result": [
     {

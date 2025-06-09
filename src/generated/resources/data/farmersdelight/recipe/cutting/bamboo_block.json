@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:bamboo_block"
-    }
+    "minecraft:bamboo_block"
   ],
   "result": [
     {

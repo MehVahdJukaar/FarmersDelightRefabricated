@@ -1,7 +1,10 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 
 import java.util.function.Supplier;
@@ -14,7 +17,7 @@ public class ModEntityTypes {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build()));
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, FarmersDelight.res("rotten_tomato")))));
 
 	public static void touch() {
 

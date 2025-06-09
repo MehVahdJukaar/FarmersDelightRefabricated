@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:leather_boots"
-    }
+    "minecraft:leather_boots"
   ],
   "result": [
     {
@@ -13,7 +11,5 @@
       }
     }
   ],
-  "tool": {
-    "tag": "c:tools/shear"
-  }
+  "tool": "#c:tools/shear"
 }

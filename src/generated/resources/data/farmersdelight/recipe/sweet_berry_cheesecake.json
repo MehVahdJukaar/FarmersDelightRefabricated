@@ -3,15 +3,9 @@
   "category": "misc",
   "group": "fd_sweet_berry_cheesecake",
   "key": {
-    "O": {
-      "item": "farmersdelight:pie_crust"
-    },
-    "m": {
-      "tag": "c:foods/milk"
-    },
-    "s": {
-      "item": "minecraft:sweet_berries"
-    }
+    "O": "farmersdelight:pie_crust",
+    "m": "#c:foods/milk",
+    "s": "minecraft:sweet_berries"
   },
   "pattern": [
     "sss",

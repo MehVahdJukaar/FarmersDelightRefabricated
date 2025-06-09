@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:baked_potato"
-    },
-    {
-      "tag": "c:foods/cooked_beef"
-    },
-    {
-      "tag": "c:foods/milk"
-    }
+    "minecraft:baked_potato",
+    "#c:foods/cooked_beef",
+    "#c:foods/milk"
   ],
   "result": {
     "count": 1,

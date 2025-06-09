@@ -12,10 +12,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -29,17 +28,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.refabricated.ItemAbility;
 
-import java.util.Set;
-
-public class KnifeItem extends DiggerItem
+public class KnifeItem extends Item
 {
-    //uhmm whats this for??
-	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbility.SHEARS_CARVE, ItemAbility.SWORD_DIG);
-
-    public KnifeItem(Tier tier, Properties properties) {
-        super(tier, ModTags.MINEABLE_WITH_KNIFE, properties);
+    public KnifeItem(Properties properties) {
+        super(properties);
     }
 
     public static void init() {
@@ -47,15 +40,6 @@ public class KnifeItem extends DiggerItem
     }
 
     @Override
-    public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-        return !player.isCreative();
-    }
-
-    @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return true;
-    }
-
     public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
         if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
             return false;
@@ -111,7 +95,7 @@ public class KnifeItem extends DiggerItem
                         -0.05, 0, 0);
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             }
             return InteractionResult.PASS;
         }
@@ -136,7 +120,7 @@ public class KnifeItem extends DiggerItem
                 level.addFreshEntity(itemEntity);
                 toolStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(context.getHand()));
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         } else {
             return InteractionResult.PASS;
         }

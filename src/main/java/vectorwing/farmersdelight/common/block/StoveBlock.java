@@ -6,11 +6,12 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -33,7 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +55,7 @@ public class StoveBlock extends BaseEntityBlock
 	public static final MapCodec<StoveBlock> CODEC = simpleCodec(StoveBlock::new);
 
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
-	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -68,14 +70,14 @@ public class StoveBlock extends BaseEntityBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		Item heldItem = heldStack.getItem();
 
 		if (state.getValue(LIT)) {
 			if (ItemAbility.SHOVEL_DIG.canPerformAction(heldStack)) {
 				extinguish(state, level, pos);
 				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			} else if (heldStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 				if (!level.isClientSide()) {
 					level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -84,21 +86,21 @@ public class StoveBlock extends BaseEntityBlock
 				if (!player.isCreative()) {
 					player.setItemInHand(hand, heldStack.getRecipeRemainder());
 				}
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		} else {
 			if (heldItem instanceof FlintAndSteelItem) {
 				level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
 				level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
 				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			} else if (heldItem instanceof FireChargeItem) {
 				level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (MathUtils.RAND.nextFloat() - MathUtils.RAND.nextFloat()) * 0.2F + 1.0F);
 				level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
 				if (!player.isCreative()) {
 					heldStack.shrink(1);
 				}
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
 
@@ -106,18 +108,17 @@ public class StoveBlock extends BaseEntityBlock
 		if (tileEntity instanceof StoveBlockEntity stoveEntity) {
 			int stoveSlot = stoveEntity.getNextEmptySlot();
 			if (stoveSlot < 0 || stoveEntity.isStoveBlockedAbove()) {
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			}
-			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = stoveEntity.getMatchingRecipe(heldStack);
-			if (recipe.isPresent()) {
-				if (!level.isClientSide && stoveEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack, recipe.get(), stoveSlot)) {
-					return ItemInteractionResult.SUCCESS;
+			if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack)) {
+				if (level instanceof ServerLevel serverLevel && stoveEntity.addItem(serverLevel, player.getAbilities().instabuild ? heldStack.copy() : heldStack, stoveSlot)) {
+					return InteractionResult.SUCCESS;
 				}
-				return ItemInteractionResult.CONSUME;
+				return InteractionResult.CONSUME;
 			}
 		}
 
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	@Override
@@ -146,18 +147,6 @@ public class StoveBlock extends BaseEntityBlock
 		}
 
 		super.stepOn(level, pos, state, entity);
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
-			BlockEntity tileEntity = level.getBlockEntity(pos);
-			if (tileEntity instanceof StoveBlockEntity) {
-				ItemUtils.dropItems(level, pos, ((StoveBlockEntity) tileEntity).getInventory());
-			}
-
-			super.onRemove(state, level, pos, newState, isMoving);
-		}
 	}
 
 	@Override
@@ -197,9 +186,9 @@ public class StoveBlock extends BaseEntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		if (state.getValue(LIT)) {
-			return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level.isClientSide
-					? StoveBlockEntity::animationTick
-					: StoveBlockEntity::cookingTick);
+			return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level instanceof ServerLevel serverLevel
+					? (l, blockPos, blockState, blockEntity) -> StoveBlockEntity.cookingTick(serverLevel, blockPos, blockState, blockEntity)
+					: StoveBlockEntity::animationTick);
 		}
 		return null;
 	}

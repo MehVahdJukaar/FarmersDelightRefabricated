@@ -6,12 +6,15 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -45,7 +48,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 		if (!this.tryLoadLootTable(compound)) {
 			ContainerHelper.loadAllItems(compound, this.items, registries);
 		}
-		this.transferCooldown = compound.getInt("TransferCooldown");
+		this.transferCooldown = compound.getIntOr("TransferCooldown", -1);
 	}
 
 	@Override
@@ -67,6 +70,15 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 	public ItemStack removeItem(int index, int count) {
 		this.unpackLootTable(null);
 		return ContainerHelper.removeItem(this.getItems(), index, count);
+	}
+
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		BlockEntity tileEntity = level.getBlockEntity(pos);
+		if (tileEntity instanceof Container) {
+			Containers.dropContents(level, pos, (Container) tileEntity);
+		}
+		super.preRemoveSideEffects(pos, state);
 	}
 
 	@Override

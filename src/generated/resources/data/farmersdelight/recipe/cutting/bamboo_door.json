@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:bamboo_door"
-    }
+    "minecraft:bamboo_door"
   ],
   "result": [
     {

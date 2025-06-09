@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:jungle_door"
-    }
+    "minecraft:jungle_door"
   ],
   "result": [
     {

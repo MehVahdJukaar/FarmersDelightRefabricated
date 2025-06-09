@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:leather_chestplate"
-    }
+    "minecraft:leather_chestplate"
   ],
   "result": [
     {
@@ -13,7 +11,5 @@
       }
     }
   ],
-  "tool": {
-    "tag": "c:tools/shear"
-  }
+  "tool": "#c:tools/shear"
 }

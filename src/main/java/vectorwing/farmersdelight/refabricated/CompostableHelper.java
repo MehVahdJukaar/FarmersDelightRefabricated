@@ -15,7 +15,7 @@ public class CompostableHelper {
         if (je != null) {
             var j = je.getAsJsonObject().get("values");
             for (var v : j.getAsJsonObject().asMap().entrySet()) {
-                Item i = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(v.getKey().toString()));
+                Item i = BuiltInRegistries.ITEM.getValue(ResourceLocation.tryParse(v.getKey().toString()));
                 CompostingChanceRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
             }
         }

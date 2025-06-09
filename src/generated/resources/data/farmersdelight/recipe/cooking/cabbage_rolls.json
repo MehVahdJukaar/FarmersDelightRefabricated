@@ -3,14 +3,9 @@
   "cookingtime": 100,
   "experience": 0.35,
   "ingredients": [
-    {
-      "tag": "c:crops/cabbage"
-    },
-    {
-      "tag": "farmersdelight:cabbage_roll_ingredients"
-    }
+    "#c:crops/cabbage",
+    "#farmersdelight:cabbage_roll_ingredients"
   ],
-  "recipe_book_tab": "misc",
   "result": {
     "count": 1,
     "id": "farmersdelight:cabbage_rolls"

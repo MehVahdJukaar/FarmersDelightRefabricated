@@ -1,10 +1,9 @@
 package vectorwing.farmersdelight.client.renderer;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -19,16 +18,17 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.registry.ModAtlases;
 
-;
+;import java.util.Arrays;
+import java.util.Map;
 
-public class HangingCanvasSignRenderer extends CanvasSignRenderer
+public class HangingCanvasSignRenderer extends HangingSignRenderer implements ICanvasSignRenderer
 {
-	private static final Vec3 TEXT_OFFSET = new Vec3(0.0D, (double) -0.32F, (double) 0.073F);
-	private final HangingSignRenderer.HangingSignModel signModel;
+	private final Map<HangingSignRenderer.AttachmentType, Model> hangingSignModels;
 
 	public HangingCanvasSignRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
-		this.signModel = new HangingSignRenderer.HangingSignModel(context.bakeLayer(ModelLayers.createHangingSignModelName(WoodType.SPRUCE)));
+		this.hangingSignModels = Arrays.stream(HangingSignRenderer.AttachmentType.values()).collect(ImmutableMap.toImmutableMap(attachmentType -> attachmentType, (attachmentType) ->
+				HangingSignRenderer.createSignModel(context.getModelSet(), WoodType.SPRUCE, attachmentType)));
 	}
 
 	public float getSignModelRenderScale() {
@@ -40,11 +40,10 @@ public class HangingCanvasSignRenderer extends CanvasSignRenderer
 	}
 
 	@Override
-	public void render(SignBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+	public void render(SignBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
 		BlockState state = blockEntity.getBlockState();
 		SignBlock block = (SignBlock) state.getBlock();
-		HangingSignRenderer.HangingSignModel model = signModel;
-		model.evaluateVisibleParts(state);
+		Model model = getSignModel(state);
 
 		DyeColor dye = null;
 		if (block instanceof CanvasSign canvasSign) {
@@ -54,17 +53,16 @@ public class HangingCanvasSignRenderer extends CanvasSignRenderer
 		renderSignWithText(blockEntity, poseStack, bufferSource, packedLight, packedOverlay, state, block, dye, model);
 	}
 
-	@Override
-	protected void translateSign(PoseStack poseStack, float angle, BlockState state) {
-		poseStack.translate(0.5D, 0.9375D, 0.5D);
-		poseStack.mulPose(Axis.YP.rotationDegrees(angle));
-		poseStack.translate(0.0F, -0.3125F, 0.0F);
+	protected Model getSignModel(BlockState state) {
+		HangingSignRenderer.AttachmentType attachmentType = HangingSignRenderer.AttachmentType.byBlockState(state);
+		return this.hangingSignModels.get(attachmentType);
 	}
 
 	@Override
-	protected void renderSignModel(PoseStack poseStack, int packedLight, int packedOverlay, Model model, VertexConsumer vertexConsumer) {
-		HangingSignRenderer.HangingSignModel hangingSignModel = (HangingSignRenderer.HangingSignModel) model;
-		hangingSignModel.root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+	public void translateSign(PoseStack poseStack, float angle, BlockState state) {
+		poseStack.translate(0.5, 0.9375, 0.5);
+		poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+		poseStack.translate(0.0F, -0.3125F, 0.0F);
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class HangingCanvasSignRenderer extends CanvasSignRenderer
 	}
 
 	@Override
-	Vec3 getTextOffset() {
-		return TEXT_OFFSET;
+	public Vec3 getTextOffset() {
+		return super.getTextOffset();
 	}
 }

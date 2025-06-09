@@ -1,30 +1,14 @@
 {
   "type": "farmersdelight:cooking",
+  "category": "meals",
   "experience": 1.0,
   "ingredients": [
-    {
-      "item": "minecraft:carrot"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    },
-    {
-      "tag": "c:foods/pasta"
-    },
-    {
-      "tag": "c:foods/leafy_green"
-    },
-    {
-      "fabric:type": "fabric:difference",
-      "base": {
-        "tag": "c:foods/vegetable"
-      },
-      "subtracted": {
-        "item": "minecraft:melon_slice"
-      }
-    }
+    "minecraft:carrot",
+    "minecraft:brown_mushroom",
+    "#c:foods/pasta",
+    "#c:foods/leafy_green",
+    "#c:foods/vegetable"
   ],
-  "recipe_book_tab": "meals",
   "result": {
     "count": 1,
     "id": "farmersdelight:vegetable_noodles"

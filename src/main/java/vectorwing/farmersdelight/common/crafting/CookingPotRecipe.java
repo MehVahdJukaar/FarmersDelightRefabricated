@@ -4,43 +4,38 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
-import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
-import java.util.Optional;
+import java.util.List;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
 {
-	public static final int INPUT_SLOTS = 6;
-
 	private final String group;
-	private final CookingPotRecipeBookTab tab;
-	private final NonNullList<Ingredient> inputItems;
-	private final ItemStack output;
+	private final CookingPotBookCategory category;
+	private final List<Ingredient> inputItems;
+	private final ItemStack result;
 	private final ItemStack container;
 	private final ItemStack containerOverride;
 	private final float experience;
 	private final int cookTime;
 
-	public CookingPotRecipe(String group, @Nullable CookingPotRecipeBookTab tab, NonNullList<Ingredient> inputItems, ItemStack output, ItemStack container, float experience, int cookTime) {
+	private PlacementInfo placementInfo;
+
+	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStack output, ItemStack container, float experience, int cookTime) {
 		this.group = group;
-		this.tab = tab;
+		this.category = tab;
 		this.inputItems = inputItems;
-		this.output = output;
+		this.result = output;
 
 		if (!container.isEmpty()) {
 			this.container = container;
@@ -55,37 +50,58 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		this.cookTime = cookTime;
 	}
 
-	@Override
-	public String getGroup() {
-		return this.group;
+	public List<Ingredient> input() {
+		return inputItems;
+	}
+
+	public ItemStack result() {
+		return result;
 	}
 
 	@Nullable
-	public CookingPotRecipeBookTab getRecipeBookTab() {
-		return this.tab;
+	public CookingPotBookCategory category() {
+		return this.category;
 	}
 
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return this.inputItems;
-	}
-
-	@Override
-	public ItemStack getResultItem(HolderLookup.Provider provider) {
-		return this.output;
-	}
-
-	public ItemStack getOutputContainer() {
+	public ItemStack container() {
 		return this.container;
 	}
 
-	public ItemStack getContainerOverride() {
+	public ItemStack containerOverride() {
 		return this.containerOverride;
 	}
 
 	@Override
 	public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
-		return this.output.copy();
+		return this.result.copy();
+	}
+
+	@Override
+	public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
+		return ModRecipeSerializers.COOKING.get();
+	}
+
+	@Override
+	public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
+		return ModRecipeTypes.COOKING.get();
+	}
+
+	@Override
+	public PlacementInfo placementInfo() {
+		if (placementInfo == null) {
+			placementInfo = PlacementInfo.create(inputItems);
+		}
+
+		return placementInfo;
+	}
+
+	@Override
+	public RecipeBookCategory recipeBookCategory() {
+		return switch (category()) {
+			case MEALS -> ModRecipeBookCategories.COOKING_MEALS.get();
+			case DRINKS -> ModRecipeBookCategories.COOKING_DRINKS.get();
+			case MISC -> ModRecipeBookCategories.COOKING_MISC.get();
+		};
 	}
 
 	public float getExperience() {
@@ -102,26 +118,6 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return width * height >= this.inputItems.size();
-	}
-
-	@Override
-	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeSerializers.COOKING.get();
-	}
-
-	@Override
-	public RecipeType<?> getType() {
-		return ModRecipeTypes.COOKING.get();
-	}
-
-	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(ModItems.COOKING_POT.get());
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -130,19 +126,19 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		if (Float.compare(that.getExperience(), getExperience()) != 0) return false;
 		if (getCookTime() != that.getCookTime()) return false;
-		if (!getGroup().equals(that.getGroup())) return false;
-		if (tab != that.tab) return false;
+		if (!group().equals(that.group())) return false;
+		if (category != that.category) return false;
 		if (!inputItems.equals(that.inputItems)) return false;
-		if (!output.equals(that.output)) return false;
+		if (!result.equals(that.result)) return false;
 		return container.equals(that.container);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = getGroup().hashCode();
-		result = 31 * result + (getRecipeBookTab() != null ? getRecipeBookTab().hashCode() : 0);
+		int result = group().hashCode();
+		result = 31 * result + (category() != null ? category().hashCode() : 0);
 		result = 31 * result + inputItems.hashCode();
-		result = 31 * result + output.hashCode();
+		result = 31 * result + this.result.hashCode();
 		result = 31 * result + container.hashCode();
 		result = 31 * result + (getExperience() != 0.0f ? Float.floatToIntBits(getExperience()) : 0);
 		result = 31 * result + getCookTime();
@@ -152,20 +148,16 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	public static class Serializer implements RecipeSerializer<CookingPotRecipe>
 	{
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::getGroup),
-				CookingPotRecipeBookTab.CODEC.optionalFieldOf("recipe_book_tab").xmap(optional -> optional.orElse(null), Optional::of).forGetter(CookingPotRecipe::getRecipeBookTab),
-				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").xmap(ingredients -> {
-					NonNullList<Ingredient> nonNullList = NonNullList.create();
-					nonNullList.addAll(ingredients);
-					return nonNullList;
-				}, ingredients -> ingredients).forGetter(CookingPotRecipe::getIngredients),
-				ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.output),
-				ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::getContainerOverride),
+				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::group),
+				CookingPotBookCategory.CODEC.optionalFieldOf("category", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
+				Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(CookingPotRecipe::input),
+				ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+				ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::containerOverride),
 				Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(CookingPotRecipe::getExperience),
 				Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(CookingPotRecipe::getCookTime)
 		).apply(inst, CookingPotRecipe::new));
 
-		public static final StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipe> STREAM_CODEC = StreamCodec.of(CookingPotRecipe.Serializer::toNetwork, CookingPotRecipe.Serializer::fromNetwork);
+		public static final StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipe> STREAM_CODEC = StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
 
 		public Serializer() {
 		}
@@ -182,12 +174,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		private static CookingPotRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
 			String groupIn = buffer.readUtf();
-			CookingPotRecipeBookTab tabIn = CookingPotRecipeBookTab.findByName(buffer.readUtf());
-			int i = buffer.readVarInt();
-			NonNullList<Ingredient> inputItemsIn = NonNullList.withSize(i, Ingredient.EMPTY);
-
-			inputItemsIn.replaceAll(ignored -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-
+			CookingPotBookCategory tabIn = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
+			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list(6)).decode(buffer);
 			ItemStack outputIn = ItemStack.STREAM_CODEC.decode(buffer);
 			ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 			float experienceIn = buffer.readFloat();
@@ -197,14 +185,9 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {
 			buffer.writeUtf(recipe.group);
-			buffer.writeUtf(recipe.tab != null ? recipe.tab.toString() : "");
-			buffer.writeVarInt(recipe.inputItems.size());
-
-			for (Ingredient ingredient : recipe.inputItems) {
-				Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
-			}
-
-			ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+			buffer.writeUtf(recipe.category != null ? recipe.category.toString() : "");
+			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list(6)).encode(buffer, recipe.inputItems);
+			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
 			ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.container);
 			buffer.writeFloat(recipe.experience);
 			buffer.writeVarInt(recipe.cookTime);

@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "farmersdelight:wild_tomatoes"
-    }
+    "farmersdelight:wild_tomatoes"
   ],
   "result": [
     {
@@ -27,7 +25,5 @@
       }
     }
   ],
-  "tool": {
-    "tag": "c:tools/knife"
-  }
+  "tool": "#c:tools/knife"
 }

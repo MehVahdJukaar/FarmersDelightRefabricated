@@ -3,14 +3,9 @@
   "cookingtime": 100,
   "experience": 0.35,
   "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/tomato"
-    }
+    "#c:crops/tomato",
+    "#c:crops/tomato"
   ],
-  "recipe_book_tab": "misc",
   "result": {
     "count": 1,
     "id": "farmersdelight:tomato_sauce"

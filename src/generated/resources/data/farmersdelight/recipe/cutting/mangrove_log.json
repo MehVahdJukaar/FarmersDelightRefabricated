@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:mangrove_log"
-    }
+    "minecraft:mangrove_log"
   ],
   "result": [
     {

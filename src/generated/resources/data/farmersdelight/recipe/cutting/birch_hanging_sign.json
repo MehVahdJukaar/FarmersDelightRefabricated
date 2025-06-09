@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:birch_hanging_sign"
-    }
+    "minecraft:birch_hanging_sign"
   ],
   "result": [
     {
