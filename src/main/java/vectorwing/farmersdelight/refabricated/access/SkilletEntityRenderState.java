@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.refabricated.access;
 
 public interface SkilletEntityRenderState {
-    long getSkilletFlipTimestamp();
+    long fdrf$getSkilletFlipTimestamp();
+    void fdrf$setSkilletFlipTimestamp(long value);
 }
