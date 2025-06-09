@@ -179,7 +179,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		super.saveAdditional(compound, registries);
 		compound.putInt("CookTime", cookTime);
 		compound.putInt("CookTimeTotal", cookTimeTotal);
-		compound.put("Container", mealContainerStack.save(registries));
+		if (!mealContainerStack.isEmpty()) {
+			compound.put("Container", mealContainerStack.save(registries));
+		}
 		if (customName != null) {
 			compound.putString("CustomName", Component.Serializer.toJson(customName, registries));
 		}
@@ -201,7 +203,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	private CompoundTag writeItems(CompoundTag compound, HolderLookup.Provider registries) {
 		super.saveAdditional(compound, registries);
-		compound.put("Container", mealContainerStack.save(registries));
+		if (!mealContainerStack.isEmpty()) {
+			compound.put("Container", mealContainerStack.save(registries));
+		}
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		return compound;
 	}
