@@ -1,0 +1,120 @@
+package vectorwing.farmersdelight.integration.eiv.cooking_pot;
+
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
+import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
+import de.crafty.eiv.common.builtin.transmute.TransmuteServerRecipe;
+import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
+import de.crafty.eiv.common.recipe.inventory.RecipeViewScreen;
+import de.crafty.eiv.common.recipe.inventory.SlotContent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CraftingScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.client.gui.CookingPotScreen;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class CookingPotViewRecipe implements IEivViewRecipe {
+
+    private final SlotContent result;
+    private final List<SlotContent> ingredients;
+    private final SlotContent container;
+    private final int cookTime;
+    private final float experience;
+
+    public CookingPotViewRecipe(CookingPotServerRecipe shapelessRecipe) {
+        this.ingredients = new ArrayList<>();
+
+        shapelessRecipe.getIngredients().forEach(ingredient -> {
+            this.ingredients.add(SlotContent.of(ingredient));
+        });
+
+        this.result = SlotContent.of(shapelessRecipe.getResult());
+        this.container = SlotContent.of(shapelessRecipe.getContainer());
+        this.experience = shapelessRecipe.getExperience();
+        this.cookTime = shapelessRecipe.getCookTime();
+    }
+
+    @Override
+    public IEivRecipeViewType getViewType() {
+        return CookingPotViewType.INSTANCE;
+    }
+
+    @Override
+    public void bindSlots(RecipeViewMenu.SlotFillContext slotFillContext) {
+
+        for (int i = 0; i < ingredients.size() && i < 7; i++) {
+            slotFillContext.bindSlot(i, ingredients.get(i));
+        }
+
+
+        slotFillContext.bindSlot(6, this.result);
+        slotFillContext.bindSlot(7, this.container);
+    }
+
+    @Override
+    public void renderRecipe(RecipeViewScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        guiGraphics.renderItem(this.result.getByIndex(0), 103, 45);
+        if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
+            List<Component> tooltip = new ArrayList<>();
+            if (cookTime > 0) {
+                tooltip.add(Component.translatable("eiv.cooking.time", this.cookTime/20));
+            }
+            if (experience > 0) {
+                tooltip.add(Component.translatable("eiv.cooking.experience", this.experience));
+            }
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
+        if ((mouseX > 100 && mouseX < 120) && mouseY < 62 && mouseY > 42) {
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, this.result.getByIndex(0), mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public List<SlotContent> getIngredients() {
+        return this.ingredients;
+    }
+
+    @Override
+    public List<SlotContent> getResults() {
+        return List.of(this.result);
+    }
+
+
+    @Override
+    public boolean supportsItemTransfer() {
+        return true;
+    }
+
+    @Override
+    public void mapRecipeItems(RecipeTransferMap transferMap, AbstractContainerScreen<?> screen) {
+        transferMap.linkSlots(0, 1);
+        transferMap.linkSlots(1, 2);
+        transferMap.linkSlots(2, 3);
+        transferMap.linkSlots(3, 4);
+        transferMap.linkSlots(4, 5);
+        transferMap.linkSlots(5, 6);
+
+    }
+
+    @Override
+    public List<Class<? extends AbstractContainerScreen<?>>> getTransferClasses() {
+        return List.of(CookingPotScreen.class);
+    }
+
+    @Override
+    public boolean canTransferToScreen(AbstractContainerScreen<?> screen) {
+        return screen instanceof CookingPotScreen;
+    }
+}
