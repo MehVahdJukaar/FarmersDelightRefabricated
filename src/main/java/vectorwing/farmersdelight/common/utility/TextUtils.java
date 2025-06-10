@@ -49,7 +49,7 @@ public class TextUtils
 		}
 
 		List<ConsumeEffect> consumeEffectList = consumable.onConsumeEffects();
-		List<Pair<Holder<Attribute>, AttributeModifier>> attributeList = Lists.newArrayList();
+		List<Pair<Holder<Attribute>, AttributeModifier>> attributeList = new ArrayList<>();
 		MutableComponent mutableComponent;
 
 		if (consumeEffectList.isEmpty()) {

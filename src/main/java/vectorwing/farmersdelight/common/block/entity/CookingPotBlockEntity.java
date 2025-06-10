@@ -394,7 +394,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	public List<RecipeHolder<?>> getUsedRecipesAndPopExperience(ServerLevel level, Vec3 pos) {
-		List<RecipeHolder<?>> list = Lists.newArrayList();
+		List<RecipeHolder<?>> list = new ArrayList<>();
 
 		for (Object2IntMap.Entry<ResourceKey<Recipe<?>>> entry : usedRecipeTracker.object2IntEntrySet()) {
 			level.recipeAccess().byKey(entry.getKey()).ifPresent((recipe) -> {

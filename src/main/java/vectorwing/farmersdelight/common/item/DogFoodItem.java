@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.item;
 
-import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -37,7 +36,7 @@ import java.util.function.Consumer;
 
 public class DogFoodItem extends ConsumableItem
 {
-	public static final List<MobEffectInstance> EFFECTS = Lists.newArrayList(
+	public static final List<MobEffectInstance> EFFECTS = List.of(
 			new MobEffectInstance(MobEffects.SPEED, 6000, 0),
 			new MobEffectInstance(MobEffects.STRENGTH, 6000, 0),
 			new MobEffectInstance(MobEffects.RESISTANCE, 6000, 0));

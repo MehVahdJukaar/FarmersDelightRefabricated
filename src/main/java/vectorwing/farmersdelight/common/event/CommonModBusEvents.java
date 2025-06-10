@@ -13,7 +13,6 @@ import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
-import org.apache.commons.compress.utils.Lists;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
 
@@ -42,7 +41,7 @@ public class CommonModBusEvents
 		if (Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get() || Configuration.RABBIT_STEW_BUFF.get()) {
 			for (Item item : FoodValues.ConsumableValues.VANILLA_SOUP_EFFECTS.keySet()) {
 				context.modify(item, builder -> {
-					List<MobEffectInstance> effects = Lists.newArrayList();
+					List<MobEffectInstance> effects = new ArrayList<>();
 					if (item == Items.RABBIT_STEW && Configuration.RABBIT_STEW_BUFF.get()) {
 						effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 200, 1));
 					}
