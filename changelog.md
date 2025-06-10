@@ -1,1 +1,1 @@
-- Fixed REI compatibility.
+- Removed references to Apache lists, which was preventing 
