@@ -33,7 +33,7 @@
     "rei_client": [
       "vectorwing.farmersdelight.integration.rei.client.ClientREIPlugin"
     ],
-    "rei_server": [
+    "rei_common": [
       "vectorwing.farmersdelight.integration.rei.CommonREIPlugin"
     ],
     "modmenu": [

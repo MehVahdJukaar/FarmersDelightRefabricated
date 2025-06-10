@@ -7,11 +7,13 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.integration.rei.client.display.ClientsidedCookingPotDisplay;
 import vectorwing.farmersdelight.integration.rei.display.CookingPotDisplay;
 import vectorwing.farmersdelight.integration.rei.display.CuttingDisplay;
 import vectorwing.farmersdelight.integration.rei.display.DecompositionDisplay;
@@ -21,8 +23,9 @@ import java.util.List;
 public class CommonREIPlugin implements REICommonPlugin {
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-        registry.register(REICategoryIdentifiers.COOKING.getIdentifier(), CookingPotDisplay.SERIALIZER);
-        registry.register(REICategoryIdentifiers.CUTTING.getIdentifier(), CuttingDisplay.SERIALIZER);
+        registry.register(FarmersDelight.res("default/cooking"), CookingPotDisplay.SERIALIZER);
+        registry.register(FarmersDelight.res("default/cutting"), CuttingDisplay.SERIALIZER);
+        registry.register(FarmersDelight.res("default/decomposition"), DecompositionDisplay.SERIALIZER);
     }
 
     @Override
