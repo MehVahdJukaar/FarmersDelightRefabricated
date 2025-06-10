@@ -39,7 +39,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 				.display(ModItems.COOKING_POT.get(),
 						TextUtils.getTranslation("advancement.root"),
 						TextUtils.getTranslation("advancement.root.desc"),
-						ResourceLocation.parse("minecraft:textures/block/bricks.png"),
+						ResourceLocation.parse("minecraft:block/bricks"),
 						AdvancementType.TASK, false, false, false)
 				.addCriterion("seeds", InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{}))
 				.save(consumer, getNameId("main/root"));
