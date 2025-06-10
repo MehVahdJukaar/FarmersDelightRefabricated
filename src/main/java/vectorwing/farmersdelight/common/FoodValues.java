@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import vectorwing.farmersdelight.common.item.component.consumable.ExtinguishConsumeEffect;
 import vectorwing.farmersdelight.common.item.component.consumable.HealConsumeEffect;
 import vectorwing.farmersdelight.common.item.component.consumable.RemoveRandomStatusEffectsConsumeEffect;
 import vectorwing.farmersdelight.common.registry.ModEffects;
@@ -242,10 +243,14 @@ public class FoodValues
 				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(ModTags.HOT_COCOA_IGNORED, true))
 				.build();
 		public static final Consumable MILK_BOTTLE = Consumables.defaultDrink()
-				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(ModTags.MILK_BOTTLE_IGNORED, false))
+				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(ModTags.MILK_BOTTLE_IGNORED))
 				.build();
 		public static final Consumable MELON_JUICE = Consumables.defaultDrink()
 				.onConsume(new HealConsumeEffect(2.0F))
+				.build();
+		public static final Consumable MELON_POPSICLE = Consumables.defaultFood()
+				.consumeSeconds(0.8F)
+				.onConsume(new ExtinguishConsumeEffect())
 				.build();
 
 		public static final Consumable APPLE_CIDER = Consumables.defaultDrink()
