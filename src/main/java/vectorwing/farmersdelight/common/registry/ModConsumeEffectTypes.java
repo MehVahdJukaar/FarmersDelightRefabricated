@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.registry;
 
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
+import vectorwing.farmersdelight.common.item.component.consumable.ExtinguishConsumeEffect;
 import vectorwing.farmersdelight.common.item.component.consumable.HealConsumeEffect;
 import vectorwing.farmersdelight.common.item.component.consumable.RemoveRandomStatusEffectsConsumeEffect;
 
@@ -13,6 +14,8 @@ public class ModConsumeEffectTypes {
             () -> new ConsumeEffect.Type<>(RemoveRandomStatusEffectsConsumeEffect.CODEC, RemoveRandomStatusEffectsConsumeEffect.STREAM_CODEC));
     public static final Supplier<ConsumeEffect.Type<HealConsumeEffect>> HEAL = regConsumeEffectType("heal",
             () -> new ConsumeEffect.Type<>(HealConsumeEffect.CODEC, HealConsumeEffect.STREAM_CODEC));
+    public static final Supplier<ConsumeEffect.Type<ExtinguishConsumeEffect>> EXTINGUISH = regConsumeEffectType("extinguish",
+            () -> new ConsumeEffect.Type<>(ExtinguishConsumeEffect.CODEC, ExtinguishConsumeEffect.STREAM_CODEC));
 
     public static void touch() {}
 }

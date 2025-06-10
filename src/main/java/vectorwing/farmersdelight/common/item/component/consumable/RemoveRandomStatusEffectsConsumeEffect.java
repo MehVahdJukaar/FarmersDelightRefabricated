@@ -48,7 +48,7 @@ public record RemoveRandomStatusEffectsConsumeEffect(TagKey<MobEffect> excluded,
 
         while (itr.hasNext()) {
             MobEffectInstance effect = itr.next();
-            if ((!harmfulOnly || effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL)) && effect.getEffect().is(excluded)) {
+            if ((!harmfulOnly || effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL)) && !effect.getEffect().is(excluded)) {
                 compatibleEffects.add(effect.getEffect());
             }
         }

@@ -407,7 +407,7 @@ public class ModItems
 	public static final Supplier<Item> HONEY_COOKIE = registerWithTab("honey_cookie",
 			Item::new, foodItem(FoodValues.COOKIES, FoodValues.ConsumableValues.FAST_FOOD));
 	public static final Supplier<Item> MELON_POPSICLE = registerWithTab("melon_popsicle",
-			PopsicleItem::new, foodItem(FoodValues.POPSICLE, FoodValues.ConsumableValues.FAST_FOOD));
+			ConsumableItem::new, foodItem(FoodValues.POPSICLE, FoodValues.ConsumableValues.MELON_POPSICLE));
 	public static final Supplier<Item> GLOW_BERRY_CUSTARD = registerWithTab("glow_berry_custard",
 			properties -> new ConsumableItem(properties, true),
 			foodItem(FoodValues.GLOW_BERRY_CUSTARD, FoodValues.ConsumableValues.GLOW_BERRY_CUSTARD).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16));
@@ -423,31 +423,31 @@ public class ModItems
             ConsumableItem::new,
 			bowlFoodItem(FoodValues.NETHER_SALAD, FoodValues.ConsumableValues.NETHER_SALAD));
 	public static final Supplier<Item> BARBECUE_STICK = registerWithTab("barbecue_stick",
-			PopsicleItem::new, foodItem(FoodValues.BARBECUE_STICK));
+			ConsumableItem::new, foodItem(FoodValues.BARBECUE_STICK));
 	public static final Supplier<Item> EGG_SANDWICH = registerWithTab("egg_sandwich",
-			PopsicleItem::new, foodItem(FoodValues.EGG_SANDWICH));
+			ConsumableItem::new, foodItem(FoodValues.EGG_SANDWICH));
 	public static final Supplier<Item> CHICKEN_SANDWICH = registerWithTab("chicken_sandwich",
-			PopsicleItem::new, foodItem(FoodValues.CHICKEN_SANDWICH));
+			ConsumableItem::new, foodItem(FoodValues.CHICKEN_SANDWICH));
 	public static final Supplier<Item> HAMBURGER = registerWithTab("hamburger",
-			PopsicleItem::new, foodItem(FoodValues.HAMBURGER));
+			ConsumableItem::new, foodItem(FoodValues.HAMBURGER));
 	public static final Supplier<Item> BACON_SANDWICH = registerWithTab("bacon_sandwich",
-			PopsicleItem::new, foodItem(FoodValues.BACON_SANDWICH));
+			ConsumableItem::new, foodItem(FoodValues.BACON_SANDWICH));
 	public static final Supplier<Item> MUTTON_WRAP = registerWithTab("mutton_wrap",
-			PopsicleItem::new, foodItem(FoodValues.MUTTON_WRAP));
+			ConsumableItem::new, foodItem(FoodValues.MUTTON_WRAP));
 	public static final Supplier<Item> DUMPLINGS = registerWithTab("dumplings",
-			PopsicleItem::new, foodItem(FoodValues.DUMPLINGS));
+			ConsumableItem::new, foodItem(FoodValues.DUMPLINGS));
 	public static final Supplier<Item> STUFFED_POTATO = registerWithTab("stuffed_potato",
-			PopsicleItem::new, foodItem(FoodValues.STUFFED_POTATO));
+			ConsumableItem::new, foodItem(FoodValues.STUFFED_POTATO));
 	public static final Supplier<Item> CABBAGE_ROLLS = registerWithTab("cabbage_rolls",
-			PopsicleItem::new, foodItem(FoodValues.CABBAGE_ROLLS));
+			ConsumableItem::new, foodItem(FoodValues.CABBAGE_ROLLS));
 	public static final Supplier<Item> SALMON_ROLL = registerWithTab("salmon_roll",
-			PopsicleItem::new, foodItem(FoodValues.SALMON_ROLL));
+			ConsumableItem::new, foodItem(FoodValues.SALMON_ROLL));
 	public static final Supplier<Item> COD_ROLL = registerWithTab("cod_roll",
-			PopsicleItem::new, foodItem(FoodValues.COD_ROLL));
+			ConsumableItem::new, foodItem(FoodValues.COD_ROLL));
 	public static final Supplier<Item> KELP_ROLL = registerWithTab("kelp_roll",
-			PopsicleItem::new, foodItem(FoodValues.KELP_ROLL, FoodValues.ConsumableValues.KELP_ROLL));
+			ConsumableItem::new, foodItem(FoodValues.KELP_ROLL, FoodValues.ConsumableValues.KELP_ROLL));
 	public static final Supplier<Item> KELP_ROLL_SLICE = registerWithTab("kelp_roll_slice",
-			PopsicleItem::new, foodItem(FoodValues.KELP_ROLL_SLICE, FoodValues.ConsumableValues.FAST_FOOD));
+			ConsumableItem::new, foodItem(FoodValues.KELP_ROLL_SLICE, FoodValues.ConsumableValues.FAST_FOOD));
 
 	// Soups and Stews
 	public static final Supplier<Item> COOKED_RICE = registerWithTab("cooked_rice",

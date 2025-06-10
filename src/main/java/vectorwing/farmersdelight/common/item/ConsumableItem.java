@@ -56,7 +56,7 @@ public class ConsumableItem extends Item
 
 		ItemStack containerStack = stack.getRecipeRemainder();
 
-		if (stack.get(DataComponents.FOOD) != null) {
+		if (stack.get(DataComponents.FOOD) != null || stack.get(DataComponents.CONSUMABLE) != null) {
 			super.finishUsingItem(stack, level, consumer);
 		} else {
 			Player player = consumer instanceof Player ? (Player) consumer : null;
