@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.refabricated.inventory;
 
-import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
@@ -9,6 +8,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +17,7 @@ public abstract class FabricWrappedInventory implements ItemHandler {
     private final List<ItemHandlerStackWrapper> fabricWrappers;
 
     public FabricWrappedInventory(int size) {
-        fabricWrappers = Lists.newArrayListWithCapacity(size);
+        fabricWrappers = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
             fabricWrappers.add(new ItemHandlerStackWrapper(this, i));
         }
