@@ -209,7 +209,10 @@ public class SkilletItem extends BlockItem {
                 InteractionHand otherHand = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
                 ItemStack otherHandStack = player.getItemInHand(otherHand);
                 otherHandStack.shrink(1);
-
+                if (otherHandStack.isEmpty()) {
+                    stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
+                    stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
+                }
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                 stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }
