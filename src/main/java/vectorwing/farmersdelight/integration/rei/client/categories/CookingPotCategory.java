@@ -19,19 +19,17 @@ import net.minecraft.resources.ResourceLocation;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
-import vectorwing.farmersdelight.integration.rei.client.display.ClientsidedCookingPotDisplay;
 import vectorwing.farmersdelight.integration.rei.display.CookingPotDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPotDisplay> {
+public class CookingPotCategory implements DisplayCategory<CookingPotDisplay> {
     private static final Component TITLE = Component.translatable("farmersdelight.jei.cooking");;
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     @Override
-    public CategoryIdentifier<? extends ClientsidedCookingPotDisplay> getCategoryIdentifier() {
+    public CategoryIdentifier<CookingPotDisplay> getCategoryIdentifier() {
         return REICategoryIdentifiers.COOKING;
     }
 
@@ -51,12 +49,12 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
     }
 
     @Override
-    public int getDisplayWidth(ClientsidedCookingPotDisplay display) {
+    public int getDisplayWidth(CookingPotDisplay display) {
         return 154;
     }
 
     @Override
-    public DisplayRenderer getDisplayRenderer(ClientsidedCookingPotDisplay display) {
+    public DisplayRenderer getDisplayRenderer(CookingPotDisplay display) {
         return new DisplayRenderer()  {
             @Override
             public int getHeight() {
@@ -71,10 +69,10 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
     }
 
     @Override
-    public List<Widget> setupDisplay(ClientsidedCookingPotDisplay display, Rectangle bounds) {
+    public List<Widget> setupDisplay(CookingPotDisplay display, Rectangle bounds) {
         List<EntryIngredient> recipeIngredients = display.getInputEntries();
         List<EntryIngredient> resultStack = display.getOutputEntries();
-        Optional<EntryIngredient> containerStack = display.getOutputContainer();
+        EntryIngredient containerStack = display.getOutputContainer();
 
         Point startPoint = new Point(bounds.getCenterX() - 58, bounds.getCenterY() - 28);
 
@@ -95,9 +93,11 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 10)).entries(resultStack.get(0)).disableBackground());
 
-        Slot containerSlot = Widgets.createSlot(new Point(startPoint.x + 63, startPoint.y + 39));
-        containerStack.ifPresent(containerSlot::entries);
-        widgets.add(containerSlot);
+        if (!containerStack.isEmpty()) {
+            Slot containerSlot = Widgets.createSlot(new Point(startPoint.x + 63, startPoint.y + 39));
+            containerSlot.entries(containerStack);
+            widgets.add(containerSlot);
+        }
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 39)).entries(resultStack.get(0)));
 
@@ -118,7 +118,7 @@ public class CookingPotCategory implements DisplayCategory<ClientsidedCookingPot
         return widgets;
     }
 
-    public List<Component> getTooltipStrings(ClientsidedCookingPotDisplay display) {
+    public List<Component> getTooltipStrings(CookingPotDisplay display) {
         List<Component> tooltipStrings = new ArrayList<>();
 
         int cookTime = display.getCookTime();

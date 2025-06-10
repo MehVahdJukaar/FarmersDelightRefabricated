@@ -33,12 +33,6 @@ public class ClientREIPlugin implements REIClientPlugin  {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.beginRecipeFiller(CookingPotRecipeDisplay.class)
-                .filterType(CookingPotRecipeDisplay.TYPE)
-                .fill(ClientsidedCookingPotDisplay::new);
-
-        registry.add(new DecompositionDisplay());
-
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.STRAW.get()), Component.translatable("item.farmersdelight.straw")).lines(TextUtils.getTranslation("jei.info.straw")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.HAM.get()), Component.translatable("item.farmersdelight.ham")).lines(TextUtils.getTranslation("jei.info.ham")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.NETHERITE_KNIFE.get(), ModItems.GOLDEN_KNIFE.get())), Component.translatable("tag.item.farmersdelight.tools.knives")).lines(TextUtils.getTranslation("jei.info.knife")));
