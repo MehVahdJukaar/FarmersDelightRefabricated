@@ -171,8 +171,7 @@ publishMods {
 processResources {
     var replaceProperties = [
             minecraft_version    : minecraft_version,
-            minecraft_min_version: minecraft_min_version,
-            minecraft_max_version: minecraft_max_version,
+            minecraft_required   : minecraft_required,
 
             mod_id               : mod_id,
             mod_name             : mod_name,
