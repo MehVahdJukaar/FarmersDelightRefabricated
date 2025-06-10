@@ -338,14 +338,14 @@ public class ModItems
 	public static final Supplier<Item> FRIED_EGG = registerWithTab("fried_egg",
 			Item::new, foodItem(FoodValues.FRIED_EGG));
 	public static final Supplier<Item> MILK_BOTTLE = registerWithTab("milk_bottle",
-			Item::new, drinkItem(FoodValues.ConsumableValues.MILK_BOTTLE));
+			properties -> new ConsumableItem(properties, false, true), drinkItem(FoodValues.ConsumableValues.MILK_BOTTLE));
 	public static final Supplier<Item> HOT_COCOA = registerWithTab("hot_cocoa",
-			ConsumableItem::new, drinkItem(FoodValues.ConsumableValues.HOT_COCOA));
+			properties -> new ConsumableItem(properties, false, true), drinkItem(FoodValues.ConsumableValues.HOT_COCOA));
 	public static final Supplier<Item> APPLE_CIDER = registerWithTab("apple_cider",
 			properties -> new ConsumableItem(properties, true, false),
 			drinkItem().food(FoodValues.APPLE_CIDER, FoodValues.ConsumableValues.APPLE_CIDER));
 	public static final Supplier<Item> MELON_JUICE = registerWithTab("melon_juice",
-			ConsumableItem::new, drinkItem(FoodValues.ConsumableValues.MELON_JUICE));
+			properties -> new ConsumableItem(properties, false, true), drinkItem(FoodValues.ConsumableValues.MELON_JUICE));
 	public static final Supplier<Item> TOMATO_SAUCE = registerWithTab("tomato_sauce",
 			ConsumableItem::new, foodItem(FoodValues.TOMATO_SAUCE).craftRemainder(Items.BOWL));
 	public static final Supplier<Item> WHEAT_DOUGH = registerWithTab("wheat_dough",
