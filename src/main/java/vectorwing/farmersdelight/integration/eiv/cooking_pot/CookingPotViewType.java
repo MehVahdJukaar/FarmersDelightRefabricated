@@ -63,7 +63,6 @@ public class CookingPotViewType implements IEivRecipeViewType {
         //Result Slot
         slotDefinition.addItemSlot(6, 103, 17);
         slotDefinition.addItemSlot(7, 71, 45);
-//        slotDefinition.addItemSlot(8, 103, 36);
 
     }
 
