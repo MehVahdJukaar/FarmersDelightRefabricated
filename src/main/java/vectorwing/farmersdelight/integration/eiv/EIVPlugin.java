@@ -73,7 +73,7 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
         });
 
         // Decomposition - Clientside
-        ItemView.registerRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
+        ItemView.registerRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
            return List.of(new DecompositionViewRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
         });
     }
