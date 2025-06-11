@@ -50,22 +50,15 @@ public class CuttingViewType implements IEivRecipeViewType {
         return FarmersDelight.res("textures/gui/eiv/cutting_board.png");
     }
 
-
     @Override
     public int getSlotCount() {
-        return 6;
+        return 2;
     }
 
     @Override
     public void placeSlots(RecipeViewMenu.SlotDefinition slotDefinition) {
         slotDefinition.addItemSlot(0, 16, 28); // ingredient
         slotDefinition.addItemSlot(1, 16, 8); // tool
-        slotDefinition.addItemSlot(2, 75, 20); // result #1 TODO the rest of the results
-        slotDefinition.addItemSlot(3, 93, 20); // result #2
-        slotDefinition.addItemSlot(4, 75, 38); // result #3
-        slotDefinition.addItemSlot(5, 93, 38); // result #4
-
-
     }
 
     @Override
