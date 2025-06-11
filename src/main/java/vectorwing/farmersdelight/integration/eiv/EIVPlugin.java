@@ -10,6 +10,8 @@ import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotViewRecipe;
+import vectorwing.farmersdelight.integration.eiv.cutting.CuttingServerRecipe;
+import vectorwing.farmersdelight.integration.eiv.cutting.CuttingViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoViewType;
@@ -27,6 +29,10 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             // Cooking Pot - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.COOKING.get()).forEach(recipe -> {
                 recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result(), recipe.container(), recipe.getExperience(), recipe.getCookTime()));
+            });
+            // Cutting Board - serverside
+            ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {
+                recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool()));
             });
         });
 
@@ -56,6 +62,11 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             infoRecipes.add(new InfoViewRecipe((List.of(new ItemStack(ModItems.WILD_TOMATOES.get()), new ItemStack(ModItems.TOMATO.get()))), "farmersdelight.jei.info.wild_tomatoes"));
             infoRecipes.add(new InfoViewRecipe((List.of(new ItemStack(ModItems.WILD_RICE.get()), new ItemStack(ModItems.RICE.get()), new ItemStack(ModItems.RICE_PANICLE.get()))), "farmersdelight.jei.info.wild_rice"));
             return infoRecipes;
+        });
+
+        // Cooking Pot - clientside
+        ItemView.registerRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
+            return Collections.singletonList(new CuttingViewRecipe(modRecipe));
         });
     }
 }
