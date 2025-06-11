@@ -1,1 +1,2 @@
-- Fixed server crashes.
+- Fixed Light Gray Hanging Canvas Wall Sign translation. cassiancc - (#183)[https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/183]
+- Mark the minimum required Fabric API version regarding the server player join event usage.
