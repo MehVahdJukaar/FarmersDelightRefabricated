@@ -34,7 +34,7 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             });
             // Cutting Board - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {
-                recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool()));
+                recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool(), recipe.getRollableResults()));
             });
             recipeList.add(new DecompositionServerRecipe());
         });
