@@ -24,7 +24,7 @@ public class InfoViewType implements IEivRecipeViewType {
 
     @Override
     public int getDisplayHeight() {
-        return 90;
+        return 120;
     }
 
     @Override
