@@ -12,6 +12,8 @@ import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotServerRec
 import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.cutting.CuttingServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.cutting.CuttingViewRecipe;
+import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionServerRecipe;
+import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoViewType;
@@ -34,6 +36,7 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {
                 recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool()));
             });
+            recipeList.add(new DecompositionServerRecipe());
         });
 
         // Cooking Pot - clientside
@@ -64,9 +67,14 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             return infoRecipes;
         });
 
-        // Cooking Pot - clientside
+        // Cutting Board - clientside
         ItemView.registerRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
             return Collections.singletonList(new CuttingViewRecipe(modRecipe));
+        });
+
+        // Decomposition - Clientside
+        ItemView.registerRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
+           return List.of(new DecompositionViewRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
         });
     }
 }
