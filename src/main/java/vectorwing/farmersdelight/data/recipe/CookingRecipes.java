@@ -103,7 +103,7 @@ public class CookingRecipes
 				.addIngredient(Items.POTATO)
 				.addIngredient(ConventionalItemTags.EGGS)
 				.addIngredient(CommonTags.CROPS_TOMATO)
-				.unlockedByAnyIngredient(Items.COD, Items.POTATO, ModItems.TOMATO.get(), Items.EGG)
+				.unlockedByAnyIngredient(Items.COD, Items.POTATO, ModItems.TOMATO.get(), Items.EGG, Items.BLUE_EGG, Items.BROWN_EGG)
 				.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.BEEF_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
@@ -168,7 +168,7 @@ public class CookingRecipes
 				.addIngredient(ConventionalItemTags.EGGS)
 				.addIngredient(Items.CARROT)
 				.addIngredient(CommonTags.CROPS_ONION)
-				.unlockedByAnyIngredient(ModItems.RICE.get(), Items.EGG, Items.CARROT, ModItems.ONION.get())
+				.unlockedByAnyIngredient(ModItems.RICE.get(), Items.EGG, Items.BROWN_EGG, Items.BLUE_EGG, Items.CARROT, ModItems.ONION.get())
 				.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.MUSHROOM_RICE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)

@@ -1,12 +1,19 @@
 package vectorwing.farmersdelight.data.recipe;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -15,8 +22,9 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 public class SmeltingRecipes
 {
-	public static void register(RecipeOutput output) {
-		foodSmeltingRecipes("fried_egg", Items.EGG, ModItems.FRIED_EGG.get(), 0.35F, output);
+	public static void register(HolderLookup.Provider registryLookup, RecipeOutput output) {
+		HolderGetter<Item> holderGetter = registryLookup.lookupOrThrow(Registries.ITEM);
+		foodSmeltingRecipes("fried_egg", holderGetter, ConventionalItemTags.EGGS, ModItems.FRIED_EGG.get(), 0.35F, output);
 		foodSmeltingRecipes("beef_patty", ModItems.MINCED_BEEF.get(), ModItems.BEEF_PATTY.get(), 0.35F, output);
 		foodSmeltingRecipes("cooked_chicken_cuts", ModItems.CHICKEN_CUTS.get(), ModItems.COOKED_CHICKEN_CUTS.get(), 0.35F, output);
 		foodSmeltingRecipes("cooked_cod_slice", ModItems.COD_SLICE.get(), ModItems.COOKED_COD_SLICE.get(), 0.35F, output);
@@ -66,6 +74,19 @@ public class SmeltingRecipes
 				.save(output, namePrefix + "_from_campfire_cooking");
 		SimpleCookingRecipeBuilder.smoking(Ingredient.of(ingredient), RecipeCategory.FOOD, result, experience, 100)
 				.unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ingredient))
+				.save(output, namePrefix + "_from_smoking");
+	}
+
+	private static void foodSmeltingRecipes(String name, HolderGetter<Item> holderGetter, TagKey<Item> ingredient, ItemLike result, float experience, RecipeOutput output) {
+		String namePrefix = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, name).toString();
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(holderGetter.getOrThrow(ingredient)), RecipeCategory.FOOD, result, experience, 200)
+				.unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(holderGetter, ingredient)))
+				.save(output);
+		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(holderGetter.getOrThrow(ingredient)), RecipeCategory.FOOD, result, experience, 600)
+				.unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(holderGetter, ingredient)))
+				.save(output, namePrefix + "_from_campfire_cooking");
+		SimpleCookingRecipeBuilder.smoking(Ingredient.of(holderGetter.getOrThrow(ingredient)), RecipeCategory.FOOD, result, experience, 100)
+				.unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(holderGetter, ingredient)))
 				.save(output, namePrefix + "_from_smoking");
 	}
 }

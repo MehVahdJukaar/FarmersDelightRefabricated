@@ -26,7 +26,7 @@ public class Recipes extends FabricRecipeProvider
 			@Override
 			public void buildRecipes() {
 				CraftingRecipes.register(registryLookup, output);
-				SmeltingRecipes.register(output);
+				SmeltingRecipes.register(registryLookup, output);
 				CookingRecipes.register(registryLookup, output);
 				CuttingRecipes.register(registryLookup, output);
 			}
