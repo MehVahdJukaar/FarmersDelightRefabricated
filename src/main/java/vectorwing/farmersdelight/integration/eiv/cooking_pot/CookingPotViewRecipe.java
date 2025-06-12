@@ -44,7 +44,7 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
     @Override
     public void bindSlots(RecipeViewMenu.SlotFillContext slotFillContext) {
 
-        for (int i = 0; i < ingredients.size() && i < 7; i++) {
+        for (int i = 0; i < ingredients.size() && i < 6; i++) {
             slotFillContext.bindSlot(i, ingredients.get(i));
         }
 
@@ -89,13 +89,9 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
 
     @Override
     public void mapRecipeItems(RecipeTransferMap transferMap, AbstractContainerScreen<?> screen) {
-        transferMap.linkSlots(0, 1);
-        transferMap.linkSlots(1, 2);
-        transferMap.linkSlots(2, 3);
-        transferMap.linkSlots(3, 4);
-        transferMap.linkSlots(4, 5);
-        transferMap.linkSlots(5, 6);
-
+        for (int i = 0; i < ingredients.size() && i < 6; i++) {
+            transferMap.linkSlots(i, i);
+        }
     }
 
     @Override
