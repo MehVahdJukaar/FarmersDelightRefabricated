@@ -80,6 +80,7 @@ public class FarmersDelight implements ModInitializer
 		ItemAbilityIngredient.init();
 		ModConsumeEffectTypes.touch();
 		ModRecipeDisplays.touch();
+		ModRecipeBookCategories.touch();
 
 		CompostableHelper.apply();
 

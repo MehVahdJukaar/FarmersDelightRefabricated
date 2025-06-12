@@ -199,7 +199,7 @@ public class ModItems
 	public static final Supplier<Item> LIGHT_GRAY_CANVAS_SIGN = registerWithTab("light_gray_canvas_sign",
 			(properties) -> new SignItem(ModBlocks.LIGHT_GRAY_CANVAS_SIGN.get(), ModBlocks.LIGHT_GRAY_CANVAS_WALL_SIGN.get(), properties), basicItem().useBlockDescriptionPrefix());
 	public static final Supplier<Item> LIGHT_GRAY_HANGING_CANVAS_SIGN = registerWithTab("light_gray_hanging_canvas_sign",
-			(properties) -> new SignItem(ModBlocks.LIGHT_GRAY_HANGING_CANVAS_SIGN.get(), ModBlocks.LIGHT_GRAY_HANGING_CANVAS_WALL_SIGN.get(), properties), basicItem());
+			(properties) -> new SignItem(ModBlocks.LIGHT_GRAY_HANGING_CANVAS_SIGN.get(), ModBlocks.LIGHT_GRAY_HANGING_CANVAS_WALL_SIGN.get(), properties), basicItem().useBlockDescriptionPrefix());
 
 	public static final Supplier<Item> GRAY_CANVAS_SIGN = registerWithTab("gray_canvas_sign",
 			(properties) -> new SignItem(ModBlocks.GRAY_CANVAS_SIGN.get(), ModBlocks.GRAY_CANVAS_WALL_SIGN.get(), properties), basicItem().useBlockDescriptionPrefix());
