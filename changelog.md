@@ -1,4 +1,4 @@
 - Fixed Fried Eggs being unable to be made from the new Brown Eggs and Blue Eggs. [#185](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/185)
 - Fixed Pumpkins not dropping outside of Knife Pumpkin Slices. [#186](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/186).
-- Fixed specific recipes not being able to be unlocked 
+- Fixed specific recipes not being able to be unlocked with Brown Eggs and Blue Eggs.
 - Fixed Flint Knives not being able to be repaired.
