@@ -196,6 +196,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.addOptional(ResourceLocation.parse("supplementaries:quiver"))
 				.addOptional(ResourceLocation.parse("autumnity:turkey"))
 				.addOptional(ResourceLocation.parse("autumnity:cooked_turkey"));
+		getOrCreateTagBuilder(ModTags.FLINT_TOOL_MATERIALS).add(Items.FLINT);
 	}
 
 	@SuppressWarnings("unchecked")
