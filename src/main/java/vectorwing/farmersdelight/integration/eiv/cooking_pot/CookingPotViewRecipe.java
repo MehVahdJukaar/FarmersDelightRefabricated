@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
+import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
 
     @Override
     public void renderRecipe(RecipeViewScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.renderItem(this.result.getByIndex(0), 103, 45);
+        guiGraphics.renderItem(this.result.getByIndex(0), 103, 17);
         if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
             List<Component> tooltip = new ArrayList<>();
             if (cookTime > 0) {
@@ -66,7 +67,7 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
             }
             guiGraphics.renderTooltip(Minecraft.getInstance().font, tooltip, Optional.empty(), mouseX, mouseY);
         }
-        if ((mouseX > 100 && mouseX < 120) && mouseY < 62 && mouseY > 42) {
+        if (ClientRenderUtils.isCursorInsideBounds(103, 17, 18, 18, mouseX, mouseY)) {
             guiGraphics.renderTooltip(Minecraft.getInstance().font, this.result.getByIndex(0), mouseX, mouseY);
         }
     }
