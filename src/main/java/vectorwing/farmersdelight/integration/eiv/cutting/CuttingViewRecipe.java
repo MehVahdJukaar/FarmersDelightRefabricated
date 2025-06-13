@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.integration.eiv.cutting;
 
 import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
 import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
+import de.crafty.eiv.common.builtin.BuiltInEivIntegration;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewScreen;
 import de.crafty.eiv.common.recipe.inventory.SlotContent;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.*;
@@ -46,41 +49,69 @@ public class CuttingViewRecipe implements IEivViewRecipe {
 
     @Override
     public void bindSlots(RecipeViewMenu.SlotFillContext slotFillContext) {
-        slotFillContext.bindSlot(0, ingredient);
-        slotFillContext.bindSlot(1, tool);
         int i = 0;
+        slotFillContext.bindSlot(i, ingredient);
+        i++;
+        slotFillContext.bindSlot(i, tool);
+        i++;
         for (Map.Entry<SlotContent, Float> result : rollableResults.entrySet()) {
-            slotFillContext.bindSlot(i+2, result.getKey());
             var chance = result.getValue();
             if (chance != 1.0) {
-                slotFillContext.addAdditionalStackModifier(i+2, (stack, tooltip) -> {
+                slotFillContext.bindOptionalSlot(i, result.getKey(), CuttingSlotRenderer.CHANCE_OUTPUT);
+                slotFillContext.addAdditionalStackModifier(i, (stack, tooltip) -> {
                     tooltip.add(Component.literal("Production chance: %s%%".formatted(chance * 100)).setStyle(Style.EMPTY.withColor(TextColor.fromLegacyFormat(ChatFormatting.GOLD))));
                 });
+            } else {
+                slotFillContext.bindOptionalSlot(i, result.getKey(), CuttingSlotRenderer.GUARANTEED_OUTPUT);
             }
             i++;
         }
+        if (i<=2) {
+            slotFillContext.bindOptionalSlot(i, SlotContent.of(ItemStack.EMPTY), RecipeViewMenu.OptionalSlotRenderer.DEFAULT);
+            i++;
+        }
+        if (i<=3) {
+            slotFillContext.bindOptionalSlot(i, SlotContent.of(ItemStack.EMPTY), RecipeViewMenu.OptionalSlotRenderer.DEFAULT);
+            i++;
+        }
+        if (i<=4) {
+            slotFillContext.bindOptionalSlot(i, SlotContent.of(ItemStack.EMPTY), RecipeViewMenu.OptionalSlotRenderer.DEFAULT);
+            i++;
+        }
+        if (i<=5) {
+            slotFillContext.bindOptionalSlot(i, SlotContent.of(ItemStack.EMPTY), RecipeViewMenu.OptionalSlotRenderer.DEFAULT);
+        }
+    }
+
+    public interface CuttingSlotRenderer {
+        ResourceLocation SLOT_TEXTURE = FarmersDelight.res("textures/gui/jei/cutting_board.png");
+
+        RecipeViewMenu.OptionalSlotRenderer GUARANTEED_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderType::guiTextured, SLOT_TEXTURE, 0,0,0,58, 18,18, 256,256);
+        RecipeViewMenu.OptionalSlotRenderer CHANCE_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderType::guiTextured, SLOT_TEXTURE, 0,0,18,58, 18,18, 256,256);
+
+        void render(GuiGraphics var1, int var2, int var3, float var4);
     }
 
     @Override
     public void renderRecipe(RecipeViewScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        int x = 75;
-        int y = 20;
-        int slot = 0;
-        for (Map.Entry<SlotContent, Float> result : rollableResults.entrySet()) {
-            int offset = 0;
-            if (result.getValue() != 1.0) {
-                offset = 18;
-            }
-            guiGraphics.blit(RenderType::guiTextured, FarmersDelight.res("textures/gui/jei/cutting_board.png"), x-1,y-1,offset,58, 18,18, 256,256);
-            slot++;
-            if (slot == 2) {
-                y+=18;
-                x-=18;
-                slot = 0;
-            } else {
-                x += 18;
-            }
-        }
+//        int x = 75;
+//        int y = 20;
+//        int slot = 0;
+//        for (Map.Entry<SlotContent, Float> result : rollableResults.entrySet()) {
+//            int offset = 0;
+//            if (result.getValue() != 1.0) {
+//                offset = 18;
+//            }
+//            guiGraphics.blit(RenderType::guiTextured, FarmersDelight.res("textures/gui/jei/cutting_board.png"), x-1,y-1,offset,58, 18,18, 256,256);
+//            slot++;
+//            if (slot == 2) {
+//                y+=18;
+//                x-=18;
+//                slot = 0;
+//            } else {
+//                x += 18;
+//            }
+//        }
     }
 
     @Override
