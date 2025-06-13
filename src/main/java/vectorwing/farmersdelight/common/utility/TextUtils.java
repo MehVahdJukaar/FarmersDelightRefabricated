@@ -21,7 +21,6 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import vectorwing.farmersdelight.FarmersDelight;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
