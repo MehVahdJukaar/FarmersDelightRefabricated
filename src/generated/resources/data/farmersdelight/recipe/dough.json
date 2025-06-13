@@ -1,12 +1,4 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    "#c:buckets/water",
-    "minecraft:wheat"
-  ],
-  "result": {
-    "count": 1,
-    "id": "farmersdelight:wheat_dough"
-  }
+  "type": "farmersdelight:dough",
+  "category": "misc"
 }
