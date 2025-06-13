@@ -93,28 +93,6 @@ public class CuttingViewRecipe implements IEivViewRecipe {
     }
 
     @Override
-    public void renderRecipe(RecipeViewScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-//        int x = 75;
-//        int y = 20;
-//        int slot = 0;
-//        for (Map.Entry<SlotContent, Float> result : rollableResults.entrySet()) {
-//            int offset = 0;
-//            if (result.getValue() != 1.0) {
-//                offset = 18;
-//            }
-//            guiGraphics.blit(RenderType::guiTextured, FarmersDelight.res("textures/gui/jei/cutting_board.png"), x-1,y-1,offset,58, 18,18, 256,256);
-//            slot++;
-//            if (slot == 2) {
-//                y+=18;
-//                x-=18;
-//                slot = 0;
-//            } else {
-//                x += 18;
-//            }
-//        }
-    }
-
-    @Override
     public List<SlotContent> getIngredients() {
         return Collections.singletonList(this.ingredient);
     }
