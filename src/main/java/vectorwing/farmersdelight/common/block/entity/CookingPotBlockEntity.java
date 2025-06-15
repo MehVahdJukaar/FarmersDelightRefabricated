@@ -559,13 +559,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		return new ItemStackHandler(INVENTORY_SIZE)
 		{
 			@Override
-			public int getSlotLimit(int slot) {
-				if (slot == MEAL_DISPLAY_SLOT)
-					return Math.max(64, super.getSlotLimit(slot));
-				return super.getSlotLimit(slot);
-			}
-
-			@Override
 			protected void onContentsChanged(int slot) {
 				inventoryChanged();
 			}
