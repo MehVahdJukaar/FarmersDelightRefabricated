@@ -30,7 +30,7 @@ public class ItemStackHandler extends FabricWrappedInventory {
     }
 
     public int getSlotLimit(int slot) {
-        return 99;
+        return 64;
     }
 
     @Override

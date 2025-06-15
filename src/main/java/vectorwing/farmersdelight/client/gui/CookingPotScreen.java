@@ -51,13 +51,6 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 		return new ScreenPosition(this.leftPos + 5, this.height / 2 - 49);
 	}
 
-	@Override
-	public void render(GuiGraphics gui, final int mouseX, final int mouseY, float partialTicks) {
-		super.render(gui, mouseX, mouseY, partialTicks);
-		this.renderMealDisplayTooltip(gui, mouseX, mouseY);
-		this.renderHeatIndicatorTooltip(gui, mouseX, mouseY);
-	}
-
 	private void renderHeatIndicatorTooltip(GuiGraphics gui, int mouseX, int mouseY) {
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
 			String key = "container.cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
@@ -65,19 +58,15 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 		}
 	}
 
-
 	@Override
-	protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
-		if (this.minecraft != null && this.minecraft.player != null &&
-				this.menu.getCarried().isEmpty() && this.hoveredSlot != null &&
-				this.hoveredSlot.hasItem() && hoveredSlot.index == 6) {
+	protected void renderTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+		if (renderMealDisplayTooltip(gui, mouseX, mouseY))
 			return;
-		}
-		// Don't render two tooltips
-		super.renderTooltip(guiGraphics, x, y);
+		super.renderTooltip(gui, mouseX, mouseY);
+		renderHeatIndicatorTooltip(gui, mouseX, mouseY);
 	}
 
-	protected void renderMealDisplayTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+	protected boolean renderMealDisplayTooltip(GuiGraphics gui, int mouseX, int mouseY) {
 		if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
 			if (this.hoveredSlot.index == 6) {
 				List<Component> tooltip = new ArrayList<>();
@@ -91,10 +80,10 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 				tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
 
 				gui.renderComponentTooltip(font, tooltip, mouseX, mouseY);
-			} else {
-				gui.renderTooltip(font, this.hoveredSlot.getItem(), mouseX, mouseY);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	@Override
