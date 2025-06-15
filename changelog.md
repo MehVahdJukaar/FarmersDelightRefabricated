@@ -1,5 +1,3 @@
-- Added support for Extended ItemView (EIV) cassiancc - [#184](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/184)
-  - [EIV on CurseForge](https://www.curseforge.com/minecraft/mc-mods/extended-itemview-eiv)
-  - [EIV on Modrinth](https://modrinth.com/mod/eiv)
-- Fixed Cooking Pot tooltips displaying twice.
-- Fixed Cooking Pot result slot being allowed to exceed 64 items up to 99 items.
+## Changes
+- Updated credited name from MerchantPug to MerchantCalico.
+- Made inventory behavior a bit more consistent with NeoForge.
