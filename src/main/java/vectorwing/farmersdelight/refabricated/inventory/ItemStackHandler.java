@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.Item;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
@@ -31,7 +32,11 @@ public class ItemStackHandler extends FabricWrappedInventory {
     }
 
     public int getSlotLimit(int slot) {
-        return 99;
+        return Item.ABSOLUTE_MAX_STACK_SIZE;
+    }
+
+    public int getStackLimit(int slot, ItemStack stack) {
+        return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
     }
 
     @Override
@@ -50,7 +55,7 @@ public class ItemStackHandler extends FabricWrappedInventory {
         if (!isItemValid(slot, stack))
             return stack;
         ItemStack existing = stacks.get(slot);
-        int limit = getSlotLimit(slot);
+        int limit = getStackLimit(slot, stack);
         if (!existing.isEmpty()) {
             if (!ItemStack.isSameItemSameComponents(stack, existing)) {
                 return stack;
