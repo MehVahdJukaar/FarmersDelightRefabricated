@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.registry.ModAtlases;
 
-;import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class HangingCanvasSignRenderer extends HangingSignRenderer implements ICanvasSignRenderer
 {
@@ -27,7 +27,7 @@ public class HangingCanvasSignRenderer extends HangingSignRenderer implements IC
 
 	public HangingCanvasSignRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
-		this.hangingSignModels = Arrays.stream(HangingSignRenderer.AttachmentType.values()).collect(ImmutableMap.toImmutableMap(attachmentType -> attachmentType, (attachmentType) ->
+		this.hangingSignModels = Stream.of(HangingSignRenderer.AttachmentType.values()).collect(ImmutableMap.toImmutableMap(attachmentType -> attachmentType, (attachmentType) ->
 				HangingSignRenderer.createSignModel(context.getModelSet(), WoodType.SPRUCE, attachmentType)));
 	}
 
