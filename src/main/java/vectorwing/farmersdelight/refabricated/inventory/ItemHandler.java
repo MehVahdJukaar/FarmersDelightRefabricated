@@ -6,12 +6,10 @@ import net.fabricmc.fabric.api.transfer.v1.storage.SlottedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Collections;
-import java.util.List;
-
 public interface ItemHandler extends SlottedStorage<ItemVariant> {
     int getSlotCount();
     int getSlotLimit(int slot);
+    int getStackLimit(int slot, ItemStack stack);
 
     ItemStack getStackInSlot(int slot);
     ItemStack insertItem(int slot, ItemStack stack, boolean simulate);
