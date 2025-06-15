@@ -3,33 +3,19 @@ package vectorwing.farmersdelight.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.gui.navigation.ScreenAxis;
 import net.minecraft.client.gui.navigation.ScreenPosition;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
-import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.display.RecipeDisplay;
-import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.mixin.refabricated.AbstractRecipeBookScreenAccessor;
-import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.awt.*;
@@ -77,6 +63,18 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 			String key = "container.cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
 			gui.renderTooltip(this.font, TextUtils.getTranslation(key), mouseX, mouseY);
 		}
+	}
+
+
+	@Override
+	protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+		if (this.minecraft != null && this.minecraft.player != null &&
+				this.menu.getCarried().isEmpty() && this.hoveredSlot != null &&
+				this.hoveredSlot.hasItem() && hoveredSlot.index == 6) {
+			return;
+		}
+		// Don't render two tooltips
+		super.renderTooltip(guiGraphics, x, y);
 	}
 
 	protected void renderMealDisplayTooltip(GuiGraphics gui, int mouseX, int mouseY) {
