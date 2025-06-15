@@ -49,6 +49,11 @@ public class CookingPotItemHandler implements ItemHandler {
 	}
 
 	@Override
+	public int getStackLimit(int slot, ItemStack stack) {
+		return itemHandler.getStackLimit(slot, stack);
+	}
+
+	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
 		this.itemHandler.setStackInSlot(slot, stack);
 	}
