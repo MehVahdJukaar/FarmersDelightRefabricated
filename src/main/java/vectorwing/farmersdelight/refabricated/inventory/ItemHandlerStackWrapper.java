@@ -28,6 +28,6 @@ public class ItemHandlerStackWrapper extends SingleStackStorage {
         if (itemVariant.isBlank())
             return handler.getSlotLimit(slot);
 
-        return handler.getStackLimit(slot, itemVariant.toStack());
+        return Math.min(handler.getSlotLimit(slot), itemVariant.toStack().getMaxStackSize());
     }
 }
