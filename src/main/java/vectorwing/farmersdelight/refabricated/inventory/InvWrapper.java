@@ -46,6 +46,11 @@ public class InvWrapper extends FabricWrappedInventory {
     }
 
     @Override
+    public int getStackLimit(int slot, ItemStack stack) {
+        return inv.getMaxStackSize(stack);
+    }
+
+    @Override
     public ItemStack getStackInSlot(int slot) {
         return inv.getItem(slot);
     }
