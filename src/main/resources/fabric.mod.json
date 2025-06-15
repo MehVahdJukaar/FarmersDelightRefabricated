@@ -38,6 +38,9 @@
     ],
     "modmenu": [
       "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
+    ],
+    "eiv": [
+      "vectorwing.farmersdelight.integration.eiv.EIVPlugin"
     ]
   },
   "mixins": [
