@@ -35,6 +35,9 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
         this.container = SlotContent.of(shapelessRecipe.getContainer());
         this.experience = shapelessRecipe.getExperience();
         this.cookTime = shapelessRecipe.getCookTime();
+        // Workaround to make sure that the container does not get included in transfers.
+        // This luckily doesn't seem to affect anything else.
+        this.container.setType(SlotContent.Type.RESULT);
     }
 
     @Override
@@ -48,7 +51,6 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
         for (int i = 0; i < ingredients.size() && i < 6; i++) {
             slotFillContext.bindSlot(i, ingredients.get(i));
         }
-
 
         slotFillContext.bindSlot(6, this.result);
         slotFillContext.bindSlot(7, this.container);
@@ -93,6 +95,7 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
         for (int i = 0; i < ingredients.size() && i < 6; i++) {
             transferMap.linkSlots(i, i);
         }
+        transferMap.linkSlots(7, 7);
     }
 
     @Override
