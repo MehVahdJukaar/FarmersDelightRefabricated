@@ -25,6 +25,9 @@ public class ItemHandlerStackWrapper extends SingleStackStorage {
 
     @Override
     protected int getCapacity(ItemVariant itemVariant) {
-        return handler.getSlotLimit(slot);
+        if (itemVariant.isBlank())
+            return handler.getSlotLimit(slot);
+
+        return handler.getStackLimit(slot, itemVariant.toStack());
     }
 }
