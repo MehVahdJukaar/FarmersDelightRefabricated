@@ -296,7 +296,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 					return true;
 				} else if (!ItemStack.isSameItem(storedMealStack, resultStack)) {
 					return false;
-				} else if (storedMealStack.getCount() + resultStack.getCount() <= inventory.getStackLimit(MEAL_DISPLAY_SLOT, resultStack)) {
+				} else if (storedMealStack.getCount() + resultStack.getCount() <= inventory.getStackLimit(MEAL_DISPLAY_SLOT, storedMealStack)) {
 					return true;
 				} else {
 					return storedMealStack.getCount() + resultStack.getCount() <= resultStack.getMaxStackSize();
