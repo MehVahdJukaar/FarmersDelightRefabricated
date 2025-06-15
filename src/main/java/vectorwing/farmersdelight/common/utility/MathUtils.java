@@ -30,7 +30,7 @@ public class MathUtils
 			for (int j = 0; j < handler.getSlots(); ++j) {
 				ItemStack itemstack = handler.getStackInSlot(j);
 				if (!itemstack.isEmpty()) {
-					f += (float) itemstack.getCount() / (float) Math.min(handler.getSlotLimit(j), itemstack.getMaxStackSize());
+					f += (float) itemstack.getCount() / (float) handler.getStackLimit(j, itemstack);
 					++i;
 				}
 			}
