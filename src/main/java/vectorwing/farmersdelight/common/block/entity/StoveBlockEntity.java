@@ -7,22 +7,26 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class StoveBlockEntity extends SyncedBlockEntity
@@ -45,35 +49,30 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	}
 
 	@Override
-	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-		if (tag.contains("Inventory")) {
-			inventory.deserializeNBT(registries, tag.getCompoundOrEmpty("Inventory"));
-		} else {
-			inventory.deserializeNBT(registries, tag);
-		}
-		if (tag.getIntArray("CookingTimes").isPresent()) {
-			int[] arrayCookingTimes = tag.getIntArray("CookingTimes").get();
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		inventory.deserialize(input.childOrEmpty("Inventory"));
+		if (input.getIntArray("CookingTimes").isPresent()) {
+			int[] arrayCookingTimes = input.getIntArray("CookingTimes").get();
 			System.arraycopy(arrayCookingTimes, 0, cookingTimes, 0, Math.min(cookingTimesTotal.length, arrayCookingTimes.length));
 		}
 
-		if (tag.getIntArray("CookingTotalTimes").isPresent()) {
-			int[] arrayCookingTimesTotal = tag.getIntArray("CookingTotalTimes").get();
+		if (input.getIntArray("CookingTotalTimes").isPresent()) {
+			int[] arrayCookingTimesTotal = input.getIntArray("CookingTotalTimes").get();
 			System.arraycopy(arrayCookingTimesTotal, 0, cookingTimesTotal, 0, Math.min(cookingTimesTotal.length, arrayCookingTimesTotal.length));
 		}
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		writeItems(compound, registries);
-		compound.putIntArray("CookingTimes", cookingTimes);
-		compound.putIntArray("CookingTotalTimes", cookingTimesTotal);
+	public void saveAdditional(ValueOutput output) {
+		writeItems(output);
+		output.putIntArray("CookingTimes", cookingTimes);
+		output.putIntArray("CookingTotalTimes", cookingTimesTotal);
 	}
 
-	private CompoundTag writeItems(CompoundTag compound, HolderLookup.Provider registries) {
-		super.saveAdditional(compound, registries);
-		compound.put("Inventory", inventory.serializeNBT(registries));
-		return compound;
+	private void writeItems(ValueOutput output) {
+		super.saveAdditional(output);
+		inventory.serialize(output.child("Inventory"));
 	}
 
 	@Override
@@ -211,7 +210,14 @@ public class StoveBlockEntity extends SyncedBlockEntity
 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		return writeItems(new CompoundTag(), registries);
+		CompoundTag tag;
+		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), FarmersDelight.LOGGER)) {
+			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, registries);
+			writeItems(tagValueOutput);
+			tag = tagValueOutput.buildResult();
+		}
+
+		return tag;
 	}
 
 	private ItemStackHandler createHandler() {

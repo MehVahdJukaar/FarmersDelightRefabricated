@@ -1,12 +1,9 @@
 package vectorwing.farmersdelight.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -14,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.FarmersDelightClient;
@@ -44,11 +40,9 @@ public class HUDOverlays
 //		HudRenderCallback.EVENT.register(NourishmentOverlay.INSTANCE::render);
 	}
 
-	public static abstract class BaseOverlay implements LayeredDraw.Layer
-	{
+	public static abstract class BaseOverlay {
 		public abstract void render(Minecraft mc, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks);
 
-		@Override
 		public final void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
 			Minecraft minecraft = Minecraft.getInstance();
 			if (minecraft.player == null || !shouldRenderOverlay(minecraft, minecraft.player, guiGraphics, minecraft.gui.getGuiTicks()))
@@ -141,16 +135,16 @@ public class HUDOverlays
 			}
 
 			// Background texture
-			graphics.blit(RenderType::guiTextured, MOD_ICONS_TEXTURE, x, y, 0, 0, 9, 9, 255, 255);
+			graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 0, 0, 9, 9, 255, 255);
 
 			float effectiveHungerOfBar = (foodData.getFoodLevel()) / 2.0F - j;
 			int naturalHealingOffset = naturalHealing ? 18 : 0;
 
 			// Gilded hunger icons
 			if (effectiveHungerOfBar >= 1)
-				graphics.blit(RenderType::guiTextured, MOD_ICONS_TEXTURE, x, y, 18 + naturalHealingOffset, 0, 9, 9, 255, 255);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 18 + naturalHealingOffset, 0, 9, 9, 255, 255);
 			else if (effectiveHungerOfBar >= .5)
-				graphics.blit(RenderType::guiTextured, MOD_ICONS_TEXTURE, x, y, 9 + naturalHealingOffset, 0, 9, 9, 255, 255);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 9 + naturalHealingOffset, 0, 9, 9, 255, 255);
 		}
 	}
 
@@ -186,10 +180,10 @@ public class HUDOverlays
 			if (i == regen) y -= 2;
 
 			if (column == comfortSheen / 2) {
-				graphics.blit(RenderType::guiTextured, MOD_ICONS_TEXTURE, x, y, 0, 9, textureWidth[comfortHeartFrame], 9, 256, 256);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 0, 9, textureWidth[comfortHeartFrame], 9, 256, 256);
 			}
 			if (column == (comfortSheen / 2) - 1 && comfortHeartFrame == 0) {
-				graphics.blit(RenderType::guiTextured, MOD_ICONS_TEXTURE, x + 5, y, 5, 9, 4, 9, 256, 256);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x + 5, y, 5, 9, 4, 9, 256, 256);
 			}
 		}
 	}

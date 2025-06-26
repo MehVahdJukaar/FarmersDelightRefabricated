@@ -108,10 +108,10 @@ dependencies {
     // Uncomment the below to test JEI.
     // modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
-    modCompileOnly("dev.architectury:architectury-fabric:16.1.4")
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+//    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
+//    modCompileOnly("dev.architectury:architectury-fabric:16.1.4")
+//    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+//    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
 //     Uncomment the below to test REI.
 //      modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
@@ -123,13 +123,13 @@ dependencies {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
 
-    modCompileOnly("maven.modrinth:eiv:${eiv_version}+${minecraft_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+//    modCompileOnly("maven.modrinth:eiv:${eiv_version}+${minecraft_version}") {
+//        exclude(group: "net.fabricmc.fabric-api")
+//    }
     // Uncomment the below to test EIV.
-   modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
-       exclude(group: "net.fabricmc.fabric-api")
-   }
+//    modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
+//       exclude(group: "net.fabricmc.fabric-api")
+//    }
 }
 
 var changelogFile = rootProject.file("changelog.md")
@@ -158,9 +158,9 @@ publishMods {
         requires("fabric-api")
 //        optional("crafttweaker")
 //        optional("jei")
-        optional("roughly-enough-items")
+//        optional("roughly-enough-items")
 //        optional("emi")
-        optional("extended-itemview-eiv")
+//        optional("extended-itemview-eiv")
     }
 
     modrinth {
@@ -172,9 +172,9 @@ publishMods {
         requires("fabric-api")
 //        optional("crafttweaker")
 //        optional("jei")
-        optional("rei")
+//        optional("rei")
 //        optional("emi")
-        optional("eiv")
+//        optional("eiv")
     }
 }
 

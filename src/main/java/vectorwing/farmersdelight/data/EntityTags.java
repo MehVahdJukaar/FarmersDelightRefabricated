@@ -16,15 +16,15 @@ public class EntityTags extends FabricTagProvider.EntityTypeTagProvider
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.getOrCreateTagBuilder(ModTags.DOG_FOOD_USERS).add(EntityType.WOLF);
-		this.getOrCreateTagBuilder(ModTags.HORSE_FEED_USERS).add(
+		valueLookupBuilder(ModTags.DOG_FOOD_USERS).add(EntityType.WOLF);
+		valueLookupBuilder(ModTags.HORSE_FEED_USERS).add(
 				EntityType.HORSE,
 				EntityType.SKELETON_HORSE,
 				EntityType.ZOMBIE_HORSE,
 				EntityType.DONKEY,
 				EntityType.MULE,
 				EntityType.LLAMA);
-		this.getOrCreateTagBuilder(ModTags.HORSE_FEED_TEMPTED).add(
+		valueLookupBuilder(ModTags.HORSE_FEED_TEMPTED).add(
 				EntityType.HORSE,
 				EntityType.DONKEY,
 				EntityType.MULE);

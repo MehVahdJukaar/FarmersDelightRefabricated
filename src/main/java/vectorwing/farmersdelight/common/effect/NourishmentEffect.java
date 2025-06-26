@@ -21,7 +21,7 @@ public class NourishmentEffect extends MobEffect
 	}
 
 	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
-		if (!entity.getCommandSenderWorld().isClientSide && entity instanceof Player player) {
+		if (entity instanceof Player player) {
 			FoodData foodData = player.getFoodData();
 			boolean isPlayerHealingWithHunger =
 					serverLevel.getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION)

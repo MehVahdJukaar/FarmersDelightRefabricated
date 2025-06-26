@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,15 +32,17 @@ public class HangingCanvasSignEditScreen extends AbstractSignEditScreen
 	}
 
 	@Override
-	protected void renderSignBackground(GuiGraphics guiGraphics) {
-		guiGraphics.pose().translate(0.0F, -13.0F, 0.0F);
-		guiGraphics.pose().scale(4.5F, 4.5F, 1.0F);
-		guiGraphics.blit(RenderType::guiTextured, this.texture, -8, -8, 0.0F, 0.0F, 16, 16, 16, 16);
+	protected float getSignYOffset() {
+		return 125.0F;
 	}
 
-	protected void offsetSign(GuiGraphics gui, BlockState state) {
-		gui.pose().translate((float) this.width / 2.0F, 125.0F, 50.0F);
+	@Override
+	protected void renderSignBackground(GuiGraphics guiGraphics) {
+		guiGraphics.pose().translate(0.0F, -13.0F);
+		guiGraphics.pose().scale(4.5F, 4.5F);
+		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.texture, -8, -8, 0.0F, 0.0F, 16, 16, 16, 16);
 	}
+
 	@Override
 	protected Vector3f getSignTextScale() {
 		return TEXT_SCALE;

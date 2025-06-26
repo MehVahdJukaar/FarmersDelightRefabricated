@@ -1,51 +1,75 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.mojang.datafixers.util.Pair;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.inventory.RecipeBookType;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 @Mixin(RecipeBookSettings.class)
 public class RecipeBookSettingsMixin {
-    @Final
-    @Mutable
-    @Shadow
-    private static Map<RecipeBookType, Pair<String, String>> TAG_FIELDS;
-
-    @Shadow @Final private Map<RecipeBookType, RecipeBookSettings.TypeSettings> states;
+    @Shadow @Final @Mutable
+    public static StreamCodec<FriendlyByteBuf, RecipeBookSettings> STREAM_CODEC;
+    @Shadow @Final @Mutable
+    public static MapCodec<RecipeBookSettings> MAP_CODEC;
+    @Unique
+    private RecipeBookSettings.TypeSettings fdrf$cooking = RecipeBookSettings.TypeSettings.DEFAULT;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void fdrf$modifyTagFields(CallbackInfo ci) {
-        Map<RecipeBookType, Pair<String, String>> newMap = new HashMap<>(TAG_FIELDS);
-        newMap.put(FDRecipeBookTypes.COOKING, Pair.of("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable"));
-        TAG_FIELDS = Map.copyOf(newMap);
+    private static void fdrf$modifyCodecs(CallbackInfo ci) {
+        MAP_CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+                MAP_CODEC
+                        .forGetter(Function.identity()),
+                RecipeBookSettingsTypeSettingsInvoker.fdrf$invokeCodec("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable")
+                        .forGetter(recipeBookSettings -> ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking)
+        ).apply(inst, (recipeBookSettings, typeSettings) -> {
+            ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking = typeSettings;
+            return recipeBookSettings;
+        }));
+        STREAM_CODEC = StreamCodec.composite(
+                STREAM_CODEC, Function.identity(),
+                RecipeBookSettings.TypeSettings.STREAM_CODEC, recipeBookSettings -> ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking,
+                (recipeBookSettings, typeSettings) -> {
+                    ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking = typeSettings;
+                    return recipeBookSettings;
+                }
+        );
     }
 
-    @Inject(method = "<init>(Ljava/util/Map;)V", at = @At("TAIL"))
-    private void fdrf$defaultCookingRecipeBookTypeStates(CallbackInfo ci) {
-        if (!states.containsKey(FDRecipeBookTypes.COOKING))
-            states.put(FDRecipeBookTypes.COOKING, new RecipeBookSettings.TypeSettings(false, false));
+    @ModifyReturnValue(method = "copy", at = @At("RETURN"))
+    private RecipeBookSettings fdrf$copyCookingBook(RecipeBookSettings original) {
+        ((RecipeBookSettingsMixin)(Object)original).fdrf$cooking = this.fdrf$cooking;
+        return original;
     }
 
-    @ModifyExpressionValue(method = "read(Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/stats/RecipeBookSettings;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/RecipeBookType;values()[Lnet/minecraft/world/inventory/RecipeBookType;"))
-    private static RecipeBookType[] fdrf$modifyReadFDRecipeBookSettingsToVanilla(RecipeBookType[] original) {
-        return Arrays.stream(original).filter(recipeBookType -> recipeBookType != FDRecipeBookTypes.COOKING).toArray(RecipeBookType[]::new);
+    @Inject(method = "replaceFrom", at = @At("TAIL"))
+    private void fdrf$replaceFromCookingBook(RecipeBookSettings other, CallbackInfo ci) {
+        this.fdrf$cooking = ((RecipeBookSettingsMixin)(Object)other).fdrf$cooking;
     }
 
-    @ModifyExpressionValue(method = "write(Lnet/minecraft/network/FriendlyByteBuf;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/RecipeBookType;values()[Lnet/minecraft/world/inventory/RecipeBookType;"))
-    private RecipeBookType[] fdrf$modifyWrittenFDRecipeBookSettingsToVanilla(RecipeBookType[] original) {
-        return Arrays.stream(original).filter(recipeBookType -> recipeBookType != FDRecipeBookTypes.COOKING).toArray(RecipeBookType[]::new);
+    @Inject(method = "getSettings", at = @At("HEAD"), cancellable = true)
+    private void fdrf$getCookingBookSettings(RecipeBookType type, CallbackInfoReturnable<RecipeBookSettings.TypeSettings> cir) {
+        if (type == FDRecipeBookTypes.COOKING) {
+            cir.setReturnValue(fdrf$cooking);
+        }
+    }
+
+    @Inject(method = "updateSettings", at = @At("HEAD"), cancellable = true)
+    private void fdrf$updateCookingBookSettings(RecipeBookType type, UnaryOperator<RecipeBookSettings.TypeSettings> updater, CallbackInfo ci) {
+        if (type == FDRecipeBookTypes.COOKING) {
+            this.fdrf$cooking = updater.apply(fdrf$cooking);
+            ci.cancel();
+        }
     }
 }

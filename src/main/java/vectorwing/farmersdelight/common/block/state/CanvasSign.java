@@ -9,13 +9,13 @@ import vectorwing.farmersdelight.common.Configuration;
 public interface CanvasSign
 {
 	/**
-	 * Returns this sign's background dye color. If null, the sign is uncolored (beige).
+	 * Returns this sign's background dye dye. If null, the sign is uncolored (beige).
 	 */
 	@Nullable
 	DyeColor getBackgroundColor();
 
 	/**
-	 * Checks a config to determine if the background color is considered "dark".
+	 * Checks a config to determine if the background dye is considered "dark".
 	 */
 	default boolean isDarkBackground() {
 		DyeColor backgroundDye = this.getBackgroundColor();

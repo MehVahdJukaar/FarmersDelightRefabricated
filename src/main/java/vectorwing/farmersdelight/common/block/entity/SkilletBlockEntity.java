@@ -2,10 +2,8 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -17,8 +15,9 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -123,24 +122,22 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	@Override
-	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.loadAdditional(compound, registries);
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
-		cookingTime = compound.getIntOr("CookTime", 0);
-		cookingTimeTotal = compound.getIntOr("CookTimeTotal", 0);
-		skilletStack = ItemStack.parse(registries, compound.getCompoundOrEmpty("Skillet")).orElse(ItemStack.EMPTY);
-		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		inventory.deserialize(input.childOrEmpty("Inventory"));
+		cookingTime = input.getIntOr("CookTime", 0);
+		cookingTimeTotal = input.getIntOr("CookTimeTotal", 0);
+		skilletStack = input.read("Skillet", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(input.lookup().getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.saveAdditional(compound, registries);
-		compound.put("Inventory", inventory.serializeNBT(registries));
-		compound.putInt("CookTime", cookingTime);
-		compound.putInt("CookTimeTotal", cookingTimeTotal);
-		if (!skilletStack.isEmpty()) {
-			compound.put("Skillet", skilletStack.save(registries));
-		}
+	public void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		inventory.serialize(output.child("Inventory"));
+		output.putInt("CookTime", cookingTime);
+		output.putInt("CookTimeTotal", cookingTimeTotal);
+		output.storeNullable("Skillet", ItemStack.CODEC, skilletStack.isEmpty() ? null : skilletStack);
 	}
 
 	@Override

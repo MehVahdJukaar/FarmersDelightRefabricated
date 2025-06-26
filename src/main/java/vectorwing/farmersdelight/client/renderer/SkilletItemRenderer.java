@@ -16,11 +16,14 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
-import vectorwing.farmersdelight.refabricated.access.SkilletEntityRenderState;
+import vectorwing.farmersdelight.refabricated.duck.SkilletEntityRenderState;
+
+import java.util.Set;
 
 public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRenderer.SkilletData> {
     public static final ResourceLocation ID = FarmersDelight.res("skillet");
@@ -77,6 +80,11 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
         mc.getBlockRenderer().renderSingleBlock(patterns.state, poseStack, buffer, packedLight, packedOverlay);
 
         poseStack.popPose();
+    }
+
+    // TODO: See if leaving this empty is okay.
+    @Override
+    public void getExtents(Set<Vector3f> set) {
     }
 
     @Override

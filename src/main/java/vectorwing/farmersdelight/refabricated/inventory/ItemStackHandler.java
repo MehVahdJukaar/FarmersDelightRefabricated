@@ -7,12 +7,12 @@
  */
 package vectorwing.farmersdelight.refabricated.inventory;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ItemStackHandler extends FabricWrappedInventory {
     private final NonNullList<ItemStack> stacks;
@@ -109,41 +109,17 @@ public class ItemStackHandler extends FabricWrappedInventory {
         onContentsChanged(slot);
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        ListTag listTag = new ListTag();
-
-        for (int i = 0; i < stacks.size(); ++i) {
-            if (!stacks.get(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putInt("Slot", i);
-                listTag.add(stacks.get(i).save(provider, itemTag));
-            }
-        }
-
-        CompoundTag tag = new CompoundTag();
-        tag.put("Items", listTag);
-        return tag;
+    public void serialize(ValueOutput output) {
+        ContainerHelper.saveAllItems(output, stacks);
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-        stacks.clear();
-        ListTag listTag = tag.getListOrEmpty("Items");
-        for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag itemTag = listTag.getCompoundOrEmpty(i);
-            if (itemTag.getInt("Slot").isPresent()) {
-                int slot = itemTag.getInt("Slot").get();
-                if (slot >= 0 && slot < stacks.size()) {
-                    ItemStack.parse(provider, itemTag).ifPresent(stack -> stacks.set(slot, stack));
-                }
-            }
-        }
+    public void deserialize(ValueInput input) {
+        ContainerHelper.loadAllItems(input, stacks);
     }
 
     protected void onContentsChanged(int slot) {}
 
-    @Deprecated(forRemoval = true, since = "3.1.0")
-    public ItemStack removeItem(int slot, int amount, boolean simulate) {
-        return extractItem(slot, amount, simulate);
-    }
+    public record SlottedItemStack(int slot, ItemStack stack) {
 
+    }
 }

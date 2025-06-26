@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.common.mixin.refabricated;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import vectorwing.farmersdelight.refabricated.access.SkilletEntityRenderState;
+import vectorwing.farmersdelight.refabricated.duck.SkilletEntityRenderState;
 
 @Mixin(HumanoidRenderState.class)
 public class HumanoidRenderStateMixin implements SkilletEntityRenderState {
