@@ -1,13 +1,12 @@
 package vectorwing.farmersdelight.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,6 +20,7 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> implements RecipeUpdateListener
 {
@@ -54,7 +54,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 	private void renderHeatIndicatorTooltip(GuiGraphics gui, int mouseX, int mouseY) {
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
 			String key = "container.cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
-			gui.renderTooltip(this.font, TextUtils.getTranslation(key), mouseX, mouseY);
+			gui.setTooltipForNextFrame(TextUtils.getTranslation(key), mouseX, mouseY);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 				tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
 
-				gui.renderComponentTooltip(font, tooltip, mouseX, mouseY);
+				gui.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
 				return true;
 			}
 		}
@@ -88,20 +88,18 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
-		// Render UI background
-		RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 		if (this.minecraft == null)
 			return;
 
-		gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+		gui.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
 		// Render heat icon
 		if (this.menu.isHeated()) {
-			gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos + HEAT_ICON.x, this.topPos + HEAT_ICON.y, 176, 0, HEAT_ICON.width, HEAT_ICON.height, 256, 256);
+			gui.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, this.leftPos + HEAT_ICON.x, this.topPos + HEAT_ICON.y, 176, 0, HEAT_ICON.width, HEAT_ICON.height, 256, 256);
 		}
 
 		// Render progress arrow
 		int l = this.menu.getCookProgressionScaled();
-		gui.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos + PROGRESS_ARROW.x, this.topPos + PROGRESS_ARROW.y, 176, 15, l + 1, PROGRESS_ARROW.height, 256, 256);
+		gui.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, this.leftPos + PROGRESS_ARROW.x, this.topPos + PROGRESS_ARROW.y, 176, 15, l + 1, PROGRESS_ARROW.height, 256, 256);
 	}
 }

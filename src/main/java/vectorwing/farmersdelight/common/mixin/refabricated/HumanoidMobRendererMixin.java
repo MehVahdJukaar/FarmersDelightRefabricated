@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
-import vectorwing.farmersdelight.refabricated.access.SkilletEntityRenderState;
+import vectorwing.farmersdelight.refabricated.duck.SkilletEntityRenderState;
 
 @Mixin(HumanoidMobRenderer.class)
 public class HumanoidMobRendererMixin {

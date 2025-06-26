@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.refabricated.access;
+package vectorwing.farmersdelight.refabricated.duck;
 
 public interface SkilletEntityRenderState {
     long fdrf$getSkilletFlipTimestamp();

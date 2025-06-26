@@ -5,11 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4f;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class CookingPotTooltip implements ClientTooltipComponent
@@ -48,7 +46,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 	}
 
 	@Override
-	public void renderText(Font font, int x, int y, Matrix4f matrix4f, MultiBufferSource.BufferSource bufferSource) {
+	public void renderText(GuiGraphics guiGraphics, Font font, int x, int y) {
 		Integer color = ChatFormatting.GRAY.getColor();
 		int gray = color == null ? -1 : color;
 
@@ -57,11 +55,11 @@ public class CookingPotTooltip implements ClientTooltipComponent
 					? TextUtils.getTranslation("tooltip.cooking_pot.single_serving")
 					: TextUtils.getTranslation("tooltip.cooking_pot.many_servings", mealStack.getCount());
 
-			font.drawInBatch(textServingsOf, (float) x, (float) y, gray, true, matrix4f, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
-			font.drawInBatch(mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y + textSpacing + MARGIN, -1, true, matrix4f, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+			guiGraphics.drawWordWrap(font, textServingsOf, x, y, 96, gray);
+			guiGraphics.drawWordWrap(font, mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y, 96, -1);
 		} else {
 			MutableComponent textEmpty = TextUtils.getTranslation("tooltip.cooking_pot.empty");
-			font.drawInBatch(textEmpty, x, y, gray, true, matrix4f, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+			guiGraphics.drawWordWrap(font, textEmpty, x, y, 96, gray);
 		}
 	}
 
