@@ -114,6 +114,7 @@ public class ItemStackHandler extends FabricWrappedInventory {
     }
 
     public void deserialize(ValueInput input) {
+        stacks.clear();
         ContainerHelper.loadAllItems(input, stacks);
     }
 
