@@ -73,7 +73,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 		super.loadAdditional(input);
 		contents = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 		if (!tryLoadLootTable(input)) {
-			ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), contents);
+			ContainerHelper.loadAllItems(input, contents);
 		}
 	}
 
