@@ -91,7 +91,7 @@ public class ModItems
 						List.of(
 								Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
 								Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.MINEABLE_WITH_KNIFE), material.speed())
-						), 1.0F, 1, true))
+						), 1.0F, 1, false))
 				.component(DataComponents.WEAPON, new Weapon(2));
 	}
 
