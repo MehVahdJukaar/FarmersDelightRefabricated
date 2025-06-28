@@ -1,13 +1,16 @@
 package vectorwing.farmersdelight.common.registry;
 
 import com.google.common.collect.Sets;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +19,9 @@ import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -76,7 +81,18 @@ public class ModItems
 	}
 
 	public static Item.Properties knifeItem(ToolMaterial material) {
-		return new Item.Properties().tool(material, ModTags.MINEABLE_WITH_KNIFE,0.5F, -2.0F, 0.0F);
+		HolderGetter<Block> holderGetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+		return new Item.Properties()
+				.durability(material.durability())
+				.repairable(material.repairItems())
+				.enchantable(material.enchantmentValue())
+				.attributes(KnifeItem.createAttributes(material, 0.5F, -2.0F))
+				.component(DataComponents.TOOL, new Tool(
+						List.of(
+								Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
+								Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.MINEABLE_WITH_KNIFE), material.speed())
+						), 1.0F, 1, true))
+				.component(DataComponents.WEAPON, new Weapon(2));
 	}
 
 	public static Item.Properties foodItem(FoodProperties food) {
@@ -116,8 +132,12 @@ public class ModItems
 			CookingPotItem::new, ModBlocks.COOKING_POT.get(), basicItem().stacksTo(1));
 	public static final Supplier<Item> SKILLET = registerBlockWithTab("skillet",
 			SkilletItem::new, ModBlocks.SKILLET.get(), basicItem().stacksTo(1)
+					.durability(SkilletItem.SKILLET_MATERIAL.durability())
+					.repairable(SkilletItem.SKILLET_MATERIAL.repairItems())
+					.enchantable(SkilletItem.SKILLET_MATERIAL.enchantmentValue())
 					.attributes(SkilletItem.createAttributes(SkilletItem.SKILLET_MATERIAL, 5.0F, -3.1F))
-					.component(DataComponents.WEAPON, new Weapon(1, 0.0F)));
+					.component(DataComponents.TOOL, new Tool(Collections.emptyList(), 1.0F, 1, false))
+					.component(DataComponents.WEAPON, new Weapon(1)));
 	public static final Supplier<Item> CUTTING_BOARD = registerFuelBlockWithTab("cutting_board",
 			ModBlocks.CUTTING_BOARD.get(), basicItem(), 200);
 	public static final Supplier<Item> BASKET = registerFuelBlockWithTab("basket",

@@ -1,3 +1,3 @@
-## Changes
-- Updated credited name from MerchantPug to MerchantCalico.
-- Made inventory behavior a bit more consistent with NeoForge.
+## Bugfixes
+- Fixed Skillets having no durability, repair items or enchantability.
+- Fixed Skillets and Knives breaking blocks whilst the player is in creative mode.
