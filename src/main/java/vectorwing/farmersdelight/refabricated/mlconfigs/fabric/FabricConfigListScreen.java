@@ -73,7 +73,7 @@ public class FabricConfigListScreen extends Screen {
         graphics.drawCenteredString(this.font, this.title, this.width / 2, 15, 16777215);
 
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, mouseX, mouseY)) {
-            graphics.renderTooltip(this.font, this.font.split(Component.translatable("gui.moonlight.open_mod_page", this.modId), 200), mouseX, mouseY);
+            graphics.renderTooltip(this.font, this.font.split(Component.translatable("gui.farmersdelight.open_mod_page", this.modId), 200), mouseX, mouseY);
         }
         int titleWidth = this.font.width(this.title) + 35;
         graphics.renderFakeItem(this.mainIcon, (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
