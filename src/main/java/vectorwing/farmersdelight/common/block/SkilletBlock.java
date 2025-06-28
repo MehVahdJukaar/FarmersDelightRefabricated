@@ -8,13 +8,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -68,7 +68,6 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tileEntity = level.getBlockEntity(pos);
 		if (tileEntity instanceof SkilletBlockEntity skilletEntity) {
-			if (level instanceof ServerLevel serverLevel) {
 				ItemStack heldStack = player.getItemInHand(hand);
 				EquipmentSlot heldSlot = hand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
 				if (heldStack.isEmpty()) {
@@ -78,16 +77,20 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 					}
 					return InteractionResult.SUCCESS;
 				} else {
-					ItemStack remainderStack = skilletEntity.addItemToCook(heldStack, player, serverLevel);
-					if (remainderStack.getCount() != heldStack.getCount()) {
-						if (!player.isCreative()) {
-							player.setItemSlot(heldSlot, remainderStack);
+					if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack)) {
+						if ((!(level instanceof ServerLevel serverLevel))) {
+							return InteractionResult.SUCCESS;
 						}
-						level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.7F, 1.0F);
-						return InteractionResult.SUCCESS;
+						ItemStack remainderStack = skilletEntity.addItemToCook(heldStack, player, serverLevel);
+						if (remainderStack.getCount() != heldStack.getCount()) {
+							if (!player.isCreative()) {
+								player.setItemSlot(heldSlot, remainderStack);
+							}
+							level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.7F, 1.0F);
+							return InteractionResult.SUCCESS;
+						}
 					}
 				}
-			}
 			return InteractionResult.CONSUME;
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
