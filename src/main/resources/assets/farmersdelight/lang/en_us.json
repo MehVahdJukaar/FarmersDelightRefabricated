@@ -483,5 +483,7 @@
   "config.farmersdelight.red_mushroom_colonies.genRedMushroomColony": "Generate Red Mushroom Colonies",
   "config.farmersdelight.red_mushroom_colonies.genRedMushroomColony.description": "Generate red mushroom colonies on mushroom fields",
   "config.farmersdelight.red_mushroom_colonies.chance": "Red Mushroom Colonies Chance",
-  "config.farmersdelight.red_mushroom_colonies.chance.description": "Chance of generating clusters. Smaller value = more frequent."
+  "config.farmersdelight.red_mushroom_colonies.chance.description": "Chance of generating clusters. Smaller value = more frequent.",
+
+  "gui.farmersdelight.open_mod_page": "Open %s CurseForge page"
 }
