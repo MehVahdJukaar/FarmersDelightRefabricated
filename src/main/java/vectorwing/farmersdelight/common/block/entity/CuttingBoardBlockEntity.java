@@ -92,7 +92,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		if (!(level instanceof ServerLevel serverLevel)) {
 			return player.level().recipeAccess().propertySet(ModRecipePropertySets.CUTTING_BOARD_INPUT).test(getStoredItem()) &&
 					player.level().recipeAccess().propertySet(ModRecipePropertySets.CUTTING_BOARD_TOOL).test(toolStack);
-		};
+		}
 
 		if (isItemCarvingBoard) return false;
 
