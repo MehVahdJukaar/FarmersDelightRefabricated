@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.refabricated.mlconfigs.fabric;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -74,7 +72,7 @@ public class FabricConfigListScreen extends Screen {
         graphics.drawCenteredString(this.font, this.title, this.width / 2, 15, 16777215);
 
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, mouseX, mouseY)) {
-            graphics.drawWordWrap(this.font, Component.translatable("gui.farmersdelight.open_mod_page", this.modId), mouseX, mouseY, 200, -1);
+            graphics.renderTooltip(this.font, this.font.split(Component.translatable("gui.farmersdelight.open_mod_page", this.modId), 200), mouseX, mouseY);
         }
         int titleWidth = this.font.width(this.title) + 35;
         graphics.renderFakeItem(this.mainIcon, (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
@@ -88,7 +86,7 @@ public class FabricConfigListScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, (int) mouseX, (int) mouseY)) {
-            Style style = Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create(modURL)));
+            Style style = Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, modURL));
             this.handleComponentClicked(style);
             return true;
         }
@@ -116,8 +114,8 @@ public class FabricConfigListScreen extends Screen {
         }
 
         @Override
-        protected int scrollBarX() {
-            return super.scrollBarX() + 32;
+        protected int getScrollbarPosition() {
+            return super.getScrollbarPosition() + 32;
         }
 
         /*
