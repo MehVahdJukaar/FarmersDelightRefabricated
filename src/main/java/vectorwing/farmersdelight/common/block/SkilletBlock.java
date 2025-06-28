@@ -77,7 +77,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 					}
 					return InteractionResult.SUCCESS;
 				} else {
-					if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack)) {
+					if (!skilletEntity.hasStoredStack() && level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack)) {
 						if ((!(level instanceof ServerLevel serverLevel))) {
 							return InteractionResult.SUCCESS;
 						}
