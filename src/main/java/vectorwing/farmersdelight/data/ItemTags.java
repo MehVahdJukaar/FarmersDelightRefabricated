@@ -71,8 +71,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		valueLookupBuilder(net.minecraft.tags.ItemTags.PIG_FOOD)
 				.add(ModItems.CABBAGE.get())
 				.add(ModItems.TOMATO.get());
-		valueLookupBuilder(net.minecraft.tags.ItemTags.PIG_FOOD)
-				.add(ModItems.BAKED_COD_STEW.get())
+		valueLookupBuilder(net.minecraft.tags.ItemTags.WOLF_FOOD)
 				.add(ModItems.BEEF_STEW.get());
 		valueLookupBuilder(net.minecraft.tags.ItemTags.RABBIT_FOOD)
 				.add(ModItems.CABBAGE.get());
