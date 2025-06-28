@@ -1,1 +1,3 @@
-- fixed an issue in which inventories that wanted to drop items were not clearing their content properly
+## Changes
+- Updated credited name from MerchantPug to MerchantCalico.
+- Made inventory behavior a bit more consistent with NeoForge.

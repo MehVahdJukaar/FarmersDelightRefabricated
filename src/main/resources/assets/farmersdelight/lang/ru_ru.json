@@ -131,10 +131,10 @@
   "item.farmersdelight.smoked_ham": "Копчёная ветчина",
 
   "item.farmersdelight.pie_crust": "Заготовка для пирога",
-  "item.farmersdelight.cake_slice": "Кусочек торта",
-  "item.farmersdelight.apple_pie_slice": "Кусочек яблочного пирога",
-  "item.farmersdelight.sweet_berry_cheesecake_slice": "Кусочек чизкейка со сладкими ягодами",
-  "item.farmersdelight.chocolate_pie_slice": "Кусочек шоколадного пирога",
+  "item.farmersdelight.cake_slice": "Долька торта",
+  "item.farmersdelight.apple_pie_slice": "Долька яблочного пирога",
+  "item.farmersdelight.sweet_berry_cheesecake_slice": "Долька чизкейка со сладкими ягодами",
+  "item.farmersdelight.chocolate_pie_slice": "Долька шоколадного пирога",
   "item.farmersdelight.fruit_salad": "Фруктовый салат",
   "item.farmersdelight.sweet_berry_cookie": "Печенье из сладких ягод",
   "item.farmersdelight.honey_cookie": "Медовое печенье",
@@ -215,7 +215,7 @@
 
   "farmersdelight.container.recipe_book.cookable": "Доступно к готовке",
   "farmersdelight.container.cooking_pot": "Кухонный котёл",
-  "farmersdelight.container.cooking_pot.served_on": "Подаётся в: %s",
+  "farmersdelight.container.cooking_pot.served_on": "Подаётся: %s",
   "farmersdelight.container.cooking_pot.not_heated": "Нужен нагрев снизу",
   "farmersdelight.container.cooking_pot.heated": "Нагрето",
   "farmersdelight.container.basket": "Корзина",
@@ -310,7 +310,7 @@
   "farmersdelight.jei.decomposition.accelerators": "Процесс ускоряется посредством добавления активаторов (см. выше)",
 
   "farmersdelight.jei.info.straw": "Сухое растительное волокно, используемое для создания предметов. Получают путем срезания ножом травянистых культур и растений.",
-  "farmersdelight.jei.info.knife": "Лёгкое оружие ближнего боя, с быстрыми взмахами и небольшим уроном.\n\nОни могут собирать солому с травы и гарантируют получение вторичной добычи с животных.",
+  "farmersdelight.jei.info.knife": "Лёгкое оружие ближнего боя, с быстрыми взмахами и небольшим уроном.\n\nОни могут собирать солому с травы и гарантируют получение вторичного дропа с животных.",
   "farmersdelight.jei.info.ham": "Большой кусок мяса со cвиней или хоглинов.\n\nДля разделки понадобится что-то полегче меча...",
   "farmersdelight.jei.info.wild_cabbages": "Капусту обычно можно встретить в качестве дикорастущего растения на пляжных побережьях.",
   "farmersdelight.jei.info.wild_beetroots": "Свеклу обычно можно встретить в виде дикорастущего растения на пляжных побережьях.",
@@ -318,7 +318,7 @@
   "farmersdelight.jei.info.wild_onions": "Лук обычно можно встретить как дикорастущее растение в умеренных местах, таких как равнины и леса.",
   "farmersdelight.jei.info.wild_potatoes": "Картофель обычно можно встретить как дикорастущее растение в холодных местах, таких как горы и тайга.",
   "farmersdelight.jei.info.wild_tomatoes": "Томаты обычно можно встретить как дикорастущее растение в засушливых местах, таких как саванны и пустыни.",
-  "farmersdelight.jei.info.wild_rice": "Рис обычно можно встретить как дикорастущее растение в водоемах на влажных землях, таких как болота и джунгли.",
+  "farmersdelight.jei.info.wild_rice": "Рис обычно можно встретить как дикорастущее растение в водоемах на влажных землях, таких как болота и джунгли."
 
   "emi.category.farmersdelight.cooking": "Готовка",
   "emi.category.farmersdelight.cutting": "Разделывание на доске",
