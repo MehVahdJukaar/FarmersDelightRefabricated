@@ -135,7 +135,7 @@ public interface ICanvasSignRenderer {
             int red = (int) ((double) ARGB.red(textColor) * brightness);
             int green = (int) ((double) ARGB.green(textColor) * brightness);
             int blue = (int) ((double) ARGB.blue(textColor) * brightness);
-            return ARGB.color(0, red, green, blue);
+            return ARGB.color(255, red, green, blue);
         }
     }
 
