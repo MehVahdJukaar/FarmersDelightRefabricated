@@ -219,14 +219,6 @@ public class LootModificationEvents {
                     )))));
         }
 
-        // scavenging_shulker_shell
-        if (key == ENTITIES_SHULKER) {
-            tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.SHULKER_SHELL)
-                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                            EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
-                    )))));
-        }
-
         // scavenging_string
         // TODO: Figure out if this needs a tag similar to the Drops Leather tag.
         if (key == ENTITIES_SPIDER || key == ENTITIES_CAVE_SPIDER) {
