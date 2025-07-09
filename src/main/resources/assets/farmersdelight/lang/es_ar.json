@@ -326,6 +326,7 @@
   "emi.category.farmersdelight.decomposition": "Descomposición",
 
   "tag.item.c.crops.cabbage": "Repollos",
+  "tag.item.c.crops.grain": "Cultivos de grano",
   "tag.item.c.crops.onion": "Cebollas",
   "tag.item.c.crops.rice": "Arroz",
   "tag.item.c.crops.tomato": "Tomates",
@@ -414,7 +415,7 @@
   "tag.item.farmersdelight.straw_harvesters": "Cosechadoras de paja",
   "tag.item.farmersdelight.tools.knives": "Cuchillos",
   "tag.item.farmersdelight.wild_crops": "Cultivos silvestres",
-  "tag.item.farmersdelight.wolf_prey": "Presa del lobo"
+  "tag.item.farmersdelight.wolf_prey": "Presa del lobo",
 
   "config.farmersdelight.client.nourishmentHungerOverlay": "Superposición de Nutrición en la Barra de Hambre",
   "config.farmersdelight.client.nourishmentHungerOverlay.description": "¿Debería la barra de hambre tener una capa dorada cuando el jugador tiene el efecto de Nutrición?",
