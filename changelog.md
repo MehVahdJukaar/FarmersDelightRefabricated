@@ -1,5 +1,2 @@
 ## Changes
-- Baked Cod Stew no longer counts as Wolf Food. [#194](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/194)
-
-## Bugfixes
-- Fix Served On tooltip showing the incorrect item tool.
+- Updated developer environment to 1.21.7. (The mod is still compatible with 1.21.6)
