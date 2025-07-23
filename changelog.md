@@ -1,9 +1,5 @@
-## Bugfixes
-- Fixed Canvas Sign and Hanging Canvas Sign placement inconsistencies.
-- Fixed signs not rendering text. ([#199](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/199)) ([#203](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/203) - cassiancc)
-- Fixed Yellow Hanging Canvas Sign client item displaying the wrong model. ([#202](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/202) - cassiancc)
-- Fixed Shulker Shell extra scavenging loot modification existing twice ([#204](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/204) - offbeat-stuff)
-- Fixed broke Russian language file (`ru_ru.json`). ([#197](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/197))
+## Changes
+- Updated the Minecraft dependency to accept 1.21.8.
 
 ## Developer Changes
-- Updated developement environment to 1.21.7. (The mod is still compatible with 1.21.6)
+- Updated development environment to 1.21.8. (The mod should still be compatible with 1.21.6 and 1.21.7)
