@@ -1,1 +1,2 @@
-- Merged upstream from 1.2.9.
+## Changes
+- Updated REI compat

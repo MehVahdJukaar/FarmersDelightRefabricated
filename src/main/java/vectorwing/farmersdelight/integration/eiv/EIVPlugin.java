@@ -1,4 +1,10 @@
 // TODO: Reimport when EIV updates.
+/*
+ADD THIS BACK TOO
+    //"eiv": [
+    //  "vectorwing.farmersdelight.integration.eiv.EIVPlugin"
+    //]
+ */
 //package vectorwing.farmersdelight.integration.eiv;
 //
 //import de.crafty.eiv.common.api.IExtendedItemViewIntegration;
