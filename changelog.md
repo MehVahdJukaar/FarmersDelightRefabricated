@@ -1,3 +1,8 @@
+# Refabricated Changelog
+
+- Merged all recent neoforge upstream changes. Check out changelog below
+- Fixed previous published version being based on a really old branch because I goofed
+
 # Changelog
 
 ## 1.2.9
