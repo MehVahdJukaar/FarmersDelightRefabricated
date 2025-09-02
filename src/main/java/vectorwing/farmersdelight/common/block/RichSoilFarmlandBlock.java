@@ -12,14 +12,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import javax.annotation.Nullable;
 
 public class RichSoilFarmlandBlock extends FarmBlock
 {
@@ -27,8 +25,10 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		super(properties);
 	}
 
-	private static boolean hasWater(LevelReader level, BlockPos pos) {
-		for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+	private static boolean isNearWater(LevelReader level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+			//if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
 			if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
 				return true;
 			}
@@ -66,7 +66,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int moisture = state.getValue(MOISTURE);
-		if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
+		if (!isNearWater(level, pos) && !level.isRainingAt(pos.above())) {
 			if (moisture > 0) {
 				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
 			}
@@ -114,8 +114,8 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
 		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
-		// Rich Soil is immune to trampling
+		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
 	}
 }
