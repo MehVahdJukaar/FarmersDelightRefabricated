@@ -153,7 +153,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	{
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::getGroup),
-				CookingPotRecipeBookTab.CODEC.optionalFieldOf("recipe_book_tab").xmap(optional -> optional.orElse(null), Optional::of).forGetter(CookingPotRecipe::getRecipeBookTab),
+				CookingPotRecipeBookTab.CODEC.optionalFieldOf("recipe_book_tab", CookingPotRecipeBookTab.MISC).forGetter(CookingPotRecipe::getRecipeBookTab),
 				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").xmap(ingredients -> {
 					NonNullList<Ingredient> nonNullList = NonNullList.create();
 					nonNullList.addAll(ingredients);

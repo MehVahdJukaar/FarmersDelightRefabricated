@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -25,9 +24,10 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		super(properties);
 	}
 
-	private static boolean hasWater(LevelReader level, BlockPos pos) {
-		for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
-			if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
+	private static boolean isNearWater(LevelReader level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+			if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
 				return true;
 			}
 		}
@@ -64,7 +64,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int moisture = state.getValue(MOISTURE);
-		if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
+		if (!isNearWater(level, pos) && !level.isRainingAt(pos.above())) {
 			if (moisture > 0) {
 				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
 			}
