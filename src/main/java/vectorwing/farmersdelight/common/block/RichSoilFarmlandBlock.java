@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -27,7 +28,8 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	private static boolean isNearWater(LevelReader level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
-			if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
+			//if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
+			if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
 				return true;
 			}
 		}
