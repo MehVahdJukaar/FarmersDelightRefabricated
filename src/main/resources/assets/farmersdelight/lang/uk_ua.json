@@ -70,8 +70,8 @@
   "block.farmersdelight.red_hanging_canvas_sign": "Червона брезентова вивіска",
   "block.farmersdelight.black_hanging_canvas_sign": "Чорна брезентова вивіска",
 
-  "block.farmersdelight.budding_tomatoes": "Брунькова лоза помідра",
-  "block.farmersdelight.tomatoes": "Помідори",
+  "block.farmersdelight.budding_tomatoes": "Брунькова лоза томата",
+  "block.farmersdelight.tomatoes": "Томати",
   "block.farmersdelight.cabbages": "Капуста",
   "block.farmersdelight.onions": "Цибуля",
   "block.farmersdelight.rice": "Посіви рису",
@@ -81,7 +81,7 @@
 
   "block.farmersdelight.sandy_shrub": "Піщаний кущ",
   "block.farmersdelight.wild_cabbages": "Дика капуста",
-  "block.farmersdelight.wild_tomatoes": "Кущ помідора",
+  "block.farmersdelight.wild_tomatoes": "Кущ томатів",
   "block.farmersdelight.wild_onions": "Дика цибуля",
   "block.farmersdelight.wild_carrots": "Дика морква",
   "block.farmersdelight.wild_potatoes": "Дика картопля",
@@ -97,7 +97,7 @@
   "item.farmersdelight.onion": "Цибуля",
   "item.farmersdelight.rice": "Рис",
   "item.farmersdelight.cabbage_seeds": "Насіння капусти",
-  "item.farmersdelight.tomato_seeds": "Насіння помідора",
+  "item.farmersdelight.tomato_seeds": "Насіння томата",
   "item.farmersdelight.rice_panicle": "Волоть рису",
   "item.farmersdelight.rotten_tomato": "Гнилий помідор",
 
@@ -245,7 +245,7 @@
   "farmersdelight.advancement.get_ham.desc": "Використайте ніж, щоб дістати шинку зі свиней та гоґлінів",
   "farmersdelight.advancement.use_cutting_board": "Слідкуй за пальцями",
   "farmersdelight.advancement.use_cutting_board.desc": "З інструментом у руці, використайте нарізну дошку, щоб розділити предмет",
-  "farmersdelight.advancement.obtain_netherite_knife": "Якщо ви не можете винести спеку…",
+  "farmersdelight.advancement.obtain_netherite_knife": "Дуже хороше рішення…",
   "farmersdelight.advancement.obtain_netherite_knife.desc": "Витратьте цілий незеритовий злиток, щоб покращити свій ніж! Або забирайся з кухні.",
 
   "farmersdelight.advancement.get_fd_seed": "Дикі культури",
@@ -253,7 +253,7 @@
   "farmersdelight.advancement.plant_rice": "Занурюючи своє коріння",
   "farmersdelight.advancement.plant_rice.desc": "Посадіть насіння рису в мілководній калюжі",
   "farmersdelight.advancement.harvest_ropelogged_tomato": "Помідорище",
-  "farmersdelight.advancement.harvest_ropelogged_tomato.desc": "Повісьте мотузку над помідорами, щоб вони росли вище",
+  "farmersdelight.advancement.harvest_ropelogged_tomato.desc": "Повісьте мотузку над томатами, щоб вони росли вище",
   "farmersdelight.advancement.hit_raider_with_rotten_tomato": "Вийди звідси, розбійник!",
   "farmersdelight.advancement.hit_raider_with_rotten_tomato.desc": "Киньте гнилий помідор в одного з цих настирливих розбійників!",
   "farmersdelight.advancement.get_mushroom_colony": "Підозрілий гриб",
@@ -318,7 +318,7 @@
   "farmersdelight.jei.info.wild_carrots": "Моркву можна знайти дикорослою у помірних краях, таких як рівнини та ліси.",
   "farmersdelight.jei.info.wild_onions": "Цибулю можна знайти дикорослою у помірних краях, таких як рівнини та ліси.",
   "farmersdelight.jei.info.wild_potatoes": "Картоплю можна знайти дикорослою у холодних краях, таких як гори та тайги.",
-  "farmersdelight.jei.info.wild_tomatoes": "Помідори можна знайти дикорослими у посушливих краях, таких як савани та пустелі.",
+  "farmersdelight.jei.info.wild_tomatoes": "Томати можна знайти дикорослими у посушливих краях, таких як савани та пустелі.",
   "farmersdelight.jei.info.wild_rice": "Рис можна знайти дикорослим у водоймах вологих країв, таких як болота та джунглі.",
 
   "emi.category.farmersdelight.cooking": "Глтування",
@@ -329,7 +329,7 @@
   "tag.item.c.crops.grain": "Зернові урожаї",
   "tag.item.c.crops.onion": "Урожай цибулі",
   "tag.item.c.crops.rice": "Урожай рису",
-  "tag.item.c.crops.tomato": "Урожай помідора",
+  "tag.item.c.crops.tomato": "Урожай томата",
   "tag.item.c.foods.berries": "Ягоди",
   "tag.item.c.foods.breads": "Хліби",
   "tag.item.c.foods.breads.wheat": "Пшеничні хліби",
@@ -347,7 +347,7 @@
   "tag.item.c.foods.doughs.wheat": "Пшеничні тіста",
   "tag.item.c.foods.pastas": "Пасти",
   "tag.item.c.foods.pastas.raw_pastas": "Сирі пасти",
-  "tag.item.c.foods.raw_fishes": "Сирі риби
+  "tag.item.c.foods.raw_fishes": "Сирі риби",
   "tag.item.c.foods.raw_fishes.cod": "Сира тріска",
   "tag.item.c.foods.raw_fishes.salmon": "Сирий лосось",
   "tag.item.c.foods.raw_fishes.tropical_fish": "Тропічна риба",
@@ -374,7 +374,7 @@
   "tag.item.c.salad_ingredients.cabbages": "Cabbages",
   "tag.item.c.seeds.cabbage": "Насіння капусти",
   "tag.item.c.seeds.rice": "Насіння рису",
-  "tag.item.c.seeds.tomato": "Насіння помідора",
+  "tag.item.c.seeds.tomato": "Насіння томата",
   "tag.item.c.tools.knives": "Ножі",
 
   "tag.item.c.bread.wheat": "Пшеничні хліби",
@@ -438,9 +438,9 @@
   "config.farmersdelight.settings.canvasSignDarkBackgroundList": "Темне тло брезентових табличок",
   "config.farmersdelight.settings.canvasSignDarkBackgroundList.description": "Список кольорів барвників, які, якщо використовуються як тло брезентових брезентових, мають усталений використовувати білий текст під час розміщення.",
   "config.farmersdelight.farming.defaultTomatoVineRope": "Типова мотузка з лози помідора",
-  "config.farmersdelight.farming.defaultTomatoVineRope.description": "Яку мотузку слід залишити лози помідора після видобутку вручну?",
-  "config.farmersdelight.farming.enableTomatoVineClimbingTaggedRopes": "Увімкнути лазання лози помідора теґом мотузки",
-  "config.farmersdelight.farming.enableTomatoVineClimbingTaggedRopes.description": "Чи повинні томатні лози мати можливість лазити по будь-якій мотузці з тегом farmersdelight:ropes? Обережно: це перетворить ці блоки на блок, указаний у defaultTomatoVineRope.",
+  "config.farmersdelight.farming.defaultTomatoVineRope.description": "Яку мотузку слід залишити лози томата після видобутку вручну?",
+  "config.farmersdelight.farming.enableTomatoVineClimbingTaggedRopes": "Увімкнути ріст лози томата теґом мотузки",
+  "config.farmersdelight.farming.enableTomatoVineClimbingTaggedRopes.description": "Чи повинні лози тамата мати можливість рости на будь-якій мотузці з теґом «farmersdelight:ropes»? Обережно: це перетворить ці блоки на блок, указаний у defaultTomatoVineRope.",
   "config.farmersdelight.recipe_book.enableRecipeBookCookingPot": "Увімкнути книгу рецептів каструлю",
   "config.farmersdelight.recipe_book.enableRecipeBookCookingPot.description": "Чи має каструля мати доступну в інтерфейсі книгу рецептів?",
   "config.farmersdelight.overrides.vanillaSoupExtraEffects": "Додаткові ефекти стандартного супу",
@@ -469,7 +469,7 @@
   "config.farmersdelight.wild_carrots.chance.description": "Імовірність створення кластерів. Менше значення = частіше.",
   "config.farmersdelight.wild_onions.chance": "Шанс дикої цибулі",
   "config.farmersdelight.wild_onions.chance.description": "Імовірність створення кластерів. Менше значення = частіше.",
-  "config.farmersdelight.wild_tomatoes.chance": "Шанс диких помідорів",
+  "config.farmersdelight.wild_tomatoes.chance": "Шанс куща томатів",
   "config.farmersdelight.wild_tomatoes.chance.description": "Імовірність створення кластерів. Менше значення = частіше.",
   "config.farmersdelight.wild_rice.chance": "Шанс дикого рису",
   "config.farmersdelight.wild_rice.chance.description": "Імовірність генерації кластерів. Менше значення = частіше.",
@@ -481,5 +481,6 @@
   "config.farmersdelight.red_mushroom_colonies.genRedMushroomColony.description": "Створює колонії червоних грибів на грибних полях.",
   "config.farmersdelight.red_mushroom_colonies.chance": "Імовірність колоній червоних грибів",
   "config.farmersdelight.red_mushroom_colonies.chance.description": "Імовірність створення кластерів. Менше значення = частіше.",
+  
   "modmenu.descriptionTranslation.farmersdelight": "Затишне розширення до фермерства та кулінарії!"
 }
