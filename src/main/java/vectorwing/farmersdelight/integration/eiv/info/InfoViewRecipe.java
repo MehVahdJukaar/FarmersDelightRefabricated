@@ -40,7 +40,7 @@ public class InfoViewRecipe implements IEivViewRecipe {
 
     @Override
     public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.drawWordWrap(Minecraft.getInstance().font, FormattedText.of(I18n.get(translationKey)), 5, 20, 112, 1842204, false);
+        guiGraphics.drawWordWrap(Minecraft.getInstance().font, FormattedText.of(I18n.get(translationKey)), 5, 20, 112, -16777216, false);
     }
 
     @Override
