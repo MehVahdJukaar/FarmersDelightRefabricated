@@ -42,6 +42,7 @@
     "eiv": [
       "vectorwing.farmersdelight.integration.eiv.EIVPlugin"
     ]
+
   },
   "mixins": [
     "${mod_id}.mixins.json"

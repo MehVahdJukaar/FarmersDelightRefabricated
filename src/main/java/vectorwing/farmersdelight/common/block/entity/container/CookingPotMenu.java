@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
@@ -192,6 +193,6 @@ public class CookingPotMenu extends RecipeBookMenu
 
 	@Override
 	public RecipeBookType getRecipeBookType() {
-		return RecipeBookType.valueOf("FARMERSDELIGHT_COOKING");
+		return FDRecipeBookTypes.COOKING;
 	}
 }
