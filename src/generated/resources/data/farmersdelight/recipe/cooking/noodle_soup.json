@@ -1,6 +1,5 @@
 {
   "type": "farmersdelight:cooking",
-  "category": "meals",
   "experience": 1.0,
   "ingredients": [
     "#c:foods/pasta",
@@ -8,6 +7,7 @@
     "minecraft:dried_kelp",
     "#c:foods/raw_pork"
   ],
+  "recipe_book_tab": "meals",
   "result": {
     "count": 1,
     "id": "farmersdelight:noodle_soup"

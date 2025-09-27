@@ -1,6 +1,5 @@
 {
   "type": "farmersdelight:cooking",
-  "category": "drinks",
   "experience": 1.0,
   "ingredients": [
     "#c:foods/milk",
@@ -8,6 +7,7 @@
     "minecraft:cocoa_beans",
     "minecraft:cocoa_beans"
   ],
+  "recipe_book_tab": "drinks",
   "result": {
     "count": 1,
     "id": "farmersdelight:hot_cocoa"

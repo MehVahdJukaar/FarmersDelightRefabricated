@@ -1,6 +1,5 @@
 {
   "type": "farmersdelight:cooking",
-  "category": "meals",
   "experience": 1.0,
   "ingredients": [
     "minecraft:brown_mushroom",
@@ -11,6 +10,7 @@
       "minecraft:potato"
     ]
   ],
+  "recipe_book_tab": "meals",
   "result": {
     "count": 1,
     "id": "farmersdelight:mushroom_rice"

@@ -164,7 +164,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	{
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::group),
-				CookingPotBookCategory.CODEC.optionalFieldOf("category", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
+				CookingPotBookCategory.CODEC.optionalFieldOf("recipe_book_tab", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
 				Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(CookingPotRecipe::input),
 				ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
 				ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::containerOverride),

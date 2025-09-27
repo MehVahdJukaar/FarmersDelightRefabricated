@@ -1,12 +1,12 @@
 {
   "type": "farmersdelight:cooking",
-  "category": "meals",
   "experience": 1.0,
   "ingredients": [
     "#c:foods/safe_raw_fish",
     "farmersdelight:tomato_sauce",
     "#c:crops/onion"
   ],
+  "recipe_book_tab": "meals",
   "result": {
     "count": 1,
     "id": "farmersdelight:fish_stew"
