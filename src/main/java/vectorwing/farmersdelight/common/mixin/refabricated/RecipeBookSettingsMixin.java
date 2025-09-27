@@ -3,8 +3,6 @@ package vectorwing.farmersdelight.common.mixin.refabricated;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.*;
@@ -19,8 +17,6 @@ import java.util.function.UnaryOperator;
 
 @Mixin(RecipeBookSettings.class)
 public class RecipeBookSettingsMixin {
-    @Shadow @Final @Mutable
-    public static StreamCodec<FriendlyByteBuf, RecipeBookSettings> STREAM_CODEC;
     @Shadow @Final @Mutable
     public static MapCodec<RecipeBookSettings> MAP_CODEC;
     @Unique
@@ -37,14 +33,6 @@ public class RecipeBookSettingsMixin {
             ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking = typeSettings;
             return recipeBookSettings;
         }));
-        STREAM_CODEC = StreamCodec.composite(
-                STREAM_CODEC, Function.identity(),
-                RecipeBookSettings.TypeSettings.STREAM_CODEC, recipeBookSettings -> ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking,
-                (recipeBookSettings, typeSettings) -> {
-                    ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking = typeSettings;
-                    return recipeBookSettings;
-                }
-        );
     }
 
     @ModifyReturnValue(method = "copy", at = @At("RETURN"))

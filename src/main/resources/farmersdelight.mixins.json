@@ -21,6 +21,7 @@
     "refabricated.RecipeBookSettingsTypeSettingsInvoker",
     "refabricated.RecipeManagerMixin",
     "refabricated.ReloadableServerRegistriesMixin",
+    "refabricated.ServerRecipeBookMixin",
     "refabricated.StemBlockMixin",
     "refabricated.VegetationBlockMixin"
   ],
