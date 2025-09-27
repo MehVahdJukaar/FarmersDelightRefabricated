@@ -25,8 +25,10 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		super(properties);
 	}
 
-	private static boolean hasWater(LevelReader level, BlockPos pos) {
-		for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+	private static boolean isNearWater(LevelReader level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+			//if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
 			if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
 				return true;
 			}
@@ -64,7 +66,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int moisture = state.getValue(MOISTURE);
-		if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
+		if (!isNearWater(level, pos) && !level.isRainingAt(pos.above())) {
 			if (moisture > 0) {
 				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
 			}
