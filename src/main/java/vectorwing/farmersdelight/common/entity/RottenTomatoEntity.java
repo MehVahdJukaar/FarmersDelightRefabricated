@@ -66,7 +66,7 @@ public class RottenTomatoEntity extends ThrowableItemProjectile
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.playSound(ModSounds.ENTITY_ROTTEN_TOMATO_HIT.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 			this.discard();

@@ -107,7 +107,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	public static void animationTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
 		for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
 			if (!stove.inventory.getStackInSlot(i).isEmpty() && level.random.nextFloat() < 0.2F) {
-				Vec2 stoveItemVector = stove.getStoveItemOffset(i);
+				Vec2 stoveItemVector = getStoveItemOffset(i);
 				Direction direction = state.getValue(StoveBlock.FACING);
 				int directionIndex = direction.get2DDataValue();
 				Vec2 offset = directionIndex % 2 == 0 ? stoveItemVector : new Vec2(stoveItemVector.y, stoveItemVector.x);
@@ -194,7 +194,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		return false;
 	}
 
-	public Vec2 getStoveItemOffset(int index) {
+	public static Vec2 getStoveItemOffset(int index) {
 		final float X_OFFSET = 0.3F;
 		final float Y_OFFSET = 0.2F;
 		final Vec2[] OFFSETS = {

@@ -57,7 +57,7 @@ public class FarmersDelightClient implements ClientModInitializer {
                 ModBlocks.RICE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
                 ModBlocks.ROAST_CHICKEN_BLOCK.get(), ModBlocks.SANDY_SHRUB.get(), ModBlocks.ROPE.get(),
                 ModBlocks.CANVAS_RUG.get(), ModBlocks.COOKING_POT.get(), ModBlocks.SAFETY_NET.get());
-        SpecialGuiElementRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.vertexConsumers()));
+        SpecialGuiElementRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.vertexConsumers(), ctx.client().getAtlasManager()));
 
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.res("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
 

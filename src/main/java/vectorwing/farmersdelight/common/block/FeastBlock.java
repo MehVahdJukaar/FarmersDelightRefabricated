@@ -78,7 +78,7 @@ public class FeastBlock extends Block
 
 	@Override
 	public InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (this.takeServing(level, pos, state, player, hand).consumesAction()) {
 				return InteractionResult.SUCCESS;
 			}
@@ -149,7 +149,7 @@ public class FeastBlock extends Block
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+	protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
 		return blockState.getValue(getServingsProperty());
 	}
 

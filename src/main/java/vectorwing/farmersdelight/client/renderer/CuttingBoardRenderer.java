@@ -2,48 +2,69 @@ package vectorwing.farmersdelight.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.client.renderer.state.CuttingBoardRenderState;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity>
+public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity, CuttingBoardRenderState>
 {
 	private final ItemModelResolver itemModelResolver;
-	private final ItemStackRenderState renderState = new ItemStackRenderState();
 
 	public CuttingBoardRenderer(BlockEntityRendererProvider.Context pContext) {
-		itemModelResolver = pContext.getItemModelResolver();
+		itemModelResolver = pContext.itemModelResolver();
 	}
 
 	@Override
-	public void render(CuttingBoardBlockEntity cuttingBoardEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay, Vec3 cameraPos) {
-		Direction direction = cuttingBoardEntity.getBlockState().getValue(CuttingBoardBlock.FACING).getOpposite();
+	public CuttingBoardRenderState createRenderState() {
+		return new CuttingBoardRenderState();
+	}
+
+	@Override
+	public void extractRenderState(CuttingBoardBlockEntity cuttingBoardEntity, CuttingBoardRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+		BlockEntityRenderer.super.extractRenderState(cuttingBoardEntity, renderState, partialTick, cameraPosition, breakProgress);
+
+		renderState.direction = cuttingBoardEntity.getBlockState().getValue(CuttingBoardBlock.FACING).getOpposite();
 		ItemStack boardStack = cuttingBoardEntity.getStoredItem();
+		renderState.boardStack = boardStack.copy();
 		int posLong = (int) cuttingBoardEntity.getBlockPos().asLong();
+		renderState.displayItem = new ItemStackRenderState();
+		this.itemModelResolver.updateForTopItem(renderState.displayItem, boardStack, ItemDisplayContext.FIXED, cuttingBoardEntity.getLevel(), null, posLong);
+		renderState.isItemCarvingBoard = cuttingBoardEntity.isItemCarvingBoard();
+	}
+
+	@Override
+	public void submit(CuttingBoardRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+		Direction direction = renderState.direction;
+		ItemStack boardStack = renderState.boardStack;
 
 		if (!boardStack.isEmpty()) {
 			poseStack.pushPose();
 
-			itemModelResolver.updateForTopItem(renderState, boardStack, ItemDisplayContext.FIXED, cuttingBoardEntity.getLevel(), null, posLong);
 
-			if (cuttingBoardEntity.isItemCarvingBoard()) {
+			if (renderState.isItemCarvingBoard) {
 				renderItemCarved(poseStack, direction, boardStack);
-			} else if (renderState.usesBlockLight() && !boardStack.is(ModTags.FLAT_ON_CUTTING_BOARD)) {
+			} else if (renderState.displayItem.usesBlockLight() && !boardStack.is(ModTags.FLAT_ON_CUTTING_BOARD)) {
 				renderBlock(poseStack, direction);
 			} else {
 				renderItemLayingDown(poseStack, direction);
 			}
 
-			renderState.render(poseStack, buffer, combinedLight, combinedOverlay);
+			renderState.displayItem.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+
 			poseStack.popPose();
 		}
 	}

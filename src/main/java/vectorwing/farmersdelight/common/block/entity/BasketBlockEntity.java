@@ -127,7 +127,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public void tryTransfer(BooleanSupplier transfer) {
-		if (this.level != null && !this.level.isClientSide) {
+		if (this.level != null && !this.level.isClientSide()) {
 			if (!this.isOnCooldown() && this.getBlockState().getValue(BlockStateProperties.ENABLED)) {
 				boolean flag = false;
 				if (!this.isFull()) {
