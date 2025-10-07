@@ -99,7 +99,7 @@ public class ModBlocks
 
 	// Building
 	public static final Supplier<Block> ROPE = regBlock("rope",
-			RopeBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollission().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
+			RopeBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollision().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> SAFETY_NET = regBlock("safety_net",
 			SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> OAK_CABINET = regBlock("oak_cabinet",

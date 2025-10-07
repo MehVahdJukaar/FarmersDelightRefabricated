@@ -101,8 +101,8 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 			popResource(level, pos, getCloneItemStack(level, pos, state, false));
 			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
-			if (!level.isClientSide) {
-				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			if (!level.isClientSide()) {
+				heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 			}
 			return InteractionResult.SUCCESS;
 		}

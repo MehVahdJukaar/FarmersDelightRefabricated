@@ -97,7 +97,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			BlockEntity tileEntity = level.getBlockEntity(pos);
 			if (tileEntity instanceof BasketBlockEntity) {
 				player.openMenu((BasketBlockEntity) tileEntity);
@@ -151,7 +151,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
 		return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
 	}
 
@@ -193,6 +193,6 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-		return level.isClientSide ? null : BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
+		return level.isClientSide() ? null : BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
 	}
 }

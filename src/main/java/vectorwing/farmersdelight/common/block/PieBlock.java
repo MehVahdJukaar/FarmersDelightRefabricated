@@ -76,7 +76,7 @@ public class PieBlock extends Block
 	}
 
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (consumeBite(level, pos, state, player).consumesAction()) {
 				return InteractionResult.SUCCESS;
 			}
@@ -103,7 +103,7 @@ public class PieBlock extends Block
 			if (sliceFood != null) {
 				playerIn.getFoodData().eat(sliceFood);
 				sliceStack.getAllOfType(ConsumableListener.class).forEach(consumableListener -> consumableListener.onConsume(level, playerIn, sliceStack, sliceConsumable));
-				if (!level.isClientSide) {
+				if (!level.isClientSide()) {
 					sliceConsumable.onConsumeEffects().forEach(consumeEffect -> consumeEffect.apply(level, sliceStack, playerIn));
 				}
 			}
@@ -161,7 +161,7 @@ public class PieBlock extends Block
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
 		return getMaxBites() - blockState.getValue(BITES);
 	}
 

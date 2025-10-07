@@ -159,14 +159,14 @@ public class SkilletItem extends BlockItem {
                 if (l > FLIP_TIME) {
                     stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                     stack.set(ModDataComponents.SKILLET_FLIPPED.get(), !stack.getOrDefault(ModDataComponents.SKILLET_FLIPPED.get(), false));
-                } else if (l == FLIP_TIME - 8 && level.isClientSide) {
+                } else if (l == FLIP_TIME - 8 && level.isClientSide()) {
                     //why does it need to play early? idk
                     //plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
                     level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
-                } else if (level.isClientSide && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
+                } else if (level.isClientSide() && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
                     level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
                 }
-            } else if (level.isClientSide && level.random.nextInt(50) == 0) {
+            } else if (level.isClientSide() && level.random.nextInt(50) == 0) {
                 level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
             }
         }
@@ -267,7 +267,7 @@ public class SkilletItem extends BlockItem {
     }
 
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
-        if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
+        if (!level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.MAINHAND);
         }
 
