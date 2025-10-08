@@ -113,7 +113,7 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     // Uncomment the below to test REI.
-      modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+//    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
 //    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
 //        exclude(group: "net.fabricmc.fabric-api")
@@ -127,9 +127,9 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test EIV.
-//    modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
-//       exclude(group: "net.fabricmc.fabric-api")
-//    }
+    modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
+       exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 var changelogFile = rootProject.file("changelog.md")
