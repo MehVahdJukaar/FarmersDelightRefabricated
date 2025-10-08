@@ -64,9 +64,7 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
             if (mode != ItemDisplayContext.GUI) {
                 ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
                 Minecraft.getInstance().getItemModelResolver().updateForTopItem(itemStackRenderState, patterns.ingredient, ItemDisplayContext.FIXED, Minecraft.getInstance().level, null, 0);
-//                var itemRenderer = mc.getItemRenderer();
-//                itemRenderer.renderStatic(patterns.ingredient, ItemDisplayContext.FIXED, packedLight,
-//                    packedOverlay, poseStack, buffer, null, 0);
+                itemStackRenderState.submit(poseStack, nodeCollector, packedLight, packedOverlay, outlineColor);
             }
 
             poseStack.popPose();
@@ -80,8 +78,7 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
             poseStack.translate(0F, 0, -1);
             poseStack.translate(0, 0, -Mth.sin(animation * Mth.PI) * 0.2);
         }
-        // TODO 1.21.10
-//        mc.getBlockRenderer().renderSingleBlock(patterns.state, poseStack, buffer, packedLight, packedOverlay);
+        nodeCollector.submitBlock(poseStack, patterns.state, packedLight, packedOverlay, outlineColor);
 
         poseStack.popPose();
     }
