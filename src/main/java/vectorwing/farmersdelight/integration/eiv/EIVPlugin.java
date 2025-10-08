@@ -2,12 +2,13 @@ package vectorwing.farmersdelight.integration.eiv;
 
 import de.crafty.eiv.common.api.IExtendedItemViewIntegration;
 import de.crafty.eiv.common.api.recipe.ItemView;
+import de.crafty.eiv.common.builtin.shapeless.ShapelessServerRecipe;
 import de.crafty.eiv.common.recipe.ServerRecipeManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.cutting.CuttingServerRecipe;
@@ -16,7 +17,6 @@ import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionServ
 import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionViewRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoServerRecipe;
 import vectorwing.farmersdelight.integration.eiv.info.InfoViewRecipe;
-import vectorwing.farmersdelight.integration.eiv.info.InfoViewType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +37,7 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
                 recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool(), recipe.getRollableResults()));
             });
             recipeList.add(new DecompositionServerRecipe());
+            recipeList.add(new ShapelessServerRecipe(List.of(Ingredient.of(Items.WHEAT), Ingredient.of(Items.WATER_BUCKET)), new ItemStack(ModItems.WHEAT_DOUGH.get())));
         });
 
         // Cooking Pot - clientside
