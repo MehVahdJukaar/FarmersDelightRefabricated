@@ -47,6 +47,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 		// Harvesting Branch
 		AdvancementHolder huntAndGather = getAdvancement(farmersDelight, ModItems.FLINT_KNIFE.get(), "craft_knife", AdvancementType.TASK, true, true, false)
 				.addCriterion("flint_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FLINT_KNIFE.get()))
+                .addCriterion("copper_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.COPPER_KNIFE.get()))
 				.addCriterion("iron_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.IRON_KNIFE.get()))
 				.addCriterion("diamond_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DIAMOND_KNIFE.get()))
 				.addCriterion("golden_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_KNIFE.get()))

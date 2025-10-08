@@ -1,5 +1,2 @@
-## Integration
-- Added Water to Wheat Dough recipe to recipe viewers.
-
-## Fixes
-- Fixed Egg and Wheat to Dough recipe not existing.
+- Updated to 1.21.10. Thank you to @DrexHD on GitHub for doing most of the porting. I (MerchantCalico) only picked up the loose ends.
+- Added Copper Knife with a placeholder texture by MerchantCalico.

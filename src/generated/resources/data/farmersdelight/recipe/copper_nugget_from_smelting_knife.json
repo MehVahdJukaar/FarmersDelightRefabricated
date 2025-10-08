@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "farmersdelight:copper_knife",
+  "result": {
+    "id": "minecraft:copper_nugget"
+  }
+}

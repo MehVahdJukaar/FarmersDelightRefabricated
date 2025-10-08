@@ -473,13 +473,20 @@ public class CraftingRecipes
 				.define('s', Items.STICK)
 				.unlockedBy("has_stick", InventoryChangeTrigger.TriggerInstance.hasItems(Items.STICK))
 				.save(output);
-		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.COMBAT, ModItems.IRON_KNIFE.get())
-				.pattern("m")
-				.pattern("s")
-				.define('m', ConventionalItemTags.IRON_INGOTS)
-				.define('s', Items.STICK)
-				.unlockedBy("has_iron_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
-				.save(output);
+        ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.COMBAT, ModItems.COPPER_KNIFE.get())
+                .pattern("m")
+                .pattern("s")
+                .define('m', ConventionalItemTags.COPPER_INGOTS)
+                .define('s', Items.STICK)
+                .unlockedBy("has_copper_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_INGOT))
+                .save(output);
+        ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.COMBAT, ModItems.IRON_KNIFE.get())
+                .pattern("m")
+                .pattern("s")
+                .define('m', ConventionalItemTags.IRON_INGOTS)
+                .define('s', Items.STICK)
+                .unlockedBy("has_iron_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
+                .save(output);
 		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.COMBAT, ModItems.DIAMOND_KNIFE.get())
 				.pattern("m")
 				.pattern("s")

@@ -53,6 +53,7 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.HAM.get())), "farmersdelight.jei.info.ham"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.SMOKED_HAM.get())), "farmersdelight.jei.info.ham"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.FLINT_KNIFE.get())), "farmersdelight.jei.info.knife"));
+            infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.COPPER_KNIFE.get())), "farmersdelight.jei.info.knife"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.IRON_KNIFE.get())), "farmersdelight.jei.info.knife"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.DIAMOND_KNIFE.get())), "farmersdelight.jei.info.knife"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.NETHERITE_KNIFE.get())), "farmersdelight.jei.info.knife"));

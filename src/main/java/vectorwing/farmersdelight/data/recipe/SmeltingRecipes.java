@@ -46,6 +46,10 @@ public class SmeltingRecipes
 				.unlockedBy("has_ham", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.HAM.get()))
 				.save(output);
 
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.COPPER_KNIFE.get()), RecipeCategory.MISC,
+                        Items.COPPER_NUGGET, 0.1F, 200)
+                .unlockedBy("has_copper_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.COPPER_KNIFE.get()))
+                .save(output, ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "copper_nugget_from_smelting_knife")));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.IRON_KNIFE.get()), RecipeCategory.MISC,
 						Items.IRON_NUGGET, 0.1F, 200)
 				.unlockedBy("has_iron_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.IRON_KNIFE.get()))
@@ -54,6 +58,10 @@ public class SmeltingRecipes
 						Items.GOLD_NUGGET, 0.1F, 200)
 				.unlockedBy("has_golden_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_KNIFE.get()))
 				.save(output, ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "gold_nugget_from_smelting_knife")));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.COPPER_KNIFE.get()), RecipeCategory.MISC,
+                        Items.COPPER_NUGGET, 0.1F, 100)
+                .unlockedBy("has_copper_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.COPPER_KNIFE.get()))
+                .save(output, ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "copper_nugget_from_blasting_knife")));
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.IRON_KNIFE.get()), RecipeCategory.MISC,
 						Items.IRON_NUGGET, 0.1F, 100)
 				.unlockedBy("has_iron_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.IRON_KNIFE.get()))
