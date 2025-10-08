@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "m": "#c:ingots/copper",
+    "s": "minecraft:stick"
+  },
+  "pattern": [
+    "m",
+    "s"
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmersdelight:copper_knife"
+  }
+}

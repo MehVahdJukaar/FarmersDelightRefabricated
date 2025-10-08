@@ -294,14 +294,16 @@ public class ModItems
 	// Tools
 	public static final Supplier<Item> FLINT_KNIFE = registerWithTab("flint_knife",
 			KnifeItem::new, knifeItem(ModToolMaterials.FLINT));
-	public static final Supplier<Item> IRON_KNIFE = registerWithTab("iron_knife",
-			KnifeItem::new, knifeItem(ToolMaterial.IRON));
+    public static final Supplier<Item> IRON_KNIFE = registerWithTab("iron_knife",
+            KnifeItem::new, knifeItem(ToolMaterial.IRON));
 	public static final Supplier<Item> DIAMOND_KNIFE = registerWithTab("diamond_knife",
 			KnifeItem::new, knifeItem(ToolMaterial.DIAMOND));
 	public static final Supplier<Item> NETHERITE_KNIFE = registerWithTab("netherite_knife",
 			KnifeItem::new, knifeItem(ToolMaterial.NETHERITE).fireResistant());
 	public static final Supplier<Item> GOLDEN_KNIFE = registerWithTab("golden_knife",
 			KnifeItem::new, knifeItem(ToolMaterial.GOLD));
+    public static final Supplier<Item> COPPER_KNIFE = registerWithTab("copper_knife",
+            KnifeItem::new, knifeItem(ToolMaterial.COPPER));
 
 	public static final Supplier<Item> STRAW = registerFuelWithTab("straw", basicItem(), 100);
 	public static final Supplier<Item> CANVAS = registerFuelWithTab("canvas", basicItem(), 400);

@@ -134,7 +134,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				ModItems.HONEY_GLAZED_HAM_BLOCK.get(),
 				ModItems.RICE_ROLL_MEDLEY_BLOCK.get()
 		);
-		valueLookupBuilder(ModTags.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		valueLookupBuilder(ModTags.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.COPPER_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 		valueLookupBuilder(ModTags.KNIFE_ENCHANTABLE).forceAddTag(ModTags.KNIVES);
 		valueLookupBuilder(ModTags.STRAW_HARVESTERS).forceAddTag(ModTags.KNIVES);
 		valueLookupBuilder(ModTags.CABBAGE_ROLL_INGREDIENTS).forceAddTag(CommonTags.FOODS_RAW_PORK).forceAddTag(CommonTags.FOODS_SAFE_RAW_FISH).forceAddTag(CommonTags.FOODS_RAW_CHICKEN).forceAddTag(CommonTags.FOODS_RAW_BEEF).forceAddTag(CommonTags.FOODS_RAW_MUTTON).forceAddTag(ConventionalItemTags.EGGS).forceAddTag(ConventionalItemTags.MUSHROOMS).add(Items.CARROT, Items.POTATO, Items.BEETROOT);
@@ -290,7 +290,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		valueLookupBuilder(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE).add(ModItems.RICE_BALE.get());
 		valueLookupBuilder(CommonTags.STORAGE_BLOCKS_ITEM_STRAW).add(ModItems.STRAW_BALE.get());
 
-		valueLookupBuilder(CommonTags.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		valueLookupBuilder(CommonTags.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.COPPER_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 	}
 
 	public void registerCompatibilityTags() {
