@@ -158,9 +158,9 @@ publishMods {
         requires("fabric-api")
 //        optional("crafttweaker")
 //        optional("jei")
-//        optional("roughly-enough-items")
+        optional("roughly-enough-items")
 //        optional("emi")
-//        optional("extended-itemview-eiv")
+        optional("extended-itemview-eiv")
     }
 
     modrinth {
@@ -172,9 +172,9 @@ publishMods {
         requires("fabric-api")
 //        optional("crafttweaker")
 //        optional("jei")
-//        optional("rei")
+        optional("rei")
 //        optional("emi")
-//        optional("eiv")
+        optional("eiv")
     }
 }
 
