@@ -5,8 +5,8 @@ import com.mojang.math.Axis;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -32,7 +32,8 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
     }
 
     @Override
-    public void render(@Nullable SkilletItemRenderer.SkilletData patterns, ItemDisplayContext mode, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, boolean hasFoilType) {
+    public void submit(@Nullable SkilletItemRenderer.SkilletData patterns, ItemDisplayContext mode, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoilType, int outlineColor) {
+    // TODO 1.21.10
         if (patterns == null)
             return;
 
@@ -61,9 +62,11 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
             if (mode != ItemDisplayContext.GUI) {
-                var itemRenderer = mc.getItemRenderer();
-                itemRenderer.renderStatic(patterns.ingredient, ItemDisplayContext.FIXED, packedLight,
-                        packedOverlay, poseStack, buffer, null, 0);
+                ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
+                Minecraft.getInstance().getItemModelResolver().updateForTopItem(itemStackRenderState, patterns.ingredient, ItemDisplayContext.FIXED, Minecraft.getInstance().level, null, 0);
+//                var itemRenderer = mc.getItemRenderer();
+//                itemRenderer.renderStatic(patterns.ingredient, ItemDisplayContext.FIXED, packedLight,
+//                    packedOverlay, poseStack, buffer, null, 0);
             }
 
             poseStack.popPose();
@@ -77,7 +80,8 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
             poseStack.translate(0F, 0, -1);
             poseStack.translate(0, 0, -Mth.sin(animation * Mth.PI) * 0.2);
         }
-        mc.getBlockRenderer().renderSingleBlock(patterns.state, poseStack, buffer, packedLight, packedOverlay);
+        // TODO 1.21.10
+//        mc.getBlockRenderer().renderSingleBlock(patterns.state, poseStack, buffer, packedLight, packedOverlay);
 
         poseStack.popPose();
     }
@@ -105,7 +109,7 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
         public static final MapCodec<Unbaked> CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public SpecialModelRenderer<?> bake(EntityModelSet modelSett) {
+        public @Nullable SpecialModelRenderer<?> bake(BakingContext context) {
             return new SkilletItemRenderer();
         }
 

@@ -176,7 +176,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof CuttingBoardBlockEntity) {
 			return !((CuttingBoardBlockEntity) blockEntity).isEmpty() ? 15 : 0;

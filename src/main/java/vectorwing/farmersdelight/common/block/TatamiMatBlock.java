@@ -82,7 +82,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		if (!level.isClientSide && player.isCreative()) {
+		if (!level.isClientSide() && player.isCreative()) {
 			BedPart part = state.getValue(PART);
 			if (part == BedPart.FOOT) {
 				BlockPos pairPos = pos.relative(getDirectionToOther(part, state.getValue(HorizontalDirectionalBlock.FACING)));
@@ -100,7 +100,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			BlockPos facingPos = pos.relative(state.getValue(HorizontalDirectionalBlock.FACING));
 			level.setBlock(facingPos, state.setValue(PART, BedPart.HEAD), 3);
 			level.updateNeighborsAt(pos, Blocks.AIR);

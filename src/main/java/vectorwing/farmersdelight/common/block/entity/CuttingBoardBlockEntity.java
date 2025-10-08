@@ -106,7 +106,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 						worldPosition.getX() + 0.5 + (direction.getStepX() * 0.2), worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.2),
 						direction.getStepX() * 0.2F, 0.0F, direction.getStepZ() * 0.2F);
 			}
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				toolStack.hurtAndBreak(1, (ServerLevel) level, (ServerPlayer) player, (item) -> {
 				});
 			}

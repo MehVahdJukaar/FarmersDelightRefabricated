@@ -157,7 +157,7 @@ public class CraftingRecipes
 				.pattern("X X")
 				.pattern("w#w")
 				.pattern("w#w")
-				.define('X', Items.CHAIN)
+				.define('X', Items.IRON_CHAIN)
 				.define('w', ItemTags.LOGS)
 				.define('#', ModItems.CANVAS.get())
 				.unlockedBy("has_canvas", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CANVAS.get()))
