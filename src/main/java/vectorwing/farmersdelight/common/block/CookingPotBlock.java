@@ -71,7 +71,7 @@ public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterlogge
             level.setBlockAndUpdate(pos, state.setValue(SUPPORT, state.getValue(SUPPORT).equals(CookingPotSupport.HANDLE)
                     ? getTrayState(level, pos) : CookingPotSupport.HANDLE));
             level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.7F, 1.0F);
-        } else if (!level.isClientSide) {
+        } else if (!level.isClientSide()) {
             BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof CookingPotBlockEntity cookingPotEntity) {
                 ItemStack servingStack = cookingPotEntity.useHeldItemOnMeal(heldStack);
@@ -191,7 +191,7 @@ public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
         if (tileEntity instanceof CookingPotBlockEntity) {
             ItemStackHandler inventory = ((CookingPotBlockEntity) tileEntity).getInventory();

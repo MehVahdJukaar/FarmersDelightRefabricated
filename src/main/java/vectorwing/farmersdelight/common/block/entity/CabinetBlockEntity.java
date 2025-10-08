@@ -46,7 +46,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 		protected void openerCountChanged(Level level, BlockPos pos, BlockState sta, int arg1, int arg2) {
 		}
 
-		protected boolean isOwnContainer(Player p_155060_) {
+		public boolean isOwnContainer(Player p_155060_) {
 			if (p_155060_.containerMenu instanceof ChestMenu) {
 				Container container = ((ChestMenu) p_155060_.containerMenu).getContainer();
 				return container == CabinetBlockEntity.this;
@@ -109,18 +109,6 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	@Override
 	protected AbstractContainerMenu createMenu(int id, Inventory player) {
 		return ChestMenu.threeRows(id, player, this);
-	}
-
-	public void startOpen(Player pPlayer) {
-		if (level != null && !this.remove && !pPlayer.isSpectator()) {
-			this.openersCounter.incrementOpeners(pPlayer, level, this.getBlockPos(), this.getBlockState());
-		}
-	}
-
-	public void stopOpen(Player pPlayer) {
-		if (level != null && !this.remove && !pPlayer.isSpectator()) {
-			this.openersCounter.decrementOpeners(pPlayer, level, this.getBlockPos(), this.getBlockState());
-		}
 	}
 
 	public void recheckOpen() {

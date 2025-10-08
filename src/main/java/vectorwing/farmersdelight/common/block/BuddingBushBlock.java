@@ -172,12 +172,11 @@ public class BuddingBushBlock extends VegetationBlock
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
+	protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean bl) {
 		if (entity instanceof Ravager && level instanceof ServerLevel serverLevel && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 			level.destroyBlock(pos, true, entity);
 		}
-
-		super.entityInside(state, level, pos, entity, effectApplier);
+		super.entityInside(state, level, pos, entity, effectApplier, bl);
 	}
 
 	protected ItemLike getBaseSeedId() {

@@ -76,7 +76,7 @@ public class StoveBlock extends BaseEntityBlock
 		if (state.getValue(LIT)) {
 			if (ItemAbility.SHOVEL_DIG.canPerformAction(heldStack)) {
 				extinguish(state, level, pos);
-				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+				heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 				return InteractionResult.SUCCESS;
 			} else if (heldStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 				if (!level.isClientSide()) {
@@ -92,7 +92,7 @@ public class StoveBlock extends BaseEntityBlock
 			if (heldItem instanceof FlintAndSteelItem) {
 				level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
 				level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
-				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+				heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 				return InteractionResult.SUCCESS;
 			} else if (heldItem instanceof FireChargeItem) {
 				level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (MathUtils.RAND.nextFloat() - MathUtils.RAND.nextFloat()) * 0.2F + 1.0F);
