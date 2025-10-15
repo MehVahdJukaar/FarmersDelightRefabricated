@@ -1,11 +1,9 @@
 package vectorwing.farmersdelight.client.renderer;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.item.DyeColor;
@@ -15,26 +13,20 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.phys.Vec3;
 import vectorwing.farmersdelight.common.registry.ModAtlases;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Stream;
-
 public class CanvasSignRenderer extends AbstractCanvasSignRenderer
 {
 	public static final float RENDER_SCALE = 0.6666667f;
 	private static final Vec3 TEXT_OFFSET = new Vec3(0.0, 0.3333333432674408, 0.046666666865348816);
-	private final Map<DyeColor, Models> signModels;
-
+	private final Models signModels;
 
 	public CanvasSignRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
-		this.signModels = Arrays.stream(DyeColor.values()).collect(ImmutableMap.toImmutableMap(dyeColor -> dyeColor, dyeColor -> new Models(SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, true), SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, false))));
+		this.signModels = new Models(SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, true), SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, false));
 	}
 
 	@Override
-	protected Model.Simple getSignModel(BlockState state, DyeColor dyeColor) {
-		Models models = this.signModels.get(dyeColor);
-		return state.getBlock() instanceof StandingSignBlock ? models.standing() : models.wall();
+	protected Model.Simple getSignModel(BlockState state) {
+		return state.getBlock() instanceof StandingSignBlock ? signModels.standing() : signModels.wall();
 	}
 
 	@Override

@@ -22,12 +22,13 @@ public class HangingCanvasSignRenderer extends AbstractCanvasSignRenderer
 
 	public HangingCanvasSignRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
-		this.hangingSignModels = Stream.of(HangingSignRenderer.AttachmentType.values()).collect(ImmutableMap.toImmutableMap(attachmentType -> attachmentType, (attachmentType) ->
-				HangingSignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, attachmentType)));
+		this.hangingSignModels = Stream.of(HangingSignRenderer.AttachmentType.values())
+                .collect(ImmutableMap.toImmutableMap(attachmentType -> attachmentType,
+                        (attachmentType) -> HangingSignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, attachmentType)));
 	}
 
 	@Override
-	protected Model.Simple getSignModel(BlockState state, DyeColor dyeColor) {
+	protected Model.Simple getSignModel(BlockState state) {
 		HangingSignRenderer.AttachmentType attachmentType = HangingSignRenderer.AttachmentType.byBlockState(state);
 		return this.hangingSignModels.get(attachmentType);
 	}
