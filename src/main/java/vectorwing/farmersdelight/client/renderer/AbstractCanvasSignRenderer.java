@@ -45,7 +45,7 @@ public abstract class AbstractCanvasSignRenderer
         this.materials = context.materials();
     }
 
-    protected abstract Model.Simple getSignModel(BlockState state, DyeColor dyeColor);
+    protected abstract Model.Simple getSignModel(BlockState state);
 
     protected abstract Material getSignMaterial(DyeColor dyeColor);
 
@@ -66,7 +66,7 @@ public abstract class AbstractCanvasSignRenderer
             dye = canvasSign.getBackgroundColor();
         }
 
-        Model.Simple simple = this.getSignModel(blockState, dye);
+        Model.Simple simple = this.getSignModel(blockState);
         this.submitSignWithText(renderState, poseStack, blockState, signBlock, dye, simple, renderState.breakProgress, nodeCollector);
     }
 

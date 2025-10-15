@@ -1,2 +1,1 @@
-- Updated to 1.21.10. Thank you to @DrexHD on GitHub for doing most of the porting. I (MerchantCalico) only picked up the loose ends.
-- Added Copper Knife with a placeholder texture by MerchantCalico.
+- Fixed a crash upon placing regular Canvas Signs. [#232](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/232)
