@@ -133,7 +133,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test EIV.
-//    modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
+//    modLocalRuntime("maven.modrinth:eiv:${eiv_version}-fabric") {
 //       exclude(group: "net.fabricmc.fabric-api")
 //    }
 }
