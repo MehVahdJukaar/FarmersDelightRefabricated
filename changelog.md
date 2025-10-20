@@ -1,1 +1,2 @@
-- Fixed a crash upon placing regular Canvas Signs. [#232](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/232)
+## Fixes
+- Fixed a crash within EIV integration when reloading the world. [#235](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/pull/235) - cassiancc
