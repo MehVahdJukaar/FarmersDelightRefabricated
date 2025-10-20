@@ -83,7 +83,7 @@ public class CuttingServerRecipe implements IEivServerRecipe {
 
     @Override
     public void loadFromTag(CompoundTag tag) {
-        this.results = EivTagUtil.readList(tag, "result", EivTagUtil::decodeItemStackOnServer);
+        this.results = EivTagUtil.readList(tag, "result", EivTagUtil::decodeItemStackOnClient);
         this.ingredient = EivTagUtil.readIngredient(tag.getCompound("ingredients").orElseGet(CompoundTag::new));
         this.tool = EivTagUtil.readIngredient(tag.getCompound("tool").orElseGet(CompoundTag::new));
         this.rollableResults = decodeRollableResult(tag.get("rollable_result"));
