@@ -30,6 +30,9 @@
     "mm:early_risers": [
       "vectorwing.farmersdelight.refabricated.FarmersDelightASM"
     ],
+    "jei_mod_plugin": [
+      "vectorwing.farmersdelight.integration.jei.JEIPlugin"
+    ],
     "rei_client": [
       "vectorwing.farmersdelight.integration.rei.client.ClientREIPlugin"
     ],
@@ -50,7 +53,7 @@
   "accessWidener": "${mod_id}.accesswidener",
   "depends": {
     "fabricloader": ">=0.16",
-    "fabric-api": "*",
+    "fabric-api": ">=0.137.0",
     "minecraft": "${minecraft_required}"
   }
 }
