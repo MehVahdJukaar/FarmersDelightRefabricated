@@ -8,8 +8,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -53,7 +53,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     }
 
     @Override
-    public RecipeType<DecompositionDummy> getRecipeType() {
+    public IRecipeType<DecompositionDummy> getRecipeType() {
         return FDRecipeTypes.DECOMPOSITION;
     }
 
@@ -75,10 +75,10 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
         List<ItemStack> accelerators = new ArrayList<>();
-        BuiltInRegistries.BLOCK.getTag(ModTags.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
+        BuiltInRegistries.BLOCK.get(ModTags.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);
+        builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).add(organicCompost);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).add(richSoil);
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 64, 54).addItemStacks(accelerators);
     }
 
@@ -91,15 +91,12 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     public void getTooltip(ITooltipBuilder tooltip, DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
             tooltip.add(translateKey(".light"));
-            return;
         }
         if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
             tooltip.add(translateKey(".fluid"));
-            return;
         }
         if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
             tooltip.add(translateKey(".accelerators"));
-            return;
         }
     }
 
