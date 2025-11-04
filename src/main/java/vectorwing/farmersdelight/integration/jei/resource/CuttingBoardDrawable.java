@@ -36,7 +36,7 @@ public class CuttingBoardDrawable implements IDrawable
 
 	@Override
 	public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
-        //FIXME
+        //FIXME - unused?
 		if (stack == null) {
 			stack = supplier.get();
 		}

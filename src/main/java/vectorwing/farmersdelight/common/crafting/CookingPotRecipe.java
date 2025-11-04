@@ -190,7 +190,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		private static CookingPotRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
 			String groupIn = buffer.readUtf();
 			CookingPotBookCategory tabIn = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
-			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list(6)).decode(buffer);
+			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
 			ItemStack outputIn = ItemStack.STREAM_CODEC.decode(buffer);
 			ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 			float experienceIn = buffer.readFloat();
@@ -201,7 +201,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {
 			buffer.writeUtf(recipe.group);
 			buffer.writeUtf(recipe.category != null ? recipe.category.toString() : "");
-			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list(6)).encode(buffer, recipe.inputItems);
+			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.inputItems);
 			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
 			ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.container);
 			buffer.writeFloat(recipe.experience);
