@@ -31,8 +31,7 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 {
 	private NonNullList<ItemStack> contents = NonNullList.withSize(27, ItemStack.EMPTY);
-	private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter()
-	{
+	private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
 		protected void onOpen(Level level, BlockPos pos, BlockState state) {
 			CabinetBlockEntity.this.playSound(state, ModSounds.BLOCK_CABINET_OPEN.get());
 			CabinetBlockEntity.this.updateBlockState(state, true);
@@ -109,6 +108,18 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	@Override
 	protected AbstractContainerMenu createMenu(int id, Inventory player) {
 		return ChestMenu.threeRows(id, player, this);
+	}
+
+	public void startOpen(Player pPlayer) {
+		if (level != null && !this.remove && !pPlayer.isSpectator()) {
+			this.openersCounter.incrementOpeners(pPlayer, level, this.getBlockPos(), this.getBlockState(), 0.5D);
+		}
+	}
+
+	public void stopOpen(Player pPlayer) {
+		if (level != null && !this.remove && !pPlayer.isSpectator()) {
+			this.openersCounter.decrementOpeners(pPlayer, level, this.getBlockPos(), this.getBlockState());
+		}
 	}
 
 	public void recheckOpen() {
