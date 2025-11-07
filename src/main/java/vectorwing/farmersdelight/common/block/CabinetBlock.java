@@ -46,7 +46,7 @@ public class CabinetBlock extends BaseEntityBlock
 			BlockEntity tile = level.getBlockEntity(pos);
 			if (tile instanceof CabinetBlockEntity cabinet) {
 				player.openMenu(cabinet);
-				cabinet.startOpen(player); // ✅ 手动调用
+				cabinet.startOpen(player); // Manually trigger the open event
 			}
 		}
 		return InteractionResult.SUCCESS;
