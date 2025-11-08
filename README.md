@@ -47,13 +47,8 @@ To do so, assuming you have a field in your gradle.properties named `fdrf_versio
 repositories {
     maven {
         name = "Greenhouse Maven"
-        url = 'https://repo.greenhouse.house/releases/'
+        url = 'https://maven.greenhouse.lgbt/releases/'
     }
-    maven {
-        name = "Greenhouse Maven"
-        url = 'https://repo.greenhouse.house/snapshots/' // Porting Lib Hotfixes
-    }
-    maven { url "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
     maven {
         url "https://jitpack.io/" // Fabric ASM
         content {
