@@ -25,7 +25,7 @@ public class DoughRecipeMaker
 		ItemStack output = new ItemStack(ModItems.WHEAT_DOUGH.get());
 		String path = FarmersDelight.MODID + ".dough";
 
-		ResourceLocation id = ResourceLocation.parse(path);
+		ResourceLocation id = FarmersDelight.res("wheat_dough_from_water");
 		return List.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), new ShapelessRecipe(path, CraftingBookCategory.MISC, output, inputs)));
 	}
 }

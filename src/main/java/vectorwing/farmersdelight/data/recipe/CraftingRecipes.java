@@ -36,7 +36,7 @@ public class CraftingRecipes
 		recipesFoodBlocks(holderGetter, output);
 		recipesCraftedMeals(holderGetter, output);
 		SpecialRecipeBuilder.special(FoodServingRecipe::new).save(output, "food_serving");
-		SpecialRecipeBuilder.special(DoughRecipe::new).save(output, "dough");
+		SpecialRecipeBuilder.special(DoughRecipe::new).save(output, ResourceKey.create(Registries.RECIPE, FarmersDelight.res("wheat_dough_from_water")));
 	}
 
 	public static void canvasSignDyeing(HolderGetter<Item> holderGetter, RecipeOutput output, ItemLike canvasSign, ItemLike hangingCanvasSign, TagKey<Item> dyeTag) {
@@ -587,7 +587,7 @@ public class CraftingRecipes
                 .requires(Items.WHEAT)
                 .requires(ConventionalItemTags.EGGS)
                 .unlockedBy("has_wheat", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHEAT))
-                .save(output);
+                .save(output, ResourceKey.create(Registries.RECIPE, FarmersDelight.res("wheat_dough_from_egg")));
 		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.FOOD, ModItems.PIE_CRUST.get(), 1)
 				.pattern("wMw")
 				.pattern(" w ")
