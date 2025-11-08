@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:tools/shields",
+    "#c:shields",
     {
       "id": "create:extendo_grip",
       "required": false
