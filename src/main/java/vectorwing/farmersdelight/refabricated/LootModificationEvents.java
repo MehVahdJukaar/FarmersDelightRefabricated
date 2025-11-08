@@ -78,8 +78,6 @@ public class LootModificationEvents {
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
-        if (!source.isBuiltin()) // Will return if the current loot table is modified via datapack.
-            return;
         chestLoot(key, tableBuilder, source, registries);
         scavengingLoot(key, tableBuilder, source, registries);
         slicingLoot(key, tableBuilder, source, registries);
