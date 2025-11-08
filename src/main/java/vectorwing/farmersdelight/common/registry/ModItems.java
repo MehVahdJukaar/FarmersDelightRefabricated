@@ -350,7 +350,7 @@ public class ModItems
 					super.registerBlocks(blockToItemMap, item);
 					blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
 				}
-			}, ModBlocks.TOMATO_CROP.get(), basicItem());
+			}, ModBlocks.BUDDING_TOMATO_CROP.get(), basicItem());
 	public static final Supplier<Item> ROTTEN_TOMATO = registerWithTab("rotten_tomato",
 			RottenTomatoItem::new, basicItem().stacksTo(16));
 
