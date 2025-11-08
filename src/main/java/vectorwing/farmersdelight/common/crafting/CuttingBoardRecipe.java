@@ -3,8 +3,8 @@ package vectorwing.farmersdelight.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -13,6 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
@@ -32,15 +33,21 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	private final Ingredient input;
 	private final Ingredient tool;
 	private final List<ChanceResult> results;
-	private final Optional<SoundEvent> soundEvent;
+    @Nullable
+	private final Holder<SoundEvent> soundEvent;
 
-	public CuttingBoardRecipe(String group, Ingredient input, Ingredient tool, List<ChanceResult> results, Optional<SoundEvent> soundEvent) {
+	public CuttingBoardRecipe(String group, Ingredient input, Ingredient tool, List<ChanceResult> results, @Nullable Holder<SoundEvent> soundEvent) {
 		this.group = group;
 		this.input = input;
 		this.tool = tool;
 		this.results = results;
 		this.soundEvent = soundEvent;
 	}
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    private CuttingBoardRecipe(String group, Ingredient input, Ingredient tool, List<ChanceResult> results, Optional<Holder<SoundEvent>> soundEvent) {
+        this(group, input, tool, results, soundEvent.orElse(null));
+    }
 
 	@Override
 	public boolean matches(CuttingBoardRecipeInput input, Level level) {
@@ -92,8 +99,12 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	}
 
 	public Optional<SoundEvent> getSoundEvent() {
-		return this.soundEvent;
+		return getSoundEventHolder().map(Holder::value);
 	}
+
+    public Optional<Holder<SoundEvent>> getSoundEventHolder() {
+        return Optional.ofNullable(this.soundEvent);
+    }
 
 	@Override
 	public RecipeSerializer<CuttingBoardRecipe> getSerializer() {
@@ -131,12 +142,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 
 	@Override
 	public int hashCode() {
-		int result = (group() != null ? group().hashCode() : 0);
-		result = 31 * result + input.hashCode();
-		result = 31 * result + getTool().hashCode();
-		result = 31 * result + getResults().hashCode();
-		result = 31 * result + (soundEvent.map(Object::hashCode).orElse(0));
-		return result;
+        return Objects.hash(group, input, tool, results, soundEvent);
 	}
 
 	public static class Serializer implements RecipeSerializer<CuttingBoardRecipe>
@@ -147,10 +153,10 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 		private static final MapCodec<CuttingBoardRecipe> CODEC = RecordCodecBuilder.mapCodec(
 				inst -> inst.group(Codec.STRING.optionalFieldOf("group", "").forGetter(CuttingBoardRecipe::group),
 								// List::getFirst does not compile...
-								Ingredient.CODEC.listOf(1, 1).fieldOf("ingredients").xmap(ingredients -> ingredients.get(0), List::of).forGetter(cuttingBoardRecipe -> cuttingBoardRecipe.input),
+								Ingredient.CODEC.listOf(1, 1).fieldOf("ingredients").xmap(List::getFirst, List::of).forGetter(cuttingBoardRecipe -> cuttingBoardRecipe.input),
 								Ingredient.CODEC.fieldOf("tool").forGetter(CuttingBoardRecipe::getTool),
 								ChanceResult.CODEC.listOf(1, MAX_RESULTS).fieldOf("result").forGetter(CuttingBoardRecipe::getRollableResults),
-								SoundEvent.DIRECT_CODEC.optionalFieldOf("sound").forGetter(CuttingBoardRecipe::getSoundEvent))
+								SoundEvent.CODEC.optionalFieldOf("sound").forGetter(CuttingBoardRecipe::getSoundEventHolder))
 						.apply(inst, CuttingBoardRecipe::new));
 
 		public Serializer() {
@@ -161,9 +167,9 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 			Ingredient inputItemIn = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
 			Ingredient toolIn = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
 			List<ChanceResult> resultsIn = ChanceResult.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-			Optional<SoundEvent> soundEventIn = ByteBufCodecs.optional(ByteBufCodecs.registry(Registries.SOUND_EVENT)).decode(buffer);
+			Optional<Holder<SoundEvent>> soundEventIn = SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buffer);
 
-			return new CuttingBoardRecipe(groupIn, inputItemIn, toolIn, resultsIn, soundEventIn);
+			return new CuttingBoardRecipe(groupIn, inputItemIn, toolIn, resultsIn, soundEventIn.orElse(null));
 		}
 
 		public static void toNetwork(RegistryFriendlyByteBuf buffer, CuttingBoardRecipe recipe) {
@@ -171,7 +177,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
 			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.tool);
 			ChanceResult.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.results);
-			ByteBufCodecs.optional(ByteBufCodecs.registry(Registries.SOUND_EVENT)).encode(buffer, recipe.soundEvent);
+            SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buffer, Optional.ofNullable(recipe.soundEvent));
 		}
 
 		@Override

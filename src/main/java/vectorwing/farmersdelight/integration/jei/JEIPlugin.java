@@ -6,7 +6,6 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.*;
-import net.fabricmc.fabric.api.client.recipe.v1.sync.ClientRecipeSynchronizedEvent;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +27,6 @@ import java.util.List;
 
 @JeiPlugin
 @MethodsReturnNonnullByDefault
-@SuppressWarnings("unused")
 public class JEIPlugin implements IModPlugin
 {
 	private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "jei_plugin");
@@ -47,7 +45,6 @@ public class JEIPlugin implements IModPlugin
         registration.addRecipes(FDRecipeTypes.COOKING, modRecipes.getCookingPotRecipes());
         registration.addRecipes(FDRecipeTypes.CUTTING, modRecipes.getCuttingBoardRecipes());
         registration.addRecipes(FDRecipeTypes.DECOMPOSITION, ImmutableList.of(new DecompositionDummy()));
-
 
 		registration.addRecipes(RecipeTypes.CRAFTING, DoughRecipeMaker.createRecipe());
 
