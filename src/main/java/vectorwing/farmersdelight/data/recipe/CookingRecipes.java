@@ -109,10 +109,10 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.BONE_BROTH.get(), 1, NORMAL_COOKING, SMALL_EXP)
-				.addIngredient(Items.BONE)
+				.addIngredient(ConventionalItemTags.BONES)
 				.addIngredient(DefaultCustomIngredients.any(
 						Ingredient.of(Items.GLOW_BERRIES),
-						Ingredient.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM),
+						Ingredient.of(ConventionalItemTags.MUSHROOMS),
 						Ingredient.of(Items.HANGING_ROOTS),
 						Ingredient.of(Items.GLOW_LICHEN)
 				))
