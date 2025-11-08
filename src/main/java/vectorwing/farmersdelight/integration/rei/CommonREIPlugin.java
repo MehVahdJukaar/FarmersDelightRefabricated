@@ -45,7 +45,7 @@ public class CommonREIPlugin implements REICommonPlugin {
                 .filterType(ModRecipeTypes.CUTTING.get())
                 .fill(CuttingDisplay::new);
         registry.add(new DecompositionDisplay());
-        registry.add(new DefaultShapelessDisplay(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, FarmersDelight.res("dough")), new ShapelessRecipe(
+        registry.add(new DefaultShapelessDisplay(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, FarmersDelight.res("wheat_dough_from_water")), new ShapelessRecipe(
                 "farmersdelight.dough",
                 CraftingBookCategory.MISC,
                 new ItemStack(ModItems.WHEAT_DOUGH.get()),
