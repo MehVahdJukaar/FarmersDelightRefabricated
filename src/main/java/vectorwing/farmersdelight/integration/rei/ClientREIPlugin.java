@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.rei;
 
-import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -11,6 +10,7 @@ import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandle
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapelessDisplay;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -45,7 +45,10 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CuttingBoardRecipe.class, ModRecipeTypes.CUTTING.get(), CuttingDisplay::new);
         registry.add(new DecompositionDisplay());
 
-        registry.add(getSpecialWheatDoughRecipe(registry.getRecipeManager()));
+        ShapelessRecipe specialWheatDoughRecipe = getSpecialWheatDoughRecipe(registry.getRecipeManager());
+        if (specialWheatDoughRecipe != null) {
+            registry.add(new DefaultShapelessDisplay(specialWheatDoughRecipe));
+        }
 
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.WHEAT_DOUGH.get()), Component.translatable("item.farmersdelight.wheat_dough")).lines(TextUtils.getTranslation("jei.info.dough")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.STRAW.get()), Component.translatable("item.farmersdelight.straw")).lines(TextUtils.getTranslation("jei.info.straw")));
@@ -83,11 +86,10 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.register(SimpleTransferHandler.create(CookingPotMenu.class, REICategoryIdentifiers.COOKING, new SimpleTransferHandler.IntRange(0, 6)));
     }
 
-    public List<RecipeHolder<CraftingRecipe>> getSpecialWheatDoughRecipe(RecipeManager recipeManager) {
+    public ShapelessRecipe getSpecialWheatDoughRecipe(RecipeManager recipeManager) {
         Optional<? extends Recipe<?>> specialRecipe = recipeManager.byKey(FarmersDelight.res("wheat_dough_from_water"));
-        List<CraftingRecipe> recipes = Lists.newArrayList();
 
-        specialRecipe.ifPresent((recipe) -> {
+        return specialRecipe.map((recipe) -> {
             NonNullList<Ingredient> inputs = NonNullList.of(
                     Ingredient.EMPTY,
                     Ingredient.of(Items.WHEAT),
@@ -96,9 +98,7 @@ public class ClientREIPlugin implements REIClientPlugin {
             ItemStack output = new ItemStack(ModItems.WHEAT_DOUGH.get());
 
             ResourceLocation id = recipe.getId();
-            recipes.add(new ShapelessRecipe(id, "fd_dough", CraftingBookCategory.MISC, output, inputs));
-        });
-
-        return recipes;
+            return new ShapelessRecipe(id, "fd_dough", CraftingBookCategory.MISC, output, inputs);
+        }).orElse(null);
     }
 }
