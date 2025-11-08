@@ -40,20 +40,15 @@ You may report any bugs to [Fabricators-Of-Create/Porting-Lib](https://github.co
 Porting Lib is also not ABI stable as of right now, things could break between updates. Please report any breakage from updated Porting Libs to us.
 
 ### Depending on Farmer's Delight Refabricated
-Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://repo.greenhouse.house/).
+Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://maven.greenhouse.lgbt/).
 
 To do so, assuming you have a field in your gradle.properties named `fdrf_version`.
 ```groovy
 repositories {
     maven {
         name = "Greenhouse Maven"
-        url = 'https://repo.greenhouse.house/releases/'
+        url = 'https://maven.greenhouse.lgbt/releases/'
     }
-    maven {
-        name = "Greenhouse Maven"
-        url = 'https://repo.greenhouse.house/snapshots/' // Porting Lib Hotfixes
-    }
-    maven { url "https://mvn.devos.one/snapshots/" } // Porting Lib Betas
     maven {
         url "https://jitpack.io/" // Fabric ASM
         content {
