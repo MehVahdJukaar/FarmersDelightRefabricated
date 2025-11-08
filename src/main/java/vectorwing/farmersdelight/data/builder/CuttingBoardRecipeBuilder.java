@@ -21,15 +21,13 @@ import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 
-import java.util.Optional;
-
 @MethodsReturnNonnullByDefault
 public class CuttingBoardRecipeBuilder implements RecipeBuilder
 {
 	private final NonNullList<ChanceResult> results = NonNullList.createWithCapacity(4);
 	private final Ingredient ingredient;
 	private final Ingredient tool;
-	private SoundEvent soundEvent;
+	private Holder<SoundEvent> soundEvent;
 
 	private CuttingBoardRecipeBuilder(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, float chance) {
 		this.results.add(new ChanceResult(new ItemStack(mainResult.asItem(), count), chance));
@@ -76,7 +74,12 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 		return this;
 	}
 
-	public CuttingBoardRecipeBuilder addSound(SoundEvent soundEvent) {
+    public CuttingBoardRecipeBuilder addSound(SoundEvent soundEvent) {
+        this.soundEvent = BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent);
+        return this;
+    }
+
+	public CuttingBoardRecipeBuilder addSound(Holder<SoundEvent> soundEvent) {
 		this.soundEvent = soundEvent;
 		return this;
 	}
@@ -123,7 +126,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 				this.ingredient,
 				this.tool,
 				this.results,
-				this.soundEvent == null ? Optional.empty() : Optional.of(this.soundEvent)
+				this.soundEvent
 		);
 		output.accept(resourceKey, recipe, null);
 	}

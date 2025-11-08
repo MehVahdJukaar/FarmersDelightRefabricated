@@ -200,7 +200,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {
 			buffer.writeUtf(recipe.group);
-			buffer.writeUtf(recipe.category != null ? recipe.category.toString() : "");
+            CookingPotBookCategory.STREAM_CODEC.encode(buffer, recipe.category);
 			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.inputItems);
 			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
 			ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.container);
