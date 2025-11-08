@@ -3,18 +3,24 @@ package vectorwing.farmersdelight.integration.emi;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
+import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.integration.emi.handler.CookingPotEmiRecipeHandler;
 import vectorwing.farmersdelight.integration.emi.recipe.CookingPotEmiRecipe;
 import vectorwing.farmersdelight.integration.emi.recipe.CuttingEmiRecipe;
 import vectorwing.farmersdelight.integration.emi.recipe.DecompositionEmiRecipe;
+
+import java.util.List;
 
 @EmiEntrypoint
 public class EMIPlugin implements EmiPlugin {
@@ -28,6 +34,8 @@ public class EMIPlugin implements EmiPlugin {
         registry.addWorkstation(FDRecipeCategories.COOKING, FDRecipeWorkstations.COOKING_POT);
         registry.addWorkstation(FDRecipeCategories.CUTTING, FDRecipeWorkstations.CUTTING_BOARD);
         registry.addRecipeHandler(ModMenuTypes.COOKING_POT.get(), new CookingPotEmiRecipeHandler());
+
+        registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(Items.WHEAT), EmiStack.of(Items.WATER_BUCKET)), EmiStack.of(ModItems.WHEAT_DOUGH.get()), FarmersDelight.res("wheat_dough_from_water"), true));
 
         for (RecipeHolder<CookingPotRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COOKING.get())) {
             registry.addRecipe(new CookingPotEmiRecipe(recipe.id(), recipe.value().getIngredients().stream().map(EmiIngredient::of).toList(),

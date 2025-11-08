@@ -1,3 +1,6 @@
+## Compatibility
+- Added now hardcoded Wheat Dough from Water recipe to REI and EMI compatibility.
+
 ## Bugfixes
 - Fixed loot modifications (primarily for Chest Loot and Knife Loot) not running if a data pack has changed the table.
   - If there is demand for it, we may add a way to disable the Knife loot changes through config.
