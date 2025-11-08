@@ -1,3 +1,6 @@
+# Refabricated Changelog
+- Merged changes from 1.21.1 branch and 1.2.9.
+
 # Changelog
 
 ## 1.2.9
