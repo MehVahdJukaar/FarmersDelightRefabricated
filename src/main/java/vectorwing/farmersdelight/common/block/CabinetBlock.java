@@ -44,8 +44,9 @@ public class CabinetBlock extends BaseEntityBlock
 	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
 		if (!level.isClientSide()) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof CabinetBlockEntity) {
-				player.openMenu((CabinetBlockEntity) tile);
+			if (tile instanceof CabinetBlockEntity cabinet) {
+				player.openMenu(cabinet);
+				cabinet.startOpen(player); // Manually trigger the open event
 			}
 		}
 		return InteractionResult.SUCCESS;
