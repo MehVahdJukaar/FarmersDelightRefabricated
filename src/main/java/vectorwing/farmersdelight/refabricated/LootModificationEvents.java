@@ -27,6 +27,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.PieBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -85,6 +86,9 @@ public class LootModificationEvents {
     }
 
     private static void chestLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
+        if (!Configuration.GENERATE_FD_CHEST_LOOT.get())
+            return;
+
         if (key == BuiltInLootTables.ABANDONED_MINESHAFT)
             tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_ABANDONED_MINESHAFT)));
 
