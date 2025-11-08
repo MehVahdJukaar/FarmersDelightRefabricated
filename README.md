@@ -27,12 +27,6 @@ Thank you for visiting the repository! If you'd like to contribute with the mod,
 
 I am open to constructive feedback about the mod's code: if you spot any glaring mistakes in my code, and/or you know a better way to accomplish something, feel free to open an issue/PR about it. Any help is appreciated!
 
-### Information regarding addons/the project relating to Farmer's Delight Fabric
-
-[Differences between the two codebases.](./information/Differences.md)
-
-[Addons/Integration support for both ports.](./information/Addons_And_Integrations.md)
-
 ### Note on Porting Lib 
 **Porting Lib for 1.21.1 is in beta**. Please be considerate when reporting bugs to them.
 You may report any bugs to [Fabricators-Of-Create/Porting-Lib](https://github.com/Fabricators-of-Create/Porting-Lib)
@@ -40,7 +34,7 @@ You may report any bugs to [Fabricators-Of-Create/Porting-Lib](https://github.co
 Porting Lib is also not ABI stable as of right now, things could break between updates. Please report any breakage from updated Porting Libs to us.
 
 ### Depending on Farmer's Delight Refabricated
-Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://repo.greenhouse.house/).
+Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://maven.greenhouse.lgbt/).
 
 To do so, assuming you have a field in your gradle.properties named `fdrf_version`.
 ```groovy
