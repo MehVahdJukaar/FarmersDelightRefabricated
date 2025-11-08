@@ -59,8 +59,6 @@ repositories {
 dependencies {
     modImplementation("vectorwing:FarmersDelight:${fdrf_version}") {
         exclude(group: "net.fabricmc")
-        // exclude(group: "io.github.fabricators-of-create") 
-        // If you want to exclude Porting Lib to instead provide your own version of Porting Lib, uncomment the above line..
     }
 }
 ```
