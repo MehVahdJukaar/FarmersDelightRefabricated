@@ -72,7 +72,7 @@ public class CuttingServerRecipe implements IEivServerRecipe {
         if (providedTag instanceof ListTag listTag) {
             for (Tag tag : listTag) {
                 CompoundTag compoundTag = tag.asCompound().orElseGet(CompoundTag::new);
-                var stack = EivTagUtil.decodeItemStackOnServer(compoundTag.getCompoundOrEmpty("item"));
+                var stack = EivTagUtil.decodeItemStackOnClient(compoundTag.getCompoundOrEmpty("item"));
                 var chance = compoundTag.getFloatOr("chance", 1);
                 ChanceResult chanceResult = new ChanceResult(stack, chance);
                 list.add(chanceResult);
