@@ -1,8 +1,5 @@
 package vectorwing.farmersdelight.integration.rei;
 
-import com.google.common.collect.Lists;
-import dev.emi.emi.api.recipe.EmiCraftingRecipe;
-import dev.emi.emi.api.stack.EmiStack;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -13,12 +10,9 @@ import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandle
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapelessDisplay;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,8 +35,6 @@ import vectorwing.farmersdelight.integration.rei.display.DecompositionDisplay;
 import java.util.List;
 import java.util.Optional;
 
-;
-
 public class ClientREIPlugin implements REIClientPlugin {
 
     @Override
@@ -51,8 +43,12 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CuttingBoardRecipe.class, ModRecipeTypes.CUTTING.get(), CuttingDisplay::new);
         registry.add(new DecompositionDisplay());
 
-        registry.add(getSpecialWheatDoughRecipe(registry.getRecipeManager()));
+        RecipeHolder<ShapelessRecipe> recipeHolder = getSpecialWheatDoughRecipe(registry.getRecipeManager());
+        if (recipeHolder != null) {
+            registry.add(new DefaultShapelessDisplay(recipeHolder));
+        }
 
+        registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.WHEAT_DOUGH.get()), Component.translatable("item.farmersdelight.wheat_dough")).lines(TextUtils.getTranslation("jei.info.dough")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.STRAW.get()), Component.translatable("item.farmersdelight.straw")).lines(TextUtils.getTranslation("jei.info.straw")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.HAM.get()), Component.translatable("item.farmersdelight.ham")).lines(TextUtils.getTranslation("jei.info.ham")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.NETHERITE_KNIFE.get(), ModItems.GOLDEN_KNIFE.get())), Component.translatable("tag.item.farmersdelight.tools.knives")).lines(TextUtils.getTranslation("jei.info.knife")));
@@ -88,11 +84,10 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.register(SimpleTransferHandler.create(CookingPotMenu.class, REICategoryIdentifiers.COOKING, new SimpleTransferHandler.IntRange(0, 6)));
     }
 
-    public List<RecipeHolder<CraftingRecipe>> getSpecialWheatDoughRecipe(RecipeManager recipeManager) {
+    public RecipeHolder<ShapelessRecipe> getSpecialWheatDoughRecipe(RecipeManager recipeManager) {
         Optional<RecipeHolder<?>> specialRecipe = recipeManager.byKey(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "wheat_dough_from_water"));
-        List<RecipeHolder<CraftingRecipe>> recipes = Lists.newArrayList();
 
-        specialRecipe.ifPresent((recipe) -> {
+        return specialRecipe.map((recipe) -> {
             NonNullList<Ingredient> inputs = NonNullList.of(
                     Ingredient.EMPTY,
                     Ingredient.of(Items.WHEAT),
@@ -101,10 +96,8 @@ public class ClientREIPlugin implements REIClientPlugin {
             ItemStack output = new ItemStack(ModItems.WHEAT_DOUGH.get());
 
             ResourceLocation id = recipe.id();
-            CraftingRecipe newRecipe = new ShapelessRecipe("fd_dough", CraftingBookCategory.MISC, output, inputs);
-            recipes.add(new RecipeHolder<>(id, newRecipe));
-        });
-
-        return recipes;
+            ShapelessRecipe newRecipe = new ShapelessRecipe("fd_dough", CraftingBookCategory.MISC, output, inputs);
+            return new RecipeHolder<>(id, newRecipe);
+        }).orElse(null);
     }
 }
