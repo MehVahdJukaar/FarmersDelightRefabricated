@@ -47,6 +47,7 @@ public class ClientREIPlugin implements REIClientPlugin {
 
         registry.add(getSpecialWheatDoughRecipe(registry.getRecipeManager()));
 
+        registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.WHEAT_DOUGH.get()), Component.translatable("item.farmersdelight.wheat_dough")).lines(TextUtils.getTranslation("jei.info.dough")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.STRAW.get()), Component.translatable("item.farmersdelight.straw")).lines(TextUtils.getTranslation("jei.info.straw")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.of(ModItems.HAM.get()), Component.translatable("item.farmersdelight.ham")).lines(TextUtils.getTranslation("jei.info.ham")));
         registry.add(DefaultInformationDisplay.createFromEntries(EntryIngredients.ofItems(List.of(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.NETHERITE_KNIFE.get(), ModItems.GOLDEN_KNIFE.get())), Component.translatable("tag.item.farmersdelight.tools.knives")).lines(TextUtils.getTranslation("jei.info.knife")));
