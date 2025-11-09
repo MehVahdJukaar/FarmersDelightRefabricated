@@ -37,7 +37,7 @@ public class CanvasSignRendererInterface extends SignRenderer implements ICanvas
 	}
 
 	@Override
-	public void render(SignBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
+	public void render(SignBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		BlockState state = blockEntity.getBlockState();
 		SignBlock block = (SignBlock) state.getBlock();
 		Model model = block instanceof StandingSignBlock ? signModels.standing : signModels.wall;

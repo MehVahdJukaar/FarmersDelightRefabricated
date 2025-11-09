@@ -67,8 +67,8 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
-		isItemCarvingBoard = compound.getBooleanOr("IsItemCarved", false);
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		isItemCarvingBoard = compound.getBoolean("IsItemCarved");
+		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
 	}
 
 	@Override
@@ -76,16 +76,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		super.saveAdditional(compound, registries);
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		compound.putBoolean("IsItemCarved", isItemCarvingBoard);
-	}
-
-	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoard) {
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), cuttingBoard.getStoredItem());
-		}
-
-		super.preRemoveSideEffects(pos, state);
 	}
 
 	public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {

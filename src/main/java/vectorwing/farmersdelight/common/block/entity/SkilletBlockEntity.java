@@ -125,10 +125,10 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
-		cookingTime = compound.getIntOr("CookTime", 0);
-		cookingTimeTotal = compound.getIntOr("CookTimeTotal", 0);
-		skilletStack = ItemStack.parse(registries, compound.getCompoundOrEmpty("Skillet")).orElse(ItemStack.EMPTY);
+		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+		cookingTime = compound.getInt("CookTime");
+		cookingTimeTotal = compound.getInt("CookTimeTotal");
+		skilletStack = ItemStack.parse(registries, compound.getCompound("Skillet")).orElse(ItemStack.EMPTY);
 		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
 	}
 
@@ -141,15 +141,6 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		if (!skilletStack.isEmpty()) {
 			compound.put("Skillet", skilletStack.save(registries));
 		}
-	}
-
-	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		if (this instanceof SkilletBlockEntity && level != null) {
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(0));
-		}
-
-		super.preRemoveSideEffects(pos, state);
 	}
 
 	public ItemStack getSkilletAsItem() {

@@ -84,7 +84,5 @@ public class FarmersDelight implements ModInitializer
 
 		CompostableHelper.apply();
 
-		ServerPlayerEvents.JOIN.register(serverPlayer ->
-				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION))));
 	}
 }

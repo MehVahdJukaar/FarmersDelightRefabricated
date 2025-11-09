@@ -43,7 +43,7 @@ public class CommonModBusEvents
 				context.modify(item, builder -> {
 					List<MobEffectInstance> effects = new ArrayList<>();
 					if (item == Items.RABBIT_STEW && Configuration.RABBIT_STEW_BUFF.get()) {
-						effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 200, 1));
+						effects.add(new MobEffectInstance(MobEffects.JUMP, 200, 1));
 					}
 					builder.set(DataComponents.CONSUMABLE, addVanillaSoupEffect(builder, item, effects));
 				});

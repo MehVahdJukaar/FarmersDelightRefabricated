@@ -48,17 +48,17 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 		if (tag.contains("Inventory")) {
-			inventory.deserializeNBT(registries, tag.getCompoundOrEmpty("Inventory"));
+			inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
 		} else {
 			inventory.deserializeNBT(registries, tag);
 		}
-		if (tag.getIntArray("CookingTimes").isPresent()) {
-			int[] arrayCookingTimes = tag.getIntArray("CookingTimes").get();
+		if (tag.contains("CookingTimes")) {
+			int[] arrayCookingTimes = tag.getIntArray("CookingTimes");
 			System.arraycopy(arrayCookingTimes, 0, cookingTimes, 0, Math.min(cookingTimesTotal.length, arrayCookingTimes.length));
 		}
 
-		if (tag.getIntArray("CookingTotalTimes").isPresent()) {
-			int[] arrayCookingTimesTotal = tag.getIntArray("CookingTotalTimes").get();
+		if (tag.contains("CookingTotalTimes")) {
+			int[] arrayCookingTimesTotal = tag.getIntArray("CookingTotalTimes");
 			System.arraycopy(arrayCookingTimesTotal, 0, cookingTimesTotal, 0, Math.min(cookingTimesTotal.length, arrayCookingTimesTotal.length));
 		}
 	}
@@ -74,16 +74,6 @@ public class StoveBlockEntity extends SyncedBlockEntity
 		super.saveAdditional(compound, registries);
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		return compound;
-	}
-
-	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof StoveBlockEntity) {
-			ItemUtils.dropItems(level, pos, ((StoveBlockEntity) tileEntity).getInventory());
-		}
-
-		super.preRemoveSideEffects(pos, state);
 	}
 
 	public static void cookingTick(ServerLevel level, BlockPos pos, BlockState state, StoveBlockEntity stove) {

@@ -73,15 +73,6 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof Container) {
-			Containers.dropContents(level, pos, (Container) tileEntity);
-		}
-		super.preRemoveSideEffects(pos, state);
-	}
-
-	@Override
 	public void setItem(int index, ItemStack stack) {
 		this.unpackLootTable(null);
 		this.getItems().set(index, stack);

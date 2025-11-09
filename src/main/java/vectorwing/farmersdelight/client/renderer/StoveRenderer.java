@@ -22,7 +22,7 @@ public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 	}
 
 	@Override
-	public void render(StoveBlockEntity stoveEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn, Vec3 cameraPos) {
+	public void render(StoveBlockEntity stoveEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {
 		Direction direction = stoveEntity.getBlockState().getValue(StoveBlock.FACING).getOpposite();
 
 		ItemStackHandler inventory = stoveEntity.getInventory();

@@ -257,10 +257,10 @@ public class FoodValues
 				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0)))
 				.build();
 		public static final Consumable CAKE_SLICE = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 400, 0, false, false), 1.0F))
+				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 0, false, false), 1.0F))
 				.build();
 		public static final Consumable PIE_SLICE = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 600, 0, false, false), 1.0F))
+				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 0, false, false), 1.0F))
 				.build();
 		public static final Consumable CHICKEN_CUTS = Consumables.defaultFood()
 				.consumeSeconds(0.8F)
@@ -273,7 +273,7 @@ public class FoodValues
 				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F))
 				.build();
 		public static final Consumable NETHER_SALAD = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NAUSEA, 240, 0), 0.3F))
+				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.CONFUSION, 240, 0), 0.3F))
 				.build();
 		public static final Consumable MIXED_SALAD = Consumables.defaultFood()
 				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F))

@@ -24,8 +24,8 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity>
 	public SkilletRenderer(BlockEntityRendererProvider.Context context) {
 	}
 
-	@Override
-	public void render(SkilletBlockEntity skilletEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay, Vec3 cameraPos) {
+    @Override
+    public void render(SkilletBlockEntity skilletEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
 		Direction direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
 		ItemStackHandler inventory = skilletEntity.getInventory();
 		int posLong = (int) skilletEntity.getBlockPos().asLong();

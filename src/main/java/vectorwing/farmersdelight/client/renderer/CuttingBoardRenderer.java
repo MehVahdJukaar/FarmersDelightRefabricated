@@ -25,7 +25,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 	}
 
 	@Override
-	public void render(CuttingBoardBlockEntity cuttingBoardEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay, Vec3 cameraPos) {
+	public void render(CuttingBoardBlockEntity cuttingBoardEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
 		Direction direction = cuttingBoardEntity.getBlockState().getValue(CuttingBoardBlock.FACING).getOpposite();
 		ItemStack boardStack = cuttingBoardEntity.getStoredItem();
 		int posLong = (int) cuttingBoardEntity.getBlockPos().asLong();
@@ -33,7 +33,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		if (!boardStack.isEmpty()) {
 			poseStack.pushPose();
 
-			itemModelResolver.updateForTopItem(renderState, boardStack, ItemDisplayContext.FIXED, cuttingBoardEntity.getLevel(), null, posLong);
+			itemModelResolver.updateForTopItem(renderState, boardStack, ItemDisplayContext.FIXED, false, cuttingBoardEntity.getLevel(), null, posLong);
 
 			if (cuttingBoardEntity.isItemCarvingBoard()) {
 				renderItemCarved(poseStack, direction, boardStack);

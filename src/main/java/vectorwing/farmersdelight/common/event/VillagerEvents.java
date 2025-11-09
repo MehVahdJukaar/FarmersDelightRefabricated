@@ -39,12 +39,12 @@ public class VillagerEvents
 	 */
 	public static void onWandererTrades() {
 		if (Configuration.WANDERING_TRADER_SELLS_FD_ITEMS.get()) {
-			TradeOfferHelper.registerWanderingTraderOffers(trades -> {
-				trades.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.BUY_ITEMS_POOL,
-						itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 12, 1),
-						itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 12, 1),
-						itemForEmeraldTrade(ModItems.RICE.get(), 12, 1));
-			});
+            TradeOfferHelper.registerWanderingTraderOffers(1, (trades) -> {
+                trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12));
+                trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12));
+                trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12));
+                trades.add(itemForEmeraldTrade(ModItems.ONION.get(), 1, 12));
+            });
 		}
 	}
 
