@@ -100,9 +100,4 @@ public class CabinetBlock extends BaseEntityBlock
 	public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
-
-	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		Containers.updateNeighboursAfterDestroy(state, level, pos);
-	}
 }

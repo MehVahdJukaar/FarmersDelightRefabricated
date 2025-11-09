@@ -11,7 +11,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.Tool;
-import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -91,8 +90,8 @@ public class ModItems
 						List.of(
 								Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
 								Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.MINEABLE_WITH_KNIFE), material.speed())
-						), 1.0F, 1, false))
-				.component(DataComponents.WEAPON, new Weapon(2));
+						), 1.0F, 1))
+				;
 	}
 
 	public static Item.Properties foodItem(FoodProperties food) {
@@ -136,8 +135,8 @@ public class ModItems
 					.repairable(SkilletItem.SKILLET_MATERIAL.repairItems())
 					.enchantable(SkilletItem.SKILLET_MATERIAL.enchantmentValue())
 					.attributes(SkilletItem.createAttributes(SkilletItem.SKILLET_MATERIAL, 5.0F, -3.1F))
-					.component(DataComponents.TOOL, new Tool(Collections.emptyList(), 1.0F, 1, false))
-					.component(DataComponents.WEAPON, new Weapon(1)));
+					.component(DataComponents.TOOL, new Tool(Collections.emptyList(), 1.0F, 1))
+                    );
 	public static final Supplier<Item> CUTTING_BOARD = registerFuelBlockWithTab("cutting_board",
 			ModBlocks.CUTTING_BOARD.get(), basicItem(), 200);
 	public static final Supplier<Item> BASKET = registerFuelBlockWithTab("basket",

@@ -103,7 +103,7 @@ public class CookingRecipes
 				.addIngredient(Items.POTATO)
 				.addIngredient(ConventionalItemTags.EGGS)
 				.addIngredient(CommonTags.CROPS_TOMATO)
-				.unlockedByAnyIngredient(Items.COD, Items.POTATO, ModItems.TOMATO.get(), Items.EGG, Items.BLUE_EGG, Items.BROWN_EGG)
+				.unlockedByAnyIngredient(Items.COD, Items.POTATO, ModItems.TOMATO.get(), Items.EGG)
 				.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.BEEF_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)

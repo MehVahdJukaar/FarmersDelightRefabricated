@@ -76,15 +76,6 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	}
 
 	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof Container) {
-			Containers.dropContents(level, pos, (Container) tileEntity);
-		}
-		super.preRemoveSideEffects(pos, state);
-	}
-
-	@Override
 	public int getContainerSize() {
 		return 27;
 	}

@@ -237,7 +237,7 @@ public class ModBlocks
             SandyShrubBlock::new, Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 
 	public static final Supplier<Block> WILD_CABBAGES = regBlock("wild_cabbages",
-			(properties) -> new WildCropBlock(MobEffects.STRENGTH, 6, properties),
+			(properties) -> new WildCropBlock(MobEffects.DAMAGE_BOOST, 6, properties),
 			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_ONIONS = regBlock("wild_onions",
 			(properties) -> new WildCropBlock(MobEffects.FIRE_RESISTANCE, 6, properties),
@@ -246,10 +246,10 @@ public class ModBlocks
 			(properties) -> new WildCropBlock(MobEffects.POISON, 10, properties),
 			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_CARROTS = regBlock("wild_carrots",
-			(properties) -> new WildCropBlock(MobEffects.MINING_FATIGUE, 6, properties),
+			(properties) -> new WildCropBlock(MobEffects.DIG_SLOWDOWN, 6, properties),
 			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_POTATOES = regBlock("wild_potatoes",
-			(properties) -> new WildCropBlock(MobEffects.NAUSEA, 8, properties),
+			(properties) -> new WildCropBlock(MobEffects.CONFUSION, 8, properties),
 			Block.Properties.ofFullCopy(Blocks.TALL_GRASS));
 	public static final Supplier<Block> WILD_BEETROOTS = regBlock("wild_beetroots",
 			(properties) -> new WildCropBlock(MobEffects.WATER_BREATHING, 8, properties),

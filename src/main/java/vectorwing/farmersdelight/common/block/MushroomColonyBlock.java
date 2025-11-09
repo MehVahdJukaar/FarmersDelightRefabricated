@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,7 +35,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.SoilUtils;
 
 @SuppressWarnings("deprecation")
-public class MushroomColonyBlock extends VegetationBlock implements BonemealableBlock
+public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 {
 	public static final MapCodec<MushroomColonyBlock> CODEC = RecordCodecBuilder.mapCodec(
 			builder -> builder.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("mushroom").forGetter(block -> block.mushroomType), propertiesCodec())
@@ -69,7 +69,7 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	}
 
 	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
+	protected MapCodec<? extends BushBlock> codec() {
 		return CODEC;
 	}
 

@@ -14,10 +14,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -64,8 +64,6 @@ import static java.util.Map.entry;
 
 public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, HeatableBlockEntity, Nameable, RecipeCraftingHolder
 {
-	private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
-
 	public static final int MEAL_DISPLAY_SLOT = 6;
 	public static final int CONTAINER_SLOT = 7;
 	public static final int OUTPUT_SLOT = 8;
@@ -99,7 +97,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	private Component customName;
 
 	protected final ContainerData cookingPotData;
-	private final Object2IntOpenHashMap<ResourceKey<Recipe<?>>> usedRecipeTracker;
+    private final Object2IntOpenHashMap<ResourceKey<Recipe<?>>> usedRecipeTracker;
 
 	private final RecipeManager.CachedCheck<RecipeWrapper, CookingPotRecipe> quickCheck;
 
@@ -160,45 +158,43 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.loadAdditional(compound, registries);
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
-		cookTime = compound.getIntOr("CookTime", 0);
-		cookTimeTotal = compound.getIntOr("CookTimeTotal", 0);
-		if (compound.getCompound("Container").isPresent()) {
-			mealContainerStack = ItemStack.parse(registries, compound.getCompound("Container").get()).orElse(ItemStack.EMPTY);
-		}
-		if (compound.getString("CustomName").isPresent()) {
-			customName = Component.Serializer.fromJson(compound.getString("CustomName").get(), registries);
-		}
-		usedRecipeTracker.clear();
-		usedRecipeTracker.putAll(compound.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Collections.emptyMap()));
+        super.loadAdditional(compound, registries);
+        inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+        cookTime = compound.getInt("CookTime");
+        cookTimeTotal = compound.getInt("CookTimeTotal");
+        mealContainerStack = ItemStack.parseOptional(registries, compound.getCompound("Container"));
+        if (compound.contains("CustomName", 8)) {
+            customName = Component.Serializer.fromJson(compound.getString("CustomName"), registries);
+        }
+        CompoundTag compoundRecipes = compound.getCompound("RecipesUsed");
+        for (String key : compoundRecipes.getAllKeys()) {
+            usedRecipeTracker.put(ResourceKey.create(Registries.RECIPE, ResourceLocation.parse(key)), compoundRecipes.getInt(key));
+        };
 	}
 
 	@Override
 	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.saveAdditional(compound, registries);
-		compound.putInt("CookTime", cookTime);
-		compound.putInt("CookTimeTotal", cookTimeTotal);
-		if (!mealContainerStack.isEmpty()) {
-			compound.put("Container", mealContainerStack.save(registries));
-		}
-		if (customName != null) {
-			compound.putString("CustomName", Component.Serializer.toJson(customName, registries));
-		}
-		compound.put("Inventory", inventory.serializeNBT(registries));
-		CompoundTag compoundRecipes = new CompoundTag();
-		usedRecipeTracker.forEach((recipeId, craftedAmount) -> compoundRecipes.putInt(recipeId.toString(), craftedAmount));
-		compound.put("RecipesUsed", compoundRecipes);
+        super.saveAdditional(compound, registries);
+        compound.putInt("CookTime", cookTime);
+        compound.putInt("CookTimeTotal", cookTimeTotal);
+        compound.put("Container", mealContainerStack.saveOptional(registries));
+        if (customName != null) {
+            compound.putString("CustomName", Component.Serializer.toJson(customName, registries));
+        }
+        compound.put("Inventory", inventory.serializeNBT(registries));
+        CompoundTag compoundRecipes = new CompoundTag();
+        usedRecipeTracker.forEach((recipeId, craftedAmount) -> compoundRecipes.putInt(recipeId.toString(), craftedAmount));
+        compound.put("RecipesUsed", compoundRecipes);
 	}
 
-	@Override
+
 	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
 		BlockEntity tileEntity = level.getBlockEntity(pos);
 		if (tileEntity instanceof CookingPotBlockEntity cookingPotEntity && level instanceof ServerLevel serverLevel) {
 			Containers.dropContents(level, pos, cookingPotEntity.getDroppableInventory());
 			cookingPotEntity.getUsedRecipesAndPopExperience(serverLevel, Vec3.atCenterOf(pos));
 		}
-		super.preRemoveSideEffects(pos, state);
+//		super.preRemoveSideEffects(pos, state);
 	}
 
 	private CompoundTag writeItems(CompoundTag compound, HolderLookup.Provider registries) {
@@ -529,7 +525,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter componentGetter) {
+	protected void applyImplicitComponents(BlockEntity.DataComponentInput componentGetter) {
 		super.applyImplicitComponents(componentGetter);
 		this.customName = componentGetter.get(DataComponents.CUSTOM_NAME);
 		getInventory().setStackInSlot(MEAL_DISPLAY_SLOT, componentGetter.getOrDefault(ModDataComponents.MEAL.get(), ItemStackWrapper.EMPTY).getStack());

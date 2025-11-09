@@ -4,8 +4,6 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.predicates.DataComponentPredicates;
-import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -169,23 +167,22 @@ public class LootModificationEvents {
         }
         // scavenging_pumpkin
         if (key == BLOCKS_PUMPKIN) {
-            tableBuilder.modifyPools(builder ->
-                    builder.conditionally(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)).invert()
-                            .or(MatchTool.toolMatches(ItemPredicate.Builder.item().withComponents(DataComponentMatchers.Builder.components()
-                                    .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
-                                            List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))
-                                    )).build())
-                    )).build()));
-            tableBuilder.pool(LootPool.lootPool()
-                    .add(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
-                    ).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES))
-                            .and(MatchTool.toolMatches(ItemPredicate.Builder.item().withComponents(DataComponentMatchers.Builder.components()
-                                    .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
-                                            List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))
-                                    )).build())
-                            ).invert()))
-                    .build());
+            tableBuilder.modifyPools(builder -> builder.conditionally(
+                    MatchTool.toolMatches(ItemPredicate.Builder.item()
+                            .of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)
+                    ).and(MatchTool.toolMatches(ItemPredicate.Builder.item()
+                            .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(
+                                    new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY)
+                            )))).invert()
+                    ).invert().build())
+            ).withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
+                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item()
+                            .of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)
+                    ).and(MatchTool.toolMatches(ItemPredicate.Builder.item()
+                            .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(
+                                    new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY)
+                            )))).invert()
+                    )).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))));
         }
         // scavenging_leather
         if (key.location().getPath().startsWith("entities/")) {

@@ -71,9 +71,9 @@ public class CuttingServerRecipe implements IEivServerRecipe {
         List<ChanceResult> list = new ArrayList<>();
         if (providedTag instanceof ListTag listTag) {
             for (Tag tag : listTag) {
-                CompoundTag compoundTag = tag.asCompound().orElseGet(CompoundTag::new);
-                var stack = EivTagUtil.decodeItemStack(compoundTag.getCompoundOrEmpty("item"));
-                var chance = compoundTag.getFloatOr("chance", 1);
+                CompoundTag compoundTag = (CompoundTag) tag;
+                var stack = EivTagUtil.decodeItemStack(compoundTag.getCompound("item"));
+                var chance = compoundTag.getFloat("chance");
                 ChanceResult chanceResult = new ChanceResult(stack, chance);
                 list.add(chanceResult);
             }
@@ -84,8 +84,8 @@ public class CuttingServerRecipe implements IEivServerRecipe {
     @Override
     public void loadFromTag(CompoundTag tag) {
         this.results = EivTagUtil.readList(tag, "result", EivTagUtil::decodeItemStack);
-        this.ingredient = EivTagUtil.readIngredient(tag.getCompound("ingredients").orElseGet(CompoundTag::new));
-        this.tool = EivTagUtil.readIngredient(tag.getCompound("tool").orElseGet(CompoundTag::new));
+        this.ingredient = EivTagUtil.readIngredient(tag.getCompound("ingredients"));
+        this.tool = EivTagUtil.readIngredient(tag.getCompound("tool"));
         this.rollableResults = decodeRollableResult(tag.get("rollable_result"));
     }
 

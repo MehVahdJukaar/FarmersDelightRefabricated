@@ -48,7 +48,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 		if (!this.tryLoadLootTable(compound)) {
 			ContainerHelper.loadAllItems(compound, this.items, registries);
 		}
-		this.transferCooldown = compound.getIntOr("TransferCooldown", -1);
+		this.transferCooldown = compound.getInt("TransferCooldown");
 	}
 
 	@Override

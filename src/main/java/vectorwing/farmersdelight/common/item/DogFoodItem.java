@@ -15,12 +15,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -37,9 +36,9 @@ import java.util.function.Consumer;
 public class DogFoodItem extends ConsumableItem
 {
 	public static final List<MobEffectInstance> EFFECTS = List.of(
-			new MobEffectInstance(MobEffects.SPEED, 6000, 0),
-			new MobEffectInstance(MobEffects.STRENGTH, 6000, 0),
-			new MobEffectInstance(MobEffects.RESISTANCE, 6000, 0));
+			new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 0),
+			new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 0),
+			new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 6000, 0));
 
 	public DogFoodItem(Properties properties) {
 		super(properties);
@@ -87,14 +86,14 @@ public class DogFoodItem extends ConsumableItem
 		}
 	}
 
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 
 		MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.dog_food.when_feeding");
-		tooltipAdder.accept(textWhenFeeding.withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
 
 		for (MobEffectInstance effectInstance : EFFECTS) {
 			MutableComponent effectDescription = Component.literal(" ");
@@ -110,7 +109,7 @@ public class DogFoodItem extends ConsumableItem
 				effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F, context.tickRate())).append(")");
 			}
 
-			tooltipAdder.accept(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
+            tooltipComponents.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
 		}
 	}
 

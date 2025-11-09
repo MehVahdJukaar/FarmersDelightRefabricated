@@ -127,11 +127,6 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
-	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		Containers.updateNeighboursAfterDestroy(state, level, pos);
-	}
-
 	// --- HOPPER STUFF ---
 
 	@Override

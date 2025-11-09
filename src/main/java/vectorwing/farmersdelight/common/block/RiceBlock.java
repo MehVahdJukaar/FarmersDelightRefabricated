@@ -9,6 +9,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-public class RiceBlock extends VegetationBlock implements BonemealableBlock, LiquidBlockContainer
+public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer
 {
 	public static final MapCodec<RiceBlock> CODEC = simpleCodec(RiceBlock::new);
 
@@ -45,7 +46,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
+	protected MapCodec<? extends BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -195,10 +196,10 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 		return Fluids.WATER.getSource(false);
 	}
 
-	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return false;
-	}
+    @Override
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return false;
+    }
 
 	@Override
 	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidStateIn) {

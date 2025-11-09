@@ -1,14 +1,10 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -30,7 +26,7 @@ import vectorwing.farmersdelight.common.registry.ModItems;
  * Once mature, a budding bush can "grow past" it, and turn into something different.
  */
 @SuppressWarnings("deprecation")
-public class BuddingBushBlock extends VegetationBlock
+public class BuddingBushBlock extends BushBlock
 {
 	public static final MapCodec<BuddingBushBlock> CODEC = simpleCodec(BuddingBushBlock::new);
 
@@ -48,7 +44,7 @@ public class BuddingBushBlock extends VegetationBlock
 	}
 
 	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
+	protected MapCodec<? extends BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -172,12 +168,12 @@ public class BuddingBushBlock extends VegetationBlock
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof Ravager && level instanceof ServerLevel serverLevel && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 			level.destroyBlock(pos, true, entity);
 		}
 
-		super.entityInside(state, level, pos, entity, effectApplier);
+		super.entityInside(state, level, pos, entity);
 	}
 
 	protected ItemLike getBaseSeedId() {

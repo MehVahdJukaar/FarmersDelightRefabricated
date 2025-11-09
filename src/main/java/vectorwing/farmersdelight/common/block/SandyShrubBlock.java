@@ -12,13 +12,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
-public class SandyShrubBlock extends VegetationBlock implements BonemealableBlock
+public class SandyShrubBlock extends BushBlock implements BonemealableBlock
 {
 	public static final MapCodec<SandyShrubBlock> CODEC = simpleCodec(SandyShrubBlock::new);
 
@@ -29,7 +28,7 @@ public class SandyShrubBlock extends VegetationBlock implements BonemealableBloc
 	}
 
 	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
+	protected MapCodec<? extends BushBlock> codec() {
 		return CODEC;
 	}
 

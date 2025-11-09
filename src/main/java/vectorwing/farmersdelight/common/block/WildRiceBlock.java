@@ -97,8 +97,8 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 				? super.getStateForPlacement(context) : null;
 	}
 
-	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
+    @Override
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 

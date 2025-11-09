@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -116,11 +115,6 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 			}
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
-	}
-
-	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		Containers.updateNeighboursAfterDestroy(state, level, pos);
 	}
 
 	@Override

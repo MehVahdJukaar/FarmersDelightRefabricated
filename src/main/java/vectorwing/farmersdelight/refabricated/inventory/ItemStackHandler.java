@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -127,14 +128,12 @@ public class ItemStackHandler extends FabricWrappedInventory {
 
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
         stacks.clear();
-        ListTag listTag = tag.getListOrEmpty("Items");
+        ListTag listTag = tag.getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag itemTag = listTag.getCompoundOrEmpty(i);
-            if (itemTag.getInt("Slot").isPresent()) {
-                int slot = itemTag.getInt("Slot").get();
-                if (slot >= 0 && slot < stacks.size()) {
-                    ItemStack.parse(provider, itemTag).ifPresent(stack -> stacks.set(slot, stack));
-                }
+            CompoundTag itemTag = listTag.getCompound(i);
+            int slot = itemTag.getInt("Slot");
+            if (slot >= 0 && slot < stacks.size()) {
+                ItemStack.parse(provider, itemTag).ifPresent(stack -> stacks.set(slot, stack));
             }
         }
     }

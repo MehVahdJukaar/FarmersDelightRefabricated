@@ -26,8 +26,8 @@ public class RiceBaleBlock extends Block
 		FlammableBlockRegistry.getDefaultInstance().add(this, this.getFlammability(null, null, null, null), this.getFireSpreadSpeed(null, null, null, null));
 	}
 
-	@Override
-	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, double fallDistance) {
+    @Override
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, float fallDistance) {
 		entityIn.causeFallDamage(fallDistance, 0.2F, level.damageSources().fall());
 	}
 

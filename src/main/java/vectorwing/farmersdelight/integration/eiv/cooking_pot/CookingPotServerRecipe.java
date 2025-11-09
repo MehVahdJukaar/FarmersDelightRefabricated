@@ -69,10 +69,10 @@ public class CookingPotServerRecipe implements IEivServerRecipe {
     public void loadFromTag(CompoundTag tag) {
 
         this.ingredients = EivTagUtil.readList(tag, "ingredients", EivTagUtil::readIngredient);
-        this.result = EivTagUtil.decodeItemStack(tag.getCompound("result").orElseGet(CompoundTag::new));
-        this.container = EivTagUtil.decodeItemStack(tag.getCompound("container").orElseGet(CompoundTag::new));
-        this.cookTime = tag.getIntOr("cookingtime", 0);
-        this.experience = tag.getFloatOr("experience", 0);
+        this.result = EivTagUtil.decodeItemStack(tag.getCompound("result"));
+        this.container = EivTagUtil.decodeItemStack(tag.getCompound("container"));
+        this.cookTime = tag.getInt("cookingtime");
+        this.experience = tag.getFloat("experience");
     }
 
     @Override

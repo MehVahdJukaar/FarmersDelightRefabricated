@@ -27,7 +27,6 @@
     "CanvasSignEditScreenMixin",
     "HideBlockBreakProgressMixin",
     "refabricated.AbstractRecipeBookScreenAccessor",
-    "refabricated.BlockModelWrapperAccessor",
     "refabricated.GuiMixin",
     "refabricated.HumanoidMobRendererMixin",
     "refabricated.HumanoidModelMixin",

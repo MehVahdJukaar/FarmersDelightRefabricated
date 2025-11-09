@@ -139,11 +139,6 @@ public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterlogge
         return state;
     }
 
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        Containers.updateNeighboursAfterDestroy(state, level, pos);
-    }
-
     private CookingPotSupport getTrayState(LevelReader level, BlockPos pos) {
         if (level.getBlockState(pos.below()).is(ModTags.TRAY_HEAT_SOURCES)) {
             return CookingPotSupport.TRAY;
