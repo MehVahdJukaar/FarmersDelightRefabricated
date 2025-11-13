@@ -14,7 +14,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
@@ -30,14 +30,14 @@ public class FabricConfigListScreen extends Screen {
     protected final Screen parent;
     protected final ModConfigHolder[] configs;
     @Nullable
-    protected final ResourceLocation background;
+    protected final Identifier background;
     private final ItemStack mainIcon;
     private final String modId;
     private final String modURL;
 
     protected ConfigList list;
 
-    public FabricConfigListScreen(String modId, ItemStack mainIcon, Component displayName, @Nullable ResourceLocation background,
+    public FabricConfigListScreen(String modId, ItemStack mainIcon, Component displayName, @Nullable Identifier background,
                                   Screen parent,
                                   ModConfigHolder... specs) {
         super(displayName);
@@ -88,8 +88,7 @@ public class FabricConfigListScreen extends Screen {
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, (int) event.x(), (int) event.y())) {
-            Style style = Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create(modURL)));
-            this.handleComponentClicked(style);
+            defaultHandleGameClickEvent(new ClickEvent.OpenUrl(URI.create(modURL)), minecraft, this);
             return true;
         }
         return super.mouseClicked(event, isDoubleClick);

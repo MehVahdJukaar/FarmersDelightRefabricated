@@ -14,7 +14,7 @@ import me.shedaniel.rei.plugin.common.displays.crafting.CraftingDisplay;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
@@ -37,14 +37,14 @@ public class CuttingDisplay extends BasicDisplay implements CraftingDisplay {
             RecordCodecBuilder.mapCodec(inst -> inst.group(
                     EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(CuttingDisplay::getInputEntries),
                     EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(CuttingDisplay::getOutputEntries),
-                    ResourceLocation.CODEC.optionalFieldOf("location").forGetter(CuttingDisplay::getDisplayLocation),
+                    Identifier.CODEC.optionalFieldOf("location").forGetter(CuttingDisplay::getDisplayLocation),
                     EntryIngredient.codec().fieldOf("tool").forGetter(CuttingDisplay::getTool),
                     Codec.pair(EntryIngredient.codec(), Codec.FLOAT).listOf().fieldOf("chance_results").forGetter(CuttingDisplay::getRollableOutputs)
             ).apply(inst, CuttingDisplay::new)),
             StreamCodec.composite(
                     EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), CuttingDisplay::getInputEntries,
                     EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), CuttingDisplay::getOutputEntries,
-                    ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), CuttingDisplay::getDisplayLocation,
+                    ByteBufCodecs.optional(Identifier.STREAM_CODEC), CuttingDisplay::getDisplayLocation,
                     EntryIngredient.streamCodec(), CuttingDisplay::getTool,
                     CHANCE_RESULTS_STREAM_CODEC.apply(ByteBufCodecs.list()), CuttingDisplay::getRollableOutputs,
                     CuttingDisplay::new
@@ -53,13 +53,13 @@ public class CuttingDisplay extends BasicDisplay implements CraftingDisplay {
     public CuttingDisplay(RecipeHolder<CuttingBoardRecipe> recipe) {
         this(List.of(EntryIngredients.ofIngredient(recipe.value().getInput())),
                 recipe.value().getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(),
-                Optional.of(recipe.id().location()),
+                Optional.of(recipe.id().identifier()),
                 EntryIngredients.ofIngredient(recipe.value().getTool()),
                 recipe.value().getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList()
         );
     }
 
-    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, EntryIngredient tool, List<Pair<EntryIngredient, Float>> chanceResults) {
+    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<Identifier> location, EntryIngredient tool, List<Pair<EntryIngredient, Float>> chanceResults) {
         super(inputs, outputs, location);
         this.tool = tool;
         this.chanceResults = chanceResults;

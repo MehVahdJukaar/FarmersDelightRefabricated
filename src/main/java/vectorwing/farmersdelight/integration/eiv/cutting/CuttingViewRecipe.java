@@ -2,18 +2,15 @@ package vectorwing.farmersdelight.integration.eiv.cutting;
 
 import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
 import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
-import de.crafty.eiv.common.builtin.BuiltInEivIntegration;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewScreen;
 import de.crafty.eiv.common.recipe.inventory.SlotContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 
@@ -85,7 +82,7 @@ public class CuttingViewRecipe implements IEivViewRecipe {
     }
 
     public interface CuttingSlotRenderer {
-        ResourceLocation SLOT_TEXTURE = FarmersDelight.res("textures/gui/jei/cutting_board.png");
+        Identifier SLOT_TEXTURE = FarmersDelight.res("textures/gui/jei/cutting_board.png");
 
         RecipeViewMenu.OptionalSlotRenderer GUARANTEED_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,0,58, 18,18, 256,256);
         RecipeViewMenu.OptionalSlotRenderer CHANCE_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,18,58, 18,18, 256,256);

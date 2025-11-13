@@ -21,7 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
@@ -43,7 +43,7 @@ import java.util.concurrent.CompletableFuture;
 // Don't think this one will work.
 public class StructureUpdater implements DataProvider
 {
-	private final ResourceLocation id;
+	private final Identifier id;
 	private final FabricDataOutput output;
 	private final PackResources resources;
 
@@ -51,7 +51,7 @@ public class StructureUpdater implements DataProvider
 			FabricDataOutput output,
 			String basePath, String modid
 	) {
-		this.id = ResourceLocation.fromNamespaceAndPath(modid, basePath);
+		this.id = Identifier.fromNamespaceAndPath(modid, basePath);
 		this.output = output;
 		this.resources = new PathPackResources(
 				new PackLocationInfo("fdrf/temp", Component.literal("temp"), PackSource.BUILT_IN, Optional.empty()),
@@ -72,7 +72,7 @@ public class StructureUpdater implements DataProvider
 		}
 	}
 
-	private void process(ResourceLocation loc, Resource resource, CachedOutput cache) throws IOException {
+	private void process(Identifier loc, Resource resource, CachedOutput cache) throws IOException {
 		CompoundTag inputNBT = NbtIo.readCompressed(resource.open(), NbtAccounter.unlimitedHeap());
 		CompoundTag converted = updateNBT(inputNBT);
 		if (!converted.equals(inputNBT)) {
@@ -83,7 +83,7 @@ public class StructureUpdater implements DataProvider
 		}
 	}
 
-	private void writeNBTTo(ResourceLocation loc, CompoundTag data, CachedOutput cache) throws IOException {
+	private void writeNBTTo(Identifier loc, CompoundTag data, CachedOutput cache) throws IOException {
 		ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
 		NbtIo.writeCompressed(data, bytearrayoutputstream);
 		byte[] bytes = bytearrayoutputstream.toByteArray();

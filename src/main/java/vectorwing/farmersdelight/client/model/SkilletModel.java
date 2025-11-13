@@ -90,14 +90,14 @@ public class SkilletModel implements BakedModel
 		public CompositeBakedModel(ModelBakery bakery, ItemStack ingredientStack, BakedModel skillet) {
 			super(skillet);
 
-			ResourceLocation ingredientLocation = BuiltInRegistries.ITEM.getKey(ingredientStack.getItem());
-			UnbakedModel ingredientUnbaked = bakery.getModel(new ModelResourceLocation(ingredientLocation, "inventory"));
+			Identifier ingredientLocation = BuiltInRegistries.ITEM.getKey(ingredientStack.getItem());
+			UnbakedModel ingredientUnbaked = bakery.getModel(new ModelIdentifier(ingredientLocation, "inventory"));
 			ModelState transform = new SimpleModelState(
 					new Transformation(
 							new Vector3f(0.0F, -0.4F, 0.0F),
 							Axis.XP.rotationDegrees(270),
 							new Vector3f(0.625F, 0.625F, 0.625F), null));
-			ResourceLocation name = new ResourceLocation(FarmersDelight.MODID, "skillet_with_" + ingredientLocation.toString().replace(':', '_'));
+			Identifier name = new Identifier(FarmersDelight.MODID, "skillet_with_" + ingredientLocation.toString().replace(':', '_'));
 
 			ModelBaker baker = bakery.new ModelBakerImpl((modelLoc, material) -> material.sprite(), name);
 

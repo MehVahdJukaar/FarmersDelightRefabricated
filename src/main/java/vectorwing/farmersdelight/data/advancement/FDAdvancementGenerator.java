@@ -3,11 +3,11 @@ package vectorwing.farmersdelight.data.advancement;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.item.Item;
@@ -39,7 +39,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 				.display(ModItems.COOKING_POT.get(),
 						TextUtils.getTranslation("advancement.root"),
 						TextUtils.getTranslation("advancement.root.desc"),
-						ResourceLocation.parse("minecraft:block/bricks"),
+						Identifier.parse("minecraft:block/bricks"),
 						AdvancementType.TASK, false, false, false)
 				.addCriterion("seeds", InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{}))
 				.save(consumer, getNameId("main/root"));

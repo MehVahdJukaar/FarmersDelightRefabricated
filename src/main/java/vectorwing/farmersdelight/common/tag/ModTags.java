@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.tag;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -138,22 +138,22 @@ public class ModTags
 	public static final TagKey<Item> FLINT_TOOL_MATERIALS = modItemTag("flint_tool_materials");
 
 	private static TagKey<Item> modItemTag(String path) {
-		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<Block> modBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<EntityType<?>> modEntityTag(String path) {
-		return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<Biome> modBiomeTag(String path) {
-		return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<MobEffect> modEffectTag(String path) {
-		return TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 }

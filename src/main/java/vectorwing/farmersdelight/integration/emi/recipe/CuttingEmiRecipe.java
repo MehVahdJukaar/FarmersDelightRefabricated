@@ -6,7 +6,7 @@
 //import dev.emi.emi.api.stack.EmiIngredient;
 //import dev.emi.emi.api.stack.EmiStack;
 //import dev.emi.emi.api.widget.WidgetHolder;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //import org.jetbrains.annotations.Nullable;
 //import vectorwing.farmersdelight.FarmersDelight;
 //import vectorwing.farmersdelight.integration.emi.FDRecipeCategories;
@@ -14,16 +14,16 @@
 //import java.util.List;
 //
 //public class CuttingEmiRecipe implements EmiRecipe {
-//    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+//    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
 //    public static final int OUTPUT_GRID_X = 69;
 //    public static final int OUTPUT_GRID_Y = 3;
 //
-//    private final ResourceLocation id;
+//    private final Identifier id;
 //    private final EmiIngredient tool;
 //    private final EmiIngredient input;
 //    private final List<EmiStack> outputs;
 //
-//    public CuttingEmiRecipe(ResourceLocation id, EmiIngredient tool, EmiIngredient input, List<EmiStack> outputs) {
+//    public CuttingEmiRecipe(Identifier id, EmiIngredient tool, EmiIngredient input, List<EmiStack> outputs) {
 //        this.id = id;
 //        this.tool = tool;
 //        this.input = input;
@@ -37,7 +37,7 @@
 //    }
 //
 //    @Override
-//    public @Nullable ResourceLocation getId() {
+//    public @Nullable Identifier getId() {
 //        return id;
 //    }
 //

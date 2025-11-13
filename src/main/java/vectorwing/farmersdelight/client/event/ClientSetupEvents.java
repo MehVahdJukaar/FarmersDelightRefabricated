@@ -72,16 +72,16 @@ public class ClientSetupEvents
 	}
 
 //	public static void onModelRegister(ModelLoadingPlugin.Context event) {
-//		event.addModels(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
+//		event.addModels(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
 //	}
 //
 //	@SubscribeEvent
 //	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
-//		Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
+//		Map<ModelIdentifier, BakedModel> modelRegistry = event.getModels();
 //
-//		ModelResourceLocation skilletLocation = new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet"), "inventory");
+//		ModelIdentifier skilletLocation = new ModelIdentifier(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet"), "inventory");
 //		BakedModel skilletModel = modelRegistry.get(skilletLocation);
-//		ModelResourceLocation skilletCookingLocation = new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"), "inventory");
+//		ModelIdentifier skilletCookingLocation = new ModelIdentifier(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"), "inventory");
 //		BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
 //		modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
 //	}

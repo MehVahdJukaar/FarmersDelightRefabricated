@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import vectorwing.farmersdelight.common.mixin.refabricated.FoodDataAccessor;
 
 public class NourishmentEffect extends MobEffect
@@ -24,7 +24,7 @@ public class NourishmentEffect extends MobEffect
 		if (entity instanceof Player player) {
 			FoodData foodData = player.getFoodData();
 			boolean isPlayerHealingWithHunger =
-					serverLevel.getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION)
+					serverLevel.getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)
 							&& player.isHurt()
 							&& foodData.getFoodLevel() >= 18;
 			if (!isPlayerHealingWithHunger) {

@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.integration.eiv.decomposition;
 import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -28,7 +28,7 @@ public class DecompositionViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getGuiTexture() {
+    public Identifier getGuiTexture() {
         return FarmersDelight.res("textures/gui/eiv/decomposition.png");
     }
 
@@ -49,7 +49,7 @@ public class DecompositionViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return FarmersDelight.res("decomposition");
     }
 

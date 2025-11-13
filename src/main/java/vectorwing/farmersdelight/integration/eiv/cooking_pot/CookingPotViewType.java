@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.integration.eiv.cooking_pot;
 import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -20,8 +20,8 @@ public class CookingPotViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return ResourceLocation.withDefaultNamespace("cooking");
+    public Identifier getId() {
+        return Identifier.withDefaultNamespace("cooking");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CookingPotViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getGuiTexture() {
+    public Identifier getGuiTexture() {
         return FarmersDelight.res("textures/gui/eiv/cooking_pot.png");
     }
 

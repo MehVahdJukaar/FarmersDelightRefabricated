@@ -5,7 +5,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -97,7 +97,7 @@ public class CuttingRecipes
 
 	private static void cuttingFoods(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(holderGetter.getOrThrow(CommonTags.FOODS_DOUGH)), Ingredient.of(holderGetter.getOrThrow(CommonTags.TOOLS_KNIFE)), ModItems.RAW_PASTA.get(), 1)
-				.build(output, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "tag_dough"));
+				.build(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "tag_dough"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.KELP_ROLL.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.TOOLS_KNIFE)), ModItems.KELP_ROLL_SLICE.get(), 3)
 				.build(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CAKE), Ingredient.of(holderGetter.getOrThrow(CommonTags.TOOLS_KNIFE)), ModItems.CAKE_SLICE.get(), 7)

@@ -12,7 +12,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuttingCategory implements DisplayCategory<CuttingDisplay> {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
     public static final int OUTPUT_GRID_X = 76;
     public static final int OUTPUT_GRID_Y = 10;
 

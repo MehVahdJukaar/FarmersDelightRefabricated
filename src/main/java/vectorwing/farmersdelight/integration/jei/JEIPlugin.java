@@ -1,13 +1,13 @@
 package vectorwing.farmersdelight.integration.jei;
-
+/* JEI 1.21.11
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.*;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -29,7 +29,7 @@ import java.util.List;
 @MethodsReturnNonnullByDefault
 public class JEIPlugin implements IModPlugin
 {
-	private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "jei_plugin");
+	private static final Identifier ID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "jei_plugin");
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -86,8 +86,10 @@ public class JEIPlugin implements IModPlugin
 		registration.addRecipeTransferHandler(CookingPotMenu.class, ModMenuTypes.COOKING_POT.get(), FDRecipeTypes.COOKING, 0, 6, 9, 36);
 	}
 
+
 	@Override
-	public ResourceLocation getPluginUid() {
+	public Identifier getPluginUid() {
 		return ID;
 	}
 }
+*/

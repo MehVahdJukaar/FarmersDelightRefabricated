@@ -4,8 +4,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vectorwing.farmersdelight.common.CommonSetup;
@@ -33,8 +33,8 @@ public class FarmersDelight implements ModInitializer
 	public static final String MODID = "farmersdelight";
 	public static final Logger LOGGER = LoggerFactory.getLogger(FarmersDelight.class);
 
-	public static ResourceLocation res(String name) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, name);
+	public static Identifier res(String name) {
+		return Identifier.fromNamespaceAndPath(MODID, name);
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class FarmersDelight implements ModInitializer
 		CompostableHelper.apply();
 
 		ServerPlayerEvents.JOIN.register(serverPlayer ->
-				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION))));
+				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
 
         RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
         RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());

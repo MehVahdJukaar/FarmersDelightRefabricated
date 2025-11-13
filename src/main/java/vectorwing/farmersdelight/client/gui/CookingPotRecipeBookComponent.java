@@ -6,7 +6,7 @@ import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
 import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextMap;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.Slot;
@@ -32,10 +32,10 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 	private static final SearchRecipeBookCategory COOKING_SEARCH_CATEGORY = SearchRecipeBookCategory.valueOf("FARMERSDELIGHT_COOKING");
 
 	protected static final WidgetSprites RECIPE_BOOK_BUTTONS = new WidgetSprites(
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled_highlighted"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled_highlighted"));
+			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),
+			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled"),
+			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled_highlighted"),
+			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled_highlighted"));
 	private static final List<RecipeBookComponent.TabInfo> TABS = List.of(
 			new RecipeBookComponent.TabInfo(COOKING_SEARCH_CATEGORY),
 			new RecipeBookComponent.TabInfo(ModItems.VEGETABLE_NOODLES.get(), ModRecipeBookCategories.COOKING_MEALS.get()),
@@ -47,12 +47,12 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 		super(menu, TABS);
 	}
 
-	@Override
-	protected void initFilterButtonTextures() {
-		this.filterButton.initTextureValues(RECIPE_BOOK_BUTTONS);
-	}
+    @Override
+    protected WidgetSprites getFilterButtonTextures() {
+        return RECIPE_BOOK_BUTTONS;
+    }
 
-	@Override
+    @Override
 	protected boolean isCraftingSlot(Slot slot) {
 		return switch (slot.index) {
 			case 0, 1, 2, 3, 4, 5 -> true;

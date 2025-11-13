@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common.block.entity.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.recipebook.ServerPlaceRecipe;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public class CookingPotMenu extends RecipeBookMenu
 {
-	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
+	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
 
 	public final CookingPotBlockEntity blockEntity;
 	public final ItemStackHandler inventory;
@@ -68,7 +68,7 @@ public class CookingPotMenu extends RecipeBookMenu
 		// Bowl Input
 		this.addSlot(new ItemHandlerSlot(inventory, 7, 92, 55)
 		{
-			public ResourceLocation getNoItemIcon() {
+			public Identifier getNoItemIcon() {
 				return EMPTY_CONTAINER_SLOT_BOWL;
 			}
 		});

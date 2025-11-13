@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.event;
 import java.util.function.Supplier;
 
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -56,9 +57,9 @@ public class VillagerEvents
 	private static record FDItemListing(VillagerTrades.ItemListing listing, Supplier<Boolean> predicate) implements VillagerTrades.ItemListing {
 
 		@Override
-		public MerchantOffer getOffer(Entity trader, RandomSource random) {
+		public MerchantOffer getOffer(ServerLevel serverLevel, Entity trader, RandomSource random) {
 			if (!predicate.get()) return null;
-			return listing.getOffer(trader, random);
+			return listing.getOffer(serverLevel, trader, random);
 		}
 	}
 }

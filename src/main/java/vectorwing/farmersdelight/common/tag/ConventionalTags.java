@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.tag;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -82,11 +82,11 @@ public class ConventionalTags
 	public static final TagKey<Item> TOOLS_KNIVES = cItemTag("tools/knives");
 
 	private static TagKey<Block> cBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", path));
+		return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", path));
 	}
 
 	private static TagKey<Item> cItemTag(String path) {
-		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
+		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", path));
 	}
 
 }

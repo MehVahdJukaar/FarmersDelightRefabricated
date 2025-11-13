@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -28,7 +28,7 @@ public class CommonModBusEvents
 	public static void onModifyDefaultComponents(DefaultItemComponentEvents.ModifyContext context) {
 		if (Configuration.ENABLE_STACKABLE_SOUP_ITEMS.get()) {
 			Configuration.SOUP_ITEM_LIST.get().forEach((key) -> {
-				Item item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(key));
+				Item item = BuiltInRegistries.ITEM.getValue(Identifier.parse(key));
 				context.modify(item, (builder) -> builder.set(DataComponents.MAX_STACK_SIZE, 16));
 			});
 		}

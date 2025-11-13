@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.data.builder;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -102,20 +102,20 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	}
 
 	public void build(RecipeOutput output) {
-		ResourceLocation location = BuiltInRegistries.ITEM.getKey(getResult());
-		build(output, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
+		Identifier location = BuiltInRegistries.ITEM.getKey(getResult());
+		build(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
 	}
 
 	public void build(RecipeOutput outputIn, String save) {
-		ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(getResult());
-		if ((ResourceLocation.parse(save)).equals(resourcelocation)) {
+		Identifier Identifier = BuiltInRegistries.ITEM.getKey(getResult());
+		if ((Identifier.parse(save)).equals(Identifier)) {
 			throw new IllegalStateException("Cutting Recipe " + save + " should remove its 'save' argument");
 		} else {
-			this.build(outputIn, ResourceLocation.parse(save));
+			this.build(outputIn, Identifier.parse(save));
 		}
 	}
 
-	public void build(RecipeOutput output, ResourceLocation id) {
+	public void build(RecipeOutput output, Identifier id) {
 		save(output, ResourceKey.create(Registries.RECIPE, id.withPrefix("cutting/")));
 	}
 

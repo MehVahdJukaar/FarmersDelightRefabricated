@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -84,7 +83,7 @@ public abstract class AbstractCanvasSignRenderer
         float scale = this.getSignModelRenderScale();
         poseStack.scale(scale, -scale, -scale);
         Material material = this.getSignMaterial(dyColor);
-        RenderType renderType = material.renderType(model::renderType);
+        var renderType = material.renderType(model::renderType);
         nodeCollector.submitModel(model, Unit.INSTANCE, poseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, -1, this.materials.get(material), 0, crumblingOverlay);
         poseStack.popPose();
     }

@@ -11,7 +11,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecompositionCategory implements DisplayCategory<DecompositionDisplay> {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
     public static final int OUTPUT_GRID_X = 76;
     public static final int OUTPUT_GRID_Y = 10;
 

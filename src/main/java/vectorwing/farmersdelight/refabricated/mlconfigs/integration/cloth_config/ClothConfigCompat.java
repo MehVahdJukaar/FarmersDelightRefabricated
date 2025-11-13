@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.gui.entries.EnumListEntry;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,7 +25,7 @@ public class ClothConfigCompat {
         return makeScreen(parent, spec, null);
     }
     @ApiStatus.Internal
-    public static Screen makeScreen(Screen parent, FabricConfigHolder spec, @Nullable ResourceLocation background) {
+    public static Screen makeScreen(Screen parent, FabricConfigHolder spec, @Nullable Identifier background) {
         spec.forceLoad();
 
         ConfigBuilder builder = ConfigBuilder.create();

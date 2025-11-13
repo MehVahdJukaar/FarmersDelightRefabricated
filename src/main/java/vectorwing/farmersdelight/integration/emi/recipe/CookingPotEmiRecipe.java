@@ -9,7 +9,7 @@
 //import dev.emi.emi.api.widget.WidgetHolder;
 //import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 //import net.minecraft.network.chat.Component;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //import org.jetbrains.annotations.Nullable;
 //import vectorwing.farmersdelight.FarmersDelight;
 //import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
@@ -19,9 +19,9 @@
 //import java.util.List;
 //
 //public class CookingPotEmiRecipe implements EmiRecipe {
-//    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+//    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 //
-//    private final ResourceLocation id;
+//    private final Identifier id;
 //    private final List<EmiIngredient> inputs;
 //    private final EmiStack output;
 //    private final EmiStack container;
@@ -29,7 +29,7 @@
 //    private final float experience;
 //    private final List<ClientTooltipComponent> tooltipComponents;
 //
-//    public CookingPotEmiRecipe(ResourceLocation id, List<EmiIngredient> inputs, EmiStack output,
+//    public CookingPotEmiRecipe(Identifier id, List<EmiIngredient> inputs, EmiStack output,
 //                               EmiStack container, int cookTime, float experience) {
 //        this.id = id;
 //        this.inputs = inputs;
@@ -60,7 +60,7 @@
 //    }
 //
 //    @Override
-//    public @Nullable ResourceLocation getId() {
+//    public @Nullable Identifier getId() {
 //        return id;
 //    }
 //

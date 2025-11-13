@@ -3,13 +3,11 @@ package vectorwing.farmersdelight.client.gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
@@ -19,7 +17,7 @@ public class HangingCanvasSignEditScreen extends AbstractSignEditScreen
 	private static final Vector3f TEXT_SCALE = new Vector3f(0.9F, 0.9F, 0.9F);
 
 	protected DyeColor dye;
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
 	public HangingCanvasSignEditScreen(SignBlockEntity signBlockEntity, boolean isFrontText, boolean isTextFilteringEnabled) {
 		super(signBlockEntity, isFrontText, isTextFilteringEnabled, Component.translatable("hanging_sign.edit"));
@@ -28,7 +26,7 @@ public class HangingCanvasSignEditScreen extends AbstractSignEditScreen
 			this.dye = canvasSign.getBackgroundColor();
 		}
 		String dyeName = dye != null ? "_" + dye.getName() : "";
-		this.texture = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "canvas" + dyeName + ".png").withPrefix("textures/gui/hanging_signs/");
+		this.texture = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "canvas" + dyeName + ".png").withPrefix("textures/gui/hanging_signs/");
 	}
 
 	@Override

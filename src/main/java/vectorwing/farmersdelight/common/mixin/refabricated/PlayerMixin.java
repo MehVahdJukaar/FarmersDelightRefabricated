@@ -23,7 +23,7 @@ public abstract class PlayerMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getAttackStrengthScale(F)F"))
     private void captureAttackStrengthScale(Entity target, CallbackInfo ci) {
         SkilletItem.SkilletEvents.attackPower = this.getAttackStrengthScale(0.0F);
     }

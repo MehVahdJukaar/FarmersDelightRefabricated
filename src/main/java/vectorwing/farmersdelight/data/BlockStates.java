@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -58,9 +58,9 @@ public abstract class BlockStates extends FabricModelProvider
 //
 
 
-//	public ResourceLocation resourceBlock(String path) {
+//	public Identifier resourceBlock(String path) {
 //
-//		return ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block/" + path);
+//		return Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "block/" + path);
 //
 //	}
 //
@@ -466,7 +466,7 @@ public abstract class BlockStates extends FabricModelProvider
 //
 // I am not proud of this method... But hey, it's runData. Only I shall have to deal with it.
 //
-//	public void customStageBlock(Block block, @Nullable ResourceLocation parent, String textureKey, IntegerProperty ageProperty, List<Integer> suffixes, Property<?>... ignored) {
+//	public void customStageBlock(Block block, @Nullable Identifier parent, String textureKey, IntegerProperty ageProperty, List<Integer> suffixes, Property<?>... ignored) {
 //
 //		getVariantBuilder(block)
 //

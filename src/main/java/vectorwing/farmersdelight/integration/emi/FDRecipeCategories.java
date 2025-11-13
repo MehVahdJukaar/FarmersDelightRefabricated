@@ -3,11 +3,11 @@
 //
 //import dev.emi.emi.api.recipe.EmiRecipeCategory;
 //import dev.emi.emi.api.render.EmiRenderable;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //import vectorwing.farmersdelight.FarmersDelight;
 //
 //public class FDRecipeCategories {
-//    private static final ResourceLocation SIMPLIFIED_TEXTURES = FarmersDelight.res("textures/gui/emi/simplified.png");
+//    private static final Identifier SIMPLIFIED_TEXTURES = FarmersDelight.res("textures/gui/emi/simplified.png");
 //
 //    public static final EmiRecipeCategory COOKING = new EmiRecipeCategory(FarmersDelight.res("cooking"), FDRecipeWorkstations.COOKING_POT, simplifiedRenderer(0, 0));
 //    public static final EmiRecipeCategory CUTTING = new EmiRecipeCategory(FarmersDelight.res("cutting"), FDRecipeWorkstations.CUTTING_BOARD, simplifiedRenderer(16, 0));

@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -245,8 +245,8 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.WILD_RICE.get());
 		valueLookupBuilder(ModTags.ROPES).add(ModBlocks.ROPE.get());
 		getOrCreateRawBuilder(ModTags.ROPES)
-				.addOptionalElement(ResourceLocation.parse("quark:rope"))
-				.addOptionalElement(ResourceLocation.parse("supplementaries:rope"));
+				.addOptionalElement(Identifier.parse("quark:rope"))
+				.addOptionalElement(Identifier.parse("supplementaries:rope"));
 		valueLookupBuilder(ModTags.TRAY_HEAT_SOURCES).add(Blocks.LAVA)
 				.forceAddTag(net.minecraft.tags.BlockTags.CAMPFIRES).forceAddTag(net.minecraft.tags.BlockTags.FIRE);
 		valueLookupBuilder(ModTags.HEAT_SOURCES).add(
@@ -257,7 +257,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 		valueLookupBuilder(ModTags.HEAT_CONDUCTORS).add(
 						Blocks.HOPPER);
 		getOrCreateRawBuilder(ModTags.HEAT_CONDUCTORS)
-				.addOptionalElement(ResourceLocation.parse("create:chute"));
+				.addOptionalElement(Identifier.parse("create:chute"));
 		valueLookupBuilder(ModTags.COMPOST_ACTIVATORS).add(
 				Blocks.BROWN_MUSHROOM,
 				Blocks.RED_MUSHROOM,

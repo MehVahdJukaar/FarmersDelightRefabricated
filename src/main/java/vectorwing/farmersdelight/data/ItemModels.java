@@ -16,7 +16,7 @@ public abstract class ItemModels extends FabricModelProvider
 
 //	public static final String GENERATED = "item/generated";
 //	public static final String HANDHELD = "item/handheld";
-//	public static final ResourceLocation MUG = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "item/mug");
+//	public static final Identifier MUG = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "item/mug");
 //
 //	public ItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {
 //		super(output, FarmersDelight.MODID, existingFileHelper);
@@ -143,15 +143,15 @@ public abstract class ItemModels extends FabricModelProvider
 //		withExistingParent(itemName(item), resourceBlock(itemName(item) + suffix));
 //	}
 //
-//	public void itemHandheldModel(Item item, ResourceLocation texture) {
+//	public void itemHandheldModel(Item item, Identifier texture) {
 //		withExistingParent(itemName(item), HANDHELD).texture("layer0", texture);
 //	}
 //
-//	public void itemGeneratedModel(Item item, ResourceLocation texture) {
+//	public void itemGeneratedModel(Item item, Identifier texture) {
 //		withExistingParent(itemName(item), GENERATED).texture("layer0", texture);
 //	}
 //
-//	public void itemMugModel(Item item, ResourceLocation texture) {
+//	public void itemMugModel(Item item, Identifier texture) {
 //		withExistingParent(itemName(item), MUG).texture("layer0", texture);
 //	}
 //
@@ -159,12 +159,12 @@ public abstract class ItemModels extends FabricModelProvider
 //		return BuiltInRegistries.ITEM.getKey(item).getPath();
 //	}
 //
-//	public ResourceLocation resourceBlock(String path) {
-//		return ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block/" + path);
+//	public Identifier resourceBlock(String path) {
+//		return Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "block/" + path);
 //	}
 //
-//	public ResourceLocation resourceItem(String path) {
-//		return ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "item/" + path);
+//	public Identifier resourceItem(String path) {
+//		return Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "item/" + path);
 //	}
 //
 //	@SafeVarargs

@@ -8,7 +8,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.BlockItem;
@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
@@ -24,9 +25,10 @@ import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.refabricated.duck.SkilletEntityRenderState;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRenderer.SkilletData> {
-    public static final ResourceLocation ID = FarmersDelight.res("skillet");
+    public static final Identifier ID = FarmersDelight.res("skillet");
 
     public SkilletItemRenderer() {
     }
@@ -85,7 +87,7 @@ public class SkilletItemRenderer implements SpecialModelRenderer<SkilletItemRend
 
     // TODO: See if leaving this empty is okay.
     @Override
-    public void getExtents(Set<Vector3f> set) {
+    public void getExtents(Consumer<Vector3fc> consumer) {
     }
 
     @Override

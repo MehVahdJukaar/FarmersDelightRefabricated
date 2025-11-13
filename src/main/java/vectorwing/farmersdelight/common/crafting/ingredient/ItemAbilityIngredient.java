@@ -4,13 +4,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class ItemAbilityIngredient implements CustomIngredient
 {
 	public static final Serializer SERIALIZER = new Serializer();
-	public static final ResourceLocation SERIALIZER_ID = FarmersDelight.res("item_ability");
+	public static final Identifier SERIALIZER_ID = FarmersDelight.res("item_ability");
 
 	protected final ItemAbility itemAbility;
 	protected List<Holder<Item>> itemStacks;
@@ -82,7 +82,7 @@ public class ItemAbilityIngredient implements CustomIngredient
 				.map(ItemAbilityIngredient::new, ItemAbilityIngredient::getItemAbility).cast();
 
 		@Override
-		public ResourceLocation getIdentifier() {
+		public Identifier getIdentifier() {
 			return SERIALIZER_ID;
 		}
 

@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +48,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		valueLookupBuilder(net.minecraft.tags.ItemTags.WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
 		valueLookupBuilder(net.minecraft.tags.ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
 		valueLookupBuilder(net.minecraft.tags.ItemTags.FIRE_ASPECT_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
-		valueLookupBuilder(net.minecraft.tags.ItemTags.SWORD_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+		valueLookupBuilder(net.minecraft.tags.ItemTags.SWEEPING_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
 		valueLookupBuilder(net.minecraft.tags.ItemTags.MINING_ENCHANTABLE).addTag(ModTags.KNIVES);
 		valueLookupBuilder(net.minecraft.tags.ItemTags.MINING_LOOT_ENCHANTABLE).addTag(ModTags.KNIVES);
 
@@ -190,13 +190,13 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		valueLookupBuilder(ModTags.CABINETS).forceAddTag(ModTags.WOODEN_CABINETS);
 		valueLookupBuilder(ModTags.OFFHAND_EQUIPMENT).add(Items.SHIELD);
 		getOrCreateRawBuilder(ModTags.OFFHAND_EQUIPMENT)
-				.addOptionalElement(ResourceLocation.parse("create:extendo_grip"));
+				.addOptionalElement(Identifier.parse("create:extendo_grip"));
 		valueLookupBuilder(ModTags.SERVING_CONTAINERS).add(Items.BOWL, Items.GLASS_BOTTLE, Items.BUCKET);
 		valueLookupBuilder(ModTags.FLAT_ON_CUTTING_BOARD).add(Items.TRIDENT, Items.SPYGLASS);
 		getOrCreateRawBuilder(ModTags.FLAT_ON_CUTTING_BOARD)
-				.addOptionalElement(ResourceLocation.parse("supplementaries:quiver"))
-				.addOptionalElement(ResourceLocation.parse("autumnity:turkey"))
-				.addOptionalElement(ResourceLocation.parse("autumnity:cooked_turkey"));
+				.addOptionalElement(Identifier.parse("supplementaries:quiver"))
+				.addOptionalElement(Identifier.parse("autumnity:turkey"))
+				.addOptionalElement(Identifier.parse("autumnity:cooked_turkey"));
 		valueLookupBuilder(ModTags.FLINT_TOOL_MATERIALS).add(Items.FLINT);
 	}
 

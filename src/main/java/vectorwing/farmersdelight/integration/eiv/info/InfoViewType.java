@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.integration.eiv.info;
 import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
 import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -28,7 +28,7 @@ public class InfoViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getGuiTexture() {
+    public Identifier getGuiTexture() {
         return FarmersDelight.res("textures/gui/eiv/info.png");
     }
 
@@ -47,7 +47,7 @@ public class InfoViewType implements IEivRecipeViewType {
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return FarmersDelight.res("info");
     }
 

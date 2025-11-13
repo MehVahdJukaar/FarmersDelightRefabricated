@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public abstract class ModConfigHolder {
 
-    private static final Map<ResourceLocation, ModConfigHolder> CONFIG_STORAGE = new ConcurrentHashMap<>(); //wack. multithreading mod loading
+    private static final Map<Identifier, ModConfigHolder> CONFIG_STORAGE = new ConcurrentHashMap<>(); //wack. multithreading mod loading
 
     public static void addTrackedSpec(ModConfigHolder spec) {
         var old = CONFIG_STORAGE.put(spec.getId(), spec);
@@ -37,11 +37,11 @@ public abstract class ModConfigHolder {
     }
 
     @Nullable
-    public static ModConfigHolder getConfigSpec(ResourceLocation configId) {
+    public static ModConfigHolder getConfigSpec(Identifier configId) {
         return CONFIG_STORAGE.get(configId);
     }
 
-    private final ResourceLocation configId;
+    private final Identifier configId;
     private final String fileName;
     private final Component readableName;
     private final Path filePath;
@@ -49,7 +49,7 @@ public abstract class ModConfigHolder {
     @Nullable
     private final Runnable changeCallback;
 
-    protected ModConfigHolder(ResourceLocation id, String fileExtension, Path configDirectory, ConfigType type, @Nullable Runnable changeCallback) {
+    protected ModConfigHolder(Identifier id, String fileExtension, Path configDirectory, ConfigType type, @Nullable Runnable changeCallback) {
         this.configId = id;
         this.fileName = id.getNamespace() + "-" + id.getPath() + "." + fileExtension;
         this.filePath = configDirectory.resolve(fileName);
@@ -89,7 +89,7 @@ public abstract class ModConfigHolder {
         return configId.getNamespace();
     }
 
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return configId;
     }
 
@@ -115,7 +115,7 @@ public abstract class ModConfigHolder {
 
     @Nullable
     @Environment(EnvType.CLIENT)
-    public abstract Screen makeScreen(Screen parent, @Nullable ResourceLocation background);
+    public abstract Screen makeScreen(Screen parent, @Nullable Identifier background);
 
     //serverside method
     public abstract boolean hasConfigScreen();

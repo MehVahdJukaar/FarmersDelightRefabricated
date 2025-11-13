@@ -14,9 +14,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class CookingPotCategory implements DisplayCategory<CookingPotDisplay> {
     private static final Component TITLE = Component.translatable("farmersdelight.jei.cooking");;
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     @Override
     public CategoryIdentifier<CookingPotDisplay> getCategoryIdentifier() {

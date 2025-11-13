@@ -1,4 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
+/* JEI 1.21.11
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -10,10 +11,10 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -38,7 +39,7 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 
 	public CuttingRecipeCategory(IGuiHelper helper) {
 		title = TextUtils.getTranslation("jei.cutting");
-		ResourceLocation backgroundImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+		Identifier backgroundImage = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
 		slot = helper.createDrawable(backgroundImage, 0, 58, 18, 18);
 		slotChance = helper.createDrawable(backgroundImage, 18, 58, 18, 18);
 		background = helper.createDrawable(backgroundImage, 0, 0, 117, 57);
@@ -115,3 +116,4 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 		}
 	}
 }
+*/

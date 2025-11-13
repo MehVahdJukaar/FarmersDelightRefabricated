@@ -2,13 +2,13 @@ package vectorwing.farmersdelight.refabricated;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -188,9 +188,9 @@ public class LootModificationEvents {
                     .build());
         }
         // scavenging_leather
-        if (key.location().getPath().startsWith("entities/")) {
+        if (key.identifier().getPath().startsWith("entities/")) {
             HolderLookup<EntityType<?>> lookup = registries.lookupOrThrow(Registries.ENTITY_TYPE);
-            var entityType = lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, key.location()
+            var entityType = lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, key.identifier()
                     .withPath(s -> s.substring(9))));
             // Make sure we only add to the necessary entity loot tables by loading the tag early.
             // Otherwise, you'd be modifying every entity with a condition that's never true, which seems like a no-no.
@@ -237,9 +237,9 @@ public class LootModificationEvents {
         if (key == BLOCKS_CAKE)
             pastrySlicing(tableBuilder, Blocks.CAKE, ModItems.CAKE_SLICE.get(), CakeBlock.BITES, 7, registries);
         // slicing_candle_cake
-        if (key.location().getPath().startsWith("blocks/")) {
+        if (key.identifier().getPath().startsWith("blocks/")) {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
-            var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.location().withPath(s -> s.substring(7))));
+            var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.identifier().withPath(s -> s.substring(7))));
             if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
                         .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)))));
@@ -293,7 +293,7 @@ public class LootModificationEvents {
     }
 
     private static ResourceKey<LootTable> vanillaKey(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace(path));
+        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.withDefaultNamespace(path));
     }
 
     private static ResourceKey<LootTable> key(String path) {

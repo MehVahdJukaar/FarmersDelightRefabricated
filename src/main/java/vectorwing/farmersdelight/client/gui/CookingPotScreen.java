@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -24,7 +24,7 @@ import java.util.Optional;
 
 public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> implements RecipeUpdateListener
 {
-	private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+	private static final Identifier BACKGROUND_TEXTURE = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 	private static final Rectangle HEAT_ICON = new Rectangle(47, 55, 17, 15);
 	private static final Rectangle PROGRESS_ARROW = new Rectangle(89, 25, 0, 17);
 

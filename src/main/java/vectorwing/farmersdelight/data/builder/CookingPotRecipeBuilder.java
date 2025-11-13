@@ -1,13 +1,13 @@
 package vectorwing.farmersdelight.data.builder;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,7 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -122,20 +122,20 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	}
 
 	public void build(RecipeOutput output) {
-		ResourceLocation location = BuiltInRegistries.ITEM.getKey(result);
-		build(output, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
+		Identifier location = BuiltInRegistries.ITEM.getKey(result);
+		build(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
 	}
 
 	public void build(RecipeOutput outputIn, String save) {
-		ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(result);
-		if ((ResourceLocation.parse(save)).equals(resourcelocation)) {
+		Identifier Identifier = BuiltInRegistries.ITEM.getKey(result);
+		if ((Identifier.parse(save)).equals(Identifier)) {
 			throw new IllegalStateException("Cooking Recipe " + save + " should remove its 'save' argument");
 		} else {
-			build(outputIn, ResourceLocation.parse(save));
+			build(outputIn, Identifier.parse(save));
 		}
 	}
 
-	public void build(RecipeOutput output, ResourceLocation location) {
+	public void build(RecipeOutput output, Identifier location) {
 		save(output, ResourceKey.create(Registries.RECIPE, location.withPrefix("cooking/")));
 	}
 
@@ -155,6 +155,6 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 				this.experience,
 				this.cookingTime
 		);
-		output.accept(resourceKey, recipe, advancementBuilder.build(resourceKey.location().withPrefix("recipes/")));
+		output.accept(resourceKey, recipe, advancementBuilder.build(resourceKey.identifier().withPrefix("recipes/")));
 	}
 }

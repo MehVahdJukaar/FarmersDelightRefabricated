@@ -4,7 +4,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -29,7 +29,7 @@ public class HUDOverlays
 {
 	public static int healthIconsOffset = 39;
 	public static int foodIconsOffset = 39;
-	private static final ResourceLocation MOD_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/fd_icons.png");
+	private static final Identifier MOD_ICONS_TEXTURE = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
 	/**
 	 * Moved to GuiMixin.
@@ -62,7 +62,7 @@ public class HUDOverlays
 
 	public static class NourishmentOverlay extends BaseOverlay
 	{
-		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "nourishment");
+		public static final Identifier ID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "nourishment");
 
 		// Refabricated
 		public static final NourishmentOverlay INSTANCE = new NourishmentOverlay();
@@ -92,7 +92,7 @@ public class HUDOverlays
 
 	public static class ComfortOverlay extends BaseOverlay
 	{
-		public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "comfort");
+		public static final Identifier ID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "comfort");
 
 		// Refabricated
 		public static final ComfortOverlay INSTANCE = new ComfortOverlay();
