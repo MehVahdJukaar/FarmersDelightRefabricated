@@ -68,7 +68,7 @@
   "block.farmersdelight.brown_canvas_wall_sign": "Cartel de lienzo marrón en pared",
   "block.farmersdelight.green_canvas_wall_sign": "Cartel de lienzo verde en pared",
   "block.farmersdelight.red_canvas_wall_sign": "Cartel de lienzo rojo en pared",
-  "block.farmersdelight.black_canvas_wall_sign": "Cartel de lienzo negro en pared"
+  "block.farmersdelight.black_canvas_wall_sign": "Cartel de lienzo negro en pared",
   
   "block.farmersdelight.hanging_canvas_sign": "Cartel colgante de lona ",
   "block.farmersdelight.white_hanging_canvas_sign": "Cartel colgante de lona blanca",
@@ -104,7 +104,7 @@
   "block.farmersdelight.brown_wall_hanging_canvas_sign": "Cartel colgante de lienzo marrón en pared",
   "block.farmersdelight.green_wall_hanging_canvas_sign": "Cartel colgante de lienzo verde en pared",
   "block.farmersdelight.red_wall_hanging_canvas_sign": "Cartel colgante de lienzo rojo en pared",
-  "block.farmersdelight.black_wall_hanging_canvas_sign": "Cartel colgante de lienzo negro en pared"
+  "block.farmersdelight.black_wall_hanging_canvas_sign": "Cartel colgante de lienzo negro en pared",
   
   "block.farmersdelight.budding_tomatoes": "Brotes de tomates",
   "block.farmersdelight.tomatoes": "Enredadera de tomates",
@@ -330,9 +330,9 @@
   "farmersdelight.block.cutting_board.invalid_item": "Esto no parece cortable...",
   "farmersdelight.block.cutting_board.invalid_tool": "Quizás con una herramienta diferente...",
   "farmersdelight.block.skillet.invalid_item": "Esto no puede ser cocinado...",
-  "farmersdelight.block.skillet.underwater": "No se puede cocinar mientras está inundado..."
+  "farmersdelight.block.skillet.underwater": "No se puede cocinar mientras está inundado...",
   "farmersdelight.item.skillet.how_to_cook": "¡Usá tu otra mano para sostener los ingredientes!",
-  "farmersdelight.item.skillet.underwater": "No se puede cocinar bajo el agua..."
+  "farmersdelight.item.skillet.underwater": "No se puede cocinar bajo el agua...",
 
   "death.attack.farmersdelight.stove": "%1$s fue asado a la perfección",
   "death.attack.farmersdelight.stove.player": "%1$s fue arrojado a la parrila por el chef %2$s",
@@ -345,7 +345,7 @@
   "farmersdelight.jei.decomposition.fluid": "Acelerado por el agua adyacente",
   "farmersdelight.jei.decomposition.accelerators": "Acelerado por activadores adyacentes (ver más abajo)",
 
-  "farmersdelight.jei.info.dough": "El trigo puede convertirse en masa al craftearlo con un balde de agua. Pero no te preocupes, el agua del balde no se consumirá!"
+  "farmersdelight.jei.info.dough": "El trigo puede convertirse en masa al craftearlo con un balde de agua. Pero no te preocupes, el agua del balde no se consumirá!",
   "farmersdelight.jei.info.straw": "Fibra vegetal seca que se utiliza para hacer artesanías. Se obtiene cortando plantas y cultivos pastosos con un cuchillo.",
   "farmersdelight.jei.info.knife": "Un arma cuerpo a cuerpo liviana, con golpes rápidos y daño leve.\n\nPueden recolectar paja del pasto y garantizar bienes adicionales de los animales.",
   "farmersdelight.jei.info.ham": "Un gran corte de carne de la pierna de un cerdo o de un hoglin. Necesitarás algo más ligero que una espada para cortar uno...",
@@ -355,7 +355,7 @@
   "farmersdelight.jei.info.wild_onions": "Las cebollas se pueden encontrar comúnmente como planta silvestre en tierras templadas, como llanuras y bosques.",
   "farmersdelight.jei.info.wild_potatoes": "Las papas se encuentra comúnmente como planta silvestre en tierras frías, como montañas y taigas.",
   "farmersdelight.jei.info.wild_tomatoes": "Los tomates se pueden encontrar comúnmente como planta silvestre en tierras áridas, como sabanas y desiertos.",
-  "farmersdelight.jei.info.wild_rice": "El arroz se puede encontrar comúnmente como planta silvestre en los estanques de tierras húmedas, como pantanos y selvas."
+  "farmersdelight.jei.info.wild_rice": "El arroz se puede encontrar comúnmente como planta silvestre en los estanques de tierras húmedas, como pantanos y selvas.",
 
   "emi.category.farmersdelight.cooking": "Cocinando",
   "emi.category.farmersdelight.cutting": "Picando",
@@ -363,7 +363,7 @@
 
   "tag.item.c.bones": "Huesos",
   "tag.item.c.eggs": "Huevos",
-  "tag.item.c.mushrooms": "Hongos"
+  "tag.item.c.mushrooms": "Hongos",
   
   "tag.item.c.crops.cabbage": "Repollo",
   "tag.item.c.crops.grain": "Grano",
@@ -405,7 +405,7 @@
   "tag.item.c.storage_blocks.rice": "Almacenamiento de arroz",
   "tag.item.c.storage_blocks.rice_panicle": "Almacenamiento de panícula de arroz",
   "tag.item.c.storage_blocks.straw": "Almacenamiento de paja",
-  "tag.item.c.storage_blocks.tomato": "Almacenamiento de tomate"
+  "tag.item.c.storage_blocks.tomato": "Almacenamiento de tomate",
 
   "tag.item.farmersdelight.cabbage_roll_ingredients": "Ingredientes para rollos de repollo",
   "tag.item.farmersdelight.cabinets": "Gabinetes",
@@ -418,7 +418,7 @@
   "tag.item.farmersdelight.serving_containers": "Recipientes para servir",
   "tag.item.farmersdelight.straw_harvesters": "Recolectores de paja",
   "tag.item.farmersdelight.tools.knives": "Cuchillos",
-  "tag.item.farmersdelight.wild_crops": "Cultivos silvestres"
+  "tag.item.farmersdelight.wild_crops": "Cultivos silvestres",
 
   "config.farmersdelight.client.nourishmentHungerOverlay": "Superposición de hambre por nutrición",
   "config.farmersdelight.client.nourishmentHungerOverlay.description": "¿La barra de hambre debería tener una superposición dorada cuando el jugador tenga el efecto de nutrición?",
