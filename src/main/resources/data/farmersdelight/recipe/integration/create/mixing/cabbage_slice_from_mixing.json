@@ -8,15 +8,10 @@
     }
   ],
   "type": "create:mixing",
-  "ingredients": [
-    {
-      "item": "farmersdelight:cabbage"
-    }
-  ],
-  "results": [
+  "ingredients": ["farmersdelight:cabbage"],
+  "result":
     {
       "id": "farmersdelight:cabbage_leaf",
       "count": 2
     }
-  ]
 }

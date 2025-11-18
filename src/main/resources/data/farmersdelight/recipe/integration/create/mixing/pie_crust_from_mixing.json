@@ -15,25 +15,19 @@
   ],
   "type": "create:mixing",
   "ingredients": [
-    {
-      "item": "create:wheat_flour"
-    },
-    {
-      "item": "create:wheat_flour"
-    },
-    {
-      "item": "create:wheat_flour"
-    },
+    "create:wheat_flour",
+    "create:wheat_flour",
+    "create:wheat_flour"
+  ],
+  "fluid_ingredients": [
     {
       "type": "fluid_tag",
       "amount": 250,
-      "fluid_tag": "c:milk"
+      "fluid_tag": "#c:milk"
     }
   ],
-  "results": [
-    {
+  "result": {
       "id": "farmersdelight:pie_crust",
       "count": 1
-    }
-  ]
+  }
 }

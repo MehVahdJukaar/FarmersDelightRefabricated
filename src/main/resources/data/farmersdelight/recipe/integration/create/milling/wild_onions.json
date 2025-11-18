@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_onions"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_onions",
   "results": [
     {
       "id": "minecraft:magenta_dye",

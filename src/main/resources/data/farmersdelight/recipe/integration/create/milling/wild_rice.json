@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_rice"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_rice",
   "results": [
     {
       "id": "farmersdelight:rice",

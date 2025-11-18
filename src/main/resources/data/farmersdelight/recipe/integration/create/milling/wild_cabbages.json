@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_cabbages"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_cabbages",
   "results": [
     {
       "id": "farmersdelight:cabbage_seeds",
