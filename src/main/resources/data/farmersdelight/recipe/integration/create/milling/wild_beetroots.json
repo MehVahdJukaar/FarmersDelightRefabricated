@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_beetroots"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_beetroots",
   "results": [
     {
       "id": "minecraft:beetroot_seeds",

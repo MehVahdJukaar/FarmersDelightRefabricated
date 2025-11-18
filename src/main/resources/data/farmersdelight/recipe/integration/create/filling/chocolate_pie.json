@@ -14,19 +14,13 @@
     }
   ],
   "type": "create:filling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:pie_crust"
-    },
-    {
+  "ingredient": "farmersdelight:pie_crust",
+  "fluid_ingredient":  {
       "type": "fluid_tag",
       "amount": 500,
-      "fluid_tag": "c:chocolates"
-    }
-  ],
-  "results": [
-    {
+      "fluid_tag": "#c:chocolate"
+  },
+  "result": {
       "id": "farmersdelight:chocolate_pie"
-    }
-  ]
+  }
 }

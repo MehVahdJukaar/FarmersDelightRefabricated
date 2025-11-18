@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_potatoes"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_potatoes",
   "results": [
     {
       "id": "minecraft:purple_dye",
