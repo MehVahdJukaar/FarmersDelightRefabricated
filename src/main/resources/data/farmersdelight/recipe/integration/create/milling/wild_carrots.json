@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_carrots"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_carrots",
   "results": [
     {
       "item": "minecraft:light_gray_dye",
