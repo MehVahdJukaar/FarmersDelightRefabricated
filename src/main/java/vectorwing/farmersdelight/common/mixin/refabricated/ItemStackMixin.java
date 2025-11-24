@@ -12,7 +12,7 @@ import vectorwing.farmersdelight.common.event.CommonEvents;
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
 
-    @Inject(method = "finishUsingItem", at = @At(value = "TAIL"))
+    @Inject(method = "finishUsingItem", at = @At(value = "HEAD"))
     private void fdrf$onItemUseFinished(Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
         CommonEvents.onItemUseFinished(level, livingEntity, (ItemStack) (Object) this);
     }
