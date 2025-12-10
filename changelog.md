@@ -1,3 +1,5 @@
-## Fixes
-- Fixed Cutting recipe sound field using a less simple object.
-- Fixed Wheat Dough recipe names to have parity with upstream.
+- Ported to release 1.21.11.
+- Create integration has been changed to support Create Fly.
+- Recipes are now only synced if needed.
+- Update ko_kr translations (Copy_TT)
+- Update uk_ua translations (Starman)
