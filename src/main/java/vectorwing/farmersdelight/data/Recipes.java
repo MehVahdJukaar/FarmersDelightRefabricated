@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import vectorwing.farmersdelight.data.recipe.CookingRecipes;
 import vectorwing.farmersdelight.data.recipe.CraftingRecipes;
 import vectorwing.farmersdelight.data.recipe.CuttingRecipes;
@@ -17,18 +18,5 @@ public class Recipes extends FabricRecipeProvider
 {
 	public Recipes(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
-	}
-
-    @Override
-    public void buildRecipes(RecipeOutput exporter) {
-        CraftingRecipes.register(exporter);
-        SmeltingRecipes.register(exporter);
-        CookingRecipes.register(exporter);
-        CuttingRecipes.register( exporter);
-    }
-
-	@Override
-	public String getName() {
-		return "Farmer's Delight Recipes";
 	}
 }

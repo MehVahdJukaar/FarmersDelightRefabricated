@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data.recipe;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +11,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.DoughRecipe;
 import vectorwing.farmersdelight.common.crafting.FoodServingRecipe;
@@ -93,7 +93,7 @@ public class CraftingRecipes
 				.pattern("www")
 				.define('m', CommonTags.FOODS_MILK)
 				.define('s', Items.SUGAR)
-				.define('e', Tags.Items.EGGS)
+				.define('e', ConventionalItemTags.EGGS)
 				.define('w', Items.WHEAT)
 				.unlockedBy("has_milk_bottle", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.MILK_BOTTLE.get()))
 				.group("cake")
@@ -158,22 +158,22 @@ public class CraftingRecipes
 				.unlockedBy("has_canvas", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CANVAS.get()))
 				.save(output);
 
-		canvasSignDyeing(output, ModItems.WHITE_CANVAS_SIGN.get(), ModItems.WHITE_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_WHITE);
-		canvasSignDyeing(output, ModItems.ORANGE_CANVAS_SIGN.get(), ModItems.ORANGE_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_ORANGE);
-		canvasSignDyeing(output, ModItems.MAGENTA_CANVAS_SIGN.get(), ModItems.MAGENTA_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_MAGENTA);
-		canvasSignDyeing(output, ModItems.LIGHT_BLUE_CANVAS_SIGN.get(), ModItems.LIGHT_BLUE_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_LIGHT_BLUE);
-		canvasSignDyeing(output, ModItems.YELLOW_CANVAS_SIGN.get(), ModItems.YELLOW_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_YELLOW);
-		canvasSignDyeing(output, ModItems.LIME_CANVAS_SIGN.get(), ModItems.LIME_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_LIME);
-		canvasSignDyeing(output, ModItems.PINK_CANVAS_SIGN.get(), ModItems.PINK_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_PINK);
-		canvasSignDyeing(output, ModItems.GRAY_CANVAS_SIGN.get(), ModItems.GRAY_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_GRAY);
-		canvasSignDyeing(output, ModItems.LIGHT_GRAY_CANVAS_SIGN.get(), ModItems.LIGHT_GRAY_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_LIGHT_GRAY);
-		canvasSignDyeing(output, ModItems.CYAN_CANVAS_SIGN.get(), ModItems.CYAN_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_CYAN);
-		canvasSignDyeing(output, ModItems.PURPLE_CANVAS_SIGN.get(), ModItems.PURPLE_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_PURPLE);
-		canvasSignDyeing(output, ModItems.BLUE_CANVAS_SIGN.get(), ModItems.BLUE_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_BLUE);
-		canvasSignDyeing(output, ModItems.BROWN_CANVAS_SIGN.get(), ModItems.BROWN_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_BROWN);
-		canvasSignDyeing(output, ModItems.GREEN_CANVAS_SIGN.get(), ModItems.GREEN_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_GREEN);
-		canvasSignDyeing(output, ModItems.RED_CANVAS_SIGN.get(), ModItems.RED_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_RED);
-		canvasSignDyeing(output, ModItems.BLACK_CANVAS_SIGN.get(), ModItems.BLACK_HANGING_CANVAS_SIGN.get(), Tags.Items.DYES_BLACK);
+		canvasSignDyeing(output, ModItems.WHITE_CANVAS_SIGN.get(), ModItems.WHITE_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.WHITE_DYES);
+		canvasSignDyeing(output, ModItems.ORANGE_CANVAS_SIGN.get(), ModItems.ORANGE_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.ORANGE_DYES);
+		canvasSignDyeing(output, ModItems.MAGENTA_CANVAS_SIGN.get(), ModItems.MAGENTA_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.MAGENTA_DYES);
+		canvasSignDyeing(output, ModItems.LIGHT_BLUE_CANVAS_SIGN.get(), ModItems.LIGHT_BLUE_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.LIGHT_BLUE_DYES);
+		canvasSignDyeing(output, ModItems.YELLOW_CANVAS_SIGN.get(), ModItems.YELLOW_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.YELLOW_DYES);
+		canvasSignDyeing(output, ModItems.LIME_CANVAS_SIGN.get(), ModItems.LIME_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.LIME_DYES);
+		canvasSignDyeing(output, ModItems.PINK_CANVAS_SIGN.get(), ModItems.PINK_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.PINK_DYES);
+		canvasSignDyeing(output, ModItems.GRAY_CANVAS_SIGN.get(), ModItems.GRAY_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.GRAY_DYES);
+		canvasSignDyeing(output, ModItems.LIGHT_GRAY_CANVAS_SIGN.get(), ModItems.LIGHT_GRAY_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.LIGHT_GRAY_DYES);
+		canvasSignDyeing(output, ModItems.CYAN_CANVAS_SIGN.get(), ModItems.CYAN_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.CYAN_DYES);
+		canvasSignDyeing(output, ModItems.PURPLE_CANVAS_SIGN.get(), ModItems.PURPLE_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.PURPLE_DYES);
+		canvasSignDyeing(output, ModItems.BLUE_CANVAS_SIGN.get(), ModItems.BLUE_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.BLUE_DYES);
+		canvasSignDyeing(output, ModItems.BROWN_CANVAS_SIGN.get(), ModItems.BROWN_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.BROWN_DYES);
+		canvasSignDyeing(output, ModItems.GREEN_CANVAS_SIGN.get(), ModItems.GREEN_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.GREEN_DYES);
+		canvasSignDyeing(output, ModItems.RED_CANVAS_SIGN.get(), ModItems.RED_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.RED_DYES);
+		canvasSignDyeing(output, ModItems.BLACK_CANVAS_SIGN.get(), ModItems.BLACK_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.BLACK_DYES);
 	}
 
 	private static void recipesBlocks(RecipeOutput output) {
@@ -181,7 +181,7 @@ public class CraftingRecipes
 				.pattern("iii")
 				.pattern("B B")
 				.pattern("BCB")
-				.define('i', Tags.Items.INGOTS_IRON)
+				.define('i', ConventionalItemTags.IRON_INGOTS)
 				.define('B', Blocks.BRICKS)
 				.define('C', Blocks.CAMPFIRE)
 				.unlockedBy("has_campfire", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.CAMPFIRE))
@@ -191,9 +191,9 @@ public class CraftingRecipes
 				.pattern("iWi")
 				.pattern("iii")
 				.define('b', Items.BRICK)
-				.define('i', Tags.Items.INGOTS_IRON)
+				.define('i', ConventionalItemTags.IRON_INGOTS)
 				.define('S', Items.WOODEN_SHOVEL)
-				.define('W', Tags.Items.BUCKETS_WATER)
+				.define('W', ConventionalItemTags.WATER_BUCKETS)
 				.unlockedBy("has_iron_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
 				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModBlocks.BASKET.get())
@@ -216,7 +216,7 @@ public class CraftingRecipes
 				.pattern(" ##")
 				.pattern("/  ")
 				.define('/', Items.BRICK)
-				.define('#', Tags.Items.INGOTS_IRON)
+				.define('#', ConventionalItemTags.IRON_INGOTS)
 				.unlockedBy("has_brick", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BRICK))
 				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModBlocks.OAK_CABINET.get())
@@ -462,7 +462,7 @@ public class CraftingRecipes
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.IRON_KNIFE.get())
 				.pattern("m")
 				.pattern("s")
-				.define('m', Tags.Items.INGOTS_IRON)
+				.define('m', ConventionalItemTags.IRON_INGOTS)
 				.define('s', Items.STICK)
 				.unlockedBy("has_iron_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
 				.save(output);
@@ -564,7 +564,7 @@ public class CraftingRecipes
 				.requires(Items.WHEAT)
 				.requires(Items.WHEAT)
 				.requires(Items.WHEAT)
-				.requires(Tags.Items.EGGS)
+				.requires(ConventionalItemTags.EGGS)
 				.group("fd_dough")
 				.unlockedBy("has_wheat", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHEAT))
 				.save(output, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "wheat_dough_from_egg"));
@@ -613,8 +613,8 @@ public class CraftingRecipes
 				.requires(Items.APPLE)
 				.requires(Items.MELON_SLICE)
 				.requires(Items.MELON_SLICE)
-				.requires(Tags.Items.FOODS_BERRY)
-				.requires(Tags.Items.FOODS_BERRY)
+				.requires(ConventionalItemTags.BERRY_FOODS)
+				.requires(ConventionalItemTags.BERRY_FOODS)
 				.requires(ModItems.PUMPKIN_SLICE.get())
 				.requires(Items.BOWL)
 				.unlockedBy("has_fruits", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MELON_SLICE, Items.SWEET_BERRIES, Items.APPLE, ModItems.PUMPKIN_SLICE.get()))
@@ -694,26 +694,26 @@ public class CraftingRecipes
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.BARBECUE_STICK.get())
 				.requires(CommonTags.CROPS_TOMATO)
 				.requires(CommonTags.CROPS_ONION)
-				.requires(Tags.Items.FOODS_COOKED_MEAT)
+				.requires(ConventionalItemTags.COOKED_MEAT_FOODS)
 				.requires(Items.STICK)
 				.unlockedBy("has_tomato", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.TOMATO.get()))
 				.unlockedBy("has_onion", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ONION.get()))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.EGG_SANDWICH.get())
-				.requires(Tags.Items.FOODS_BREAD)
+				.requires(ConventionalItemTags.BREAD_FOODS)
 				.requires(CommonTags.FOODS_COOKED_EGG)
 				.requires(CommonTags.FOODS_COOKED_EGG)
 				.unlockedBy("has_fried_egg", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FRIED_EGG.get()))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.CHICKEN_SANDWICH.get())
-				.requires(Tags.Items.FOODS_BREAD)
+				.requires(ConventionalItemTags.BREAD_FOODS)
 				.requires(CommonTags.FOODS_COOKED_CHICKEN)
 				.requires(CommonTags.FOODS_LEAFY_GREEN)
 				.requires(Items.CARROT)
 				.unlockedBy("has_cooked_chicken", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COOKED_CHICKEN))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.HAMBURGER.get())
-				.requires(Tags.Items.FOODS_BREAD)
+				.requires(ConventionalItemTags.BREAD_FOODS)
 				.requires(ModItems.BEEF_PATTY.get())
 				.requires(CommonTags.FOODS_LEAFY_GREEN)
 				.requires(CommonTags.CROPS_TOMATO)
@@ -721,14 +721,14 @@ public class CraftingRecipes
 				.unlockedBy("has_beef_patty", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BEEF_PATTY.get()))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.BACON_SANDWICH.get())
-				.requires(Tags.Items.FOODS_BREAD)
+				.requires(ConventionalItemTags.BREAD_FOODS)
 				.requires(CommonTags.FOODS_COOKED_BACON)
 				.requires(CommonTags.FOODS_LEAFY_GREEN)
 				.requires(CommonTags.CROPS_TOMATO)
 				.unlockedBy("has_bacon", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.COOKED_BACON.get()))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.MUTTON_WRAP.get())
-				.requires(Tags.Items.FOODS_BREAD)
+				.requires(ConventionalItemTags.BREAD_FOODS)
 				.requires(CommonTags.FOODS_COOKED_MUTTON)
 				.requires(CommonTags.FOODS_LEAFY_GREEN)
 				.requires(CommonTags.CROPS_ONION)
@@ -794,7 +794,7 @@ public class CraftingRecipes
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.ROAST_CHICKEN_BLOCK.get())
 				.requires(CommonTags.CROPS_ONION)
-				.requires(Tags.Items.EGGS)
+				.requires(ConventionalItemTags.EGGS)
 				.requires(Items.BREAD)
 				.requires(Items.CARROT)
 				.requires(Items.COOKED_CHICKEN)
