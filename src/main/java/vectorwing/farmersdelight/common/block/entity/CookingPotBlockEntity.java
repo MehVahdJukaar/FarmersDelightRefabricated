@@ -1,8 +1,14 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import com.google.common.collect.Lists;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
+import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -28,12 +34,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.block.entity.inventory.CookingPotItemHandler;
@@ -46,8 +48,6 @@ import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,9 +79,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE)
 	);
 
-	private final ItemStackHandler inventory;
-	private final LazyOptional<IItemHandler> inputHandler;
-	private final LazyOptional<IItemHandler> outputHandler;
+	private final ItemStackHandlerContainer inventory;
+	private final CookingPotItemHandler inputHandler;
+	private final CookingPotItemHandler outputHandler;
 
 	private int cookTime;
 	private int cookTimeTotal;
@@ -97,13 +97,17 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	public CookingPotBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntityTypes.COOKING_POT.get(), pos, state);
 		this.inventory = createHandler();
-		this.inputHandler = LazyOptional.of(() -> new CookingPotItemHandler(inventory, Direction.UP));
-		this.outputHandler = LazyOptional.of(() -> new CookingPotItemHandler(inventory, Direction.DOWN));
+		this.inputHandler = new CookingPotItemHandler(inventory, Direction.UP);
+		this.outputHandler = new CookingPotItemHandler(inventory, Direction.DOWN);
 		this.mealContainerStack = ItemStack.EMPTY;
 		this.cookingPotData = createIntArray();
 		this.usedRecipeTracker = new Object2IntOpenHashMap<>();
 		this.checkNewRecipe = true;
 	}
+
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(CookingPotBlockEntity::getStorage, ModBlockEntityTypes.COOKING_POT.get());
+    }
 
 	public static ItemStack getMealFromItem(ItemStack cookingPotStack) {
 		if (!cookingPotStack.is(ModItems.COOKING_POT.get())) {
@@ -295,7 +299,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 
 	public ItemStack getContainer() {
 		ItemStack mealStack = getMeal();
-		if (mealStack.isEmpty() || mealContainerStack.isEmpty()) return mealStack.getCraftingRemainingItem();
+		if (mealStack.isEmpty() || mealContainerStack.isEmpty()) return mealStack.getRecipeRemainder();
 		return mealContainerStack;
 	}
 
@@ -350,8 +354,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (slotStack.hasCraftingRemainingItem()) {
-				ejectIngredientRemainder(slotStack.getCraftingRemainingItem());
+			if (slotStack.getRecipeRemainder() != null) {
+				ejectIngredientRemainder(slotStack.getRecipeRemainder());
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
 			}
@@ -419,7 +423,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return this.isHeated(level, worldPosition);
 	}
 
-	public ItemStackHandler getInventory() {
+	public ItemStackHandlerContainer getInventory() {
 		return inventory;
 	}
 
@@ -478,7 +482,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || meal.hasCraftingRemainingItem();
+		return !mealContainerStack.isEmpty() || meal.getRecipeRemainder() != null;
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {
@@ -512,24 +516,18 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return new CookingPotMenu(id, player, this, cookingPotData);
 	}
 
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-		if (cap.equals(ForgeCapabilities.ITEM_HANDLER)) {
-			if (side == null || side.equals(Direction.UP)) {
-				return inputHandler.cast();
-			} else {
-				return outputHandler.cast();
-			}
-		}
-		return super.getCapability(cap, side);
-	}
+    @NotNull
+    public Storage<ItemVariant> getStorage(@Nullable Direction side) {
+        if (side == null || side.equals(Direction.UP)) {
+            return inputHandler;
+        } else {
+            return outputHandler;
+        }
+    }
 
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		inputHandler.invalidate();
-		outputHandler.invalidate();
 	}
 
 	@Override
@@ -537,8 +535,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return writeItems(new CompoundTag());
 	}
 
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler(INVENTORY_SIZE)
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer(INVENTORY_SIZE)
 		{
 			@Override
 			public int getSlotLimit(int slot) {

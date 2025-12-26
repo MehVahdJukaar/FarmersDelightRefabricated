@@ -1,9 +1,8 @@
 package vectorwing.farmersdelight.common.registry;
 
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.*;
 
@@ -11,7 +10,7 @@ import java.util.function.Supplier;
 
 public class ModBlockEntityTypes
 {
-	public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, FarmersDelight.MODID);
+	public static final LazyRegistrar<BlockEntityType<?>> TILES = LazyRegistrar.create(Registries.BLOCK_ENTITY_TYPE, FarmersDelight.MODID);
 
 	public static final Supplier<BlockEntityType<StoveBlockEntity>> STOVE = TILES.register("stove",
 			() -> BlockEntityType.Builder.of(StoveBlockEntity::new, ModBlocks.STOVE.get()).build(null));

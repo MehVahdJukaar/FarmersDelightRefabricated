@@ -16,10 +16,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModLootFunctions;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class CopyMealFunction extends LootItemConditionalFunction
 {
 	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "copy_meal");

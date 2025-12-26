@@ -22,7 +22,7 @@ public class CuttingDisplay extends BasicDisplay {
     private List<Pair<EntryIngredient, Float>> chanceResults;
 
     public CuttingDisplay(CuttingBoardRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), recipe.getRollableResults().stream().map(result -> EntryIngredients.of(result.stack())).toList(), Optional.of(recipe.getId()), EntryIngredients.ofIngredient(recipe.getTool()), recipe.getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.stack()), result.chance())).toList());
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), recipe.getRollableResults().stream().map(result -> EntryIngredients.of(result.getStack())).toList(), Optional.of(recipe.getId()), EntryIngredients.ofIngredient(recipe.getTool()), recipe.getRollableResults().stream().map(result -> Pair.of(EntryIngredients.of(result.getStack()), result.getChance())).toList());
     }
 
     public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location, CompoundTag tag) {

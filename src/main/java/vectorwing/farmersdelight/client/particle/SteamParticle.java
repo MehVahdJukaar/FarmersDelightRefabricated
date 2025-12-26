@@ -3,8 +3,7 @@ package vectorwing.farmersdelight.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class SteamParticle extends TextureSheetParticle
 {
@@ -22,7 +21,7 @@ public class SteamParticle extends TextureSheetParticle
 	}
 
 	@Override
-	@Nonnull
+	@NotNull
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}

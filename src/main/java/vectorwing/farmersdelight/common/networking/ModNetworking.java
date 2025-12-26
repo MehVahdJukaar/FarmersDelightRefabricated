@@ -55,8 +55,8 @@ public class ModNetworking {
 
         @Override
         public void encode(FriendlyByteBuf buf) {
-        }
 
+        }
     }
 
     public record SendRecipeBookValuesMessage(boolean open, boolean filtering) implements S2CPacket {

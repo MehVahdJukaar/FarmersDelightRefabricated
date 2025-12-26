@@ -1,19 +1,17 @@
 package vectorwing.farmersdelight.common.registry;
 
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
-import java.util.function.Supplier;
-
 public class ModMenuTypes
 {
-	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, FarmersDelight.MODID);
+	public static final LazyRegistrar<MenuType<?>> MENU_TYPES = LazyRegistrar.create(Registries.MENU, FarmersDelight.MODID);
 
 	public static final RegistryObject<MenuType<CookingPotMenu>> COOKING_POT = MENU_TYPES
-			.register("cooking_pot", () -> IForgeMenuType.create(CookingPotMenu::new));
+			.register("cooking_pot", () -> new ExtendedScreenHandlerType<>(CookingPotMenu::new));
 }

@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vectorwing.farmersdelight.common.tag.ConventionalTags;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
 
 @Mixin(Rabbit.class)
 public class RabbitsEatCabbageMixin

@@ -19,13 +19,10 @@ import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
 public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> implements RecipeUpdateListener
 {
 	private static final ResourceLocation RECIPE_BUTTON_LOCATION = new ResourceLocation("textures/gui/recipe_button.png");
@@ -176,7 +173,6 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> im
 //	}
 
 	@Override
-	@Nonnull
 	public RecipeBookComponent getRecipeBookComponent() {
 		return this.recipeBookComponent;
 	}

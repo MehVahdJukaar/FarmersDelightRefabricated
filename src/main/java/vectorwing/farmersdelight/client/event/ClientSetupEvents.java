@@ -1,73 +1,90 @@
 package vectorwing.farmersdelight.client.event;
 
-import net.minecraft.client.Minecraft;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.FarmersDelight;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
 import vectorwing.farmersdelight.client.particle.StarParticle;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
-import vectorwing.farmersdelight.client.recipebook.RecipeCategories;
 import vectorwing.farmersdelight.client.renderer.*;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 
-import java.util.Map;
-
-@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetupEvents
 {
-	@SubscribeEvent
-	public static void onRegisterRecipeBookCategories(RegisterRecipeBookCategoriesEvent event) {
-		RecipeCategories.init(event);
+
+	/*
+	public static void init(final FMLClientSetupEvent event) {
 	}
 
 	@SubscribeEvent
-	public static void registerCustomTooltipRenderers(RegisterClientTooltipComponentFactoriesEvent event) {
-		event.register(CookingPotTooltip.CookingPotTooltipComponent.class, CookingPotTooltip::new);
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
+			BlockEntityWithoutLevelRenderer renderer = new SkilletItemRenderer();
+			@Override
+			public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+				return renderer;
+			}
+		}, ModItems.SKILLET.get());
 	}
+	 */
 
-	@SubscribeEvent
-	public static void onModelRegister(ModelEvent.RegisterAdditional event) {
-		event.register(new ModelResourceLocation(new ResourceLocation(FarmersDelight.MODID, "skillet_cooking"), "inventory"));
+	/*
+	public static void registerRecipeBookCategories() {
+		FDRecipeCategories.init();
 	}
+	 */
 
-	@SubscribeEvent
-	public static void onEntityRendererRegister(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
+    public static ClientTooltipComponent registerCustomTooltipRenderers(TooltipComponent data) {
+        if (CookingPotTooltip.CookingPotTooltipComponent.class.isAssignableFrom(data.getClass())) {
+            return new CookingPotTooltip((CookingPotTooltip.CookingPotTooltipComponent) data);
+        }
+        return null;
+    }
+
+	/*
+	@SubscribeEvent(priority = EventPriority.LOW)
+	public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+		HUDOverlays.register(event);
 	}
+	 */
 
-	@SubscribeEvent
-	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
-		Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
+    public static void onRegisterRenderers() {
+        EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.CANVAS_SIGN.get(), CanvasSignRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_CANVAS_SIGN.get(), HangingCanvasSignRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.SKILLET.get(), SkilletRenderer::new);
+    }
 
-		ModelResourceLocation skilletLocation = new ModelResourceLocation(new ResourceLocation(FarmersDelight.MODID, "skillet"), "inventory");
-		BakedModel skilletModel = modelRegistry.get(skilletLocation);
-		ModelResourceLocation skilletCookingLocation = new ModelResourceLocation(new ResourceLocation(FarmersDelight.MODID, "skillet_cooking"), "inventory");
-		BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
-		modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
+	/*
+	public static void registerMenuScreens(RegisterMenuScreensEvent event) {
+		event.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
 	}
+	 */
 
-	@SubscribeEvent
-	public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerBlockEntityRenderer(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);
-		event.registerBlockEntityRenderer(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);
-		event.registerBlockEntityRenderer(ModBlockEntityTypes.CANVAS_SIGN.get(), CanvasSignRenderer::new);
-		event.registerBlockEntityRenderer(ModBlockEntityTypes.HANGING_CANVAS_SIGN.get(), HangingCanvasSignRenderer::new);
-		event.registerBlockEntityRenderer(ModBlockEntityTypes.SKILLET.get(), SkilletRenderer::new);
-	}
+    public static void registerParticles() {
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.STAR.get(), StarParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
+    }
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void registerParticles(RegisterParticleProvidersEvent event) {
-		Minecraft.getInstance().particleEngine.register(ModParticleTypes.STAR.get(), StarParticle.Factory::new);
-		Minecraft.getInstance().particleEngine.register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
-	}
+//	public static void onModelRegister(ModelLoadingPlugin.Context event) {
+//		event.addModels(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
+//	}
+//
+//	@SubscribeEvent
+//	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
+//		Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
+//
+//		ModelResourceLocation skilletLocation = new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet"), "inventory");
+//		BakedModel skilletModel = modelRegistry.get(skilletLocation);
+//		ModelResourceLocation skilletCookingLocation = new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"), "inventory");
+//		BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
+//		modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
+//	}
 }

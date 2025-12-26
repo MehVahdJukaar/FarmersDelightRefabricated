@@ -13,21 +13,20 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
-
-import javax.annotation.Nullable;
 
 public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock implements CanvasSign
 {
 	private final DyeColor backgroundColor;
 
-	public CeilingHangingCanvasSignBlock(@Nullable DyeColor backgroundColor) {
+	public CeilingHangingCanvasSignBlock(@NotNull DyeColor backgroundColor) {
 		super(BlockBehaviour.Properties.copy(Blocks.SPRUCE_HANGING_SIGN), WoodType.SPRUCE);
 		this.backgroundColor = backgroundColor;
 	}
 
-	@Nullable
+	@NotNull
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}
@@ -38,7 +37,7 @@ public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock imple
 	}
 
 	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @NotNull LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
 
 		BlockEntity tileEntity = level.getBlockEntity(pos);

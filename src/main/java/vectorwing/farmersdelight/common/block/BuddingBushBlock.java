@@ -1,18 +1,17 @@
 package vectorwing.farmersdelight.common.block;
 
+import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -46,7 +45,7 @@ public class BuddingBushBlock extends BushBlock
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(Blocks.FARMLAND);
 	}
 
@@ -87,13 +86,12 @@ public class BuddingBushBlock extends BushBlock
 			int age = getAge(state);
 			if (age <= getMaxAge()) {
 				float growthSpeed = getGrowthSpeed(this, level, pos);
-				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) (25.0F / growthSpeed) + 1) == 0)) {
+                if (random.nextInt((int) (25.0F / growthSpeed) + 1) == 0) {
 					if (isMaxAge(state)) {
 						growPastMaxAge(state, level, pos, random);
 					} else {
 						level.setBlockAndUpdate(pos, getStateForAge(age + 1));
 					}
-					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 				}
 			}
 		}
@@ -113,24 +111,21 @@ public class BuddingBushBlock extends BushBlock
 		float speed = 1.0F;
 		BlockPos posBelow = pos.below();
 
-		for (int posX = -1; posX <= 1; ++posX) {
-			for (int posZ = -1; posZ <= 1; ++posZ) {
-				float speedBonus = 0.0F;
-				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				if (stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, (net.minecraftforge.common.IPlantable) block)) {
-					speedBonus = 1.0F;
-					if (stateBelow.isFertile(level, pos.offset(posX, 0, posZ))) {
-						speedBonus = 3.0F;
-					}
-				}
+        for (int posX = -1; posX <= 1; ++posX) {
+            for (int posZ = -1; posZ <= 1; ++posZ) {
+                float speedBonus = 1.0F;
+                BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
+                if (stateBelow.hasProperty(FarmBlock.MOISTURE) && stateBelow.getValue(FarmBlock.MOISTURE) > 0) {
+                    speedBonus = 3.0F;
+                }
 
-				if (posX != 0 || posZ != 0) {
-					speedBonus /= 4.0F;
-				}
+                if (posX != 0 || posZ != 0) {
+                    speedBonus /= 4.0F;
+                }
 
-				speed += speedBonus;
-			}
-		}
+                speed += speedBonus;
+            }
+        }
 
 		BlockPos posNorth = pos.north();
 		BlockPos posSouth = pos.south();
@@ -158,7 +153,7 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (entity instanceof Ravager && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, entity)) {
+		if (entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 			level.destroyBlock(pos, true, entity);
 		}
 

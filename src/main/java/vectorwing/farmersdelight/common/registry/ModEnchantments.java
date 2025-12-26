@@ -1,11 +1,10 @@
 package vectorwing.farmersdelight.common.registry;
 
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.item.enchantment.BackstabbingEnchantment;
 
@@ -16,7 +15,7 @@ public class ModEnchantments
     // cant do on fabric :P
 	// public static final EnchantmentCategory KNIFE = EnchantmentCategory.create("knife", item -> item instanceof KnifeItem);
 
-	public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FarmersDelight.MODID);
+	public static final LazyRegistrar<Enchantment> ENCHANTMENTS = LazyRegistrar.create(Registries.ENCHANTMENT, FarmersDelight.MODID);
 
 	public static final Supplier<Enchantment> BACKSTABBING = ENCHANTMENTS.register("backstabbing",
 			() -> new BackstabbingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));

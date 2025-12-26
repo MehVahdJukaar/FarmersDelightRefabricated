@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public class RecipeCategories
 {
-	// Moved initializers to RecipeBookCategoriesMixin.
+	// Moved initializers to FarmersDelightASM.
 	public static final Supplier<RecipeBookCategories> COOKING_SEARCH = Suppliers.memoize(() -> ClassTinkerers.getEnum(RecipeBookCategories.class, FarmersDelightASM.COOKING_SEARCH_RECIPE_BOOK_CATEGORY));
 	public static final Supplier<RecipeBookCategories> COOKING_MEALS = Suppliers.memoize(() -> ClassTinkerers.getEnum(RecipeBookCategories.class, FarmersDelightASM.COOKING_MEALS_RECIPE_BOOK_CATEGORY));
 	public static final Supplier<RecipeBookCategories> COOKING_DRINKS = Suppliers.memoize(() -> ClassTinkerers.getEnum(RecipeBookCategories.class, FarmersDelightASM.COOKING_DRINKS_RECIPE_BOOK_CATEGORY));

@@ -7,11 +7,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class CookingPotRecipeBookComponent extends RecipeBookComponent
@@ -28,7 +28,7 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent
 	}
 
 	@Override
-	@Nonnull
+	@NotNull
 	protected Component getRecipeFilterName() {
 		return TextUtils.getTranslation("container.recipe_book.cookable");
 	}

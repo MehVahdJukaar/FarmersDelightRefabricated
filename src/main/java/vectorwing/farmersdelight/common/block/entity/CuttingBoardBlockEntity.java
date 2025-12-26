@@ -1,7 +1,14 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
+import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,14 +25,8 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
@@ -34,19 +35,15 @@ import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ConventionalTags;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
 public class CuttingBoardBlockEntity extends SyncedBlockEntity
 {
-	private final ItemStackHandler inventory;
-	private final LazyOptional<IItemHandler> inputHandler;
+	private final ItemStackHandlerContainer inventory;
 	private ResourceLocation lastRecipeID;
 
 	private boolean isItemCarvingBoard;
@@ -54,9 +51,17 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntityTypes.CUTTING_BOARD.get(), pos, state);
 		inventory = createHandler();
-		inputHandler = LazyOptional.of(() -> inventory);
 		isItemCarvingBoard = false;
 	}
+
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
+    }
+
+    @NotNull
+    public Storage<ItemVariant> getStorage(@Nullable Direction side) {
+        return getInventory();
+    }
 
 	@Override
 	public void load(CompoundTag compound) {
@@ -133,7 +138,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	}
 
 	public void playProcessingSound(String soundEventID, ItemStack tool, ItemStack boardItem) {
-		SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEventID));
+		SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(soundEventID));
 
 		if (sound != null) {
 			playSound(sound, 1.0F, 1.0F);
@@ -183,7 +188,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return ItemStack.EMPTY;
 	}
 
-	public IItemHandler getInventory() {
+	public ItemStackHandlerContainer getInventory() {
 		return inventory;
 	}
 
@@ -200,22 +205,12 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	}
 
 	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-		if (cap.equals(ForgeCapabilities.ITEM_HANDLER)) {
-			return inputHandler.cast();
-		}
-		return super.getCapability(cap, side);
-	}
-
-	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		inputHandler.invalidate();
 	}
 
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler()
+	private ItemStackHandlerContainer createHandler() {
+		return new ItemStackHandlerContainer ()
 		{
 			@Override
 			public int getSlotLimit(int slot) {

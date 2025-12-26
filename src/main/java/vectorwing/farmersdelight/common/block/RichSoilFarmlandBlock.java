@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -12,14 +13,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
-
-import javax.annotation.Nullable;
 
 public class RichSoilFarmlandBlock extends FarmBlock
 {
@@ -30,12 +28,13 @@ public class RichSoilFarmlandBlock extends FarmBlock
 	private static boolean isNearWater(LevelReader level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
-			if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
+            if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
 				return true;
 			}
 		}
-
-		return net.minecraftforge.common.FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+        // There is no FarmlandWaterManager alternative on Fabric.
+        // return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+        return false;
 	}
 
 	public static void turnToRichSoil(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
@@ -49,7 +48,6 @@ public class RichSoilFarmlandBlock extends FarmBlock
 		return super.canSurvive(state, level, pos) || aboveState.getBlock() instanceof StemGrownBlock;
 	}
 
-	@Override
 	public boolean isFertile(BlockState state, BlockGetter world, BlockPos pos) {
 		if (state.is(ModBlocks.RICH_SOIL_FARMLAND.get()))
 			return state.getValue(RichSoilFarmlandBlock.MOISTURE) > 0;
@@ -78,6 +76,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 				return;
 			}
 
+            BlockPos abovePos = pos.above();
 			BlockState aboveState = level.getBlockState(pos.above());
 			Block aboveBlock = aboveState.getBlock();
 
@@ -86,22 +85,19 @@ public class RichSoilFarmlandBlock extends FarmBlock
 			}
 
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState, false) && ForgeHooks.onCropsGrowPre(level, pos.above(), aboveState, true)) {
-					growable.performBonemeal(level, level.random, pos.above(), aboveState);
-					if (!level.isClientSide) {
-						level.levelEvent(2005, pos.above(), 0);
-					}
-					ForgeHooks.onCropsGrowPost(level, pos.above(), aboveState);
-				}
+                if (growable.isValidBonemealTarget(level, abovePos, aboveState, false)) {
+                    growable.performBonemeal(level, level.random, abovePos, aboveState);
+                    level.levelEvent(1505, abovePos, 15);
+                }
 			}
 		}
 	}
 
-	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
-		net.minecraftforge.common.PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
-		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
-	}
+//	@Override
+//	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
+//		net.minecraftforge.common.PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
+//		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
+//	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

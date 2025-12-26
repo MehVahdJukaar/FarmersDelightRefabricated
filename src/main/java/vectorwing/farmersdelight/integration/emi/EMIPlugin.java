@@ -36,7 +36,7 @@ public class EMIPlugin implements EmiPlugin {
 
         for (CuttingBoardRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CUTTING.get())) {
             registry.addRecipe(new CuttingEmiRecipe(recipe.getId(), EmiIngredient.of(recipe.getTool()), EmiIngredient.of(recipe.getIngredients().get(0)),
-                    recipe.getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.stack()).setChance(chanceResult.chance())).toList()));
+                    recipe.getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.getStack()).setChance(chanceResult.getChance())).toList()));
         }
         registry.addRecipe(new DecompositionEmiRecipe());
     }

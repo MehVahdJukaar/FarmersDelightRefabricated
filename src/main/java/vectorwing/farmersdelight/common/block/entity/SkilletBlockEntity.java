@@ -20,7 +20,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -163,7 +162,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		cookingTime = compound.getInt("CookTime");
 		cookingTimeTotal = compound.getInt("CookTimeTotal");
 		skilletStack = ItemStack.of(compound.getCompound("Skillet"));
-		fireAspectLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, skilletStack);
+		fireAspectLevel = EnchantmentHelper.getEnchantments(skilletStack).getOrDefault(Enchantments.FIRE_ASPECT, 0);
 	}
 
 	@Override
@@ -182,7 +181,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public void setSkilletItem(ItemStack stack) {
 		skilletStack = stack.copy();
-		fireAspectLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack);
+		fireAspectLevel = EnchantmentHelper.getEnchantments(skilletStack).getOrDefault(Enchantments.FIRE_ASPECT, 0);
 		inventoryChanged();
 	}
 

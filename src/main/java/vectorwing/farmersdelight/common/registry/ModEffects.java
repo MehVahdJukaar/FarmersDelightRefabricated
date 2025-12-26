@@ -1,9 +1,8 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.effect.ComfortEffect;
 import vectorwing.farmersdelight.common.effect.NourishmentEffect;
@@ -12,8 +11,12 @@ import java.util.function.Supplier;
 
 public class ModEffects
 {
-	public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, FarmersDelight.MODID);
+	public static final Supplier<MobEffect> NOURISHMENT = NourishmentEffect::new;
+	public static final Supplier<MobEffect> COMFORT = ComfortEffect::new;
 
-	public static final Supplier<MobEffect> NOURISHMENT = EFFECTS.register("nourishment", NourishmentEffect::new);
-	public static final Supplier<MobEffect> COMFORT = EFFECTS.register("comfort", ComfortEffect::new);
+    // There was some hack here. I'm tired boss.
+    public static void register() {
+        Registry.register(BuiltInRegistries.MOB_EFFECT, FarmersDelight.res("nourishment"), NOURISHMENT.get());
+        Registry.register(BuiltInRegistries.MOB_EFFECT, FarmersDelight.res("comfort"), COMFORT.get());
+    }
 }

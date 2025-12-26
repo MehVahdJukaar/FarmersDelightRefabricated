@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,15 +34,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 @SuppressWarnings("deprecation")
@@ -66,13 +66,13 @@ public class StoveBlock extends BaseEntityBlock
 				extinguish(state, level, pos);
 				heldStack.hurtAndBreak(1, player, action -> action.broadcastBreakEvent(hand));
 				return InteractionResult.SUCCESS;
-			} else if (heldStack.is(ForgeTags.BUCKETS_WATER)) {
+			} else if (heldStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 				if (!level.isClientSide()) {
 					level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				}
 				extinguish(state, level, pos);
 				if (!player.isCreative()) {
-					player.setItemInHand(hand, heldStack.getCraftingRemainingItem());
+					player.setItemInHand(hand, heldStack.getRecipeRemainder());
 				}
 				return InteractionResult.SUCCESS;
 			}

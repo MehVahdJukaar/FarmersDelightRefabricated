@@ -16,10 +16,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModLootFunctions;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class CopySkilletFunction extends LootItemConditionalFunction
 {
 	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "copy_skillet");

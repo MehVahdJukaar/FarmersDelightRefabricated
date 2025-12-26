@@ -14,11 +14,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModLootFunctions;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class SmokerCookFunction extends LootItemConditionalFunction
 {
 	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "smoker_cook");
