@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class PastrySlicingModifier extends LootModifier
 {
 	public static final Supplier<Codec<PastrySlicingModifier>> CODEC = Suppliers.memoize(() ->
-			RecordCodecBuilder.create(inst -> codecStart(inst)
+			RecordCodecBuilder.create(inst -> LootModifier.codecStart(inst)
 					.and(BuiltInRegistries.ITEM.byNameCodec().fieldOf("slice").forGetter((m) -> m.pastrySlice))
 					.apply(inst, PastrySlicingModifier::new)));
 

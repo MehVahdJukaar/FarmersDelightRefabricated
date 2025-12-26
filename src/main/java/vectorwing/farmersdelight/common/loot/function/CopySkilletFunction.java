@@ -29,7 +29,7 @@ public class CopySkilletFunction extends LootItemConditionalFunction
 	}
 
 	public static Builder<?> builder() {
-		return simpleBuilder(CopySkilletFunction::new);
+		return LootItemConditionalFunction.simpleBuilder(CopySkilletFunction::new);
 	}
 
 	@Override

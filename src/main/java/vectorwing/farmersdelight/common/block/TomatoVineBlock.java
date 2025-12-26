@@ -58,10 +58,10 @@ public class TomatoVineBlock extends CropBlock
 			return InteractionResult.PASS;
 		} else if (isMature) {
 			int quantity = 1 + level.random.nextInt(2);
-			popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
+			Block.popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
 
 			if (level.random.nextFloat() < 0.05) {
-				popResource(level, pos, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
+				Block.popResource(level, pos, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
 			}
 
 			level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
@@ -82,7 +82,7 @@ public class TomatoVineBlock extends CropBlock
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
-				float speed = getGrowthSpeed(this, level, pos);
+				float speed = CropBlock.getGrowthSpeed(this, level, pos);
 				if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
 				}

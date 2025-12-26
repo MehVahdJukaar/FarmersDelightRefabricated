@@ -29,7 +29,7 @@ public class CopyMealFunction extends LootItemConditionalFunction
 	}
 
 	public static LootItemConditionalFunction.Builder<?> builder() {
-		return simpleBuilder(CopyMealFunction::new);
+		return LootItemConditionalFunction.simpleBuilder(CopyMealFunction::new);
 	}
 
 	@Override

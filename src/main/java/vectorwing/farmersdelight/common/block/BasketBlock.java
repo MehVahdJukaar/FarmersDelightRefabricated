@@ -47,16 +47,16 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public static final VoxelShape OUT_SHAPE = Shapes.block();
-	public static final VoxelShape RENDER_SHAPE = box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+	public static final VoxelShape RENDER_SHAPE = Block.box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
 	@SuppressWarnings("UnstableApiUsage")
 	public static final ImmutableMap<Direction, VoxelShape> COLLISION_SHAPE_FACING =
 			Maps.immutableEnumMap(ImmutableMap.<Direction, VoxelShape>builder()
-					.put(Direction.DOWN, makeHollowCubeShape(box(2.0D, 0.0D, 2.0D, 14.0D, 14.0D, 14.0D)))
-					.put(Direction.UP, makeHollowCubeShape(box(2.0D, 2.0D, 2.0D, 14.0D, 16.0D, 14.0D)))
-					.put(Direction.NORTH, makeHollowCubeShape(box(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 14.0D)))
-					.put(Direction.SOUTH, makeHollowCubeShape(box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 16.0D)))
-					.put(Direction.WEST, makeHollowCubeShape(box(0.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D)))
-					.put(Direction.EAST, makeHollowCubeShape(box(2.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D)))
+					.put(Direction.DOWN, makeHollowCubeShape(Block.box(2.0D, 0.0D, 2.0D, 14.0D, 14.0D, 14.0D)))
+					.put(Direction.UP, makeHollowCubeShape(Block.box(2.0D, 2.0D, 2.0D, 14.0D, 16.0D, 14.0D)))
+					.put(Direction.NORTH, makeHollowCubeShape(Block.box(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 14.0D)))
+					.put(Direction.SOUTH, makeHollowCubeShape(Block.box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 16.0D)))
+					.put(Direction.WEST, makeHollowCubeShape(Block.box(0.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D)))
+					.put(Direction.EAST, makeHollowCubeShape(Block.box(2.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D)))
 					.build());
 
 	private static VoxelShape makeHollowCubeShape(VoxelShape cutout) {
@@ -195,6 +195,6 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-		return level.isClientSide ? null : createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
+		return level.isClientSide ? null : BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
 	}
 }

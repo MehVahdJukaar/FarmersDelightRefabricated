@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class AddItemModifier extends LootModifier
 {
 	public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
-			RecordCodecBuilder.create(inst -> codecStart(inst).and(
+			RecordCodecBuilder.create(inst -> LootModifier.codecStart(inst).and(
 					inst.group(
 						BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter((m) -> m.addedItem),
 						Codec.INT.optionalFieldOf("count", 1).forGetter((m) -> m.count)

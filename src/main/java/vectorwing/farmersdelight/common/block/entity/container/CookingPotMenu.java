@@ -102,7 +102,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper>
 
 	@Override
 	public boolean stillValid(Player playerIn) {
-		return stillValid(canInteractWithCallable, playerIn, ModBlocks.COOKING_POT.get());
+		return AbstractContainerMenu.stillValid(canInteractWithCallable, playerIn, ModBlocks.COOKING_POT.get());
 	}
 
 	@Override

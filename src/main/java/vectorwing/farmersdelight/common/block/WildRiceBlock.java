@@ -33,12 +33,12 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	public WildRiceBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, true).setValue(HALF, DoubleBlockHalf.LOWER));
+		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, true).setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(HALF, WATERLOGGED);
+		builder.add(DoublePlantBlock.HALF, WATERLOGGED);
 	}
 
 	@Override
@@ -63,17 +63,17 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		level.setBlock(pos.above(), this.defaultBlockState().setValue(WATERLOGGED, false).setValue(HALF, DoubleBlockHalf.UPPER), 3);
+		level.setBlock(pos.above(), this.defaultBlockState().setValue(WATERLOGGED, false).setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
 	}
 
 	@Override
 	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
 		BlockState currentState = super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
-		DoubleBlockHalf half = stateIn.getValue(HALF);
+		DoubleBlockHalf half = stateIn.getValue(DoublePlantBlock.HALF);
 		if (!currentState.isAir()) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.getValue(HALF) != half) {
+		if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.getValue(DoublePlantBlock.HALF) != half) {
 			return half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
 		} else {
 			return Blocks.AIR.defaultBlockState();
@@ -94,12 +94,12 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
+		return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER;
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(HALF) == DoubleBlockHalf.LOWER
+		return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER
 				? Fluids.WATER.getSource(false)
 				: Fluids.EMPTY.defaultFluidState();
 	}
@@ -116,6 +116,6 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		popResource(level, pos, new ItemStack(this));
+		Block.popResource(level, pos, new ItemStack(this));
 	}
 }

@@ -24,7 +24,7 @@ import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitt
 public class AddLootTableModifier extends LootModifier
 {
 	public static final Supplier<Codec<AddLootTableModifier>> CODEC = Suppliers.memoize(() ->
-			RecordCodecBuilder.create(inst -> codecStart(inst)
+			RecordCodecBuilder.create(inst -> LootModifier.codecStart(inst)
 					.and(ResourceLocation.CODEC.fieldOf("lootTable").forGetter((m) -> m.lootTable))
 					.apply(inst, AddLootTableModifier::new)));
 
@@ -40,7 +40,7 @@ public class AddLootTableModifier extends LootModifier
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {
 			LootTable extraTable = context.getResolver().getLootTable(this.lootTable);
-			extraTable.getRandomItemsRaw(context, createStackSplitter(context.getLevel(), generatedLoot::add));
+			extraTable.getRandomItemsRaw(context, LootTable.createStackSplitter(context.getLevel(), generatedLoot::add));
 		}
 		return generatedLoot;
 	}

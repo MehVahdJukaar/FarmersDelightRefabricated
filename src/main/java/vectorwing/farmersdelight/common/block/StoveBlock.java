@@ -185,7 +185,7 @@ public class StoveBlock extends BaseEntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		if (state.getValue(LIT)) {
-			return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level.isClientSide
+			return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), level.isClientSide
 					? StoveBlockEntity::animationTick
 					: StoveBlockEntity::cookingTick);
 		}

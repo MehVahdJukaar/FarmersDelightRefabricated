@@ -82,7 +82,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		ItemStack heldStack = player.getItemInHand(hand);
 
 		if (age > 0 && heldStack.is(Tags.Items.SHEARS)) {
-			popResource(level, pos, getCloneItemStack(level, pos, state));
+			Block.popResource(level, pos, getCloneItemStack(level, pos, state));
 			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
 			if (!level.isClientSide) {
