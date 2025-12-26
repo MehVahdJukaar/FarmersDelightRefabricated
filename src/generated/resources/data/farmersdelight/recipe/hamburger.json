@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:foods/breads"
+      "tag": "c:foods/bread"
     },
     {
       "item": "farmersdelight:beef_patty"
