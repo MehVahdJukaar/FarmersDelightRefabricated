@@ -3,7 +3,6 @@
   "values": [
     "minecraft:lush_caves",
     "minecraft:mushroom_fields",
-    "#c:is_mushroom",
-    "#forge:is_mushroom"
+    "#c:is_mushroom"
   ]
 }
