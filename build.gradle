@@ -1,197 +1,242 @@
 plugins {
-    id 'java-library'
-    id 'eclipse'
-    id 'idea'
+    id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.0'
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0"
 }
 
-tasks.named('wrapper', Wrapper).configure {
-    distributionType = Wrapper.DistributionType.BIN
+version = mod_version + "+refabricated"
+group = mod_group_id
+
+base {
+    archivesName = "FarmersDelight"
 }
 
-version = "${minecraft_version}-${mod_version}"
-group = 'vectorwing.farmersdelight' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+fabricApi {
+    configureDataGeneration {
+        outputDirectory = file("src/generated/resources")
+        strictValidation = false
+        createSourceSet = true
+        modId = project.mod_id
+    }
+}
 
-sourceSets.main.resources {
-    srcDirs += 'src/generated/resources'
+loom {
+    accessWidenerPath = file("src/main/resources/farmersdelight.accesswidener")
 }
 
 repositories {
-    maven {
-        // JEI
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+
+    flatDir {
+        dirs 'mods'
     }
+
+    maven { url "https://maven.parchmentmc.org" }
+
     maven {
-        // CraftTweaker
+        url = "https://www.cursemaven.com"
+        allowInsecureProtocol = true
+    }
+
+    maven {
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
+
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+    }
+
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven {
+        // CraftTweaker, JEI
         name = "BlameJared"
-        url = "https://maven.blamejared.com"
+        url = "https://maven.blamejared.com/"
     }
-    maven { url "https://maven.ryanliptak.com/" }
-}
-
-base {
-    archivesName = 'FarmersDelight'
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-neoForge {
-    version = project.neo_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
-
-    // This line is optional. Access Transformers are automatically detected
-    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        client {
-            client()
-
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    maven { url "https://maven.ryanliptak.com/" } // AppleSkin
+    maven { url = "https://maven.parchmentmc.org" } // Parchment
+    maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
+    exclusiveContent {
+        forRepository {
+            maven {
+                url = "https://jitpack.io"
+            }
         }
-
-        server {
-            server()
-//            programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        data {
-            data()
-
-            // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-            // gameDirectory = project.file('run-data')
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-
-        configureEach {
-            // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            logLevel = org.slf4j.event.Level.DEBUG
+        filter {
+            includeGroup "com.github.Chocohead"
         }
     }
-
-    mods {
-        "${mod_id}" {
-            sourceSet(sourceSets.main)
-        }
-    }
-
-
-    modImplementation("curse.maven:jei-238222:4712868")
-    modImplementation("curse.maven:kubejs-238086:5034251")
-    modImplementation("curse.maven:rhino-416294:4944325")
-
-
-    // compile against the JEI API but do not include it at runtime
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    // at runtime, use the full JEI jar for Forge
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-
-    modCompileOnly("squeek.appleskin:appleskin-forge:${appleskin_version}:api")
-    modCompileOnly("squeek.appleskin:appleskin-forge:${appleskin_version}")
-
-    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:${crafttweaker_version}")
-
-    //annotationProcessor ctDep
-    annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors:${crafttweaker_ap_version}"
-    annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
-    annotationProcessor "com.google.code.gson:gson:2.8.7" // CT dep
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
+    maven { url = "https://maven.architectury.dev/" } // REI and deps
+    maven { url = "https://maven.shedaniel.me/" } // REI and deps
+    maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
+    mavenCentral() // Mixin Extras
 }
 
 dependencies {
-    // compile against the JEI API but do not include it at runtime
-    compileOnly "mezz.jei:jei-${jei_minecraft}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${jei_minecraft}-neoforge-api:${jei_version}"
-    // at runtime, use the full JEI jar for Forge
-    localRuntime "mezz.jei:jei-${jei_minecraft}-neoforge:${jei_version}"
+    // To change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    compileOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}:api"
-    runtimeOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}"
+    mappings loom.layered() {
+        it.officialMojangMappings {
+            setNameSyntheticMembers(false)
+        }
+        it.parchment("org.parchmentmc.data:parchment-${project.parchment_version}")
+    }
 
-    def ctDep = "com.blamejared.crafttweaker:CraftTweaker-neoforge-${crafttweaker_minecraft}:${crafttweaker_version}"
-    compileOnly ctDep
-    runtimeOnly ctDep
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
+        exclude (group: "net.fabricmc.fabric-api")
+    }
+
+    //config stuff. optional
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
+    modCompileOnly("curse.maven:yacl-667299:5424169")
+    modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
+    // Uncomment the below to test CraftTweaker.
+    // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
+
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+    // Uncomment the below to test JEI.
+    // modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+
+    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
+    modCompileOnly("dev.architectury:architectury-fabric:16.1.4")
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+//     Uncomment the below to test REI.
+//      modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+
+    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    // Uncomment the below to test EMI.
+//    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
+//        exclude(group: "net.fabricmc.fabric-api")
+//    }
 }
 
-tasks.withType(ProcessResources).configureEach {
+var changelogFile = rootProject.file("changelog.md")
+var changelogText = changelogFile.exists() ? changelogFile.text : ""
+
+publishMods {
+    file = remapJar.archiveFile
+    changelog = changelogText
+    type = STABLE
+    displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
+    version = mod_version
+
+    modLoaders.add("fabric")
+
+    curseforge {
+        projectId = curseforge_project_id
+
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+        javaVersions.add(JavaVersion.VERSION_21)
+
+        clientRequired = true
+        serverRequired = true
+
+        requires("fabric-api")
+//        optional("crafttweaker")
+//        optional("jei")
+        optional("roughly-enough-items")
+//        optional("emi")
+        optional("extended-itemview-eiv")
+    }
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = modrinth_project_id
+
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+
+        requires("fabric-api")
+//        optional("crafttweaker")
+//        optional("jei")
+        optional("rei")
+//        optional("emi")
+        optional("eiv")
+    }
+}
+
+processResources {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
+            minecraft_version    : minecraft_version,
+            minecraft_required   : minecraft_required,
+
+            mod_id               : mod_id,
+            mod_name             : mod_name,
+            mod_version          : version,
+            mod_license          : mod_license,
+            mod_authors          : mod_authors,
+            mod_description      : mod_description,
+            mod_credits          : mod_credits,
+            mod_homepage         : mod_homepage,
+            mod_github           : mod_github,
+            fabric_loader_version: fabric_loader_version,
+            fabric_api_version   : fabric_api_version
     ]
+    // setting them as input
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand replaceProperties
-    }
-}
-
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
-        }
+    filesMatching("fabric.mod.json") {
+        expand replaceProperties + [project: project]
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    it.options.release = 17
 }
 
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}"}
     }
 }
 
-////////////////
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
 
-//compileJava {
-//    options.compilerArgs << "-Acrafttweaker.processor.document.output_directory=${file('docsOut')}"
-//}
+    repositories {
+        maven {
+            name "greenhouse"
+            url "https://maven.greenhouse.lgbt/releases"
+            credentials {
+                username System.getenv('MAVEN_USERNAME')
+                password System.getenv('MAVEN_PASSWORD')
+            }
+            authentication {
+                create("basic", BasicAuthentication)
+            }
+        }
+    }
+}
