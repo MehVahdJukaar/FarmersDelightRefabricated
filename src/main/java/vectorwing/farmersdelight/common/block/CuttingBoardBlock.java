@@ -159,7 +159,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
-		return canSupportRigidBlock(level, floorPos) || canSupportCenter(level, floorPos, Direction.UP);
+		return Block.canSupportRigidBlock(level, floorPos) || Block.canSupportCenter(level, floorPos, Direction.UP);
 	}
 
 	@Override

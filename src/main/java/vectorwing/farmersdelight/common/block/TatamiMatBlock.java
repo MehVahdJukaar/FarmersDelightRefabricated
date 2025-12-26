@@ -46,7 +46,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, PART);
+		builder.add(HorizontalDirectionalBlock.FACING, PART);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 
 	@Override
 	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		if (facing == getDirectionToOther(stateIn.getValue(PART), stateIn.getValue(FACING))) {
+		if (facing == getDirectionToOther(stateIn.getValue(PART), stateIn.getValue(HorizontalDirectionalBlock.FACING))) {
 			return stateIn.canSurvive(level, currentPos) && facingState.is(this) && facingState.getValue(PART) != stateIn.getValue(PART) ? stateIn : Blocks.AIR.defaultBlockState();
 		} else {
 			return !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
@@ -78,7 +78,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 		if (!level.isClientSide && player.isCreative()) {
 			BedPart part = state.getValue(PART);
 			if (part == BedPart.FOOT) {
-				BlockPos pairPos = pos.relative(getDirectionToOther(part, state.getValue(FACING)));
+				BlockPos pairPos = pos.relative(getDirectionToOther(part, state.getValue(HorizontalDirectionalBlock.FACING)));
 				BlockState pairState = level.getBlockState(pairPos);
 				if (pairState.getBlock() == this && pairState.getValue(PART) == BedPart.HEAD) {
 					level.setBlock(pairPos, Blocks.AIR.defaultBlockState(), 35);
@@ -94,7 +94,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
 		if (!level.isClientSide) {
-			BlockPos facingPos = pos.relative(state.getValue(FACING));
+			BlockPos facingPos = pos.relative(state.getValue(HorizontalDirectionalBlock.FACING));
 			level.setBlock(facingPos, state.setValue(PART, BedPart.HEAD), 3);
 			level.blockUpdated(pos, Blocks.AIR);
 			state.updateNeighbourShapes(level, pos, 3);
@@ -109,7 +109,7 @@ public class TatamiMatBlock extends HorizontalDirectionalBlock
 		BlockPos pairPos = context.getClickedPos().relative(facing);
 		BlockState pairState = context.getLevel().getBlockState(pairPos);
 		if (pairState.canBeReplaced(context) && canSurvive(pairState, level, pairPos)) {
-			return this.defaultBlockState().setValue(FACING, facing);
+			return this.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, facing);
 		}
 		return null;
 	}

@@ -45,7 +45,7 @@ public class CanvasSignEditScreen extends SignEditScreen
 			if (!isFrontText) {
 				guiGraphics.pose().mulPose(Axis.YP.rotationDegrees(180));
 			}
-			guiGraphics.pose().scale(MAGIC_SCALE_NUMBER, MAGIC_SCALE_NUMBER, -MAGIC_SCALE_NUMBER);
+			guiGraphics.pose().scale(SignEditScreen.MAGIC_SCALE_NUMBER, SignEditScreen.MAGIC_SCALE_NUMBER, -SignEditScreen.MAGIC_SCALE_NUMBER);
 			Material material = ModAtlases.getCanvasSignMaterial(dye);
 			VertexConsumer vertexconsumer = material.buffer(guiGraphics.bufferSource(), this.signModel::renderType);
 			this.signModel.stick.visible = flag;
