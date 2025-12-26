@@ -8,6 +8,7 @@ import vectorwing.farmersdelight.common.CommonSetup;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
+import vectorwing.farmersdelight.common.block.entity.CabinetBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
@@ -65,6 +66,7 @@ public class FarmersDelight implements ModInitializer
 		CanItemPerformAbilityCondition.init();
 		LootModificationEvents.init();
 		ModBiomeModifiers.init();
+        CabinetBlockEntity.init();
 		CookingPotBlockEntity.init();
 		CuttingBoardBlock.init();
 		CuttingBoardBlockEntity.init();
@@ -73,7 +75,7 @@ public class FarmersDelight implements ModInitializer
 		KnifeItem.init();
 		ModNetworking.init();
 		RichSoilBlock.init();
-		ItemAbilityIngredient.init();
+		ItemAbilityIngredient.touch();
 
 		CompostableHelper.apply();
 	}

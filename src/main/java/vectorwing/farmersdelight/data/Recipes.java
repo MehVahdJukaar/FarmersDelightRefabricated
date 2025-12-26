@@ -19,4 +19,17 @@ public class Recipes extends FabricRecipeProvider
 	public Recipes(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
+
+    @Override
+    public void buildRecipes(RecipeOutput exporter) {
+        CraftingRecipes.register(exporter);
+        SmeltingRecipes.register(exporter);
+        CookingRecipes.register(exporter);
+        CuttingRecipes.register( exporter);
+    }
+
+    @Override
+    public String getName() {
+        return "Farmer's Delight Recipes";
+    }
 }

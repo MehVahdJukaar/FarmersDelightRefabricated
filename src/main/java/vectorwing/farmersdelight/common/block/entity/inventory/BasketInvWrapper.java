@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity.inventory;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import vectorwing.farmersdelight.common.block.entity.Basket;
 import vectorwing.farmersdelight.refabricated.inventory.InvWrapper;
 

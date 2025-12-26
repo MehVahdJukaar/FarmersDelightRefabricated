@@ -1,18 +1,18 @@
 package vectorwing.farmersdelight.data.recipe;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.Tags;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.ingredient.ItemAbilityIngredient;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.data.builder.CuttingBoardRecipeBuilder;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 public class CuttingRecipes
 {
@@ -160,17 +160,17 @@ public class CuttingRecipes
 	}
 
 	private static void salvagingMinerals(RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BRICKS), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.BRICK, 4)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BRICKS), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.BRICK, 4)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.NETHER_BRICKS), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.NETHER_BRICK, 4)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.NETHER_BRICKS), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.NETHER_BRICK, 4)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.STONE), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.COBBLESTONE, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.STONE), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.COBBLESTONE, 1)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DEEPSLATE), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.COBBLED_DEEPSLATE, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DEEPSLATE), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.COBBLED_DEEPSLATE, 1)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.QUARTZ_BLOCK), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.QUARTZ, 4)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.QUARTZ_BLOCK), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.QUARTZ, 4)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AMETHYST_BLOCK), new ItemAbilityIngredient(ItemAbilities.PICKAXE_DIG).toVanilla(), Items.AMETHYST_SHARD, 4)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AMETHYST_BLOCK), new ItemAbilityIngredient(ItemAbility.PICKAXE_DIG).toVanilla(), Items.AMETHYST_SHARD, 4)
 				.build(output);
 	}
 
@@ -191,7 +191,7 @@ public class CuttingRecipes
 		stripLogForBark(output, Items.MANGROVE_WOOD, Items.STRIPPED_MANGROVE_WOOD);
 		stripLogForBark(output, Items.CHERRY_LOG, Items.STRIPPED_CHERRY_LOG);
 		stripLogForBark(output, Items.CHERRY_WOOD, Items.STRIPPED_CHERRY_WOOD);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_BLOCK), new ItemAbilityIngredient(ItemAbilities.AXE_STRIP).toVanilla(), Items.STRIPPED_BAMBOO_BLOCK)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_BLOCK), new ItemAbilityIngredient(ItemAbility.AXE_STRIP).toVanilla(), Items.STRIPPED_BAMBOO_BLOCK)
 				.addResult(ModItems.STRAW.get())
 				.addSound(SoundEvents.AXE_STRIP).build(output);
 		stripLogForBark(output, Items.CRIMSON_STEM, Items.STRIPPED_CRIMSON_STEM);
@@ -215,26 +215,26 @@ public class CuttingRecipes
 	}
 
 	private static void diggingSediments(RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLAY), new ItemAbilityIngredient(ItemAbilities.SHOVEL_DIG).toVanilla(), Items.CLAY_BALL, 4)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLAY), new ItemAbilityIngredient(ItemAbility.SHOVEL_DIG).toVanilla(), Items.CLAY_BALL, 4)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GRAVEL), new ItemAbilityIngredient(ItemAbilities.SHOVEL_DIG).toVanilla(), Items.GRAVEL, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GRAVEL), new ItemAbilityIngredient(ItemAbility.SHOVEL_DIG).toVanilla(), Items.GRAVEL, 1)
 				.addResultWithChance(Items.FLINT, 0.1F)
 				.build(output);
 	}
 
 	private static void salvagingUsingShears(RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SADDLE), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SADDLE), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 2)
 				.addResultWithChance(Items.IRON_NUGGET, 0.5F, 2)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HORSE_ARMOR), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HORSE_ARMOR), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 2)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HELMET), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HELMET), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 1)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_CHESTPLATE), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_CHESTPLATE), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 1)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_LEGGINGS), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_LEGGINGS), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 1)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_BOOTS), Ingredient.of(Tags.Items.TOOLS_SHEAR), Items.LEATHER, 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_BOOTS), Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Items.LEATHER, 1)
 				.build(output);
 	}
 
@@ -243,17 +243,17 @@ public class CuttingRecipes
 	 * Generates an axe-cutting recipe for each furniture, resulting in one plank of the given type.
 	 */
 	private static void salvagePlankFromFurniture(RecipeOutput output, ItemLike plank, ItemLike door, ItemLike trapdoor, ItemLike sign, ItemLike hangingSign) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(door), new ItemAbilityIngredient(ItemAbilities.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(trapdoor), new ItemAbilityIngredient(ItemAbilities.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(sign), new ItemAbilityIngredient(ItemAbilities.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(hangingSign), new ItemAbilityIngredient(ItemAbilities.AXE_DIG).toVanilla(), plank).build(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(door), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(trapdoor), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(sign), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(hangingSign), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
 	}
 
 	/**
 	 * Generates an axe-stripping recipe for the pair of given logs, with custom sound and a Tree Bark result attached.
 	 */
 	private static void stripLogForBark(RecipeOutput output, ItemLike log, ItemLike strippedLog) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(log), new ItemAbilityIngredient(ItemAbilities.AXE_STRIP).toVanilla(), strippedLog)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(log), new ItemAbilityIngredient(ItemAbility.AXE_STRIP).toVanilla(), strippedLog)
 				.addResult(ModItems.TREE_BARK.get())
 				.addSound(SoundEvents.AXE_STRIP).build(output);
 	}

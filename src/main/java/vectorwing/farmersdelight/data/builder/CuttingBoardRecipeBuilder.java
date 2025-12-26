@@ -17,11 +17,9 @@ import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class CuttingBoardRecipeBuilder implements RecipeBuilder
 {
 	private final NonNullList<ChanceResult> results = NonNullList.createWithCapacity(4);

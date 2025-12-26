@@ -173,7 +173,8 @@ publishMods {
 processResources {
     var replaceProperties = [
             minecraft_version    : minecraft_version,
-            minecraft_required   : minecraft_required,
+            minecraft_min_version: minecraft_min_version,
+            minecraft_max_version: minecraft_max_version,
 
             mod_id               : mod_id,
             mod_name             : mod_name,
@@ -196,7 +197,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 java {
@@ -205,8 +206,8 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {

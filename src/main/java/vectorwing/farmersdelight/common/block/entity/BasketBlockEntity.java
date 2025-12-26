@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -14,10 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.BasketBlock;
 import vectorwing.farmersdelight.common.block.entity.inventory.BasketInvWrapper;
@@ -26,7 +23,6 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.function.BooleanSupplier;
 
-@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class BasketBlockEntity extends RandomizableContainerBlockEntity implements Basket
 {
 	private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
@@ -36,14 +32,21 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 		super(ModBlockEntityTypes.BASKET.get(), pos, state);
 	}
 
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
-				ModBlockEntityTypes.BASKET.get(),
-				(be, context) -> new BasketInvWrapper(be)
-		);
-	}
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(
+                (be, context) -> new BasketInvWrapper(be),
+                ModBlockEntityTypes.BASKET.get()
+        );
+    }
+
+//	@SubscribeEvent
+//	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+//		event.registerBlockEntity(
+//				Capabilities.ItemHandler.BLOCK,
+//				ModBlockEntityTypes.BASKET.get(),
+//				(be, context) -> new BasketInvWrapper(be)
+//		);
+//	}
 
 	@Override
 	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {

@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -19,18 +20,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+import vectorwing.farmersdelight.common.block.entity.inventory.BasketInvWrapper;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.refabricated.inventory.InvWrapper;
 
-@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 {
 	private NonNullList<ItemStack> contents = NonNullList.withSize(27, ItemStack.EMPTY);
@@ -63,14 +59,21 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 		super(ModBlockEntityTypes.CABINET.get(), pos, state);
 	}
 
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
-				ModBlockEntityTypes.CABINET.get(),
-				(be, context) -> new InvWrapper(be)
-		);
-	}
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(
+                (be, context) -> new InvWrapper(be),
+                ModBlockEntityTypes.CABINET.get()
+        );
+    }
+
+//	@SubscribeEvent
+//	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+//		event.registerBlockEntity(
+//				Capabilities.ItemHandler.BLOCK,
+//				ModBlockEntityTypes.CABINET.get(),
+//				(be, context) -> new InvWrapper(be)
+//		);
+//	}
 
 	@Override
 	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {

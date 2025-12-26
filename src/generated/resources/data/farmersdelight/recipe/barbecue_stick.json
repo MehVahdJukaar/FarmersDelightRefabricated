@@ -3,8 +3,6 @@
   "category": "misc",
   "ingredients": [
     {
-<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/barbecue_stick.json
-========
       "tag": "c:foods/breads"
     },
     {
@@ -14,7 +12,6 @@
       "tag": "c:salad_ingredients"
     },
     {
->>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/bacon_sandwich.json
       "tag": "c:crops/tomato"
     },
     {

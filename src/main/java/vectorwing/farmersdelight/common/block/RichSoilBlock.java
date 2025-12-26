@@ -1,8 +1,10 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -12,14 +14,16 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.refabricated.ItemAbility;;
-
 public class RichSoilBlock extends Block
 {
 	public RichSoilBlock(Properties properties) {
 		super(properties);
 	}
+
+
+    public static void init() {
+        TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
+    }
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {

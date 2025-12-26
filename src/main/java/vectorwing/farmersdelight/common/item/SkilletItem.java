@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -33,9 +34,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
@@ -46,12 +44,14 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import org.jetbrains.annotations.Nullable;;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 @SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem
 {
+    public static final float FLIP_TIME = 12;
+
 	public static final Tiers SKILLET_TIER = Tiers.IRON;
 	protected static final ResourceLocation FD_ATTACK_KNOCKBACK_UUID = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "base_attack_knockback");
 
@@ -65,31 +65,6 @@ public class SkilletItem extends BlockItem
 				.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 				.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 				.add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
-	}
-
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
-	public static class SkilletEvents
-	{
-		@SubscribeEvent
-		public static void playSkilletAttackSound(LivingDamageEvent.Pre event) {
-			DamageSource damageSource = event.getSource();
-			Entity attacker = damageSource.getDirectEntity();
-
-			if (!(attacker instanceof LivingEntity livingEntity)) return;
-			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
-
-			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
-			if (livingEntity instanceof Player player) {
-				float attackPower = player.getAttackStrengthScale(0.0F);
-				if (attackPower > 0.8F) {
-					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
-				} else {
-					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), SoundSource.PLAYERS, 0.8F, 0.9F);
-				}
-			} else {
-				livingEntity.getCommandSenderWorld().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
-			}
-		}
 	}
 
 	@Override
@@ -126,8 +101,8 @@ public class SkilletItem extends BlockItem
 		if (fireAspect.isEmpty()) {
 			return 0;
 		}
-		int fireAspectLevel = fireAspect.map(stack::getEnchantmentLevel).orElse(0);
-		int cookingTime = stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH, 0);
+		int fireAspectLevel = fireAspect.map(enchantmentReference -> stack.getEnchantments().getLevel(enchantmentReference)).orElse(0);
+		int cookingTime = stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH.get(), 0);
 		return SkilletBlock.getSkilletCookingTime(cookingTime, fireAspectLevel);
 	}
 
@@ -138,7 +113,7 @@ public class SkilletItem extends BlockItem
 			InteractionHand otherHand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 			ItemStack cookingStack = player.getItemInHand(otherHand);
 
-			if (!skilletStack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY).getStack().isEmpty()) {
+			if (!skilletStack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY).getStack().isEmpty()) {
 				player.startUsingItem(hand);
 				return InteractionResultHolder.pass(skilletStack);
 			}
@@ -151,8 +126,8 @@ public class SkilletItem extends BlockItem
 				}
 				ItemStack cookingStackCopy = cookingStack.copy();
 				ItemStack cookingStackUnit = cookingStackCopy.split(1);
-				skilletStack.set(ModDataComponents.SKILLET_INGREDIENT, new ItemStackWrapper(cookingStackUnit));
-				skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH, recipe.get().value().getCookingTime());
+				skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
+				skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().getCookingTime());
 				player.startUsingItem(hand);
 				player.setItemInHand(otherHand, cookingStackCopy);
 				return InteractionResultHolder.consume(skilletStack);
@@ -179,12 +154,12 @@ public class SkilletItem extends BlockItem
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (entity instanceof Player player) {
-			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
+			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
 			if (!storedStack.getStack().isEmpty()) {
 				ItemStack cookingStack = storedStack.getStack();
 				player.getInventory().placeItemBackInInventory(cookingStack);
-				stack.remove(ModDataComponents.SKILLET_INGREDIENT);
-				stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
+				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 			}
 		}
 	}
@@ -192,7 +167,7 @@ public class SkilletItem extends BlockItem
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 		if (entity instanceof Player player) {
-			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
+			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
 			if (!storedStack.getStack().isEmpty()) {
 				ItemStack cookingStack = storedStack.getStack();
 				Optional<RecipeHolder<CampfireCookingRecipe>> cookingRecipe = getCookingRecipe(cookingStack, level);
@@ -206,8 +181,8 @@ public class SkilletItem extends BlockItem
 						CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
 					}
 				});
-				stack.remove(ModDataComponents.SKILLET_INGREDIENT);
-				stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
+				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 			}
 		}
 
@@ -254,24 +229,43 @@ public class SkilletItem extends BlockItem
 		return InteractionResult.PASS;
 	}
 
-	@Override
-	public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
-			return false;
-		}
-		return super.isPrimaryItemFor(stack, enchantment);
-	}
-
-	@Override
-	public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
-			return false;
-		}
-		return super.supportsEnchantment(stack, enchantment);
-	}
+    @Override
+    public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
+        if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
+            return false;
+        }
+        return super.canBeEnchantedWith(stack, enchantment, context);
+    }
 
 	@Override
 	public int getEnchantmentValue() {
 		return SKILLET_TIER.getEnchantmentValue();
 	}
+
+    public static class SkilletEvents {
+        /*
+         This is modfiied before the player loses their attack power, and is unmodified as soon as the Skillet sound is played.
+         This doesn't exist on Forge because they moved the resetting of attack power to after the events are fired.
+         */
+        public static float attackPower = 0.0F;
+
+        public static void playSkilletAttackSound(LivingEntity entity, DamageSource source) {
+            Entity attacker = source.getDirectEntity();
+
+            if (!(attacker instanceof LivingEntity livingEntity)) return;
+            if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
+
+            float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
+            if (livingEntity instanceof Player player) {
+                if (attackPower > 0.8F) {
+                    player.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
+                } else {
+                    player.playSound(ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), 0.8F, 0.9F);
+                }
+            } else {
+                livingEntity.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
+            }
+            attackPower = 0.0F;
+        }
+    }
 }

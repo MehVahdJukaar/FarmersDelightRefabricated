@@ -159,7 +159,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 
 		private static final MapCodec<CuttingBoardRecipe> CODEC = RecordCodecBuilder.mapCodec(
 				inst -> inst.group(Codec.STRING.optionalFieldOf("group", "").forGetter(CuttingBoardRecipe::getGroup),
-								Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").flatXmap(ingredients -> {
+								Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").flatXmap(ingredients -> {
 									if (ingredients.isEmpty()) {
 										return DataResult.error(() -> "No ingredients for cutting recipe");
 									}

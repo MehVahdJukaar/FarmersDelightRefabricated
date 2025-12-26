@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.crafting;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
@@ -9,7 +10,6 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.Tags;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 
@@ -31,7 +31,7 @@ public class DoughRecipe extends CustomRecipe
 					if (!wheatStack.isEmpty()) return false;
 					wheatStack = selectedStack;
 				} else {
-					if (!selectedStack.is(Tags.Items.BUCKETS_WATER)) {
+					if (!selectedStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 						return false;
 					}
 					waterStack = selectedStack;
@@ -53,7 +53,7 @@ public class DoughRecipe extends CustomRecipe
 
 		for (int index = 0; index < remainders.size(); ++index) {
 			ItemStack selectedStack = container.getItem(index);
-			if (selectedStack.is(Tags.Items.BUCKETS_WATER)) {
+			if (selectedStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 				remainders.set(index, selectedStack.copy());
 			}
 		}

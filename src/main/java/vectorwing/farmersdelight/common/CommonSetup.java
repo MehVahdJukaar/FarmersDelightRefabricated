@@ -5,18 +5,15 @@ import com.google.common.collect.Sets;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Set;
 
 public class CommonSetup
 {
-	public static void init(final FMLCommonSetupEvent event) {
-		event.enqueueWork(() -> {
-			registerDispenserBehaviors();
-			registerItemSetAdditions();
-		});
+	public static void init() {
+        registerDispenserBehaviors();
+        registerItemSetAdditions();
 	}
 
 	public static void registerDispenserBehaviors() {

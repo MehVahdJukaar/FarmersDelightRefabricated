@@ -12,11 +12,7 @@
       "tag": "c:foods/raw_pork"
     },
     {
-<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/cooking/pumpkin_soup.json
       "tag": "c:foods/milk"
-========
-      "tag": "c:milks"
->>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/cooking/pumpkin_soup.json
     }
   ],
   "recipe_book_tab": "meals",

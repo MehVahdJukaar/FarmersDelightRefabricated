@@ -1,6 +1,8 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,8 +36,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.Tags;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
@@ -44,7 +44,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
-import org.jetbrains.annotations.Nullable;;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 @SuppressWarnings("deprecation")
@@ -58,6 +58,7 @@ public class StoveBlock extends BaseEntityBlock
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+        LandPathNodeTypesRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
 	}
 
 	@Override
@@ -74,13 +75,13 @@ public class StoveBlock extends BaseEntityBlock
 				extinguish(state, level, pos);
 				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				return ItemInteractionResult.SUCCESS;
-			} else if (heldStack.is(Tags.Items.BUCKETS_WATER)) {
+			} else if (heldStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 				if (!level.isClientSide()) {
 					level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				}
 				extinguish(state, level, pos);
 				if (!player.isCreative()) {
-					player.setItemInHand(hand, heldStack.getCraftingRemainingItem());
+					player.setItemInHand(hand, heldStack.getRecipeRemainder());
 				}
 				return ItemInteractionResult.SUCCESS;
 			}
@@ -201,12 +202,19 @@ public class StoveBlock extends BaseEntityBlock
 		}
 		return null;
 	}
+    /**
+     * Refabricated: Deprecated but kept for cross-loader code. Use {@link StoveBlock#getBlockPathType(BlockState, BlockGetter, BlockPos)} instead.
+     */
+    @Nullable
+    @Deprecated
+    public PathType getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+        return getBlockPathType(state, world, pos);
+    }
 
-	@Nullable
-	@Override
-	public PathType getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-		return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
-	}
+    @Nullable
+    public PathType getBlockPathType(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
+    }
 
 	@Override
 	public BlockState rotate(BlockState pState, Rotation pRot) {

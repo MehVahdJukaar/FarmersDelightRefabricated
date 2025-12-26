@@ -3,11 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/chicken_sandwich.json
       "tag": "c:foods/bread"
-========
-      "tag": "c:foods/breads"
->>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/chicken_sandwich.json
     },
     {
       "tag": "c:foods/cooked_chicken"

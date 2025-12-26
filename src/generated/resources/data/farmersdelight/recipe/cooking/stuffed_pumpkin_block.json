@@ -20,7 +20,6 @@
       "item": "minecraft:potato"
     },
     {
-<<<<<<<< HEAD:src/generated/resources/data/farmersdelight/recipe/cooking/stuffed_pumpkin_block.json
       "tag": "c:foods/berry"
     },
     {
@@ -30,13 +29,11 @@
       },
       "subtracted": {
         "item": "minecraft:melon_slice"
-      }
-========
+      },
       "tag": "c:foods/berries"
     },
     {
       "tag": "c:foods/vegetables"
->>>>>>>> bb984685 (Futureproof conventional tags, move src/main/generated to src/generated.):src/generated/resources/data/farmersdelight/recipes/cooking/stuffed_pumpkin_block.json
     }
   ],
   "recipe_book_tab": "meals",

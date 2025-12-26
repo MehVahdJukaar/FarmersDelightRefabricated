@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -15,8 +16,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -24,9 +23,8 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandlerContainer;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-import org.jetbrains.annotations.Nullable;;
 import java.util.Optional;
 
 import static vectorwing.farmersdelight.common.item.SkilletItem.FLIP_TIME;
@@ -88,13 +86,6 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				double motionZ = level.random.nextFloat() - 0.5F;
 				level.addParticle(ParticleTypes.ENCHANTED_HIT, x, y, z, motionX, motionY, motionZ);
 			}
-
-			if (level.getGameTime() - skillet.lastFlippedTime == FLIP_TIME) {
-				double x = (double) pos.getX() + 0.5D;
-				double y = (double) pos.getY() + 0.1D;
-				double z = (double) pos.getZ() + 0.5D;
-				level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
-			}
 		}
 
 	}
@@ -139,7 +130,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		cookingTime = compound.getInt("CookTime");
 		cookingTimeTotal = compound.getInt("CookTimeTotal");
 		skilletStack = ItemStack.parseOptional(registries, compound.getCompound("Skillet"));
-		fireAspectLevel = EnchantmentHelper.getTagEnchantmentLevel(registries.holder(Enchantments.FIRE_ASPECT).get(), skilletStack);
+		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
 	}
 
 	@Override
@@ -159,7 +150,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public void setSkilletItem(ItemStack stack) {
 		skilletStack = stack.copy();
-		fireAspectLevel = EnchantmentHelper.getTagEnchantmentLevel(level.registryAccess().holderOrThrow(Enchantments.FIRE_ASPECT), stack);
+		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), stack);
 		inventoryChanged();
 	}
 
@@ -190,7 +181,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return inventory.extractItem(0, getStoredStack().getMaxStackSize(), false);
 	}
 
-	public IItemHandler getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
