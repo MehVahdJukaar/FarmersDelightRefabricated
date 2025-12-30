@@ -1,171 +1,173 @@
 plugins {
-    id 'java-library'
-    id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.0'
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id "com.modrinth.minotaur" version "2.+"
 }
 
-tasks.named('wrapper', Wrapper).configure {
-    distributionType = Wrapper.DistributionType.BIN
+architectury {
+    minecraft = rootProject.minecraft_version
 }
 
-version = "${minecraft_version}-${mod_version}"
-group = 'vectorwing.farmersdelight' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply plugin: "io.github.juuxel.loom-quiltflower"
+    apply plugin: "com.matthewprenger.cursegradle"
+    apply plugin: "com.modrinth.minotaur"
 
-repositories {
-    maven {
-        // JEI
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // CraftTweaker
-        name = "BlameJared"
-        url = "https://maven.blamejared.com"
-    }
-    maven { url "https://maven.ryanliptak.com/" }
-}
-
-base {
-    archivesName = 'FarmersDelight'
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-neoForge {
-    version = project.neo_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
+    loom {
+        silentMojangMappingsLicense()
     }
 
-    // This line is optional. Access Transformers are automatically detected
-    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        client {
-            client()
-
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        server {
-            server()
-//            programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        data {
-            data()
-
-            // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-            // gameDirectory = project.file('run-data')
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-
-        configureEach {
-            // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            logLevel = org.slf4j.event.Level.DEBUG
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.layered() {
+            it.parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
+            it.officialMojangMappings {
+                setNameSyntheticMembers(false)
+            }
         }
     }
 
-    mods {
-        "${mod_id}" {
-            sourceSet(sourceSets.main)
+    var env = System.getenv()
+    var modLoader = name
+
+    var changelogFile = rootProject.file("changelog.md")
+    var changelogText = changelogFile.exists() ? changelogFile.text : ""
+
+    if (env.MODRINTH_TOKEN) {
+        modrinth {
+            projectId = "universal-sawmill"
+            uploadFile = tasks.remapJar
+            gameVersions = [rootProject.minecraft_version]
+            loaders = [modLoader]
+            changelog = changelogText
+
+            if (modLoader == "fabric") {
+                dependencies {
+                    required.project "fabric-api"
+                    required.project "moonlight"
+                }
+            } else {
+                dependencies {
+                    required.project "moonlight"
+                }
+            }
+        }
+    }
+
+    if (env.CURSEFORGE_TOKEN) {
+        curseforge {
+            apiKey = env.CURSEFORGE_TOKEN
+            project {
+                id = rootProject.project_id
+                changelog = changelogText
+                releaseType = 'release'
+                addGameVersion rootProject.minecraft_version
+                addGameVersion modLoader.capitalize()
+
+                mainArtifact(tasks.remapJar)
+
+                if (modLoader == "fabric") {
+                    relations {
+                        requiredDependency "fabric-api"
+                        requiredDependency "selene"
+                    }
+                } else {
+                    relations {
+                        requiredDependency "selene"
+                    }
+                }
+            }
         }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
 
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
+    archivesBaseName = mod_id
+    version = mod_version
+    group = mod_group_id
 
-dependencies {
-    // compile against the JEI API but do not include it at runtime
-    compileOnly "mezz.jei:jei-${jei_minecraft}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${jei_minecraft}-neoforge-api:${jei_version}"
-    // at runtime, use the full JEI jar for Forge
-    localRuntime "mezz.jei:jei-${jei_minecraft}-neoforge:${jei_version}"
 
-    compileOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}:api"
-    runtimeOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}"
-
-    def ctDep = "com.blamejared.crafttweaker:CraftTweaker-neoforge-${crafttweaker_minecraft}:${crafttweaker_version}"
-    compileOnly ctDep
-    runtimeOnly ctDep
-}
-
-tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
-    ]
-    inputs.properties replaceProperties
-
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand replaceProperties
-    }
-}
-
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
-        }
-    }
     repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
+
+        flatDir {
+            dirs 'mods'
         }
+
+        mavenLocal()
+
+        maven { url "https://maven.parchmentmc.org" }
+
+        maven {
+            url = "https://www.cursemaven.com"
+            allowInsecureProtocol = true
+        }
+
+        maven {
+            url "https://maven.firstdarkdev.xyz/snapshots"
+        }
+
+        maven {
+            name = 'Ladysnake Mods'
+            url = 'https://maven.ladysnake.org/releases'
+        }
+
+        maven { url 'https://jitpack.io' }
+
+        maven {
+            url = 'https://maven.neoforged.net'
+        }
+
+        maven {
+            url = "https://api.modrinth.com/maven"
+        }
+
+        maven {
+            // JEI
+            name = "Progwml6 maven"
+            url = "https://dvs1.progwml6.com/files/maven/"
+        }
+        maven {
+            // CraftTweaker
+            name = "BlameJared"
+            url = "https://maven.blamejared.com/"
+        }
+        maven { url "https://maven.ryanliptak.com/" }
+
+
+        maven { url = "https://maven.quiltmc.org/repository/release" } // QM
+        maven { url = "https://maven.parchmentmc.org" } // Parchment
+        maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
+        maven { url = "https://mvn.devos.one/snapshots/" } // Registrate, Porting Lib, Forge Tags, Milk Lib
+        maven { // for Porting Lib: Mixin Extras, Fabric ASM
+            url = "https://jitpack.io/"
+        }
+        maven { url = "https://cursemaven.com" } // Forge Config API Port
+        maven { url = "https://maven.tterrag.com/" } // Flywheel
+        maven { url = "https://maven.shedaniel.me/" } // REI and deps
+        maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Sodium, Sandwichable
+        maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, Trinkets
+        maven { url = "https://squiddev.cc/maven" } // CC:T
+        maven { url = "https://modmaven.dev" } // Botania
+        maven { // Reach Entity Attributes
+            url = "https://maven.jamieswhiteshirt.com/libs-release"
+            content { includeGroup("com.jamieswhiteshirt") }
+        }
+        maven { url = "https://maven.ladysnake.org/releases" } // CCA, for Trinkets
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = 17
+    }
+
+    java {
+        withSourcesJar()
     }
 }
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
-}
-
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
-    }
-}
-
-////////////////
-
-//compileJava {
-//    options.compilerArgs << "-Acrafttweaker.processor.document.output_directory=${file('docsOut')}"
-//}
