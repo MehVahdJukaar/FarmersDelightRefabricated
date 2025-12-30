@@ -92,7 +92,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	}
 
 	@Override
-	public RecipeBuilder group(@org.jetbrains.annotations.Nullable String p_176495_) {
+	public RecipeBuilder group(@Nullable String p_176495_) {
 		return this;
 	}
 

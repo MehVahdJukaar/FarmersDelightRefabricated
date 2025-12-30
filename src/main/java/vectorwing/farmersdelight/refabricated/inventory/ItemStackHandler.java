@@ -7,13 +7,12 @@
  */
 package vectorwing.farmersdelight.refabricated.inventory;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.Item;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ItemStackHandler extends FabricWrappedInventory {
     private final NonNullList<ItemStack> stacks;
@@ -110,32 +109,13 @@ public class ItemStackHandler extends FabricWrappedInventory {
         onContentsChanged(slot);
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        ListTag listTag = new ListTag();
-
-        for (int i = 0; i < stacks.size(); ++i) {
-            if (!stacks.get(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putInt("Slot", i);
-                listTag.add(stacks.get(i).save(provider, itemTag));
-            }
-        }
-
-        CompoundTag tag = new CompoundTag();
-        tag.put("Items", listTag);
-        return tag;
+    public void serialize(ValueOutput output) {
+        ContainerHelper.saveAllItems(output, stacks);
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    public void deserialize(ValueInput input) {
         stacks.clear();
-        ListTag listTag = tag.getList("Items", Tag.TAG_COMPOUND);
-        for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag itemTag = listTag.getCompound(i);
-            int slot = itemTag.getInt("Slot");
-            if (slot >= 0 && slot < stacks.size()) {
-                ItemStack.parse(provider, itemTag).ifPresent(stack -> stacks.set(slot, stack));
-            }
-        }
+        ContainerHelper.loadAllItems(input, stacks);
     }
 
     protected void onContentsChanged(int slot) {}

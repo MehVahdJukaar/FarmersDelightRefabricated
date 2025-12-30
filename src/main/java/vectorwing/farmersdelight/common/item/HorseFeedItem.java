@@ -45,7 +45,7 @@ public class HorseFeedItem extends Item
 	}
 
 	public static void init(){
-		UseEntityCallback.EVENT.register(HorseFeedItem.HorseFeedEvent::onHorseFeedApplied);
+		UseEntityCallback.EVENT.register(HorseFeedEvent::onHorseFeedApplied);
 	}
 
 	public static class HorseFeedEvent
@@ -85,7 +85,7 @@ public class HorseFeedItem extends Item
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

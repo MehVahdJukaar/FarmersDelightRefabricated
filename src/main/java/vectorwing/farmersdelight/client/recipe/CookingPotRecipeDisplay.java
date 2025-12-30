@@ -32,10 +32,10 @@ public record CookingPotRecipeDisplay(List<SlotDisplay> ingredients, Optional<Sl
             ByteBufCodecs.FLOAT, CookingPotRecipeDisplay::experience,
             CookingPotRecipeDisplay::new
     );
-    public static final RecipeDisplay.Type<CookingPotRecipeDisplay> TYPE = new RecipeDisplay.Type<>(MAP_CODEC, STREAM_CODEC);
+    public static final Type<CookingPotRecipeDisplay> TYPE = new Type<>(MAP_CODEC, STREAM_CODEC);
 
     @Override
-    public RecipeDisplay.Type<CookingPotRecipeDisplay> type() {
+    public Type<CookingPotRecipeDisplay> type() {
         return TYPE;
     }
 
