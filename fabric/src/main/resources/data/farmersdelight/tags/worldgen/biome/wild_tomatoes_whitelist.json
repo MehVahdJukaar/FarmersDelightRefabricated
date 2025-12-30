@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:is_hot/overworld",
+    "#c:is_hot/overworld",
+    "minecraft:desert",
+    "minecraft:jungle",
+    "minecraft:sparse_jungle",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:stony_peaks",
+    "minecraft:warm_ocean",
+    "minecraft:windswept_savanna",
+    "minecraft:eroded_badlands",
+    "minecraft:bamboo_jungle",
+    "minecraft:mangrove_swamp"
+  ]
+}

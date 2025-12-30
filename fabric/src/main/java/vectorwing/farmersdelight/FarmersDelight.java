@@ -3,6 +3,7 @@ package vectorwing.farmersdelight;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +22,10 @@ public class FarmersDelight implements ModInitializer
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 	public static final RecipeBookType RECIPE_TYPE_COOKING = RecipeBookType.create("COOKING");
+
+	public static ResourceLocation res(String name) {
+		return new ResourceLocation(MODID, name);
+	}
 
 	@Override
 	public void onInitialize() {
@@ -51,5 +56,8 @@ public class FarmersDelight implements ModInitializer
 		VillagerEvents.addTrades();
 
 		CommonSetup.init();
+
+		// new stuff
+		ModBiomeModifiers.init();
 	}
 }
