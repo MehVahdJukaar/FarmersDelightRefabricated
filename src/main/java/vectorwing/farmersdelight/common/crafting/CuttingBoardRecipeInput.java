@@ -2,11 +2,11 @@ package vectorwing.farmersdelight.common.crafting;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public record CuttingBoardRecipeInput(ItemStack item, ItemStack tool) implements RecipeInput {
 	@Override
-	public @NonNull ItemStack getItem(int index) {
+	public @NotNull ItemStack getItem(int index) {
 		return switch (index) {
 			case 0 -> this.item;
 			case 1 -> this.tool;
