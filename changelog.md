@@ -1,2 +1,2 @@
 - Updated MerchantCalico credits to ChrysanthCow.
-    - This may have caused some instabilities within the codebase as I had incorrectly handled the merges. Sorry.
+  - This may have caused some instabilities within the codebase as I had incorrectly handled the merges. Sorry.
