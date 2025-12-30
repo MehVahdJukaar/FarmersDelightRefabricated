@@ -148,7 +148,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	public static class Serializer implements RecipeSerializer<CuttingBoardRecipe>
 	{
 		public static final StreamCodec<RegistryFriendlyByteBuf, CuttingBoardRecipe> STREAM_CODEC =
-				StreamCodec.of(CuttingBoardRecipe.Serializer::toNetwork, CuttingBoardRecipe.Serializer::fromNetwork);
+				StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
 
 		private static final MapCodec<CuttingBoardRecipe> CODEC = RecordCodecBuilder.mapCodec(
 				inst -> inst.group(Codec.STRING.optionalFieldOf("group", "").forGetter(CuttingBoardRecipe::group),

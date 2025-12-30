@@ -1,5 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
-/* JEI 1.21.11
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -25,8 +25,6 @@ import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @MethodsReturnNonnullByDefault
@@ -62,10 +60,15 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 		return this.title;
 	}
 
-	@Override
-	public IDrawable getBackground() {
-		return this.background;
-	}
+    @Override
+    public int getWidth() {
+        return 116;
+    }
+
+    @Override
+    public int getHeight() {
+        return 56;
+    }
 
 	@Override
 	public IDrawable getIcon() {
@@ -101,7 +104,8 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 
 	@Override
 	public void draw(RecipeHolder<CookingPotRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		arrow.draw(guiGraphics, 60, 9);
+		background.draw(guiGraphics);
+        arrow.draw(guiGraphics, 60, 9);
 		heatIndicator.draw(guiGraphics, 18, 39);
 		timeIcon.draw(guiGraphics, 64, 2);
 		if (holder.value().getExperience() > 0) {
@@ -125,4 +129,3 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 		}
 	}
 }
-*/

@@ -1,5 +1,4 @@
 package vectorwing.farmersdelight.integration.jei.category;
-/* JEI 1.21.11
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -64,8 +63,13 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public int getWidth() {
+        return 118;
+    }
+
+    @Override
+    public int getHeight() {
+        return 80;
     }
 
     @Override
@@ -85,6 +89,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
     @Override
     public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.background.draw(guiGraphics);
         this.slotIcon.draw(guiGraphics, 63, 53);
     }
 
@@ -105,4 +110,3 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
         return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
     }
 }
-*/

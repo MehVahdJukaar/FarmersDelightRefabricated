@@ -24,6 +24,7 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.networking.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
+import vectorwing.farmersdelight.integration.jei.JEIPlugin;
 import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
@@ -33,8 +34,8 @@ public class FarmersDelight implements ModInitializer
 	public static final String MODID = "farmersdelight";
 	public static final Logger LOGGER = LoggerFactory.getLogger(FarmersDelight.class);
 
-	public static ResourceLocation res(String name) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, name);
+	public static Identifier res(String name) {
+		return Identifier.fromNamespaceAndPath(MODID, name);
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class FarmersDelight implements ModInitializer
 		KnifeItem.init();
 		ModNetworking.init();
 		RichSoilBlock.init();
-		ItemAbilityIngredient.init();
+		ItemAbilityIngredient.touch();
 		ModConsumeEffectTypes.touch();
 		ModRecipeDisplays.touch();
 		ModRecipeBookCategories.touch();
@@ -85,11 +86,11 @@ public class FarmersDelight implements ModInitializer
 		CompostableHelper.apply();
 
 		ServerPlayerEvents.JOIN.register(serverPlayer ->
-				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION))));
+				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
 
 
-//        if (FabricLoader.getInstance().isModLoaded("jei")) {
-//            JEIPlugin.syncRecipes();
-//        }
+        if (FabricLoader.getInstance().isModLoaded("jei")) {
+            JEIPlugin.syncRecipes();
+        }
     }
 }

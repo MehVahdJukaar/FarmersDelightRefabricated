@@ -22,7 +22,7 @@ public record HealConsumeEffect(float amount) implements ConsumeEffect {
 	);
 
 	@Override
-	public ConsumeEffect.Type<HealConsumeEffect> getType() {
+	public Type<HealConsumeEffect> getType() {
 		return ModConsumeEffectTypes.HEAL.get();
 	}
 

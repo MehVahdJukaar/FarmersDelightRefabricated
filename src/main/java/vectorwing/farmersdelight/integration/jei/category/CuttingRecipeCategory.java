@@ -1,5 +1,4 @@
 package vectorwing.farmersdelight.integration.jei.category;
-/* JEI 1.21.11
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -56,19 +55,24 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 		return this.title;
 	}
 
-	@Override
-	public IDrawable getBackground() {
-		return this.background;
-	}
+    @Override
+    public int getWidth() {
+        return 117;
+    }
 
-	@Override
+    @Override
+    public int getHeight() {
+        return 57;
+    }
+
+    @Override
 	public IDrawable getIcon() {
 		return this.icon;
 	}
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CuttingBoardRecipe> holder, IFocusGroup focusGroup) {
-		CuttingBoardRecipe recipe = holder.value();
+        CuttingBoardRecipe recipe = holder.value();
 		builder.addSlot(RecipeIngredientRole.INPUT, 16, 8).add(recipe.getTool());
 		builder.addSlot(RecipeIngredientRole.INPUT, 16, 27).add(recipe.getInput());
 
@@ -85,11 +89,11 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 			int index = i;
 			builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_GRID_X + xOffset, OUTPUT_GRID_Y + yOffset)
 					.add(recipeOutputs.get(i).stack())
-					.addTooltipCallback((slotView, tooltip) -> {
+					.addRichTooltipCallback((slotView, tooltip) -> {
 						ChanceResult output = recipeOutputs.get(index);
 						float chance = output.chance();
 						if (chance != 1)
-							tooltip.add(1, TextUtils.getTranslation("jei.chance", chance < 0.01 ? "<1" : (int) (chance * 100))
+							tooltip.add(TextUtils.getTranslation("jei.chance", chance < 0.01 ? "<1" : (int) (chance * 100))
 									.withStyle(ChatFormatting.GOLD));
 					});
 		}
@@ -97,7 +101,9 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 
 	@Override
 	public void draw(RecipeHolder<CuttingBoardRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		CuttingBoardRecipe recipe = holder.value();
+		this.background.draw(guiGraphics);
+
+        CuttingBoardRecipe recipe = holder.value();
 		List<ChanceResult> recipeOutputs = recipe.getRollableResults();
 
 		int size = recipe.getResults().size();
@@ -116,4 +122,3 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 		}
 	}
 }
-*/

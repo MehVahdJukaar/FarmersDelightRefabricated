@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.13-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom-remap' version '1.14-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -103,8 +103,10 @@ dependencies {
     // Uncomment the below to test CraftTweaker.
     // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
-    modCompileOnly("mezz.jei:jei-1.21.10-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-1.21.10-fabric-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-1.21.11-common-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-1.21.11-fabric-api:${jei_version}") {
+        transitive = false
+    }
     // Uncomment the below to test JEI.
 //     modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
@@ -234,7 +236,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId project.archivesBaseName
+            artifactId project.base.archivesName.get()
             version project.version
             from components.java
         }

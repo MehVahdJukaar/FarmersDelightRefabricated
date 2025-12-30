@@ -17,7 +17,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -46,7 +45,7 @@ public class DogFoodItem extends ConsumableItem
 	}
 
 	public static void init(){
-		UseEntityCallback.EVENT.register(DogFoodItem.DogFoodEvent::onDogFoodApplied);
+		UseEntityCallback.EVENT.register(DogFoodEvent::onDogFoodApplied);
 	}
 
 	public static class DogFoodEvent
@@ -88,7 +87,7 @@ public class DogFoodItem extends ConsumableItem
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}

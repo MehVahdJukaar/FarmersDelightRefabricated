@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ItemTags extends FabricTagProvider.ItemTagProvider
 {
-	public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider) {
+	public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> provider, BlockTagProvider blockTagProvider) {
 		super(output, provider, blockTagProvider);
 	}
 
