@@ -1,5 +1,3 @@
-- Ported to release 1.21.11.
-- Create integration has been changed to support Create Fly.
-- Recipes are now only synced if needed.
-- Update ko_kr translations (Copy_TT)
-- Update uk_ua translations (Starman)
+- Updated MerchantCalico credits to ChrysanthCow. 
+  - This may have caused some instabilities within the codebase as I had incorrectly handled the merges. Sorry.
+- Re-added JEI integration. [#266](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/266)
