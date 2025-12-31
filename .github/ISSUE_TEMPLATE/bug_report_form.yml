@@ -23,18 +23,72 @@ body:
     validations:
       required: true
   - type: input
-    id: forge_version
+    id: fabric_version
     attributes:
-      label: NeoForge version
-      description: "For issues regarding the Fabric port, go to: https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues"
+      label: Fabric Loader version
+      description: "For issues regarding the official Forge version, go to: https://github.com/vectorwing/FarmersDelight/issues"
       placeholder: | 
-        Example: 21.0.160
+        Example: 0.15.7
+    validations:
+      required: true
+  - type: input
+    id: fabric_api_version
+    attributes:
+      label: Fabric API version
+      description: "For issues regarding the official Forge version, go to: https://github.com/vectorwing/FarmersDelight/issues"
+      placeholder: |
+        Example: 0.92.0+1.20.1
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
       label: Description
+      description: Please explain in detail what the issue is. Feel free to attach screenshots or videos, if it helps!
+      placeholder: | 
+        Example:
+        When right-clicking a certain block, the game crashes.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps to reproduce
+      description: Which steps did you take to cause the issue? Please describe below how to replicate it.
+      placeholder: |
+        Example:
+        1. Place block;
+        2. Attempt to right click the block.
+  - type: textarea
+    id: mod_list
+    attributes:
+      label: Mod list
+      description: |
+        Please provide the list of mods you're using.
+        You can generate a mod list by forcing a crash. In your game, hold F3+C for 10 seconds, then check your logs; the list of mods will be by the end.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: | 
+        Please provide the client or server logs from your launcher. They contain vital information to troubleshoot the issue.
+        To upload logs, you can use websites such as: https://pastebin.com/ https://paste.ee/ https://mclo.gs/
+  - type: checkboxes
+    id: has_tested_minimal_instance
+    attributes:
+      label: Minimal instance
+      description: Have you tried testing the issue on a Minecraft instance containing only Farmer's Delight Refabricated and mods related to the issue?
+      options:
+        - label: I have tested this on a minimal instance
+  - type: checkboxes
+    id: is_using_performance_mods
+    attributes:
+      label: Performance and shader mods
+      description: Sometimes, performance and shader mods (for example, Sodium, Iris etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
+      options:
+        - label: I am using performance or shader mods      label: Description
       description: Please explain in detail what the issue is. Feel free to attach screenshots or videos, if it helps!
       placeholder: | 
         Example:
