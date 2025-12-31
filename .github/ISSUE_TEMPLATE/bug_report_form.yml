@@ -88,7 +88,7 @@ body:
       label: Performance and shader mods
       description: Sometimes, performance and shader mods (for example, Sodium, Iris etc.) can cause unpredictable problems. Were you using such mods when the issue happened?
       options:
-        - label: I am using performance or shader mods      label: Description
+        - label: I am using performance or shader mods
       description: Please explain in detail what the issue is. Feel free to attach screenshots or videos, if it helps!
       placeholder: | 
         Example:
