@@ -108,7 +108,7 @@ dependencies {
     modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
     modCompileOnly("curse.maven:yacl-667299:5424169")
     modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
-//    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 //    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
@@ -147,9 +147,9 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test RRV.
-    modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
-       exclude(group: "net.fabricmc.fabric-api")
-    }
+//    modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+//       exclude(group: "net.fabricmc.fabric-api")
+//    }
 }
 
 var changelogFile = rootProject.file("changelog.md")
