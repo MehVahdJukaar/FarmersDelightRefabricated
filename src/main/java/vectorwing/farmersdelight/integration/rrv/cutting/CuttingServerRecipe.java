@@ -1,8 +1,8 @@
-package vectorwing.farmersdelight.integration.eiv.cutting;
+package vectorwing.farmersdelight.integration.rrv.cutting;
 
-import de.crafty.eiv.common.api.recipe.EivRecipeType;
-import de.crafty.eiv.common.api.recipe.IEivServerRecipe;
-import de.crafty.eiv.common.recipe.util.EivTagUtil;
+import cc.cassian.rrv.api.TagUtil;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -14,8 +14,8 @@ import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CuttingServerRecipe implements IEivServerRecipe {
-    public static final EivRecipeType<CuttingServerRecipe> TYPE = EivRecipeType.register(
+public class CuttingServerRecipe implements ReliableServerRecipe {
+    public static final ReliableServerRecipeType<CuttingServerRecipe> TYPE = ReliableServerRecipeType.register(
             FarmersDelight.res("cutting"),
             () -> new CuttingServerRecipe(null, null, null, null)
     );
@@ -50,9 +50,9 @@ public class CuttingServerRecipe implements IEivServerRecipe {
 
     @Override
     public void writeToTag(CompoundTag tag) {
-        tag.put("ingredients", EivTagUtil.writeIngredient(this.ingredient));
-        tag.put("result", EivTagUtil.writeList(this.results, (origin, tag1) -> EivTagUtil.encodeItemStackOnServer(origin)));
-        tag.put("tool", EivTagUtil.writeIngredient(this.tool));
+        tag.put("ingredients", TagUtil.writeIngredient(this.ingredient));
+        tag.put("result", TagUtil.writeList(this.results, (origin, tag1) -> TagUtil.encodeItemStackOnServer(origin)));
+        tag.put("tool", TagUtil.writeIngredient(this.tool));
         tag.put("rollable_result", encodeRollableResult(this.rollableResults));
     }
 
@@ -60,7 +60,7 @@ public class CuttingServerRecipe implements IEivServerRecipe {
         ListTag listTag = new ListTag();
         for (ChanceResult rollableResult : rollableResults) {
             CompoundTag compoundTag = new CompoundTag();
-            compoundTag.put("item", EivTagUtil.encodeItemStackOnServer(rollableResult.stack()));
+            compoundTag.put("item", TagUtil.encodeItemStackOnServer(rollableResult.stack()));
             compoundTag.putFloat("chance", rollableResult.chance());
             listTag.add(compoundTag);
         }
@@ -72,7 +72,7 @@ public class CuttingServerRecipe implements IEivServerRecipe {
         if (providedTag instanceof ListTag listTag) {
             for (Tag tag : listTag) {
                 CompoundTag compoundTag = tag.asCompound().orElseGet(CompoundTag::new);
-                var stack = EivTagUtil.decodeItemStackOnClient(compoundTag.getCompoundOrEmpty("item"));
+                var stack = TagUtil.decodeItemStackOnClient(compoundTag.getCompoundOrEmpty("item"));
                 var chance = compoundTag.getFloatOr("chance", 1);
                 ChanceResult chanceResult = new ChanceResult(stack, chance);
                 list.add(chanceResult);
@@ -83,14 +83,14 @@ public class CuttingServerRecipe implements IEivServerRecipe {
 
     @Override
     public void loadFromTag(CompoundTag tag) {
-        this.results = EivTagUtil.readList(tag, "result", EivTagUtil::decodeItemStackOnClient);
-        this.ingredient = EivTagUtil.readIngredient(tag.getCompound("ingredients").orElseGet(CompoundTag::new));
-        this.tool = EivTagUtil.readIngredient(tag.getCompound("tool").orElseGet(CompoundTag::new));
+        this.results = TagUtil.readList(tag, "result", TagUtil::decodeItemStackOnClient);
+        this.ingredient = TagUtil.readIngredient(tag.getCompound("ingredients").orElseGet(CompoundTag::new));
+        this.tool = TagUtil.readIngredient(tag.getCompound("tool").orElseGet(CompoundTag::new));
         this.rollableResults = decodeRollableResult(tag.get("rollable_result"));
     }
 
     @Override
-    public EivRecipeType<? extends IEivServerRecipe> getRecipeType() {
+    public ReliableServerRecipeType<? extends ReliableServerRecipe> getRecipeType() {
         return TYPE;
     }
 }

@@ -1,15 +1,15 @@
-package vectorwing.farmersdelight.integration.eiv.decomposition;
+package vectorwing.farmersdelight.integration.rrv.decomposition;
 
-import de.crafty.eiv.common.api.recipe.EivRecipeType;
-import de.crafty.eiv.common.api.recipe.IEivServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import vectorwing.farmersdelight.FarmersDelight;
 
-public class DecompositionServerRecipe implements IEivServerRecipe {
+public class DecompositionServerRecipe implements ReliableServerRecipe {
 
 
         //Create a server recipe type (the id does not have to match your client side viewtype id)
-        public static final EivRecipeType<DecompositionServerRecipe> TYPE = EivRecipeType.register(
+        public static final ReliableServerRecipeType<DecompositionServerRecipe> TYPE = ReliableServerRecipeType.register(
                 FarmersDelight.res("decomposition"),
                 () -> new DecompositionServerRecipe()
         );
@@ -25,7 +25,7 @@ public class DecompositionServerRecipe implements IEivServerRecipe {
         }
 
         @Override
-        public EivRecipeType<? extends DecompositionServerRecipe> getRecipeType() {
+        public ReliableServerRecipeType<? extends DecompositionServerRecipe> getRecipeType() {
             return TYPE;
         }
 }

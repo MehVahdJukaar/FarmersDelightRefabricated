@@ -1,7 +1,7 @@
-package vectorwing.farmersdelight.integration.eiv.cutting;
+package vectorwing.farmersdelight.integration.rrv.cutting;
 
-import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -10,7 +10,7 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.List;
 
-public class CuttingViewType implements IEivRecipeViewType {
+public class CuttingViewType implements ReliableClientRecipeType {
 
     public static final CuttingViewType INSTANCE = new CuttingViewType();
 

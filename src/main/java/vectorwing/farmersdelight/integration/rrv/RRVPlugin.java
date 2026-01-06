@@ -1,31 +1,31 @@
-package vectorwing.farmersdelight.integration.eiv;
+package vectorwing.farmersdelight.integration.rrv;
 
-import de.crafty.eiv.common.api.IExtendedItemViewIntegration;
-import de.crafty.eiv.common.api.recipe.ItemView;
-import de.crafty.eiv.common.builtin.shapeless.ShapelessServerRecipe;
-import de.crafty.eiv.common.recipe.ServerRecipeManager;
+import cc.cassian.rrv.api.ReliableRecipeViewerPlugin;
+import cc.cassian.rrv.api.recipe.ItemView;
+import cc.cassian.rrv.common.builtin.shapeless.ShapelessServerRecipe;
+import cc.cassian.rrv.common.recipe.ServerRecipeManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotServerRecipe;
-import vectorwing.farmersdelight.integration.eiv.cooking_pot.CookingPotViewRecipe;
-import vectorwing.farmersdelight.integration.eiv.cutting.CuttingServerRecipe;
-import vectorwing.farmersdelight.integration.eiv.cutting.CuttingViewRecipe;
-import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionServerRecipe;
-import vectorwing.farmersdelight.integration.eiv.decomposition.DecompositionViewRecipe;
-import vectorwing.farmersdelight.integration.eiv.info.InfoServerRecipe;
-import vectorwing.farmersdelight.integration.eiv.info.InfoViewRecipe;
+import vectorwing.farmersdelight.integration.rrv.cooking_pot.CookingPotServerRecipe;
+import vectorwing.farmersdelight.integration.rrv.cooking_pot.CookingPotViewRecipe;
+import vectorwing.farmersdelight.integration.rrv.cutting.CuttingServerRecipe;
+import vectorwing.farmersdelight.integration.rrv.cutting.CuttingViewRecipe;
+import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionServerRecipe;
+import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionViewRecipe;
+import vectorwing.farmersdelight.integration.rrv.info.InfoServerRecipe;
+import vectorwing.farmersdelight.integration.rrv.info.InfoViewRecipe;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EIVPlugin implements IExtendedItemViewIntegration {
+public class RRVPlugin implements ReliableRecipeViewerPlugin {
     @Override
     public void onIntegrationInitialize() {
-        ItemView.addRecipeProvider(recipeList -> {
+        ItemView.addServerRecipeProvider(recipeList -> {
             // Info Recipe - serverside
             recipeList.add(new InfoServerRecipe());
             // Cooking Pot - serverside
@@ -41,12 +41,12 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
         });
 
         // Cooking Pot - clientside
-        ItemView.registerRecipeWrapper(CookingPotServerRecipe.TYPE, modRecipe -> {
+        ItemView.registerClientRecipeWrapper(CookingPotServerRecipe.TYPE, modRecipe -> {
             return Collections.singletonList(new CookingPotViewRecipe(modRecipe));
         });
 
         // Info Recipe - Clientside
-        ItemView.registerRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
+        ItemView.registerClientRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
             ArrayList<InfoViewRecipe> infoRecipes = new ArrayList<>();
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.WHEAT_DOUGH.get())), "farmersdelight.jei.info.dough"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.STRAW.get())), "farmersdelight.jei.info.straw"));
@@ -70,12 +70,12 @@ public class EIVPlugin implements IExtendedItemViewIntegration {
         });
 
         // Cutting Board - clientside
-        ItemView.registerRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
+        ItemView.registerClientRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
             return Collections.singletonList(new CuttingViewRecipe(modRecipe));
         });
 
         // Decomposition - Clientside
-        ItemView.registerRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
+        ItemView.registerClientRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
            return List.of(new DecompositionViewRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
         });
     }

@@ -1,10 +1,10 @@
-package vectorwing.farmersdelight.integration.eiv.info;
+package vectorwing.farmersdelight.integration.rrv.info;
 
-import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
-import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewScreen;
-import de.crafty.eiv.common.recipe.inventory.SlotContent;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewScreen;
+import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class InfoViewRecipe implements IEivViewRecipe {
+public class InfoViewRecipe implements ReliableClientRecipe {
     private final SlotContent output;
     private final String translationKey;
 
@@ -28,7 +28,7 @@ public class InfoViewRecipe implements IEivViewRecipe {
     }
 
     @Override
-    public IEivRecipeViewType getViewType() {
+    public ReliableClientRecipeType getViewType() {
         return InfoViewType.INSTANCE; //Here you need your type's instance you created before
     }
 

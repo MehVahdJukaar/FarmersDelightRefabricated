@@ -72,6 +72,17 @@ repositories {
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     mavenCentral() // Mixin Extras
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "cassian's maven"
+                url = "https://maven.cassian.cc"
+            }
+        }
+        filter {
+            includeGroup( "cc.cassian.rrv")
+        }
+    }
 }
 
 dependencies {
@@ -131,13 +142,14 @@ dependencies {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
 
-    modCompileOnly("maven.modrinth:eiv:${eiv_version}") {
+
+    modCompileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    // Uncomment the below to test EIV.
-//    modLocalRuntime("maven.modrinth:eiv:${eiv_version}-fabric") {
-//       exclude(group: "net.fabricmc.fabric-api")
-//    }
+    // Uncomment the below to test RRV.
+    modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+       exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 var changelogFile = rootProject.file("changelog.md")

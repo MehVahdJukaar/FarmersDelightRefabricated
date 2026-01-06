@@ -1,10 +1,10 @@
-package vectorwing.farmersdelight.integration.eiv.cooking_pot;
+package vectorwing.farmersdelight.integration.rrv.cooking_pot;
 
-import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
-import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewScreen;
-import de.crafty.eiv.common.recipe.inventory.SlotContent;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewScreen;
+import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CookingPotViewRecipe implements IEivViewRecipe {
+public class CookingPotViewRecipe implements ReliableClientRecipe {
 
     private final SlotContent result;
     private final List<SlotContent> ingredients;
@@ -41,7 +41,7 @@ public class CookingPotViewRecipe implements IEivViewRecipe {
     }
 
     @Override
-    public IEivRecipeViewType getViewType() {
+    public ReliableClientRecipeType getViewType() {
         return CookingPotViewType.INSTANCE;
     }
 

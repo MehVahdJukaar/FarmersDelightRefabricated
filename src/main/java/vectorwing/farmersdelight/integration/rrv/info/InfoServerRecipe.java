@@ -1,15 +1,15 @@
-package vectorwing.farmersdelight.integration.eiv.info;
+package vectorwing.farmersdelight.integration.rrv.info;
 
-import de.crafty.eiv.common.api.recipe.EivRecipeType;
-import de.crafty.eiv.common.api.recipe.IEivServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import vectorwing.farmersdelight.FarmersDelight;
 
-public class InfoServerRecipe implements IEivServerRecipe {
+public class InfoServerRecipe implements ReliableServerRecipe {
 
 
         //Create a server recipe type (the id does not have to match your client side viewtype id)
-        public static final EivRecipeType<InfoServerRecipe> TYPE = EivRecipeType.register(
+        public static final ReliableServerRecipeType<InfoServerRecipe> TYPE = ReliableServerRecipeType.register(
                 FarmersDelight.res("info"),
                 () -> new InfoServerRecipe()
         );
@@ -25,7 +25,7 @@ public class InfoServerRecipe implements IEivServerRecipe {
         }
 
         @Override
-        public EivRecipeType<? extends InfoServerRecipe> getRecipeType() {
+        public ReliableServerRecipeType<? extends InfoServerRecipe> getRecipeType() {
             return TYPE;
         }
 }

@@ -1,9 +1,9 @@
-package vectorwing.farmersdelight.integration.eiv.cutting;
+package vectorwing.farmersdelight.integration.rrv.cutting;
 
-import de.crafty.eiv.common.api.recipe.IEivRecipeViewType;
-import de.crafty.eiv.common.api.recipe.IEivViewRecipe;
-import de.crafty.eiv.common.recipe.inventory.RecipeViewMenu;
-import de.crafty.eiv.common.recipe.inventory.SlotContent;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
+import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
+import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -16,7 +16,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.*;
 
-public class CuttingViewRecipe implements IEivViewRecipe {
+public class CuttingViewRecipe implements ReliableClientRecipe {
 
     private final LinkedHashMap<SlotContent, Float> rollableResults;
     private SlotContent ingredient;
@@ -41,7 +41,7 @@ public class CuttingViewRecipe implements IEivViewRecipe {
     }
 
     @Override
-    public IEivRecipeViewType getViewType() {
+    public ReliableClientRecipeType getViewType() {
         return CuttingViewType.INSTANCE;
     }
 

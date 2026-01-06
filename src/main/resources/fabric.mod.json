@@ -42,8 +42,8 @@
     "modmenu": [
       "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
     ],
-    "eiv": [
-      "vectorwing.farmersdelight.integration.eiv.EIVPlugin"
+    "rrv": [
+      "vectorwing.farmersdelight.integration.rrv.RRVPlugin"
     ]
 
   },

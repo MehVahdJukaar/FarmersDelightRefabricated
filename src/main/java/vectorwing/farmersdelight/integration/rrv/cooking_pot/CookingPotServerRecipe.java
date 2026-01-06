@@ -1,8 +1,8 @@
-package vectorwing.farmersdelight.integration.eiv.cooking_pot;
+package vectorwing.farmersdelight.integration.rrv.cooking_pot;
 
-import de.crafty.eiv.common.api.recipe.EivRecipeType;
-import de.crafty.eiv.common.api.recipe.IEivServerRecipe;
-import de.crafty.eiv.common.recipe.util.EivTagUtil;
+import cc.cassian.rrv.api.TagUtil;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipe;
+import cc.cassian.rrv.api.recipe.ReliableServerRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.IntTag;
@@ -12,9 +12,9 @@ import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.List;
 
-public class CookingPotServerRecipe implements IEivServerRecipe {
+public class CookingPotServerRecipe implements ReliableServerRecipe {
 
-    public static final EivRecipeType<CookingPotServerRecipe> TYPE = EivRecipeType.register(
+    public static final ReliableServerRecipeType<CookingPotServerRecipe> TYPE = ReliableServerRecipeType.register(
             FarmersDelight.res("cooking_pot"),
             () -> new CookingPotServerRecipe(null, ItemStack.EMPTY, ItemStack.EMPTY,0, 0)
     );
@@ -57,10 +57,10 @@ public class CookingPotServerRecipe implements IEivServerRecipe {
     @Override
     public void writeToTag(CompoundTag tag) {
 
-        tag.put("ingredients", EivTagUtil.writeList(this.ingredients, (origin, tag1) -> EivTagUtil.writeIngredient(origin)));
-        tag.put("result", EivTagUtil.encodeItemStackOnServer(this.result));
+        tag.put("ingredients", TagUtil.writeList(this.ingredients, (origin, tag1) -> TagUtil.writeIngredient(origin)));
+        tag.put("result", TagUtil.encodeItemStackOnServer(this.result));
         if (!this.container.isEmpty())
-            tag.put("container", EivTagUtil.encodeItemStackOnServer(this.container));
+            tag.put("container", TagUtil.encodeItemStackOnServer(this.container));
         tag.put("cookingtime", IntTag.valueOf(this.cookTime));
         tag.put("experience", FloatTag.valueOf(this.experience));
     }
@@ -68,15 +68,15 @@ public class CookingPotServerRecipe implements IEivServerRecipe {
     @Override
     public void loadFromTag(CompoundTag tag) {
 
-        this.ingredients = EivTagUtil.readList(tag, "ingredients", EivTagUtil::readIngredient);
-        this.result = EivTagUtil.decodeItemStackOnClient(tag.getCompound("result").orElseGet(CompoundTag::new));
-        this.container = EivTagUtil.decodeItemStackOnClient(tag.getCompound("container").orElseGet(CompoundTag::new));
+        this.ingredients = TagUtil.readList(tag, "ingredients", TagUtil::readIngredient);
+        this.result = TagUtil.decodeItemStackOnClient(tag.getCompound("result").orElseGet(CompoundTag::new));
+        this.container = TagUtil.decodeItemStackOnClient(tag.getCompound("container").orElseGet(CompoundTag::new));
         this.cookTime = tag.getIntOr("cookingtime", 0);
         this.experience = tag.getFloatOr("experience", 0);
     }
 
     @Override
-    public EivRecipeType<? extends IEivServerRecipe> getRecipeType() {
+    public ReliableServerRecipeType<? extends ReliableServerRecipe> getRecipeType() {
         return TYPE;
     }
 }
