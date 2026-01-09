@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight.common;
 
 import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.DispenserBlock;
 import vectorwing.farmersdelight.common.registry.ModItems;
+
+import java.util.HashMap;
 
 public class CommonSetup
 {
@@ -29,9 +32,11 @@ public class CommonSetup
 //				ModItems.RICE_PANICLE.get());
 //		newWantedItems.addAll(Villager.WANTED_ITEMS);
 //		Villager.WANTED_ITEMS = ImmutableSet.copyOf(newWantedItems);
-		Villager.FOOD_POINTS.put(ModItems.CABBAGE.get(), 1);
-		Villager.FOOD_POINTS.put(ModItems.TOMATO.get(), 1);
-		Villager.FOOD_POINTS.put(ModItems.ONION.get(), 1);
-		Villager.FOOD_POINTS.put(ModItems.RICE.get(), 2);
+		HashMap<Item, Integer> foodPoints = new HashMap<>(Villager.FOOD_POINTS);
+		foodPoints.put(ModItems.CABBAGE.get(), 1);
+		foodPoints.put(ModItems.TOMATO.get(), 1);
+		foodPoints.put(ModItems.ONION.get(), 1);
+		foodPoints.put(ModItems.RICE.get(), 2);
+		Villager.FOOD_POINTS = foodPoints;
 	}
 }
