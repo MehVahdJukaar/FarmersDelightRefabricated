@@ -14,7 +14,7 @@ public class InfoViewType implements ReliableClientRecipeType {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("eiv.category.farmersdelight.info");
+        return Component.translatable("view.rrv.type.info");
     }
 
     @Override
