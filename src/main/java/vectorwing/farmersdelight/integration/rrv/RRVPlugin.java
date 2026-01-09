@@ -41,12 +41,12 @@ public class RRVPlugin implements ReliableRecipeViewerPlugin {
         });
 
         // Cooking Pot - clientside
-        ItemView.registerClientRecipeWrapper(CookingPotServerRecipe.TYPE, modRecipe -> {
+        ItemView.addClientRecipeWrapper(CookingPotServerRecipe.TYPE, modRecipe -> {
             return Collections.singletonList(new CookingPotViewRecipe(modRecipe));
         });
 
         // Info Recipe - Clientside
-        ItemView.registerClientRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
+        ItemView.addClientRecipeWrapper(InfoServerRecipe.TYPE, modRecipe -> {
             ArrayList<InfoViewRecipe> infoRecipes = new ArrayList<>();
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.WHEAT_DOUGH.get())), "farmersdelight.jei.info.dough"));
             infoRecipes.add(new InfoViewRecipe((new ItemStack(ModItems.STRAW.get())), "farmersdelight.jei.info.straw"));
@@ -70,12 +70,12 @@ public class RRVPlugin implements ReliableRecipeViewerPlugin {
         });
 
         // Cutting Board - clientside
-        ItemView.registerClientRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
+        ItemView.addClientRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
             return Collections.singletonList(new CuttingViewRecipe(modRecipe));
         });
 
         // Decomposition - Clientside
-        ItemView.registerClientRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
+        ItemView.addClientRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
            return List.of(new DecompositionViewRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
         });
     }
