@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common;
 
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.level.block.DispenserBlock;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -15,9 +16,8 @@ public class CommonSetup
 	}
 
 	/**
-	 * Unused due to Villager wanted items being a tag.
+	 * Allows Villagers to actually use Farmer's Delight crops.
 	 */
-	@Deprecated
 	public static void registerItemSetAdditions() {
 //		Set<Item> newWantedItems = Sets.newHashSet(
 //				ModItems.CABBAGE.get(),
@@ -29,5 +29,9 @@ public class CommonSetup
 //				ModItems.RICE_PANICLE.get());
 //		newWantedItems.addAll(Villager.WANTED_ITEMS);
 //		Villager.WANTED_ITEMS = ImmutableSet.copyOf(newWantedItems);
+		Villager.FOOD_POINTS.put(ModItems.CABBAGE.get(), 1);
+		Villager.FOOD_POINTS.put(ModItems.TOMATO.get(), 1);
+		Villager.FOOD_POINTS.put(ModItems.ONION.get(), 1);
+		Villager.FOOD_POINTS.put(ModItems.RICE.get(), 2);
 	}
 }
