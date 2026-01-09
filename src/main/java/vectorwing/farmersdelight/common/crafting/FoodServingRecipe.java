@@ -66,8 +66,8 @@ public class FoodServingRecipe extends CustomRecipe
 
 		for (int i = 0; i < remainders.size(); ++i) {
 			ItemStack selectedStack = input.getItem(i);
-			if (selectedStack.getRecipeRemainder() != null) {
-				remainders.set(i, selectedStack.getRecipeRemainder());
+			if (selectedStack.getCraftingRemainder() != null) {
+				remainders.set(i, selectedStack.getCraftingRemainder());
 			} else if (selectedStack.is(ModItems.COOKING_POT.get())) {
 				CookingPotBlockEntity.takeServingFromItem(selectedStack);
 				ItemStack newCookingPotStack = selectedStack.copy();

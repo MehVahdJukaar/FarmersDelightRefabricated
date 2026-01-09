@@ -1,11 +1,13 @@
 
 package vectorwing.farmersdelight.refabricated;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -21,9 +23,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.loot.function.SmokerCookFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -64,10 +67,6 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.SOUND_EVENT);
     }
 
-    public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunction(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
-    }
-
     public static <B extends Feature<?>> Supplier<B> regFeature(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.FEATURE);
     }
@@ -100,8 +99,8 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.MOB_EFFECT);
     }
 
-    public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunc(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
+    public static <B extends LootItemFunction> Supplier<MapCodec<B>> regLootFunc(Identifier name, MapCodec<B> supplier) {
+        return ()-> Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, name, supplier);
     }
 
     public static <B extends Item> Supplier<B> regItem(String name, Supplier<B> supplier) {
@@ -116,10 +115,9 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.TRIGGER_TYPES);
     }
 
-    public static <B extends LootItemConditionType> Supplier<B> regLootCond(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
+    public static <B extends LootItemCondition> Supplier<MapCodec<B>> regLootCond(String name, MapCodec<B> supplier) {
+        return register(name, ()-> supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
     }
-
 
     public static <B extends RecipeBookCategory> Supplier<B> regRecipeBookCategory(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.RECIPE_BOOK_CATEGORY);

@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
+import net.fabricmc.fabric.api.registry.LandPathTypeRegistry;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,7 +61,7 @@ public class StoveBlock extends BaseEntityBlock
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
 				.setValue(LIT, true));
-		LandPathNodeTypesRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
+		LandPathTypeRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class StoveBlock extends BaseEntityBlock
 				}
 				extinguish(state, level, pos);
 				if (!player.isCreative()) {
-					player.setItemInHand(hand, heldStack.getRecipeRemainder());
+					player.setItemInHand(hand, heldStack.getCraftingRemainder());
 				}
 				return InteractionResult.SUCCESS;
 			}

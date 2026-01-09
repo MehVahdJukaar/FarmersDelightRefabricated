@@ -44,8 +44,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		if (!container.isEmpty()) {
 			this.container = container;
-		} else if (!output.getRecipeRemainder().isEmpty()) {
-			this.container = output.getRecipeRemainder();
+		} else if (!output.getCraftingRemainder().isEmpty()) {
+			this.container = output.getCraftingRemainder();
 		} else {
 			this.container = ItemStack.EMPTY;
 		}

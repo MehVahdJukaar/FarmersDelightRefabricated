@@ -54,7 +54,7 @@ public record RemoveRandomStatusEffectsConsumeEffect(TagKey<MobEffect> excluded,
         }
 
         if (!compatibleEffects.isEmpty()) {
-            MobEffectInstance selectedEffect = entity.getEffect(compatibleEffects.get(level.random.nextInt(compatibleEffects.size())));
+            MobEffectInstance selectedEffect = entity.getEffect(compatibleEffects.get(level.getRandom().nextInt(compatibleEffects.size())));
             if (selectedEffect != null) {
                 entity.removeEffect(selectedEffect.getEffect());
             }

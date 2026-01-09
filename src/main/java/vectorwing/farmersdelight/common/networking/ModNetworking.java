@@ -22,10 +22,10 @@ import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 public class ModNetworking {
 
     public static void init() {
-        PayloadTypeRegistry.playS2C().register(SendRecipeBookValuesMessage.TYPE, SendRecipeBookValuesMessage.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(SendNaturalRegenerationValueMessage.TYPE, SendNaturalRegenerationValueMessage.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SendRecipeBookValuesMessage.TYPE, SendRecipeBookValuesMessage.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SendNaturalRegenerationValueMessage.TYPE, SendNaturalRegenerationValueMessage.STREAM_CODEC);
 
-        PayloadTypeRegistry.playC2S().register(FlipSkilletMessage.TYPE, FlipSkilletMessage.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(FlipSkilletMessage.TYPE, FlipSkilletMessage.STREAM_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(FlipSkilletMessage.TYPE, (payload, context) -> payload.handle(context.server(), context.player()));
 
     }

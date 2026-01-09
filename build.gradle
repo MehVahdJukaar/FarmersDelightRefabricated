@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version '1.14-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -89,44 +89,37 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    mappings loom.layered() {
-        it.officialMojangMappings {
-            setNameSyntheticMembers(false)
-        }
-        it.parchment("org.parchmentmc.data:parchment-${project.parchment_version}")
-    }
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
 
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-
-    include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
+    include(implementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
         exclude (group: "net.fabricmc.fabric-api")
     }
 
     //config stuff. optional
-    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
-    modCompileOnly("curse.maven:yacl-667299:5424169")
-    modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
-    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_version}")
+    compileOnly("curse.maven:yacl-667299:7353769")
+    compileOnly("maven.modrinth:modmenu:${project.modmenu_version}")
+//    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 //    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
     // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
-    modCompileOnly("mezz.jei:jei-1.21.11-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-1.21.11-fabric-api:${jei_version}") {
+    compileOnly("mezz.jei:jei-1.21.11-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-1.21.11-fabric-api:${jei_version}") {
         transitive = false
     }
     // Uncomment the below to test JEI.
 //     modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
-    modCompileOnly("dev.architectury:architectury-fabric:18.0.3")
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}") {
+    compileOnly("me.shedaniel.cloth:basic-math:0.6.1")
+    compileOnly("dev.architectury:architectury-neoforge:18.0.3")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}") {
         exclude(group: "dev.architectury")
     }
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}") {
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rei_version}") {
         exclude(group: "dev.architectury")
     }
     // Uncomment the below to test REI.
@@ -134,7 +127,7 @@ dependencies {
 //          exclude(group: "dev.architectury")
 //      }
 
-//    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
+//    compileOnly("dev.emi:emi-fabric:${emi_version}:api") {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
     // Uncomment the below to test EMI.
@@ -142,21 +135,20 @@ dependencies {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
 
-
-    modCompileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test RRV.
-//    modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
-//       exclude(group: "net.fabricmc.fabric-api")
-//    }
+    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+       exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 var changelogFile = rootProject.file("changelog.md")
 var changelogText = changelogFile.exists() ? changelogFile.text : ""
 
 publishMods {
-    file = remapJar.archiveFile
+    file = jar.archiveFile
     changelog = changelogText
     type = STABLE
     displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
@@ -170,7 +162,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
         minecraftVersions.addAll(minecraft_supported_versions.split(","))
-        javaVersions.add(JavaVersion.VERSION_21)
+        javaVersions.add(JavaVersion.VERSION_25)
 
         clientRequired = true
         serverRequired = true
@@ -224,17 +216,17 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = 25
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // Loom will automatically attach sourcesJar to a SourcesJar task and to the "build" task
     // if it is present.
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {

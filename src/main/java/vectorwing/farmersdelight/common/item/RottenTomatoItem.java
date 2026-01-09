@@ -24,7 +24,7 @@ public class RottenTomatoItem extends Item implements ProjectileItem
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack heldStack = player.getItemInHand(hand);
-		level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ENTITY_ROTTEN_TOMATO_THROW.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
+		level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ENTITY_ROTTEN_TOMATO_THROW.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 		if (!level.isClientSide()) {
 			RottenTomatoEntity projectile = new RottenTomatoEntity(level, player);
 			projectile.setItem(heldStack);

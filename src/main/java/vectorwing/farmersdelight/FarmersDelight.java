@@ -17,7 +17,6 @@ import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
 import vectorwing.farmersdelight.common.crafting.ingredient.ItemAbilityIngredient;
 import vectorwing.farmersdelight.common.event.CommonModBusEvents;
-import vectorwing.farmersdelight.common.event.VillagerEvents;
 import vectorwing.farmersdelight.common.item.DogFoodItem;
 import vectorwing.farmersdelight.common.item.HorseFeedItem;
 import vectorwing.farmersdelight.common.item.KnifeItem;
@@ -61,7 +60,6 @@ public class FarmersDelight implements ModInitializer
 
 		VillageStructures.init();
 		CommonModBusEvents.init();
-		VillagerEvents.init();
 
 		CommonSetup.init();
 

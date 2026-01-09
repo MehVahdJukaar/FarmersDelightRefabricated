@@ -170,7 +170,7 @@ public class LootModificationEvents {
         // scavenging_pumpkin
         if (key == BLOCKS_PUMPKIN) {
             tableBuilder.modifyPools(builder ->
-                    builder.conditionally(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)).invert()
+                    builder.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.KNIVES)).invert()
                             .or(MatchTool.toolMatches(ItemPredicate.Builder.item().withComponents(DataComponentMatchers.Builder.components()
                                     .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
                                             List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))

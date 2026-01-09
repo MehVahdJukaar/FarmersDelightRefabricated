@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageType;
@@ -9,9 +9,9 @@ import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DamageTypeTags extends FabricTagProvider<DamageType>
+public class DamageTypeTags extends FabricTagsProvider<DamageType>
 {
-	public DamageTypeTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public DamageTypeTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, Registries.DAMAGE_TYPE, lookupProvider);
 	}
 

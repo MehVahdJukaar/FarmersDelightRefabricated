@@ -144,7 +144,7 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	}
 
 	protected int getBonemealAgeIncrease(Level level) {
-		return Mth.nextInt(level.random, 1, 2);
+		return Mth.nextInt(level.getRandom(), 1, 2);
 	}
 
 	@Override

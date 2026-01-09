@@ -53,7 +53,7 @@ public class ConsumableItem extends Item
 			this.affectConsumer(stack, level, consumer);
 		}
 
-		ItemStack containerStack = stack.getRecipeRemainder();
+		ItemStack containerStack = stack.getCraftingRemainder();
 
 		if (stack.get(DataComponents.FOOD) != null || stack.get(DataComponents.CONSUMABLE) != null) {
 			super.finishUsingItem(stack, level, consumer);

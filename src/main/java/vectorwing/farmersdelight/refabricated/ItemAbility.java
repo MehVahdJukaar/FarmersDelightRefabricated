@@ -25,7 +25,7 @@ public enum ItemAbility implements StringRepresentable {
     public static final Codec<ItemAbility> CODEC = StringRepresentable.fromEnum(ItemAbility::values);
 
     public boolean canPerformAction(@NotNull ItemStack stack) {
-        return canPerformAction(stack.getItemHolder());
+        return canPerformAction(stack.typeHolder());
     }
 
     public boolean canPerformAction(@NotNull Holder<Item> itemHolder) {

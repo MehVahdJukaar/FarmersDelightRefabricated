@@ -164,7 +164,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 	}
 
 	protected int getBonemealAgeIncrease(Level level) {
-		return Mth.nextInt(level.random, 1, 4);
+		return Mth.nextInt(level.getRandom(), 1, 4);
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 			if (top.getBlock() == ModBlocks.RICE_CROP_PANICLES.get()) {
 				BonemealableBlock growable = (BonemealableBlock) level.getBlockState(pos.above()).getBlock();
 				if (growable.isValidBonemealTarget(level, pos.above(), top)) {
-					growable.performBonemeal(level, level.random, pos.above(), top);
+					growable.performBonemeal(level, level.getRandom(), pos.above(), top);
 				}
 			} else {
 				RicePaniclesBlock riceUpper = (RicePaniclesBlock) ModBlocks.RICE_CROP_PANICLES.get();

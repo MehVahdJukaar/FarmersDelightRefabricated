@@ -1,6 +1,9 @@
 package vectorwing.farmersdelight.common.registry;
 
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.loot.function.SmokerCookFunction;
 
@@ -10,8 +13,9 @@ import static vectorwing.farmersdelight.refabricated.RegUtils.regLootFunc;
 
 public class ModLootFunctions
 {
-	public static final Supplier<LootItemFunctionType<CopySkilletFunction>> COPY_SKILLET = regLootFunc("copy_skillet", () -> new LootItemFunctionType<>(CopySkilletFunction.CODEC));
-	public static final Supplier<LootItemFunctionType<SmokerCookFunction>> SMOKER_COOK = regLootFunc("smoker_cook", () -> new LootItemFunctionType<>(SmokerCookFunction.CODEC));
+	public static final Supplier<MapCodec<CopySkilletFunction>> COPY_SKILLET = regLootFunc(CopySkilletFunction.ID, CopySkilletFunction.CODEC);
+
+	public static final Supplier<MapCodec<SmokerCookFunction>> SMOKER_COOK = regLootFunc(SmokerCookFunction.ID, SmokerCookFunction.CODEC);
 
 	public static void touch() {
 

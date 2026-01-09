@@ -87,7 +87,7 @@ public class RichSoilFarmlandBlock extends FarmBlock
 
 			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
 				if (growable.isValidBonemealTarget(level, abovePos, aboveState)) {
-					growable.performBonemeal(level, level.random, abovePos, aboveState);
+					growable.performBonemeal(level, level.getRandom(), abovePos, aboveState);
 					level.levelEvent(1505, abovePos, 15);
 				}
 			}

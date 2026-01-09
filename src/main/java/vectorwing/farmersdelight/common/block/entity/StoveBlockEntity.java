@@ -106,7 +106,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 
 	public static void animationTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
 		for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
-			if (!stove.inventory.getStackInSlot(i).isEmpty() && level.random.nextFloat() < 0.2F) {
+			if (!stove.inventory.getStackInSlot(i).isEmpty() && level.getRandom().nextFloat() < 0.2F) {
 				Vec2 stoveItemVector = getStoveItemOffset(i);
 				Direction direction = state.getValue(StoveBlock.FACING);
 				int directionIndex = direction.get2DDataValue();
@@ -137,7 +137,7 @@ public class StoveBlockEntity extends SyncedBlockEntity
 						ItemStack resultStack = recipe.get().value().assemble(new SingleRecipeInput(stoveStack), serverLevel.registryAccess());
 						if (!resultStack.isEmpty()) {ItemUtils.spawnItemEntity(level, resultStack.copy(),
 									worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
-									level.random.nextGaussian() * (double) 0.01F, 0.1F, level.random.nextGaussian() * (double) 0.01F);
+									level.getRandom().nextGaussian() * (double) 0.01F, 0.1F, level.getRandom().nextGaussian() * (double) 0.01F);
 						}
 					}
 					inventory.setStackInSlot(i, ItemStack.EMPTY);

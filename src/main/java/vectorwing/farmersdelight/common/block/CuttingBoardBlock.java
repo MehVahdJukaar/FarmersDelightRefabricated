@@ -200,7 +200,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	public static void spawnCuttingParticles(Level level, BlockPos pos, ItemStack stack, int count) {
 		for (int i = 0; i < count; ++i) {
-			Vec3 vec3d = new Vec3(((double) level.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, ((double) level.random.nextFloat() - 0.5D) * 0.1D);
+			Vec3 vec3d = new Vec3(((double) level.getRandom().nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, ((double) level.getRandom().nextFloat() - 0.5D) * 0.1D);
 			if (level instanceof ServerLevel) {
 				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5F, pos.getY() + 0.1F, pos.getZ() + 0.5F, 1, vec3d.x, vec3d.y + 0.05D, vec3d.z, 0.0D);
 			} else {

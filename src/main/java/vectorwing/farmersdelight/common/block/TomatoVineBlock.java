@@ -57,14 +57,14 @@ public class TomatoVineBlock extends CropBlock
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
 		if (isMature) {
-			int quantity = 1 + level.random.nextInt(2);
+			int quantity = 1 + level.getRandom().nextInt(2);
 			popResource(level, pos, new ItemStack(ModItems.TOMATO.get(), quantity));
 
-			if (level.random.nextFloat() < 0.05) {
+			if (level.getRandom().nextFloat() < 0.05) {
 				popResource(level, pos, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
 			}
 
-			level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+			level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
 			level.setBlock(pos, state.setValue(getAgeProperty(), 0), 2);
 			return InteractionResult.SUCCESS;
 		} else {

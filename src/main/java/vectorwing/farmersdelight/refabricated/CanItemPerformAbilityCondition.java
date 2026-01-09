@@ -7,7 +7,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -16,7 +15,7 @@ public record CanItemPerformAbilityCondition(ItemAbility ability) implements Loo
     public static final MapCodec<CanItemPerformAbilityCondition> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             ItemAbility.CODEC.fieldOf("ability").forGetter(CanItemPerformAbilityCondition::ability)
     ).apply(inst, CanItemPerformAbilityCondition::new));
-    public static final Supplier<LootItemConditionType> TYPE = RegUtils.regLootCond("can_item_perform_ability", () -> new LootItemConditionType(CODEC));
+    public static final Supplier<MapCodec<CanItemPerformAbilityCondition>> TYPE = RegUtils.regLootCond("can_item_perform_ability", CODEC);
 
     public static void init() {
 
@@ -34,7 +33,7 @@ public record CanItemPerformAbilityCondition(ItemAbility ability) implements Loo
     }
 
     @Override
-    public LootItemConditionType getType() {
-        return TYPE.get();
+    public MapCodec<? extends LootItemCondition> codec() {
+        return CODEC;
     }
 }

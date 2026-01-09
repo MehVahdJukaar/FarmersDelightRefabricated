@@ -8,10 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.registry.ModLootFunctions;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +26,7 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		super(conditionsIn);
 	}
 
-	@Override
+    @Override
 	protected ItemStack run(ItemStack stack, LootContext context) {
 		if (stack.isEmpty()) {
 			return stack;
@@ -44,8 +42,8 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		}
 	}
 
-	@Override
-	public LootItemFunctionType<SmokerCookFunction> getType() {
-		return ModLootFunctions.SMOKER_COOK.get();
-	}
+    @Override
+    public MapCodec<? extends LootItemConditionalFunction> codec() {
+        return CODEC;
+    }
 }

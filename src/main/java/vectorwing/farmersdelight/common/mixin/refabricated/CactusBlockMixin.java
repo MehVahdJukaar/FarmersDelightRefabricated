@@ -18,7 +18,7 @@ import vectorwing.farmersdelight.common.utility.SoilUtils;
  */
 @Mixin(CactusBlock.class)
 public class CactusBlockMixin {
-    @ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
+    @ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
     private boolean farmersdelightrefabricated$allowPlantsOnPitcherCrops(boolean original, BlockState state, LevelReader level, BlockPos pos) {
         if (state.getBlock() != (Object)this)
             return original;

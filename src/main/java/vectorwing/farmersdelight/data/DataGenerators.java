@@ -4,7 +4,7 @@ import com.ibm.icu.impl.coll.BOCSU;
 import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -41,7 +41,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
 
-		public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+		public DynamicRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
 			super(output, lookup);
 		}
 

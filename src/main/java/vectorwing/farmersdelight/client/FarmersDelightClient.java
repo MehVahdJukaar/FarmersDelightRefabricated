@@ -3,9 +3,9 @@ package vectorwing.farmersdelight.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.ChunkSectionLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
@@ -31,7 +31,7 @@ public class FarmersDelightClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ItemTooltipCallback.EVENT.register(TooltipEvents::addTooltipToVanillaSoups);
-        TooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
+        ClientTooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
         ClientSetupEvents.onRegisterRenderers();
         ClientSetupEvents.registerParticles();
 
@@ -49,7 +49,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         });
 
         // render type stuff
-        BlockRenderLayerMap.putBlocks(ChunkSectionLayer.CUTOUT,
+        ChunkSectionLayerMap.putBlocks(ChunkSectionLayer.CUTOUT,
                 ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
                 ModBlocks.CABBAGE_CROP.get(), ModBlocks.CUTTING_BOARD.get(), ModBlocks.ONION_CROP.get(),
                 ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.WILD_CARROTS.get(),
@@ -57,7 +57,7 @@ public class FarmersDelightClient implements ClientModInitializer {
                 ModBlocks.RICE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
                 ModBlocks.ROAST_CHICKEN_BLOCK.get(), ModBlocks.SANDY_SHRUB.get(), ModBlocks.ROPE.get(),
                 ModBlocks.CANVAS_RUG.get(), ModBlocks.COOKING_POT.get(), ModBlocks.SAFETY_NET.get());
-        SpecialGuiElementRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.vertexConsumers(), ctx.client().getAtlasManager()));
+        PictureInPictureRendererRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.bufferSource(), ctx.minecraft().getAtlasManager()));
 
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.res("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
 

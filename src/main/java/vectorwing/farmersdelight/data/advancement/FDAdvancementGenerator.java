@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.data.advancement;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class FDAdvancementGenerator extends FabricAdvancementProvider {
-	public FDAdvancementGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public FDAdvancementGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup);
 	}
 

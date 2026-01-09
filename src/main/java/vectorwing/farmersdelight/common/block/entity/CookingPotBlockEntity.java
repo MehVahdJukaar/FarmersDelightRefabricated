@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -69,7 +69,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
-public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, HeatableBlockEntity, Nameable, RecipeCraftingHolder
+public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedMenuProvider<BlockPos>, HeatableBlockEntity, Nameable, RecipeCraftingHolder
 {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
@@ -251,7 +251,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	public static void animationTick(Level level, BlockPos pos, BlockState state, CookingPotBlockEntity cookingPot) {
 		if (cookingPot.isHeated(level, pos)) {
-			RandomSource random = level.random;
+			RandomSource random = level.getRandom();
 			if (random.nextFloat() < 0.2F) {
 				double x = (double) pos.getX() + 0.5D + (random.nextDouble() * 0.6D - 0.3D);
 				double y = (double) pos.getY() + 0.7D;
@@ -279,7 +279,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		if (!mealStack.isEmpty() && !mealContainerStack.isEmpty()) {
 			return mealContainerStack;
 		} else {
-			return mealStack.getRecipeRemainder();
+			return mealStack.getCraftingRemainder();
 		}
 	}
 
@@ -334,8 +334,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (!slotStack.getRecipeRemainder().isEmpty()) {
-				ejectIngredientRemainder(slotStack.getRecipeRemainder());
+			if (!slotStack.getCraftingRemainder().isEmpty()) {
+				ejectIngredientRemainder(slotStack.getCraftingRemainder());
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
 			}
@@ -464,7 +464,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || !meal.getRecipeRemainder().isEmpty();
+		return !mealContainerStack.isEmpty() || !meal.getCraftingRemainder().isEmpty();
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {

@@ -57,7 +57,7 @@ public class DogFoodItem extends ConsumableItem
 
 			ItemStack itemStack = player.getItemInHand(hand);
 
-			if (target instanceof LivingEntity entity && target.getType().is(ModTags.DOG_FOOD_USERS)) {
+			if (target instanceof LivingEntity entity && target.is(ModTags.DOG_FOOD_USERS)) {
 				boolean isTameable = entity instanceof TamableAnimal;
 
 				if (entity.isAlive() && (!isTameable || ((TamableAnimal) entity).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {
@@ -74,8 +74,8 @@ public class DogFoodItem extends ConsumableItem
 						entity.level().addParticle(ModParticleTypes.STAR.get(), entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
 					}
 
-					if (itemStack.getRecipeRemainder() != ItemStack.EMPTY && !player.isCreative()) {
-						player.addItem(itemStack.getRecipeRemainder());
+					if (itemStack.getCraftingRemainder() != ItemStack.EMPTY && !player.isCreative()) {
+						player.addItem(itemStack.getCraftingRemainder());
 						itemStack.shrink(1);
 					}
 
