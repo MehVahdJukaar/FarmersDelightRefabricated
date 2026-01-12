@@ -1,1 +1,1 @@
-- Fixed crash on startup.
+- Add support for RRV v6.2.1 Info Recipes.
