@@ -1,3 +1,1 @@
-- Updated MerchantCalico credits to ChrysanthCow. 
-  - This may have caused some instabilities within the codebase as I had incorrectly handled the merges. Sorry.
-- Re-added JEI integration. [#266](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/266)
+- Add support for RRV v6.2.1 Info Recipes.
