@@ -82,7 +82,7 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
 		BlockState floorState = level.getBlockState(floorPos);
-		if (floorState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
+		if (floorState.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)) {
 			return true;
 		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilBlock) {
 			return SoilUtils.isAbleToPlaceRichSoil(this);

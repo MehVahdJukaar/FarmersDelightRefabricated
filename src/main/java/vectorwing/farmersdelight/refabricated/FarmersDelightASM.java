@@ -19,12 +19,11 @@ public class FarmersDelightASM implements Runnable {
 
     @Override
     public void run() {
-        MappingResolver remapper = FabricLoader.getInstance().getMappingResolver();
-        String recipeBookTypeTarget = remapper.mapClassName("intermediary", "net.minecraft.class_5421");
+        String recipeBookTypeTarget = "net.minecraft.world.inventory.RecipeBookType";
         ClassTinkerers.enumBuilder(recipeBookTypeTarget).addEnum(COOKING_RECIPE_BOOK_TYPE).build();
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            String searchRecipeBookCategoryTarget = remapper.mapClassName("intermediary", "net.minecraft.class_10331");
-            String categoriesParamType = "[L" + remapper.mapClassName("intermediary", "net.minecraft.class_10355") + ";";
+            String searchRecipeBookCategoryTarget = "net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory";
+            String categoriesParamType = "[Lnet.minecraft.world.item.crafting.RecipeBookCategory;";
             ClassTinkerers.enumBuilder(searchRecipeBookCategoryTarget, categoriesParamType).addEnum(COOKING_SEARCH_RECIPE_BOOK_CATEGORY, getSearchCategories()).build();
         }
     }

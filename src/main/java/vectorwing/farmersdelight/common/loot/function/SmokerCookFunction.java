@@ -33,7 +33,7 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		} else {
 			Optional<RecipeHolder<SmokingRecipe>> recipe = context.getLevel().recipeAccess().getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), context.getLevel());
 			if (recipe.isPresent()) {
-				ItemStack result = recipe.get().value().assemble(new SingleRecipeInput(stack), context.getLevel().registryAccess()).copy();
+				ItemStack result = recipe.get().value().assemble(new SingleRecipeInput(stack)).copy();
 				result.setCount(result.getCount() * stack.getCount());
 				return result;
 			} else {

@@ -79,7 +79,7 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 	public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CookingPotRecipe> holder, IFocusGroup focusGroup) {
 		CookingPotRecipe recipe = holder.value();
 		List<Ingredient> recipeIngredients = recipe.input();
-		ItemStack resultStack = recipe.result();
+		ItemStack resultStack = recipe.result().create();
 		ItemStack containerStack = recipe.container();
 
 		int borderSlotSize = 18;

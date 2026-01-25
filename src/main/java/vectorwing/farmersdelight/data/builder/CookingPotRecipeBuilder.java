@@ -19,6 +19,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
@@ -37,19 +38,19 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	private CookingPotBookCategory category;
 	private final NonNullList<Ingredient> ingredients = NonNullList.create();
 	private final Item result;
-	private final ItemStack resultStack;
+	private final ItemStackTemplate resultStack;
 	private final int cookingTime;
 	private final float experience;
 	private final ItemStack container;
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
 	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemLike result, int count, int cookingTime, float experience, @Nullable ItemLike container) {
-		this(items, new ItemStack(result, count), cookingTime, experience, container);
+		this(items, new ItemStackTemplate(result.asItem(), count), cookingTime, experience, container);
 	}
 
-	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStack resultIn, int cookingTime, float experience, @Nullable ItemLike container) {
+	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStackTemplate resultIn, int cookingTime, float experience, @Nullable ItemLike container) {
 		this.items = items;
-		this.result = resultIn.getItem();
+		this.result = resultIn.item().value();
 		this.resultStack = resultIn;
 		this.cookingTime = cookingTime;
 		this.experience = experience;
@@ -96,12 +97,16 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		return this;
 	}
 
+	@Override
+	public ResourceKey<Recipe<?>> defaultId() {
+		return RecipeBuilder.getDefaultRecipeId(resultStack);
+	}
+
 	public CookingPotRecipeBuilder setRecipeBookCategory(CookingPotBookCategory category) {
 		this.category = category;
 		return this;
 	}
 
-	@Override
 	public Item getResult() {
 		return this.result;
 	}

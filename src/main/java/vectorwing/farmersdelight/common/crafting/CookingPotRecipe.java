@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -28,7 +29,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	private final String group;
 	private final CookingPotBookCategory category;
 	private final List<Ingredient> inputItems;
-	private final ItemStack result;
+	private final ItemStackTemplate result;
 	private final ItemStack container;
 	private final ItemStack containerOverride;
 	private final float experience;
@@ -36,7 +37,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	private PlacementInfo placementInfo;
 
-	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStack output, ItemStack container, float experience, int cookTime) {
+	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStackTemplate output, ItemStack container, float experience, int cookTime) {
 		this.group = group;
 		this.category = tab;
 		this.inputItems = inputItems;
@@ -44,9 +45,12 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 		if (!container.isEmpty()) {
 			this.container = container;
-		} else if (!output.getCraftingRemainder().isEmpty()) {
-			this.container = output.getCraftingRemainder();
-		} else {
+		}
+		//FIXME - this is too early to check for crafting remainders now!
+//		else if (!output.create().getCraftingRemainder().create().isEmpty()) {
+//			this.container = output.create().getCraftingRemainder().create();
+//		}
+		else {
 			this.container = ItemStack.EMPTY;
 		}
 
@@ -59,7 +63,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		return inputItems;
 	}
 
-	public ItemStack result() {
+	public ItemStackTemplate result() {
 		return result;
 	}
 
@@ -77,8 +81,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	@Override
-	public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
-		return this.result.copy();
+	public ItemStack assemble(RecipeWrapper inv) {
+		return this.result.create();
 	}
 
 	@Override
@@ -94,7 +98,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	@Override
 	public List<RecipeDisplay> display() {
 		return List.of(new CookingPotRecipeDisplay(this.input().stream().map(Ingredient::display).toList(),
-				container.isEmpty() ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(container)),
+				container.isEmpty() ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(container.getItem().builtInRegistryHolder(), container.getCount(), container.getComponentsPatch()))),
 				new SlotDisplay.ItemStackSlotDisplay(this.result()),
 				new SlotDisplay.ItemSlotDisplay(ModItems.COOKING_POT.get()),
 				cookTime,
@@ -166,8 +170,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::group),
 				CookingPotBookCategory.CODEC.optionalFieldOf("recipe_book_tab", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
 				Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(CookingPotRecipe::input),
-				ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
-				ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::containerOverride),
+				ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
+				ItemStack.CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::containerOverride),
 				Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(CookingPotRecipe::getExperience),
 				Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(CookingPotRecipe::getCookTime)
 		).apply(inst, CookingPotRecipe::new));
@@ -191,7 +195,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			String groupIn = buffer.readUtf();
 			CookingPotBookCategory tabIn = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
 			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-			ItemStack outputIn = ItemStack.STREAM_CODEC.decode(buffer);
+			ItemStackTemplate outputIn = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 			ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 			float experienceIn = buffer.readFloat();
 			int cookTimeIn = buffer.readVarInt();
@@ -202,7 +206,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			buffer.writeUtf(recipe.group);
             CookingPotBookCategory.STREAM_CODEC.encode(buffer, recipe.category);
 			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.inputItems);
-			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
+			ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.result);
 			ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.container);
 			buffer.writeFloat(recipe.experience);
 			buffer.writeVarInt(recipe.cookTime);

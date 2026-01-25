@@ -43,7 +43,7 @@ public class DoughRecipe extends CustomRecipe
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput container, HolderLookup.Provider registryAccess) {
+	public ItemStack assemble(CraftingInput input) {
 		return new ItemStack(ModItems.WHEAT_DOUGH.get());
 	}
 

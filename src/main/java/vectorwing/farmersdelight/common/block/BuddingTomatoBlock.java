@@ -3,13 +3,13 @@ package vectorwing.farmersdelight.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -22,7 +22,7 @@ public class BuddingTomatoBlock extends BuddingBushBlock implements Bonemealable
 
 	@Override
 	public boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-		return pState.is(ModBlocks.RICH_SOIL_FARMLAND.get()) || (pState.getBlock() instanceof FarmBlock);
+		return pState.is(ModBlocks.RICH_SOIL_FARMLAND.get()) || (pState.is(BlockTags.SUPPORTS_CROPS));
 	}
 
 	@Override

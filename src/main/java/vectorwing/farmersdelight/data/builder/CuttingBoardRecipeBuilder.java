@@ -94,8 +94,13 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 		return this;
 	}
 
+	@Override
+	public ResourceKey<Recipe<?>> defaultId() {
+		return RecipeBuilder.getDefaultRecipeId(getResult().getDefaultInstance());
+	}
+
 	@SuppressWarnings("unchecked")
-    @Override
+//    @Override
 	public Item getResult() {
 		Holder<Item> itemHolder = this.ingredient.items().toArray(Holder[]::new)[0];
 		return itemHolder.value();

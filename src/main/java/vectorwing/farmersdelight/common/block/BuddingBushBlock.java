@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
@@ -56,7 +57,7 @@ public class BuddingBushBlock extends VegetationBlock
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.getBlock() instanceof FarmBlock;
+		return state.is(BlockTags.SUPPORTS_CROPS);
 	}
 
 	public IntegerProperty getAgeProperty() {
@@ -120,7 +121,7 @@ public class BuddingBushBlock extends VegetationBlock
 			for (int posZ = -1; posZ <= 1; ++posZ) {
 				float speedBonus = 1.0F;
 				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				if (stateBelow.hasProperty(FarmBlock.MOISTURE) && stateBelow.getValue(FarmBlock.MOISTURE) > 0) {
+				if (stateBelow.hasProperty(FarmlandBlock.MOISTURE) && stateBelow.getValue(FarmlandBlock.MOISTURE) > 0) {
 					speedBonus = 3.0F;
 				}
 

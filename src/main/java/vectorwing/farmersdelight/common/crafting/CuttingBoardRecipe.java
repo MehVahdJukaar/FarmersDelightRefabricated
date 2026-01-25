@@ -55,7 +55,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	}
 
 	@Override
-	public ItemStack assemble(CuttingBoardRecipeInput inv, HolderLookup.Provider provider) {
+	public ItemStack assemble(CuttingBoardRecipeInput inv) {
 		return this.results.get(0).stack().copy();
 	}
 

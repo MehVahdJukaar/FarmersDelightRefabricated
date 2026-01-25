@@ -98,9 +98,19 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.SANDY_SHRUB.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
 				ModBlocks.SANDY_SHRUB.get());
-		valueLookupBuilder(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
 				ModBlocks.RICH_SOIL.get());
-		valueLookupBuilder(net.minecraft.tags.BlockTags.MUSHROOM_GROW_BLOCK).add(
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
+				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_STEM_CROPS).add(
+				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_STEM_FRUIT).add(
+				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(
+				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CACTUS).add(
+				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
 				ModBlocks.ORGANIC_COMPOST.get(),
 				ModBlocks.RICH_SOIL.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.CROPS).add(

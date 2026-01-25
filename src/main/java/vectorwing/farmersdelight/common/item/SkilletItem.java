@@ -197,7 +197,7 @@ public class SkilletItem extends BlockItem {
                 Optional<RecipeHolder<CampfireCookingRecipe>> cookingRecipe = getCookingRecipe(cookingStack, serverLevel);
 
                 cookingRecipe.ifPresent((recipe) -> {
-                    ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack), level.registryAccess());
+                    ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
                     if (!player.getInventory().add(resultStack)) {
                         player.drop(resultStack, false);
                     }

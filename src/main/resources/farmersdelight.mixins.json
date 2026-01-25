@@ -8,7 +8,6 @@
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
     "KeepRichSoilUntrampledMixin",
-    "refabricated.CactusBlockMixin",
     "refabricated.CropBlockMixin",
     "refabricated.FoodDataAccessor",
     "refabricated.GameRulesMixin",
@@ -21,9 +20,7 @@
     "refabricated.RecipeBookSettingsTypeSettingsInvoker",
     "refabricated.RecipeManagerMixin",
     "refabricated.ReloadableServerRegistriesMixin",
-    "refabricated.ServerRecipeBookMixin",
-    "refabricated.StemBlockMixin",
-    "refabricated.VegetationBlockMixin"
+    "refabricated.ServerRecipeBookMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",

@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.PitcherCropBlock;
-import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.level.block.LilyPadBlock;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class SoilUtils {
@@ -16,7 +16,7 @@ public class SoilUtils {
         if (block.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND))
             return true;
 
-        return !(block instanceof CropBlock || block instanceof PitcherCropBlock || block instanceof NetherWartBlock || block instanceof WaterlilyBlock);
+        return !(block instanceof CropBlock || block instanceof PitcherCropBlock || block instanceof NetherWartBlock || block instanceof LilyPadBlock);
     }
 
     public static boolean isAbleToPlaceRichSoilFarmland(Block block) {

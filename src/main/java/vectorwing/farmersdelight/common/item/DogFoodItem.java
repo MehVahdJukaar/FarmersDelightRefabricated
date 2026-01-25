@@ -74,8 +74,8 @@ public class DogFoodItem extends ConsumableItem
 						entity.level().addParticle(ModParticleTypes.STAR.get(), entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
 					}
 
-					if (itemStack.getCraftingRemainder() != ItemStack.EMPTY && !player.isCreative()) {
-						player.addItem(itemStack.getCraftingRemainder());
+					if (itemStack.getCraftingRemainder().create() != ItemStack.EMPTY && !player.isCreative()) {
+						player.addItem(itemStack.getCraftingRemainder().create());
 						itemStack.shrink(1);
 					}
 

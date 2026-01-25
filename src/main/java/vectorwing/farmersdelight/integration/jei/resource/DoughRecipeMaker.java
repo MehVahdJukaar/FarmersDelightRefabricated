@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -22,7 +23,7 @@ public class DoughRecipeMaker
 				Ingredient.of(Items.WATER_BUCKET)
 		);
 
-		ItemStack output = new ItemStack(ModItems.WHEAT_DOUGH.get());
+		ItemStackTemplate output = new ItemStackTemplate(ModItems.WHEAT_DOUGH.get());
 		String path = FarmersDelight.MODID + ".dough";
 
 		Identifier id = FarmersDelight.res("wheat_dough_from_water");

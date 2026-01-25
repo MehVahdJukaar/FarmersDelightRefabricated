@@ -29,7 +29,7 @@ public class RRVPlugin implements ReliableRecipeViewerPlugin {
         ItemView.addServerRecipeProvider(recipeList -> {
             // Cooking Pot - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.COOKING.get()).forEach(recipe -> {
-                recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result(), recipe.container(), recipe.getExperience(), recipe.getCookTime()));
+                recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result().create(), recipe.container(), recipe.getExperience(), recipe.getCookTime()));
             });
             // Cutting Board - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {
