@@ -5,7 +5,7 @@
     "farmersdelight:pumpkin_slice",
     "#c:foods/leafy_green",
     "#c:foods/raw_pork",
-    "#c:foods/milk"
+    "#c:drinks/milk"
   ],
   "recipe_book_tab": "meals",
   "result": {

@@ -18,7 +18,7 @@ import java.util.List;
 public class TooltipEvents
 {
 	public static void addTooltipToVanillaSoups(ItemStack stack, Item.TooltipContext tooltipContext, TooltipFlag tooltipType, List<Component> lines) {
-		if (!Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get()) {
+		if (!Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 

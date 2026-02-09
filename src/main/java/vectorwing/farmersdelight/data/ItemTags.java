@@ -4,8 +4,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -94,7 +97,22 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 	}
 
 	private void registerModTags() {
-		valueLookupBuilder(ModTags.MEALS).add(
+		tag(ModTags.SNACKS).add(
+				ModItems.BARBECUE_STICK.get(),
+				ModItems.EGG_SANDWICH.get(),
+				ModItems.CHICKEN_SANDWICH.get(),
+				ModItems.HAMBURGER.get(),
+				ModItems.BACON_SANDWICH.get(),
+				ModItems.MUTTON_WRAP.get(),
+				ModItems.DUMPLINGS.get(),
+				ModItems.STUFFED_POTATO.get(),
+				ModItems.CABBAGE_ROLLS.get(),
+				ModItems.SALMON_ROLL.get(),
+				ModItems.COD_ROLL.get(),
+				ModItems.KELP_ROLL.get(),
+				ModItems.KELP_ROLL_SLICE.get()
+		);
+		tag(ModTags.MEALS).add(
 				ModItems.MIXED_SALAD.get(),
 				ModItems.COOKED_RICE.get(),
 				ModItems.BONE_BROTH.get(),
@@ -127,7 +145,18 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 				ModItems.MELON_JUICE.get(),
 				ModItems.HOT_COCOA.get()
 		);
-		valueLookupBuilder(ModTags.FEASTS).add(
+		tag(ModTags.SWEETS).add(
+				ModItems.CAKE_SLICE.get(),
+				ModItems.APPLE_PIE_SLICE.get(),
+				ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(),
+				ModItems.CHOCOLATE_PIE_SLICE.get(),
+				ModItems.SWEET_BERRY_COOKIE.get(),
+				ModItems.HONEY_COOKIE.get(),
+				ModItems.MELON_POPSICLE.get(),
+				ModItems.GLOW_BERRY_CUSTARD.get(),
+				ModItems.FRUIT_SALAD.get()
+		);
+		tag(ModTags.FEASTS).add(
 				ModItems.ROAST_CHICKEN_BLOCK.get(),
 				ModItems.STUFFED_PUMPKIN_BLOCK.get(),
 				ModItems.SHEPHERDS_PIE_BLOCK.get(),
@@ -202,22 +231,43 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 
 	@SuppressWarnings("unchecked")
 	private void registerNeoForgeTags() {
-		valueLookupBuilder(ConventionalItemTags.CROPS)
+		// Add our custom tags to "common" tag groups
+		tag(ConventionalItemTags.CROPS)
 				.addTag(CommonTags.CROPS_GRAIN);
-		valueLookupBuilder(ConventionalItemTags.FOODS)
+		tag(ConventionalItemTags.DRINKS)
+				.addTag(ModTags.DRINKS);
+		tag(ConventionalItemTags.FOODS)
+				.add(ModItems.TOMATO_SAUCE.get())
+				.add(ModItems.PIE_CRUST.get())
+				.add(ModItems.PUMPKIN_SLICE.get())
+				.add(ModItems.HAM.get())
+				.add(ModItems.SMOKED_HAM.get())
+				.add(ModItems.DOG_FOOD.get())
+				.addTag(ModTags.SNACKS)
+				.addTag(ModTags.MEALS)
+				.addTag(ModTags.SWEETS)
 				.addTag(CommonTags.FOODS_LEAFY_GREEN)
 				.addTag(CommonTags.FOODS_DOUGH)
 				.addTag(CommonTags.FOODS_PASTA)
-				.addTag(CommonTags.FOODS_COOKED_EGG)
-				.addTag(CommonTags.FOODS_MILK);
-		valueLookupBuilder(ConventionalItemTags.VEGETABLE_FOODS).add(ModItems.ONION.get(), ModItems.TOMATO.get());
-		valueLookupBuilder(ConventionalItemTags.COOKIE_FOODS).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
-		valueLookupBuilder(ConventionalItemTags.RAW_MEAT_FOODS).forceAddTag(CommonTags.FOODS_RAW_CHICKEN).forceAddTag(CommonTags.FOODS_RAW_PORK).forceAddTag(CommonTags.FOODS_RAW_BEEF).forceAddTag(CommonTags.FOODS_RAW_MUTTON);
-		valueLookupBuilder(ConventionalItemTags.RAW_FISH_FOODS).forceAddTag(CommonTags.FOODS_RAW_COD).forceAddTag(CommonTags.FOODS_RAW_SALMON);
-		valueLookupBuilder(ConventionalItemTags.COOKED_MEAT_FOODS).forceAddTag(CommonTags.FOODS_COOKED_CHICKEN).forceAddTag(CommonTags.FOODS_COOKED_PORK).forceAddTag(CommonTags.FOODS_COOKED_BEEF).forceAddTag(CommonTags.FOODS_COOKED_MUTTON);
-		valueLookupBuilder(ConventionalItemTags.COOKED_FISH_FOODS).forceAddTag(CommonTags.FOODS_COOKED_COD).forceAddTag(CommonTags.FOODS_COOKED_SALMON);
-		valueLookupBuilder(ConventionalItemTags.FOOD_POISONING_FOODS).add(ModItems.CHICKEN_CUTS.get());
-		valueLookupBuilder(ConventionalItemTags.EDIBLE_WHEN_PLACED_FOODS)
+				.addTag(CommonTags.FOODS_COOKED_EGG);
+
+		// TODO: FOODS_MILK will be deprecated in 1.3, but is used here for now to not break add-on compat.
+		tag(ConventionalItemTags.MILK_DRINKS).add(ModItems.MILK_BOTTLE.get()).addTag(CommonTags.FOODS_MILK);
+
+		tag(ConventionalItemTags.VEGETABLE_FOODS).add(ModItems.ONION.get(), ModItems.TOMATO.get());
+		tag(ConventionalItemTags.COOKIE_FOODS).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
+		tag(CommonTags.FOODS_DOUGH).addTag(CommonTags.FOODS_DOUGH_WHEAT);
+		tag(ConventionalItemTags.RAW_MEAT_FOODS).addTag(CommonTags.FOODS_RAW_CHICKEN).addTag(CommonTags.FOODS_RAW_PORK).addTag(CommonTags.FOODS_RAW_BEEF).addTag(CommonTags.FOODS_RAW_MUTTON);
+		tag(ConventionalItemTags.RAW_FISH_FOODS).addTag(CommonTags.FOODS_RAW_COD).addTag(CommonTags.FOODS_RAW_SALMON);
+		tag(ConventionalItemTags.COOKED_MEAT_FOODS).addTag(CommonTags.FOODS_COOKED_CHICKEN).addTag(CommonTags.FOODS_COOKED_PORK).addTag(CommonTags.FOODS_COOKED_BEEF).addTag(CommonTags.FOODS_COOKED_MUTTON);
+		tag(ConventionalItemTags.COOKED_FISH_FOODS).addTag(CommonTags.FOODS_COOKED_COD).addTag(CommonTags.FOODS_COOKED_SALMON);
+		tag(ConventionalItemTags.FOOD_POISONING_FOODS).add(
+				ModItems.WHEAT_DOUGH.get(),
+				ModItems.RAW_PASTA.get(),
+				ModItems.CHICKEN_CUTS.get(),
+				ModItems.NETHER_SALAD.get()
+		);
+		tag(ConventionalItemTags.EDIBLE_WHEN_PLACED_FOODS)
 				.add(ModItems.APPLE_PIE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE.get())
 				.add(ModItems.CHOCOLATE_PIE.get())
@@ -235,28 +285,47 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 				.add(ModItems.PUMPKIN_SOUP.get())
 				.add(ModItems.BAKED_COD_STEW.get())
 				.add(ModItems.NOODLE_SOUP.get());
+		tag(ConventionalItemTags.PIE_FOODS)
+				.add(ModItems.APPLE_PIE_SLICE.get())
+				.add(ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get())
+				.add(ModItems.CHOCOLATE_PIE_SLICE.get());
 
-		valueLookupBuilder(ConventionalItemTags.TOOLS).forceAddTag(CommonTags.TOOLS_KNIFE);
-		valueLookupBuilder(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
-		valueLookupBuilder(ConventionalItemTags.CROPS).forceAddTag(CommonTags.CROPS_CABBAGE).forceAddTag(CommonTags.CROPS_ONION).forceAddTag(CommonTags.CROPS_RICE).forceAddTag(CommonTags.CROPS_TOMATO);
-		valueLookupBuilder(ConventionalItemTags.STORAGE_BLOCKS).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CARROT).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_POTATO).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_TOMATO).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_ONION).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE).forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_STRAW);
+		tag(ConventionalItemTags.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
+		tag(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
+		valueLookupBuilder(ConventionalItemTags.CROPS)
+				.forceAddTag(CommonTags.CROPS_CABBAGE)
+				.forceAddTag(CommonTags.CROPS_ONION)
+				.forceAddTag(CommonTags.CROPS_RICE)
+				.forceAddTag(CommonTags.CROPS_TOMATO);
+		valueLookupBuilder(ConventionalItemTags.STORAGE_BLOCKS)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CARROT)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_POTATO)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_TOMATO)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_ONION)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_STRAW);
 	}
 
 	public void registerCommonTags() {
-		valueLookupBuilder(CommonTags.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
-		valueLookupBuilder(CommonTags.CROPS_ONION).add(ModItems.ONION.get());
-		valueLookupBuilder(CommonTags.CROPS_TOMATO).add(ModItems.TOMATO.get());
-		valueLookupBuilder(CommonTags.CROPS_RICE).add(ModItems.RICE.get());
+		// TODO: Remove on 1.3
+		tag(CommonTags.FOODS_MILK).add(Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get());
+
+		tag(CommonTags.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
+		tag(CommonTags.CROPS_ONION).add(ModItems.ONION.get());
+		tag(CommonTags.CROPS_TOMATO).add(ModItems.TOMATO.get());
+		tag(CommonTags.CROPS_RICE).add(ModItems.RICE.get());
 
 		valueLookupBuilder(CommonTags.FOODS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
 		valueLookupBuilder(CommonTags.FOODS_TOMATO).add(ModItems.TOMATO.get());
 		valueLookupBuilder(CommonTags.FOODS_ONION).add(ModItems.ONION.get());
 
-		valueLookupBuilder(CommonTags.FOODS_DOUGH).add(ModItems.WHEAT_DOUGH.get());
-		valueLookupBuilder(CommonTags.CROPS_GRAIN).add(Items.WHEAT, ModItems.RICE.get());
-		valueLookupBuilder(CommonTags.FOODS_MILK).add(Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get());
-		valueLookupBuilder(CommonTags.FOODS_PASTA).add(ModItems.RAW_PASTA.get());
-		valueLookupBuilder(CommonTags.FOODS_LEAFY_GREEN).forceAddTag(CommonTags.FOODS_CABBAGE);
+		tag(CommonTags.FOODS_DOUGH_WHEAT).add(ModItems.WHEAT_DOUGH.get());
+		tag(CommonTags.CROPS_GRAIN).add(Items.WHEAT, ModItems.RICE.get());
+		tag(CommonTags.FOODS_PASTA).add(ModItems.RAW_PASTA.get());
+		tag(CommonTags.FOODS_LEAFY_GREEN).addTag(CommonTags.FOODS_CABBAGE);
 
 		valueLookupBuilder(CommonTags.FOODS_RAW_BACON).add(ModItems.BACON.get());
 		valueLookupBuilder(CommonTags.FOODS_RAW_BEEF).add(Items.BEEF, ModItems.MINCED_BEEF.get());
@@ -338,5 +407,9 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 
 		valueLookupBuilder(CompatibilityTags.TINKERS_CONSTRUCT_SEEDS)
 				.add(ModItems.ONION.get());
+	}
+
+	private TagAppender<Item, Item> tag(TagKey<Item> tag) {
+		return valueLookupBuilder(tag);
 	}
 }

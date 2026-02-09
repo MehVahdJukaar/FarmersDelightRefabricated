@@ -3,7 +3,7 @@
   "experience": 1.0,
   "ingredients": [
     "minecraft:glow_berries",
-    "#c:foods/milk",
+    "#c:drinks/milk",
     "#c:eggs",
     "minecraft:sugar"
   ],

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "M": "#c:foods/milk",
+    "M": "#c:drinks/milk",
     "w": "minecraft:wheat"
   },
   "pattern": [

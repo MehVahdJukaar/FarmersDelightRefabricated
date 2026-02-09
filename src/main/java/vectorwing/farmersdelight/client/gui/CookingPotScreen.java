@@ -75,9 +75,10 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 				tooltip.add(Component.translatable(mealStack.getItem().getDescriptionId()).withStyle(mealStack.getRarity().color()));
 
 				ItemStack containerStack = this.menu.blockEntity.getContainer();
-				String container = !containerStack.isEmpty() ? Component.translatable(containerStack.getItem().getDescriptionId()).getString() : "";
-
-				tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
+				if (!containerStack.isEmpty()) {
+					String container = !containerStack.isEmpty() ? containerStack.getItem().getDescriptionId() : "";
+					tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
+				}
 
 				gui.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
 				return true;
