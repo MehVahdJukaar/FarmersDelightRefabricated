@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "O": "farmersdelight:pie_crust",
-    "m": "#c:foods/milk",
+    "m": "#c:drinks/milk",
     "s": "minecraft:sweet_berries"
   },
   "pattern": [

@@ -2,7 +2,7 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    "#c:foods/milk",
+    "#c:drinks/milk",
     "minecraft:sugar",
     "minecraft:cocoa_beans",
     "minecraft:cocoa_beans"

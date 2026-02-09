@@ -4,7 +4,7 @@
   "key": {
     "O": "farmersdelight:pie_crust",
     "c": "minecraft:cocoa_beans",
-    "m": "#c:foods/milk",
+    "m": "#c:drinks/milk",
     "x": "minecraft:sugar"
   },
   "pattern": [

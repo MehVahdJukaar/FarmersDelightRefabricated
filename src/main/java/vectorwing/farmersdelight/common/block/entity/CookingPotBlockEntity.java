@@ -469,11 +469,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	public boolean isContainerValid(ItemStack containerItem) {
 		if (containerItem.isEmpty()) return false;
-		if (!mealContainerStack.isEmpty()) {
-			return ItemStack.isSameItem(mealContainerStack, containerItem);
-		} else {
-			return ItemStack.isSameItem(getMeal(), containerItem);
-		}
+		if (!mealContainerStack.isEmpty()) return ItemStack.isSameItem(mealContainerStack, containerItem);
+		return false;
 	}
 
 	@Override

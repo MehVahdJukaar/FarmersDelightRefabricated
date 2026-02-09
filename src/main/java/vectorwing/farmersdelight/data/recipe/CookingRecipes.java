@@ -33,9 +33,14 @@ public class CookingRecipes
 		cookMeals(holderGetter, output);
 	}
 
-	private static void cookMiscellaneous(HolderGetter<Item> holderGetter, RecipeOutput output) {
-		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.HOT_COCOA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(CommonTags.FOODS_MILK)
+	// TODO: Deprecate this if NeoForge removes melon_slice from the vegetables tag.
+	private static Ingredient vegetablesPatch() {
+		return DifferenceIngredient.of(Ingredient.of(Tags.Items.FOODS_VEGETABLE), Ingredient.of(Items.MELON_SLICE));
+	}
+
+	private static void cookMiscellaneous(RecipeOutput output) {
+		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.HOT_COCOA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
+				.addIngredient(Tags.Items.DRINKS_MILK)
 				.addIngredient(Items.SUGAR)
 				.addIngredient(Items.COCOA_BEANS)
 				.addIngredient(Items.COCOA_BEANS)
@@ -65,7 +70,7 @@ public class CookingRecipes
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.GLOW_BERRY_CUSTARD.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(Items.GLOW_BERRIES)
-				.addIngredient(CommonTags.FOODS_MILK)
+				.addIngredient(ConventionalItemTags.DRINKS_MILK)
 				.addIngredient(ConventionalItemTags.EGGS)
 				.addIngredient(Items.SUGAR)
 				.unlockedByAnyIngredient(Items.GLOW_BERRIES, Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get())
@@ -205,7 +210,7 @@ public class CookingRecipes
 				.addIngredient(ModItems.PUMPKIN_SLICE.get())
 				.addIngredient(CommonTags.FOODS_LEAFY_GREEN)
 				.addIngredient(CommonTags.FOODS_RAW_PORK)
-				.addIngredient(CommonTags.FOODS_MILK)
+				.addIngredient(Tags.Items.DRINKS_MILK)
 				.unlockedByAnyIngredient(Items.PUMPKIN, ModItems.PUMPKIN_SLICE.get(), Items.PORKCHOP, Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get())
 				.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 				.build(output);
