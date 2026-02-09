@@ -65,6 +65,11 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	}
 
 	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
 	public String group() {
 		return this.group;
 	}
@@ -145,7 +150,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
         return Objects.hash(group, input, tool, results, soundEvent);
 	}
 
-	public static class Serializer implements RecipeSerializer<CuttingBoardRecipe>
+	public static class Serializer
 	{
 		public static final StreamCodec<RegistryFriendlyByteBuf, CuttingBoardRecipe> STREAM_CODEC =
 				StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
@@ -180,13 +185,13 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
             SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buffer, Optional.ofNullable(recipe.soundEvent));
 		}
 
-		@Override
-		public MapCodec<CuttingBoardRecipe> codec() {
+//		@Override
+		public static MapCodec<CuttingBoardRecipe> codec() {
 			return CODEC;
 		}
 
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, CuttingBoardRecipe> streamCodec() {
+//		@Override
+		public static StreamCodec<RegistryFriendlyByteBuf, CuttingBoardRecipe> streamCodec() {
 			return STREAM_CODEC;
 		}
 	}

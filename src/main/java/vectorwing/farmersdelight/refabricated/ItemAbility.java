@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +25,7 @@ public enum ItemAbility implements StringRepresentable {
 
     public static final Codec<ItemAbility> CODEC = StringRepresentable.fromEnum(ItemAbility::values);
 
-    public boolean canPerformAction(@NotNull ItemStack stack) {
+    public boolean canPerformAction(@NotNull ItemInstance stack) {
         return canPerformAction(stack.typeHolder());
     }
 

@@ -27,6 +27,9 @@ public class DoughRecipeMaker
 		String path = FarmersDelight.MODID + ".dough";
 
 		Identifier id = FarmersDelight.res("wheat_dough_from_water");
-		return List.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), new ShapelessRecipe(path, CraftingBookCategory.MISC, output, inputs)));
+		return List.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), new ShapelessRecipe(
+				new Recipe.CommonInfo(false),
+				new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, path),
+				output, inputs)));
 	}
 }

@@ -86,6 +86,16 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
+	public String group() {
+		return this.group;
+	}
+
+	@Override
 	public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
 		return ModRecipeSerializers.COOKING.get();
 	}
@@ -164,7 +174,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		return result;
 	}
 
-	public static class Serializer implements RecipeSerializer<CookingPotRecipe>
+	public static class Serializer
 	{
 		private static final MapCodec<CookingPotRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::group),
@@ -181,13 +191,13 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		public Serializer() {
 		}
 
-		@Override
-		public MapCodec<CookingPotRecipe> codec() {
+//		@Override
+		public static MapCodec<CookingPotRecipe> codec() {
 			return CODEC;
 		}
 
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipe> streamCodec() {
+//		@Override
+		public static StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipe> streamCodec() {
 			return STREAM_CODEC;
 		}
 
