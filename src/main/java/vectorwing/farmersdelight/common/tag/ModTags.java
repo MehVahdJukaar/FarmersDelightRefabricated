@@ -64,13 +64,20 @@ public class ModTags
 	// Items which are compatible with the Backstabbing enchantment. Populated by #tools/knives.
 	public static final TagKey<Item> KNIFE_ENCHANTABLE = modItemTag("enchantable/knife");
 
+	// Items that represent a multi-ingredient food which isn't contained in a bowl or plate.
+	public static final TagKey<Item> SNACKS = modItemTag("snacks");
+
 	// Items that represent a meal: prepared food contained in a bowl or plate.
 	public static final TagKey<Item> MEALS = modItemTag("meals");
 
 	// Items that represent a drink: a bottled consumable that isn't a potion.
 	public static final TagKey<Item> DRINKS = modItemTag("drinks");
 
+	// Items that represent a sweet food, such as dessert.
+	public static final TagKey<Item> SWEETS = modItemTag("sweets");
+
 	// Items that represent a feast: a larger, placeable meal which can serve many portions.
+	// The feast servings exist in the MEALS tag.
 	public static final TagKey<Item> FEASTS = modItemTag("feasts");
 
 	// Items that represent the wild form of a farmable crop.

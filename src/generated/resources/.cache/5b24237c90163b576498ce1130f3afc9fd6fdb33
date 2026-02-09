@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-22T16:49:16.8404314	Tags for minecraft:item mod id farmersdelight
+// 1.21.1	2026-02-08T16:56:09.9505454	Tags for minecraft:item mod id farmersdelight
 65eba9e0353834055ff822059bd7e1784fe218ad data/createaddition/tags/item/plants.json
 f55c336a7c0c249fc90b76c979cfa5d5f6a277bf data/createaddition/tags/item/plant_foods.json
 578c1c9a03e76fe2831f34ee8a74b0d5396e7c0e data/create/tags/item/upright_on_belt.json
@@ -8,7 +8,9 @@ f55c336a7c0c249fc90b76c979cfa5d5f6a277bf data/createaddition/tags/item/plant_foo
 67cc2b5a00311a0164d09c5487c714d091be00d9 data/c/tags/item/crops/onion.json
 e07a7ae115045b2965657efe36300a94364de4af data/c/tags/item/crops/rice.json
 0fe37095f12c7c6a3bca60606cab33162378e60d data/c/tags/item/crops/tomato.json
-d4e0728aa353eec833e4759c7a816af11453ac47 data/c/tags/item/foods.json
+c6d731fe8fcecc9b674a5d0375fd7c4c58c1d899 data/c/tags/item/drinks.json
+e6fd1500f325694d56361f5f0bc3be409550cfb6 data/c/tags/item/drinks/milk.json
+3f8f73ca2266fa7a4d17c97204b329c0e7f4bc5b data/c/tags/item/foods.json
 5bbfb299379c168bb2327bda9407b207ac10f4ea data/c/tags/item/foods/cabbage.json
 3303db8c35b37ceda9538f0642448ff9ee6c42d0 data/c/tags/item/foods/cooked_bacon.json
 239cd4652a85bba6a88770dbcc0daab6e9087ad8 data/c/tags/item/foods/cooked_beef.json
@@ -21,13 +23,15 @@ aed89f4d52bf4812e716038b56f18584ee06db82 data/c/tags/item/foods/cooked_meat.json
 57b96a97b0785ba40705a7fa69474ceda4e8fd7d data/c/tags/item/foods/cooked_pork.json
 9abb7a585095d238db90289d9239fc7cf980070f data/c/tags/item/foods/cooked_salmon.json
 139eb819e6cdc4f3a30b90708f4b0fab277fb3a0 data/c/tags/item/foods/cookie.json
-009e3ca74df76edfe88b0b1f2a043b3bc593957a data/c/tags/item/foods/dough.json
+e2f69da8312f6b119d15ab810d2f7bc859f85e12 data/c/tags/item/foods/dough.json
+009e3ca74df76edfe88b0b1f2a043b3bc593957a data/c/tags/item/foods/dough/wheat.json
 5ccd79d73caa229f776ae0a83842851ff7935ae1 data/c/tags/item/foods/edible_when_placed.json
-8333de3a0f3744e31f72b90f2f3b770138452af9 data/c/tags/item/foods/food_poisoning.json
+336dcdf52ca0980fdba4668ae996f5034cad9432 data/c/tags/item/foods/food_poisoning.json
 475e2e580d3e2d9e7d241515a791d6925591ca65 data/c/tags/item/foods/leafy_green.json
 10d4e67287777be6df9ae01c092b55c8ea0bfe86 data/c/tags/item/foods/milk.json
 67cc2b5a00311a0164d09c5487c714d091be00d9 data/c/tags/item/foods/onion.json
 cc07bf42ee781fd6b78320d408c87a7d65276184 data/c/tags/item/foods/pasta.json
+d9d7a49f23082c99c00ac798987f4ebde4eab7e1 data/c/tags/item/foods/pie.json
 ef52cc197127c8679eb1c5b78795a4bde37e1d04 data/c/tags/item/foods/raw_bacon.json
 92f699bda4cf5f5533b1f7e80e1f95e32b0192d2 data/c/tags/item/foods/raw_beef.json
 05194311998bffa86a518e72aad4dcfa09f8b745 data/c/tags/item/foods/raw_chicken.json
@@ -66,7 +70,9 @@ c1c892764c74767778f091d1250163b53d0276a0 data/farmersdelight/tags/item/feasts.js
 6510a1cbf216f0ae98454d6489aad73e75deda3b data/farmersdelight/tags/item/meals.json
 04cfd39f5a687d3484e9dba6a5b86902ca14b808 data/farmersdelight/tags/item/offhand_equipment.json
 d837fdcf195d0755d48909cc19e0ad7aed1c4c72 data/farmersdelight/tags/item/serving_containers.json
+5758fee70d4345cd53ca8032cb0d7507f4265e04 data/farmersdelight/tags/item/snacks.json
 b1d4ce3e56c5776870a8fdd487526210fd93ecbd data/farmersdelight/tags/item/straw_harvesters.json
+e22ddb9abb1d54bde0b1216436d0d9bcbd4636b2 data/farmersdelight/tags/item/sweets.json
 edaf49470d0e1c903468fd6902234bbeec85c337 data/farmersdelight/tags/item/tools/knives.json
 5596501768488a25c5bcc6ef16c2fc5ca3ab49e9 data/farmersdelight/tags/item/wild_crops.json
 b1d4ce3e56c5776870a8fdd487526210fd93ecbd data/minecraft/tags/item/breaks_decorated_pots.json
