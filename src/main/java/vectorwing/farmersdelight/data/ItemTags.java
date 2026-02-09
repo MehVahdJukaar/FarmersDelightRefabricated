@@ -4,8 +4,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -229,11 +232,11 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 	@SuppressWarnings("unchecked")
 	private void registerNeoForgeTags() {
 		// Add our custom tags to "common" tag groups
-		tag(Tags.Items.CROPS)
+		tag(ConventionalItemTags.CROPS)
 				.addTag(CommonTags.CROPS_GRAIN);
-		tag(Tags.Items.DRINKS)
+		tag(ConventionalItemTags.DRINKS)
 				.addTag(ModTags.DRINKS);
-		tag(Tags.Items.FOODS)
+		tag(ConventionalItemTags.FOODS)
 				.add(ModItems.TOMATO_SAUCE.get())
 				.add(ModItems.PIE_CRUST.get())
 				.add(ModItems.PUMPKIN_SLICE.get())
@@ -249,22 +252,22 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.addTag(CommonTags.FOODS_COOKED_EGG);
 
 		// TODO: FOODS_MILK will be deprecated in 1.3, but is used here for now to not break add-on compat.
-		tag(Tags.Items.DRINKS_MILK).add(ModItems.MILK_BOTTLE.get()).addTag(CommonTags.FOODS_MILK);
+		tag(ConventionalItemTags.MILK_DRINKS).add(ModItems.MILK_BOTTLE.get()).addTag(CommonTags.FOODS_MILK);
 
-		tag(Tags.Items.FOODS_VEGETABLE).add(ModItems.ONION.get(), ModItems.TOMATO.get());
-		tag(Tags.Items.FOODS_COOKIE).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
-		tag(Tags.Items.FOODS_DOUGH).addTag(CommonTags.FOODS_DOUGH_WHEAT);
-		tag(Tags.Items.FOODS_RAW_MEAT).addTags(CommonTags.FOODS_RAW_CHICKEN, CommonTags.FOODS_RAW_PORK, CommonTags.FOODS_RAW_BEEF, CommonTags.FOODS_RAW_MUTTON);
-		tag(Tags.Items.FOODS_RAW_FISH).addTags(CommonTags.FOODS_RAW_COD, CommonTags.FOODS_RAW_SALMON);
-		tag(Tags.Items.FOODS_COOKED_MEAT).addTags(CommonTags.FOODS_COOKED_CHICKEN, CommonTags.FOODS_COOKED_PORK, CommonTags.FOODS_COOKED_BEEF, CommonTags.FOODS_COOKED_MUTTON);
-		tag(Tags.Items.FOODS_COOKED_FISH).addTags(CommonTags.FOODS_COOKED_COD, CommonTags.FOODS_COOKED_SALMON);
-		tag(Tags.Items.FOODS_FOOD_POISONING).add(
+		tag(ConventionalItemTags.VEGETABLE_FOODS).add(ModItems.ONION.get(), ModItems.TOMATO.get());
+		tag(ConventionalItemTags.COOKIE_FOODS).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
+		tag(CommonTags.FOODS_DOUGH).addTag(CommonTags.FOODS_DOUGH_WHEAT);
+		tag(ConventionalItemTags.RAW_MEAT_FOODS).addTag(CommonTags.FOODS_RAW_CHICKEN).addTag(CommonTags.FOODS_RAW_PORK).addTag(CommonTags.FOODS_RAW_BEEF).addTag(CommonTags.FOODS_RAW_MUTTON);
+		tag(ConventionalItemTags.RAW_FISH_FOODS).addTag(CommonTags.FOODS_RAW_COD).addTag(CommonTags.FOODS_RAW_SALMON);
+		tag(ConventionalItemTags.COOKED_MEAT_FOODS).addTag(CommonTags.FOODS_COOKED_CHICKEN).addTag(CommonTags.FOODS_COOKED_PORK).addTag(CommonTags.FOODS_COOKED_BEEF).addTag(CommonTags.FOODS_COOKED_MUTTON);
+		tag(ConventionalItemTags.COOKED_FISH_FOODS).addTag(CommonTags.FOODS_COOKED_COD).addTag(CommonTags.FOODS_COOKED_SALMON);
+		tag(ConventionalItemTags.FOOD_POISONING_FOODS).add(
 				ModItems.WHEAT_DOUGH.get(),
 				ModItems.RAW_PASTA.get(),
 				ModItems.CHICKEN_CUTS.get(),
 				ModItems.NETHER_SALAD.get()
 		);
-		tag(Tags.Items.FOODS_EDIBLE_WHEN_PLACED)
+		tag(ConventionalItemTags.EDIBLE_WHEN_PLACED_FOODS)
 				.add(ModItems.APPLE_PIE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE.get())
 				.add(ModItems.CHOCOLATE_PIE.get())
@@ -282,25 +285,28 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.PUMPKIN_SOUP.get())
 				.add(ModItems.BAKED_COD_STEW.get())
 				.add(ModItems.NOODLE_SOUP.get());
-		tag(Tags.Items.FOODS_PIE)
+		tag(ConventionalItemTags.PIE_FOODS)
 				.add(ModItems.APPLE_PIE_SLICE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get())
 				.add(ModItems.CHOCOLATE_PIE_SLICE.get());
 
-		tag(Tags.Items.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
-		tag(Tags.Items.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
-		tag(Tags.Items.CROPS).addTags(CommonTags.CROPS_CABBAGE, CommonTags.CROPS_ONION, CommonTags.CROPS_RICE, CommonTags.CROPS_TOMATO);
-		tag(Tags.Items.STORAGE_BLOCKS).addTags(
-				CommonTags.STORAGE_BLOCKS_ITEM_CARROT,
-				CommonTags.STORAGE_BLOCKS_ITEM_POTATO,
-				CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT,
-				CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE,
-				CommonTags.STORAGE_BLOCKS_ITEM_TOMATO,
-				CommonTags.STORAGE_BLOCKS_ITEM_ONION,
-				CommonTags.STORAGE_BLOCKS_ITEM_RICE,
-				CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE,
-				CommonTags.STORAGE_BLOCKS_ITEM_STRAW
-		);
+		tag(ConventionalItemTags.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
+		tag(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
+		valueLookupBuilder(ConventionalItemTags.CROPS)
+				.forceAddTag(CommonTags.CROPS_CABBAGE)
+				.forceAddTag(CommonTags.CROPS_ONION)
+				.forceAddTag(CommonTags.CROPS_RICE)
+				.forceAddTag(CommonTags.CROPS_TOMATO);
+		valueLookupBuilder(ConventionalItemTags.STORAGE_BLOCKS)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CARROT)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_POTATO)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_TOMATO)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_ONION)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE)
+				.forceAddTag(CommonTags.STORAGE_BLOCKS_ITEM_STRAW);
 	}
 
 	public void registerCommonTags() {
@@ -401,5 +407,9 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 
 		valueLookupBuilder(CompatibilityTags.TINKERS_CONSTRUCT_SEEDS)
 				.add(ModItems.ONION.get());
+	}
+
+	private TagAppender<Item, Item> tag(TagKey<Item> tag) {
+		return valueLookupBuilder(tag);
 	}
 }

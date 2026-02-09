@@ -76,7 +76,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 				ItemStack containerStack = this.menu.blockEntity.getContainer();
 				if (!containerStack.isEmpty()) {
-					String container = !containerStack.isEmpty() ? containerStack.getItem().getDescription().getString() : "";
+					String container = !containerStack.isEmpty() ? containerStack.getItem().getDescriptionId() : "";
 					tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
 				}
 
