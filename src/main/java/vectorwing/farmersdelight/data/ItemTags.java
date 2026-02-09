@@ -6,14 +6,19 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
+import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class ItemTags extends FabricTagProvider.ItemTagProvider
 {
@@ -35,24 +40,24 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 
 	private void registerMinecraftTags() {
 		tag(net.minecraft.tags.ItemTags.BREAKS_DECORATED_POTS).addTag(ModTags.KNIVES);
-		getOrCreateTagBuilder(net.minecraft.tags.ItemTags.TALL_FLOWERS).add(ModItems.WILD_RICE.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.PIGLIN_LOVED).add(ModItems.GOLDEN_KNIFE.get());
+		tagBuilder(net.minecraft.tags.ItemTags.TALL_FLOWERS).add(ModItems.WILD_RICE.get());
+        tagBuilder(net.minecraft.tags.ItemTags.PIGLIN_LOVED).add(ModItems.GOLDEN_KNIFE.get());
 		tag(net.minecraft.tags.ItemTags.SIGNS).addTag(ModTags.CANVAS_SIGNS);
 		tag(net.minecraft.tags.ItemTags.HANGING_SIGNS).addTag(ModTags.HANGING_CANVAS_SIGNS);
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.VILLAGER_PLANTABLE_SEEDS)
+        tagBuilder(net.minecraft.tags.ItemTags.VILLAGER_PLANTABLE_SEEDS)
 				.add(ModItems.CABBAGE_SEEDS.get())
 				.add(ModItems.TOMATO_SEEDS.get())
 				.add(ModItems.ONION.get());
 
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.FIRE_ASPECT_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.SWORD_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+        tagBuilder(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+        tagBuilder(net.minecraft.tags.ItemTags.WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+        tagBuilder(net.minecraft.tags.ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+        tagBuilder(net.minecraft.tags.ItemTags.FIRE_ASPECT_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
+        tagBuilder(net.minecraft.tags.ItemTags.SWORD_ENCHANTABLE).addTag(ModTags.KNIVES).add(ModItems.SKILLET.get());
 		tag(net.minecraft.tags.ItemTags.MINING_ENCHANTABLE).addTag(ModTags.KNIVES);
 		tag(net.minecraft.tags.ItemTags.MINING_LOOT_ENCHANTABLE).addTag(ModTags.KNIVES);
 
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.MEAT)
+        tagBuilder(net.minecraft.tags.ItemTags.MEAT)
 				.add(ModItems.MINCED_BEEF.get())
 				.add(ModItems.BEEF_PATTY.get())
 				.add(ModItems.CHICKEN_CUTS.get())
@@ -64,25 +69,25 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.HAM.get())
 				.add(ModItems.SMOKED_HAM.get())
 				.add(ModItems.DOG_FOOD.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.CHICKEN_FOOD)
+        tagBuilder(net.minecraft.tags.ItemTags.CHICKEN_FOOD)
 				.add(ModItems.CABBAGE_SEEDS.get())
 				.add(ModItems.TOMATO_SEEDS.get())
 				.add(ModItems.RICE.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.PIG_FOOD)
+        tagBuilder(net.minecraft.tags.ItemTags.PIG_FOOD)
 				.add(ModItems.CABBAGE.get())
 				.add(ModItems.TOMATO.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.RABBIT_FOOD)
+        tagBuilder(net.minecraft.tags.ItemTags.RABBIT_FOOD)
 				.add(ModItems.CABBAGE.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.PARROT_FOOD)
+        tagBuilder(net.minecraft.tags.ItemTags.PARROT_FOOD)
 				.add(ModItems.CABBAGE_SEEDS.get())
 				.add(ModItems.TOMATO_SEEDS.get())
 				.add(ModItems.RICE.get());
-        getOrCreateTagBuilder(net.minecraft.tags.ItemTags.HORSE_TEMPT_ITEMS)
+        tagBuilder(net.minecraft.tags.ItemTags.HORSE_TEMPT_ITEMS)
 				.add(ModItems.HORSE_FEED.get());
 	}
 
 	private void registerModTags() {
-		tag(ModTags.SNACKS).add(
+		tagBuilder(ModTags.SNACKS).add(
 				ModItems.BARBECUE_STICK.get(),
 				ModItems.EGG_SANDWICH.get(),
 				ModItems.CHICKEN_SANDWICH.get(),
@@ -97,7 +102,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				ModItems.KELP_ROLL.get(),
 				ModItems.KELP_ROLL_SLICE.get()
 		);
-		tag(ModTags.MEALS).add(
+		tagBuilder(ModTags.MEALS).add(
 				ModItems.MIXED_SALAD.get(),
 				ModItems.COOKED_RICE.get(),
 				ModItems.BONE_BROTH.get(),
@@ -124,13 +129,13 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				ModItems.HONEY_GLAZED_HAM.get(),
 				ModItems.SHEPHERDS_PIE.get()
 		);
-        getOrCreateTagBuilder(ModTags.DRINKS).add(
+        tagBuilder(ModTags.DRINKS).add(
 				ModItems.MILK_BOTTLE.get(),
 				ModItems.APPLE_CIDER.get(),
 				ModItems.MELON_JUICE.get(),
 				ModItems.HOT_COCOA.get()
 		);
-		tag(ModTags.SWEETS).add(
+		tagBuilder(ModTags.SWEETS).add(
 				ModItems.CAKE_SLICE.get(),
 				ModItems.APPLE_PIE_SLICE.get(),
 				ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(),
@@ -141,18 +146,18 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				ModItems.GLOW_BERRY_CUSTARD.get(),
 				ModItems.FRUIT_SALAD.get()
 		);
-		tag(ModTags.FEASTS).add(
+		tagBuilder(ModTags.FEASTS).add(
 				ModItems.ROAST_CHICKEN_BLOCK.get(),
 				ModItems.STUFFED_PUMPKIN_BLOCK.get(),
 				ModItems.SHEPHERDS_PIE_BLOCK.get(),
 				ModItems.HONEY_GLAZED_HAM_BLOCK.get(),
 				ModItems.RICE_ROLL_MEDLEY_BLOCK.get()
 		);
-        getOrCreateTagBuilder(ModTags.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
-		tag(ModTags.KNIFE_ENCHANTABLE).addTag(ModTags.KNIVES);
-		tag(ModTags.STRAW_HARVESTERS).addTag(ModTags.KNIVES);
-        getOrCreateTagBuilder(ModTags.CABBAGE_ROLL_INGREDIENTS).addTag(CommonTags.FOODS_RAW_PORK).addTag(CommonTags.FOODS_SAFE_RAW_FISH).addTag(CommonTags.FOODS_RAW_CHICKEN).addTag(CommonTags.FOODS_RAW_BEEF).addTag(CommonTags.FOODS_RAW_MUTTON).addTag(ConventionalItemTags.EGGS).addTag(ConventionalItemTags.MUSHROOMS).add(Items.CARROT, Items.POTATO, Items.BEETROOT);
-        getOrCreateTagBuilder(ModTags.CANVAS_SIGNS)
+        tagBuilder(ModTags.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		tagBuilder(ModTags.KNIFE_ENCHANTABLE).addTag(ModTags.KNIVES);
+		tagBuilder(ModTags.STRAW_HARVESTERS).addTag(ModTags.KNIVES);
+        tagBuilder(ModTags.CABBAGE_ROLL_INGREDIENTS).addTag(CommonTags.FOODS_RAW_PORK).addTag(CommonTags.FOODS_SAFE_RAW_FISH).addTag(CommonTags.FOODS_RAW_CHICKEN).addTag(CommonTags.FOODS_RAW_BEEF).addTag(CommonTags.FOODS_RAW_MUTTON).addTag(ConventionalItemTags.EGGS).addTag(ConventionalItemTags.MUSHROOMS).add(Items.CARROT, Items.POTATO, Items.BEETROOT);
+        tagBuilder(ModTags.CANVAS_SIGNS)
 				.add(ModItems.CANVAS_SIGN.get())
 				.add(ModItems.WHITE_CANVAS_SIGN.get())
 				.add(ModItems.ORANGE_CANVAS_SIGN.get())
@@ -170,7 +175,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.GREEN_CANVAS_SIGN.get())
 				.add(ModItems.RED_CANVAS_SIGN.get())
 				.add(ModItems.BLACK_CANVAS_SIGN.get());
-        getOrCreateTagBuilder(ModTags.HANGING_CANVAS_SIGNS)
+        tagBuilder(ModTags.HANGING_CANVAS_SIGNS)
 				.add(ModItems.HANGING_CANVAS_SIGN.get())
 				.add(ModItems.WHITE_HANGING_CANVAS_SIGN.get())
 				.add(ModItems.ORANGE_HANGING_CANVAS_SIGN.get())
@@ -188,7 +193,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.GREEN_HANGING_CANVAS_SIGN.get())
 				.add(ModItems.RED_HANGING_CANVAS_SIGN.get())
 				.add(ModItems.BLACK_HANGING_CANVAS_SIGN.get());
-        getOrCreateTagBuilder(ModTags.WOODEN_CABINETS)
+        tagBuilder(ModTags.WOODEN_CABINETS)
 				.add(ModItems.OAK_CABINET.get())
 				.add(ModItems.SPRUCE_CABINET.get())
 				.add(ModItems.BIRCH_CABINET.get())
@@ -200,11 +205,11 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.BAMBOO_CABINET.get())
 				.add(ModItems.CRIMSON_CABINET.get())
 				.add(ModItems.WARPED_CABINET.get());
-		tag(ModTags.CABINETS).addTag(ModTags.WOODEN_CABINETS);
-		tag(ModTags.OFFHAND_EQUIPMENT).addTag(ConventionalItemTags.SHIELD_TOOLS)
+		tagBuilder(ModTags.CABINETS).addTag(ModTags.WOODEN_CABINETS);
+		tagBuilder(ModTags.OFFHAND_EQUIPMENT).addTag(ConventionalItemTags.SHIELD_TOOLS)
 				.addOptional(ResourceLocation.parse("create:extendo_grip"));
-        getOrCreateTagBuilder(ModTags.SERVING_CONTAINERS).add(Items.BOWL, Items.GLASS_BOTTLE, Items.BUCKET);
-        getOrCreateTagBuilder(ModTags.FLAT_ON_CUTTING_BOARD).add(Items.TRIDENT, Items.SPYGLASS)
+        tagBuilder(ModTags.SERVING_CONTAINERS).add(Items.BOWL, Items.GLASS_BOTTLE, Items.BUCKET);
+        tagBuilder(ModTags.FLAT_ON_CUTTING_BOARD).add(Items.TRIDENT, Items.SPYGLASS)
 				.addOptional(ResourceLocation.parse("supplementaries:quiver"))
 				.addOptional(ResourceLocation.parse("autumnity:turkey"))
 				.addOptional(ResourceLocation.parse("autumnity:cooked_turkey"));
@@ -217,7 +222,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.addTag(CommonTags.CROPS_GRAIN);
 		tag(ConventionalItemTags.DRINKS)
 				.addTag(ModTags.DRINKS);
-		tag(ConventionalItemTags.FOODS)
+		tagBuilder(ConventionalItemTags.FOODS)
 				.add(ModItems.TOMATO_SAUCE.get())
 				.add(ModItems.PIE_CRUST.get())
 				.add(ModItems.PUMPKIN_SLICE.get())
@@ -233,22 +238,22 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.addTag(CommonTags.FOODS_COOKED_EGG);
 
 		// TODO: FOODS_MILK will be deprecated in 1.3, but is used here for now to not break add-on compat.
-		tag(ConventionalItemTags.DRINKS_MILK).add(ModItems.MILK_BOTTLE.get()).addTag(CommonTags.FOODS_MILK);
+		tagBuilder(ConventionalTags.DRINKS_MILK).add(ModItems.MILK_BOTTLE.get()).addTag(CommonTags.FOODS_MILK);
 
-		tag(ConventionalItemTags.FOODS_VEGETABLE).add(ModItems.ONION.get(), ModItems.TOMATO.get());
-		tag(ConventionalItemTags.FOODS_COOKIE).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
-		tag(ConventionalItemTags.FOODS_DOUGH).addTag(CommonTags.FOODS_DOUGH_WHEAT);
-		tag(ConventionalItemTags.FOODS_RAW_MEAT).addTags(CommonTags.FOODS_RAW_CHICKEN, CommonTags.FOODS_RAW_PORK, CommonTags.FOODS_RAW_BEEF, CommonTags.FOODS_RAW_MUTTON);
-		tag(ConventionalItemTags.FOODS_RAW_FISH).addTags(CommonTags.FOODS_RAW_COD, CommonTags.FOODS_RAW_SALMON);
-		tag(ConventionalItemTags.FOODS_COOKED_MEAT).addTags(CommonTags.FOODS_COOKED_CHICKEN, CommonTags.FOODS_COOKED_PORK, CommonTags.FOODS_COOKED_BEEF, CommonTags.FOODS_COOKED_MUTTON);
-		tag(ConventionalItemTags.FOODS_COOKED_FISH).addTags(CommonTags.FOODS_COOKED_COD, CommonTags.FOODS_COOKED_SALMON);
-		tag(ConventionalItemTags.FOODS_FOOD_POISONING).add(
+		tagBuilder(ConventionalItemTags.VEGETABLE_FOODS).add(ModItems.ONION.get(), ModItems.TOMATO.get());
+		tagBuilder(ConventionalItemTags.COOKIE_FOODS).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
+		tag(ConventionalItemTags.DOUGH_FOODS).addTag(CommonTags.FOODS_DOUGH_WHEAT);
+		tagBuilder(ConventionalItemTags.RAW_MEAT_FOODS).addTags(CommonTags.FOODS_RAW_CHICKEN, CommonTags.FOODS_RAW_PORK, CommonTags.FOODS_RAW_BEEF, CommonTags.FOODS_RAW_MUTTON);
+		tagBuilder(ConventionalItemTags.RAW_FISH_FOODS).addTags(CommonTags.FOODS_RAW_COD, CommonTags.FOODS_RAW_SALMON);
+		tagBuilder(ConventionalItemTags.COOKED_MEAT_FOODS).addTags(CommonTags.FOODS_COOKED_CHICKEN, CommonTags.FOODS_COOKED_PORK, CommonTags.FOODS_COOKED_BEEF, CommonTags.FOODS_COOKED_MUTTON);
+		tagBuilder(ConventionalItemTags.COOKED_FISH_FOODS).addTags(CommonTags.FOODS_COOKED_COD, CommonTags.FOODS_COOKED_SALMON);
+		tagBuilder(ConventionalItemTags.FOOD_POISONING_FOODS).add(
 				ModItems.WHEAT_DOUGH.get(),
 				ModItems.RAW_PASTA.get(),
 				ModItems.CHICKEN_CUTS.get(),
 				ModItems.NETHER_SALAD.get()
 		);
-		tag(ConventionalItemTags.FOODS_EDIBLE_WHEN_PLACED)
+		tagBuilder(ConventionalItemTags.EDIBLE_WHEN_PLACED_FOODS)
 				.add(ModItems.APPLE_PIE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE.get())
 				.add(ModItems.CHOCOLATE_PIE.get())
@@ -257,7 +262,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.SHEPHERDS_PIE_BLOCK.get())
 				.add(ModItems.STUFFED_PUMPKIN_BLOCK.get())
 				.add(ModItems.RICE_ROLL_MEDLEY_BLOCK.get());
-        getOrCreateTagBuilder(ConventionalItemTags.SOUP_FOODS)
+        tagBuilder(ConventionalItemTags.SOUP_FOODS)
 				.add(ModItems.BONE_BROTH.get())
 				.add(ModItems.BEEF_STEW.get())
 				.add(ModItems.VEGETABLE_SOUP.get())
@@ -266,15 +271,15 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.PUMPKIN_SOUP.get())
 				.add(ModItems.BAKED_COD_STEW.get())
 				.add(ModItems.NOODLE_SOUP.get());
-		tag(ConventionalItemTags.FOODS_PIE)
+		tagBuilder(ConventionalItemTags.PIE_FOODS)
 				.add(ModItems.APPLE_PIE_SLICE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get())
 				.add(ModItems.CHOCOLATE_PIE_SLICE.get());
 
 		tag(ConventionalItemTags.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
-		tag(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
-		tag(ConventionalItemTags.CROPS).addTags(CommonTags.CROPS_CABBAGE, CommonTags.CROPS_ONION, CommonTags.CROPS_RICE, CommonTags.CROPS_TOMATO);
-		tag(ConventionalItemTags.STORAGE_BLOCKS).addTags(
+		tagBuilder(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
+		tagBuilder(ConventionalItemTags.CROPS).addTags(CommonTags.CROPS_CABBAGE, CommonTags.CROPS_ONION, CommonTags.CROPS_RICE, CommonTags.CROPS_TOMATO);
+		tagBuilder(ConventionalItemTags.STORAGE_BLOCKS).addTags(
 				CommonTags.STORAGE_BLOCKS_ITEM_CARROT,
 				CommonTags.STORAGE_BLOCKS_ITEM_POTATO,
 				CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT,
@@ -289,55 +294,55 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 
 	public void registerCommonTags() {
 		// TODO: Remove on 1.3
-		tag(CommonTags.FOODS_MILK).add(Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get());
+		tagBuilder(CommonTags.FOODS_MILK).add(Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get());
 
-		tag(CommonTags.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
-		tag(CommonTags.CROPS_ONION).add(ModItems.ONION.get());
-		tag(CommonTags.CROPS_TOMATO).add(ModItems.TOMATO.get());
-		tag(CommonTags.CROPS_RICE).add(ModItems.RICE.get());
+		tagBuilder(CommonTags.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
+		tagBuilder(CommonTags.CROPS_ONION).add(ModItems.ONION.get());
+		tagBuilder(CommonTags.CROPS_TOMATO).add(ModItems.TOMATO.get());
+		tagBuilder(CommonTags.CROPS_RICE).add(ModItems.RICE.get());
 
-        getOrCreateTagBuilder(CommonTags.FOODS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_TOMATO).add(ModItems.TOMATO.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_ONION).add(ModItems.ONION.get());
+        tagBuilder(CommonTags.FOODS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
+        tagBuilder(CommonTags.FOODS_TOMATO).add(ModItems.TOMATO.get());
+        tagBuilder(CommonTags.FOODS_ONION).add(ModItems.ONION.get());
 
-		tag(CommonTags.FOODS_DOUGH_WHEAT).add(ModItems.WHEAT_DOUGH.get());
-		tag(CommonTags.CROPS_GRAIN).add(Items.WHEAT, ModItems.RICE.get());
-		tag(CommonTags.FOODS_PASTA).add(ModItems.RAW_PASTA.get());
+		tagBuilder(CommonTags.FOODS_DOUGH_WHEAT).add(ModItems.WHEAT_DOUGH.get());
+		tagBuilder(CommonTags.CROPS_GRAIN).add(Items.WHEAT, ModItems.RICE.get());
+		tagBuilder(CommonTags.FOODS_PASTA).add(ModItems.RAW_PASTA.get());
 		tag(CommonTags.FOODS_LEAFY_GREEN).addTag(CommonTags.FOODS_CABBAGE);
 
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_BACON).add(ModItems.BACON.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_BEEF).add(Items.BEEF, ModItems.MINCED_BEEF.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_CHICKEN).add(Items.CHICKEN, ModItems.CHICKEN_CUTS.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_PORK).add(Items.PORKCHOP).addTag(CommonTags.FOODS_RAW_BACON);
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_MUTTON).add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_COD).add(Items.COD, ModItems.COD_SLICE.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_RAW_SALMON).add(Items.SALMON, ModItems.SALMON_SLICE.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_SAFE_RAW_FISH).addTag(CommonTags.FOODS_RAW_COD).addTag(CommonTags.FOODS_RAW_SALMON).add(Items.TROPICAL_FISH);
+        tagBuilder(CommonTags.FOODS_RAW_BACON).add(ModItems.BACON.get());
+        tagBuilder(CommonTags.FOODS_RAW_BEEF).add(Items.BEEF, ModItems.MINCED_BEEF.get());
+        tagBuilder(CommonTags.FOODS_RAW_CHICKEN).add(Items.CHICKEN, ModItems.CHICKEN_CUTS.get());
+        tagBuilder(CommonTags.FOODS_RAW_PORK).add(Items.PORKCHOP).addTag(CommonTags.FOODS_RAW_BACON);
+        tagBuilder(CommonTags.FOODS_RAW_MUTTON).add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
+        tagBuilder(CommonTags.FOODS_RAW_COD).add(Items.COD, ModItems.COD_SLICE.get());
+        tagBuilder(CommonTags.FOODS_RAW_SALMON).add(Items.SALMON, ModItems.SALMON_SLICE.get());
+        tagBuilder(CommonTags.FOODS_SAFE_RAW_FISH).addTag(CommonTags.FOODS_RAW_COD).addTag(CommonTags.FOODS_RAW_SALMON).add(Items.TROPICAL_FISH);
 
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_BACON).add(ModItems.COOKED_BACON.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_BEEF).add(Items.COOKED_BEEF, ModItems.BEEF_PATTY.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_CHICKEN).add(Items.COOKED_CHICKEN, ModItems.COOKED_CHICKEN_CUTS.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_PORK).add(Items.COOKED_PORKCHOP).addTag(CommonTags.FOODS_COOKED_BACON);
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_MUTTON).add(Items.COOKED_MUTTON, ModItems.COOKED_MUTTON_CHOPS.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_COD).add(Items.COOKED_COD, ModItems.COOKED_COD_SLICE.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_SALMON).add(Items.COOKED_SALMON, ModItems.COOKED_SALMON_SLICE.get());
-        getOrCreateTagBuilder(CommonTags.FOODS_COOKED_EGG).add(ModItems.FRIED_EGG.get());
+        tagBuilder(CommonTags.FOODS_COOKED_BACON).add(ModItems.COOKED_BACON.get());
+        tagBuilder(CommonTags.FOODS_COOKED_BEEF).add(Items.COOKED_BEEF, ModItems.BEEF_PATTY.get());
+        tagBuilder(CommonTags.FOODS_COOKED_CHICKEN).add(Items.COOKED_CHICKEN, ModItems.COOKED_CHICKEN_CUTS.get());
+        tagBuilder(CommonTags.FOODS_COOKED_PORK).add(Items.COOKED_PORKCHOP).addTag(CommonTags.FOODS_COOKED_BACON);
+        tagBuilder(CommonTags.FOODS_COOKED_MUTTON).add(Items.COOKED_MUTTON, ModItems.COOKED_MUTTON_CHOPS.get());
+        tagBuilder(CommonTags.FOODS_COOKED_COD).add(Items.COOKED_COD, ModItems.COOKED_COD_SLICE.get());
+        tagBuilder(CommonTags.FOODS_COOKED_SALMON).add(Items.COOKED_SALMON, ModItems.COOKED_SALMON_SLICE.get());
+        tagBuilder(CommonTags.FOODS_COOKED_EGG).add(ModItems.FRIED_EGG.get());
 
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_CARROT).add(ModItems.CARROT_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_POTATO).add(ModItems.POTATO_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT).add(ModItems.BEETROOT_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE).add(ModItems.CABBAGE_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_TOMATO).add(ModItems.TOMATO_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_ONION).add(ModItems.ONION_CRATE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_RICE).add(ModItems.RICE_BAG.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE).add(ModItems.RICE_BALE.get());
-        getOrCreateTagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_STRAW).add(ModItems.STRAW_BALE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_CARROT).add(ModItems.CARROT_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_POTATO).add(ModItems.POTATO_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT).add(ModItems.BEETROOT_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_CABBAGE).add(ModItems.CABBAGE_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_TOMATO).add(ModItems.TOMATO_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_ONION).add(ModItems.ONION_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_RICE).add(ModItems.RICE_BAG.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_RICE_PANICLE).add(ModItems.RICE_BALE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ITEM_STRAW).add(ModItems.STRAW_BALE.get());
 
-        getOrCreateTagBuilder(CommonTags.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+        tagBuilder(CommonTags.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 	}
 
 	public void registerCompatibilityTags() {
-        getOrCreateTagBuilder(CompatibilityTags.CREATE_UPRIGHT_ON_BELT)
+        tagBuilder(CompatibilityTags.CREATE_UPRIGHT_ON_BELT)
 				.addTag(ModTags.MEALS)
 				.addTag(ModTags.DRINKS)
 				.addTag(ModTags.FEASTS)
@@ -350,16 +355,16 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.SWEET_BERRY_CHEESECAKE.get())
 				.add(ModItems.CHOCOLATE_PIE.get());
 
-        getOrCreateTagBuilder(CompatibilityTags.CREATE_CA_PLANT_FOODS)
+        tagBuilder(CompatibilityTags.CREATE_CA_PLANT_FOODS)
 				.add(ModItems.PUMPKIN_SLICE.get())
 				.add(ModItems.ROTTEN_TOMATO.get())
 				.add(ModItems.RICE_PANICLE.get());
-        getOrCreateTagBuilder(CompatibilityTags.CREATE_CA_PLANTS)
+        tagBuilder(CompatibilityTags.CREATE_CA_PLANTS)
 				.add(ModItems.SANDY_SHRUB.get())
 				.add(ModItems.BROWN_MUSHROOM_COLONY.get())
 				.add(ModItems.RED_MUSHROOM_COLONY.get());
 
-        getOrCreateTagBuilder(CompatibilityTags.ORIGINS_MEAT)
+        tagBuilder(CompatibilityTags.ORIGINS_MEAT)
 				.add(ModItems.FRIED_EGG.get())
 				.add(ModItems.COD_SLICE.get())
 				.add(ModItems.COOKED_COD_SLICE.get())
@@ -367,18 +372,71 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.COOKED_SALMON_SLICE.get())
 				.add(ModItems.BACON_AND_EGGS.get());
 
-        getOrCreateTagBuilder(CompatibilityTags.SERENE_SEASONS_AUTUMN_CROPS)
+        tagBuilder(CompatibilityTags.SERENE_SEASONS_AUTUMN_CROPS)
 				.add(ModItems.CABBAGE_SEEDS.get())
 				.add(ModItems.ONION.get())
 				.add(ModItems.RICE.get());
-        getOrCreateTagBuilder(CompatibilityTags.SERENE_SEASONS_SPRING_CROPS)
+        tagBuilder(CompatibilityTags.SERENE_SEASONS_SPRING_CROPS)
 				.add(ModItems.ONION.get());
-        getOrCreateTagBuilder(CompatibilityTags.SERENE_SEASONS_SUMMER_CROPS)
+        tagBuilder(CompatibilityTags.SERENE_SEASONS_SUMMER_CROPS)
 				.add(ModItems.TOMATO_SEEDS.get())
 				.add(ModItems.RICE.get());
-        getOrCreateTagBuilder(CompatibilityTags.SERENE_SEASONS_WINTER_CROPS)
+        tagBuilder(CompatibilityTags.SERENE_SEASONS_WINTER_CROPS)
 				.add(ModItems.CABBAGE_SEEDS.get());
 
-        getOrCreateTagBuilder(CompatibilityTags.TINKERS_CONSTRUCT_SEEDS).add(ModItems.ONION.get());
+        tagBuilder(CompatibilityTags.TINKERS_CONSTRUCT_SEEDS).add(ModItems.ONION.get());
+	}
+
+	private RefabricatedTagBuilder tagBuilder(TagKey<Item> tagKey) {
+		return new RefabricatedTagBuilder(tagKey);
+	}
+
+	public class RefabricatedTagBuilder {
+		private FabricTagProvider<Item>.FabricTagBuilder valueLookupBuilder;
+
+		private TagBuilder rawBuilder;
+
+		public RefabricatedTagBuilder(TagKey<Item> tag) {
+			this.valueLookupBuilder = getOrCreateTagBuilder(tag);
+
+			this.rawBuilder = getOrCreateRawBuilder(tag);
+		}
+
+		public RefabricatedTagBuilder add(Item item) {
+			valueLookupBuilder = valueLookupBuilder.add(item);
+			return this;
+		}
+
+		public RefabricatedTagBuilder add(Supplier<Item> item) {
+			valueLookupBuilder = valueLookupBuilder.add(item.get());
+			return this;
+		}
+
+		public RefabricatedTagBuilder addOptionalTag(TagKey<Item> itemTagKey) {
+			valueLookupBuilder = valueLookupBuilder.addOptionalTag(itemTagKey);
+			return this;
+		}
+
+		public RefabricatedTagBuilder add(Item... items) {
+			valueLookupBuilder = valueLookupBuilder.add(items);
+			return this;
+		}
+
+		public RefabricatedTagBuilder addOptional(ResourceLocation item) {
+			rawBuilder = rawBuilder.addOptionalElement(item);
+			return this;
+		}
+
+		@SafeVarargs
+		public final void addTags(TagKey<Item>... tags) {
+			for (TagKey<Item> tag : tags) {
+				valueLookupBuilder.forceAddTag(tag);
+			}
+		}
+
+		public RefabricatedTagBuilder addTag(TagKey<Item> tagKey) {
+			valueLookupBuilder.forceAddTag(tagKey);
+			return this;
+		}
 	}
 }

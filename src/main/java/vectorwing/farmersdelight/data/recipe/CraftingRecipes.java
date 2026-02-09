@@ -17,6 +17,7 @@ import vectorwing.farmersdelight.common.crafting.FoodServingRecipe;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
+import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class CraftingRecipes
@@ -91,7 +92,7 @@ public class CraftingRecipes
 				.pattern("mmm")
 				.pattern("ses")
 				.pattern("www")
-				.define('m', Tags.Items.DRINKS_MILK)
+				.define('m', ConventionalTags.DRINKS_MILK)
 				.define('s', Items.SUGAR)
 				.define('e', ConventionalItemTags.EGGS)
 				.define('w', Items.WHEAT)
@@ -572,7 +573,7 @@ public class CraftingRecipes
 				.pattern("wMw")
 				.pattern(" w ")
 				.define('w', Items.WHEAT)
-				.define('M', Tags.Items.DRINKS_MILK)
+				.define('M', ConventionalTags.DRINKS_MILK)
 				.unlockedBy("has_wheat", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHEAT))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.SWEET_BERRY_COOKIE.get(), 8)
@@ -645,7 +646,7 @@ public class CraftingRecipes
 				.pattern("sss")
 				.pattern("mOm")
 				.define('s', Items.SWEET_BERRIES)
-				.define('m', Tags.Items.DRINKS_MILK)
+				.define('m', ConventionalTags.DRINKS_MILK)
 				.define('O', ModItems.PIE_CRUST.get())
 				.unlockedBy("has_pie_crust", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.PIE_CRUST.get()))
 				.group("fd_sweet_berry_cheesecake")
@@ -662,7 +663,7 @@ public class CraftingRecipes
 				.pattern("mmm")
 				.pattern("xOx")
 				.define('c', Items.COCOA_BEANS)
-				.define('m', Tags.Items.DRINKS_MILK)
+				.define('m', ConventionalTags.DRINKS_MILK)
 				.define('x', Items.SUGAR)
 				.define('O', ModItems.PIE_CRUST.get())
 				.unlockedBy("has_pie_crust", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.PIE_CRUST.get()))
@@ -737,7 +738,7 @@ public class CraftingRecipes
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.STUFFED_POTATO.get())
 				.requires(Items.BAKED_POTATO)
 				.requires(CommonTags.FOODS_COOKED_BEEF)
-				.requires(Tags.Items.DRINKS_MILK)
+				.requires(ConventionalTags.DRINKS_MILK)
 				.unlockedBy("has_baked_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BAKED_POTATO))
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.SALMON_ROLL.get(), 2)
@@ -806,7 +807,7 @@ public class CraftingRecipes
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.SHEPHERDS_PIE_BLOCK.get())
 				.requires(Items.BAKED_POTATO)
-				.requires(Tags.Items.DRINKS_MILK)
+				.requires(ConventionalTags.DRINKS_MILK)
 				.requires(Items.BAKED_POTATO)
 				.requires(CommonTags.FOODS_COOKED_MUTTON)
 				.requires(CommonTags.FOODS_COOKED_MUTTON)

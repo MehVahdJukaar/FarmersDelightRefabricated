@@ -225,6 +225,10 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
             if (player.isSpectator())
                 return InteractionResult.PASS;
 
+			BlockPos pos = hit.getBlockPos();
+			ItemStack heldStack = player.getMainHandItem();
+			BlockEntity tileEntity = level.getBlockEntity(pos);
+
 			if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof CuttingBoardBlockEntity) {
 				if (heldStack.getItem() instanceof TieredItem ||
 						heldStack.getItem() instanceof TridentItem ||
@@ -237,6 +241,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 					}
 				}
 			}
+			return InteractionResult.PASS;
 		}
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
+import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
 
@@ -30,7 +31,7 @@ public class CookingRecipes
 
 	private static void cookMiscellaneous(RecipeOutput output) {
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.HOT_COCOA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(Tags.Items.DRINKS_MILK)
+				.addIngredient(ConventionalTags.DRINKS_MILK)
 				.addIngredient(Items.SUGAR)
 				.addIngredient(Items.COCOA_BEANS)
 				.addIngredient(Items.COCOA_BEANS)
@@ -60,7 +61,7 @@ public class CookingRecipes
 				.build(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.GLOW_BERRY_CUSTARD.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(Items.GLOW_BERRIES)
-				.addIngredient(ConventionalItemTags.DRINKS_MILK)
+				.addIngredient(ConventionalTags.DRINKS_MILK)
 				.addIngredient(ConventionalItemTags.EGGS)
 				.addIngredient(Items.SUGAR)
 				.unlockedByAnyIngredient(Items.GLOW_BERRIES, Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get())
@@ -200,7 +201,7 @@ public class CookingRecipes
 				.addIngredient(ModItems.PUMPKIN_SLICE.get())
 				.addIngredient(CommonTags.FOODS_LEAFY_GREEN)
 				.addIngredient(CommonTags.FOODS_RAW_PORK)
-				.addIngredient(Tags.Items.DRINKS_MILK)
+				.addIngredient(ConventionalTags.DRINKS_MILK)
 				.unlockedByAnyIngredient(Items.PUMPKIN, ModItems.PUMPKIN_SLICE.get(), Items.PORKCHOP, Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get())
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.build(output);
