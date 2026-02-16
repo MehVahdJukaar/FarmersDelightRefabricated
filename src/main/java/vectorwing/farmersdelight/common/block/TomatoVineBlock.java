@@ -49,7 +49,7 @@ public class TomatoVineBlock extends CropBlock
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
-		return !isMature && stack.is(Items.BONE_MEAL) ? InteractionResult.CONSUME : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		return !isMature && stack.is(Items.BONE_MEAL) ? InteractionResult.PASS : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override
