@@ -162,7 +162,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(addedStack, serverLevel);
 		if (recipe.isPresent() && getStoredStack().isEmpty()) {
 			if (getBlockState().getValue(SkilletBlock.WATERLOGGED)) {
-				player.displayClientMessage(TextUtils.getTranslation("block.skillet.underwater"), true);
+				player.sendOverlayMessage(TextUtils.getTranslation("block.skillet.underwater"));
 				return addedStack;
 			}
 			boolean wasEmpty = getStoredStack().isEmpty();
@@ -176,7 +176,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				return remainderStack;
 			}
 		} else {
-			player.displayClientMessage(TextUtils.getTranslation("block.skillet.invalid_item"), true);
+			player.sendOverlayMessage(TextUtils.getTranslation("block.skillet.invalid_item"));
 		}
 		return addedStack;
 	}

@@ -114,7 +114,7 @@ public class FeastBlock extends Block
 				level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_GENERIC.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
 				return InteractionResult.SUCCESS;
 			} else {
-				player.displayClientMessage(TextUtils.getTranslation("block.feast.use_container", serving.getCraftingRemainder().create().getHoverName()), true);
+				player.sendOverlayMessage(TextUtils.getTranslation("block.feast.use_container", serving.getCraftingRemainder().create().getHoverName()));
 			}
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;

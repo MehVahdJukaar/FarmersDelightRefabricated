@@ -124,7 +124,7 @@ public class SkilletItem extends BlockItem {
 
                 if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(cookingStack)) {
                     if (player.isUnderWater()) {
-                        player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
+                        player.sendOverlayMessage(TextUtils.getTranslation("item.skillet.underwater"));
                         return InteractionResult.PASS;
                     }
                     if (level instanceof ServerLevel serverLevel) {
@@ -144,7 +144,7 @@ public class SkilletItem extends BlockItem {
                     }
                     return InteractionResult.CONSUME;
                 } else {
-                    player.displayClientMessage(TextUtils.getTranslation("item.skillet.how_to_cook"), true);
+                    player.sendOverlayMessage(TextUtils.getTranslation("item.skillet.how_to_cook"));
                 }
         }
         return InteractionResult.PASS;

@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.blockentity.state.SignRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.SpriteGetter;
+import net.minecraft.client.resources.model.SpriteId;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
@@ -37,16 +37,16 @@ public abstract class AbstractCanvasSignRenderer
     implements BlockEntityRenderer<SignBlockEntity, SignRenderState> {
     private static final int OUTLINE_RENDER_DISTANCE = Mth.square(16);
     private final Font font;
-    private final MaterialSet materials;
+    private final SpriteGetter materials;
 
     public AbstractCanvasSignRenderer(BlockEntityRendererProvider.Context context) {
         this.font = context.font();
-        this.materials = context.materials();
+        this.materials = context.sprites();
     }
 
     protected abstract Model.Simple getSignModel(BlockState state);
 
-    protected abstract Material getSignMaterial(DyeColor dyeColor);
+    protected abstract SpriteId getSignMaterial(DyeColor dyeColor);
 
     protected abstract float getSignModelRenderScale();
 
@@ -82,7 +82,7 @@ public abstract class AbstractCanvasSignRenderer
         poseStack.pushPose();
         float scale = this.getSignModelRenderScale();
         poseStack.scale(scale, -scale, -scale);
-        Material material = this.getSignMaterial(dyColor);
+        SpriteId material = this.getSignMaterial(dyColor);
         var renderType = material.renderType(model::renderType);
         nodeCollector.submitModel(model, Unit.INSTANCE, poseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, -1, this.materials.get(material), 0, crumblingOverlay);
         poseStack.popPose();

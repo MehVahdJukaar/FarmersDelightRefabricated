@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.integration.rrv.cooking_pot;
 
+import cc.cassian.rrv.api.ActionType;
 import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
@@ -37,7 +38,7 @@ public class CookingPotViewRecipe implements ReliableClientRecipe {
         this.cookTime = shapelessRecipe.getCookTime();
         // Workaround to make sure that the container does not get included in transfers.
         // This luckily doesn't seem to affect anything else.
-        this.container.setType(SlotContent.Type.RESULT);
+        this.container.setType(ActionType.RESULT);
     }
 
     @Override

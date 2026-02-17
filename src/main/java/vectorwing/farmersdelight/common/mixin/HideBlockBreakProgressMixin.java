@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.block.BakedQuadOutput;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -16,7 +17,7 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 public abstract class HideBlockBreakProgressMixin
 {
 	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
-	private void hideBlockDamage(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo ci) {
+	private void hideBlockDamage(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output, CallbackInfo ci) {
 		if (state.getBlock() == ModBlocks.CANVAS_RUG.get()) {
 			ci.cancel();
 		}

@@ -123,10 +123,10 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 			if (recipe.get().value().getTool().test(toolStack)) {
 				return recipe;
 			} else if (player != null) {
-				player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool"), true);
+				player.sendOverlayMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool"));
 			}
 		} else if (player != null) {
-			player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item"), true);
+			player.sendOverlayMessage(TextUtils.getTranslation("block.cutting_board.invalid_item"));
 		}
 
 		return Optional.empty();

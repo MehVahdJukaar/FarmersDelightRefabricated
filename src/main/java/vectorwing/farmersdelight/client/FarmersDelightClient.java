@@ -49,14 +49,6 @@ public class FarmersDelightClient implements ClientModInitializer {
         });
 
         // render type stuff
-        ChunkSectionLayerMap.putBlocks(ChunkSectionLayer.CUTOUT,
-                ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
-                ModBlocks.CABBAGE_CROP.get(), ModBlocks.CUTTING_BOARD.get(), ModBlocks.ONION_CROP.get(),
-                ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.WILD_CARROTS.get(),
-                ModBlocks.WILD_ONIONS.get(), ModBlocks.WILD_POTATOES.get(), ModBlocks.WILD_RICE.get(), ModBlocks.WILD_TOMATOES.get(),
-                ModBlocks.RICE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
-                ModBlocks.ROAST_CHICKEN_BLOCK.get(), ModBlocks.SANDY_SHRUB.get(), ModBlocks.ROPE.get(),
-                ModBlocks.CANVAS_RUG.get(), ModBlocks.COOKING_POT.get(), ModBlocks.SAFETY_NET.get());
         PictureInPictureRendererRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.bufferSource(), ctx.minecraft().getAtlasManager()));
 
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.res("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);

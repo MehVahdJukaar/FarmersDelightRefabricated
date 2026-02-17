@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.SpriteId;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +30,7 @@ public class CanvasSignRenderer extends AbstractCanvasSignRenderer
 	}
 
 	@Override
-	protected Material getSignMaterial(DyeColor dyeColor) {
+	protected SpriteId getSignMaterial(DyeColor dyeColor) {
 		return ModAtlases.getCanvasSignMaterial(dyeColor);
 	}
 
