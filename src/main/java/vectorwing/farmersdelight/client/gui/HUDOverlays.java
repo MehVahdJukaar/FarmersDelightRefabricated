@@ -36,8 +36,9 @@ public class HUDOverlays
 	 */
 	@Deprecated
 	public static void register() {
-//		HudRenderCallback.EVENT.register(ComfortOverlay.INSTANCE::render);
-//		HudRenderCallback.EVENT.register(NourishmentOverlay.INSTANCE::render);
+        // TODO: Use these as soon as AppleSkin swaps to use HudElementRegistry.
+//		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, ComfortOverlay.ID, ComfortOverlay.INSTANCE::render);
+//      HudElementRegistry.attachElementAfter(VanillaHudElements.FOOD_BAR, NourishmentOverlay.ID, NourishmentOverlay.INSTANCE::render);
 	}
 
 	public static abstract class BaseOverlay {
@@ -124,7 +125,7 @@ public class HUDOverlays
 		int foodLevel = foodData.getFoodLevel();
 		int ticks = minecraft.gui.getGuiTicks();
 		Random rand = new Random();
-		rand.setSeed(ticks * 312871);
+		rand.setSeed(ticks * 312871L);
 
 		for (int j = 0; j < 10; ++j) {
 			int x = right - j * 8 - 9;
@@ -135,16 +136,16 @@ public class HUDOverlays
 			}
 
 			// Background texture
-			graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 0, 0, 9, 9, 255, 255);
+			graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 0, 0, 9, 9, 256, 256);
 
 			float effectiveHungerOfBar = (foodData.getFoodLevel()) / 2.0F - j;
 			int naturalHealingOffset = naturalHealing ? 18 : 0;
 
 			// Gilded hunger icons
 			if (effectiveHungerOfBar >= 1)
-				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 18 + naturalHealingOffset, 0, 9, 9, 255, 255);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 18 + naturalHealingOffset, 0, 9, 9, 256, 256);
 			else if (effectiveHungerOfBar >= .5)
-				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 9 + naturalHealingOffset, 0, 9, 9, 255, 255);
+				graphics.blit(RenderPipelines.GUI_TEXTURED, MOD_ICONS_TEXTURE, x, y, 9 + naturalHealingOffset, 0, 9, 9, 256, 256);
 		}
 	}
 
