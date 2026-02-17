@@ -84,7 +84,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.DIRT);
+		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.SUPPORTS_CROPS);
 	}
 
 	public IntegerProperty getAgeProperty() {

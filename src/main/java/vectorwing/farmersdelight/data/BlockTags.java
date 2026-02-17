@@ -200,8 +200,6 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		);
 		valueLookupBuilder(ConventionalBlockTags.TALL_FLOWERS).add(ModBlocks.WILD_RICE.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.FLOWERS).add(ModBlocks.WILD_RICE.get());
-		valueLookupBuilder(net.minecraft.tags.BlockTags.DIRT).add(
-				ModBlocks.RICH_SOIL.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.MAINTAINS_FARMLAND).add(
 				ModBlocks.CABBAGE_CROP.get(),
 				ModBlocks.BUDDING_TOMATO_CROP.get(),
