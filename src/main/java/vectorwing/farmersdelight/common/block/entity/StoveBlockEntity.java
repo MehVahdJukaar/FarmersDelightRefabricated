@@ -77,12 +77,10 @@ public class StoveBlockEntity extends SyncedBlockEntity
 
 	@Override
 	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof StoveBlockEntity) {
-			ItemUtils.dropItems(level, pos, ((StoveBlockEntity) tileEntity).getInventory());
-		}
-
-		super.preRemoveSideEffects(pos, state);
+        if (level != null) {
+            ItemUtils.dropItems(level, pos, this.getInventory());
+        }
+        super.preRemoveSideEffects(pos, state);
 	}
 
 	public static void cookingTick(ServerLevel level, BlockPos pos, BlockState state, StoveBlockEntity stove) {

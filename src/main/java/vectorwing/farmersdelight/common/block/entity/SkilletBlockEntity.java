@@ -142,10 +142,9 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	@Override
 	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		if (this instanceof SkilletBlockEntity && level != null) {
+		if (level != null) {
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(0));
 		}
-
 		super.preRemoveSideEffects(pos, state);
 	}
 

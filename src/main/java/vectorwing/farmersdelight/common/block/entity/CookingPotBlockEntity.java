@@ -28,6 +28,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
@@ -42,6 +44,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
@@ -196,6 +199,17 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
         output.storeNullable("Container", ItemStack.CODEC, mealContainerStack.isEmpty() ? null : mealContainerStack);
         inventory.serialize(output.child("Inventory"));
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level instanceof ServerLevel serverLevel) {
+            Containers.dropContents(level, pos, getDroppableInventory());
+            this.getUsedRecipesAndPopExperience(serverLevel, Vec3.atCenterOf(pos));
+            level.updateNeighbourForOutputSignal(pos, state.getBlock());
+        }
+        super.preRemoveSideEffects(pos, state);
+    }
+
 
     public void writeMeal(ValueOutput output) {
         if (getMeal().isEmpty()) return;

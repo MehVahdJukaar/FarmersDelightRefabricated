@@ -78,12 +78,10 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 
 	@Override
 	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoard) {
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), cuttingBoard.getStoredItem());
-		}
-
-		super.preRemoveSideEffects(pos, state);
+        if (level != null) {
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getStoredItem());
+        }
+        super.preRemoveSideEffects(pos, state);
 	}
 
 	public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {

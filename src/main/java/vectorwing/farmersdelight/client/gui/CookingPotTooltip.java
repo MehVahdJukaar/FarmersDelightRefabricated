@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -48,7 +49,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 	@Override
 	public void renderText(GuiGraphics guiGraphics, Font font, int x, int y) {
 		Integer color = ChatFormatting.GRAY.getColor();
-		int gray = color == null ? -1 : color;
+		int gray = color == null ? -1 : ARGB.opaque(color);
 
 		if (!mealStack.isEmpty()) {
 			MutableComponent textServingsOf = mealStack.getCount() == 1
@@ -56,7 +57,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 					: TextUtils.getTranslation("tooltip.cooking_pot.many_servings", mealStack.getCount());
 
 			guiGraphics.drawWordWrap(font, textServingsOf, x, y, 96, gray);
-			guiGraphics.drawWordWrap(font, mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y, 96, -1);
+			guiGraphics.drawWordWrap(font, mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y + textSpacing + MARGIN, 96, -1);
 		} else {
 			MutableComponent textEmpty = TextUtils.getTranslation("tooltip.cooking_pot.empty");
 			guiGraphics.drawWordWrap(font, textEmpty, x, y, 96, gray);
