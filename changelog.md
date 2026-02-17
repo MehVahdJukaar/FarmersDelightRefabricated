@@ -1,3 +1,9 @@
+- Fixed Farmer's Delight Refabricated loot modifications not running if another mod/datapack modifies the loot table. [#269](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/269)
+- Fixed Tomato Vines not being bonemeal-able. [#270](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/270)
+- Added Pale Oak recipes to the cutting board [#276](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/276)
+- Fixed Knives having incorrect enchanting options [#277](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/277)
+- Fixed Wall Canvas Signs not dropping any items.
+
 Merged Farmer's Delight v1.2.10, details are below:
 ## 1.2.10
 
