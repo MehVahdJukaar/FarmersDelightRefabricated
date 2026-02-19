@@ -28,7 +28,6 @@
       "translate": "farmersdelight.advancement.get_mushroom_colony.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:red_mushroom_colony"
     },
     "title": {

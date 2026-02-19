@@ -29,7 +29,6 @@
       "translate": "farmersdelight.advancement.place_campfire.desc"
     },
     "icon": {
-      "count": 1,
       "id": "minecraft:campfire"
     },
     "title": {

@@ -9,7 +9,6 @@
     "#c:foods/cooked_egg"
   ],
   "result": {
-    "count": 1,
     "id": "farmersdelight:bacon_and_eggs"
   }
 }

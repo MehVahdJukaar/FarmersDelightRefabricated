@@ -30,31 +30,31 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	private final CookingPotBookCategory category;
 	private final List<Ingredient> inputItems;
 	private final ItemStackTemplate result;
-	private final ItemStack container;
-	private final ItemStack containerOverride;
+	private final ItemStackTemplate container;
+	private final ItemStackTemplate containerOverride;
 	private final float experience;
 	private final int cookTime;
 
 	private PlacementInfo placementInfo;
 
-	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStackTemplate output, ItemStack container, float experience, int cookTime) {
+	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStackTemplate output, Optional<ItemStackTemplate> container, float experience, int cookTime) {
 		this.group = group;
 		this.category = tab;
 		this.inputItems = inputItems;
 		this.result = output;
 
-		if (!container.isEmpty()) {
-			this.container = container;
+		if (container.isPresent()) {
+			this.container = container.get();
 		}
 		//FIXME - this is too early to check for crafting remainders now!
 //		else if (!output.create().getCraftingRemainder().create().isEmpty()) {
 //			this.container = output.create().getCraftingRemainder().create();
 //		}
 		else {
-			this.container = ItemStack.EMPTY;
+			this.container = null;
 		}
 
-		this.containerOverride = container;
+		this.containerOverride = container.orElse(null);
 		this.experience = experience;
 		this.cookTime = cookTime;
 	}
@@ -72,12 +72,12 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		return this.category;
 	}
 
-	public ItemStack container() {
+	public ItemStackTemplate container() {
 		return this.container;
 	}
 
-	public ItemStack containerOverride() {
-		return this.containerOverride;
+	public Optional<ItemStackTemplate> containerOverride() {
+		return Optional.ofNullable(this.containerOverride);
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	@Override
 	public List<RecipeDisplay> display() {
 		return List.of(new CookingPotRecipeDisplay(this.input().stream().map(Ingredient::display).toList(),
-				container.isEmpty() ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(container.getItem().builtInRegistryHolder(), container.getCount(), container.getComponentsPatch()))),
+				container == null ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(container.item(), container.count(), container.components()))),
 				new SlotDisplay.ItemStackSlotDisplay(this.result()),
 				new SlotDisplay.ItemSlotDisplay(ModItems.COOKING_POT.get()),
 				cookTime,
@@ -181,7 +181,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 				CookingPotBookCategory.CODEC.optionalFieldOf("recipe_book_tab", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
 				Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(CookingPotRecipe::input),
 				ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
-				ItemStack.CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(CookingPotRecipe::containerOverride),
+				ItemStackTemplate.CODEC.optionalFieldOf("container").forGetter(CookingPotRecipe::containerOverride),
 				Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(CookingPotRecipe::getExperience),
 				Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(CookingPotRecipe::getCookTime)
 		).apply(inst, CookingPotRecipe::new));
@@ -206,7 +206,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			CookingPotBookCategory tabIn = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
 			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
 			ItemStackTemplate outputIn = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-			ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+			Optional<ItemStackTemplate> container = ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).decode(buffer);
 			float experienceIn = buffer.readFloat();
 			int cookTimeIn = buffer.readVarInt();
 			return new CookingPotRecipe(groupIn, tabIn, inputItemsIn, outputIn, container, experienceIn, cookTimeIn);
@@ -217,7 +217,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
             CookingPotBookCategory.STREAM_CODEC.encode(buffer, recipe.category);
 			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.inputItems);
 			ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.result);
-			ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.container);
+			ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).encode(buffer, Optional.ofNullable(recipe.container));
 			buffer.writeFloat(recipe.experience);
 			buffer.writeVarInt(recipe.cookTime);
 		}

@@ -8,6 +8,7 @@ import cc.cassian.rrv.common.builtin.shapeless.ShapelessServerRecipe;
 import cc.cassian.rrv.common.recipe.ServerRecipeManager;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -22,6 +23,7 @@ import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionView
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class RRVPlugin implements ReliableRecipeViewerPlugin {
     @Override
@@ -29,7 +31,7 @@ public class RRVPlugin implements ReliableRecipeViewerPlugin {
         ItemView.addServerRecipeProvider(recipeList -> {
             // Cooking Pot - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.COOKING.get()).forEach(recipe -> {
-                recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result().create(), recipe.container(), recipe.getExperience(), recipe.getCookTime()));
+                recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result().create(), Optional.ofNullable(recipe.container()).map(ItemStackTemplate::create).orElse(ItemStack.EMPTY), recipe.getExperience(), recipe.getCookTime()));
             });
             // Cutting Board - serverside
             ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {

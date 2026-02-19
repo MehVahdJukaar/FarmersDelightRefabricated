@@ -51,8 +51,8 @@ public abstract class RecipeManagerMixin {
         map.put(ModRecipePropertySets.COOKING_POT_INPUT_SIX, recipe -> recipe instanceof CookingPotRecipe cookingPotRecipe  && cookingPotRecipe.input().size() >= 6 ?
                 Optional.ofNullable(cookingPotRecipe.input().get(5)) :
                 Optional.empty());
-        map.put(ModRecipePropertySets.COOKING_POT_CONTAINER, recipe -> recipe instanceof CookingPotRecipe cookingPotRecipe && !cookingPotRecipe.container().isEmpty() ?
-                Optional.of(Ingredient.of(cookingPotRecipe.container().getItem())) :
+        map.put(ModRecipePropertySets.COOKING_POT_CONTAINER, recipe -> recipe instanceof CookingPotRecipe cookingPotRecipe && cookingPotRecipe.container() != null ?
+                Optional.of(Ingredient.of(cookingPotRecipe.container().item().value())) :
                 Optional.empty());
 
         map.put(ModRecipePropertySets.CUTTING_BOARD_INPUT, recipe -> recipe instanceof CuttingBoardRecipe cuttingBoardRecipe ?

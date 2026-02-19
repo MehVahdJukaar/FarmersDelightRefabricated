@@ -19,7 +19,6 @@
       "translate": "farmersdelight.advancement.place_skillet.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:skillet"
     },
     "title": {

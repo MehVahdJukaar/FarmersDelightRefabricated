@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -81,7 +82,7 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 		CookingPotRecipe recipe = holder.value();
 		List<Ingredient> recipeIngredients = recipe.input();
 		ItemStack resultStack = recipe.result().create();
-		ItemStack containerStack = recipe.container();
+		ItemStackTemplate containerStack = recipe.container();
 
 		int borderSlotSize = 18;
 		for (int row = 0; row < 2; ++row) {
@@ -96,8 +97,8 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 10).add(resultStack);
 
-		if (!containerStack.isEmpty()) {
-			builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 63, 39).add(containerStack);
+		if (containerStack != null) {
+			builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 63, 39).add(containerStack.create());
 		}
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 39).add(resultStack);

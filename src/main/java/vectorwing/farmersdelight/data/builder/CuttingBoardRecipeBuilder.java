@@ -13,6 +13,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
@@ -30,7 +31,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	private Holder<SoundEvent> soundEvent;
 
 	private CuttingBoardRecipeBuilder(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, float chance) {
-		this.results.add(new ChanceResult(new ItemStack(mainResult.asItem(), count), chance));
+		this.results.add(new ChanceResult(new ItemStackTemplate(mainResult.asItem(), count), chance));
 		this.ingredient = ingredient;
 		this.tool = tool;
 	}
@@ -61,7 +62,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	}
 
 	public CuttingBoardRecipeBuilder addResult(ItemLike result, int count) {
-		this.results.add(new ChanceResult(new ItemStack(result.asItem(), count), 1));
+		this.results.add(new ChanceResult(new ItemStackTemplate(result.asItem(), count), 1));
 		return this;
 	}
 
@@ -70,7 +71,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	}
 
 	public CuttingBoardRecipeBuilder addResultWithChance(ItemLike result, float chance, int count) {
-		this.results.add(new ChanceResult(new ItemStack(result.asItem(), count), chance));
+		this.results.add(new ChanceResult(new ItemStackTemplate(result.asItem(), count), chance));
 		return this;
 	}
 

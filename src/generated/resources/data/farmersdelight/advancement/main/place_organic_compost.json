@@ -19,7 +19,6 @@
       "translate": "farmersdelight.advancement.place_organic_compost.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:organic_compost"
     },
     "title": {

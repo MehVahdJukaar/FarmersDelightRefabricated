@@ -6,14 +6,12 @@
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:rice"
       }
     },
     {
       "chance": 0.5,
       "item": {
-        "count": 1,
         "id": "farmersdelight:straw"
       }
     }

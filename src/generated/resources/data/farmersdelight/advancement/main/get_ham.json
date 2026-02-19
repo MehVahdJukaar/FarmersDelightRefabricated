@@ -28,7 +28,6 @@
       "translate": "farmersdelight.advancement.get_ham.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:ham"
     },
     "title": {

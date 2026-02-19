@@ -7,7 +7,6 @@
     "#c:foods/cooked_egg"
   ],
   "result": {
-    "count": 1,
     "id": "farmersdelight:egg_sandwich"
   }
 }

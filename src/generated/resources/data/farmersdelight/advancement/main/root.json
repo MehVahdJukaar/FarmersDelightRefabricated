@@ -11,7 +11,6 @@
       "translate": "farmersdelight.advancement.root.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:cooking_pot"
     },
     "show_toast": false,

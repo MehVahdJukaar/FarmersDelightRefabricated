@@ -18,7 +18,6 @@
       "translate": "farmersdelight.advancement.harvest_straw.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:straw"
     },
     "title": {

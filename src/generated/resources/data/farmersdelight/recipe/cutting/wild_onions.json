@@ -6,7 +6,6 @@
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:onion"
       }
     },
@@ -19,7 +18,6 @@
     {
       "chance": 0.1,
       "item": {
-        "count": 1,
         "id": "minecraft:lime_dye"
       }
     }

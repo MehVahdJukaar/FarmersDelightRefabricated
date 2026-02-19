@@ -30,6 +30,7 @@ import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
 public class CookingPotRecipeBuilder implements RecipeBuilder
@@ -41,7 +42,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	private final ItemStackTemplate resultStack;
 	private final int cookingTime;
 	private final float experience;
-	private final ItemStack container;
+	private final ItemStackTemplate container;
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
 	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemLike result, int count, int cookingTime, float experience, @Nullable ItemLike container) {
@@ -54,7 +55,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		this.resultStack = resultIn;
 		this.cookingTime = cookingTime;
 		this.experience = experience;
-		this.container = container != null ? new ItemStack(container) : ItemStack.EMPTY;
+		this.container = container != null ? new ItemStackTemplate(container.asItem()) : null;
 		this.category = null;
 	}
 
@@ -156,7 +157,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 				this.category,
 				this.ingredients,
 				this.resultStack,
-				this.container,
+				Optional.ofNullable(this.container),
 				this.experience,
 				this.cookingTime
 		);

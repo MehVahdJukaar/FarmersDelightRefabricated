@@ -16,7 +16,6 @@
       "translate": "farmersdelight.advancement.use_skillet.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:skillet"
     },
     "title": {

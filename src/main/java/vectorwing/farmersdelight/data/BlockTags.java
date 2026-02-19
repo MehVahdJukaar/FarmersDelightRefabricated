@@ -101,7 +101,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
 				ModBlocks.RICH_SOIL.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
-				ModBlocks.RICH_SOIL.get());
+				ModBlocks.RICH_SOIL_FARMLAND.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_STEM_CROPS).add(
 				ModBlocks.RICH_SOIL.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_STEM_FRUIT).add(
@@ -110,6 +110,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.RICH_SOIL.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CACTUS).add(
 				ModBlocks.RICH_SOIL.get());
+		valueLookupBuilder(net.minecraft.tags.BlockTags.GROWS_CROPS).add(
+				ModBlocks.RICH_SOIL_FARMLAND.get());
 		valueLookupBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
 				ModBlocks.ORGANIC_COMPOST.get(),
 				ModBlocks.RICH_SOIL.get());

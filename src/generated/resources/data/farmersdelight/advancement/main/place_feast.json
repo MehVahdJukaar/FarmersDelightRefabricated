@@ -62,7 +62,6 @@
       "translate": "farmersdelight.advancement.place_feast.desc"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:roast_chicken_block"
     },
     "title": {

@@ -6,13 +6,11 @@
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "minecraft:stripped_bamboo_block"
       }
     },
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:straw"
       }
     }

@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
@@ -21,18 +22,18 @@ public class CuttingServerRecipe implements ReliableServerRecipe {
     );
 
     private Ingredient ingredient;
-    private List<ItemStack> results;
+    private List<ItemStackTemplate> results;
     private Ingredient tool;
     private List<ChanceResult> rollableResults;
 
-    public CuttingServerRecipe(Ingredient input, List<ItemStack> results, Ingredient tool, List<ChanceResult> rollableResults) {
+    public CuttingServerRecipe(Ingredient input, List<ItemStackTemplate> results, Ingredient tool, List<ChanceResult> rollableResults) {
         this.ingredient = input;
         this.results = results;
         this.tool = tool;
         this.rollableResults = rollableResults;
     }
 
-    public List<ItemStack> getResults() {
+    public List<ItemStackTemplate> getResults() {
         return this.results;
     }
 
@@ -74,7 +75,7 @@ public class CuttingServerRecipe implements ReliableServerRecipe {
                 CompoundTag compoundTag = tag.asCompound().orElseGet(CompoundTag::new);
                 var stack = TagUtil.decodeItemStackOnClient(compoundTag.getCompoundOrEmpty("item"));
                 var chance = compoundTag.getFloatOr("chance", 1);
-                ChanceResult chanceResult = new ChanceResult(stack, chance);
+                ChanceResult chanceResult = new ChanceResult(ItemStackTemplate.fromNonEmptyStack(stack), chance);
                 list.add(chanceResult);
             }
         }
@@ -83,7 +84,7 @@ public class CuttingServerRecipe implements ReliableServerRecipe {
 
     @Override
     public void loadFromTag(CompoundTag tag) {
-        this.results = TagUtil.readList(tag, "result", TagUtil::decodeItemStackOnClient);
+        this.results = TagUtil.readList(tag, "result", TagUtil::decodeItemStackTemplateOnClient);
         this.ingredient = TagUtil.readIngredient(tag.getCompound("ingredients").orElseGet(CompoundTag::new));
         this.tool = TagUtil.readIngredient(tag.getCompound("tool").orElseGet(CompoundTag::new));
         this.rollableResults = decodeRollableResult(tag.get("rollable_result"));

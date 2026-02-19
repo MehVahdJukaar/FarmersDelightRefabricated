@@ -11,6 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -56,7 +57,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 
 	@Override
 	public ItemStack assemble(CuttingBoardRecipeInput inv) {
-		return this.results.get(0).stack().copy();
+		return this.results.get(0).stack().create().copy();
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 		return this.tool;
 	}
 
-	public List<ItemStack> getResults() {
+	public List<ItemStackTemplate> getResults() {
 		return getRollableResults().stream()
 				.map(ChanceResult::stack)
 				.collect(Collectors.toList());
