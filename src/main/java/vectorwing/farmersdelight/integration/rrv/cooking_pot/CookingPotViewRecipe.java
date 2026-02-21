@@ -59,18 +59,20 @@ public class CookingPotViewRecipe implements ReliableClientRecipe {
     @Override
     public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.renderItem(this.result.getByIndex(0), 103, 17);
+		int x = recipePosition.left() + mouseX;
+		int y = recipePosition.top() + mouseY;
         if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
             List<Component> tooltip = new ArrayList<>();
             if (cookTime > 0) {
-                tooltip.add(Component.translatable("eiv.cooking.time", this.cookTime/20));
+                tooltip.add(Component.translatable("rrv.cooking.time", this.cookTime/20));
             }
             if (experience > 0) {
-                tooltip.add(Component.translatable("eiv.cooking.experience", this.experience));
+                tooltip.add(Component.translatable("rrv.cooking.experience", this.experience));
             }
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, tooltip, Optional.empty(), mouseX, mouseY);
+			guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, tooltip, Optional.empty(), x, y);
         }
         if (ClientRenderUtils.isCursorInsideBounds(103, 17, 18, 18, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, this.result.getByIndex(0), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, this.result.getByIndex(0), x, y);
         }
     }
 
