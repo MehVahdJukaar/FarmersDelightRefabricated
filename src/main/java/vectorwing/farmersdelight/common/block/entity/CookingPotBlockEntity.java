@@ -328,7 +328,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (slotStack.getRecipeRemainder() != null) {
+			if (!slotStack.getRecipeRemainder().isEmpty()) {
 				ejectIngredientRemainder(slotStack.getRecipeRemainder());
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
@@ -457,7 +457,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || meal.getRecipeRemainder() != null;
+		return !mealContainerStack.isEmpty() || !meal.getRecipeRemainder().isEmpty();
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {
