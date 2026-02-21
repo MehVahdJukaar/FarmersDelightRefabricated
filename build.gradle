@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version '1.14-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom-remap' version '1.15-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -177,10 +177,10 @@ publishMods {
 
         requires("fabric-api")
 //        optional("crafttweaker")
-//        optional("jei")
+        optional("jei")
 //        optional("roughly-enough-items")
 //        optional("emi")
-//        optional("extended-itemview-eiv")
+        optional("rrv")
     }
 
     modrinth {
@@ -191,10 +191,10 @@ publishMods {
 
         requires("fabric-api")
 //        optional("crafttweaker")
-//        optional("jei")
+        optional("jei")
 //        optional("rei")
 //        optional("emi")
-//        optional("eiv")
+        optional("rrv")
     }
 }
 
