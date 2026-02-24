@@ -125,16 +125,21 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	@Override
 	public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		if (level == null)
+			return;
 		super.loadAdditional(compound, registries);
 		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
 		cookingTime = compound.getInt("CookTime");
 		cookingTimeTotal = compound.getInt("CookTimeTotal");
 		skilletStack = ItemStack.parseOptional(registries, compound.getCompound("Skillet"));
-		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+		if (level != null)
+			fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
 	}
 
 	@Override
 	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		if (level == null)
+			return;
 		super.saveAdditional(compound, registries);
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		compound.putInt("CookTime", cookingTime);
