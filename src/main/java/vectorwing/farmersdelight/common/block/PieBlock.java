@@ -97,11 +97,9 @@ public class PieBlock extends Block
 			return InteractionResult.PASS;
 		} else {
 			ItemStack sliceStack = this.getPieSliceItem();
-			FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
-			Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
 
-			if (sliceFood != null) {
-				playerIn.getFoodData().eat(sliceFood);
+			if (sliceStack.has(DataComponents.FOOD)) {
+				Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
 				sliceStack.getAllOfType(ConsumableListener.class).forEach(consumableListener -> consumableListener.onConsume(level, playerIn, sliceStack, sliceConsumable));
 				if (!level.isClientSide()) {
 					sliceConsumable.onConsumeEffects().forEach(consumeEffect -> consumeEffect.apply(level, sliceStack, playerIn));
