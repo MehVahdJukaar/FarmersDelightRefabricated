@@ -1,2 +1,2 @@
-- Fixed Cooking Pot not dropping its ingredient items when broken.
-- Fixed Cooking Pot item tooltip when it contains a meal.
+- Fixed RRV compatibility.
+- Fixed Create Fly compatibility.
