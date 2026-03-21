@@ -9,9 +9,9 @@
   ],
   "type": "create:mixing",
   "ingredients": ["farmersdelight:cabbage"],
-  "result":
-    {
+  "results":
+    [{
       "id": "farmersdelight:cabbage_leaf",
       "count": 2
-    }
+    }]
 }
