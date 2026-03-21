@@ -26,7 +26,7 @@
       "fluid_tag": "#c:milk"
     }
   ],
-  "result": [{
+  "results": [{
       "id": "farmersdelight:pie_crust",
       "count": 1
   }]
