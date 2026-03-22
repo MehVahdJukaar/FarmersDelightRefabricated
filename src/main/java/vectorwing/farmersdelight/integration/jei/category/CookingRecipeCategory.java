@@ -1,3 +1,4 @@
+/*
 package vectorwing.farmersdelight.integration.jei.category;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -12,7 +13,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -131,3 +132,4 @@ public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<Cooki
 		}
 	}
 }
+ */

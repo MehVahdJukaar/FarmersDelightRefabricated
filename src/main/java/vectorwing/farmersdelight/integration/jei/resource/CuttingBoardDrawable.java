@@ -1,8 +1,9 @@
+/*
 package vectorwing.farmersdelight.integration.jei.resource;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 
 
@@ -29,12 +30,12 @@ public class CuttingBoardDrawable implements IDrawable
 		return 48;
 	}
 
-	@Override
-	public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
-        //FIXME - unused?
-		if (stack == null) {
-			stack = supplier.get();
-		}
+//	@Override
+//	public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
+//        //FIXME - unused?
+//		if (stack == null) {
+//			stack = supplier.get();
+//		}
 //		RenderSystem.pushMatrix();
 //		RenderSystem.multMatrix(matrixStack.last().pose());
 //		RenderSystem.enableDepthTest();
@@ -57,5 +58,6 @@ public class CuttingBoardDrawable implements IDrawable
 //		RenderSystem.disableBlend();
 //		Lighting.turnOff();
 //		RenderSystem.popMatrix();
-	}
+//	}
 }
+*/

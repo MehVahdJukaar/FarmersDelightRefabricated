@@ -3,6 +3,7 @@ package vectorwing.farmersdelight;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -23,7 +24,6 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.networking.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
-import vectorwing.farmersdelight.integration.jei.JEIPlugin;
 import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
@@ -88,7 +88,8 @@ public class FarmersDelight implements ModInitializer
 
 
         if (FabricLoader.getInstance().isModLoaded("jei")) {
-            JEIPlugin.syncRecipes();
+			RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
+			RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());
         }
     }
 }

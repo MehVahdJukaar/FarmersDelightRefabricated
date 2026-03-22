@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.client.gui;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
@@ -51,7 +51,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 		return new ScreenPosition(this.leftPos + 5, this.height / 2 - 49);
 	}
 
-	private void renderHeatIndicatorTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+	private void renderHeatIndicatorTooltip(GuiGraphicsExtractor gui, int mouseX, int mouseY) {
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
 			String key = "container.cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
 			gui.setTooltipForNextFrame(TextUtils.getTranslation(key), mouseX, mouseY);
@@ -59,14 +59,14 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 	}
 
 	@Override
-	protected void renderTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+	protected void extractTooltip(GuiGraphicsExtractor gui, int mouseX, int mouseY) {
 		if (renderMealDisplayTooltip(gui, mouseX, mouseY))
 			return;
-		super.renderTooltip(gui, mouseX, mouseY);
+		super.extractTooltip(gui, mouseX, mouseY);
 		renderHeatIndicatorTooltip(gui, mouseX, mouseY);
 	}
 
-	protected boolean renderMealDisplayTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+	protected boolean renderMealDisplayTooltip(GuiGraphicsExtractor gui, int mouseX, int mouseY) {
 		if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
 			if (this.hoveredSlot.index == 6) {
 				List<Component> tooltip = new ArrayList<>();
@@ -88,7 +88,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
+	public void extractBackground(GuiGraphicsExtractor gui, int mouseX, int mouseY, float partialTicks) {
 		if (this.minecraft == null)
 			return;
 

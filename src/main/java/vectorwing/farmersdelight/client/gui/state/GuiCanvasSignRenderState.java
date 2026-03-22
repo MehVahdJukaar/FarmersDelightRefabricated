@@ -1,8 +1,8 @@
 package vectorwing.farmersdelight.client.gui.state;
 
 import net.minecraft.client.gui.navigation.ScreenRectangle;
-import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Nullable;
 

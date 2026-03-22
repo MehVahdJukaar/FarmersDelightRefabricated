@@ -1,25 +1,22 @@
 package vectorwing.farmersdelight.common.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.block.BakedQuadOutput;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-@Mixin(BlockRenderDispatcher.class)
+@Mixin(LevelRenderer.class)
 public abstract class HideBlockBreakProgressMixin
 {
-	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
-	private void hideBlockDamage(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output, CallbackInfo ci) {
+	@ModifyArgs(method = "extractBlockDestroyAnimation", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/level/BlockBreakingRenderState;<init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)V"))
+	private void hideBlockDamage(Args args) {
+		BlockState state = args.get(1);
+		int progress = args.get(2);
 		if (state.getBlock() == ModBlocks.CANVAS_RUG.get()) {
-			ci.cancel();
+			args.set(2, 0);
 		}
 	}
 }

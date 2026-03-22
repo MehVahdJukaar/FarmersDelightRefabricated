@@ -1,3 +1,4 @@
+/*
 package vectorwing.farmersdelight.integration.jei.category;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -110,3 +111,4 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
         return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
     }
 }
+ */

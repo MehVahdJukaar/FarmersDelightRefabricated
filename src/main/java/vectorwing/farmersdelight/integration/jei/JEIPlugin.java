@@ -1,3 +1,4 @@
+/*
 package vectorwing.farmersdelight.integration.jei;
 
 import com.google.common.collect.ImmutableList;
@@ -90,9 +91,5 @@ public class JEIPlugin implements IModPlugin
 	public Identifier getPluginUid() {
 		return ID;
 	}
-
-    public static void syncRecipes() {
-        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
-        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());
-    }
 }
+*/

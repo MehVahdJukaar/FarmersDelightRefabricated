@@ -5,7 +5,7 @@ import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -87,7 +87,7 @@ public class CuttingViewRecipe implements ReliableClientRecipe {
         RecipeViewMenu.OptionalSlotRenderer GUARANTEED_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,0,58, 18,18, 256,256);
         RecipeViewMenu.OptionalSlotRenderer CHANCE_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,18,58, 18,18, 256,256);
 
-        void render(GuiGraphics var1, int var2, int var3, float var4);
+        void render(GuiGraphicsExtractor var1, int var2, int var3, float var4);
     }
 
     @Override

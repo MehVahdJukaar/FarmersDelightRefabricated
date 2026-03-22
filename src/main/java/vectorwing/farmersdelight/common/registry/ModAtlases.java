@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.registry;
 
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.resources.model.SpriteId;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Nullable;
@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-;
 
 public class ModAtlases
 {

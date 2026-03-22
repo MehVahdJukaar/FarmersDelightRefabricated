@@ -4,9 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.resources.model.SpriteId;
+import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.PlainSignBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -21,7 +22,7 @@ public class CanvasSignRenderer extends AbstractCanvasSignRenderer
 
 	public CanvasSignRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
-		this.signModels = new Models(SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, true), SignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, false));
+		this.signModels = new Models(StandingSignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, PlainSignBlock.Attachment.WALL), StandingSignRenderer.createSignModel(context.entityModelSet(), WoodType.SPRUCE, PlainSignBlock.Attachment.GROUND));
 	}
 
 	@Override
