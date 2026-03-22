@@ -72,7 +72,17 @@ repositories {
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     mavenCentral() // Mixin Extras
-    mavenLocal()
+     exclusiveContent {
+        forRepository {
+            maven {
+                name = "cassian's maven"
+                url = "https://maven.cassian.cc"
+            }
+        }
+        filter {
+            includeGroup( "cc.cassian.rrv")
+        }
+    }
 }
 
 dependencies {
