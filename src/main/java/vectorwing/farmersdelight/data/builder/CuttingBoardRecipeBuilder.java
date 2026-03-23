@@ -94,7 +94,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	@SuppressWarnings("unchecked")
     @Override
 	public Item getResult() {
-		Holder<Item> itemHolder = this.ingredient.getItems().toArray(Holder[]::new)[0];
+		Holder<Item> itemHolder = this.ingredient.items().toArray(Holder[]::new)[0];
 		return itemHolder.value();
 	}
 
