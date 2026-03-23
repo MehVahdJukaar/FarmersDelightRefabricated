@@ -1,5 +1,4 @@
 # Farmer's Delight Refabricated
-
 <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated">
   <img src="http://cf.way2muchnoise.eu/full_993166_downloads.svg" alt="Curseforge Downloads">
 </a>

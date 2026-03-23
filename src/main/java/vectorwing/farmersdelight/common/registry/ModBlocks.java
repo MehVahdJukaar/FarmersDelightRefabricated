@@ -209,10 +209,10 @@ public class ModBlocks
 
 	// Composting
 	public static final Supplier<Block> BROWN_MUSHROOM_COLONY = regBlock("brown_mushroom_colony",
-			(properties) -> new MushroomColonyBlock(Items.BROWN_MUSHROOM.builtInRegistryHolder(), properties),
+			(properties) -> new MushroomColonyBlock(BuiltInRegistries.ITEM.wrapAsHolder(Items.BROWN_MUSHROOM), properties),
 			Block.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM));
 	public static final Supplier<Block> RED_MUSHROOM_COLONY = regBlock("red_mushroom_colony",
-			(properties) -> new MushroomColonyBlock(Items.RED_MUSHROOM.builtInRegistryHolder(), properties),
+			(properties) -> new MushroomColonyBlock(BuiltInRegistries.ITEM.wrapAsHolder(Items.RED_MUSHROOM), properties),
 			Block.Properties.ofFullCopy(Blocks.RED_MUSHROOM));
 	public static final Supplier<Block> ORGANIC_COMPOST = regBlock("organic_compost",
             OrganicCompostBlock::new, Block.Properties.ofFullCopy(Blocks.DIRT).strength(1.2F).sound(SoundType.CROP));

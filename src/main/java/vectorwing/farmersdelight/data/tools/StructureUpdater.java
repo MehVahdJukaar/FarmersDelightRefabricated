@@ -88,7 +88,7 @@ public class StructureUpdater implements DataProvider
 		NbtIo.writeCompressed(data, bytearrayoutputstream);
 		byte[] bytes = bytearrayoutputstream.toByteArray();
 		Path outputPath = output.getOutputFolder().resolve("data/" + loc.getNamespace() + "/" + loc.getPath());
-		cache.writeIfNeeded(outputPath, bytes, Hashing.sha1().hashBytes(bytes));
+		cache.writeIfNeeded(outputPath, bytes, Hashing.sha256().hashBytes(bytes));
 	}
 
 	private static CompoundTag updateNBT(CompoundTag nbt) {

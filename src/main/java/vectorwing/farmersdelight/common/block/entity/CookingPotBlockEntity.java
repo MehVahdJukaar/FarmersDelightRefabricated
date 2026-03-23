@@ -544,13 +544,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		}
 	}
 
-	@Override
-	public void removeComponentsFromTag(CompoundTag tag) {
-		tag.remove("CustomName");
-		tag.remove("meal");
-		tag.remove("container");
-	}
-
 	private ItemStackHandler createHandler() {
 		return new ItemStackHandler(INVENTORY_SIZE)
 		{

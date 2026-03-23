@@ -53,7 +53,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.tick(state, level, pos, random);
-		if (!level.hasChunksAt(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) return;
+		if (!level.hasChunksAt(pos.getX()-1, pos.getY()-1, pos.getZ()-1, pos.getX()+1, pos.getY()+1, pos.getZ()+1)) return;
 		if (level.getRawBrightness(pos.above(), 0) >= 6) {
 			int age = this.getAge(state);
 			if (age <= this.getMaxAge()) {
