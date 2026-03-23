@@ -3,6 +3,7 @@
   "addition": "minecraft:netherite_ingot",
   "base": "farmersdelight:diamond_knife",
   "result": {
+    "count": 1,
     "id": "farmersdelight:netherite_knife"
   },
   "template": "minecraft:netherite_upgrade_smithing_template"

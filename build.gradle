@@ -130,6 +130,9 @@ dependencies {
    modLocalRuntime("maven.modrinth:eiv:${eiv_version}+${minecraft_version}-fabric") {
        exclude(group: "net.fabricmc.fabric-api")
    }
+
+    // Basic unit testing support
+    testImplementation 'junit:junit:4.13.2'
 }
 
 var changelogFile = rootProject.file("changelog.md")
