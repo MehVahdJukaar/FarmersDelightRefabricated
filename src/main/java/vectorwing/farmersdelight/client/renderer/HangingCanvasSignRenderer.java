@@ -32,7 +32,7 @@ public class HangingCanvasSignRenderer extends AbstractCanvasSignRenderer
 
 	@Override
 	protected Model.Simple getSignModel(BlockState state) {
-		HangingSignBlock.Attachment attachmentType = HangingSignBlock.Attachment.byBlockState(state);
+		HangingSignBlock.Attachment attachmentType = HangingSignBlock.getAttachmentPoint(state);
 		return this.hangingSignModels.get(attachmentType);
 	}
 

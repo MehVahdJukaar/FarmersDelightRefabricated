@@ -137,10 +137,12 @@ dependencies {
 
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "eu.pb4")
     }
     // Uncomment the below to test RRV.
      runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "eu.pb4")
      }
 }
 

@@ -39,7 +39,7 @@ public class RRVPlugin implements ReliableRecipeViewerPlugin {
                 recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool(), recipe.getRollableResults()));
             });
             recipeList.add(new DecompositionServerRecipe());
-            recipeList.add(new ShapelessServerRecipe(FarmersDelight.res("dough"), List.of(Ingredient.of(Items.WHEAT), Ingredient.of(Items.WATER_BUCKET)), new ItemStackTemplate(ModItems.WHEAT_DOUGH.get(), 1)));
+            recipeList.add(new ShapelessServerRecipe(List.of(Ingredient.of(Items.WHEAT), Ingredient.of(Items.WATER_BUCKET)), new ItemStackTemplate(ModItems.WHEAT_DOUGH.get(), 1)));
         });
 
         // Cooking Pot - clientside
