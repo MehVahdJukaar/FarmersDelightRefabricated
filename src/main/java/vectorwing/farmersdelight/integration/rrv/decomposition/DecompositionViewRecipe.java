@@ -50,12 +50,14 @@ public class DecompositionViewRecipe implements ReliableClientRecipe {
     public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         int iconY = 38;
         int iconX = 38;
+		int x = recipePosition.left() + mouseX;
+		int y = recipePosition.top() + mouseY;
         if (ClientRenderUtils.isCursorInsideBounds(iconX, iconY, 11, 11, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, LIGHT_TOOLTIP, mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, LIGHT_TOOLTIP, x, y);
         } else if (ClientRenderUtils.isCursorInsideBounds(iconX+12, iconY, 11, 11, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, FLUID_TOOLTIP, mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, FLUID_TOOLTIP, x, y);
         } else if (ClientRenderUtils.isCursorInsideBounds(iconX+27, iconY, 11, 11, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, ACCELERATORS_TOOLTIP, mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, ACCELERATORS_TOOLTIP, x, y);
         }
     }
 

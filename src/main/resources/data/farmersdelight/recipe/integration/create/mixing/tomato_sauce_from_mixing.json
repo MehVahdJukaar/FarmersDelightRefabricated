@@ -13,8 +13,10 @@
     "#c:crops/tomato",
     "minecraft:bowl"
   ],
-  "result": {
+  "results":[
+    {
       "id": "farmersdelight:tomato_sauce",
       "count": 1
     }
+  ]
 }

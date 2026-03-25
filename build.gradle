@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -72,7 +72,7 @@ repositories {
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
     mavenCentral() // Mixin Extras
-    exclusiveContent {
+     exclusiveContent {
         forRepository {
             maven {
                 name = "cassian's maven"
@@ -137,11 +137,13 @@ dependencies {
 
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "eu.pb4")
     }
     // Uncomment the below to test RRV.
-    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
-       exclude(group: "net.fabricmc.fabric-api")
-    }
+     runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "eu.pb4")
+     }
 }
 
 var changelogFile = rootProject.file("changelog.md")
@@ -169,10 +171,10 @@ publishMods {
 
         requires("fabric-api")
 //        optional("crafttweaker")
-//        optional("jei")
+        optional("jei")
 //        optional("roughly-enough-items")
 //        optional("emi")
-//        optional("extended-itemview-eiv")
+        optional("rrv")
     }
 
     modrinth {
@@ -183,10 +185,10 @@ publishMods {
 
         requires("fabric-api")
 //        optional("crafttweaker")
-//        optional("jei")
+        optional("jei")
 //        optional("rei")
 //        optional("emi")
-//        optional("eiv")
+        optional("rrv")
     }
 }
 
