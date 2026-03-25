@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.loot.function.SmokerCookFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -35,7 +34,7 @@ public class RegUtils {
 
     public static <R, T extends R> Supplier<T> register(String name, Supplier<T> supplier, Registry<R> reg) {
         T object = supplier.get();
-        Registry.register(reg, FarmersDelight.res(name), object);
+        Registry.register(reg, FarmersDelight.id(name), object);
         return () -> object;
     }
 
@@ -99,8 +98,10 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.MOB_EFFECT);
     }
 
-    public static <B extends LootItemFunction> Supplier<MapCodec<B>> regLootFunc(Identifier name, MapCodec<B> supplier) {
-        return ()-> Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, name, supplier);
+    public static <B extends LootItemFunction> Supplier<MapCodec<B>> regLootFunc(Identifier name, MapCodec<B> value) {
+        Supplier<MapCodec<B>> supp = () -> Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, name, value);
+        supp.get();
+        return supp;
     }
 
     public static <B extends Item> Supplier<B> regItem(String name, Supplier<B> supplier) {

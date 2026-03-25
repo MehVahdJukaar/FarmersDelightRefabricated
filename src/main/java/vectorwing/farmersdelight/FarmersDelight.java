@@ -3,7 +3,6 @@ package vectorwing.farmersdelight;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gamerules.GameRules;
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.networking.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
-import vectorwing.farmersdelight.integration.jei.JEIPlugin;
 import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
@@ -33,7 +31,7 @@ public class FarmersDelight implements ModInitializer
 	public static final String MODID = "farmersdelight";
 	public static final Logger LOGGER = LoggerFactory.getLogger(FarmersDelight.class);
 
-	public static Identifier res(String name) {
+	public static Identifier id(String name) {
 		return Identifier.fromNamespaceAndPath(MODID, name);
 	}
 
@@ -52,7 +50,7 @@ public class FarmersDelight implements ModInitializer
 		ModMenuTypes.touch();
 		ModRecipeTypes.touch();
 		ModRecipeSerializers.touch();
-		ModBiomeFeatures.touch();
+        ModBiomeFeatures.touch();
 		ModAdvancements.touch();
 		ModPlacementModifiers.touch();
 		ModLootFunctions.touch();
@@ -87,8 +85,8 @@ public class FarmersDelight implements ModInitializer
 				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
 
 
-        if (FabricLoader.getInstance().isModLoaded("jei")) {
-            JEIPlugin.syncRecipes();
-        }
+//        if (FabricLoader.getInstance().isModLoaded("jei")) {
+//            JEIPlugin.syncRecipes();
+//        }
     }
 }

@@ -30,7 +30,7 @@ public class ModBiomeModifiers {
 
     @NotNull
     private static ResourceKey<PlacedFeature> modFeature(String red_colony) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, FarmersDelight.res(red_colony));
+        return ResourceKey.create(Registries.PLACED_FEATURE, FarmersDelight.id(red_colony));
     }
 
     public static void init() {

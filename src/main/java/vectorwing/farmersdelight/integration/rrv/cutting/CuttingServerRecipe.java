@@ -6,7 +6,6 @@ import cc.cassian.rrv.api.recipe.ReliableServerRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class CuttingServerRecipe implements ReliableServerRecipe {
     public static final ReliableServerRecipeType<CuttingServerRecipe> TYPE = ReliableServerRecipeType.register(
-            FarmersDelight.res("cutting"),
+            FarmersDelight.id("cutting"),
             () -> new CuttingServerRecipe(null, null, null, null)
     );
 

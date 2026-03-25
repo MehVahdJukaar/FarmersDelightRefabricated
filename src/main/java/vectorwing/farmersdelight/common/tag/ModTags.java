@@ -121,7 +121,7 @@ public class ModTags
     public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
 
     // Refabricated: new tags
-	// TODO: 26.1, move these to their own subdirectory.
+	// TODO: 1.3, move these to their own subdirectory.
 	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");
 	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = modBiomeTag("has_red_mushroom_colony");
 	public static final TagKey<Biome> HAS_WILD_CABBAGE = modBiomeTag("has_wild_cabbage");

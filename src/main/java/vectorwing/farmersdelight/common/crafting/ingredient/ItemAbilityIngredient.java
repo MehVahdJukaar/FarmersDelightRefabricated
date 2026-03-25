@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class ItemAbilityIngredient implements CustomIngredient
 {
 	public static final Serializer SERIALIZER = new Serializer();
-	public static final Identifier SERIALIZER_ID = FarmersDelight.res("item_ability");
+	public static final Identifier SERIALIZER_ID = FarmersDelight.id("item_ability");
 
 	protected final ItemAbility itemAbility;
 	protected List<Holder<Item>> itemStacks;

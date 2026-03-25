@@ -41,7 +41,7 @@ public class CookingPotViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getGuiTexture() {
-        return FarmersDelight.res("textures/gui/eiv/cooking_pot.png");
+        return FarmersDelight.id("textures/gui/eiv/cooking_pot.png");
     }
 
 

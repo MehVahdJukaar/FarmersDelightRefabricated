@@ -1,5 +1,5 @@
 {
-  "feature": "farmersdelight:patch_wild_tomatoes",
+  "feature": "farmersdelight:wild_tomatoes",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -7,6 +7,10 @@
     },
     {
       "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 64
     },
     {
       "type": "minecraft:heightmap",

@@ -29,7 +29,7 @@ public class DecompositionViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getGuiTexture() {
-        return FarmersDelight.res("textures/gui/eiv/decomposition.png");
+        return FarmersDelight.id("textures/gui/eiv/decomposition.png");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DecompositionViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getId() {
-        return FarmersDelight.res("decomposition");
+        return FarmersDelight.id("decomposition");
     }
 
     @Override

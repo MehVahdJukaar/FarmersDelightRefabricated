@@ -8,13 +8,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.renderer.state.CuttingBoardRenderState;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
@@ -34,7 +35,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 	}
 
 	@Override
-	public void extractRenderState(CuttingBoardBlockEntity cuttingBoardEntity, CuttingBoardRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+	public void extractRenderState(CuttingBoardBlockEntity cuttingBoardEntity, CuttingBoardRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(cuttingBoardEntity, renderState, partialTick, cameraPosition, breakProgress);
 
 		renderState.direction = cuttingBoardEntity.getBlockState().getValue(CuttingBoardBlock.FACING).getOpposite();
@@ -46,28 +47,28 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		renderState.isItemCarvingBoard = cuttingBoardEntity.isItemCarvingBoard();
 	}
 
-	@Override
-	public void submit(CuttingBoardRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-		Direction direction = renderState.direction;
-		ItemStack boardStack = renderState.boardStack;
+    @Override
+    public void submit(CuttingBoardRenderState state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector nodeCollector, @NonNull CameraRenderState camera) {
+        Direction direction = state.direction;
+        ItemStack boardStack = state.boardStack;
 
-		if (!boardStack.isEmpty()) {
-			poseStack.pushPose();
+        if (!boardStack.isEmpty()) {
+            poseStack.pushPose();
 
 
-			if (renderState.isItemCarvingBoard) {
-				renderItemCarved(poseStack, direction, boardStack);
-			} else if (renderState.displayItem.usesBlockLight() && !boardStack.is(ModTags.FLAT_ON_CUTTING_BOARD)) {
-				renderBlock(poseStack, direction);
-			} else {
-				renderItemLayingDown(poseStack, direction);
-			}
+            if (state.isItemCarvingBoard) {
+                renderItemCarved(poseStack, direction, boardStack);
+            } else if (state.displayItem.usesBlockLight() && !boardStack.is(ModTags.FLAT_ON_CUTTING_BOARD)) {
+                renderBlock(poseStack, direction);
+            } else {
+                renderItemLayingDown(poseStack, direction);
+            }
 
-			renderState.displayItem.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            state.displayItem.submit(poseStack, nodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
-			poseStack.popPose();
-		}
-	}
+            poseStack.popPose();
+        }
+    }
 
 	public void renderItemLayingDown(PoseStack matrixStackIn, Direction direction) {
 		// Center item above the cutting board

@@ -8,20 +8,22 @@ import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.SpriteGetter;
-import net.minecraft.client.resources.model.SpriteId;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.gui.state.GuiCanvasSignRenderState;
 import vectorwing.farmersdelight.common.registry.ModAtlases;
 
 public class GuiCanvasSignRenderer extends PictureInPictureRenderer<GuiCanvasSignRenderState> {
 	private final SpriteGetter materials;
+
 	public GuiCanvasSignRenderer(MultiBufferSource.BufferSource bufferSource, SpriteGetter materials) {
 		super(bufferSource);
 		this.materials = materials;
 	}
 
 	@Override
-	public Class<GuiCanvasSignRenderState> getRenderStateClass() {
+	public @NonNull Class<GuiCanvasSignRenderState> getRenderStateClass() {
 		return GuiCanvasSignRenderState.class;
 	}
 
@@ -29,13 +31,13 @@ public class GuiCanvasSignRenderer extends PictureInPictureRenderer<GuiCanvasSig
 		Minecraft.getInstance().gameRenderer.getLighting().setupFor(Lighting.Entry.ITEMS_FLAT);
 		poseStack.translate(0.0F, -0.75F, 0.0F);
 		SpriteId material = ModAtlases.getCanvasSignMaterial(guiSignRenderState.dye());
-		Model model = guiSignRenderState.signModel();
+		Model.Simple model = guiSignRenderState.signModel();
 		VertexConsumer vertexConsumer = material.buffer(this.materials, this.bufferSource, model::renderType);
 		model.renderToBuffer(poseStack, vertexConsumer, 15728880, OverlayTexture.NO_OVERLAY);
 	}
 
 	@Override
-	protected String getTextureLabel() {
+	protected @NonNull String getTextureLabel() {
 		return "sign";
 	}
 }

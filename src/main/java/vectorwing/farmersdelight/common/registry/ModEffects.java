@@ -10,8 +10,8 @@ import vectorwing.farmersdelight.common.effect.NourishmentEffect;
 
 public class ModEffects
 {
-	public static final Holder<MobEffect> NOURISHMENT = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, FarmersDelight.res("nourishment"), new NourishmentEffect());
-	public static final Holder<MobEffect> COMFORT = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, FarmersDelight.res("comfort"), new ComfortEffect());
+	public static final Holder<MobEffect> NOURISHMENT = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, FarmersDelight.id("nourishment"), new NourishmentEffect());
+	public static final Holder<MobEffect> COMFORT = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, FarmersDelight.id("comfort"), new ComfortEffect());
 
 	public static void register() {
 	}

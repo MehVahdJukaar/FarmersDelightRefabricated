@@ -295,7 +295,7 @@ public class LootModificationEvents {
     }
 
     private static ResourceKey<LootTable> key(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, FarmersDelight.res(path));
+        return ResourceKey.create(Registries.LOOT_TABLE, FarmersDelight.id(path));
     }
 
 }

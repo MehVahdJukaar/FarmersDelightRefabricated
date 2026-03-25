@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.renderer.state.StoveRenderState;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
@@ -29,7 +30,7 @@ public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity, Stov
 	}
 
 	@Override
-	public void extractRenderState(StoveBlockEntity stoveEntity, StoveRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+	public void extractRenderState(StoveBlockEntity stoveEntity, StoveRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(stoveEntity, renderState, partialTick, cameraPosition, breakProgress);
         renderState.direction = stoveEntity.getBlockState().getValue(StoveBlock.FACING).getOpposite();
         int posLong = (int) stoveEntity.getBlockPos().asLong();
@@ -52,7 +53,7 @@ public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity, Stov
 	}
 
 	@Override
-	public void submit(StoveRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+	public void submit(StoveRenderState renderState, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector nodeCollector, @NonNull CameraRenderState cameraRenderState) {
 		Direction direction = renderState.direction;
 
 		for (int i = 0; i < renderState.stoveStacks.length; ++i) {

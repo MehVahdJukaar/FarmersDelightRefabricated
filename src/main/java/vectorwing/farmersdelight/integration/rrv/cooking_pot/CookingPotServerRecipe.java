@@ -15,7 +15,7 @@ import java.util.List;
 public class CookingPotServerRecipe implements ReliableServerRecipe {
 
     public static final ReliableServerRecipeType<CookingPotServerRecipe> TYPE = ReliableServerRecipeType.register(
-            FarmersDelight.res("cooking_pot"),
+            FarmersDelight.id("cooking_pot"),
             () -> new CookingPotServerRecipe(null, ItemStack.EMPTY, ItemStack.EMPTY,0, 0)
     );
 

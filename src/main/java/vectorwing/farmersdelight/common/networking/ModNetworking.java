@@ -36,7 +36,7 @@ public class ModNetworking {
     }
 
     public static class FlipSkilletMessage implements CustomPacketPayload {
-        public static final Identifier ID = FarmersDelight.res("flip_skillet");
+        public static final Identifier ID = FarmersDelight.id("flip_skillet");
         public static final FlipSkilletMessage INSTANCE = new FlipSkilletMessage();
         public static final Type<FlipSkilletMessage> TYPE = new Type<>(ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, FlipSkilletMessage> STREAM_CODEC = StreamCodec.unit(INSTANCE);
@@ -60,7 +60,7 @@ public class ModNetworking {
     }
 
     public record SendRecipeBookValuesMessage(boolean open, boolean filtering) implements CustomPacketPayload {
-        public static final Identifier ID = FarmersDelight.res("send_recipe_book_values");
+        public static final Identifier ID = FarmersDelight.id("send_recipe_book_values");
         public static final Type<SendRecipeBookValuesMessage> TYPE = new Type<>(ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, SendRecipeBookValuesMessage> STREAM_CODEC = StreamCodec.of(SendRecipeBookValuesMessage::write, SendRecipeBookValuesMessage::new);
 
@@ -88,7 +88,7 @@ public class ModNetworking {
     }
 
     public record SendNaturalRegenerationValueMessage(boolean value) implements CustomPacketPayload {
-        public static final Identifier ID = FarmersDelight.res("send_natural_regeneration_value");
+        public static final Identifier ID = FarmersDelight.id("send_natural_regeneration_value");
         public static final Type<SendNaturalRegenerationValueMessage> TYPE = new Type<>(ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, SendNaturalRegenerationValueMessage> STREAM_CODEC = StreamCodec.of(SendNaturalRegenerationValueMessage::write, SendNaturalRegenerationValueMessage::new);
 

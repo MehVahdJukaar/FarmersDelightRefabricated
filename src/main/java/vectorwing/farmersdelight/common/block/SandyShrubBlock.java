@@ -54,7 +54,7 @@ public class SandyShrubBlock extends VegetationBlock implements BonemealableBloc
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.registryAccess().get(Registries.CONFIGURED_FEATURE).flatMap((value) -> value.value().get(WildCropGeneration.FEATURE_PATCH_SANDY_SHRUB)).ifPresent((value) -> {
+		level.registryAccess().get(Registries.PLACED_FEATURE).flatMap((value) -> value.value().get(WildCropGeneration.PATCH_SANDY_SHRUB)).ifPresent((value) -> {
 			value.value().place(level, level.getChunkSource().getGenerator(), random, pos.above());
 		});
 	}

@@ -2,14 +2,13 @@ package vectorwing.farmersdelight.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.renderer.state.SkilletRenderState;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
@@ -51,7 +51,7 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
     }
 
     @Override
-    public void extractRenderState(SkilletBlockEntity skilletEntity, SkilletRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+    public void extractRenderState(SkilletBlockEntity skilletEntity, SkilletRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(skilletEntity, renderState, partialTick, cameraPosition, breakProgress);
 
         renderState.direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
@@ -64,10 +64,10 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
     }
 
     @Override
-    public void submit(SkilletRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        Direction direction = renderState.direction;
+    public void submit(SkilletRenderState state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector nodeCollector, @NonNull CameraRenderState camera) {
+        Direction direction = state.direction;
 
-        ItemStack stack = renderState.stack;
+        ItemStack stack = state.stack;
         int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
         this.random.setSeed(seed);
 
@@ -91,8 +91,8 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
                 // Resize the items
                 poseStack.scale(0.5F, 0.5F, 0.5F);
 
-                if (renderState.displayItem != null) {
-                    renderState.displayItem.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                if (state.displayItem != null) {
+                    state.displayItem.submit(poseStack, nodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 }
                 poseStack.popPose();
             }

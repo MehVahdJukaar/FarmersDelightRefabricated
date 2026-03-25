@@ -10,7 +10,7 @@ public class DecompositionServerRecipe implements ReliableServerRecipe {
 
         //Create a server recipe type (the id does not have to match your client side viewtype id)
         public static final ReliableServerRecipeType<DecompositionServerRecipe> TYPE = ReliableServerRecipeType.register(
-                FarmersDelight.res("decomposition"),
+                FarmersDelight.id("decomposition"),
                 () -> new DecompositionServerRecipe()
         );
 

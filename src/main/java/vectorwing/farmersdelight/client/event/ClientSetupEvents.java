@@ -22,7 +22,7 @@ public class ClientSetupEvents
 	@SubscribeEvent
 	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
 		event.registerItem(new IClientItemExtensions() {
-			BlockEntityWithoutLevelRenderer renderer = new SkilletItemRenderer();
+			BlockEntityWithoutLevelRenderer renderer = new SkilletFlipItemModelWrapper();
 			@Override
 			public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
 				return renderer;
@@ -55,7 +55,7 @@ public class ClientSetupEvents
 		EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);
-		BlockEntityRenderers.register(ModBlockEntityTypes.CANVAS_SIGN.get(), CanvasSignRenderer::new);
+		BlockEntityRenderers.register(ModBlockEntityTypes.CANVAS_SIGN.get(), StandingCanvasSignRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_CANVAS_SIGN.get(), HangingCanvasSignRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.SKILLET.get(), SkilletRenderer::new);
 	}

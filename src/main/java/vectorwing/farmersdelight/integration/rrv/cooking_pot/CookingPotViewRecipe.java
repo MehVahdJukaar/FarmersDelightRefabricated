@@ -7,7 +7,7 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewScreen;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
@@ -58,8 +58,8 @@ public class CookingPotViewRecipe implements ReliableClientRecipe {
     }
 
     @Override
-    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.renderItem(this.result.getByIndex(0), 103, 17);
+    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        guiGraphics.item(this.result.getByIndex(0), 103, 17);
         if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
             List<Component> tooltip = new ArrayList<>();
             if (cookTime > 0) {

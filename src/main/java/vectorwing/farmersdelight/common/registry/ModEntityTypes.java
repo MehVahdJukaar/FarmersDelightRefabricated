@@ -17,7 +17,7 @@ public class ModEntityTypes {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE, FarmersDelight.res("rotten_tomato")))));
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, FarmersDelight.id("rotten_tomato")))));
 
 	public static void touch() {
 

@@ -28,7 +28,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -44,7 +43,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
@@ -336,7 +334,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		}
 
 		cookTime = 0;
-		mealContainerStack = recipe.value().container().create();
+        mealContainerStack = recipe.value().container().create();
 		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory));
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
@@ -348,7 +346,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (!slotStack.getCraftingRemainder().create().isEmpty()) {
+			if (slotStack.getCraftingRemainder() != null) {
 				ejectIngredientRemainder(slotStack.getCraftingRemainder().create());
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());

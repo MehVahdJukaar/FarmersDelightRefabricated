@@ -29,11 +29,11 @@ public class ModBlocks
 	}
 
 	private static ResourceKey<Block> key(String path) {
-		return ResourceKey.create(Registries.BLOCK, FarmersDelight.res(path));
+		return ResourceKey.create(Registries.BLOCK, FarmersDelight.id(path));
 	}
 
 	private static ResourceKey<LootTable> lootTableKey(String path) {
-		return ResourceKey.create(Registries.LOOT_TABLE, FarmersDelight.res("blocks/"+path));
+		return ResourceKey.create(Registries.LOOT_TABLE, FarmersDelight.id("blocks/"+path));
 	}
 
 	private static Supplier<Block> regCanvasSign(@Nullable DyeColor color) {

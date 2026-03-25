@@ -3,10 +3,10 @@ package vectorwing.farmersdelight.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.client.recipe.CookingPotRecipeDisplay;
+import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
@@ -30,8 +31,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	private final CookingPotBookCategory category;
 	private final List<Ingredient> inputItems;
 	private final ItemStackTemplate result;
+    @Nullable
 	private final ItemStackTemplate container;
-	private final ItemStackTemplate containerOverride;
 	private final float experience;
 	private final int cookTime;
 
@@ -42,19 +43,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		this.category = tab;
 		this.inputItems = inputItems;
 		this.result = output;
-
-		if (container.isPresent()) {
-			this.container = container.get();
-		}
-		//FIXME - this is too early to check for crafting remainders now!
-//		else if (!output.create().getCraftingRemainder().create().isEmpty()) {
-//			this.container = output.create().getCraftingRemainder().create();
-//		}
-		else {
-			this.container = null;
-		}
-
-		this.containerOverride = container.orElse(null);
+        this.container = container.orElse(null);
 		this.experience = experience;
 		this.cookTime = cookTime;
 	}
@@ -73,11 +62,21 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	}
 
 	public ItemStackTemplate container() {
-		return this.container;
+		if (container == null) {
+            ItemStackTemplate template = result.create().getCraftingRemainder();
+            if (template != null) {
+                return template;
+            }
+            Item item = CookingPotBlockEntity.INGREDIENT_REMAINDER_OVERRIDES.get(result.item().value());
+            if (item != null) {
+                return new ItemStackTemplate(item);
+            }
+        }
+        return container;
 	}
 
 	public Optional<ItemStackTemplate> containerOverride() {
-		return Optional.ofNullable(this.containerOverride);
+		return Optional.ofNullable(container);
 	}
 
 	@Override

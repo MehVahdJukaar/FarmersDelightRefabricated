@@ -41,7 +41,7 @@ public class CuttingViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getGuiTexture() {
-        return FarmersDelight.res("textures/gui/eiv/cutting_board.png");
+        return FarmersDelight.id("textures/gui/eiv/cutting_board.png");
     }
 
     @Override

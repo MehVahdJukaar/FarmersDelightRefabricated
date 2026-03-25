@@ -35,7 +35,7 @@ public class ModItems
 	public static LinkedHashSet<Supplier<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
 	public static ResourceKey<Item> key(String path) {
-		return ResourceKey.create(Registries.ITEM, FarmersDelight.res(path));
+		return ResourceKey.create(Registries.ITEM, FarmersDelight.id(path));
 	}
 
 	private static Supplier<Item> registerWithTab(final String name, final Function<Item.Properties, Item> function, final Item.Properties properties) {
