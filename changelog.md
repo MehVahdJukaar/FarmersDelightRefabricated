@@ -1,2 +1,3 @@
-- Fixed RRV compatibility.
-- Fixed Create Fly compatibility.
+- Fixed crash when using the Cooking Pot to cook an item without a container. [#294](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/294)
+- Fixed Wild Rice patches being unable to spawn.
+- Corrected configured features to match pre-26.1 rewrite behavior.

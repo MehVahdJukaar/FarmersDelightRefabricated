@@ -14,7 +14,7 @@
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "MOTION_BLOCKING"
+      "heightmap": "OCEAN_FLOOR_WG"
     },
     {
       "type": "minecraft:biome"
@@ -45,7 +45,16 @@
         "predicates": [
           {
             "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:air"
+            "blocks": "minecraft:air",
+            "offset": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
           },
           {
             "type": "minecraft:matching_blocks",
