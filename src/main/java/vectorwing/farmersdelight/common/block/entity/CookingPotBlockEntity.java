@@ -290,9 +290,10 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		ItemStack mealStack = getMeal();
 		if (!mealStack.isEmpty() && !mealContainerStack.isEmpty()) {
 			return mealContainerStack;
-		} else {
+		} else if (mealStack.getCraftingRemainder() != null) {
 			return mealStack.getCraftingRemainder().create();
 		}
+        return ItemStack.EMPTY;
 	}
 
 	private boolean hasInput() {
@@ -334,7 +335,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		}
 
 		cookTime = 0;
-        mealContainerStack = recipe.value().container().create();
+        if (recipe.value().container() != null) {
+            mealContainerStack = recipe.value().container().create();
+        }
 		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory));
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
@@ -476,7 +479,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || !meal.getCraftingRemainder().create().isEmpty();
+		return !mealContainerStack.isEmpty() || meal.getCraftingRemainder() != null && !meal.getCraftingRemainder().create().isEmpty();
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {
