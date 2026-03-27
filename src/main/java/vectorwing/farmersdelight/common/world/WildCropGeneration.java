@@ -13,15 +13,15 @@ public class WildCropGeneration
 
 	// Those are unused, but kept for reference just in case
     public static ResourceKey<ConfiguredFeature<?, ?>> SANDY_SHRUB = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "sandy_shrub"));
-    public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_CABBAGES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_cabbages"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_ONIONS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_onions"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_TOMATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_tomatoes"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_CARROTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_carrots"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_POTATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_potatoes"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_WILD_BEETROOTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_beetroots"));
+    public static ResourceKey<ConfiguredFeature<?, ?>> WILD_CABBAGES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_cabbages"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_ONIONS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_onions"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_TOMATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_tomatoes"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_CARROTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_carrots"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_POTATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_potatoes"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_BEETROOTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_beetroots"));
 	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_RICE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_rice"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_BROWN_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_brown_mushroom_colony"));
-	public static ResourceKey<ConfiguredFeature<?, ?>> FEATURE_PATCH_RED_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_red_mushroom_colony"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_brown_mushroom_colony"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_red_mushroom_colony"));
 
     public static ResourceKey<PlacedFeature> PATCH_SANDY_SHRUB = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_sandy_shrub"));
     public static ResourceKey<PlacedFeature> PATCH_WILD_CABBAGES = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_cabbages"));

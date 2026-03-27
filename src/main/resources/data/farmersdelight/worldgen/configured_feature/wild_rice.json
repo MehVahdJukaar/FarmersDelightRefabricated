@@ -1,11 +1,4 @@
 {
-  "type": "minecraft:simple_block",
-  "config": {
-    "to_place": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "farmersdelight:wild_rice"
-      }
-    }
-  }
+  "type": "farmersdelight:wild_rice",
+  "config": {}
 }

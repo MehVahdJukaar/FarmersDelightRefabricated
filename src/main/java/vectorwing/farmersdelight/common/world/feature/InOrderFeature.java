@@ -1,17 +1,13 @@
 package vectorwing.farmersdelight.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import vectorwing.farmersdelight.common.world.configuration.InOrderFeatureConfiguration;
 
-public class InOrderFeature extends Feature<InOrderFeatureConfiguration>
-{
+public class InOrderFeature extends Feature<InOrderFeatureConfiguration> {
 	public InOrderFeature(Codec<InOrderFeatureConfiguration> codec) {
 		super(codec);
 	}

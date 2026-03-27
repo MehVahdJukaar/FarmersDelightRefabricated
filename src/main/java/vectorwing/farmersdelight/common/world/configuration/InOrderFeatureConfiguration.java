@@ -6,17 +6,8 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public record InOrderFeatureConfiguration(HolderSet<PlacedFeature> features) implements FeatureConfiguration
-{
+public record InOrderFeatureConfiguration(HolderSet<PlacedFeature> features) implements FeatureConfiguration {
 	public static final Codec<InOrderFeatureConfiguration> CODEC = RecordCodecBuilder.create((config) -> config.group(
 			PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(InOrderFeatureConfiguration::features)
     ).apply(config, InOrderFeatureConfiguration::new));
-
-	public InOrderFeatureConfiguration(HolderSet<PlacedFeature> features) {
-        this.features = features;
-	}
-
-	public HolderSet<PlacedFeature> features() {
-		return this.features;
-	}
 }
