@@ -21,8 +21,6 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -43,11 +41,8 @@ import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
-import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
-
-import java.util.Optional;
 
 @SuppressWarnings("deprecation")
 public class StoveBlock extends BaseEntityBlock
@@ -83,7 +78,7 @@ public class StoveBlock extends BaseEntityBlock
 					level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				}
 				extinguish(state, level, pos);
-				if (!player.isCreative()) {
+				if (!player.isCreative() && heldStack.getCraftingRemainder() != null) {
 					player.setItemInHand(hand, heldStack.getCraftingRemainder().create());
 				}
 				return InteractionResult.SUCCESS;

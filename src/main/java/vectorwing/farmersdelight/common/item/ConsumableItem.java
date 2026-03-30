@@ -71,16 +71,18 @@ public class ConsumableItem extends Item
 			}
 		}
 
-		if (stack.isEmpty()) {
-			return containerStack.create();
-		} else {
-			if (consumer instanceof Player player && !((Player) consumer).getAbilities().instabuild) {
-				if (!player.getInventory().add(containerStack.create())) {
-					player.drop(containerStack.create(), false);
-				}
-			}
-			return stack;
-		}
+        if (containerStack != null) {
+            if (stack.isEmpty()) {
+                return containerStack.create();
+            } else {
+                if (consumer instanceof Player player && !((Player) consumer).getAbilities().instabuild) {
+                    if (!player.getInventory().add(containerStack.create())) {
+                        player.drop(containerStack.create(), false);
+                    }
+                }
+            }
+        }
+        return stack;
 	}
 
 	/**
