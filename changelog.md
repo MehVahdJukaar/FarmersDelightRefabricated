@@ -1,1 +1,1 @@
-- Fixed crash when eating food items without remainder stacks, and other remainder stack related crashes. [#295](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/294)
+- Added back JEI integration.

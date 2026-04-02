@@ -112,7 +112,7 @@ dependencies {
         transitive = false
     }
     // Uncomment the below to test JEI.
-     localRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+//     localRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     compileOnly("me.shedaniel.cloth:basic-math:0.6.1")
     compileOnly("dev.architectury:architectury-neoforge:18.0.3")
@@ -140,10 +140,10 @@ dependencies {
         exclude(group: "eu.pb4")
     }
     // Uncomment the below to test RRV.
-//     localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
-//        exclude(group: "net.fabricmc.fabric-api")
-//        exclude(group: "eu.pb4")
-//     }
+     localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "eu.pb4")
+     }
 }
 
 var changelogFile = rootProject.file("changelog.md")
