@@ -107,12 +107,12 @@ dependencies {
     // Uncomment the below to test CraftTweaker.
     // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
-    compileOnly("mezz.jei:jei-1.21.11-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-1.21.11-fabric-api:${jei_version}") {
+    compileOnly("mezz.jei:jei-26.1.1-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-26.1.1-fabric-api:${jei_version}") {
         transitive = false
     }
     // Uncomment the below to test JEI.
-//     modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+     localRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     compileOnly("me.shedaniel.cloth:basic-math:0.6.1")
     compileOnly("dev.architectury:architectury-neoforge:18.0.3")
@@ -123,7 +123,7 @@ dependencies {
         exclude(group: "dev.architectury")
     }
     // Uncomment the below to test REI.
-//      modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") {
+//      localRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") {
 //          exclude(group: "dev.architectury")
 //      }
 
@@ -131,7 +131,7 @@ dependencies {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
     // Uncomment the below to test EMI.
-//    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
+//    localRuntime("dev.emi:emi-fabric:${emi_version}") {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
 
@@ -140,10 +140,10 @@ dependencies {
         exclude(group: "eu.pb4")
     }
     // Uncomment the below to test RRV.
-     runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-        exclude(group: "eu.pb4")
-     }
+//     localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+//        exclude(group: "net.fabricmc.fabric-api")
+//        exclude(group: "eu.pb4")
+//     }
 }
 
 var changelogFile = rootProject.file("changelog.md")
