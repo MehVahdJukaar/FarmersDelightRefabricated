@@ -28,8 +28,6 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Optional;
 
-import static vectorwing.farmersdelight.common.item.SkilletItem.FLIP_TIME;
-
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity {
     private final ItemStackHandler inventory = createHandler();
     private int cookingTime;
@@ -126,8 +124,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
         cookingTime = compound.getInt("CookTime");
         cookingTimeTotal = compound.getInt("CookTimeTotal");
         skilletStack = ItemStack.parseOptional(registries, compound.getCompound("Skillet"));
-        if (level != null)
-            fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+        fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(
+                registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
     }
 
     @Override
