@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -267,7 +268,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private Optional<RecipeHolder<CookingPotRecipe>> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
-		if (level == null) return Optional.empty();
 		return hasInput() ? quickCheck.getRecipeFor(inventoryWrapper, this.level) : Optional.empty();
 	}
 
@@ -307,8 +307,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean processCooking(RecipeHolder<CookingPotRecipe> recipe, CookingPotBlockEntity cookingPot) {
-		if (level == null) return false;
-
 		++cookTime;
 		cookTimeTotal = recipe.value().getCookTime();
 		if (cookTime < cookTimeTotal) {
@@ -394,8 +392,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	public boolean isHeated() {
-		if (level == null) return false;
-		return this.isHeated(level, worldPosition);
+		return this.isHeated(Preconditions.checkNotNull(level), worldPosition);
 	}
 
 	public ItemStackHandler getInventory() {

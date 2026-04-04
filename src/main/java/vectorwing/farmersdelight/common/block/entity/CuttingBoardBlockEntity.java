@@ -80,8 +80,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	}
 
 	public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {
-		if (level == null) return false;
-
 		if (isItemCarvingBoard) return false;
 
 		Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getMatchingRecipe(toolStack, player);
@@ -110,8 +108,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 	}
 
 	private Optional<RecipeHolder<CuttingBoardRecipe>> getMatchingRecipe(ItemStack toolStack, @Nullable Player player) {
-		if (level == null) return Optional.empty();
-
 		Optional<RecipeHolder<CuttingBoardRecipe>> recipe = quickCheck.getRecipeFor(new CuttingBoardRecipeInput(getStoredItem(), toolStack), level);
 		if (recipe.isPresent()) {
 			if (recipe.get().value().getTool().test(toolStack)) {

@@ -114,8 +114,6 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	}
 
 	private void cookAndOutputItems() {
-		if (level == null) return;
-
 		boolean didInventoryChange = false;
 		for (int i = 0; i < inventory.getSlotCount(); ++i) {
 			ItemStack stoveStack = inventory.getStackInSlot(i);
@@ -166,7 +164,6 @@ public class StoveBlockEntity extends SyncedBlockEntity
 	}
 
 	public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack) {
-		if (level == null) return Optional.empty();
 		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), this.level);
 	}
 
