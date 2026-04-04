@@ -26,6 +26,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity {
@@ -110,7 +111,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
     }
 
     public boolean isHeated() {
-        return isHeated(level, worldPosition);
+        return isHeated(Objects.requireNonNull(level), worldPosition);
     }
 
     private Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack) {
@@ -123,9 +124,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
         inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
         cookingTime = compound.getInt("CookTime");
         cookingTimeTotal = compound.getInt("CookTimeTotal");
-        skilletStack = ItemStack.parseOptional(registries, compound.getCompound("Skillet"));
-        fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+        setSkilletItem(ItemStack.parseOptional(registries, compound.getCompound("Skillet")), registries);
     }
 
     @Override
@@ -143,10 +142,17 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
         return skilletStack;
     }
 
+    //use below
+    @Deprecated(forRemoval = true)
     public void setSkilletItem(ItemStack stack) {
+        setSkilletItem(stack, level.registryAccess());
+    }
+
+    public void setSkilletItem(ItemStack stack, HolderLookup.Provider registries) {
         skilletStack = stack.copy();
-        fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FIRE_ASPECT), stack);
-        inventoryChanged();
+        fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(
+                registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+        if (level != null) inventoryChanged();
     }
 
     public ItemStack addItemToCook(ItemStack addedStack, Player player) {

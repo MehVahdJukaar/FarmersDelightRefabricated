@@ -201,7 +201,7 @@ public class SkilletItem extends BlockItem
 		super.updateCustomBlockEntityTag(pos, level, player, stack, state);
 		BlockEntity tileEntity = level.getBlockEntity(pos);
 		if (tileEntity instanceof SkilletBlockEntity skillet) {
-			skillet.setSkilletItem(stack);
+			skillet.setSkilletItem(stack, level.registryAccess());
 			return true;
 		}
 		return false;
