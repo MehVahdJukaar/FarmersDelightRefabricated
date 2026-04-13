@@ -31,9 +31,6 @@
         "item": "minecraft:melon_slice"
       },
       "tag": "c:foods/berries"
-    },
-    {
-      "tag": "c:foods/vegetables"
     }
   ],
   "recipe_book_tab": "meals",
