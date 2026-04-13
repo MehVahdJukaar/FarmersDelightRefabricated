@@ -90,9 +90,4 @@ public class JEIPlugin implements IModPlugin
 	public Identifier getPluginUid() {
 		return ID;
 	}
-
-    public static void syncRecipes() {
-        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
-        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());
-    }
 }

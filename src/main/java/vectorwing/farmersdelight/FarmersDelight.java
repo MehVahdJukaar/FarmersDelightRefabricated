@@ -3,6 +3,7 @@ package vectorwing.farmersdelight;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -86,9 +87,8 @@ public class FarmersDelight implements ModInitializer
 		ServerPlayerEvents.JOIN.register(serverPlayer ->
 				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
 
-
-        if (FabricLoader.getInstance().isModLoaded("jei")) {
-            JEIPlugin.syncRecipes();
-        }
+        // Synchronize recipe serializers for JEI/RRV/other recipe viewers
+        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
+        RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());
     }
 }
