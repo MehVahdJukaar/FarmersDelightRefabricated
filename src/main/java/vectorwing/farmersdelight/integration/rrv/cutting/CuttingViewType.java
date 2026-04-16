@@ -21,7 +21,7 @@ public class CuttingViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getId() {
-        return Identifier.withDefaultNamespace("cutting");
+        return FarmersDelight.id("cutting");
     }
 
     @Override
