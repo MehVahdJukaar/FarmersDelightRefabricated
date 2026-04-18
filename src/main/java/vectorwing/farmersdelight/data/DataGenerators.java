@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.data;
 
-import com.ibm.icu.impl.coll.BOCSU;
 import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -35,6 +34,8 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(Recipes::new);
 		pack.addProvider(FDAdvancementGenerator::new);
 		pack.addProvider(FDBlockLoot::new);
+		pack.addProvider(VillagerTrades::new);
+        pack.addProvider(VillagerTags::new);
 //		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 	}
 

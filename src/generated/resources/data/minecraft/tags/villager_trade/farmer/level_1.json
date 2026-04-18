@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "farmersdelight:farmer/1/onion_emerald",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:farmer/1/tomato_emerald",
+      "required": false
+    }
+  ]
+}

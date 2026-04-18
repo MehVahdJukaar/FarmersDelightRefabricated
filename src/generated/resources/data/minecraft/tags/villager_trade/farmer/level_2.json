@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "farmersdelight:farmer/2/cabbage_emerald",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:farmer/2/rice_emerald",
+      "required": false
+    }
+  ]
+}
