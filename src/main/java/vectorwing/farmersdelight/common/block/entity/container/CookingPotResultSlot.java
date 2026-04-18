@@ -14,7 +14,7 @@ public class CookingPotResultSlot extends ItemHandlerSlot
 	private int removeCount;
 
 	public CookingPotResultSlot(Player player, CookingPotBlockEntity blockEntity, ItemStackHandler inventory, int index, int xPosition, int yPosition) {
-		super(inventoryIn, index, xPosition, yPosition);
+		super(inventory, index, xPosition, yPosition);
 		this.cookingPot = blockEntity;
 		this.player = player;
 	}

@@ -44,6 +44,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -176,11 +177,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return addedStack;
 	}
 
-	public ItemStack removeItem() {
-		isItemCarvingBoard = false;
-		return inventory.extractItem(0, getMaxStackSize(), false);
-	}
-
 	public boolean carveToolOnBoard(ItemStack toolStack) {
 		if (toolStack.getItem() instanceof TieredItem || toolStack.getItem() instanceof TridentItem || toolStack.getItem() instanceof ShearsItem) {
 			if (addItem(toolStack) == ItemStack.EMPTY) {
@@ -189,6 +185,11 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 			}
 		}
 		return false;
+	}
+
+	public ItemStack removeItem() {
+		isItemCarvingBoard = false;
+		return inventory.extractItem(0, getMaxStackSize(), false);
 	}
 
 	public ItemStack removeItem() {

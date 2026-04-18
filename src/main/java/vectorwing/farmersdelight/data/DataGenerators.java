@@ -26,7 +26,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import vectorwing.farmersdelight.data.advancement.FDAdvancementGenerator;
 import vectorwing.farmersdelight.common.registry.ModBiomeModifiers;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
@@ -99,6 +98,9 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
 	}
 
+	//old version above
+
+	//new version below (1.21.1 neoforge latest): TODO:
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();

@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data;
 
+import com.blamejared.crafttweaker.impl.loot.condition.LootTableIdCondition;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -18,9 +19,6 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
-import net.neoforged.neoforge.common.loot.AddTableLootModifier;
-import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.RicePaniclesBlock;
 import vectorwing.farmersdelight.common.loot.modifier.AddItemModifier;

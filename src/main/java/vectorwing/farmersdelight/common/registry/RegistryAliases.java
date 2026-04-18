@@ -4,6 +4,7 @@ import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
 public class RegistryAliases
 {
+	//we cant have this unless we do mega hacky mixins can't we? todo
 	public static void addRegistryAliases() {
 		addBlockAlias("basket", "bamboo_basket");
 		addItemAlias("basket", "bamboo_basket");

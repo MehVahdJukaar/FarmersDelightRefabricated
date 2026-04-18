@@ -1,10 +1,10 @@
 package vectorwing.farmersdelight.common.block;
 
+import mezz.jei.api.constants.Tags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -16,7 +16,6 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -36,20 +35,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.Tags;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.AbstractStoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
-import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-import javax.annotation.Nullable;
-import java.util.Optional;
-
 @SuppressWarnings("deprecation")
-public abstract class AbstractStoveBlock extends BaseEntityBlock
-{
+public abstract class AbstractStoveBlock extends BaseEntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -63,6 +56,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 				.setValue(LIT, false)
 		);
 	}
+
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (state.getValue(LIT)) {
@@ -126,7 +120,8 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 
 	protected ItemInteractionResult tryToPlaceFoodItem(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (isStoveTopCovered(level, pos, state)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-		if (!(level.getBlockEntity(pos) instanceof AbstractStoveBlockEntity stoveEntity)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		if (!(level.getBlockEntity(pos) instanceof AbstractStoveBlockEntity stoveEntity))
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
 		var maybeRecipe = stoveEntity.getCookingRecipe(heldStack);
 		if (maybeRecipe.isEmpty()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

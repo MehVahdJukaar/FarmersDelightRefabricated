@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data.recipe;
 
+import mezz.jei.api.constants.Tags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -283,8 +284,6 @@ public class CuttingRecipes
 			.save(output, salvagingRecipe("leather_horse_armor"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS), SHEARS, Items.LEATHER, 1)
 			.save(output, salvagingRecipe("leather_armor"));
-
-
 	}
 
 	private static void salvagingBlockFromVehicle(RecipeOutput output) {
@@ -352,7 +351,7 @@ public class CuttingRecipes
 	private static void salvagePlankFromFurniture(RecipeOutput output, ItemLike plank, ItemLike door, ItemLike trapdoor, ItemLike sign, ItemLike hangingSign) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(furniture), AXES, plank, 1, 0.75F)
 			.save(output, salvagingRecipe(woodType.name() + "_furniture"));
-
+	}
 
 		/**
 		 * Generates an axe-stripping recipe for the pair of given logs, with custom sound and a Tree Bark result attached.

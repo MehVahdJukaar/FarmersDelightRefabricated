@@ -18,7 +18,8 @@ import vectorwing.farmersdelight.client.gui.HUDOverlays;
 import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.ModNetworking;
+import vectorwing.farmersdelight.common.network.payload.FlipSkilletPayload;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -46,7 +47,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         // Obscure Fabric event to the rescue!
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
             if (player != null && !player.isSpectator() && player.isUsingItem() && player.getUseItem().getItem() instanceof SkilletItem && clickCount != 0 && !player.getUseItem().has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
-                ClientPlayNetworking.send(ModNetworking.FlipSkilletMessage.INSTANCE);
+                ClientPlayNetworking.send(FlipSkilletPayload.INSTANCE);
             }
             return false;
         });

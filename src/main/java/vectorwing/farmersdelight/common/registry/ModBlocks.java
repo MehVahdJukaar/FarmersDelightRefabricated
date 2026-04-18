@@ -40,7 +40,7 @@ public class ModBlocks
 			() -> new CookingPotBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
 	public static final Supplier<Block> SKILLET = regBlock("skillet",
 			() -> new SkilletBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
-	public static final Supplier<Block> WOODEN_BASKET = BLOCKS.register("wooden_basket",
+	public static final Supplier<Block> WOODEN_BASKET = regBlock("wooden_basket",
 			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.WOOD)));
 	public static final Supplier<Block> BAMBOO_BASKET = regBlock("bamboo_basket",
 			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
@@ -72,9 +72,9 @@ public class ModBlocks
 			() -> new RopeBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollission().noOcclusion().strength(0.2F).sound(SoundType.WOOL)));
 	public static final Supplier<Block> SAFETY_NET = regBlock("safety_net",
 			() -> new SafetyNetBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL)));
-	public static final Supplier<Block> ROPE_FENCE = BLOCKS.register("rope_fence",
+	public static final Supplier<Block> ROPE_FENCE = regBlock("rope_fence",
 			() -> new RopeFenceBlock(Block.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F)));
-	public static final Supplier<Block> ROPE_FENCE_GATE = BLOCKS.register("rope_fence_gate",
+	public static final Supplier<Block> ROPE_FENCE_GATE = regBlock("rope_fence_gate",
 			() -> new RopeFenceGateBlock(Block.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F)));
 	public static final Supplier<Block> OAK_CABINET = regBlock("oak_cabinet",
 			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
@@ -266,7 +266,7 @@ public class ModBlocks
 			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
 	public static final Supplier<Block> CHOCOLATE_PIE = regBlock("chocolate_pie",
 			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.CHOCOLATE_PIE_SLICE.get()));
-	public static final Supplier<Block> PUMPKIN_PIE = BLOCKS.register("pumpkin_pie",
+	public static final Supplier<Block> PUMPKIN_PIE = regBlock("pumpkin_pie",
 			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.PUMPKIN_PIE_SLICE)
 			{
 				@Override
@@ -302,11 +302,11 @@ public class ModBlocks
 			() -> new OnionBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
 	public static final Supplier<Block> BUDDING_TOMATO_CROP = regBlock("budding_tomatoes",
 			() -> new BuddingTomatoBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
-	public static final Supplier<TomatoBlock> TOMATO_CROP = BLOCKS.register("tomatoes",
+	public static final Supplier<TomatoBlock> TOMATO_CROP = regBlock("tomatoes",
 			() -> new TomatoBlock(Block.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP)));
-	public static final Supplier<HangingTomatoBlock> TOMATO_CROP_ON_ROPE = BLOCKS.register("tomatoes_on_rope",
+	public static final Supplier<HangingTomatoBlock> TOMATO_CROP_ON_ROPE = regBlock("tomatoes_on_rope",
 			() -> new HangingTomatoBlock(Block.Properties.ofFullCopy(ModBlocks.TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL)));
-	public static final Supplier<Block> RICE_CROP = BLOCKS.register("rice",
+	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 			() -> new RiceBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).strength(0.2F)));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",
 			() -> new RicePaniclesBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
@@ -320,7 +320,7 @@ public class ModBlocks
 			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.HONEY_GLAZED_HAM.get(), true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE));
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
 			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE));
-	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = BLOCKS.register("gleaming_salad_block",
+	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock("gleaming_salad_block",
 			() -> new GleamingSaladBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(Block.Properties.ofFullCopy(Blocks.CAKE)));

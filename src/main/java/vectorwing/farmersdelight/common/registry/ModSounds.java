@@ -21,19 +21,19 @@ public class ModSounds
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.cooking_pot.boil_soup")));
 
 	// Cutting Board
-	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_PLACE = SOUNDS.register("block.cutting_board.place_item",
+	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_PLACE = regSound("block.cutting_board.place_item",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.cutting_board.place_item")));
-	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_REMOVE = SOUNDS.register("block.cutting_board.remove_item",
+	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_REMOVE = regSound("block.cutting_board.remove_item",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.cutting_board.remove_item")));
-	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_CARVE = SOUNDS.register("block.cutting_board.carve_tool",
+	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_CARVE = regSound("block.cutting_board.carve_tool",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.cutting_board.carve_tool")));
 	public static final Supplier<SoundEvent> BLOCK_CUTTING_BOARD_KNIFE = regSound("block.cutting_board.knife_cut",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.cutting_board.knife_cut")));
 
 	// Rope Fence Gate
-	public static final Supplier<SoundEvent> BLOCK_ROPE_FENCE_GATE_OPEN = SOUNDS.register("block.rope_fence_gate.open",
+	public static final Supplier<SoundEvent> BLOCK_ROPE_FENCE_GATE_OPEN = regSound("block.rope_fence_gate.open",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.rope_fence_gate.open")));
-	public static final Supplier<SoundEvent> BLOCK_ROPE_FENCE_GATE_CLOSE = SOUNDS.register("block.rope_fence_gate.close",
+	public static final Supplier<SoundEvent> BLOCK_ROPE_FENCE_GATE_CLOSE = regSound("block.rope_fence_gate.close",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.rope_fence_gate.close")));
 
 	// Cabinet

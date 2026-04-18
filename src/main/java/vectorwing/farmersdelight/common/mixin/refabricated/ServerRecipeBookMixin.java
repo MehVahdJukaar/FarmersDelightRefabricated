@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.ModNetworking;
+import vectorwing.farmersdelight.common.network.payload.SendRecipeBookValuesPayload;
 import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
 import java.util.List;
@@ -19,6 +20,6 @@ import java.util.List;
 public class ServerRecipeBookMixin extends RecipeBook {
     @Inject(method = "sendRecipes", at = @At("TAIL"))
     private void fdrf$sendCookingRecipeValues(ClientboundRecipePacket.State state, ServerPlayer player, List<ResourceLocation> recipes, CallbackInfo ci) {
-        ServerPlayNetworking.send(player, new ModNetworking.SendRecipeBookValuesMessage(getBookSettings().isOpen(FDRecipeBookTypes.COOKING), getBookSettings().isFiltering(FDRecipeBookTypes.COOKING)));
+        ServerPlayNetworking.send(player, new SendRecipeBookValuesPayload(getBookSettings().isOpen(FDRecipeBookTypes.COOKING), getBookSettings().isFiltering(FDRecipeBookTypes.COOKING)));
     }
 }

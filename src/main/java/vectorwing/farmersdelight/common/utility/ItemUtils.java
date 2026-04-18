@@ -7,6 +7,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.common.item.KnifeItem;

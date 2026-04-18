@@ -72,6 +72,12 @@ public class SkilletItem extends BlockItem
 	}
 
 	@Override
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
+	}
+
+	//TODO: use above instead?
+	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		if (oldStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())
 				!= newStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
@@ -92,29 +98,31 @@ public class SkilletItem extends BlockItem
 				.add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
 	}
 
-	//TODO: is this needed? from neo latest
-	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
-	public static class SkilletEvents
-	{
-		@SubscribeEvent
-		public static void playSkilletAttackSound(LivingDamageEvent.Pre event) {
-			DamageSource damageSource = event.getSource();
-			Entity attacker = damageSource.getDirectEntity();
+
+	public static class SkilletEvents {
+		/*
+		 This is modfiied before the player loses their attack power, and is unmodified as soon as the Skillet sound is played.
+		 This doesn't exist on Forge because they moved the resetting of attack power to after the events are fired.
+		 */
+		public static float attackPower = 0.0F;
+
+		public static void playSkilletAttackSound(LivingEntity entity, DamageSource source) {
+			Entity attacker = source.getDirectEntity();
 
 			if (!(attacker instanceof LivingEntity livingEntity)) return;
 			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
 
 			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
 			if (livingEntity instanceof Player player) {
-				float attackPower = player.getAttackStrengthScale(0.0F);
 				if (attackPower > 0.8F) {
-					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
+					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
 				} else {
-					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), SoundSource.PLAYERS, 0.8F, 0.9F);
+					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), 0.8F, 0.9F);
 				}
 			} else {
-				livingEntity.getCommandSenderWorld().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
+				livingEntity.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
 			}
+			attackPower = 0.0F;
 		}
 	}
 
@@ -331,30 +339,4 @@ public class SkilletItem extends BlockItem
 		return SKILLET_TIER.getEnchantmentValue();
 	}
 
-    public static class SkilletEvents {
-        /*
-         This is modfiied before the player loses their attack power, and is unmodified as soon as the Skillet sound is played.
-         This doesn't exist on Forge because they moved the resetting of attack power to after the events are fired.
-         */
-        public static float attackPower = 0.0F;
-
-        public static void playSkilletAttackSound(LivingEntity entity, DamageSource source) {
-            Entity attacker = source.getDirectEntity();
-
-            if (!(attacker instanceof LivingEntity livingEntity)) return;
-            if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
-
-            float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
-            if (livingEntity instanceof Player player) {
-                if (attackPower > 0.8F) {
-                    player.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
-                } else {
-                    player.playSound(ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), 0.8F, 0.9F);
-                }
-            } else {
-                livingEntity.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
-            }
-            attackPower = 0.0F;
-        }
-    }
 }

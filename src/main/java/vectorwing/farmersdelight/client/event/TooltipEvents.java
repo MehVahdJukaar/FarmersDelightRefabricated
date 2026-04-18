@@ -20,17 +20,16 @@ import java.util.List;
 public class TooltipEvents
 {
 	public static void addTooltipToVanillaSoups(ItemStack stack, Item.TooltipContext tooltipContext, TooltipFlag tooltipType, List<Component> lines) {
-		Item food = event.getItemStack().getItem();
+		Item food = stack.getItem();
 
 		if (food.equals(Items.PUMPKIN_PIE)) {
-			event.getToolTip().add(Configuration.ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE.get() ? TextUtils.PLACEABLE_SNEAKING : TextUtils.PLACEABLE);
+			lines.add(Configuration.ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE.get() ? TextUtils.PLACEABLE_SNEAKING : TextUtils.PLACEABLE);
 		}
 
 		if (!Configuration.ENABLE_VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 
-		Item food = stack.getItem();
 		FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
 
 		if (soupEffects != null) {

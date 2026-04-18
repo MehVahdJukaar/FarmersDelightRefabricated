@@ -3,57 +3,58 @@ package vectorwing.farmersdelight.common;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.neoforged.neoforge.common.ModConfigSpec;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigType;
+import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Configuration
 {
-	public static ModConfigSpec COMMON_CONFIG;
-	public static ModConfigSpec CLIENT_CONFIG;
+	public static ModConfigHolder COMMON_CONFIG;
+	public static ModConfigHolder CLIENT_CONFIG;
 
 	// COMMON
 	public static final String CATEGORY_SETTINGS = "settings";
-	public static ModConfigSpec.BooleanValue ENABLE_FARMERS_BUY_FD_CROPS;
-	public static ModConfigSpec.BooleanValue ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS;
-	public static ModConfigSpec.BooleanValue ENABLE_ROPE_REELING;
-	public static ModConfigSpec.ConfigValue<List<? extends String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
+	public static Supplier<Boolean> ENABLE_FARMERS_BUY_FD_CROPS;
+	public static Supplier<Boolean> ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS;
+	public static Supplier<Boolean> ENABLE_ROPE_REELING;
+	public static Supplier<List<String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
 
 	public static final String CATEGORY_FARMING = "farming";
-	public static ModConfigSpec.DoubleValue RICH_SOIL_BOOST_CHANCE;
-	public static ModConfigSpec.BooleanValue ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
-	public static ModConfigSpec.ConfigValue<String> DEFAULT_TOMATO_VINE_ROPE;
+	public static Supplier<Double> RICH_SOIL_BOOST_CHANCE;
+	public static Supplier<Boolean> ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
+	public static Supplier<String> DEFAULT_TOMATO_VINE_ROPE;
 
 	public static final String CATEGORY_CRAFTING = "crafting";
-	public static ModConfigSpec.BooleanValue ENABLE_COOKING_POT_RECIPE_BOOK;
-	public static ModConfigSpec.BooleanValue ENABLE_VANILLA_CROP_CRATES;
-	public static ModConfigSpec.DoubleValue CUTTING_BOARD_FORTUNE_BONUS;
+	public static Supplier<Boolean> ENABLE_COOKING_POT_RECIPE_BOOK;
+	public static Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
+	public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
 
 	public static final String CATEGORY_OVERRIDES = "overrides";
-	public static ModConfigSpec.BooleanValue ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
-	public static ModConfigSpec.BooleanValue ENABLE_RABBIT_STEW_BUFF;
-	public static ModConfigSpec.BooleanValue ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
-	public static ModConfigSpec.BooleanValue ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
+	public static Supplier<Boolean> ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
+	public static Supplier<Boolean> ENABLE_RABBIT_STEW_BUFF;
+	public static Supplier<Boolean> ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
+	public static Supplier<Boolean> ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
 
 	public static final String CATEGORY_OVERRIDES_STACK_SIZE = "stack_size";
-	public static ModConfigSpec.BooleanValue ENABLE_STACKABLE_SOUP_ITEMS;
-	public static ModConfigSpec.ConfigValue<List<? extends String>> SOUP_ITEM_LIST;
+	public static Supplier<Boolean> ENABLE_STACKABLE_SOUP_ITEMS;
+	public static Supplier<List<String>> SOUP_ITEM_LIST;
 
 	public static final String CATEGORY_WORLD = "world";
-	public static ModConfigSpec.BooleanValue GENERATE_FD_CHEST_LOOT;
-	public static ModConfigSpec.BooleanValue GENERATE_VILLAGE_COMPOST_HEAPS;
-	public static ModConfigSpec.BooleanValue GENERATE_VILLAGE_FARM_FD_CROPS;
+	public static Supplier<Boolean> GENERATE_FD_CHEST_LOOT;
+	public static Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
+	public static Supplier<Boolean> GENERATE_VILLAGE_FARM_FD_CROPS;
 
 	public static final String CATEGORY_DEBUG = "debug";
-	public static ModConfigSpec.BooleanValue ENABLE_TOMATO_ROPE_PERMANENCE;
+	public static Supplier<Boolean> ENABLE_TOMATO_ROPE_PERMANENCE;
 
 	// CLIENT
-	public static ModConfigSpec.BooleanValue ENABLE_NOURISHMENT_HUNGER_OVERLAY;
-	public static ModConfigSpec.BooleanValue ENABLE_COMFORT_HEALTH_OVERLAY;
-	public static ModConfigSpec.BooleanValue ENABLE_FOOD_EFFECT_TOOLTIP;
+	public static Supplier<Boolean> ENABLE_NOURISHMENT_HUNGER_OVERLAY;
+	public static Supplier<Boolean> ENABLE_COMFORT_HEALTH_OVERLAY;
+	public static Supplier<Boolean> ENABLE_FOOD_EFFECT_TOOLTIP;
 
 	static {
 		ConfigBuilder COMMON_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.COMMON);
@@ -65,14 +66,14 @@ public class Configuration
 			.define("enableWanderingTraderFDTrades", true);
 		ENABLE_ROPE_REELING = COMMON_BUILDER.comment("If enabled, players will be able to reel back rope, bottom to top, when sneak-using with an empty hand on them.")
 			.define("enableRopeReeling", true);
-		CANVAS_SIGN_DARK_BACKGROUND_LIST = COMMON_BUILDER.comment("A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed.",
+		CANVAS_SIGN_DARK_BACKGROUND_LIST = COMMON_BUILDER.comment("A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed."+
 				"Dyes: [\"white\", \"orange\", \"magenta\", \"light_blue\", \"yellow\", \"lime\", \"pink\", \"gray\", \"light_gray\", \"cyan\", \"purple\", \"blue\", \"brown\", \"green\", \"red\", \"black\"]")
-			.defineList("canvasSignDarkBackgroundList", ImmutableList.of("gray", "purple", "blue", "brown", "green", "red", "black"), () -> "", obj -> true);
+			.define("canvasSignDarkBackgroundList", ImmutableList.of("gray", "purple", "blue", "brown", "green", "red", "black"));
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_FARMING);
 		RICH_SOIL_BOOST_CHANCE = COMMON_BUILDER.comment("The chance (in decimal percentage) of Rich Soil providing a bone meal boost to a crop planted on it. Set to 0.0 to disable.")
-			.defineInRange("richSoilBoostChance", 0.2, 0.0, 1.0);
+			.define("richSoilBoostChance", 0.2, 0.0, 1.0);
 		ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES = COMMON_BUILDER.comment("If enabled, tomato crops will be able to climb any rope tagged as farmersdelight:ropes. If disabled, this will be restricted to this mod's rope only.")
 			.comment("Beware: this will convert these blocks into the block specified in defaultTomatoVineRope.")
 			.define("enableTomatoVineClimbingTaggedRopes", true);
@@ -86,7 +87,7 @@ public class Configuration
 		ENABLE_VANILLA_CROP_CRATES = COMMON_BUILDER.comment("If enabled, storage crates (3x3) for vanilla crops (similar to Quark and Thermal Cultivation) will become craftable.")
 			.define("enableVanillaCropCrates", true);
 		CUTTING_BOARD_FORTUNE_BONUS = COMMON_BUILDER.comment("How much (in decimal percentage) should each level of Fortune increase the odds of obtaining rare results on the Cutting Board? Set to 0.0 to disable.")
-			.defineInRange("cuttingBoardFortuneBonus", 0.1, 0.0, 1.0);
+			.define("cuttingBoardFortuneBonus", 0.1, 0.0, 1.0);
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
@@ -103,7 +104,7 @@ public class Configuration
 		ENABLE_STACKABLE_SOUP_ITEMS = COMMON_BUILDER.comment("If enabled, any BowlFoodItem in the following list will become stackable to 16, much like Farmer's Delight's meals.")
 			.define("enableStackableSoupItems", true);
 		SOUP_ITEM_LIST = COMMON_BUILDER.comment("List of targeted food items. They must extend the BowlFoodItem class in code to be affected. Defaults to vanilla soups and stews.")
-			.defineList("soupItemList", ImmutableList.of("minecraft:mushroom_stew", "minecraft:beetroot_soup", "minecraft:rabbit_stew"), () -> "", obj -> true);
+			.define("soupItemList", ImmutableList.of("minecraft:mushroom_stew", "minecraft:beetroot_soup", "minecraft:rabbit_stew"));
 		COMMON_BUILDER.pop();
 		COMMON_BUILDER.pop();
 
@@ -125,12 +126,12 @@ public class Configuration
 
 		COMMON_BUILDER.pop();
 
-		COMMON_CONFIG = builder.build();
+		COMMON_CONFIG = COMMON_BUILDER.build();
 		COMMON_CONFIG.forceLoad(); //need for data component event that's fired very early
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			ConfigBuilder clientBuilder = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.CLIENT);
-			clientBuilder.comment("Client settings").push(CATEGORY_CLIENT);
+			ConfigBuilder CLIENT_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.CLIENT);
+			CLIENT_BUILDER.comment("Client settings").push("client");
 
 			ENABLE_NOURISHMENT_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
 				.define("enableNourishmentHungerOverlay", true);
@@ -138,8 +139,8 @@ public class Configuration
 				.define("enableComfortHealthOverlay", true);
 			ENABLE_FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
 			.define("enableFoodEffectTooltip", true);
-			clientBuilder.pop();
-			CLIENT_CONFIG = clientBuilder.build();
+			CLIENT_BUILDER.pop();
+			CLIENT_CONFIG = CLIENT_BUILDER.build();
 			CLIENT_CONFIG.forceLoad();
 		}else{
 			CLIENT_CONFIG = null;

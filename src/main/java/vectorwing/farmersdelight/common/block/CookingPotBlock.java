@@ -76,8 +76,8 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 			level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.7F, 1.0F);
 		} else if (!level.isClientSide) {
 			BlockEntity tileEntity = level.getBlockEntity(pos);
-			if (tileEntity instanceof CookingPotBlockEntity cookingPot) {
-				ItemStack servingStack = cookingPot.useHeldItemOnMeal(heldStack);
+			if (tileEntity instanceof CookingPotBlockEntity cookingPotEntity) {
+				ItemStack servingStack = cookingPotEntity.useHeldItemOnMeal(heldStack);
 				if (servingStack != ItemStack.EMPTY) {
 					if (!player.getInventory().add(servingStack)) {
 						player.drop(servingStack, false);

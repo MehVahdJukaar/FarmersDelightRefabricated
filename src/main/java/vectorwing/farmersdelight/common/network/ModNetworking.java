@@ -1,27 +1,34 @@
 package vectorwing.farmersdelight.common.network;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.ClientRecipeBook;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BoneMealItem;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.network.payload.FlipSkilletPayload;
 import vectorwing.farmersdelight.common.network.payload.RichSoilBoostParticlesPayload;
-import vectorwing.farmersdelight.common.registry.ModDataComponents;
+import vectorwing.farmersdelight.common.network.payload.SendRecipeBookValuesPayload;
+import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
-@EventBusSubscriber(modid = FarmersDelight.MODID)
-public class ModNetworking
-{
-	@SubscribeEvent
-	public static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
-		final PayloadRegistrar registrar = event.registrar("1");
-		registrar.playToClient(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC, ClientPayloadHandler::handleRichSoilBoostParticles);
-        registrar.playToServer(FlipSkilletPayload.TYPE, FlipSkilletPayload.STREAM_CODEC, ServerPayloadHandler::handleFlipSkillet);
-	}
+public class ModNetworking {
+
+    public static void init() {
+        PayloadTypeRegistry.playS2C().register(SendRecipeBookValuesPayload.TYPE, SendRecipeBookValuesPayload.STREAM_CODEC);
+
+        PayloadTypeRegistry.playC2S().register(FlipSkilletPayload.TYPE, FlipSkilletPayload.STREAM_CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(FlipSkilletPayload.TYPE, (payload, context) -> payload.handle(context.server(), context.player()));
+
+
+		registrar.playToClient(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC, ModNetworking1.ClientPayloadHandler::handleRichSoilBoostParticles);
+
+    }
 
 	public static class ClientPayloadHandler
 	{
@@ -30,13 +37,8 @@ public class ModNetworking
 		}
 	}
 
-    public static class ServerPayloadHandler
-    {
-        public static void handleFlipSkillet(FlipSkilletPayload payload, IPayloadContext context) {
-            ItemStack stack = context.player().getUseItem();
-            if (stack.getItem() instanceof SkilletItem) {
-                stack.set(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get(), context.player().level().getGameTime());
-            }
-        }
+    public static void initClient() {
+        ClientPlayNetworking.registerGlobalReceiver(SendRecipeBookValuesPayload.TYPE, (payload, context) -> payload.handle());
     }
+
 }

@@ -25,24 +25,24 @@ public class VillagerEvents
 		if (!Configuration.ENABLE_FARMERS_BUY_FD_CROPS.get()) return;
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, (trades) -> {
-            trades.add(emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2, Configuration.FARMERS_BUY_FD_CROPS));
-            trades.add(emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2, Configuration.FARMERS_BUY_FD_CROPS));
+            trades.add(emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2, Configuration.ENABLE_FARMERS_BUY_FD_CROPS));
+            trades.add(emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2, Configuration.ENABLE_FARMERS_BUY_FD_CROPS));
         });
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 2, (trades) -> {
-            trades.add(emeraldForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5, Configuration.FARMERS_BUY_FD_CROPS));
-            trades.add(emeraldForItemsTrade(ModItems.RICE.get(), 20, 16, 5, Configuration.FARMERS_BUY_FD_CROPS));
+            trades.add(emeraldForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5, Configuration.ENABLE_FARMERS_BUY_FD_CROPS));
+            trades.add(emeraldForItemsTrade(ModItems.RICE.get(), 20, 16, 5, Configuration.ENABLE_FARMERS_BUY_FD_CROPS));
         });
     }
 
-	public static void onWandererTrades(WandererTradesEvent event) {
+	public static void onWandererTrades() {
 		TradeOfferHelper.registerWanderingTraderOffers(1, (trades) -> {
 			if (Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS.get()) {
 
-				trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-				trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-				trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-				trades.add(itemForEmeraldTrade(ModItems.ONION.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12, Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12, Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12, Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.ONION.get(), 1, 12, Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS));
 			}
 		});
 	}

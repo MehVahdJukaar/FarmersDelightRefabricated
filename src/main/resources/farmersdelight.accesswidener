@@ -25,3 +25,6 @@ mutable field net/minecraft/world/level/levelgen/structure/templatesystem/Struct
 accessible class net/minecraft/stats/RecipeBookSettings$TypeSettings
 accessible method net/minecraft/stats/RecipeBookSettings$TypeSettings <init> (ZZ)V
 mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map;
+
+#datafixers
+accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData

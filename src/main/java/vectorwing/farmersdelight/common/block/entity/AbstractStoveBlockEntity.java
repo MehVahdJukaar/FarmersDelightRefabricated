@@ -18,11 +18,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec2;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

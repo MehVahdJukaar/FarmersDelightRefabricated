@@ -35,11 +35,11 @@ public class ModDataComponents
 			"skillet_ingredient", (builder) -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
 	);
 
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP = regComponent(
 			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
 	);
 
-	public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED = DATA_COMPONENTS.registerComponentType(
+	public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED = regComponent(
 			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
 	);
 
@@ -48,14 +48,6 @@ public class ModDataComponents
 			"backstabbing", builder -> builder.persistent(
 					ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
 			));
-
-	// Refabricated
-	public static final Supplier<DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP =regComponent(
-			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
-	);
-	public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED =regComponent(
-			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
-	);
 
 	public static void touch() {
 
