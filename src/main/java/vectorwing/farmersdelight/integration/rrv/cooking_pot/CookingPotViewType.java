@@ -21,7 +21,7 @@ public class CookingPotViewType implements ReliableClientRecipeType {
 
     @Override
     public Identifier getId() {
-        return Identifier.withDefaultNamespace("cooking");
+        return FarmersDelight.id("cooking");
     }
 
     @Override
