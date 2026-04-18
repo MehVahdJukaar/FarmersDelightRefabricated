@@ -232,15 +232,15 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 		tag(ConventionalBlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
 
 		tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).addTags(
-                CommonTags.STORAGE_BLOCKS_CARROT,
-                CommonTags.STORAGE_BLOCKS_POTATO,
-                CommonTags.STORAGE_BLOCKS_BEETROOT,
-                CommonTags.STORAGE_BLOCKS_CABBAGE,
-                CommonTags.STORAGE_BLOCKS_TOMATO,
-                CommonTags.STORAGE_BLOCKS_ONION,
-                CommonTags.STORAGE_BLOCKS_RICE,
-                CommonTags.STORAGE_BLOCKS_RICE_PANICLE,
-                CommonTags.STORAGE_BLOCKS_STRAW
+                CommonTags.Blocks.STORAGE_BLOCKS_CARROT,
+			CommonTags.Blocks.STORAGE_BLOCKS_POTATO,
+			CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT,
+			CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE,
+			CommonTags.Blocks.STORAGE_BLOCKS_TOMATO,
+			CommonTags.Blocks.STORAGE_BLOCKS_ONION,
+			CommonTags.Blocks.STORAGE_BLOCKS_RICE,
+			CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE,
+			CommonTags.Blocks.STORAGE_BLOCKS_STRAW
         );
     }
 

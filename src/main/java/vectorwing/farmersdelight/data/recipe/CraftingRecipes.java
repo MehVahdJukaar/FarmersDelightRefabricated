@@ -96,7 +96,7 @@ public class CraftingRecipes {
 			.define('m', ConventionalTags.DRINKS_MILK)
 			.define('s', Items.SUGAR)
 			.define('e', ConventionalItemTags.EGGS)
-			.define('w', Tags.Items.CROPS_WHEAT)
+			.define('w', ConventionalItemTags.WHEAT_CROPS)
 			.unlockedBy("has_milk_bottle", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.MILK_BOTTLE.get()))
 			.group("cake")
 			.save(output, RecipeUtils.FDLocation("cake_from_milk_bottle"));

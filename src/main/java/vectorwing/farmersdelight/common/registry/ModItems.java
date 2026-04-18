@@ -27,7 +27,7 @@ public class ModItems
 	}
 
 	public static Supplier<Item> registerHidden(final String name, final Supplier<Item> supplier) {
-		return ITEMS.register(name, supplier);
+		return regItem(name, supplier);
 	}
 
 	// Helper methods

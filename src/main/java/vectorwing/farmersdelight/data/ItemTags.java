@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data;
 
+import mezz.jei.api.constants.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -158,16 +159,16 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 			ModItems.FRUIT_SALAD.get()
 		);
 		copy(ModTags.Blocks.FEASTS, ModTags.Items.FEASTS);
-		tag(ModTags.Items.PIES).add(
+		tagBuilder(ModTags.Items.PIES).add(
 			Items.PUMPKIN_PIE,
 			ModItems.APPLE_PIE.get(),
 			ModItems.SWEET_BERRY_CHEESECAKE.get(),
 			ModItems.CHOCOLATE_PIE.get()
 		);
-		tag(ModTags.Items.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		tagBuilder(ModTags.Items.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 		tag(ModTags.Items.KNIFE_ENCHANTABLE).addTag(ModTags.Items.KNIVES);
 		tag(ModTags.Items.STRAW_HARVESTERS).addTag(ModTags.Items.KNIVES);
-		tag(ModTags.Items.CANVAS_SIGNS)
+		tagBuilder(ModTags.Items.CANVAS_SIGNS)
 			.add(ModItems.CANVAS_SIGN.get())
 			.add(ModItems.WHITE_CANVAS_SIGN.get())
 			.add(ModItems.ORANGE_CANVAS_SIGN.get())
@@ -185,7 +186,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 			.add(ModItems.GREEN_CANVAS_SIGN.get())
 			.add(ModItems.RED_CANVAS_SIGN.get())
 			.add(ModItems.BLACK_CANVAS_SIGN.get());
-		tag(ModTags.Items.HANGING_CANVAS_SIGNS)
+		tagBuilder(ModTags.Items.HANGING_CANVAS_SIGNS)
 			.add(ModItems.HANGING_CANVAS_SIGN.get())
 			.add(ModItems.WHITE_HANGING_CANVAS_SIGN.get())
 			.add(ModItems.ORANGE_HANGING_CANVAS_SIGN.get())
@@ -208,8 +209,8 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 
 		copy(ModTags.Blocks.MUSHROOM_COLONIES, ModTags.Items.MUSHROOM_COLONIES);
 
-		tag(ModTags.Items.SERVING_CONTAINERS).add(Items.BOWL, Items.GLASS_BOTTLE, Items.BUCKET);
-		tag(ModTags.Items.FLAT_ON_CUTTING_BOARD).add(Items.TRIDENT, Items.SPYGLASS)
+		tagBuilder(ModTags.Items.SERVING_CONTAINERS).add(Items.BOWL, Items.GLASS_BOTTLE, Items.BUCKET);
+		tagBuilder(ModTags.Items.FLAT_ON_CUTTING_BOARD).add(Items.TRIDENT, Items.SPYGLASS)
 			.addOptional(ResourceLocation.parse("supplementaries:quiver"))
 			.addOptional(ResourceLocation.parse("autumnity:turkey"))
 			.addOptional(ResourceLocation.parse("autumnity:cooked_turkey"));
@@ -237,8 +238,8 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 			.addTag(CommonTags.Items.FOODS_PASTA)
 			.addTag(CommonTags.Items.FOODS_COOKED_EGG);
 
-		tag(Tags.Items.FENCES).add(ModItems.ROPE_FENCE.get());
-		tag(Tags.Items.FENCE_GATES).add(ModItems.ROPE_FENCE_GATE.get());
+		tagBuilder(ConventionalItemTags.FENCES).add(ModItems.ROPE_FENCE.get());
+		tagBuilder(ConventionalItemTags.FENCE_GATES).add(ModItems.ROPE_FENCE_GATE.get());
 
 		tagBuilder(ConventionalTags.DRINKS_MILK).add(ModItems.MILK_BOTTLE.get());
 
@@ -293,14 +294,14 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 	}
 
 	public void registerCommonTags() {
-		tag(CommonTags.Items.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
-		tag(CommonTags.Items.CROPS_ONION).add(ModItems.ONION.get());
+		tagBuilder(CommonTags.Items.CROPS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
+		tagBuilder(CommonTags.Items.CROPS_ONION).add(ModItems.ONION.get());
 		tagBuilder(CommonTags.Items.CROPS_TOMATO).add(ModItems.TOMATO.get());
-		tag(CommonTags.Items.CROPS_RICE).add(ModItems.RICE.get());
+		tagBuilder(CommonTags.Items.CROPS_RICE).add(ModItems.RICE.get());
 
-		tag(CommonTags.Items.FOODS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
-		tag(CommonTags.Items.FOODS_TOMATO).add(ModItems.TOMATO.get());
-		tag(CommonTags.Items.FOODS_ONION).add(ModItems.ONION.get());
+		tagBuilder(CommonTags.Items.FOODS_CABBAGE).add(ModItems.CABBAGE.get(), ModItems.CABBAGE_LEAF.get());
+		tagBuilder(CommonTags.Items.FOODS_TOMATO).add(ModItems.TOMATO.get());
+		tagBuilder(CommonTags.Items.FOODS_ONION).add(ModItems.ONION.get());
 
         tagBuilder(CommonTags.Items.FOODS_DOUGH_WHEAT).add(ModItems.WHEAT_DOUGH.get());
         tagBuilder(CommonTags.Items.CROPS_GRAIN).add(Items.WHEAT, ModItems.RICE.get());
@@ -310,20 +311,20 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		tagBuilder(CommonTags.Items.FOODS_RAW_BACON).add(ModItems.BACON.get());
 		tagBuilder(CommonTags.Items.FOODS_RAW_BEEF).add(Items.BEEF, ModItems.MINCED_BEEF.get());
 		tagBuilder(CommonTags.Items.FOODS_RAW_CHICKEN).add(Items.CHICKEN, ModItems.CHICKEN_CUTS.get());
-		tag(CommonTags.Items.FOODS_RAW_PORK).add(Items.PORKCHOP).addTag(CommonTags.Items.FOODS_RAW_BACON);
-		tag(CommonTags.Items.FOODS_RAW_MUTTON).add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
-		tag(CommonTags.Items.FOODS_RAW_COD).add(Items.COD, ModItems.COD_SLICE.get());
-		tag(CommonTags.Items.FOODS_RAW_SALMON).add(Items.SALMON, ModItems.SALMON_SLICE.get());
-		tag(CommonTags.Items.FOODS_SAFE_RAW_FISH).addTag(Tags.Items.FOODS_RAW_FISH).remove(Items.PUFFERFISH);
+		tagBuilder(CommonTags.Items.FOODS_RAW_PORK).add(Items.PORKCHOP).addTag(CommonTags.Items.FOODS_RAW_BACON);
+		tagBuilder(CommonTags.Items.FOODS_RAW_MUTTON).add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
+		tagBuilder(CommonTags.Items.FOODS_RAW_COD).add(Items.COD, ModItems.COD_SLICE.get());
+		tagBuilder(CommonTags.Items.FOODS_RAW_SALMON).add(Items.SALMON, ModItems.SALMON_SLICE.get());
+		tagBuilder(CommonTags.Items.FOODS_SAFE_RAW_FISH).addTag(Tags.Items.FOODS_RAW_FISH).remove(Items.PUFFERFISH);
 
-		tag(CommonTags.Items.FOODS_COOKED_BACON).add(ModItems.COOKED_BACON.get());
-		tag(CommonTags.Items.FOODS_COOKED_BEEF).add(Items.COOKED_BEEF, ModItems.BEEF_PATTY.get());
-		tag(CommonTags.Items.FOODS_COOKED_CHICKEN).add(Items.COOKED_CHICKEN, ModItems.COOKED_CHICKEN_CUTS.get());
-		tag(CommonTags.Items.FOODS_COOKED_PORK).add(Items.COOKED_PORKCHOP).addTag(CommonTags.Items.FOODS_COOKED_BACON);
-		tag(CommonTags.Items.FOODS_COOKED_MUTTON).add(Items.COOKED_MUTTON, ModItems.COOKED_MUTTON_CHOPS.get());
-		tag(CommonTags.Items.FOODS_COOKED_COD).add(Items.COOKED_COD, ModItems.COOKED_COD_SLICE.get());
-		tag(CommonTags.Items.FOODS_COOKED_SALMON).add(Items.COOKED_SALMON, ModItems.COOKED_SALMON_SLICE.get());
-		tag(CommonTags.Items.FOODS_COOKED_EGG).add(ModItems.FRIED_EGG.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_BACON).add(ModItems.COOKED_BACON.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_BEEF).add(Items.COOKED_BEEF, ModItems.BEEF_PATTY.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_CHICKEN).add(Items.COOKED_CHICKEN, ModItems.COOKED_CHICKEN_CUTS.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_PORK).add(Items.COOKED_PORKCHOP).addTag(CommonTags.Items.FOODS_COOKED_BACON);
+		tagBuilder(CommonTags.Items.FOODS_COOKED_MUTTON).add(Items.COOKED_MUTTON, ModItems.COOKED_MUTTON_CHOPS.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_COD).add(Items.COOKED_COD, ModItems.COOKED_COD_SLICE.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_SALMON).add(Items.COOKED_SALMON, ModItems.COOKED_SALMON_SLICE.get());
+		tagBuilder(CommonTags.Items.FOODS_COOKED_EGG).add(ModItems.FRIED_EGG.get());
 
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_CARROT).add(ModItems.CARROT_CRATE.get());
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_POTATO).add(ModItems.POTATO_CRATE.get());
@@ -331,11 +332,11 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_CABBAGE).add(ModItems.CABBAGE_CRATE.get());
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_TOMATO).add(ModItems.TOMATO_CRATE.get());
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_ONION).add(ModItems.ONION_CRATE.get());
-		tag(CommonTags.Items.STORAGE_BLOCKS_RICE).add(ModItems.RICE_BAG.get());
+		tagBuilder(CommonTags.Items.STORAGE_BLOCKS_RICE).add(ModItems.RICE_BAG.get());
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_RICE_PANICLE).add(ModItems.RICE_BALE.get());
         tagBuilder(CommonTags.Items.STORAGE_BLOCKS_STRAW).add(ModItems.STRAW_BALE.get());
 
-		tag(CommonTags.Items.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		tagBuilder(CommonTags.Items.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 	}
 
 	public void registerCompatibilityTags() {

@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import mezz.jei.api.constants.Tags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -106,7 +107,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
-		if (heldStack.is(Tags.Items.BUCKETS_WATER)) {
+		if (heldStack.is(ConventionalItemTags.WATER_BUCKETS)) {
 			if (!level.isClientSide()) {
 				level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			}

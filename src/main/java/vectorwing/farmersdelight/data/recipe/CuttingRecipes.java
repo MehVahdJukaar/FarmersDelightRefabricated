@@ -348,9 +348,9 @@ public class CuttingRecipes
 	/**
 	 * Generates an axe-cutting recipe for wooded furniture items, with a chance to recover one plank of the given type.
 	 */
-	private static void salvagePlankFromFurniture(RecipeOutput output, ItemLike plank, ItemLike door, ItemLike trapdoor, ItemLike sign, ItemLike hangingSign) {
+	private static void salvagePlankFromFurniture(RecipeOutput output, WoodType woodType, ItemLike plank, ItemLike... furniture) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(furniture), AXES, plank, 1, 0.75F)
-			.save(output, salvagingRecipe(woodType.name() + "_furniture"));
+				.save(output, salvagingRecipe(woodType.name() + "_furniture"));
 	}
 
 		/**
