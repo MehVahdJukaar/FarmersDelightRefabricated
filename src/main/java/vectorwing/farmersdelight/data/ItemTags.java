@@ -257,11 +257,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.APPLE_PIE.get())
 				.add(ModItems.SWEET_BERRY_CHEESECAKE.get())
 				.add(ModItems.CHOCOLATE_PIE.get())
-				.add(ModItems.ROAST_CHICKEN_BLOCK.get())
-				.add(ModItems.HONEY_GLAZED_HAM_BLOCK.get())
-				.add(ModItems.SHEPHERDS_PIE_BLOCK.get())
-				.add(ModItems.STUFFED_PUMPKIN_BLOCK.get())
-				.add(ModItems.RICE_ROLL_MEDLEY_BLOCK.get());
+				.addTag(ModTags.FEASTS);
         tagBuilder(ConventionalItemTags.SOUP_FOODS)
 				.add(ModItems.BONE_BROTH.get())
 				.add(ModItems.BEEF_STEW.get())
@@ -276,10 +272,11 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 				.add(ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get())
 				.add(ModItems.CHOCOLATE_PIE_SLICE.get());
 
-		tag(ConventionalItemTags.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
-		tagBuilder(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
-		tagBuilder(ConventionalItemTags.CROPS).addTags(CommonTags.CROPS_CABBAGE, CommonTags.CROPS_ONION, CommonTags.CROPS_RICE, CommonTags.CROPS_TOMATO);
-		tagBuilder(ConventionalItemTags.STORAGE_BLOCKS).addTags(
+        tagBuilder(ConventionalItemTags.TOOLS).addTag(CommonTags.TOOLS_KNIFE);
+        tagBuilder(ConventionalItemTags.ROPES).add(ModItems.ROPE.get());
+        tagBuilder(ConventionalItemTags.SEEDS).add(ModItems.CABBAGE_SEEDS.get(), ModItems.RICE.get(), ModItems.TOMATO_SEEDS.get());
+        tagBuilder(ConventionalItemTags.CROPS).addTags(CommonTags.CROPS_CABBAGE, CommonTags.CROPS_ONION, CommonTags.CROPS_RICE, CommonTags.CROPS_TOMATO);
+        tagBuilder(ConventionalItemTags.STORAGE_BLOCKS).addTags(
 				CommonTags.STORAGE_BLOCKS_ITEM_CARROT,
 				CommonTags.STORAGE_BLOCKS_ITEM_POTATO,
 				CommonTags.STORAGE_BLOCKS_ITEM_BEETROOT,

@@ -278,7 +278,7 @@ public class ModBlocks
 			() -> new OnionBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
 	public static final Supplier<Block> BUDDING_TOMATO_CROP = regBlock("budding_tomatoes",
 			() -> new BuddingTomatoBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
-	public static final Supplier<Block> TOMATO_CROP = regBlock("tomatoes",
+	public static final Supplier<TomatoVineBlock> TOMATO_CROP = regBlock("tomatoes",
 			() -> new TomatoVineBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 			() -> new RiceBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).strength(0.2F)));

@@ -13,9 +13,9 @@
       "item": "farmersdelight:pie_crust"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 500,
-      "fluid_tag": "c:chocolate"
+      "tag": "c:chocolate"
     }
   ],
   "results": [

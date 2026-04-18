@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -101,6 +102,8 @@ public class KnifeItem extends DiggerItem
                         -0.05, 0, 0);
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
+                player.awardStat(Stats.ITEM_USED.get(toolStack.getItem()));
+
                 return InteractionResult.SUCCESS;
             }
 
@@ -116,11 +119,13 @@ public class KnifeItem extends DiggerItem
                         -0.05, 0, 0);
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-                return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
-            }
+                player.awardStat(Stats.ITEM_USED.get(toolStack.getItem()));
+                return InteractionResult.sidedSuccess(level.isClientSide);
+			}
             return InteractionResult.PASS;
-        }
-    }
+
+		}
+	}
 
 	@Override
 	public InteractionResult useOn(UseOnContext context) {

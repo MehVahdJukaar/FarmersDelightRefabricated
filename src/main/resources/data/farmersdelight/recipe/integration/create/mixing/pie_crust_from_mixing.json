@@ -19,9 +19,9 @@
       "item": "create:wheat_flour"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 250,
-      "fluid_tag": "c:milk"
+      "tag": "c:milk"
     }
   ],
   "results": [

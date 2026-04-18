@@ -258,7 +258,17 @@ public class ModItems
 		@Override
 		public void registerBlocks(Map<Block, Item> blockToItemMap, Item item) {
 			super.registerBlocks(blockToItemMap, item);
-			blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
+			if (ModBlocks.TOMATO_CROP.isBound()) {
+				blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
+			}
+		}
+
+		@Override
+		public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
+			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
+            if (ModBlocks.TOMATO_CROP.isBound()) {
+                blockToItemMap.remove(ModBlocks.TOMATO_CROP.get());
+            }
 		}
 	});
 	public static final Supplier<Item> ROTTEN_TOMATO = registerWithTab("rotten_tomato",
