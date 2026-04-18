@@ -257,18 +257,15 @@ public class ModItems
 		@Override
 		public void registerBlocks(Map<Block, Item> blockToItemMap, Item item) {
 			super.registerBlocks(blockToItemMap, item);
-			if (ModBlocks.TOMATO_CROP.isPresent()) {
-				blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
-			}
+            blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
 		}
 
+        /*
 		@Override
 		public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
 			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
-			if (ModBlocks.TOMATO_CROP.isPresent()) {
-				blockToItemMap.remove(ModBlocks.TOMATO_CROP.get());
-			}
-		}
+			blockToItemMap.remove(ModBlocks.TOMATO_CROP.get());
+		}*/
 	});
 	public static final RegistryObject<Item> ROTTEN_TOMATO = registerWithTab("rotten_tomato",
 			() -> new RottenTomatoItem(new Item.Properties().stacksTo(16)));
