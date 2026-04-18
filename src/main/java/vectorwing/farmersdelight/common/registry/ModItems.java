@@ -253,23 +253,21 @@ public class ModItems
 	public static final Supplier<Item> RICE = registerWithTab("rice",
 			() -> new RiceItem(ModBlocks.RICE_CROP.get(), basicItem()));
 	public static final Supplier<Item> CABBAGE_SEEDS = registerWithTab("cabbage_seeds", () -> new ItemNameBlockItem(ModBlocks.CABBAGE_CROP.get(), basicItem()));
-	public static final Supplier<Item> TOMATO_SEEDS = registerWithTab("tomato_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_TOMATO_CROP.get(), basicItem())
+	public static final Supplier<Item> TOMATO_SEEDS = registerWithTab("tomato_seeds", () -> new ItemNameBlockItem(
+            ModBlocks.BUDDING_TOMATO_CROP.get(), basicItem())
 	{
 		@Override
 		public void registerBlocks(Map<Block, Item> blockToItemMap, Item item) {
 			super.registerBlocks(blockToItemMap, item);
-			if (ModBlocks.TOMATO_CROP.isBound()) {
-				blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
-			}
+            blockToItemMap.put(ModBlocks.TOMATO_CROP.get(), item);
 		}
 
+        /*
 		@Override
 		public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
 			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
-            if (ModBlocks.TOMATO_CROP.isBound()) {
                 blockToItemMap.remove(ModBlocks.TOMATO_CROP.get());
-            }
-		}
+		}*/
 	});
 	public static final Supplier<Item> ROTTEN_TOMATO = registerWithTab("rotten_tomato",
 			() -> new RottenTomatoItem(new Item.Properties().stacksTo(16)));

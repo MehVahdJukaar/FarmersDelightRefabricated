@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data;
 
+import mezz.jei.api.constants.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
@@ -204,7 +205,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.ONION_CROP.get(),
 				ModBlocks.RICE_CROP.get()
 		);
-		tag(net.minecraft.tags.BlockTags.COMBINATION_STEP_SOUND_BLOCKS).add(
+        tagBuilder(net.minecraft.tags.BlockTags.COMBINATION_STEP_SOUND_BLOCKS).add(
 				ModBlocks.CANVAS_RUG.get(),
 				ModBlocks.FULL_TATAMI_MAT.get(),
 				ModBlocks.HALF_TATAMI_MAT.get()
@@ -212,9 +213,10 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
     protected void registerNeoForgeTags() {
-        tag(Tags.Blocks.ROPES).add(ModBlocks.ROPE.get());
-        tag(Tags.Blocks.VILLAGER_FARMLANDS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
-        tag(Tags.Blocks.STORAGE_BLOCKS).addTags(
+        tagBuilder(ConventionalBlockTags.ROPES).add(ModBlocks.ROPE.get());
+        //This is a neoforge tag. i think we alreadey have a mixin that takes care of this
+        //tagBuilder(ConventionalBlockTags.VILLAGER_FARMLANDS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
+        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).addTags(
                 CommonTags.STORAGE_BLOCKS_CARROT,
                 CommonTags.STORAGE_BLOCKS_POTATO,
                 CommonTags.STORAGE_BLOCKS_BEETROOT,
@@ -229,15 +231,15 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 
     protected void registerCommonTags() {
         tag(CommonTags.MINEABLE_WITH_KNIFE);
-        tag(CommonTags.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
-        tag(CommonTags.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
-        tag(CommonTags.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
-        tag(CommonTags.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
+        tagBuilder(CommonTags.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
     }
 
 	protected void registerModTags() {
