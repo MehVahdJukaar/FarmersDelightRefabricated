@@ -83,7 +83,8 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 				if (heldStack.isEmpty()) {
 					return InteractionResult.PASS;
 				} else if (cuttingBoardEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
-					level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+					Vec3 centerPos = pos.getCenter();
+					level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
 					return InteractionResult.SUCCESS;
 				}
 
@@ -103,7 +104,8 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 				} else {
 					cuttingBoardEntity.removeItem();
 				}
-				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 0.25F, 0.5F);
+				Vec3 centerPos = pos.getCenter();
+				level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 0.25F, 0.5F);
 				return InteractionResult.SUCCESS;
 			}
 		}
@@ -217,7 +219,8 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 						heldStack.getItem() instanceof ShearsItem) {
 					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
 					if (success) {
-						level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+						Vec3 centerPos = pos.getCenter();
+						level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
 						return InteractionResult.SUCCESS;
 					}
 				}

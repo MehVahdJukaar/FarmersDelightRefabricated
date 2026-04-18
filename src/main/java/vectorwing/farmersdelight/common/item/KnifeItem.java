@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -96,8 +97,9 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
                         -0.05, 0, 0);
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-                return InteractionResult.SUCCESS;
-            }
+                player.awardStat(Stats.ITEM_USED.get(toolStack.getItem()));
+                return InteractionResult.sidedSuccess(level.isClientSide);
+			}
 
             if (block == Blocks.CAKE) {
                 int bites = state.getValue(CakeBlock.BITES);
@@ -111,6 +113,7 @@ public class KnifeItem extends DiggerItem implements CustomEnchantingBehaviorIte
                         -0.05, 0, 0);
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
 
+                player.awardStat(Stats.ITEM_USED.get(toolStack.getItem()));
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
             return InteractionResult.PASS;
