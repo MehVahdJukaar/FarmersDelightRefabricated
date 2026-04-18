@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block.entity;
 import com.google.common.base.Preconditions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -13,6 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -49,7 +51,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
         boolean isHeated = skillet.isHeated(level, pos);
 
         if (state.getValue(SkilletBlock.WATERLOGGED)) {
-            if (!ItemUtils.isInventoryEmpty(skillet.inventory)) {
+            if (ItemUtils.doesInventoryHaveItems(skillet.inventory)) {
                 ItemUtils.dropItems(level, pos, skillet.inventory);
                 skillet.inventoryChanged();
             }
@@ -141,25 +143,24 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
     public ItemStack getSkilletAsItem() {
         return skilletStack;
     }
+	//use below
+	@Deprecated(forRemoval = true)
+	public void setSkilletItem(ItemStack stack) {
+		setSkilletItem(stack, level.registryAccess());
+	}
 
-    //use below
-    @Deprecated(forRemoval = true)
-    public void setSkilletItem(ItemStack stack) {
-        setSkilletItem(stack, level.registryAccess());
-    }
-
-    public void setSkilletItem(ItemStack stack, HolderLookup.Provider registries) {
-        skilletStack = stack.copy();
-        fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
-        if (level != null) inventoryChanged();
-    }
+	public void setSkilletItem(ItemStack stack, HolderLookup.Provider registries) {
+		skilletStack = stack.copy();
+		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(
+			registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), skilletStack);
+		if (level != null) inventoryChanged();
+	}
 
     public ItemStack addItemToCook(ItemStack addedStack, Player player) {
         Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(addedStack);
         if (recipe.isPresent() && getStoredStack().isEmpty()) {
             if (getBlockState().getValue(SkilletBlock.WATERLOGGED)) {
-                player.displayClientMessage(TextUtils.getTranslation("block.skillet.underwater"), true);
+                player.displayClientMessage(TextUtils.block("skillet.underwater"), true);
                 return addedStack;
             }
             boolean wasEmpty = getStoredStack().isEmpty();
@@ -173,7 +174,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
                 return remainderStack;
             }
         } else {
-            player.displayClientMessage(TextUtils.getTranslation("block.skillet.invalid_item"), true);
+            player.displayClientMessage(TextUtils.block("skillet.invalid_item"), true);
         }
         return addedStack;
     }

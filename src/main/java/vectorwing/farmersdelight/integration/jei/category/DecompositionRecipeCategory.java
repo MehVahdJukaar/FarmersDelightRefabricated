@@ -12,9 +12,11 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +30,7 @@ import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @MethodsReturnNonnullByDefault
@@ -43,7 +46,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     private final ItemStack richSoil;
 
     public DecompositionRecipeCategory(IGuiHelper helper) {
-        title = TextUtils.getTranslation("jei.decomposition");
+        title = TextUtils.JEI("decomposition");
         ResourceLocation backgroundImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 118, 80);
         organicCompost = new ItemStack(ModBlocks.ORGANIC_COMPOST.get());
@@ -64,7 +67,17 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
     @Override
     public IDrawable getBackground() {
-        return this.background;
+        return null;
+	}
+
+	@Override
+	public int getWidth() {
+		return 118;
+	}
+
+	@Override
+	public int getHeight() {
+		return 80;
     }
 
     @Override
@@ -75,7 +88,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
         List<ItemStack> accelerators = new ArrayList<>();
-        BuiltInRegistries.BLOCK.getTag(ModTags.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
+        BuiltInRegistries.BLOCK.getTag(ModTags.Blocks.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);
@@ -84,26 +97,20 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
     @Override
     public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        this.slotIcon.draw(guiGraphics, 63, 53);
+        background.draw(guiGraphics, 0, 0);slotIcon.draw(guiGraphics, 63, 53);
     }
 
-    @Override
-    public void getTooltip(ITooltipBuilder tooltip, DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
-            tooltip.add(translateKey(".light"));
-            return;
-        }
-        if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
-            tooltip.add(translateKey(".fluid"));
-            return;
-        }
-        if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
-            tooltip.add(translateKey(".accelerators"));
-            return;
-        }
-    }
-
-    private static MutableComponent translateKey(@NotNull String suffix) {
-        return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
-    }
+	@Override
+	public void getTooltip(ITooltipBuilder tooltip, DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		if (ClientRenderUtils.isCursorInsideBounds(40, 38, 11, 11, mouseX, mouseY)) {
+			tooltip.add(TextUtils.JEI("decomposition.light"));
+		}
+		if (ClientRenderUtils.isCursorInsideBounds(53, 38, 11, 11, mouseX, mouseY)) {
+			tooltip.add(TextUtils.JEI("decomposition.fluid"));
+		}
+		if (ClientRenderUtils.isCursorInsideBounds(67, 38, 11, 11, mouseX, mouseY)) {
+			tooltip.add(TextUtils.JEI("decomposition.accelerators"));
+		}
+	}
 }
+

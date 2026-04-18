@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -9,7 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -21,8 +21,14 @@ import java.util.function.Supplier;
 public class RiceRollMedleyBlock extends FeastBlock {
     public static final IntegerProperty ROLL_SERVINGS = IntegerProperty.create("servings", 0, 8);
 
-    protected static final VoxelShape PLATE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
-    protected static final VoxelShape FOOD_SHAPE = Shapes.joinUnoptimized(PLATE_SHAPE, Block.box(2.0D, 2.0D, 2.0D, 14.0D, 4.0D, 14.0D), BooleanOp.OR);
+    protected static final VoxelShape SHAPE_NORTH_SOUTH = Shapes.or(
+			Block.box(2.0D, 1.0D, 1.0D, 14.0D, 3.0D, 15.0D),
+			Block.box(2.0D, 0.0D, 3.0D, 14.0D, 2.0D, 5.0D),
+			Block.box(2.0D, 0.0D, 11.0D, 14.0D, 2.0D, 13.0D));
+    protected static final VoxelShape SHAPE_EAST_WEST = Shapes.or(
+			Block.box(1.0D, 1.0D, 2.0D, 15.0D, 3.0D, 14.0D),
+			Block.box(3.0D, 0.0D, 2.0D, 5.0D, 2.0D, 14.0D),
+			Block.box(11.0D, 0.0D, 2.0D, 13.0D, 2.0D, 14.0D));
 
     public final Supplier<List<Item>> riceRollServings = Suppliers.memoize(() -> List.of(
                     ModItems.COD_ROLL.get(),
@@ -36,7 +42,7 @@ public class RiceRollMedleyBlock extends FeastBlock {
     );
 
     public RiceRollMedleyBlock(Properties properties) {
-        super(properties, () -> ModItems.SALMON_ROLL.get(), true);
+        super(properties, () -> ModItems.SALMON_ROLL.get(), true, false);
     }
 
     @Override
@@ -56,7 +62,10 @@ public class RiceRollMedleyBlock extends FeastBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(getServingsProperty()) == 0 ? PLATE_SHAPE : FOOD_SHAPE;
+        if (state.getValue(FeastBlock.FACING).getAxis().equals(Direction.Axis.X)) {
+			return SHAPE_NORTH_SOUTH;
+		}
+		return SHAPE_EAST_WEST;
     }
 
     @Override

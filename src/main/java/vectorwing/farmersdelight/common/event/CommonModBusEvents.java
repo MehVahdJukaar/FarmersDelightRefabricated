@@ -22,7 +22,7 @@ public class CommonModBusEvents
 				context.modify(item, (builder) -> builder.set(DataComponents.MAX_STACK_SIZE, 16));
 			});
 		}
-		if (Configuration.RABBIT_STEW_BUFF.get()) {
+		if (Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
 			context.modify(Items.RABBIT_STEW, (builder) -> builder.set(DataComponents.FOOD, FoodValues.RABBIT_STEW_BUFF));
 		}
 	}

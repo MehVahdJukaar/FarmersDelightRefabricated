@@ -8,12 +8,13 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.utility.RecipeUtils;
 import vectorwing.farmersdelight.integration.emi.FDRecipeCategories;
 
 import java.util.List;
 
 public class CuttingEmiRecipe implements EmiRecipe {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+    private static final ResourceLocation BACKGROUND = RecipeUtils.FDLocation("textures/gui/jei/cutting_board.png");
     public static final int OUTPUT_GRID_X = 69;
     public static final int OUTPUT_GRID_Y = 3;
 
@@ -57,7 +58,7 @@ public class CuttingEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 111;
+        return 107;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CuttingEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 0, 0, 111, 44, 4, 7);
+        widgets.addTexture(BACKGROUND, 0, 0, 107, 44, 4, 7);
 
         widgets.addSlot(tool, 11, 0).drawBack(false);
         widgets.addSlot(input, 11, 19).drawBack(false);

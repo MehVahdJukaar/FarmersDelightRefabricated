@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight.common.registry;
 
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -12,6 +15,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import vectorwing.farmersdelight.common.block.*;
+import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.common.BlockShapes;
 
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -24,6 +29,10 @@ public class ModBlocks
 		return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
 	}
 
+	private static ToIntFunction<BlockState> glowingFeastBlockEmission() {
+		return (state) -> state.getValue(FeastBlock.SERVINGS) * 3;
+	}
+
 	// Workstations
 	public static final Supplier<Block> STOVE = regBlock("stove",
 			() -> new StoveBlock(Block.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(litBlockEmission(13))));
@@ -31,7 +40,9 @@ public class ModBlocks
 			() -> new CookingPotBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
 	public static final Supplier<Block> SKILLET = regBlock("skillet",
 			() -> new SkilletBlock(Block.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
-	public static final Supplier<Block> BASKET = regBlock("basket",
+	public static final Supplier<Block> WOODEN_BASKET = BLOCKS.register("wooden_basket",
+			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> BAMBOO_BASKET = regBlock("bamboo_basket",
 			() -> new BasketBlock(Block.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
 	public static final Supplier<Block> CUTTING_BOARD = regBlock("cutting_board",
 			() -> new CuttingBoardBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F).sound(SoundType.WOOD)));
@@ -61,6 +72,10 @@ public class ModBlocks
 			() -> new RopeBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollission().noOcclusion().strength(0.2F).sound(SoundType.WOOL)));
 	public static final Supplier<Block> SAFETY_NET = regBlock("safety_net",
 			() -> new SafetyNetBlock(Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL)));
+	public static final Supplier<Block> ROPE_FENCE = BLOCKS.register("rope_fence",
+			() -> new RopeFenceBlock(Block.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F)));
+	public static final Supplier<Block> ROPE_FENCE_GATE = BLOCKS.register("rope_fence_gate",
+			() -> new RopeFenceGateBlock(Block.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F)));
 	public static final Supplier<Block> OAK_CABINET = regBlock("oak_cabinet",
 			() -> new CabinetBlock(Block.Properties.ofFullCopy(Blocks.BARREL)));
 	public static final Supplier<Block> SPRUCE_CABINET = regBlock("spruce_cabinet",
@@ -251,6 +266,15 @@ public class ModBlocks
 			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
 	public static final Supplier<Block> CHOCOLATE_PIE = regBlock("chocolate_pie",
 			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.CHOCOLATE_PIE_SLICE.get()));
+	public static final Supplier<Block> PUMPKIN_PIE = BLOCKS.register("pumpkin_pie",
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.PUMPKIN_PIE_SLICE)
+			{
+				@Override
+				@SuppressWarnings("deprecation")
+				public @NotNull ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+					return new ItemStack(Items.PUMPKIN_PIE);
+				}
+			});
 
 	// Wild Crops
 	public static final Supplier<Block> SANDY_SHRUB = regBlock("sandy_shrub",
@@ -278,22 +302,26 @@ public class ModBlocks
 			() -> new OnionBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
 	public static final Supplier<Block> BUDDING_TOMATO_CROP = regBlock("budding_tomatoes",
 			() -> new BuddingTomatoBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
-	public static final Supplier<TomatoVineBlock> TOMATO_CROP = regBlock("tomatoes",
-			() -> new TomatoVineBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
-	public static final Supplier<Block> RICE_CROP = regBlock("rice",
+	public static final Supplier<TomatoBlock> TOMATO_CROP = BLOCKS.register("tomatoes",
+			() -> new TomatoBlock(Block.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP)));
+	public static final Supplier<HangingTomatoBlock> TOMATO_CROP_ON_ROPE = BLOCKS.register("tomatoes_on_rope",
+			() -> new HangingTomatoBlock(Block.Properties.ofFullCopy(ModBlocks.TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL)));
+	public static final Supplier<Block> RICE_CROP = BLOCKS.register("rice",
 			() -> new RiceBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).strength(0.2F)));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",
 			() -> new RicePaniclesBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)));
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock("roast_chicken_block",
-			() -> new RoastChickenBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.ROAST_CHICKEN.get(), true));
+			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.ROAST_CHICKEN.get(), true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE));
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock("stuffed_pumpkin_block",
-			() -> new FeastBlock(Block.Properties.ofFullCopy(Blocks.PUMPKIN), ()->ModItems.STUFFED_PUMPKIN.get(), false));
+			() -> new FeastBlock(Block.Properties.ofFullCopy(Blocks.PUMPKIN), ()->ModItems.STUFFED_PUMPKIN.get(), false, true));
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock("honey_glazed_ham_block",
-			() -> new HoneyGlazedHamBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.HONEY_GLAZED_HAM.get(), true));
+			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.HONEY_GLAZED_HAM.get(), true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE));
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
-			() -> new ShepherdsPieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true));
+			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE));
+	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = BLOCKS.register("gleaming_salad_block",
+			() -> new GleamingSaladBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(Block.Properties.ofFullCopy(Blocks.CAKE)));
 

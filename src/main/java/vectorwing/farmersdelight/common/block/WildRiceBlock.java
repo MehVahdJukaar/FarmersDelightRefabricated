@@ -55,7 +55,7 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
-		return state.is(BlockTags.DIRT) || state.is(Blocks.SAND);
+		return state.is(BlockTags.DIRT) || state.is(BlockTags.SAND);
 	}
 
 	@Override
@@ -69,14 +69,14 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		BlockState currentState = super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
-		DoubleBlockHalf half = stateIn.getValue(HALF);
+	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+		BlockState currentState = super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+		DoubleBlockHalf half = state.getValue(HALF);
 		if (!currentState.isAir()) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 		if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.getValue(HALF) != half) {
-			return half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
+			return half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : state;
 		} else {
 			return Blocks.AIR.defaultBlockState();
 		}
@@ -95,7 +95,7 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn) {
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
@@ -112,8 +112,8 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state) {
-		return (double) rand.nextFloat() < 0.3F;
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return (double) random.nextFloat() < 0.3F;
 	}
 
 	@Override

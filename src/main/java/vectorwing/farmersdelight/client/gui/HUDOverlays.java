@@ -78,7 +78,7 @@ public class HUDOverlays
 			boolean isPlayerHealingWithSaturation =
 					player.level().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION)
 							&& player.isHurt()
-							&& stats.getFoodLevel() >= 18;
+							&& stats.getSaturationLevel() > 0.0;
 
 			if (player.getEffect(ModEffects.NOURISHMENT) != null) {
 				drawNourishmentOverlay(stats, minecraft, guiGraphics, right, top - foodIconsOffset, isPlayerHealingWithSaturation);
@@ -90,7 +90,7 @@ public class HUDOverlays
 			if (!super.shouldRenderOverlay(mc, player, guiGraphics, guiTicks))
 				return false;
 
-			return Configuration.NOURISHED_HUNGER_OVERLAY.get();
+			return Configuration.ENABLE_NOURISHMENT_HUNGER_OVERLAY.get();
 		}
 	}
 
@@ -119,7 +119,7 @@ public class HUDOverlays
 			if (!super.shouldRenderOverlay(mc, player, guiGraphics, guiTicks))
 				return false;
 
-			return Configuration.COMFORT_HEALTH_OVERLAY.get();
+			return Configuration.ENABLE_COMFORT_HEALTH_OVERLAY.get();
 		}
 	}
 

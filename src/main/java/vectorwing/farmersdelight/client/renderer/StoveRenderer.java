@@ -15,6 +15,7 @@ import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
+//TODO: this seems unused in 1.21.1 neoforge. check!!
 public class StoveRenderer implements BlockEntityRenderer<StoveBlockEntity>
 {
 	public StoveRenderer(BlockEntityRendererProvider.Context context) {

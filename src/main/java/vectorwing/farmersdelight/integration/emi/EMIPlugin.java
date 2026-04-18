@@ -7,6 +7,7 @@ import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -15,6 +16,7 @@ import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import vectorwing.farmersdelight.common.utility.RecipeUtils;
 import vectorwing.farmersdelight.integration.emi.handler.CookingPotEmiRecipeHandler;
 import vectorwing.farmersdelight.integration.emi.recipe.CookingPotEmiRecipe;
 import vectorwing.farmersdelight.integration.emi.recipe.CuttingEmiRecipe;
@@ -35,17 +37,27 @@ public class EMIPlugin implements EmiPlugin {
         registry.addWorkstation(FDRecipeCategories.CUTTING, FDRecipeWorkstations.CUTTING_BOARD);
         registry.addRecipeHandler(ModMenuTypes.COOKING_POT.get(), new CookingPotEmiRecipeHandler());
 
-        registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(Items.WHEAT), EmiStack.of(Items.WATER_BUCKET)), EmiStack.of(ModItems.WHEAT_DOUGH.get()), FarmersDelight.res("wheat_dough_from_water"), true));
+		for (RecipeHolder<CookingPotRecipe> recipeHolder : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COOKING.get())) {
+			CookingPotRecipe recipe = recipeHolder.value();
+			registry.addRecipe(new CookingPotEmiRecipe(recipeHolder.id(), recipe.getIngredients().stream().map(EmiIngredient::of).toList(),
+				EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())), EmiStack.of(recipe.getOutputContainer()), recipe.getCookTime(), recipe.getExperience()));
+		}
 
-        for (RecipeHolder<CookingPotRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COOKING.get())) {
-            registry.addRecipe(new CookingPotEmiRecipe(recipe.id(), recipe.value().getIngredients().stream().map(EmiIngredient::of).toList(),
-                    EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())), EmiStack.of(recipe.value().getOutputContainer()), recipe.value().getCookTime(), recipe.value().getExperience()));
-        }
+		for (RecipeHolder<CuttingBoardRecipe> recipeHolder : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CUTTING.get())) {
+			CuttingBoardRecipe recipe = recipeHolder.value();
+			registry.addRecipe(new CuttingEmiRecipe(recipeHolder.id(), EmiIngredient.of(recipe.getTool()), EmiIngredient.of(recipe.getIngredients().getFirst()),
+				recipe.getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.stack()).setChance(chanceResult.chance())).toList()));
+		}
+		registry.addRecipe(new DecompositionEmiRecipe());
 
-        for (RecipeHolder<CuttingBoardRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CUTTING.get())) {
-            registry.addRecipe(new CuttingEmiRecipe(recipe.id(), EmiIngredient.of(recipe.value().getTool()), EmiIngredient.of(recipe.value().getIngredients().get(0)),
-                    recipe.value().getRollableResults().stream().map(chanceResult -> EmiStack.of(chanceResult.stack()).setChance(chanceResult.chance())).toList()));
+		addSpecialRecipes(registry);
+	}
+
+    public void addSpecialRecipes(EmiRegistry registry) {
+        ResourceLocation doughRecipeId = RecipeUtils.FDLocation("wheat_dough_from_water");
+        if (registry.getRecipeManager().byKey(doughRecipeId).isPresent()) {
+            ResourceLocation syntheticLocation = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "/crafting/wheat_dough_from_water");
+            registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(Items.WHEAT), EmiStack.of(Items.WATER_BUCKET)), EmiStack.of(ModItems.WHEAT_DOUGH.get()), syntheticLocation, true));
         }
-        registry.addRecipe(new DecompositionEmiRecipe());
     }
 }

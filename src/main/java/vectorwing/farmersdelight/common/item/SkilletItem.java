@@ -2,10 +2,16 @@ package vectorwing.farmersdelight.common.item;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -31,10 +37,10 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
+import vectorwing.farmersdelight.common.EnumParameters;
 import vectorwing.farmersdelight.common.block.SkilletBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
@@ -42,10 +48,15 @@ import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 @SuppressWarnings({"deprecation", "unused"})
 public class SkilletItem extends BlockItem
@@ -60,11 +71,51 @@ public class SkilletItem extends BlockItem
 		float attackDamage = 5.0F + SKILLET_TIER.getAttackDamageBonus();
 	}
 
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		if (oldStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())
+				!= newStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
+				oldStack.get(ModDataComponents.COOKING_TIME_LENGTH.get())
+						!= newStack.get(ModDataComponents.COOKING_TIME_LENGTH.get()) ||
+				oldStack.get(ModDataComponents.SKILLET_INGREDIENT.get()) !=
+						newStack.get(ModDataComponents.SKILLET_INGREDIENT.get())) {
+			return false;
+		}
+
+		return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
+	}
+
 	public static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed) {
 		return ItemAttributeModifiers.builder()
 				.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 				.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 				.add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
+	}
+
+	//TODO: is this needed? from neo latest
+	@EventBusSubscriber(modid = FarmersDelight.MODID, bus = EventBusSubscriber.Bus.GAME)
+	public static class SkilletEvents
+	{
+		@SubscribeEvent
+		public static void playSkilletAttackSound(LivingDamageEvent.Pre event) {
+			DamageSource damageSource = event.getSource();
+			Entity attacker = damageSource.getDirectEntity();
+
+			if (!(attacker instanceof LivingEntity livingEntity)) return;
+			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
+
+			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
+			if (livingEntity instanceof Player player) {
+				float attackPower = player.getAttackStrengthScale(0.0F);
+				if (attackPower > 0.8F) {
+					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
+				} else {
+					player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), SoundSource.PLAYERS, 0.8F, 0.9F);
+				}
+			} else {
+				livingEntity.getCommandSenderWorld().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), SoundSource.PLAYERS, 1.0F, pitch);
+			}
+		}
 	}
 
 	@Override
@@ -88,11 +139,16 @@ public class SkilletItem extends BlockItem
 		}
 		BlockPos pos = player.blockPosition();
 		for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-			if (level.getBlockState(nearbyPos).is(ModTags.HEAT_SOURCES)) {
+			if (level.getBlockState(nearbyPos).is(ModTags.Blocks.HEAT_SOURCES)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+		tooltip.add(TextUtils.PLACEABLE_SNEAKING);
 	}
 
 	@Override
@@ -121,7 +177,7 @@ public class SkilletItem extends BlockItem
 			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, level);
 			if (recipe.isPresent()) {
 				if (player.isUnderWater()) {
-					player.displayClientMessage(TextUtils.getTranslation("item.skillet.underwater"), true);
+					player.displayClientMessage(TextUtils.item("skillet.underwater"), true);
 					return InteractionResultHolder.pass(skilletStack);
 				}
 				ItemStack cookingStackCopy = cookingStack.copy();
@@ -132,7 +188,7 @@ public class SkilletItem extends BlockItem
 				player.setItemInHand(otherHand, cookingStackCopy);
 				return InteractionResultHolder.consume(skilletStack);
 			} else {
-				player.displayClientMessage(TextUtils.getTranslation("item.skillet.how_to_cook"), true);
+				player.displayClientMessage(TextUtils.item("skillet.how_to_cook"), true);
 			}
 		}
 		return InteractionResultHolder.pass(skilletStack);
@@ -141,12 +197,21 @@ public class SkilletItem extends BlockItem
 	@Override
 	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
 		if (entity instanceof Player player) {
-			Vec3 pos = player.position();
-			double x = pos.x() + 0.5D;
-			double y = pos.y();
-			double z = pos.z() + 0.5D;
-			if (level.random.nextInt(50) == 0) {
-				level.playLocalSound(x, y, z, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+			if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
+				long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+				long l = level.getGameTime() - flipTimeStamp;
+				if (l > FLIP_TIME) {
+					stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+					stack.set(ModDataComponents.SKILLET_FLIPPED.get(), !stack.getOrDefault(ModDataComponents.SKILLET_FLIPPED.get(), false));
+				} else if (level.isClientSide && l == FLIP_TIME - 8) {
+					//why does it need to play early? idk
+					//plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
+					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				} else if (level.isClientSide && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
+					level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				}
+			} else if (level.isClientSide && level.random.nextInt(50) == 0) {
+				level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
 			}
 		}
 	}
@@ -160,6 +225,8 @@ public class SkilletItem extends BlockItem
 				player.getInventory().placeItemBackInInventory(cookingStack);
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
+				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+				stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
 			}
 		}
 	}
@@ -183,10 +250,33 @@ public class SkilletItem extends BlockItem
 				});
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
+				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+				stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
 			}
 		}
 
 		return stack;
+	}
+
+	@Override
+	public int getBarWidth(ItemStack stack) {
+		if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
+			return Math.round(13.0F - (float) ClientRenderUtils.getClientPlayerHack().getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack, ClientRenderUtils.getClientPlayerHack()));
+		} else {
+			return super.getBarWidth(stack);
+		}
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack) {
+		if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
+			return 0xFF8B4F;
+		} else return super.getBarColor(stack);
+	}
+
+	@Override
+	public boolean isBarVisible(ItemStack stack) {
+		return super.isBarVisible(stack) || stack.has(ModDataComponents.COOKING_TIME_LENGTH.get());
 	}
 
 	public static Optional<RecipeHolder<CampfireCookingRecipe>> getCookingRecipe(ItemStack stack, Level level) {
@@ -199,8 +289,7 @@ public class SkilletItem extends BlockItem
 	@Override
 	protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
 		super.updateCustomBlockEntityTag(pos, level, player, stack, state);
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof SkilletBlockEntity skillet) {
+		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
 			skillet.setSkilletItem(stack, level.registryAccess());
 			return true;
 		}

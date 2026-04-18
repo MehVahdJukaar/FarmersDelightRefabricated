@@ -32,7 +32,8 @@ public class FarmersDelight implements ModInitializer
 
 	public static ResourceLocation res(String name) {
 		return ResourceLocation.fromNamespaceAndPath(MODID, name);
-	}
+	modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+		}
 
 	@Override
 	public void onInitialize() {
@@ -58,6 +59,11 @@ public class FarmersDelight implements ModInitializer
 		VillageStructures.init();
 		CommonModBusEvents.init();
 		VillagerEvents.init();
+
+		RegistryAliases.addRegistryAliases();
+
+		NeoForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);
+
 
 		CommonSetup.init();
 

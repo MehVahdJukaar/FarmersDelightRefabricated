@@ -9,7 +9,7 @@
       "tag": "c:crops/onion"
     },
     {
-      "item": "minecraft:beetroot"
+      "tag": "c:crops/beetroot"
     },
     {
       "fabric:type": "fabric:difference",

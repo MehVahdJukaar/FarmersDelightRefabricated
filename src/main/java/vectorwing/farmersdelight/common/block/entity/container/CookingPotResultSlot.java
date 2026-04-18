@@ -9,13 +9,13 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 public class CookingPotResultSlot extends ItemHandlerSlot
 {
-	public final CookingPotBlockEntity tileEntity;
+	public final CookingPotBlockEntity cookingPot;
 	private final Player player;
 	private int removeCount;
 
-	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
+	public CookingPotResultSlot(Player player, CookingPotBlockEntity blockEntity, ItemStackHandler inventory, int index, int xPosition, int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
-		this.tileEntity = tile;
+		this.cookingPot = blockEntity;
 		this.player = player;
 	}
 
@@ -35,9 +35,9 @@ public class CookingPotResultSlot extends ItemHandlerSlot
 	}
 
 	@Override
-	public void onTake(Player thePlayer, ItemStack stack) {
+	public void onTake(Player player, ItemStack stack) {
 		this.checkTakeAchievements(stack);
-		super.onTake(thePlayer, stack);
+		super.onTake(player, stack);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class CookingPotResultSlot extends ItemHandlerSlot
 		stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
 
 		if (!this.player.level().isClientSide) {
-			tileEntity.awardUsedRecipes(this.player, tileEntity.getDroppableInventory());
+			cookingPot.awardUsedRecipes(this.player, cookingPot.getDroppableInventory());
 		}
 
 		this.removeCount = 0;

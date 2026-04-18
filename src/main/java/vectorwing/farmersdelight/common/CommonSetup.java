@@ -8,8 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.DispenserBlock;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 

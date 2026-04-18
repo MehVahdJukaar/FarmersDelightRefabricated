@@ -22,6 +22,8 @@ public class VillagerEvents
 	}
 
 	public static void onVillagerTrades() {
+		if (!Configuration.ENABLE_FARMERS_BUY_FD_CROPS.get()) return;
+
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, (trades) -> {
             trades.add(emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2, Configuration.FARMERS_BUY_FD_CROPS));
             trades.add(emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2, Configuration.FARMERS_BUY_FD_CROPS));
@@ -33,14 +35,17 @@ public class VillagerEvents
         });
     }
 
-	public static void onWandererTrades() {
-        TradeOfferHelper.registerWanderingTraderOffers(1, (trades) -> {
-            trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-            trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-			trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-			trades.add(itemForEmeraldTrade(ModItems.ONION.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
-        });
-    }
+	public static void onWandererTrades(WandererTradesEvent event) {
+		TradeOfferHelper.registerWanderingTraderOffers(1, (trades) -> {
+			if (Configuration.ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS.get()) {
+
+				trades.add(itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.RICE.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
+				trades.add(itemForEmeraldTrade(ModItems.ONION.get(), 1, 12, Configuration.WANDERING_TRADER_SELLS_FD_ITEMS));
+			}
+		});
+	}
 
 	public static VillagerTrades.ItemListing emeraldForItemsTrade(ItemLike item, int count, int maxTrades, int xp, Supplier<Boolean> predicate) {
 		return new FDItemListing(new VillagerTrades.EmeraldForItems(item, count, maxTrades, xp), predicate);
