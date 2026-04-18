@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import vectorwing.farmersdelight.common.block.TomatoBlock;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.item.enchantment.BackstabbingEnchantment;
@@ -32,10 +33,10 @@ public abstract class LivingEntityMixin extends Entity {
         return original;
     }
 
-	//TODO: why was this here for?
+	//TODO: why was this here for? is it still needed?
     @ModifyExpressionValue(method = "onClimbable", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z"))
     private boolean onlyAllowTomatoClimbingWhilstRopelogged(boolean original, @Local BlockPos pos, @Local BlockState state) {
-        return original && (!(state.getBlock() instanceof TomatoVineBlock tomato) || tomato.isLadder(state, this.level(), pos, (LivingEntity)(Object)this));
+        return original && (!(state.getBlock() instanceof TomatoBlock tomato) || tomato.isLadder(state, this.level(), pos, (LivingEntity)(Object)this));
     }
 
     @ModifyVariable(method = "knockback", at = @At("HEAD"), ordinal = 0, argsOnly = true)
