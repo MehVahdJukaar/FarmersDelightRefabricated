@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,15 +26,13 @@ import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
 
-public class FarmersDelight implements ModInitializer
-{
+public class FarmersDelight implements ModInitializer {
 	public static final String MODID = "farmersdelight";
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static ResourceLocation res(String name) {
 		return ResourceLocation.fromNamespaceAndPath(MODID, name);
-	modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-		}
+	}
 
 	@Override
 	public void onInitialize() {
@@ -62,7 +61,6 @@ public class FarmersDelight implements ModInitializer
 
 		RegistryAliases.addRegistryAliases();
 
-		NeoForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);
 
 
 		CommonSetup.init();
@@ -72,7 +70,7 @@ public class FarmersDelight implements ModInitializer
 		CanItemPerformAbilityCondition.init();
 		LootModificationEvents.init();
 		ModBiomeModifiers.init();
-        CabinetBlockEntity.init();
+		CabinetBlockEntity.init();
 		CookingPotBlockEntity.init();
 		CuttingBoardBlock.init();
 		CuttingBoardBlockEntity.init();

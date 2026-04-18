@@ -41,11 +41,11 @@ public class KnifeItem extends DiggerItem
 	/**
 	 * This action is used on cutting recipes which need a knife.
 	 */
-	public static final ItemAbility KNIFE_DIG = ItemAbility.get("knife_dig");
+	public static final ItemAbility KNIFE_DIG = ItemAbility.valueOf("knife_dig");
 	/**
 	 * This action is used in gameplay interactions where something is harvested.
 	 */
-	public static final ItemAbility KNIFE_HARVEST = ItemAbility.get("knife_harvest");
+	public static final ItemAbility KNIFE_HARVEST = ItemAbility.valueOf("knife_harvest");
 
 	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbility.SHEARS_CARVE, ItemAbility.SWORD_DIG, KNIFE_DIG, KNIFE_HARVEST);
 

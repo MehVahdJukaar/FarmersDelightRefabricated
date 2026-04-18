@@ -108,8 +108,8 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 		tagBuilder(net.minecraft.tags.BlockTags.CLIMBABLE).add(
 				ModBlocks.ROPE.get(),
 				ModBlocks.TOMATO_CROP_ON_ROPE.get());
-		tag(net.minecraft.tags.BlockTags.FENCES).add(ModBlocks.ROPE_FENCE.get());
-		tag(net.minecraft.tags.BlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
+		tagBuilder(net.minecraft.tags.BlockTags.FENCES).add(ModBlocks.ROPE_FENCE.get());
+		tagBuilder(net.minecraft.tags.BlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE).add(
 				ModBlocks.SANDY_SHRUB.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
@@ -228,8 +228,8 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
         tagBuilder(ConventionalBlockTags.ROPES).add(ModBlocks.ROPE.get());
         //This is a neoforge tag. i think we alreadey have a mixin that takes care of this
         //tagBuilder(ConventionalBlockTags.VILLAGER_FARMLANDS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
-		tag(ConventionalBlockTags.FENCES).add(ModBlocks.ROPE_FENCE.get());
-		tag(ConventionalBlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
+		tagBuilder(ConventionalBlockTags.FENCES).add(ModBlocks.ROPE_FENCE.get());
+		tagBuilder(ConventionalBlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
 
 		tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).addTags(
                 CommonTags.Blocks.STORAGE_BLOCKS_CARROT,
@@ -266,7 +266,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.GLEAMING_SALAD_BLOCK.get(),
 				ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get()
 		);
-		tag(ModTags.Blocks.PIES).add(
+		tagBuilder(ModTags.Blocks.PIES).add(
 				ModBlocks.APPLE_PIE.get(),
 				ModBlocks.SWEET_BERRY_CHEESECAKE.get(),
 				ModBlocks.CHOCOLATE_PIE.get(),
@@ -305,10 +305,10 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				.add(ModBlocks.CRIMSON_CABINET.get())
 				.add(ModBlocks.WARPED_CABINET.get());
 		tag(ModTags.Blocks.CABINETS).addTag(ModTags.Blocks.CABINETS_WOODEN);
-		tag(ModTags.Blocks.MUSHROOM_COLONIES)
+		tagBuilder(ModTags.Blocks.MUSHROOM_COLONIES)
 				.add(ModBlocks.BROWN_MUSHROOM_COLONY.get())
 				.add(ModBlocks.RED_MUSHROOM_COLONY.get());
-		tag(ModTags.Blocks.ROPES).add(ModBlocks.ROPE.get())
+		tagBuilder(ModTags.Blocks.ROPES).add(ModBlocks.ROPE.get())
 				.addOptional(ResourceLocation.parse("quark:rope"))
 				.addOptional(ResourceLocation.parse("supplementaries:rope"));
 		tagBuilder(ModTags.Blocks.TRAY_HEAT_SOURCES).add(

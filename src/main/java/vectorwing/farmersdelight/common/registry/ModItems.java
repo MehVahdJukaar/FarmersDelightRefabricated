@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.registry;
 
 import com.google.common.collect.Sets;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -489,8 +490,9 @@ public class ModItems
 			() -> new BlockItem(ModBlocks.PUMPKIN_PIE.get(), basicItem())
 			{
 				@Override
-				public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-					tooltip.add(TextUtils.DEBUG_ITEM);
+				public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+					super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+					tooltipComponents.add(TextUtils.DEBUG_ITEM);
 				}
 			});
 

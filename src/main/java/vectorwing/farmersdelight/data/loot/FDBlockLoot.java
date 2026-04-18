@@ -268,10 +268,6 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 		add(block, this::createNameableBlockEntityTable);
 	}
 
-	@Override
-	protected @NotNull Iterable<Block> getKnownBlocks() {
-		return ModBlocks.BLOCKS.getEntries().stream().map(DeferredHolder::value).collect(Collectors.toList());
-	}
 
 	protected LootTable.Builder mushroomColony(Block block, Item mushroom) {
 		return this.applyExplosionDecay(block, LootTable.lootTable().withPool(LootPool.lootPool()
