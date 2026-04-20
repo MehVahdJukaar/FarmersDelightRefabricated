@@ -12,6 +12,7 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 /**
  * Util for handling ItemStacks and inventories containing them.
@@ -26,6 +27,12 @@ public class ItemUtils
 	 */
 	public static boolean isValidTool(ItemStack stack, ItemAbility toolAction, TagKey<Item> fallbackTag) {
 		return toolAction.canPerformAction(stack) || stack.is(fallbackTag);
+	}
+
+	public static void clearItems(ItemStackHandler inventory) {
+		for (int i = 0; i < inventory.getSlots(); i++) {
+			inventory.setStackInSlot(i, ItemStack.EMPTY);
+		}
 	}
 
 	public static boolean isKnife(ItemStack stack) {
