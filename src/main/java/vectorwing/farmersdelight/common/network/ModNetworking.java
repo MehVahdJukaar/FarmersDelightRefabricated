@@ -26,19 +26,20 @@ public class ModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(FlipSkilletPayload.TYPE, (payload, context) -> payload.handle(context.server(), context.player()));
 
 
-		registrar.playToClient(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC, ModNetworking1.ClientPayloadHandler::handleRichSoilBoostParticles);
+		PayloadTypeRegistry.playS2C().register(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC);
 
     }
 
 	public static class ClientPayloadHandler
 	{
-		public static void handleRichSoilBoostParticles(RichSoilBoostParticlesPayload payload, IPayloadContext context) {
+		public static void handleRichSoilBoostParticles(RichSoilBoostParticlesPayload payload, ClientPlayNetworking.Context context) {
 			BoneMealItem.addGrowthParticles(context.player().level(), payload.pos(), 15);
 		}
 	}
 
     public static void initClient() {
         ClientPlayNetworking.registerGlobalReceiver(SendRecipeBookValuesPayload.TYPE, (payload, context) -> payload.handle());
+        ClientPlayNetworking.registerGlobalReceiver(RichSoilBoostParticlesPayload.TYPE, ModNetworking.ClientPayloadHandler::handleRichSoilBoostParticles);
     }
 
 }

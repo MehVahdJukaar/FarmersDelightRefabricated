@@ -1,8 +1,10 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
@@ -63,7 +65,9 @@ public class RichSoilBlock extends Block
 			if (growable.isValidBonemealTarget(level, plantPos, plantState) && CommonHooks.canCropGrow(level, plantPos, plantState, true)) {
 				growable.performBonemeal(level, level.random, plantPos, plantState);
 				//TODO: why packet and not just use block event?
-				PacketDistributor.sendToPlayersTrackingChunk(level, level.getChunkAt(plantPos).getPos(), new RichSoilBoostParticlesPayload(plantPos));
+				for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(level.getChunkAt(plantPos).getPos(), false)) {
+					ServerPlayNetworking.send(player, new RichSoilBoostParticlesPayload(plantPos));
+				}
 				CommonHooks.fireCropGrowPost(level, plantPos, plantState);
 				return true;
 			}

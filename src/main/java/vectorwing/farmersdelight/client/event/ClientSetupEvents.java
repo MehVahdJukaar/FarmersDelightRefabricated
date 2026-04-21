@@ -56,26 +56,6 @@ public class ClientSetupEvents
         return null;
     }
 
-	@SubscribeEvent
-	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-		event.registerItem(new IClientItemExtensions()
-		{
-			BlockEntityWithoutLevelRenderer renderer = new SkilletItemRenderer();
-
-			@Override
-			public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-				return renderer;
-			}
-
-			@Override
-			public HumanoidModel.@Nullable ArmPose getArmPose(LivingEntity living, InteractionHand hand, ItemStack stack) {
-				return stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ? EnumParameters.PROXY_SKILLET_FLIP.getValue() : null;
-			}
-		}, ModItems.SKILLET.get());
-	}
-
-
-
 //    @SubscribeEvent(priority = EventPriority.LOW)
 //    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
 //		HUDOverlays.register(event);
