@@ -24,12 +24,12 @@ import vectorwing.farmersdelight.refabricated.ItemAbility;
 public class CuttingRecipes
 {
 	public static Ingredient KNIVES = matchesTool(KnifeItem.KNIFE_DIG, CommonTags.Items.TOOLS_KNIFE);
-	public static Ingredient PICKAXES = matchesTool(ItemAbilities.PICKAXE_DIG, ItemTags.PICKAXES);
-	public static Ingredient AXES = matchesTool(ItemAbilities.AXE_DIG, ItemTags.AXES);
-	public static Ingredient AXES_STRIP = matchesTool(ItemAbilities.AXE_STRIP, ItemTags.AXES);
-	public static Ingredient SHOVELS = matchesTool(ItemAbilities.SHOVEL_DIG, ItemTags.SHOVELS);
-	public static Ingredient HOES = matchesTool(ItemAbilities.HOE_DIG, ItemTags.HOES);
-	public static Ingredient SHEARS = matchesTool(ItemAbilities.SHEARS_DIG, Tags.Items.TOOLS_SHEAR);
+	public static Ingredient PICKAXES = matchesTool(ItemAbility.PICKAXE_DIG, ItemTags.PICKAXES);
+	public static Ingredient AXES = matchesTool(ItemAbility.AXE_DIG, ItemTags.AXES);
+	public static Ingredient AXES_STRIP = matchesTool(ItemAbility.AXE_STRIP, ItemTags.AXES);
+	public static Ingredient SHOVELS = matchesTool(ItemAbility.SHOVEL_DIG, ItemTags.SHOVELS);
+	public static Ingredient HOES = matchesTool(ItemAbility.HOE_DIG, ItemTags.HOES);
+	public static Ingredient SHEARS = matchesTool(ItemAbility.SHEARS_DIG, ConventionalItemTags.SHEAR_TOOLS);
 
 	public static void register(RecipeOutput output) {
 		// Knife
@@ -277,7 +277,7 @@ public class CuttingRecipes
 	}
 
 	private static void salvagingUsingShears(RecipeOutput output) {
-		CuttingBoardRecipeBuild1er.cuttingRecipe(Ingredient.of(Items.SADDLE), SHEARS, Items.LEATHER, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SADDLE), SHEARS, Items.LEATHER, 2)
 			.addResultWithChance(Items.IRON_NUGGET, 0.5F, 2)
 			.save(output, salvagingRecipe("saddle"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HORSE_ARMOR), SHEARS, Items.LEATHER, 2)
