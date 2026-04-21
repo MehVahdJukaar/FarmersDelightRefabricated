@@ -57,9 +57,9 @@ public class ModSounds
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.tomatoes.pick_tomatoes")));
 
 	// Food
-	public static final Supplier<SoundEvent> BLOCK_FOOD_TAKE_PORTION = SOUNDS.register("block.food.take_portion",
+	public static final Supplier<SoundEvent> BLOCK_FOOD_TAKE_PORTION = regSound("block.food.take_portion",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.food.take_portion")));
-	public static final Supplier<SoundEvent> BLOCK_FOOD_SLICE = SOUNDS.register("block.food.slice",
+	public static final Supplier<SoundEvent> BLOCK_FOOD_SLICE = regSound("block.food.slice",
 			() -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "block.food.slice")));
 
 	public static final Supplier<SoundEvent> ENTITY_ROTTEN_TOMATO_THROW = regSound("entity.rotten_tomato.throw",
