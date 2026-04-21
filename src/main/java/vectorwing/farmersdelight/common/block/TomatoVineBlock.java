@@ -9,6 +9,7 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 // Renamed to TomatoBlock. This class will be removed in the next minor/major release.
+// Renamed to TomatoBlock. This class will be removed in the next minor/major release.
 @Deprecated(forRemoval = true)
 public class TomatoVineBlock extends TomatoBlock
 {

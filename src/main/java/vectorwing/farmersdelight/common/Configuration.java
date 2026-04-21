@@ -134,9 +134,9 @@ public class Configuration
 			CLIENT_BUILDER.comment("Client settings").push("client");
 
 			ENABLE_NOURISHMENT_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
-				.define("enableNourishmentHungerOverlay", true);
+			.define("enableNourishmentHungerOverlay", true);
 			ENABLE_COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
-				.define("enableComfortHealthOverlay", true);
+			.define("enableComfortHealthOverlay", true);
 			ENABLE_FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
 			.define("enableFoodEffectTooltip", true);
 			CLIENT_BUILDER.pop();
@@ -148,6 +148,5 @@ public class Configuration
 	}
 
 	public static void touch() {
-
 	}
 }
