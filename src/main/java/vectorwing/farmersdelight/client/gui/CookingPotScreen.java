@@ -90,6 +90,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 	@Override
     public void extractBackground(GuiGraphicsExtractor gui, int mouseX, int mouseY, float partialTicks) {
+        super.extractBackground(gui, mouseX, mouseY, partialTicks);
         gui.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
 		// Render heat icon
