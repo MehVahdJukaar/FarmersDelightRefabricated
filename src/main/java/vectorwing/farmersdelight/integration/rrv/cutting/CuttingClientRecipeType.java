@@ -10,9 +10,9 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.List;
 
-public class CuttingViewType implements ReliableClientRecipeType {
+public class CuttingClientRecipeType implements ReliableClientRecipeType {
 
-    public static final CuttingViewType INSTANCE = new CuttingViewType();
+    public static final CuttingClientRecipeType INSTANCE = new CuttingClientRecipeType();
 
     @Override
     public Component getDisplayName() {

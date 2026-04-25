@@ -107,8 +107,8 @@ dependencies {
     // Uncomment the below to test CraftTweaker.
     // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
-    compileOnly("mezz.jei:jei-26.1.1-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-26.1.1-fabric-api:${jei_version}") {
+    compileOnly("mezz.jei:jei-26.1.2-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-26.1.2-fabric-api:${jei_version}") {
         transitive = false
     }
     // Uncomment the below to test JEI.

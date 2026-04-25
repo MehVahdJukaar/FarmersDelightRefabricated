@@ -1,1 +1,4 @@
 - Added back JEI integration.
+- Updated RRV integration to v8.0.0.
+- Fixed backgrounds not rendering in Cooking Pot screen.
+- Reimplemented villager trades. The config option is no longer present as trades can be disabled via datapacks.

@@ -10,6 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
 import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
 
@@ -17,36 +20,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CookingPotViewRecipe implements ReliableClientRecipe {
+public class CookingPotClientRecipe implements ReliableClientRecipe {
 
     private final SlotContent result;
     private final List<SlotContent> ingredients;
     private final SlotContent container;
     private final int cookTime;
     private final float experience;
+	private final Identifier id;
 
-    public CookingPotViewRecipe(CookingPotServerRecipe shapelessRecipe) {
-        this.ingredients = new ArrayList<>();
+	public CookingPotClientRecipe(Identifier identifier, List<Ingredient> ingredients, ItemStackTemplate result, ItemStackTemplate container, float experience, int cookTime) {
+		this.id = identifier;
+		this.ingredients = new ArrayList<>();
 
-        shapelessRecipe.getIngredients().forEach(ingredient -> {
-            this.ingredients.add(SlotContent.of(ingredient));
-        });
+		ingredients.forEach(ingredient -> this.ingredients.add(SlotContent.of(ingredient)));
 
-        this.result = SlotContent.of(shapelessRecipe.getResult());
-        this.container = SlotContent.of(shapelessRecipe.getContainer());
-        this.experience = shapelessRecipe.getExperience();
-        this.cookTime = shapelessRecipe.getCookTime();
-        // Workaround to make sure that the container does not get included in transfers.
-        // This luckily doesn't seem to affect anything else.
-        this.container.setType(ActionType.RESULT);
+		this.result = SlotContent.of(result);
+		this.container = SlotContent.of(container);
+		this.experience = experience;
+		this.cookTime = cookTime;
+		// Workaround to make sure that the container does not get included in transfers.
+		// This luckily doesn't seem to affect anything else.
+		this.container.setType(ActionType.RESULT);
+	}
+
+	@Override
+    public ReliableClientRecipeType getType() {
+        return CookingPotClientRecipeType.INSTANCE;
     }
 
-    @Override
-    public ReliableClientRecipeType getViewType() {
-        return CookingPotViewType.INSTANCE;
-    }
+	@Override
+	public Identifier getId() {
+		return id;
+	}
 
-    @Override
+	@Override
     public void bindSlots(RecipeViewMenu.SlotFillContext slotFillContext) {
 
         for (int i = 0; i < ingredients.size() && i < 6; i++) {

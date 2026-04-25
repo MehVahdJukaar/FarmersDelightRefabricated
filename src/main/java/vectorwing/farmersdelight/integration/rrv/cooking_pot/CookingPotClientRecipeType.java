@@ -10,9 +10,9 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.List;
 
-public class CookingPotViewType implements ReliableClientRecipeType {
+public class CookingPotClientRecipeType implements ReliableClientRecipeType {
 
-    public static final CookingPotViewType INSTANCE = new CookingPotViewType();
+    public static final CookingPotClientRecipeType INSTANCE = new CookingPotClientRecipeType();
 
     @Override
     public Component getDisplayName() {

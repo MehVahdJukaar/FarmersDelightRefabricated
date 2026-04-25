@@ -1,55 +1,44 @@
 package vectorwing.farmersdelight.integration.rrv;
 
-import cc.cassian.rrv.api.ReliableRecipeViewerPlugin;
+import cc.cassian.rrv.api.ReliableRecipeViewerClientPlugin;
 import cc.cassian.rrv.api.recipe.ItemView;
-import cc.cassian.rrv.common.builtin.crafting.recipes.ShapelessServerRecipe;
-import cc.cassian.rrv.common.recipe.ServerRecipeManager;
-import net.minecraft.world.item.ItemStack;
+import cc.cassian.rrv.client.recipe.ClientRecipeManager;
+import cc.cassian.rrv.common.builtin.crafting.CraftingClientRecipe;
+import cc.cassian.rrv.common.recipe.inventory.SlotContent;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.crafting.DoughRecipe;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.integration.rrv.cooking_pot.CookingPotServerRecipe;
-import vectorwing.farmersdelight.integration.rrv.cooking_pot.CookingPotViewRecipe;
-import vectorwing.farmersdelight.integration.rrv.cutting.CuttingServerRecipe;
-import vectorwing.farmersdelight.integration.rrv.cutting.CuttingViewRecipe;
-import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionServerRecipe;
-import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionViewRecipe;
+import vectorwing.farmersdelight.integration.rrv.cooking_pot.CookingPotClientRecipe;
+import vectorwing.farmersdelight.integration.rrv.cutting.CuttingClientRecipe;
+import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionClientRecipe;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-public class RRVPlugin implements ReliableRecipeViewerPlugin {
+public class RRVPlugin implements ReliableRecipeViewerClientPlugin {
     @Override
     public void onIntegrationInitialize() {
-        ItemView.addServerRecipeProvider(recipeList -> {
-            // Cooking Pot - serverside
-            ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.COOKING.get()).forEach(recipe -> {
-                recipeList.add(new CookingPotServerRecipe(recipe.input(), recipe.result().create(), Optional.ofNullable(recipe.container()).map(ItemStackTemplate::create).orElse(ItemStack.EMPTY), recipe.getExperience(), recipe.getCookTime()));
+        ItemView.addClientRecipeProvider(recipeList -> {
+            // Cooking Pot
+            ClientRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.COOKING.get()).forEach(recipeHolder -> {
+				var recipe = recipeHolder.value();
+                recipeList.add(new CookingPotClientRecipe(recipeHolder.id().identifier(), recipe.input(), recipe.result(), recipe.container(), recipe.getExperience(), recipe.getCookTime()));
             });
             // Cutting Board - serverside
-            ServerRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipe -> {
-                recipeList.add(new CuttingServerRecipe(recipe.getInput(), recipe.getResults(), recipe.getTool(), recipe.getRollableResults()));
+			ClientRecipeManager.INSTANCE.getRecipesForType(ModRecipeTypes.CUTTING.get()).forEach(recipeHolder -> {
+				var  recipe = recipeHolder.value();
+                recipeList.add(new CuttingClientRecipe(recipeHolder.id().identifier(), recipe.getInput(), recipe.getResults(), recipe.getTool(), recipe.getRollableResults()));
             });
-            recipeList.add(new DecompositionServerRecipe());
-            recipeList.add(new ShapelessServerRecipe(List.of(Ingredient.of(Items.WHEAT), Ingredient.of(Items.WATER_BUCKET)), new ItemStackTemplate(ModItems.WHEAT_DOUGH.get())));
-        });
-
-        // Cooking Pot - clientside
-        ItemView.addClientRecipeWrapper(CookingPotServerRecipe.TYPE, modRecipe -> {
-            return Collections.singletonList(new CookingPotViewRecipe(modRecipe));
-        });
-
-        // Cutting Board - clientside
-        ItemView.addClientRecipeWrapper(CuttingServerRecipe.TYPE, modRecipe -> {
-            return Collections.singletonList(new CuttingViewRecipe(modRecipe));
-        });
-
-        // Decomposition - Clientside
-        ItemView.addClientRecipeWrapper(DecompositionServerRecipe.TYPE, modRecipe -> {
-           return List.of(new DecompositionViewRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
+            recipeList.add(new DecompositionClientRecipe(ModItems.ORGANIC_COMPOST.get().getDefaultInstance(), ModItems.RICH_SOIL.get().getDefaultInstance()));
+			ClientRecipeManager.INSTANCE.getRecipesForType(RecipeType.CRAFTING).forEach(recipeHolder -> {
+				if (recipeHolder.value() instanceof DoughRecipe) {
+					recipeList.add(new CraftingClientRecipe.Builder(recipeHolder.id().identifier(), List.of(SlotContent.of(Items.WHEAT), SlotContent.of(ConventionalItemTags.WATER_BUCKETS))).setResult(new ItemStackTemplate(ModItems.WHEAT_DOUGH.get())).build());
+				}
+			});
         });
     }
 }

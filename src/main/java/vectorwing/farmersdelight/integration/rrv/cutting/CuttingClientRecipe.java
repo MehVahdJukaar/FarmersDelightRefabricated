@@ -12,40 +12,50 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 
 import java.util.*;
 
-public class CuttingViewRecipe implements ReliableClientRecipe {
+public class CuttingClientRecipe implements ReliableClientRecipe {
 
     private final LinkedHashMap<SlotContent, Float> rollableResults;
-    private SlotContent ingredient;
-    private List<SlotContent> results;
-    private SlotContent tool;
+    private final SlotContent ingredient;
+    private final List<SlotContent> results;
+    private final SlotContent tool;
+	private final Identifier id;
 
-    public CuttingViewRecipe(CuttingServerRecipe shapelessRecipe) {
-        this.results = new ArrayList<>();
-        this.rollableResults = new LinkedHashMap<>();
+	public CuttingClientRecipe(Identifier identifier, Ingredient input, List<ItemStackTemplate> results, Ingredient tool, List<ChanceResult> rollableResults) {
+		this.id = identifier;
+		this.results = new ArrayList<>();
+		this.rollableResults = new LinkedHashMap<>();
 
 
-        shapelessRecipe.getResults().forEach(ingredient -> {
-            this.results.add(SlotContent.of(ingredient));
-        });
+		results.forEach(ingredient -> {
+			this.results.add(SlotContent.of(ingredient));
+		});
 
-        shapelessRecipe.getRollableResults().forEach(ingredient -> {
-            this.rollableResults.put(SlotContent.of(ingredient.stack()), ingredient.chance());
-        });
+		rollableResults.forEach(ingredient -> {
+			this.rollableResults.put(SlotContent.of(ingredient.stack()), ingredient.chance());
+		});
 
-        this.ingredient = SlotContent.of(shapelessRecipe.getIngredient());
-        this.tool = SlotContent.of(shapelessRecipe.getTool());
+		this.ingredient = SlotContent.of(input);
+		this.tool = SlotContent.of(tool);
+	}
+
+	@Override
+    public ReliableClientRecipeType getType() {
+        return CuttingClientRecipeType.INSTANCE;
     }
 
-    @Override
-    public ReliableClientRecipeType getViewType() {
-        return CuttingViewType.INSTANCE;
-    }
+	@Override
+	public Identifier getId() {
+		return id;
+	}
 
-    @Override
+	@Override
     public void bindSlots(RecipeViewMenu.SlotFillContext slotFillContext) {
         int i = 0;
         slotFillContext.bindSlot(i, ingredient);

@@ -36,7 +36,7 @@
     "modmenu": [
       "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
     ],
-    "rrv": [
+    "rrv_client": [
       "vectorwing.farmersdelight.integration.rrv.RRVPlugin"
     ]
 
@@ -51,6 +51,6 @@
     "minecraft": "${minecraft_required}"
   },
   "conflicts": {
-    "rrv": "<6.2.1"
+    "rrv": "<8.0.0"
   }
 }

@@ -90,5 +90,6 @@ public class FarmersDelight implements ModInitializer
         // Synchronize recipe serializers for JEI/RRV/other recipe viewers
         RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());
         RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.CUTTING.get());
-    }
+		RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.DOUGH.get());
+	}
 }
