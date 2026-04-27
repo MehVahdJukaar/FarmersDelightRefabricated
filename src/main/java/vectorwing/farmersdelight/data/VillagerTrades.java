@@ -44,11 +44,11 @@ public class VillagerTrades extends FabricDynamicRegistryProvider
     }
 
     public static void onVillagerTrades(final BootstrapContext<VillagerTrade> context) {
-        context.register(FARMER_1_ONION_EMERALD, emeraldForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
-        context.register(FARMER_1_TOMATO_EMERALD, emeraldForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
+        context.register(FARMER_1_ONION_EMERALD, emeraldsForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
+        context.register(FARMER_1_TOMATO_EMERALD, emeraldsForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
 
-        context.register(FARMER_2_CABBAGE_EMERALD, emeraldForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
-        context.register(FARMER_2_RICE_EMERALD, emeraldForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
+        context.register(FARMER_2_CABBAGE_EMERALD, emeraldsForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
+        context.register(FARMER_2_RICE_EMERALD, emeraldsForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
     }
 
     public static void onWandererTrades(BootstrapContext<VillagerTrade> context) {
@@ -58,8 +58,8 @@ public class VillagerTrades extends FabricDynamicRegistryProvider
         context.register(WANDERING_TRADER_ONION_EMERALD, itemForEmeraldTrade(ModItems.ONION.get(), 1, 12));
     }
 
-    public static VillagerTrade emeraldForItemsTrade(ItemLike item, int count, int maxTrades, int xp) {
-        return new VillagerTrade(new TradeCost(Items.EMERALD, 1), new ItemStackTemplate(item.asItem(), count), maxTrades, xp, 0.05f, Optional.empty(), List.of());
+    public static VillagerTrade emeraldsForItemsTrade(ItemLike item, int count, int maxTrades, int xp) {
+        return new VillagerTrade(new TradeCost(item.asItem(), 1), new ItemStackTemplate(Items.EMERALD), maxTrades, xp, 0.05f, Optional.empty(), List.of());
     }
 
     public static VillagerTrade itemForEmeraldTrade(ItemLike item, int maxTrades, int xp) {

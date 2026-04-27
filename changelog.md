@@ -1,4 +1,1 @@
-- Added back JEI integration.
-- Updated RRV integration to v8.0.0.
-- Fixed backgrounds not rendering in Cooking Pot screen.
-- Reimplemented villager trades. The config option is no longer present as trades can be disabled via datapacks.
+- Fixed Farmer Villager Trades having the inverse buy/sell item. [#308](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/308)

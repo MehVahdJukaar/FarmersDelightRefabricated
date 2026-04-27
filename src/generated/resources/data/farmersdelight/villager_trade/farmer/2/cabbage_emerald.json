@@ -1,12 +1,11 @@
 {
   "gives": {
-    "count": 16,
-    "id": "farmersdelight:cabbage"
+    "id": "minecraft:emerald"
   },
   "max_uses": 16.0,
   "reputation_discount": 0.05,
   "wants": {
-    "id": "minecraft:emerald"
+    "id": "farmersdelight:cabbage"
   },
   "xp": 5.0
 }
