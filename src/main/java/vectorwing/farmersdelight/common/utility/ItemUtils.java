@@ -38,6 +38,12 @@ public class ItemUtils
                     inventory.extractItem(slot, inventory.getSlotLimit(slot), false));
 	}
 
+	public static void clearItems(ItemStackHandler inventory) {
+		for (int i = 0; i < inventory.getSlotCount(); i++) {
+			inventory.setStackInSlot(i, ItemStack.EMPTY);
+		}
+	}
+
 	public static boolean doesInventoryHaveItems(ItemHandler inventory) {
         for (int i = 0; i < inventory.getSlotCount(); ++i) {
             if (!inventory.getStackInSlot(i).isEmpty())

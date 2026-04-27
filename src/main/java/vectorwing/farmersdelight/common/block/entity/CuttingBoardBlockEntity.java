@@ -19,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -49,10 +50,11 @@ import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import java.util.List;
 import java.util.Optional;
 
-public class CuttingBoardBlockEntity extends SyncedBlockEntity
+public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Clearable
 {
 	private final ItemStackHandler inventory;
 	private final RecipeManager.CachedCheck<CuttingBoardRecipeInput, CuttingBoardRecipe> quickCheck;
+	private ResourceLocation lastRecipeID;
 	private boolean isItemCarvingBoard;
 
 	public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
@@ -177,6 +179,11 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 		return addedStack;
 	}
 
+	public ItemStack removeItem() {
+		isItemCarvingBoard = false;
+		return inventory.extractItem(0, getMaxStackSize(), false);
+	}
+
 	public boolean carveToolOnBoard(ItemStack toolStack) {
 		if (toolStack.getItem() instanceof TieredItem || toolStack.getItem() instanceof TridentItem || toolStack.getItem() instanceof ShearsItem) {
 			if (addItem(toolStack) == ItemStack.EMPTY) {
@@ -185,21 +192,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 			}
 		}
 		return false;
-	}
-
-	public ItemStack removeItem() {
-		isItemCarvingBoard = false;
-		return inventory.extractItem(0, getMaxStackSize(), false);
-	}
-
-	public ItemStack removeItem() {
-		if (!isEmpty()) {
-			isItemCarvingBoard = false;
-			ItemStack item = inventory.extractItem(0, 1, false);
-			inventoryChanged();
-			return item;
-		}
-		return ItemStack.EMPTY;
 	}
 
 	public ItemHandler getInventory() {
@@ -235,5 +227,10 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 				inventoryChanged();
 			}
 		};
+	}
+
+	@Override
+	public void clearContent() {
+		ItemUtils.clearItems(inventory);
 	}
 }
