@@ -217,13 +217,6 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
                 .save(consumer, getNameId("main/master_chef"));
     }
 
-	protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-		return Advancement.Builder.advancement().parent(parent).display(display,
-				TextUtils.advancement(name + ".title"),
-				TextUtils.advancement(name + ".description"),
-				null, frame, showToast, announceToChat, hidden);
-	}
-
 	private String getNameId(String id) {
 		return FarmersDelight.MODID + ":" + id;
 	}

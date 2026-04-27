@@ -16,7 +16,7 @@ import java.util.List;
 @Mixin(V3818_3.class)
 public class V3818_3Mixin
 {
-	@ModifyArg(method = "lambda$registerTypes$0", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DSL;optionalFields([Lcom/mojang/datafixers/util/Pair;)Lcom/mojang/datafixers/types/templates/TypeTemplate;"))
+	@ModifyArg(method = "method_57277", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DSL;optionalFields([Lcom/mojang/datafixers/util/Pair;)Lcom/mojang/datafixers/types/templates/TypeTemplate;"))
 	private static Pair<String, TypeTemplate>[] addFDCustomComponents(Pair<String, TypeTemplate>[] components, @Local(argsOnly = true) Schema schema) {
 		var list = new ArrayList<>(List.of(components));
 

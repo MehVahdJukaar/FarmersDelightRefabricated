@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.data;
 
-import mezz.jei.api.constants.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -315,7 +314,9 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 		tagBuilder(CommonTags.Items.FOODS_RAW_MUTTON).add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
 		tagBuilder(CommonTags.Items.FOODS_RAW_COD).add(Items.COD, ModItems.COD_SLICE.get());
 		tagBuilder(CommonTags.Items.FOODS_RAW_SALMON).add(Items.SALMON, ModItems.SALMON_SLICE.get());
-		tagBuilder(CommonTags.Items.FOODS_SAFE_RAW_FISH).addTag(Tags.Items.FOODS_RAW_FISH).remove(Items.PUFFERFISH);
+		// TODO: 26.1: Use tag entry removal PR to remove Pufferfish.
+		tagBuilder(CommonTags.Items.FOODS_SAFE_RAW_FISH).addTags(CommonTags.Items.FOODS_RAW_COD, CommonTags.Items.FOODS_RAW_SALMON);
+//		tagBuilder(CommonTags.Items.FOODS_SAFE_RAW_FISH).addTag(ConventionalItemTags.RAW_FISH_FOODS);.remove(Items.PUFFERFISH);
 
 		tagBuilder(CommonTags.Items.FOODS_COOKED_BACON).add(ModItems.COOKED_BACON.get());
 		tagBuilder(CommonTags.Items.FOODS_COOKED_BEEF).add(Items.COOKED_BEEF, ModItems.BEEF_PATTY.get());

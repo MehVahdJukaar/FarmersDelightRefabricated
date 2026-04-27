@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +21,7 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.network.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
-import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
+import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
 
@@ -67,7 +66,7 @@ public class FarmersDelight implements ModInitializer {
 
 		// new stuff
 		VanillaCrateEnabledCondition.init();
-		CanItemPerformAbilityCondition.init();
+		CanItemPerformAbility.init();
 		LootModificationEvents.init();
 		ModBiomeModifiers.init();
 		CabinetBlockEntity.init();

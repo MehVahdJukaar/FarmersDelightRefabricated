@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -128,8 +127,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
 		cookingTime = compound.getInt("CookTime");
 		cookingTimeTotal = compound.getInt("CookTimeTotal");
-		skilletStack = ItemStack.parseOptional(registries, compound.getCompound("Skillet"));
-		fireAspectLevel = EnchantmentHelper.getTagEnchantmentLevel(registries.holder(Enchantments.FIRE_ASPECT).get(), skilletStack);
+		setSkilletItem(ItemStack.parseOptional(registries, compound.getCompound("Skillet")));
 	}
 
     @Override
@@ -151,7 +149,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		skilletStack = stack.copy();
 		if (level != null) {
 			Optional<Holder.Reference<Enchantment>> fireAspect = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
-			fireAspectLevel = fireAspect.map(stack::getEnchantmentLevel).orElse(0);
+			fireAspectLevel = fireAspect.map(enchantment -> stack.getEnchantments().getLevel(enchantment)).orElse(0);
 			inventoryChanged();
 		} else {
 			fireAspectLevel = 0;

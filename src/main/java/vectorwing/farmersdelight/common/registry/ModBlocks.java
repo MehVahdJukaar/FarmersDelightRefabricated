@@ -261,13 +261,13 @@ public class ModBlocks
 
 	// Pastries
 	public static final Supplier<Block> APPLE_PIE = regBlock("apple_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.APPLE_PIE_SLICE.get())); //dont kill double lambda
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()-> ModItems.APPLE_PIE_SLICE.get())); //dont kill double lambda
 	public static final Supplier<Block> SWEET_BERRY_CHEESECAKE = regBlock("sweet_berry_cheesecake",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()-> ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()));
 	public static final Supplier<Block> CHOCOLATE_PIE = regBlock("chocolate_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.CHOCOLATE_PIE_SLICE.get()));
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()-> ModItems.CHOCOLATE_PIE_SLICE.get()));
 	public static final Supplier<Block> PUMPKIN_PIE = regBlock("pumpkin_pie",
-			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ModItems.PUMPKIN_PIE_SLICE)
+			() -> new PieBlock(Block.Properties.ofFullCopy(Blocks.CAKE), () -> ModItems.PUMPKIN_PIE_SLICE.get())
 			{
 				@Override
 				@SuppressWarnings("deprecation")
@@ -321,7 +321,7 @@ public class ModBlocks
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
 			() -> new RotatedFeastBlock(Block.Properties.ofFullCopy(Blocks.CAKE), ()->ModItems.SHEPHERDS_PIE.get(), true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE));
 	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock("gleaming_salad_block",
-			() -> new GleamingSaladBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
+			() -> new GleamingSaladBlock(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()), () -> ModItems.GLEAMING_SALAD.get(), true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(Block.Properties.ofFullCopy(Blocks.CAKE)));
 

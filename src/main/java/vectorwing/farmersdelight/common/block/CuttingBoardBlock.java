@@ -32,16 +32,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
-import org.jetbrains.annotations.Nullable;;
+import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
 
 @SuppressWarnings("deprecation")
-public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
-{
+public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<CuttingBoardBlock> CODEC = simpleCodec(CuttingBoardBlock::new);
 
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -54,9 +53,9 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
 	}
 
-    public static void init() {
-        UseBlockCallback.EVENT.register(CuttingBoardBlock.ToolCarvingEvent::onSneakPlaceTool);
-    }
+	public static void init() {
+		UseBlockCallback.EVENT.register(CuttingBoardBlock.ToolCarvingEvent::onSneakPlaceTool);
+	}
 
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -125,7 +124,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-				.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
+			.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
 	}
 
 	@Override
@@ -134,8 +133,8 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 		return facing == Direction.DOWN && !state.canSurvive(level, currentPos)
-				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+			? Blocks.AIR.defaultBlockState()
+			: super.updateShape(state, facing, facingState, level, currentPos, facingPos);
 	}
 
 	@Override
@@ -199,21 +198,20 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
-    public static class ToolCarvingEvent
-    {
-        public static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand hand, BlockHitResult hit) {
-            if (player.isSpectator())
-                return InteractionResult.PASS;
+	public static class ToolCarvingEvent {
+		public static InteractionResult onSneakPlaceTool(Player player, Level level, InteractionHand hand, BlockHitResult hit) {
+			if (player.isSpectator())
+				return InteractionResult.PASS;
 
 			BlockPos pos = hit.getBlockPos();
 			ItemStack heldStack = player.getMainHandItem();
-			BlockEntity tileEntity = level.getBlockEntity(pos);
+			Optional<CuttingBoardBlockEntity> tileEntity = level.getBlockEntity(pos, ModBlockEntityTypes.CUTTING_BOARD.get());
 
-			if (!player.isSecondaryUseActive() || heldStack.isEmpty()) {
-				return;
+			if (tileEntity.isEmpty() || !player.isSecondaryUseActive() || heldStack.isEmpty()) {
+				return InteractionResult.PASS;
 			}
 
-			if (cuttingBoard.carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
+			if (tileEntity.get().carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
 				if (!player.isCreative()) {
 					player.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
 				}
@@ -222,34 +220,6 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 				return InteractionResult.SUCCESS;
 			}
 			return InteractionResult.PASS;
-		}
-
-		@SubscribeEvent
-		@SuppressWarnings("unused")
-		public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
-			Level level = event.getLevel();
-			BlockPos pos = event.getPos();
-
-			if (!(level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity cuttingBoard)) {
-				return;
-			}
-
-			Player player = event.getEntity();
-			ItemStack heldStack = player.getMainHandItem();
-
-			if (!player.isSecondaryUseActive() || heldStack.isEmpty()) {
-				return;
-			}
-
-			if (cuttingBoard.carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
-				if (!player.isCreative()) {
-					player.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-				}
-				Vec3 centerPos = pos.getCenter();
-				level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), ModSounds.BLOCK_CUTTING_BOARD_CARVE.get(), SoundSource.BLOCKS, 1.0F, 0.8F);
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.SUCCESS);
-			}
 		}
 	}
 }

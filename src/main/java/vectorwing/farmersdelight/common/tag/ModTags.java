@@ -2,8 +2,6 @@ package vectorwing.farmersdelight.common.tag;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -11,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.refabricated.FarmersDelightRefabricatedTags;
 
 /**
  * References to tags under the Farmer's Delight namespace.
@@ -133,32 +132,31 @@ public class ModTags
 	}
 
 	// Refabricated: new tags
-	// TODO: 1.22, move these to their own subdirectory.
-	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");
-	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = modBiomeTag("has_red_mushroom_colony");
-	public static final TagKey<Biome> HAS_WILD_CABBAGE = modBiomeTag("has_wild_cabbage");
-	public static final TagKey<Biome> HAS_WILD_BEETROOTS = modBiomeTag("has_wild_beetroots");
-	public static final TagKey<Biome> WILD_CARROTS_WHITELIST = modBiomeTag("wild_carrots_whitelist");
-	public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = modBiomeTag("wild_carrots_blacklist");
-	public static final TagKey<Biome> WILD_ONIONS_WHITELIST = modBiomeTag("wild_onions_whitelist");
-	public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = modBiomeTag("wild_onions_blacklist");
-	public static final TagKey<Biome> WILD_POTATOES_WHITELIST = modBiomeTag("wild_potatoes_whitelist");
-	public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = modBiomeTag("wild_potatoes_blacklist");
-	public static final TagKey<Biome> WILD_RICE_WHITELIST = modBiomeTag("wild_rice_whitelist");
-	public static final TagKey<Biome> WILD_RICE_BLACKLIST = modBiomeTag("wild_rice_blacklist");
-	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = modBiomeTag("wild_tomatoes_whitelist");
-	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = modBiomeTag("wild_tomatoes_blacklist");
+	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = FarmersDelightRefabricatedTags.Biomes.HAS_BROWN_MUSHROOM_COLONY;
+	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = FarmersDelightRefabricatedTags.Biomes.HAS_RED_MUSHROOM_COLONY;
+	public static final TagKey<Biome> HAS_WILD_CABBAGE = FarmersDelightRefabricatedTags.Biomes.HAS_WILD_CABBAGE;
+	public static final TagKey<Biome> HAS_WILD_BEETROOTS = FarmersDelightRefabricatedTags.Biomes.HAS_WILD_BEETROOTS;
+	public static final TagKey<Biome> WILD_CARROTS_WHITELIST = FarmersDelightRefabricatedTags.Biomes.WILD_CARROTS_WHITELIST;
+	public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = FarmersDelightRefabricatedTags.Biomes.WILD_CARROTS_BLACKLIST;
+	public static final TagKey<Biome> WILD_ONIONS_WHITELIST = FarmersDelightRefabricatedTags.Biomes.WILD_ONIONS_WHITELIST;
+	public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = FarmersDelightRefabricatedTags.Biomes.WILD_ONIONS_BLACKLIST;
+	public static final TagKey<Biome> WILD_POTATOES_WHITELIST = FarmersDelightRefabricatedTags.Biomes.WILD_POTATOES_WHITELIST;
+	public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = FarmersDelightRefabricatedTags.Biomes.WILD_POTATOES_BLACKLIST;
+	public static final TagKey<Biome> WILD_RICE_WHITELIST = FarmersDelightRefabricatedTags.Biomes.WILD_RICE_WHITELIST;
+	public static final TagKey<Biome> WILD_RICE_BLACKLIST = FarmersDelightRefabricatedTags.Biomes.WILD_RICE_BLACKLIST;
+	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = FarmersDelightRefabricatedTags.Biomes.WILD_TOMATOES_WHITELIST;
+	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = FarmersDelightRefabricatedTags.Biomes.WILD_TOMATOES_BLACKLIST;
 
-    public static final TagKey<Block> SURVIVES_RICH_SOIL = modBlockTag("survives/rich_soil");
-    public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
+	public static final TagKey<Block> SURVIVES_RICH_SOIL = FarmersDelightRefabricatedTags.Blocks.SURVIVES_RICH_SOIL;
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = FarmersDelightRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL;
 
-    public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
-    public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = modBlockTag("does_not_survive/rich_soil_farmland");
+	public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = FarmersDelightRefabricatedTags.Blocks.SURVIVES_RICH_SOIL_FARMLAND;
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = FarmersDelightRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND;
 
-	public static final TagKey<EntityType<?>> DROPS_LEATHER = modEntityTag("drops_leather");
+	public static final TagKey<EntityType<?>> DROPS_LEATHER = FarmersDelightRefabricatedTags.EntityTypes.DROPS_LEATHER;
 
-	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = modEffectTag("ignored/hot_cocoa");
-	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = modEffectTag("ignored/milk_bottle");
+	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = FarmersDelightRefabricatedTags.MobEffects.HOT_COCOA_IGNORED;
+	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = FarmersDelightRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED;
 
 	private static TagKey<Item> modItemTag(String path) {
 		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
@@ -170,10 +168,6 @@ public class ModTags
 
 	private static TagKey<EntityType<?>> modEntityTag(String path) {
 		return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
-	}
-
-	private static TagKey<Biome> modBiomeTag(String path) {
-		return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<MobEffect> modEffectTag(String path) {

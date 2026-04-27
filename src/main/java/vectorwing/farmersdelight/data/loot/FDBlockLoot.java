@@ -10,8 +10,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -32,17 +30,16 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
 import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class FDBlockLoot extends FabricBlockLootTableProvider
 {
@@ -121,7 +118,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(AlternativesEntry.alternatives(
 								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
+										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 								LootItem.lootTableItem(Items.BEETROOT_SEEDS)
 										.when(LootItemRandomChanceCondition.randomChance(0.125F))
 										.apply(ApplyExplosionDecay.explosionDecay())
@@ -135,7 +132,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(Items.ALLIUM))
-						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert())
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))));
 		add(ModBlocks.WILD_POTATOES.get(), block -> wildCropNoSeeds(block, Items.POTATO, registryLookup));
 		add(ModBlocks.WILD_TOMATOES.get(), block -> wildCrop(block, ModItems.TOMATO.get(), ModItems.TOMATO_SEEDS.get(), registryLookup));
@@ -144,7 +141,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 				.withPool(LootPool.lootPool()
 						.add(AlternativesEntry.alternatives(
 								LootItem.lootTableItem(ModItems.WILD_RICE.get())
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
+										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 								LootItem.lootTableItem(ModItems.RICE.get())
 										.when(ExplosionCondition.survivesExplosion())))
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
@@ -157,7 +154,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 				.withPool(LootPool.lootPool()
 						.add(AlternativesEntry.alternatives(
 								LootItem.lootTableItem(ModItems.WILD_RICE.get())
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
+										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 								LootItem.lootTableItem(ModItems.RICE.get())
 										.when(ExplosionCondition.survivesExplosion())))
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
@@ -288,12 +285,12 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 						//fully grown should only drop mushrooms if not harvested by shears
 						LootItem.lootTableItem(mushroom)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(5.0F)))
-								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert())
+								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
 								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
 										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
 						//if broken with shears at max age, drop self
 						LootItem.lootTableItem(block)
-								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST))
+								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST))
 								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
 										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3)))))));
 	}
@@ -330,12 +327,12 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(crop))
 						.when(LootItemRandomChanceCondition.randomChance(0.2F))
-						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert()))
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert()))
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(AlternativesEntry.alternatives(
 								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
+										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 								LootItem.lootTableItem(seeds)
 										.apply(ApplyExplosionDecay.explosionDecay())
 										.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));
@@ -347,7 +344,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(AlternativesEntry.alternatives(
 								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
+										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 								LootItem.lootTableItem(crop)
 										.apply(ApplyExplosionDecay.explosionDecay())
 										.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));

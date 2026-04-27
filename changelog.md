@@ -1,4 +1,5 @@
 # Changelog
+- Updated to match upstream version 1.21.1-1.3.0, please read the below. (MehVahdJukaar, ChrysanthCow).
 
 ## 1.3.0
 

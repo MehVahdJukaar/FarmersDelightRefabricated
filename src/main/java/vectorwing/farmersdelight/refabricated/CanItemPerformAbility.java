@@ -9,18 +9,23 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
+import javax.swing.plaf.PanelUI;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public record CanItemPerformAbilityCondition(ItemAbility ability) implements LootItemCondition {
-    public static final MapCodec<CanItemPerformAbilityCondition> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            ItemAbility.CODEC.fieldOf("ability").forGetter(CanItemPerformAbilityCondition::ability)
-    ).apply(inst, CanItemPerformAbilityCondition::new));
+public record CanItemPerformAbility(ItemAbility ability) implements LootItemCondition {
+    public static final MapCodec<CanItemPerformAbility> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+            ItemAbility.CODEC.fieldOf("ability").forGetter(CanItemPerformAbility::ability)
+    ).apply(inst, CanItemPerformAbility::new));
     public static final Supplier<LootItemConditionType> TYPE = RegUtils.regLootCond("can_item_perform_ability", () -> new LootItemConditionType(CODEC));
 
     public static void init() {
 
     }
+
+	public static LootItemCondition.Builder canItemPerformAbility(ItemAbility ability) {
+		return () -> new CanItemPerformAbility(ability);
+	}
 
     @Override
     public boolean test(LootContext context) {

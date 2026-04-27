@@ -25,7 +25,7 @@ public class ItemUtils
 	 * @return true if either condition matches
 	 */
 	public static boolean isValidTool(ItemStack stack, ItemAbility toolAction, TagKey<Item> fallbackTag) {
-		return stack.canPerformAction(toolAction) || stack.is(fallbackTag);
+		return toolAction.canPerformAction(stack) || stack.is(fallbackTag);
 	}
 
 	public static boolean isKnife(ItemStack stack) {

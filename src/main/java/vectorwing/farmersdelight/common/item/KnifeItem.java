@@ -41,11 +41,11 @@ public class KnifeItem extends DiggerItem
 	/**
 	 * This action is used on cutting recipes which need a knife.
 	 */
-	public static final ItemAbility KNIFE_DIG = ItemAbility.valueOf("knife_dig");
+	public static final ItemAbility KNIFE_DIG = ItemAbility.KNIFE_DIG;
 	/**
 	 * This action is used in gameplay interactions where something is harvested.
 	 */
-	public static final ItemAbility KNIFE_HARVEST = ItemAbility.valueOf("knife_harvest");
+	public static final ItemAbility KNIFE_HARVEST = ItemAbility.KNIFE_HARVEST;
 
 	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbility.SHEARS_CARVE, ItemAbility.SWORD_DIG, KNIFE_DIG, KNIFE_HARVEST);
 
@@ -78,19 +78,6 @@ public class KnifeItem extends DiggerItem
         }
         return super.canBeEnchantedWith(stack, enchantment, context);
     }
-
-	@Override
-	public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
-		if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
-			return false;
-		}
-		return super.supportsEnchantment(stack, enchantment);
-	}
-
-	@Override
-	public boolean canPerformAction(ItemStack stack, ItemAbility toolAction) {
-		return KNIFE_ACTIONS.contains(toolAction);
-	}
 
     public static class KnifeEvents
     {

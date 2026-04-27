@@ -63,7 +63,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
-public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder
+public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder, Clearable
 {
 	public static final int MEAL_DISPLAY_SLOT = 6;
 	public static final int CONTAINER_SLOT = 7;

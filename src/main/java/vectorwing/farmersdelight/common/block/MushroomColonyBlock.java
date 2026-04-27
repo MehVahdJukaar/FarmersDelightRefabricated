@@ -37,6 +37,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.SoilUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 @SuppressWarnings("deprecation")
 public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
@@ -69,7 +70,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 
 		if (age > 0) {
 			ItemStack mushroomStack = getCloneItemStack(level, pos, state);
-			if (ItemUtils.isValidTool(heldStack, ItemAbilities.SHEARS_HARVEST, Tags.Items.TOOLS_SHEAR)) {
+			if (ItemUtils.isValidTool(heldStack, ItemAbility.SHEARS_HARVEST, ConventionalItemTags.SHEAR_TOOLS)) {
 				level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
 				level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 				popResource(level, pos, mushroomStack);
@@ -130,24 +131,6 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		} else {
 			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && this.mayPlaceOn(state, level, pos);
 		}
-	}
-
-	//TODO: this is not used on forge or was recently removed. check!!
-	@Override
-	public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		int age = state.getValue(COLONY_AGE);
-
-		if (age > 0 && heldStack.is(ConventionalItemTags.SHEAR_TOOLS)) {
-			popResource(level, pos, getCloneItemStack(level, pos, state));
-			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
-			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
-			if (!level.isClientSide) {
-				heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-			}
-			return ItemInteractionResult.SUCCESS;
-		}
-
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	public int getMaxAge() {

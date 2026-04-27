@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.data.recipe;
 
-import mezz.jei.api.constants.Tags;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.FabricIngredient;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -364,7 +365,7 @@ public class CuttingRecipes
 	}
 
 	private static Ingredient matchesTool(ItemAbility toolAction, TagKey<Item> fallbackTag) {
-		return CompoundIngredient.of(new ItemAbilityIngredient(toolAction).toVanilla(), Ingredient.of(fallbackTag));
+		return DefaultCustomIngredients.any(new ItemAbilityIngredient(toolAction).toVanilla(), Ingredient.of(fallbackTag));
 	}
 
 	private static ResourceLocation salvagingRecipe(String name) {

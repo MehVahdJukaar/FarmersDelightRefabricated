@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec2;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
@@ -110,7 +111,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 		assert this.level != null;
 
 		boolean didChange = false;
-		for (int i = 0; i < items.getSlots(); ++i) {
+		for (int i = 0; i < items.getSlotCount(); ++i) {
 			ItemStack ingredient = this.items.getStackInSlot(i);
 			if (ingredient.isEmpty()) continue;
 			didChange = true;
@@ -139,7 +140,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 		assert this.level != null;
 
 		boolean didChange = false;
-		for (int i = 0; i < this.items.getSlots(); ++i) {
+		for (int i = 0; i < this.items.getSlotCount(); ++i) {
 			int thisItemCookingProgress = this.cookingProgress[i];
 			if (thisItemCookingProgress <= 0) continue;
 			didChange = true;
@@ -154,7 +155,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 	}
 
 	public int getNextEmptySlot() {
-		return IntStream.range(0, this.items.getSlots())
+		return IntStream.range(0, this.items.getSlotCount())
 			.filter((i) -> this.items.getStackInSlot(i).isEmpty())
 			.findFirst()
 			.orElse(-1);
@@ -183,7 +184,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 	}
 
 	public Stream<ItemStack> streamItems() {
-		return IntStream.range(0, this.items.getSlots())
+		return IntStream.range(0, this.items.getSlotCount())
 			.mapToObj(this.items::getStackInSlot);
 	}
 
