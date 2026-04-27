@@ -1,7 +1,14 @@
 # Changelog
 - Updated to match upstream version 1.21.1-1.3.0, please read the below. (MehVahdJukaar, ChrysanthCow).
-- 
-*Minor note: This version is not related to any latest branch's 3.3.0, treat versioning as separate between branches*
+- Farmer's Delight Refabricated now requires loader version 0.19.0 or higher, and must be depended on using Fabric Loom 1.16 or higher.
+  - This is due to the below change.
+- Replaced Fabric ASM as a dependency with a enum extending class tweaker.
+- Moved Farmer's Delight specific tags to `vectorwing.farmersdelight.refabricated.FDRefabricatedTags` package. The original fields are now deprecated and redirect over to this class.
+  - The deprecated fields will be removed when the `26.1` branch is updated.
+- Swapped out the Farmer's Delight Refabricated config lang entries to use the same lang entries as Farmer's Delight NeoForge.
+- Fixed Rich Soil using the `farmersdelight:survives/rich_soil_farmland` block tag instead of the `farmersdelight:survives/rich_soil` block tag to determine what is allowed to be placed on RIch Soil.
+
+*Minor note: This version is unrelated to any of the latest branches' 3.3.0, treat versioning as separate between branches.*
 
 ## 1.3.0
 
