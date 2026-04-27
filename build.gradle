@@ -107,6 +107,7 @@ dependencies {
     modCompileOnly("curse.maven:yacl-667299:5424169")
     modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
     modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
 
     modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
