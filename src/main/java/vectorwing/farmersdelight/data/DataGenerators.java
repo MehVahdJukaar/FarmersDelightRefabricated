@@ -11,9 +11,6 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.damagesource.DamageEffects;
-import net.minecraft.world.damagesource.DamageScaling;
-import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.data.advancement.FDAdvancementGenerator;
@@ -39,7 +36,6 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(FDBlockLoot::new);
 //		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 	}
-
 
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
 
@@ -77,8 +73,9 @@ public class DataGenerators implements DataGeneratorEntrypoint
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.DAMAGE_TYPE, bootstrapContext -> bootstrapContext.register(ModDamageTypes.STOVE_BURN,
-			new DamageType("farmersdelight.stove", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F, DamageEffects.BURNING)));
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, WildCropGeneration::bootstrapConfiguredFeatures);
+		registryBuilder.add(Registries.PLACED_FEATURE, WildCropGeneration::bootstrapPlacedFeatures);
+		registryBuilder.add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrapDamageTypes);
 		registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
 	}
 }

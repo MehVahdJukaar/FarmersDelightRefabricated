@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.farmersdelight.get_rich_soil.description"
+      "translate": "farmersdelight.advancement.get_rich_soil.desc"
     },
     "frame": "goal",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "farmersdelight:rich_soil"
     },
     "title": {
-      "translate": "advancements.farmersdelight.get_rich_soil.title"
+      "translate": "farmersdelight.advancement.get_rich_soil"
     }
   },
   "requirements": [

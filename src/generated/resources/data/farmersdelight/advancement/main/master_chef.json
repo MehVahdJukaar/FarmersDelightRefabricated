@@ -220,7 +220,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.farmersdelight.master_chef.description"
+      "translate": "farmersdelight.advancement.master_chef.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -228,7 +228,7 @@
       "id": "farmersdelight:honey_glazed_ham"
     },
     "title": {
-      "translate": "advancements.farmersdelight.master_chef.title"
+      "translate": "farmersdelight.advancement.master_chef"
     }
   },
   "requirements": [

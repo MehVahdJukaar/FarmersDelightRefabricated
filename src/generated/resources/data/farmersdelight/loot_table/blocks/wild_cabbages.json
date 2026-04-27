@@ -12,7 +12,7 @@
           "condition": "minecraft:inverted",
           "term": {
             "ability": "shears_harvest",
-            "condition": "neoforge:can_item_perform_ability"
+            "condition": "farmersdelight:can_item_perform_ability"
           }
         }
       ],
@@ -35,7 +35,7 @@
               "conditions": [
                 {
                   "ability": "shears_harvest",
-                  "condition": "neoforge:can_item_perform_ability"
+                  "condition": "farmersdelight:can_item_perform_ability"
                 }
               ],
               "name": "farmersdelight:wild_cabbages"
@@ -62,6 +62,5 @@
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "farmersdelight:blocks/wild_cabbages"
+  ]
 }

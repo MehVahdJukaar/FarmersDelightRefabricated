@@ -12,13 +12,7 @@
       "tag": "c:foods/leafy_green"
     },
     {
-      "fabric:type": "fabric:difference",
-      "base": {
-        "tag": "c:foods/vegetable"
-      },
-      "subtracted": {
-        "item": "minecraft:melon_slice"
-      }
+      "tag": "c:foods/vegetable"
     }
   ],
   "recipe_book_tab": "meals",

@@ -13,14 +13,14 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.farmersdelight.use_skillet.description"
+      "translate": "farmersdelight.advancement.use_skillet.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:skillet"
     },
     "title": {
-      "translate": "advancements.farmersdelight.use_skillet.title"
+      "translate": "farmersdelight.advancement.use_skillet"
     }
   },
   "requirements": [

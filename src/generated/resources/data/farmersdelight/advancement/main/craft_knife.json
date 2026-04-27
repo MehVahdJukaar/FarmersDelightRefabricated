@@ -54,14 +54,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.farmersdelight.craft_knife.description"
+      "translate": "farmersdelight.advancement.craft_knife.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:flint_knife"
     },
     "title": {
-      "translate": "advancements.farmersdelight.craft_knife.title"
+      "translate": "farmersdelight.advancement.craft_knife"
     }
   },
   "requirements": [

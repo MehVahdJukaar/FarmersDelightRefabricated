@@ -272,9 +272,9 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.CHOCOLATE_PIE.get(),
 				ModBlocks.PUMPKIN_PIE.get()
 		);
-		tag(ModTags.Blocks.TERRAIN)
+		getOrCreateTagBuilder(ModTags.Blocks.TERRAIN)
 				.addTag(net.minecraft.tags.BlockTags.DIRT)
-				.addTag(net.minecraft.tags.BlockTags.SAND);
+				.forceAddTag(net.minecraft.tags.BlockTags.SAND); // Refabricated: Must be force added.
 		tagBuilder(ModTags.Blocks.STRAW_BLOCKS).add(
 				ModBlocks.RICE_BAG.get(),
 				ModBlocks.ROPE.get(),

@@ -23,14 +23,14 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.farmersdelight.harvest_ropelogged_tomato.description"
+      "translate": "farmersdelight.advancement.harvest_ropelogged_tomato.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:tomato"
     },
     "title": {
-      "translate": "advancements.farmersdelight.harvest_ropelogged_tomato.title"
+      "translate": "farmersdelight.advancement.harvest_ropelogged_tomato"
     }
   },
   "requirements": [

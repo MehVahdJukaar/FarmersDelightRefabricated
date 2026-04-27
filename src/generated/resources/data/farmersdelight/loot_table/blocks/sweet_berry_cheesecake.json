@@ -1,4 +1,3 @@
 {
-  "type": "minecraft:block",
-  "random_sequence": "farmersdelight:blocks/sweet_berry_cheesecake"
+  "type": "minecraft:block"
 }

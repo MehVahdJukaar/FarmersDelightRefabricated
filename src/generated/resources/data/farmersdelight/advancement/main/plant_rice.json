@@ -16,14 +16,14 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.farmersdelight.plant_rice.description"
+      "translate": "farmersdelight.advancement.plant_rice.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:rice"
     },
     "title": {
-      "translate": "advancements.farmersdelight.plant_rice.title"
+      "translate": "farmersdelight.advancement.plant_rice"
     }
   },
   "requirements": [

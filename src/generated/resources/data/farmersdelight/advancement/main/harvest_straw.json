@@ -15,14 +15,14 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.farmersdelight.harvest_straw.description"
+      "translate": "farmersdelight.advancement.harvest_straw.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:straw"
     },
     "title": {
-      "translate": "advancements.farmersdelight.harvest_straw.title"
+      "translate": "farmersdelight.advancement.harvest_straw"
     }
   },
   "requirements": [

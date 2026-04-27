@@ -44,14 +44,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.farmersdelight.get_fd_seed.description"
+      "translate": "farmersdelight.advancement.get_fd_seed.desc"
     },
     "icon": {
       "count": 1,
       "id": "farmersdelight:wild_onions"
     },
     "title": {
-      "translate": "advancements.farmersdelight.get_fd_seed.title"
+      "translate": "farmersdelight.advancement.get_fd_seed"
     }
   },
   "requirements": [
