@@ -43,12 +43,6 @@ repositories {
         name = "Greenhouse Maven"
         url = 'https://maven.greenhouse.lgbt/releases/'
     }
-    maven {
-        url "https://jitpack.io/" // Fabric ASM
-        content {
-            excludeGroup "io.github.fabricators_of_create"
-        }
-    }
 }
 dependencies {
     modImplementation("vectorwing:FarmersDelight:${fdrf_version}") {
