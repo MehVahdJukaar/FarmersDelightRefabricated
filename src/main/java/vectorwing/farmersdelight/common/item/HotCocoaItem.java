@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ public class HotCocoaItem extends DrinkableItem
 
 		while (itr.hasNext()) {
 			MobEffectInstance effect = itr.next();
-			if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL) && !effect.getEffect().is(ModTags.HOT_COCOA_IGNORED)) {
+			if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL) && !effect.getEffect().is(FDRefabricatedTags.MobEffects.HOT_COCOA_IGNORED)) {
 				compatibleEffects.add(effect.getEffect());
 			}
 		}

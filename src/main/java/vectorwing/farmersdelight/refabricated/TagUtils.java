@@ -50,9 +50,9 @@ public class TagUtils {
     public static boolean isDropsLeatherTag(Holder<EntityType<?>> entityType, HolderLookup<EntityType<?>> lookup) {
         if (earlyDropsLeatherTag == null) {
             TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
-            var dropsLeatherMap = loadTag(ModTags.DROPS_LEATHER);
+            var dropsLeatherMap = loadTag(FDRefabricatedTags.EntityTypes.DROPS_LEATHER);
             Map<ResourceLocation, Collection<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
-            earlyDropsLeatherTag = loaded.get(ModTags.DROPS_LEATHER.location());
+            earlyDropsLeatherTag = loaded.get(FDRefabricatedTags.EntityTypes.DROPS_LEATHER.location());
             if (earlyDropsLeatherTag == null)
                 earlyDropsLeatherTag = List.of();
         }
