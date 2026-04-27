@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.13-SNAPSHOT'
+    id 'fabric-loom' version '1.16-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "1.1.0"
 }
@@ -30,7 +30,7 @@ fabricApi {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/farmersdelight.accesswidener")
+    accessWidenerPath = file("src/main/resources/farmersdelight.classtweaker")
 }
 
 repositories {
@@ -67,16 +67,6 @@ repositories {
     maven { url "https://maven.ryanliptak.com/" } // AppleSkin
     maven { url = "https://maven.parchmentmc.org" } // Parchment
     maven { url = "https://maven.fabricmc.net/" } // FAPI, Loader
-    exclusiveContent {
-        forRepository {
-            maven {
-                url = "https://jitpack.io"
-            }
-        }
-        filter {
-            includeGroup "com.github.Chocohead"
-        }
-    }
     maven { url = "https://maven.architectury.dev/" } // REI and deps
     maven { url = "https://maven.shedaniel.me/" } // REI and deps
     maven { url = "https://maven.terraformersmc.com/" } // Mod Menu, EMI
@@ -97,10 +87,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-
-    include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
-        exclude (group: "net.fabricmc.fabric-api")
-    }
 
     //config stuff. optional
     modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")

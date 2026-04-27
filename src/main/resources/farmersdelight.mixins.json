@@ -26,6 +26,7 @@
     "refabricated.MushroomBlockMixin",
     "refabricated.PlayerMixin",
     "refabricated.RecipeBookSettingsMixin",
+    "refabricated.RecipeBookTypeMixin",
     "refabricated.ReloadableServerRegistriesMixin",
     "refabricated.ServerRecipeBookMixin",
     "refabricated.StemBlockMixin",

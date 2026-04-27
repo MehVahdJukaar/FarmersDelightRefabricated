@@ -10,7 +10,7 @@ import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 /**
- * Refabricated: Deprecated: Look at {@link FarmersDelightASM}.
+ * Refabricated: Deprecated: Look at {@link vectorwing.farmersdelight.refabricated.FDRecipeBookTypes} and {@link vectorwing.farmersdelight.refabricated.client.FDRecipeCategories}.
  */
 @Deprecated
 public class EnumParameters
