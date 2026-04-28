@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+;
+
 public class ModAtlases
 {
 	public static final SpriteId BLANK_CANVAS_SIGN_MATERIAL = new SpriteId(Sheets.SIGN_SHEET, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "entity/signs/canvas"));

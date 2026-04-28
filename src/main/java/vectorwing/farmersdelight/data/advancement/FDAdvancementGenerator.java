@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.advancement.CuttingBoardTrigger;
-import vectorwing.farmersdelight.common.block.TomatoVineBlock;
+import vectorwing.farmersdelight.common.block.TomatoBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
@@ -186,49 +186,50 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 				.requirements(AdvancementRequirements.Strategy.OR)
 				.save(consumer, getNameId("main/place_feast"));
 
-		AdvancementHolder masterChef = getAdvancement(gloriousFeast, ModItems.HONEY_GLAZED_HAM.get(), "master_chef", AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("mixed_salad", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.MIXED_SALAD.get()))
-				.addCriterion("cooked_rice", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.COOKED_RICE.get()))
-				.addCriterion("bone_broth", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.BONE_BROTH.get()))
-				.addCriterion("beef_stew", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.BEEF_STEW.get()))
-				.addCriterion("vegetable_soup", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.VEGETABLE_SOUP.get()))
-				.addCriterion("fish_stew", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.FISH_STEW.get()))
-				.addCriterion("chicken_soup", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.CHICKEN_SOUP.get()))
-				.addCriterion("fried_rice", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.FRIED_RICE.get()))
-				.addCriterion("pumpkin_soup", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.PUMPKIN_SOUP.get()))
-				.addCriterion("baked_cod_stew", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.BAKED_COD_STEW.get()))
-				.addCriterion("noodle_soup", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.NOODLE_SOUP.get()))
-				.addCriterion("bacon_and_eggs", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.BACON_AND_EGGS.get()))
-				.addCriterion("ratatouille", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.RATATOUILLE.get()))
-				.addCriterion("steak_and_potatoes", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.STEAK_AND_POTATOES.get()))
-				.addCriterion("pasta_with_meatballs", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.PASTA_WITH_MEATBALLS.get()))
-				.addCriterion("pasta_with_mutton_chop", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.PASTA_WITH_MUTTON_CHOP.get()))
-				.addCriterion("mushroom_rice", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.MUSHROOM_RICE.get()))
-				.addCriterion("roasted_mutton_chops", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.ROASTED_MUTTON_CHOPS.get()))
-				.addCriterion("vegetable_noodles", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.VEGETABLE_NOODLES.get()))
-				.addCriterion("squid_ink_pasta", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.SQUID_INK_PASTA.get()))
-				.addCriterion("grilled_salmon", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.GRILLED_SALMON.get()))
-				.addCriterion("roast_chicken", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.ROAST_CHICKEN.get()))
-				.addCriterion("stuffed_pumpkin", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.STUFFED_PUMPKIN.get()))
-				.addCriterion("honey_glazed_ham", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.HONEY_GLAZED_HAM.get()))
-				.addCriterion("shepherds_pie", usedItem(provider.lookupOrThrow(Registries.ITEM), ModItems.SHEPHERDS_PIE.get()))
-				.rewards(AdvancementRewards.Builder.experience(200))
-				.save(consumer, getNameId("main/master_chef"));
-	}
+        AdvancementHolder masterChef = getAdvancement(gloriousFeast, ModItems.HONEY_GLAZED_HAM.get(), "master_chef", AdvancementType.CHALLENGE, true, true, false)
+                .addCriterion("mixed_salad", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.MIXED_SALAD.get()))
+                .addCriterion("cooked_rice", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.COOKED_RICE.get()))
+                .addCriterion("bone_broth", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.BONE_BROTH.get()))
+                .addCriterion("beef_stew", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.BEEF_STEW.get()))
+                .addCriterion("vegetable_soup", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.VEGETABLE_SOUP.get()))
+                .addCriterion("fish_stew", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.FISH_STEW.get()))
+                .addCriterion("chicken_soup", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.CHICKEN_SOUP.get()))
+                .addCriterion("fried_rice", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.FRIED_RICE.get()))
+                .addCriterion("pumpkin_soup", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.PUMPKIN_SOUP.get()))
+                .addCriterion("baked_cod_stew", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.BAKED_COD_STEW.get()))
+                .addCriterion("noodle_soup", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.NOODLE_SOUP.get()))
+                .addCriterion("onion_soup", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.ONION_SOUP.get()))
+				.addCriterion("bacon_and_eggs", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.BACON_AND_EGGS.get()))
+                .addCriterion("ratatouille", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.RATATOUILLE.get()))
+                .addCriterion("steak_and_potatoes", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.STEAK_AND_POTATOES.get()))
+                .addCriterion("pasta_with_meatballs", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.PASTA_WITH_MEATBALLS.get()))
+                .addCriterion("pasta_with_mutton_chop", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.PASTA_WITH_MUTTON_CHOP.get()))
+                .addCriterion("mushroom_rice", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.MUSHROOM_RICE.get()))
+                .addCriterion("roasted_mutton_chops", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.ROASTED_MUTTON_CHOPS.get()))
+                .addCriterion("vegetable_noodles", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.VEGETABLE_NOODLES.get()))
+                .addCriterion("squid_ink_pasta", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.SQUID_INK_PASTA.get()))
+                .addCriterion("grilled_salmon", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.GRILLED_SALMON.get()))
+                .addCriterion("roast_chicken", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.ROAST_CHICKEN.get()))
+                .addCriterion("stuffed_pumpkin", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.STUFFED_PUMPKIN.get()))
+                .addCriterion("honey_glazed_ham", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.HONEY_GLAZED_HAM.get()))
+                .addCriterion("shepherds_pie", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.SHEPHERDS_PIE.get()))
+				.addCriterion("gleaming_salad", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.GLEAMING_SALAD.get()))
+                .rewards(AdvancementRewards.Builder.experience(200))
+                .save(consumer, getNameId("main/master_chef"));
+    }
 
 	protected static Criterion<?> usedItem(HolderGetter<Item> holderGetter, Item item) {
 		return ConsumeItemTrigger.TriggerInstance.usedItem(holderGetter, item);
 	}
-	
+
 	protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 		return Advancement.Builder.advancement().parent(parent).display(display,
-				TextUtils.getTranslation("advancement." + name),
-				TextUtils.getTranslation("advancement." + name + ".desc"),
-				null, frame, showToast, announceToChat, hidden);
+			TextUtils.advancement(name + ".title"),
+			TextUtils.advancement(name + ".description"),
+			null, frame, showToast, announceToChat, hidden);
 	}
 
 	private String getNameId(String id) {
 		return FarmersDelight.MODID + ":" + id;
 	}
-
 }

@@ -13,18 +13,38 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
  */
 public class ItemUtils
 {
+    /**
+     * Shorthand method for checking if the given stack either has a required ToolAction, or is otherwise part of a given tag.
+     * @param toolAction The ToolAction to check for
+     * @param fallbackTag An item tag to check for, if the given ToolAction is absent
+     * @return true if either condition matches
+     */
+    public static boolean isValidTool(ItemStack stack, ItemAbility toolAction, TagKey<Item> fallbackTag) {
+        return toolAction.canPerformAction(stack) || stack.is(fallbackTag);
+    }
+
+    public static boolean isKnife(ItemStack stack) {
+        return isValidTool(stack, KnifeItem.KNIFE_HARVEST, ModTags.Items.KNIVES);
+    }
+
 	public static void dropItems(Level level, BlockPos pos, ItemStackHandler inventory) {
 		for (int slot = 0; slot < inventory.getSlotCount(); slot++)
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
 					inventory.extractItem(slot, inventory.getSlotLimit(slot), false));
 	}
 
-	public static boolean isInventoryEmpty(ItemHandler inventory) {
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
-			if (!inventory.getStackInSlot(i).isEmpty())
-				return false;
-		}
-		return true;
+    public static void clearItems(ItemStackHandler inventory) {
+        for (int i = 0; i < inventory.getSlotCount(); i++) {
+            inventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
+    }
+
+	public static boolean doesInventoryHaveItems(ItemHandler inventory) {
+        for (int i = 0; i < inventory.getSlotCount(); ++i) {
+            if (!inventory.getStackInSlot(i).isEmpty())
+                return true;
+        }
+        return false;
 	}
 
 	public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {

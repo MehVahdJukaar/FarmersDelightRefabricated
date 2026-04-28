@@ -23,7 +23,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		FabricDataGenerator.Pack pack = generator.createPack();;
+		FabricDataGenerator.Pack pack = generator.createPack();
 
 		pack.addProvider(DynamicRegistryProvider::new);
 		BlockTags blockTags = pack.addProvider(BlockTags::new);
@@ -34,47 +34,50 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(Recipes::new);
 		pack.addProvider(FDAdvancementGenerator::new);
 		pack.addProvider(FDBlockLoot::new);
-		pack.addProvider(VillagerTrades::new);
+        pack.addProvider(VillagerTrades::new);
         pack.addProvider(VillagerTags::new);
 //		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 	}
 
-
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
 
-		public DynamicRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+		public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
 			super(output, lookup);
 		}
 
 		@Override
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
+			WildCropGeneration.bootstrapConfiguredFeatures(createContext(registries, entries));
+			WildCropGeneration.bootstrapPlacedFeatures(createContext(registries, entries));
+			ModDamageTypes.bootstrapDamageTypes(createContext(registries, entries));
 			ModEnchantments.bootstrap(createContext(registries, entries));
 		}
 
-		private static <T> BootstrapContext<T> createContext(HolderLookup.Provider registries, Entries entries) {
-			return new BootstrapContext<>() {
-				@Override
-				public Holder.Reference<T> register(ResourceKey<T> resourceKey, T object, Lifecycle lifecycle) {
-					return (Holder.Reference<T>) entries.add(resourceKey, object);
-				}
+        private static <T> BootstrapContext<T> createContext(HolderLookup.Provider registries, Entries entries) {
+            return new BootstrapContext<>() {
+                @Override
+                public Holder.Reference<T> register(ResourceKey<T> resourceKey, T object, Lifecycle lifecycle) {
+                    return (Holder.Reference<T>) entries.add(resourceKey, object);
+                }
 
-				@Override
-				public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> resourceKey) {
-					return registries.lookupOrThrow(resourceKey);
-				}
-			};
-		}
+                @Override
+                public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> resourceKey) {
+                    return registries.lookupOrThrow(resourceKey);
+                }
+            };
+        }
 
-		@Override
-		public @NotNull String getName() {
-			return "Dynamic Registries";
-		}
-	}
+        @Override
+        public @NotNull String getName() {
+            return "Dynamic Registries";
+        }
+    }
 
-	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.DAMAGE_TYPE, bootstrapContext -> bootstrapContext.register(ModDamageTypes.STOVE_BURN,
-				new DamageType("farmersdelight.stove", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F, DamageEffects.BURNING)));
-		registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
-	}
+    @Override
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, WildCropGeneration::bootstrapConfiguredFeatures);
+        registryBuilder.add(Registries.PLACED_FEATURE, WildCropGeneration::bootstrapPlacedFeatures);
+        registryBuilder.add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrapDamageTypes);
+        registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
+    }
 }

@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
+
 public class StandingCanvasSignBlock extends StandingSignBlock implements CanvasSign
 {
 	private final DyeColor backgroundColor;
@@ -36,11 +37,9 @@ public class StandingCanvasSignBlock extends StandingSignBlock implements Canvas
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		Block block = state.getBlock();
-		if (tileEntity instanceof SignBlockEntity signEntity && block instanceof CanvasSign canvasSignBlock) {
+		if (level.getBlockEntity(pos) instanceof SignBlockEntity sign && state.getBlock() instanceof CanvasSign canvasSignBlock) {
 			if (canvasSignBlock.isDarkBackground()) {
-				signEntity.updateText((signText) -> {
+				sign.updateText((signText) -> {
 					return signText.setColor(DyeColor.WHITE);
 				}, true);
 			}

@@ -16,17 +16,20 @@ import java.util.concurrent.CompletableFuture;
 @MethodsReturnNonnullByDefault
 public class Recipes extends FabricRecipeProvider
 {
-	public Recipes(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    private final CraftingRecipes craftingRecipes;
+
+    public Recipes(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
-	}
+        craftingRecipes = new CraftingRecipes(output, registriesFuture);
+    }
 
 	@Override
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
 		return new RecipeProvider(registryLookup, exporter) {
 			@Override
 			public void buildRecipes() {
-				CraftingRecipes.register(registryLookup, output);
-				SmeltingRecipes.register(registryLookup, output);
+                craftingRecipes.buildRecipes(exporter);
+                SmeltingRecipes.register(registryLookup, output);
 				CookingRecipes.register(registryLookup, output);
 				CuttingRecipes.register(registryLookup, output);
 			}

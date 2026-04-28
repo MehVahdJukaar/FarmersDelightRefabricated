@@ -18,11 +18,34 @@ import net.minecraft.world.level.block.Blocks;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.DoughRecipe;
 import vectorwing.farmersdelight.common.crafting.FoodServingRecipe;
+import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
+import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
+import java.util.concurrent.CompletableFuture;
+
+// Extend FabricRecipeProvider to allow conditional recipes.
+public class CraftingRecipes extends FabricRecipeProvider {
+	public CraftingRecipes(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
+	}
+
+	@Override
+	public void buildRecipes(RecipeOutput output) {
+		recipesVanillaAlternatives(output);
+		recipesBlocks(output);
+		recipesCanvasSigns(output);
+		recipesTools(output);
+		recipesMaterials(output);
+		recipesFoodstuffs(output);
+		recipesFoodBlocks(output);
+		recipesCraftedMeals(output);
+		SpecialRecipeBuilder.special(FoodServingRecipe::new).save(output, FarmersDelight.MODID + ":food_serving");
+		SpecialRecipeBuilder.special(DoughRecipe::new).save(output, FarmersDelight.MODID + ":wheat_dough_from_water");
 public class CraftingRecipes
 {
 	public static void register(HolderLookup.Provider registryLookup, RecipeOutput output) {
@@ -502,8 +525,8 @@ public class CraftingRecipes
 				.unlockedBy("has_gold_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOLD_INGOT))
 				.save(output);
 		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ModItems.DIAMOND_KNIFE.get()), Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.COMBAT, ModItems.NETHERITE_KNIFE.get())
-				.unlocks("has_netherite_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_INGOT))
-				.save(output, FarmersDelight.MODID + ":netherite_knife_smithing");
+			.unlocks("has_netherite_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_INGOT))
+			.save(output, FarmersDelight.MODID + ":netherite_knife_smithing");
 	}
 
 	private static void recipesMaterials(HolderGetter<Item> holderGetter, RecipeOutput output) {

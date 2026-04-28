@@ -20,8 +20,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-;
-
 @SuppressWarnings("deprecation")
 public class TatamiMatBlock extends HorizontalDirectionalBlock
 {

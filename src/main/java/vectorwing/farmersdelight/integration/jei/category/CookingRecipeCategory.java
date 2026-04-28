@@ -27,6 +27,7 @@ import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
 public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<CookingPotRecipe>>
 {
 	protected final IDrawable heatIndicator;

@@ -1,0 +1,37 @@
+classTweaker v2 named
+
+accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
+
+accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+
+accessible field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+mutable field net/minecraft/world/entity/npc/Villager WANTED_ITEMS Ljava/util/Set;
+
+accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool templates Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
+mutable field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
+
+accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
+extendable method net/minecraft/core/dispenser/DefaultDispenseItemBehavior dispense (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+
+accessible method net/minecraft/world/level/block/BaseEntityBlock createTickerHelper (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/block/entity/BlockEntityTicker;)Lnet/minecraft/world/level/block/entity/BlockEntityTicker;
+
+accessible method net/minecraft/world/item/enchantment/EnchantmentHelper runIterationOnItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V
+accessible method net/minecraft/world/item/enchantment/Enchantment modifyDamageFilteredValue (Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+
+accessible field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
+mutable field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
+
+accessible class net/minecraft/stats/RecipeBookSettings$TypeSettings
+accessible method net/minecraft/stats/RecipeBookSettings$TypeSettings <init> (ZZ)V
+mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map;
+
+#datafixers
+accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
+
+# Enum Extensions
+extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
+extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_SEARCH
+extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MEALS
+extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_DRINKS
+extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MISC

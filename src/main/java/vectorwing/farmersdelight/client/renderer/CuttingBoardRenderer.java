@@ -21,9 +21,12 @@ import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
+import java.util.Random;
+
 public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity, CuttingBoardRenderState>
 {
-	private final ItemModelResolver itemModelResolver;
+    private final Random random = new Random();
+    private final ItemModelResolver itemModelResolver;
 
 	public CuttingBoardRenderer(BlockEntityRendererProvider.Context pContext) {
 		itemModelResolver = pContext.itemModelResolver();
@@ -52,7 +55,12 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
         Direction direction = state.direction;
         ItemStack boardStack = state.boardStack;
 
-        if (!boardStack.isEmpty()) {
+        int itemRenderCount = this.getModelCount(itemStack);
+
+        for (int i = 0; i < itemRenderCount; i++) {
+            poseStack.pushPose();
+
+            // TODO: This.
             poseStack.pushPose();
 
 
@@ -70,9 +78,9 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
         }
     }
 
-	public void renderItemLayingDown(PoseStack matrixStackIn, Direction direction) {
+	public void renderItemLayingDown(PoseStack matrixStackIn, Direction direction, float xOffset, int yIndex, float zOffset) {
 		// Center item above the cutting board
-		matrixStackIn.translate(0.5D, 0.08D, 0.5D);
+		matrixStackIn.translate(0.5D + xOffset, 0.08D + 0.03 * (yIndex + 1), 0.5D + zOffset);
 
 		// Rotate item to face the cutting board's front side
 		float f = -direction.toYRot();
@@ -85,9 +93,9 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);
 	}
 
-	public void renderBlock(PoseStack matrixStackIn, Direction direction) {
+	public void renderBlock(PoseStack matrixStackIn, Direction direction, float xOffset, int yIndex, float zOffset) {
 		// Center block above the cutting board
-		matrixStackIn.translate(0.5D, 0.27D, 0.5D);
+		matrixStackIn.translate(0.5D + xOffset, 0.27D + 0.03 * (yIndex + 1), 0.5D + zOffset);
 
 		// Rotate block to face the cutting board's front side
 		float f = -direction.toYRot();
@@ -119,5 +127,15 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Resize the item
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);
+	}
+
+	protected int getModelCount(ItemStack stack) {
+		int modelCount = 1;
+
+		if (stack.getCount() > 1) {
+			modelCount += Mth.ceil(((float) stack.getCount() / stack.getMaxStackSize()) * 4);
+		}
+
+		return modelCount;
 	}
 }

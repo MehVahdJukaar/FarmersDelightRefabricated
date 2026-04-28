@@ -90,7 +90,7 @@ public class ConfigBuilderImpl extends ConfigBuilder {
         return config;
     }
 
-    @ApiStatus.Experimental
+    @Experimental
     @Override
     public Supplier<Float> define(String name, float defaultValue, float min, float max) {
         var config = new FloatConfigValue(name, defaultValue, min, max);

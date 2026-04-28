@@ -27,6 +27,8 @@ import java.util.Optional;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
 {
+	public static final int INPUT_SLOTS = 6;
+
 	private final String group;
 	private final CookingPotBookCategory category;
 	private final List<Ingredient> inputItems;
@@ -201,14 +203,14 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		}
 
 		private static CookingPotRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-			String groupIn = buffer.readUtf();
-			CookingPotBookCategory tabIn = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
-			List<Ingredient> inputItemsIn = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-			ItemStackTemplate outputIn = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-			Optional<ItemStackTemplate> container = ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).decode(buffer);
-			float experienceIn = buffer.readFloat();
-			int cookTimeIn = buffer.readVarInt();
-			return new CookingPotRecipe(groupIn, tabIn, inputItemsIn, outputIn, container, experienceIn, cookTimeIn);
+			String group = buffer.readUtf();
+            CookingPotBookCategory tab = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
+            List<Ingredient> inputItems = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+            Optional<ItemStackTemplate> container = ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).decode(buffer);
+            float experience = buffer.readFloat();
+			int cookTime = buffer.readVarInt();
+			return new CookingPotRecipe(group, tab, inputItems, output, container, experience, cookTime);
 		}
 
 		private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {

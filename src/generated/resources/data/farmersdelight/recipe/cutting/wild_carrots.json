@@ -1,11 +1,14 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    "farmersdelight:wild_carrots"
+    {
+      "item": "farmersdelight:wild_carrots"
+    }
   ],
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "minecraft:carrot"
       }
     },
@@ -17,5 +20,16 @@
       }
     }
   ],
-  "tool": "#c:tools/knife"
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "farmersdelight:item_ability",
+        "action": "knife_dig"
+      },
+      {
+        "tag": "c:tools/knife"
+      }
+    ]
+  }
 }

@@ -24,10 +24,6 @@ public class FoodValues
 	public static final int MEDIUM_DURATION = 3600;    // 3 minutes
 	public static final int LONG_DURATION = 6000;    // 5 minutes
 
-	public static MobEffectInstance comfort(int duration) {
-		return new MobEffectInstance(ModEffects.COMFORT, duration, 0, false, false);
-	}
-
 	public static MobEffectInstance nourishment(int duration) {
 		return new MobEffectInstance(ModEffects.NOURISHMENT, duration, 0, false, false);
 	}
@@ -95,6 +91,8 @@ public class FoodValues
 			.nutrition(2).saturationModifier(0.1f).build();
 	public static final FoodProperties CAKE_SLICE = (new FoodProperties.Builder())
 			.nutrition(2).saturationModifier(0.1f).build();
+			.nutrition(2).saturationModifier(0.1f).fast()
+			.effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 0, false, false), 1.0F).build();
 	public static final FoodProperties PIE_SLICE = (new FoodProperties.Builder())
 			.nutrition(3).saturationModifier(0.3f).build();
 	public static final FoodProperties FRUIT_SALAD = (new FoodProperties.Builder())
@@ -206,19 +204,6 @@ public class FoodValues
 		 */
 		public static final Consumable HUNGER_INDUCING_FOOD = Consumables.defaultFood()
 				.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F))
-				.build();
-
-		public static final Consumable COMFORT_BRIEF_DURATION = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(comfort(BRIEF_DURATION)))
-				.build();
-		public static final Consumable COMFORT_SHORT_DURATION = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(comfort(SHORT_DURATION)))
-				.build();
-		public static final Consumable COMFORT_MEDIUM_DURATION = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(comfort(MEDIUM_DURATION)))
-				.build();
-		public static final Consumable COMFORT_LONG_DURATION = Consumables.defaultFood()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(comfort(LONG_DURATION)))
 				.build();
 
 		public static final Consumable NOURISHMENT_BRIEF_DURATION = Consumables.defaultFood()

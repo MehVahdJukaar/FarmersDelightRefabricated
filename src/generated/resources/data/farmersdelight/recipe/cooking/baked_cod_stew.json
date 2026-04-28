@@ -2,13 +2,22 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    "#c:foods/raw_cod",
-    "minecraft:potato",
-    "#c:eggs",
-    "#c:crops/tomato"
+    {
+      "tag": "c:foods/raw_cod"
+    },
+    {
+      "tag": "c:crops/potato"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:crops/tomato"
+    }
   ],
   "recipe_book_tab": "meals",
   "result": {
+    "count": 1,
     "id": "farmersdelight:baked_cod_stew"
   }
 }

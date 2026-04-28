@@ -30,6 +30,10 @@ public class CookingPotMenu extends RecipeBookMenu
 {
 	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
 
+	public static final int INDEX_MEAL = 6;
+	public static final int INDEX_CONTAINER = 7;
+	public static final int INDEX_OUTPUT = 8;
+
 	public final CookingPotBlockEntity blockEntity;
 	public final ItemStackHandler inventory;
 	private final ContainerData cookingPotData;
@@ -40,11 +44,11 @@ public class CookingPotMenu extends RecipeBookMenu
 		this(windowId, playerInventory, getTileEntity(playerInventory, data), new SimpleContainerData(4));
 	}
 
-	public CookingPotMenu(final int windowId, final Inventory playerInventory, final CookingPotBlockEntity blockEntity, ContainerData cookingPotDataIn) {
+	public CookingPotMenu(final int windowId, final Inventory playerInventory, final CookingPotBlockEntity blockEntity, ContainerData cookingPotData) {
 		super(ModMenuTypes.COOKING_POT.get(), windowId);
 		this.blockEntity = blockEntity;
 		this.inventory = blockEntity.getInventory();
-		this.cookingPotData = cookingPotDataIn;
+		this.cookingPotData = cookingPotData;
 		this.level = playerInventory.player.level();
 		this.canInteractWithCallable = ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos());
 
@@ -90,7 +94,7 @@ public class CookingPotMenu extends RecipeBookMenu
 			this.addSlot(new Slot(playerInventory, column, startX + (column * borderSlotSize), 142));
 		}
 
-		this.addDataSlots(cookingPotDataIn);
+		this.addDataSlots(cookingPotData);
 	}
 
 	private static CookingPotBlockEntity getTileEntity(final Inventory playerInventory, final BlockPos data) {
@@ -100,7 +104,7 @@ public class CookingPotMenu extends RecipeBookMenu
 		if (tileAtPos instanceof CookingPotBlockEntity) {
 			return (CookingPotBlockEntity) tileAtPos;
 		}
-		throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
+		throw new IllegalStateException("Block entity is not correct! " + blockEntity);
 	}
 
 	@Override
@@ -110,30 +114,26 @@ public class CookingPotMenu extends RecipeBookMenu
 
 	@Override
 	public ItemStack quickMoveStack(Player playerIn, int index) {
-		int indexMealDisplay = 6;
-		int indexContainerInput = 7;
-		int indexOutput = 8;
-		int startPlayerInv = indexOutput + 1;
-		int endPlayerInv = startPlayerInv + 36;
+		int indexInventoryStart = INDEX_OUTPUT + 1;
+		int indexInventoryEnd = indexInventoryStart + 36;
 		ItemStack slotStackCopy = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 		if (slot.hasItem()) {
 			ItemStack slotStack = slot.getItem();
 			slotStackCopy = slotStack.copy();
-			if (index == indexOutput) {
-				if (!this.moveItemStackTo(slotStack, startPlayerInv, endPlayerInv, true)) {
+			if (index == INDEX_OUTPUT) {
+				if (!this.moveItemStackTo(slotStack, indexInventoryStart, indexInventoryEnd, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (index > indexOutput) {
-				boolean isValidContainer = slotStack.is(ModTags.SERVING_CONTAINERS) || slotStack.is(blockEntity.getContainer().getItem());
-				if (isValidContainer && !this.moveItemStackTo(slotStack, indexContainerInput, indexContainerInput + 1, false)) {
-					return ItemStack.EMPTY;
-				} else if (!this.moveItemStackTo(slotStack, 0, indexMealDisplay, false)) {
-					return ItemStack.EMPTY;
-				} else if (!this.moveItemStackTo(slotStack, indexContainerInput, indexOutput, false)) {
+			} else if (index > INDEX_OUTPUT) {
+				if (slotStack.is(ModTags.Items.SERVING_CONTAINERS) || slotStack.is(blockEntity.getContainer().getItem())) {
+					if (!this.moveItemStackTo(slotStack, INDEX_CONTAINER, INDEX_OUTPUT, false)) {
+						return ItemStack.EMPTY;
+					}
+				} else if (!this.moveItemStackTo(slotStack, 0, INDEX_MEAL, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.moveItemStackTo(slotStack, startPlayerInv, endPlayerInv, false)) {
+			} else if (!this.moveItemStackTo(slotStack, indexInventoryStart, indexInventoryEnd, false)) {
 				return ItemStack.EMPTY;
 			}
 

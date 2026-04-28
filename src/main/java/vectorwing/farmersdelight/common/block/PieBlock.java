@@ -38,7 +38,14 @@ public class PieBlock extends Block
 	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
 
-	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
+	protected static final VoxelShape[] SHAPES = {
+			Block.box(2, 0, 2, 14, 4, 14),
+			Shapes.join(Block.box(2, 0, 8, 8, 4, 14), Block.box(2, 0, 2, 14, 4, 8), BooleanOp.OR),
+			Block.box(2, 0, 2, 14, 4, 8),
+			Block.box(8, 0, 2, 14, 4, 8)
+	};
+
+	private static final VoxelShape[][] ROTATED_SHAPES = buildShapes();
 
 	public final Supplier<Item> pieSlice;
 
@@ -58,7 +65,18 @@ public class PieBlock extends Block
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPE;
+		return ROTATED_SHAPES[state.getValue(BITES)][state.getValue(FACING).get2DDataValue()];
+	}
+
+	private static VoxelShape[][] buildShapes() {
+		VoxelShape[][] result = new VoxelShape[SHAPES.length][4];
+		for (int i = 0; i < SHAPES.length; i++) {
+			Map<Direction, VoxelShape> rotated = ShapeUtils.getShapesRotatedFromNorth(SHAPES[i]);
+			for (Map.Entry<Direction, VoxelShape> entry : rotated.entrySet()) {
+				result[i][entry.getKey().get2DDataValue()] = entry.getValue();
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -98,7 +116,7 @@ public class PieBlock extends Block
 		} else {
 			ItemStack sliceStack = this.getPieSliceItem();
 
-			if (sliceStack.has(DataComponents.FOOD)) {
+			if (sliceStack.has(DataComponents.CONSUMABLE)) {
 				Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
 				sliceStack.getAllOfType(ConsumableListener.class).forEach(consumableListener -> consumableListener.onConsume(level, playerIn, sliceStack, sliceConsumable));
 				if (!level.isClientSide()) {
@@ -113,7 +131,10 @@ public class PieBlock extends Block
 				level.removeBlock(pos, false);
 			}
 			level.playSound(null, pos, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 0.8F, 0.8F);
-			return InteractionResult.SUCCESS;
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.001D);
+            }
+            return InteractionResult.SUCCESS;
 		}
 	}
 
@@ -131,8 +152,13 @@ public class PieBlock extends Block
 		Direction direction = player.getDirection().getOpposite();
 		ItemUtils.spawnItemEntity(level, this.getPieSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
 				direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15);
-		level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
-		return InteractionResult.SUCCESS;
+        level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
+        if (level instanceof ServerLevel serverLevel) {
+			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.001D);
+		}
+		player.awardStat(Stats.ITEM_USED.get(knife));
+
+		return ItemInteractionResult.SUCCESS;
 	}
 
 	@Override
@@ -150,7 +176,7 @@ public class PieBlock extends Block
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return level.getBlockState(pos.below()).isSolid();
+		return canSupportRigidBlock(level, pos.below());
 	}
 
 	@Override

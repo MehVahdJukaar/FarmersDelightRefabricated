@@ -147,11 +147,11 @@ public abstract class ConfigBuilder {
     }
 
     public String tooltipKey(String name) {
-        return "config." + this.name.getNamespace() + "." + currentCategory() + "." + name + ".description";
+        return translationKey(name) + ".tooltip";
     }
 
     public String translationKey(String name) {
-        return "config." + this.name.getNamespace() + "." + currentCategory() + "." + name;
+        return this.name.getNamespace() + ".configuration." + name;
     }
 
 

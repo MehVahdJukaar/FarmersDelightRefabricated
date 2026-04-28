@@ -66,6 +66,59 @@ public class SkilletItem extends BlockItem {
                 .add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
     }
+	@Override
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		if (compareComponents(oldStack, newStack, ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
+			compareComponents(oldStack, newStack, ModDataComponents.COOKING_TIME_LENGTH.get()) ||
+			compareComponents(oldStack, newStack, ModDataComponents.SKILLET_INGREDIENT.get())) {
+			return false;
+		}
+
+		return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
+	}
+
+	// Refabricated: Slightly more readable way of handling what FD does.
+	private static boolean compareComponents(ItemStack oldStack, ItemStack newStack, DataComponentType<?> componentType) {
+		if (!oldStack.has(componentType) || !newStack.has(componentType))
+			return false;
+
+		return !oldStack.get(componentType).equals(newStack.get(componentType));
+	}
+
+	public static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed) {
+		return ItemAttributeModifiers.builder()
+				.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+				.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+				.add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
+	}
+
+
+	public static class SkilletEvents {
+		/*
+		 This is modfiied before the player loses their attack power, and is unmodified as soon as the Skillet sound is played.
+		 This doesn't exist on Forge because they moved the resetting of attack power to after the events are fired.
+		 */
+		public static float attackPower = 0.0F;
+
+		public static void playSkilletAttackSound(LivingEntity entity, DamageSource source) {
+			Entity attacker = source.getDirectEntity();
+
+			if (!(attacker instanceof LivingEntity livingEntity)) return;
+			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
+
+			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
+			if (livingEntity instanceof Player player) {
+				if (attackPower > 0.8F) {
+					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
+				} else {
+					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), 0.8F, 0.9F);
+				}
+			} else {
+				livingEntity.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
+			}
+			attackPower = 0.0F;
+		}
+	}
 
     @Override
     public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
@@ -100,6 +153,11 @@ public class SkilletItem extends BlockItem {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+        tooltip.add(TextUtils.PLACEABLE_SNEAKING);
+    }
+
+    @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         Optional<Holder.Reference<Enchantment>> fireAspect = entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
         if (fireAspect.isEmpty()) {
@@ -122,55 +180,47 @@ public class SkilletItem extends BlockItem {
                 return InteractionResult.PASS;
             }
 
-                if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(cookingStack)) {
-                    if (player.isUnderWater()) {
-                        player.sendOverlayMessage(TextUtils.getTranslation("item.skillet.underwater"));
-                        return InteractionResult.PASS;
-                    }
-                    if (level instanceof ServerLevel serverLevel) {
-                        ItemStack cookingStackCopy = cookingStack.copy();
-                        ItemStack cookingStackUnit = cookingStackCopy.split(1);
-
-                        Optional<RecipeHolder<CampfireCookingRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(cookingStack), serverLevel);
-                        if (recipe.isEmpty())
-                            return InteractionResult.CONSUME;
-
-                        skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
-                        skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().cookingTime());
-                        skilletStack.set(ModDataComponents.SKILLET_FLIPPED.get(), false);
-
-                        player.startUsingItem(hand);
-                        player.setItemInHand(otherHand, cookingStackCopy);
-                    }
-                    return InteractionResult.CONSUME;
-                } else {
-                    player.sendOverlayMessage(TextUtils.getTranslation("item.skillet.how_to_cook"));
+            // FIXME: Move propertySet to a unique field.
+            if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(cookingStack)) {
+                if (player.isUnderWater()) {
+                    player.displayClientMessage(TextUtils.item("skillet.underwater"), true);
+                    return InteractionResultHolder.pass(skilletStack);
                 }
+                ItemStack cookingStackCopy = cookingStack.copy();
+                ItemStack cookingStackUnit = cookingStackCopy.split(1);
+                skilletStack.set(ModDataComponents.SKILLET_INGREDIENT.get(), new ItemStackWrapper(cookingStackUnit));
+                skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), recipe.get().value().getCookingTime());
+                player.startUsingItem(hand);
+                player.setItemInHand(otherHand, cookingStackCopy);
+                return InteractionResultHolder.consume(skilletStack);
+            } else {
+                player.displayClientMessage(TextUtils.item("skillet.how_to_cook"), true);
+            }
         }
         return InteractionResult.PASS;
     }
 
-    @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
-        if (entity instanceof Player player) {
-            if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
-                long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
-                long l = level.getGameTime() - flipTimeStamp;
-                if (l > FLIP_TIME) {
-                    stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
-                    stack.set(ModDataComponents.SKILLET_FLIPPED.get(), !stack.getOrDefault(ModDataComponents.SKILLET_FLIPPED.get(), false));
-                } else if (l == FLIP_TIME - 8 && level.isClientSide()) {
-                    //why does it need to play early? idk
-                    //plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
-                    level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-                } else if (level.isClientSide() && level.getRandom().nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
-                    level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-                }
-            } else if (level.isClientSide() && level.getRandom().nextInt(50) == 0) {
-                level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-            }
-        }
-    }
+	@Override
+	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
+		if (entity instanceof Player player) {
+			if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
+				long flipTimeStamp = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+				long l = level.getGameTime() - flipTimeStamp;
+				if (l > FLIP_TIME) {
+					stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
+					stack.set(ModDataComponents.SKILLET_FLIPPED.get(), !stack.getOrDefault(ModDataComponents.SKILLET_FLIPPED.get(), false));
+				} else if (level.isClientSide && l == FLIP_TIME - 8) {
+					//why does it need to play early? idk
+					//plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
+					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				} else if (level.isClientSide && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
+					level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				}
+			} else if (level.isClientSide && level.random.nextInt(50) == 0) {
+				level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+			}
+		}
+	}
 
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
@@ -209,10 +259,8 @@ public class SkilletItem extends BlockItem {
                 InteractionHand otherHand = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
                 ItemStack otherHandStack = player.getItemInHand(otherHand);
                 otherHandStack.shrink(1);
-                if (otherHandStack.isEmpty()) {
-                    stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
-                    stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
-                }
+                stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
+                stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
                 stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
             }

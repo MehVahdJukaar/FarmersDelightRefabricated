@@ -12,28 +12,32 @@ import vectorwing.farmersdelight.common.mixin.refabricated.FoodDataAccessor;
 public class NourishmentEffect extends MobEffect
 {
 	/**
-	 * This effect prevents hunger loss by constantly decreasing the exhaustion level.
-	 * If the player can spend saturation to heal damage, the effect halts to let them do so, until they can't any more.
-	 * This means players can grow hungry by healing damage, but no further than 1.5 points, allowing them to eat more and keep healing.
+	 * This effect prevents hunger loss by constantly setting the exhaustion level to zero.
+	 * If the player can spend saturation to heal damage, the effect pauses to let them do so.
+	 * Slow healing won't consume hunger, making it happen indefinitely. A mixin allows the player to always eat when under this effect to compensate.
 	 */
 	public NourishmentEffect() {
-		super(MobEffectCategory.BENEFICIAL, 15971072);
+		super(MobEffectCategory.BENEFICIAL, 0xF3B300);
 	}
 
-	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+		if (entity.getCommandSenderWorld().isClientSide) {
+			return true;
+		}
+
 		if (entity instanceof Player player) {
 			FoodData foodData = player.getFoodData();
-			boolean isPlayerHealingWithHunger =
-					serverLevel.getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)
-							&& player.isHurt()
-							&& foodData.getFoodLevel() >= 18;
-			if (!isPlayerHealingWithHunger) {
-				float exhaustion = ((FoodDataAccessor)foodData).fdrf$getExhaustionLevel();
-				float reduction = Math.min(exhaustion, 4.0F);
-				if (exhaustion > 0.0F) {
-					player.causeFoodExhaustion(-reduction);
-				}
-			}
+            boolean isPlayerHealingWithHunger =
+                    serverLevel.getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)
+                            && player.isHurt()
+                            && foodData.getFoodLevel() >= 18;
+            if (!isPlayerHealingWithHunger) {
+                float exhaustion = ((FoodDataAccessor)foodData).fdrf$getExhaustionLevel();
+                float reduction = Math.min(exhaustion, 4.0F);
+                if (exhaustion > 0.0F) {
+                    player.causeFoodExhaustion(-reduction);
+                }
+            }
 		}
 
 		return true;

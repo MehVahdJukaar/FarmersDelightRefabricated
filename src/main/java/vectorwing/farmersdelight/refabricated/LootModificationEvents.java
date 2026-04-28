@@ -87,6 +87,9 @@ public class LootModificationEvents {
     }
 
     private static void chestLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
+        if (!Configuration.GENERATE_FD_CHEST_LOOT.get())
+            return;
+
         if (key == BuiltInLootTables.ABANDONED_MINESHAFT)
             tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_ABANDONED_MINESHAFT)));
 

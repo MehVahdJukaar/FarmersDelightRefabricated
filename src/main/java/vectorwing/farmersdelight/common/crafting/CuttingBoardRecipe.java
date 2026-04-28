@@ -93,11 +93,11 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 		return this.results;
 	}
 
-	public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
-		List<ItemStack> results = new ArrayList<>();
+    public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
+        List<ItemStack> results = new ArrayList<>();
 		List<ChanceResult> rollableResults = getRollableResults();
 		for (ChanceResult output : rollableResults) {
-			ItemStack stack = output.rollOutput(rand, fortuneLevel);
+			ItemStack stack = output.rollOutput(random, fortuneLevel);
 			if (!stack.isEmpty())
 				results.add(stack);
 		}
@@ -157,9 +157,23 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 				StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
 
 		private static final MapCodec<CuttingBoardRecipe> CODEC = RecordCodecBuilder.mapCodec(
-				inst -> inst.group(Codec.STRING.optionalFieldOf("group", "").forGetter(CuttingBoardRecipe::group),
-								// List::getFirst does not compile...
-								Ingredient.CODEC.listOf(1, 1).fieldOf("ingredients").xmap(List::getFirst, List::of).forGetter(cuttingBoardRecipe -> cuttingBoardRecipe.input),
+				inst -> inst.group(Codec.STRING.optionalFieldOf("group", "").forGetter(CuttingBoardRecipe::getGroup),
+								Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").flatXmap(ingredients -> {
+									if (ingredients.isEmpty()) {
+										return DataResult.error(() -> "No ingredients for cutting recipe");
+									}
+									if (ingredients.size() > 1) {
+										return DataResult.error(
+												() -> "Too many ingredients for cutting recipe! Please define only one ingredient");
+									}
+									NonNullList<Ingredient> nonNullList = NonNullList.create();
+									nonNullList.add(ingredients.get(0));
+									return DataResult.success(ingredients.get(0));
+								}, ingredient -> {
+									NonNullList<Ingredient> nonNullList = NonNullList.create();
+									nonNullList.add(ingredient);
+									return DataResult.success(nonNullList);
+								}).forGetter(cuttingBoardRecipe -> cuttingBoardRecipe.input),
 								Ingredient.CODEC.fieldOf("tool").forGetter(CuttingBoardRecipe::getTool),
 								ChanceResult.CODEC.listOf(1, MAX_RESULTS).fieldOf("result").forGetter(CuttingBoardRecipe::getRollableResults),
 								SoundEvent.CODEC.optionalFieldOf("sound").forGetter(CuttingBoardRecipe::getSoundEventHolder))
@@ -169,13 +183,13 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 		}
 
 		public static CuttingBoardRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-			String groupIn = buffer.readUtf(32767);
-			Ingredient inputItemIn = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-			Ingredient toolIn = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-			List<ChanceResult> resultsIn = ChanceResult.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-			Optional<Holder<SoundEvent>> soundEventIn = SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buffer);
+			String group = buffer.readUtf(32767);
+			Ingredient inputItem = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+			Ingredient tool = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+			List<ChanceResult> results = ChanceResult.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
+			Optional<Holder<SoundEvent>> soundEvent = SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buffer);
 
-			return new CuttingBoardRecipe(groupIn, inputItemIn, toolIn, resultsIn, soundEventIn.orElse(null));
+			return new CuttingBoardRecipe(group, inputItem, tool, results, soundEvent.orElse(null));
 		}
 
 		public static void toNetwork(RegistryFriendlyByteBuf buffer, CuttingBoardRecipe recipe) {
@@ -186,12 +200,12 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
             SoundEvent.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buffer, Optional.ofNullable(recipe.soundEvent));
 		}
 
-//		@Override
+		@Override
 		public static MapCodec<CuttingBoardRecipe> codec() {
 			return CODEC;
 		}
 
-//		@Override
+		@Override
 		public static StreamCodec<RegistryFriendlyByteBuf, CuttingBoardRecipe> streamCodec() {
 			return STREAM_CODEC;
 		}

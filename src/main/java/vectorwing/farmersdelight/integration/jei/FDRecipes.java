@@ -22,7 +22,7 @@ public class FDRecipes
 		if (level != null) {
             synchronizedRecipes = level.recipeAccess().getSynchronizedRecipes();
 		} else {
-			throw new NullPointerException("minecraft world must not be null.");
+			throw new NullPointerException("Minecraft level must not be null.");
 		}
 	}
 

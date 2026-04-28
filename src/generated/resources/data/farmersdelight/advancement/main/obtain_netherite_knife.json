@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "farmersdelight.advancement.obtain_netherite_knife.desc"
+      "translate": "advancements.farmersdelight.obtain_netherite_knife.description"
     },
     "frame": "challenge",
     "icon": {
       "id": "farmersdelight:netherite_knife"
     },
     "title": {
-      "translate": "farmersdelight.advancement.obtain_netherite_knife"
+      "translate": "advancements.farmersdelight.obtain_netherite_knife.title"
     }
   },
   "requirements": [

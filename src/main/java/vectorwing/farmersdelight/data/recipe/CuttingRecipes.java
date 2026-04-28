@@ -20,7 +20,15 @@ import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 public class CuttingRecipes
 {
-	public static void register(HolderLookup.Provider provider, RecipeOutput output) {
+    public static Ingredient KNIVES = matchesTool(KnifeItem.KNIFE_DIG, CommonTags.Items.TOOLS_KNIFE);
+    public static Ingredient PICKAXES = matchesTool(ItemAbility.PICKAXE_DIG, ItemTags.PICKAXES);
+    public static Ingredient AXES = matchesTool(ItemAbility.AXE_DIG, ItemTags.AXES);
+    public static Ingredient AXES_STRIP = matchesTool(ItemAbility.AXE_STRIP, ItemTags.AXES);
+    public static Ingredient SHOVELS = matchesTool(ItemAbility.SHOVEL_DIG, ItemTags.SHOVELS);
+    public static Ingredient HOES = matchesTool(ItemAbility.HOE_DIG, ItemTags.HOES);
+    public static Ingredient SHEARS = matchesTool(ItemAbility.SHEARS_DIG, ConventionalItemTags.SHEAR_TOOLS);
+
+    public static void register(HolderLookup.Provider provider, RecipeOutput output) {
 		HolderGetter<Item> holderGetter = provider.lookupOrThrow(Registries.ITEM);
 		// Knife
 		cuttingAnimalItems(holderGetter, output);
@@ -40,6 +48,9 @@ public class CuttingRecipes
 
 		// Shears
 		salvagingUsingShears(holderGetter, output);
+
+		// Hoe
+		salvagingBlockFromVehicle(output);
 	}
 
 	private static void cuttingAnimalItems(HolderGetter<Item> holderGetter, RecipeOutput output) {
@@ -158,10 +169,10 @@ public class CuttingRecipes
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_RICE.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.TOOLS_KNIFE)), ModItems.RICE.get(), 1)
 				.addResultWithChance(ModItems.STRAW.get(), 0.5F)
 				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_TOMATOES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.TOOLS_KNIFE)), ModItems.TOMATO_SEEDS.get(), 1)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_TOMATOES.get()), Ingredient.of(CommonTags.TOOLS_KNIFE), ModItems.TOMATO_SEEDS.get(), 1)
 				.addResultWithChance(ModItems.TOMATO.get(), 0.2F)
 				.addResultWithChance(Items.GREEN_DYE, 0.1F)
-				.build(output);
+				.saveToFD(output);
 	}
 
 	private static void salvagingMinerals(RecipeOutput output) {
@@ -207,54 +218,132 @@ public class CuttingRecipes
 		stripLogForBark(holderGetter, output, Items.WARPED_HYPHAE, Items.STRIPPED_WARPED_HYPHAE);
 	}
 
-	private static void salvagingWoodenFurniture(HolderGetter<Item> holderGetter, RecipeOutput output) {
-		salvagePlankFromFurniture(holderGetter, output, Items.OAK_PLANKS, Items.OAK_DOOR, Items.OAK_TRAPDOOR, Items.OAK_SIGN, Items.OAK_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.SPRUCE_PLANKS, Items.SPRUCE_DOOR, Items.SPRUCE_TRAPDOOR, Items.SPRUCE_SIGN, Items.SPRUCE_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.BIRCH_PLANKS, Items.BIRCH_DOOR, Items.BIRCH_TRAPDOOR, Items.BIRCH_SIGN, Items.BIRCH_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.JUNGLE_PLANKS, Items.JUNGLE_DOOR, Items.JUNGLE_TRAPDOOR, Items.JUNGLE_SIGN, Items.JUNGLE_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.ACACIA_PLANKS, Items.ACACIA_DOOR, Items.ACACIA_TRAPDOOR, Items.ACACIA_SIGN, Items.ACACIA_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.DARK_OAK_PLANKS, Items.DARK_OAK_DOOR, Items.DARK_OAK_TRAPDOOR, Items.DARK_OAK_SIGN, Items.DARK_OAK_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.MANGROVE_PLANKS, Items.MANGROVE_DOOR, Items.MANGROVE_TRAPDOOR, Items.MANGROVE_SIGN, Items.MANGROVE_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.CHERRY_PLANKS, Items.CHERRY_DOOR, Items.CHERRY_TRAPDOOR, Items.CHERRY_SIGN, Items.CHERRY_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.CRIMSON_PLANKS, Items.CRIMSON_DOOR, Items.CRIMSON_TRAPDOOR, Items.CRIMSON_SIGN, Items.CRIMSON_HANGING_SIGN);
-		salvagePlankFromFurniture(holderGetter, output, Items.WARPED_PLANKS, Items.WARPED_DOOR, Items.WARPED_TRAPDOOR, Items.WARPED_SIGN, Items.WARPED_HANGING_SIGN);
-	}
+	private static void salvagingWoodenFurniture(RecipeOutput output) {
+		ssalvagePlankFromFurniture(output, WoodType.OAK,
+                Items.OAK_PLANKS, Items.OAK_DOOR, Items.OAK_TRAPDOOR, Items.OAK_SIGN, Items.OAK_HANGING_SIGN, Items.OAK_FENCE, Items.OAK_FENCE_GATE,
+                Items.OAK_PRESSURE_PLATE, Items.OAK_BUTTON, Items.OAK_BOAT, ModItems.OAK_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.SPRUCE,
+                Items.SPRUCE_PLANKS, Items.SPRUCE_DOOR, Items.SPRUCE_TRAPDOOR, Items.SPRUCE_SIGN, Items.SPRUCE_HANGING_SIGN, Items.SPRUCE_FENCE, Items.SPRUCE_FENCE_GATE,
+                Items.SPRUCE_PRESSURE_PLATE, Items.SPRUCE_BUTTON, Items.SPRUCE_BOAT, ModItems.SPRUCE_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.BIRCH,
+                Items.BIRCH_PLANKS, Items.BIRCH_DOOR, Items.BIRCH_TRAPDOOR, Items.BIRCH_SIGN, Items.BIRCH_HANGING_SIGN, Items.BIRCH_FENCE, Items.BIRCH_FENCE_GATE,
+                Items.BIRCH_PRESSURE_PLATE, Items.BIRCH_BUTTON, Items.BIRCH_BOAT, ModItems.BIRCH_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.JUNGLE,
+                Items.JUNGLE_PLANKS, Items.JUNGLE_DOOR, Items.JUNGLE_TRAPDOOR, Items.JUNGLE_SIGN, Items.JUNGLE_HANGING_SIGN, Items.JUNGLE_FENCE, Items.JUNGLE_FENCE_GATE,
+                Items.JUNGLE_PRESSURE_PLATE, Items.JUNGLE_BUTTON, Items.JUNGLE_BOAT, ModItems.JUNGLE_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.ACACIA,
+                Items.ACACIA_PLANKS, Items.ACACIA_DOOR, Items.ACACIA_TRAPDOOR, Items.ACACIA_SIGN, Items.ACACIA_HANGING_SIGN, Items.ACACIA_FENCE, Items.ACACIA_FENCE_GATE,
+                Items.ACACIA_PRESSURE_PLATE, Items.ACACIA_BUTTON, Items.ACACIA_BOAT, ModItems.ACACIA_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.DARK_OAK,
+                Items.DARK_OAK_PLANKS, Items.DARK_OAK_DOOR, Items.DARK_OAK_TRAPDOOR, Items.DARK_OAK_SIGN, Items.DARK_OAK_HANGING_SIGN, Items.DARK_OAK_FENCE, Items.DARK_OAK_FENCE_GATE,
+                Items.DARK_OAK_PRESSURE_PLATE, Items.DARK_OAK_BUTTON, Items.DARK_OAK_BOAT, ModItems.DARK_OAK_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.MANGROVE,
+                Items.MANGROVE_PLANKS, Items.MANGROVE_DOOR, Items.MANGROVE_TRAPDOOR, Items.MANGROVE_SIGN, Items.MANGROVE_HANGING_SIGN, Items.MANGROVE_FENCE, Items.MANGROVE_FENCE_GATE,
+                Items.MANGROVE_PRESSURE_PLATE, Items.MANGROVE_BUTTON, Items.MANGROVE_BOAT, ModItems.MANGROVE_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.CHERRY,
+                Items.CHERRY_PLANKS, Items.CHERRY_DOOR, Items.CHERRY_TRAPDOOR, Items.CHERRY_SIGN, Items.CHERRY_HANGING_SIGN, Items.CHERRY_FENCE, Items.CHERRY_FENCE_GATE,
+                Items.CHERRY_PRESSURE_PLATE, Items.CHERRY_BUTTON, Items.CHERRY_BOAT, ModItems.CHERRY_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.BAMBOO,
+                Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN, Items.BAMBOO_FENCE, Items.BAMBOO_FENCE_GATE,
+                Items.BAMBOO_PRESSURE_PLATE, Items.BAMBOO_BUTTON, Items.BAMBOO_RAFT, ModItems.BAMBOO_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.CRIMSON,
+                Items.CRIMSON_PLANKS, Items.CRIMSON_DOOR, Items.CRIMSON_TRAPDOOR, Items.CRIMSON_SIGN, Items.CRIMSON_HANGING_SIGN, Items.CRIMSON_FENCE, Items.CRIMSON_FENCE_GATE,
+                Items.CRIMSON_PRESSURE_PLATE, Items.CRIMSON_BUTTON, ModItems.CRIMSON_CABINET.get());
+        salvagePlankFromFurniture(output, WoodType.WARPED,
+                Items.WARPED_PLANKS, Items.WARPED_DOOR, Items.WARPED_TRAPDOOR, Items.WARPED_SIGN, Items.WARPED_HANGING_SIGN, Items.WARPED_FENCE, Items.WARPED_FENCE_GATE,
+                Items.WARPED_PRESSURE_PLATE, Items.WARPED_BUTTON, ModItems.WARPED_CABINET.get());
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WOODEN_BASKET.get()), AXES, ModItems.CANVAS.get())
+                .addResult(Items.STICK)
+                .saveToFD(output);
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.BAMBOO_BASKET.get()), AXES, ModItems.CANVAS.get())
+                .addResult(Items.BAMBOO)
+                .saveToFD(output);
+    }
 
 	private static void diggingSediments(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLAY), new ItemAbilityIngredient(ItemAbility.SHOVEL_DIG).toVanilla(), Items.CLAY_BALL, 4)
 				.build(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GRAVEL), new ItemAbilityIngredient(ItemAbility.SHOVEL_DIG).toVanilla(), Items.GRAVEL, 1)
 				.addResultWithChance(Items.FLINT, 0.1F)
-				.build(output);
+				.saveToFD(output);
 	}
 
 	private static void salvagingUsingShears(HolderGetter<Item> holderGetter, RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SADDLE), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 2)
-				.addResultWithChance(Items.IRON_NUGGET, 0.5F, 2)
-				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HORSE_ARMOR), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 2)
-				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HELMET), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 1)
-				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_CHESTPLATE), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 1)
-				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_LEGGINGS), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 1)
-				.build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_BOOTS), Ingredient.of(holderGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS)), Items.LEATHER, 1)
-				.build(output);
-	}
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SADDLE), SHEARS, Items.LEATHER, 2)
+                .addResultWithChance(Items.IRON_NUGGET, 0.5F, 2)
+                .save(output, salvagingRecipe("saddle"));
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HORSE_ARMOR), SHEARS, Items.LEATHER, 2)
+                .save(output, salvagingRecipe("leather_horse_armor"));
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS), SHEARS, Items.LEATHER, 1)
+                .save(output, salvagingRecipe("leather_armor"));
+    }
 
+	private static void salvagingBlockFromVehicle(RecipeOutput output) {
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CHEST_MINECART), HOES, Items.MINECART)
+			.addResult(Items.CHEST)
+			.addSound(SoundEvents.METAL_BREAK)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.FURNACE_MINECART), HOES, Items.MINECART)
+			.addResult(Items.FURNACE)
+			.addSound(SoundEvents.METAL_BREAK)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.HOPPER_MINECART), HOES, Items.MINECART)
+			.addResult(Items.HOPPER)
+			.addSound(SoundEvents.METAL_BREAK)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TNT_MINECART), HOES, Items.MINECART)
+			.addResult(Items.TNT)
+			.addSound(SoundEvents.METAL_BREAK)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OAK_CHEST_BOAT), HOES, Items.OAK_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.SPRUCE_CHEST_BOAT), HOES, Items.SPRUCE_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BIRCH_CHEST_BOAT), HOES, Items.BIRCH_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.JUNGLE_CHEST_BOAT), HOES, Items.JUNGLE_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ACACIA_CHEST_BOAT), HOES, Items.ACACIA_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DARK_OAK_CHEST_BOAT), HOES, Items.DARK_OAK_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.MANGROVE_CHEST_BOAT), HOES, Items.MANGROVE_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CHERRY_CHEST_BOAT), HOES, Items.CHERRY_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_CHEST_RAFT), HOES, Items.BAMBOO_RAFT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+	}
 
 	/**
-	 * Generates an axe-cutting recipe for each furniture, resulting in one plank of the given type.
+	 * Generates an axe-cutting recipe for wooded furniture items, with a chance to recover one plank of the given type.
 	 */
-	private static void salvagePlankFromFurniture(HolderGetter<Item> holderGetter, RecipeOutput output, ItemLike plank, ItemLike door, ItemLike trapdoor, ItemLike sign, ItemLike hangingSign) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(door), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(trapdoor), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(sign), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(hangingSign), new ItemAbilityIngredient(ItemAbility.AXE_DIG).toVanilla(), plank).build(output);
-	}
+    private static void salvagePlankFromFurniture(RecipeOutput output, WoodType woodType, ItemLike plank, ItemLike... furniture) {
+        CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(furniture), AXES, plank, 1, 0.75F)
+                .save(output, salvagingRecipe(woodType.name() + "_furniture"));
+    }
 
 	/**
 	 * Generates an axe-stripping recipe for the pair of given logs, with custom sound and a Tree Bark result attached.
@@ -262,6 +351,15 @@ public class CuttingRecipes
 	private static void stripLogForBark(HolderGetter<Item> holderGetter, RecipeOutput output, ItemLike log, ItemLike strippedLog) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(log), new ItemAbilityIngredient(ItemAbility.AXE_STRIP).toVanilla(), strippedLog)
 				.addResult(ModItems.TREE_BARK.get())
-				.addSound(SoundEvents.AXE_STRIP).build(output);
+				.addSound(SoundEvents.AXE_STRIP)
+				.saveToFD(output);
+	}
+
+	private static Ingredient matchesTool(ItemAbility toolAction, TagKey<Item> fallbackTag) {
+		return DefaultCustomIngredients.any(new ItemAbilityIngredient(toolAction).toVanilla(), Ingredient.of(fallbackTag));
+	}
+
+	private static ResourceLocation salvagingRecipe(String name) {
+		return ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "salvaging/" + name);
 	}
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -31,17 +31,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.registry.ModSounds;
 
 @SuppressWarnings("deprecation")
-public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
-{
+public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<CuttingBoardBlock> CODEC = simpleCodec(CuttingBoardBlock::new);
 
-	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D);
@@ -58,16 +56,6 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
 		return null;
-	}
-
-	@Override
-	public RenderShape getRenderShape(BlockState pState) {
-		return RenderShape.MODEL;
-	}
-
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPE;
 	}
 
 	@Override
@@ -132,7 +120,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-				.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
+			.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
 	}
 
 	@Override
@@ -156,7 +144,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
-		return canSupportRigidBlock(level, floorPos) || canSupportCenter(level, floorPos, Direction.UP);
+		return Block.canSupportRigidBlock(level, floorPos) || Block.canSupportCenter(level, floorPos, Direction.UP);
 	}
 
 	@Override
@@ -177,11 +165,25 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof CuttingBoardBlockEntity) {
-			return !((CuttingBoardBlockEntity) blockEntity).isEmpty() ? 15 : 0;
-		}
-		return 0;
+        if (!(level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity cuttingBoard)) {
+            return 0;
+        }
+        ItemStack storedStack = cuttingBoard.getStoredItem();
+        if (!storedStack.isEmpty()) {
+            float proportions = (float) storedStack.getCount() / Math.min(cuttingBoard.getMaxStackSize(), storedStack.getMaxStackSize());
+            return Mth.floor(proportions * 14.0F) + 1;
+        }
+        return 0;
+	}
+
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return SHAPE;
 	}
 
 	@Nullable
@@ -191,13 +193,13 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public BlockState rotate(BlockState pState, Rotation pRot) {
-		return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	public BlockState mirror(BlockState pState, Mirror pMirror) {
-		return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
 	public static void spawnCuttingParticles(Level level, BlockPos pos, ItemStack stack, int count) {
@@ -233,7 +235,6 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 					}
 				}
 			}
-			return InteractionResult.PASS;
 		}
 	}
 }

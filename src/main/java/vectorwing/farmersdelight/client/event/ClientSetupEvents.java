@@ -69,20 +69,11 @@ public class ClientSetupEvents
 	public static void registerParticles() {
         ParticleProviderRegistry.getInstance().register(ModParticleTypes.STAR.get(), StarParticle.Factory::new);
         ParticleProviderRegistry.getInstance().register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(ModParticleTypes.SPARKLE.get(), SparkleParticle.Factory::new);
 	}
 
-//	public static void onModelRegister(ModelLoadingPlugin.Context event) {
-//		event.addModels(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"));
-//	}
-//
 //	@SubscribeEvent
-//	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
-//		Map<ModelIdentifier, BakedModel> modelRegistry = event.getModels();
-//
-//		ModelIdentifier skilletLocation = new ModelIdentifier(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet"), "inventory");
-//		BakedModel skilletModel = modelRegistry.get(skilletLocation);
-//		ModelIdentifier skilletCookingLocation = new ModelIdentifier(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"), "inventory");
-//		BakedModel skilletCookingModel = modelRegistry.get(skilletCookingLocation);
-//		modelRegistry.put(skilletLocation, new SkilletModel(event.getModelBakery(), skilletModel, skilletCookingModel));
+//	public static void onModelRegister(ModelEvent.RegisterAdditional event) {
+//		event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_cooking"), "inventory"));
 //	}
 }

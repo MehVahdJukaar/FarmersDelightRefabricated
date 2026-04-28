@@ -80,7 +80,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	public static final int OUTPUT_SLOT = 8;
 	public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
-	// TODO: Consider whether to leave this as-is, or open it to datapacks for modded cases.
 	public static final Map<Item, Item> INGREDIENT_REMAINDER_OVERRIDES = Map.ofEntries(
 			entry(Items.POWDER_SNOW_BUCKET, Items.BUCKET),
 			entry(Items.AXOLOTL_BUCKET, Items.BUCKET),
@@ -326,8 +325,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean processCooking(RecipeHolder<CookingPotRecipe> recipe, CookingPotBlockEntity cookingPot) {
-		if (level == null) return false;
-
 		++cookTime;
 		cookTimeTotal = recipe.value().getCookTime();
 		if (cookTime < cookTimeTotal) {
@@ -417,8 +414,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	public boolean isHeated() {
-		if (level == null) return false;
-		return this.isHeated(level, worldPosition);
+		return this.isHeated(Preconditions.checkNotNull(level), worldPosition);
 	}
 
 	public ItemStackHandler getInventory() {
@@ -445,7 +441,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		int mealCount = Math.min(mealStack.getCount(), mealStack.getMaxStackSize() - outputStack.getCount());
 		if (outputStack.isEmpty()) {
 			inventory.setStackInSlot(OUTPUT_SLOT, mealStack.split(mealCount));
-		} else if (outputStack.getItem() == mealStack.getItem()) {
+		} else if (ItemStack.isSameItem(mealStack, outputStack)) {
 			mealStack.shrink(mealCount);
 			outputStack.grow(mealCount);
 		}

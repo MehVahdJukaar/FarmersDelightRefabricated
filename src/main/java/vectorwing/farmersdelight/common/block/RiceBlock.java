@@ -119,7 +119,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 
 	@Override
 	public BlockState updateShape(
-			BlockState stateIn,
+			BlockState state,
 			LevelReader level,
 			ScheduledTickAccess scheduledTickAccess,
 			BlockPos currentPos,
@@ -127,15 +127,15 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 			BlockPos facingPos,
 			BlockState facingState,
 			RandomSource random) {
-		BlockState state = super.updateShape(stateIn, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
-		if (!state.isAir()) {
+		BlockState updatedState = super.updateShape(state, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
+		if (!updatedState.isAir()) {
 			scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 			if (facing == Direction.UP) {
-				return state.setValue(SUPPORTING, isSupportingRiceUpper(facingState));
+				return updatedState.setValue(SUPPORTING, isSupportingRiceUpper(facingState));
 			}
 		}
 
-		return state;
+		return updatedState;
 	}
 
 	public boolean isSupportingRiceUpper(BlockState topState) {
@@ -159,7 +159,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
@@ -168,7 +168,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		int ageGrowth = Math.min(this.getAge(state) + this.getBonemealAgeIncrease(level), 7);
 		if (ageGrowth <= this.getMaxAge()) {
 			level.setBlockAndUpdate(pos, state.setValue(AGE, ageGrowth));
@@ -201,7 +201,7 @@ public class RiceBlock extends VegetationBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 }

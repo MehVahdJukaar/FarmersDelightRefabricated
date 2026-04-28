@@ -20,6 +20,7 @@ public record AddFeaturesByFilterBiomeModifier(
 		GenerationStep.Decoration step
 )
 {
+	// Moved to ModBiomeModifiers.
 	/*
 	@Override
 	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {

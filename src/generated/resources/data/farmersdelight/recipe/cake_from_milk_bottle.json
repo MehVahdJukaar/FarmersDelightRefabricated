@@ -3,10 +3,18 @@
   "category": "misc",
   "group": "cake",
   "key": {
-    "e": "#c:eggs",
-    "m": "#c:drinks/milk",
-    "s": "minecraft:sugar",
-    "w": "minecraft:wheat"
+    "e": {
+      "tag": "c:eggs"
+    },
+    "m": {
+      "tag": "c:drinks/milk"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "w": {
+      "tag": "c:crops/wheat"
+    }
   },
   "pattern": [
     "mmm",
@@ -14,6 +22,7 @@
     "www"
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:cake"
   }
 }

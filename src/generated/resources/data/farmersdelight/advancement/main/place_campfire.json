@@ -26,13 +26,13 @@
   },
   "display": {
     "description": {
-      "translate": "farmersdelight.advancement.place_campfire.desc"
+      "translate": "advancements.farmersdelight.place_campfire.description"
     },
     "icon": {
       "id": "minecraft:campfire"
     },
     "title": {
-      "translate": "farmersdelight.advancement.place_campfire"
+      "translate": "advancements.farmersdelight.place_campfire.title"
     }
   },
   "requirements": [

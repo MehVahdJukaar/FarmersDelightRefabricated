@@ -80,6 +80,7 @@ public class ConventionalTags
 	public static final TagKey<Item> SEEDS_TOMATO = cItemTag("seeds/tomato");
 
 	public static final TagKey<Item> TOOLS_KNIVES = cItemTag("tools/knives");
+	public static final TagKey<Item> DRINKS_MILK = cItemTag("drinks/milk");
 
 	private static TagKey<Block> cBlockTag(String path) {
 		return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", path));

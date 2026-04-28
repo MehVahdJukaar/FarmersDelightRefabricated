@@ -10,7 +10,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
@@ -26,7 +30,7 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
-		copy(ModTags.WILD_CROPS, ModTags.WILD_CROPS_ITEM);
+		copy(ModTags.Blocks.WILD_CROPS, ModTags.Items.WILD_CROPS);
 		copy(BlockTags.SMALL_FLOWERS, net.minecraft.tags.ItemTags.SMALL_FLOWERS);
 
 		this.registerMinecraftTags();

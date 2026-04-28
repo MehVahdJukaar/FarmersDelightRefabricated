@@ -213,14 +213,14 @@
   },
   "display": {
     "description": {
-      "translate": "farmersdelight.advancement.plant_all_crops.desc"
+      "translate": "advancements.farmersdelight.plant_all_crops.description"
     },
     "frame": "challenge",
     "icon": {
       "id": "farmersdelight:cabbage"
     },
     "title": {
-      "translate": "farmersdelight.advancement.plant_all_crops"
+      "translate": "advancements.farmersdelight.plant_all_crops.title"
     }
   },
   "requirements": [

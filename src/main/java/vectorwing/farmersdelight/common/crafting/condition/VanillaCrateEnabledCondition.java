@@ -12,7 +12,7 @@ import vectorwing.farmersdelight.common.Configuration;
 public class VanillaCrateEnabledCondition implements ResourceCondition
 {
 	public static final MapCodec<VanillaCrateEnabledCondition> CODEC = MapCodec.unit(new VanillaCrateEnabledCondition());
-	public static final ResourceConditionType<VanillaCrateEnabledCondition> TYPE = ResourceConditionType.create(FarmersDelight.id("vanilla_crates_enabled"), CODEC);
+	public static final ResourceConditionType<VanillaCrateEnabledCondition> TYPE = ResourceConditionType.create(FarmersDelight.res("vanilla_crates_enabled"), CODEC);
 
 	public VanillaCrateEnabledCondition() {
 	}

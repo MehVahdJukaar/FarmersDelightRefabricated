@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:honey_bottle",
-    "minecraft:wheat",
-    "minecraft:wheat"
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "tag": "c:crops/wheat"
+    },
+    {
+      "tag": "c:crops/wheat"
+    }
   ],
   "result": {
     "count": 8,

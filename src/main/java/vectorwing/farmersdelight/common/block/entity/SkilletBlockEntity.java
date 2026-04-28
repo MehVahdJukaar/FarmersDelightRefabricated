@@ -35,36 +35,37 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	private int cookingTime;
 	private int cookingTimeTotal;
 
-	private ItemStack skilletStack;
-	private int fireAspectLevel;
+    private ItemStack skilletStack;
+    private int fireAspectLevel;
 
-	private final RecipeManager.CachedCheck<SingleRecipeInput, CampfireCookingRecipe> quickCheck;
+    private final RecipeManager.CachedCheck<SingleRecipeInput, CampfireCookingRecipe> quickCheck;
 
-	public SkilletBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBlockEntityTypes.SKILLET.get(), pos, state);
-		skilletStack = new ItemStack(ModItems.SKILLET.get());
-		quickCheck = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
-	}
+    public SkilletBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntityTypes.SKILLET.get(), pos, state);
+        skilletStack = new ItemStack(ModItems.SKILLET.get());
+        quickCheck = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
+    }
 
 	public static void cookingTick(ServerLevel level, BlockPos pos, BlockState state, SkilletBlockEntity skillet) {
 		boolean isHeated = skillet.isHeated(level, pos);
 
-		if (state.getValue(SkilletBlock.WATERLOGGED)) {
-			if (!ItemUtils.isInventoryEmpty(skillet.inventory)) {
-				ItemUtils.dropItems(level, pos, skillet.inventory);
-				skillet.inventoryChanged();
-			}
-		} else if (isHeated) {
-			ItemStack cookingStack = skillet.getStoredStack();
-			if (cookingStack.isEmpty()) {
-				skillet.cookingTime = 0;
-			} else {
-				skillet.cookAndOutputItems(cookingStack, level);
-			}
-		} else if (skillet.cookingTime > 0) {
-			skillet.cookingTime = Mth.clamp(skillet.cookingTime - 2, 0, skillet.cookingTimeTotal);
-		}
-	}
+        if (state.getValue(SkilletBlock.WATERLOGGED)) {
+            if (ItemUtils.doesInventoryHaveItems(skillet.inventory)) {
+                ItemUtils.dropItems(level, pos, skillet.inventory);
+                skillet.inventoryChanged();
+            }
+        } else if (isHeated) {
+            ItemStack cookingStack = skillet.getStoredStack();
+            if (cookingStack.isEmpty()) {
+                skillet.cookingTime = 0;
+            } else {
+                skillet.cookAndOutputItems(cookingStack, level);
+            }
+        } else if (skillet.cookingTime > 0) {
+            skillet.cookingTime = Mth.clamp(skillet.cookingTime - 2, 0, skillet.cookingTimeTotal);
+        }
+
+    }
 
 	public static void animationTick(Level level, BlockPos pos, BlockState state, SkilletBlockEntity skillet) {
 		if (skillet.isHeated(level, pos) && skillet.hasStoredStack()) {
@@ -87,7 +88,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 			}
 		}
 
-	}
+    }
 
 	private void cookAndOutputItems(ItemStack cookingStack, ServerLevel level) {
 		++cookingTime;
@@ -100,22 +101,19 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 						worldPosition.getX() + 0.5, worldPosition.getY() + 0.3, worldPosition.getZ() + 0.5,
 						direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 
-				cookingTime = 0;
-				inventory.extractItem(0, 1, false);
-			}
-		}
-	}
+                cookingTime = 0;
+                inventory.extractItem(0, 1, false);
+            }
+        }
+    }
 
-	public boolean isCooking() {
-		return isHeated() && hasStoredStack();
-	}
+    public boolean isCooking() {
+        return isHeated() && hasStoredStack();
+    }
 
-	public boolean isHeated() {
-		if (level != null) {
-			return isHeated(level, worldPosition);
-		}
-		return false;
-	}
+    public boolean isHeated() {
+        return isHeated(Objects.requireNonNull(level), worldPosition);
+    }
 
 	private Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack, ServerLevel serverLevel) {
 		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel);
@@ -148,14 +146,19 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		super.preRemoveSideEffects(pos, state);
 	}
 
-	public ItemStack getSkilletAsItem() {
-		return skilletStack;
-	}
+    public ItemStack getSkilletAsItem() {
+        return skilletStack;
+    }
 
 	public void setSkilletItem(ItemStack stack) {
 		skilletStack = stack.copy();
-		fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT), stack);
-		inventoryChanged();
+        if (level != null) {
+            Optional<Holder.Reference<Enchantment>> fireAspect = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
+            fireAspectLevel = fireAspect.map(enchantment -> stack.getEnchantments().getLevel(enchantment)).orElse(0);
+            inventoryChanged();
+        } else {
+            fireAspectLevel = 0;
+        }
 	}
 
 	public ItemStack addItemToCook(ItemStack addedStack, Player player, ServerLevel serverLevel) {
@@ -189,23 +192,22 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return inventory;
 	}
 
-	public ItemStack getStoredStack() {
-		return inventory.getStackInSlot(0);
-	}
+    public ItemStack getStoredStack() {
+        return inventory.getStackInSlot(0);
+    }
 
-	public boolean hasStoredStack() {
-		return !getStoredStack().isEmpty();
-	}
+    public boolean hasStoredStack() {
+        return !getStoredStack().isEmpty();
+    }
 
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler()
-		{
-			@Override
-			protected void onContentsChanged(int slot) {
-				inventoryChanged();
-			}
-		};
-	}
+    private ItemStackHandler createHandler() {
+        return new ItemStackHandler() {
+            @Override
+            protected void onContentsChanged(int slot) {
+                inventoryChanged();
+            }
+        };
+    }
 
 	@Override
 	public void setRemoved() {

@@ -45,7 +45,13 @@ public class ModItems
 		return item;
 	}
 
-	private static Supplier<Item> registerFuelWithTab(final String name, final Item.Properties properties, final int burnTime) {
+    public static Supplier<Item> registerHidden(final String name, final Supplier<Item> supplier) {
+        properties.setId(key(name));
+        Supplier<Item> item = regItem(name, () -> function.apply(properties));
+        return item;
+    }
+
+    private static Supplier<Item> registerFuelWithTab(final String name, final Item.Properties properties, final int burnTime) {
 		properties.setId(key(name));
 		Supplier<Item> item = regItem(name, () -> new FuelItem(properties, burnTime));
 		CREATIVE_TAB_ITEMS.add(item);
@@ -196,6 +202,10 @@ public class ModItems
 			ModBlocks.HALF_TATAMI_MAT.get(), basicItem(), 100);
 	public static final Supplier<Item> CANVAS_RUG = registerFuelBlockWithTab("canvas_rug",
 			ModBlocks.CANVAS_RUG.get(), basicItem(), 200);
+    public static final Supplier<Item> ROPE_FENCE = registerBlockWithTab("rope_fence",
+            ModBlocks.ROPE_FENCE.get(), basicItem());
+    public static final Supplier<Item> ROPE_FENCE_GATE = registerBlockWithTab("rope_fence_gate",
+            ModBlocks.ROPE_FENCE_GATE.get(), basicItem());
 	public static final Supplier<Item> ORGANIC_COMPOST = registerBlockWithTab("organic_compost",
 			BlockItem::new, ModBlocks.ORGANIC_COMPOST.get(), basicItem());
 	public static final Supplier<Item> RICH_SOIL = registerBlockWithTab("rich_soil",
@@ -294,6 +304,8 @@ public class ModItems
 	// Tools
 	public static final Supplier<Item> FLINT_KNIFE = registerWithTab("flint_knife",
 			KnifeItem::new, knifeItem(ModToolMaterials.FLINT));
+    public static final Supplier<Item> COPPER_KNIFE = registerWithTab("copper_knife",
+            KnifeItem::new, knifeItem(ToolMaterial.COPPER));
     public static final Supplier<Item> IRON_KNIFE = registerWithTab("iron_knife",
             KnifeItem::new, knifeItem(ToolMaterial.IRON));
 	public static final Supplier<Item> DIAMOND_KNIFE = registerWithTab("diamond_knife",
@@ -302,8 +314,6 @@ public class ModItems
 			KnifeItem::new, knifeItem(ToolMaterial.NETHERITE).fireResistant());
 	public static final Supplier<Item> GOLDEN_KNIFE = registerWithTab("golden_knife",
 			KnifeItem::new, knifeItem(ToolMaterial.GOLD));
-    public static final Supplier<Item> COPPER_KNIFE = registerWithTab("copper_knife",
-            KnifeItem::new, knifeItem(ToolMaterial.COPPER));
 
 	public static final Supplier<Item> STRAW = registerFuelWithTab("straw", basicItem(), 100);
 	public static final Supplier<Item> CANVAS = registerFuelWithTab("canvas", basicItem(), 400);
@@ -406,10 +416,10 @@ public class ModItems
 			Item::new, foodItem(FoodValues.HAM));
 	public static final Supplier<Item> SMOKED_HAM = registerWithTab("smoked_ham",
 			Item::new, foodItem(FoodValues.SMOKED_HAM));
+    public static final Supplier<Item> PIE_CRUST = registerWithTab("pie_crust",
+            Item::new, foodItem(FoodValues.PIE_CRUST));
 
 	// Sweets
-	public static final Supplier<Item> PIE_CRUST = registerWithTab("pie_crust",
-			Item::new, foodItem(FoodValues.PIE_CRUST));
 	public static final Supplier<Item> APPLE_PIE = registerBlockWithTab("apple_pie",
 			BlockItem::new, ModBlocks.APPLE_PIE.get(), basicItem());
 	public static final Supplier<Item> SWEET_BERRY_CHEESECAKE = registerBlockWithTab("sweet_berry_cheesecake",
@@ -424,9 +434,11 @@ public class ModItems
 			Item::new, foodItem(FoodValues.PIE_SLICE, FoodValues.ConsumableValues.PIE_SLICE));
 	public static final Supplier<Item> CHOCOLATE_PIE_SLICE = registerWithTab("chocolate_pie_slice",
 			Item::new, foodItem(FoodValues.PIE_SLICE, FoodValues.ConsumableValues.PIE_SLICE));
+    public static final Supplier<Item> PUMPKIN_PIE_SLICE = registerWithTab("pumpkin_pie_slice",
+            () -> new ConsumableItem(foodItem(FoodValues.PIE_SLICE)));
 	public static final Supplier<Item> SWEET_BERRY_COOKIE = registerWithTab("sweet_berry_cookie",
 			Item::new, foodItem(FoodValues.COOKIES, FoodValues.ConsumableValues.FAST_FOOD));
-	public static final Supplier<Item> HONEY_COOKIE = registerWithTab("honey_cookie",
+    public static final Supplier<Item> HONEY_COOKIE = registerWithTab("honey_cookie",
 			Item::new, foodItem(FoodValues.COOKIES, FoodValues.ConsumableValues.FAST_FOOD));
 	public static final Supplier<Item> MELON_POPSICLE = registerWithTab("melon_popsicle",
 			ConsumableItem::new, foodItem(FoodValues.POPSICLE, FoodValues.ConsumableValues.MELON_POPSICLE));
@@ -502,6 +514,10 @@ public class ModItems
 	public static final Supplier<Item> NOODLE_SOUP = registerWithTab("noodle_soup",
 			properties -> new ConsumableItem(properties, true),
 			bowlFoodItem(FoodValues.NOODLE_SOUP, FoodValues.ConsumableValues.COMFORT_LONG_DURATION));
+    public static final Supplier<Item> ONION_SOUP = registerWithTab("onion_soup",
+            properties -> new ConsumableItem(properties, true),
+            // TODO: Double check consumable...
+            bowlFoodItem(FoodValues.SHEPHERDS_PIE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
 
 	// Plated Meals
 	public static final Supplier<Item> BACON_AND_EGGS = registerWithTab("bacon_and_eggs",
@@ -557,8 +573,14 @@ public class ModItems
 	public static final Supplier<Item> SHEPHERDS_PIE_BLOCK = registerBlockWithTab("shepherds_pie_block",
 			BlockItem::new, ModBlocks.SHEPHERDS_PIE_BLOCK.get(), basicItem().stacksTo(1));
 	public static final Supplier<Item> SHEPHERDS_PIE = registerWithTab("shepherds_pie",
-			properties -> new ConsumableItem(properties, true),
-			bowlFoodItem(FoodValues.SHEPHERDS_PIE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+            properties -> new ConsumableItem(properties, true),
+            bowlFoodItem(FoodValues.SHEPHERDS_PIE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+
+	public static final Supplier<Item> GLEAMING_SALAD_BLOCK = registerWithTab("gleaming_salad_block",
+            BlockItem::new, ModBlocks.SHEPHERDS_PIE_BLOCK.get(), basicItem().stacksTo(1));
+	public static final Supplier<Item> GLEAMING_SALAD = registerWithTab("gleaming_salad",
+            properties -> new ConsumableItem(properties, true),
+            bowlFoodItem(FoodValues.SHEPHERDS_PIE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
 
 	public static final Supplier<Item> RICE_ROLL_MEDLEY_BLOCK = registerBlockWithTab("rice_roll_medley_block",
 			BlockItem::new, ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get(), basicItem().stacksTo(1));
@@ -568,6 +590,17 @@ public class ModItems
             DogFoodItem::new, bowlFoodItem(FoodValues.DOG_FOOD));
 	public static final Supplier<Item> HORSE_FEED = registerWithTab("horse_feed",
 			HorseFeedItem::new, basicItem().stacksTo(16));
+
+    // Hidden (Debug) Items
+    public static final Supplier<Item> DEBUG_PUMPKIN_PIE = registerHidden("debug_pumpkin_pie",
+            () -> new BlockItem(ModBlocks.PUMPKIN_PIE.get(), basicItem())
+            {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                    tooltipComponents.add(TextUtils.DEBUG_ITEM);
+                }
+            });
 
 	public static void touch() {
 

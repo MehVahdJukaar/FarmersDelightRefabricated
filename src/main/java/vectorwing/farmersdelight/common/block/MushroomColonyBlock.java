@@ -60,6 +60,41 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	}
 
 	@Override
+	public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		int age = state.getValue(COLONY_AGE);
+
+		if (age > 0) {
+			ItemStack mushroomStack = getCloneItemStack(level, pos, state);
+			if (ItemUtils.isValidTool(heldStack, ItemAbility.SHEARS_HARVEST, ConventionalItemTags.SHEAR_TOOLS)) {
+				level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
+				level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				popResource(level, pos, mushroomStack);
+				if (!level.isClientSide) {
+					heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+					((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.001D);
+				}
+
+				return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			}
+			if (ItemUtils.isKnife(heldStack)) {
+				int colonyAge = state.getValue(COLONY_AGE);
+				mushroomStack.setCount(colonyAge);
+				level.setBlock(pos, state.setValue(COLONY_AGE, 0), 2);
+				level.playSound(null, pos, this.soundType.getBreakSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+				popResource(level, pos, mushroomStack);
+				if (!level.isClientSide) {
+					heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+					((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.1D);
+				}
+
+				return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			}
+		}
+
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE_BY_AGE[state.getValue(getAgeProperty())];
 	}
@@ -93,23 +128,6 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 		}
 	}
 
-	@Override
-	public InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		int age = state.getValue(COLONY_AGE);
-
-		if (age > 0 && heldStack.is(ConventionalItemTags.SHEAR_TOOLS)) {
-			popResource(level, pos, getCloneItemStack(level, pos, state, false));
-			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
-			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
-			if (!level.isClientSide()) {
-				heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
-			}
-			return InteractionResult.SUCCESS;
-		}
-
-		return InteractionResult.TRY_WITH_EMPTY_HAND;
-	}
-
 	public int getMaxAge() {
 		return 3;
 	}
@@ -118,7 +136,7 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int age = state.getValue(COLONY_AGE);
 		BlockState groundState = level.getBlockState(pos.below());
-		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) &&  random.nextInt(4) == 0) {
+		if (age < getMaxAge() && groundState.is(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON) && CommonHooks.canCropGrow(level, pos, state, random.nextInt(4) == 0)) {
 			level.setBlock(pos, state.setValue(COLONY_AGE, age + 1), 2);
 		}
 	}

@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.registry;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.enchantment.ConditionalEffect;
 import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
@@ -34,19 +35,19 @@ public class ModDataComponents
 			"skillet_ingredient", (builder) -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
 	);
 
+    public static final Supplier<DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP =regComponent(
+            "skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
+    );
+    public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED =regComponent(
+            "skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
+    );
+
 	// Enchantment Effects
 	public static final Supplier<DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = regEnchComponent(
 			"backstabbing", builder -> builder.persistent(
 					ConditionalEffect.codec(EnchantmentValueEffect.CODEC).listOf()
 			));
 
-	// Refabricated
-	public static final Supplier<DataComponentType<Long>> SKILLET_FLIP_TIMESTAMP =regComponent(
-			"skillet_flip_timestamp", (builder) -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG).cacheEncoding()
-	);
-	public static final Supplier<DataComponentType<Boolean>> SKILLET_FLIPPED =regComponent(
-			"skillet_flipped", (builder) -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding()
-	);
 
 	public static void touch() {
 

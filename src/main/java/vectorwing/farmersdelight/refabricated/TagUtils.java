@@ -22,6 +22,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +49,10 @@ public class TagUtils {
     // This exists so we don't modify literally every loot table in the game just to add loot to a few
     public static boolean isDropsLeatherTag(Holder<EntityType<?>> entityType, HolderLookup<EntityType<?>> lookup) {
         if (earlyDropsLeatherTag == null) {
-            TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>((rl, bl) -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
-            var dropsLeatherMap = loadTag(ModTags.DROPS_LEATHER);
-            Map<Identifier, List<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
-            earlyDropsLeatherTag = loaded.get(ModTags.DROPS_LEATHER.location());
+            TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
+            var dropsLeatherMap = loadTag(FDRefabricatedTags.EntityTypes.DROPS_LEATHER);
+            Map<ResourceLocation, Collection<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
+            earlyDropsLeatherTag = loaded.get(FDRefabricatedTags.EntityTypes.DROPS_LEATHER.location());
             if (earlyDropsLeatherTag == null)
                 earlyDropsLeatherTag = List.of();
         }

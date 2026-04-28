@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.registry;
 
-import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 

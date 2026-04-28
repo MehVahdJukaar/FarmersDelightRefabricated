@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
@@ -20,9 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+import vectorwing.farmersdelight.common.block.entity.inventory.BasketInvWrapper;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.refabricated.inventory.InvWrapper;
 
 public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 {
@@ -54,6 +57,13 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	public CabinetBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntityTypes.CABINET.get(), pos, state);
 	}
+
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(
+                (be, context) -> new InvWrapper(be),
+                ModBlockEntityTypes.CABINET.get()
+        );
+    }
 
 	@Override
 	public void saveAdditional(ValueOutput output) {
@@ -89,7 +99,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 
 	@Override
 	protected Component getDefaultName() {
-		return TextUtils.getTranslation("container.cabinet");
+		return TextUtils.container("cabinet");
 	}
 
 	@Override
@@ -122,9 +132,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity
 	}
 
 	private void playSound(BlockState state, SoundEvent sound) {
-		if (level == null) return;
-
-		Vec3i cabinetFacingVector = state.getValue(CabinetBlock.FACING).getUnitVec3i();
+		Vec3i cabinetFacingVector = state.getValue(CabinetBlock.FACING).getNormal();
 		double x = (double) worldPosition.getX() + 0.5D + (double) cabinetFacingVector.getX() / 2.0D;
 		double y = (double) worldPosition.getY() + 0.5D + (double) cabinetFacingVector.getY() / 2.0D;
 		double z = (double) worldPosition.getZ() + 0.5D + (double) cabinetFacingVector.getZ() / 2.0D;

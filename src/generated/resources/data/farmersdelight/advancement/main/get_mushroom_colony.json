@@ -25,13 +25,13 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "farmersdelight.advancement.get_mushroom_colony.desc"
+      "translate": "advancements.farmersdelight.get_mushroom_colony.description"
     },
     "icon": {
       "id": "farmersdelight:red_mushroom_colony"
     },
     "title": {
-      "translate": "farmersdelight.advancement.get_mushroom_colony"
+      "translate": "advancements.farmersdelight.get_mushroom_colony.title"
     }
   },
   "requirements": [

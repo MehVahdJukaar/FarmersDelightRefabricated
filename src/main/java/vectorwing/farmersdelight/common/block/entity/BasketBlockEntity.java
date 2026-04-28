@@ -2,22 +2,20 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.BasketBlock;
 import vectorwing.farmersdelight.common.block.entity.inventory.BasketInvWrapper;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
@@ -34,31 +32,40 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 		super(ModBlockEntityTypes.BASKET.get(), pos, state);
 	}
 
-	public static void init() {
-		ItemStorage.SIDED.registerForBlockEntity(
-				(be, context) -> new BasketInvWrapper(be),
-				ModBlockEntityTypes.BASKET.get()
-		);
-	}
+    public static void init() {
+        ItemStorage.SIDED.registerForBlockEntity(
+                (be, context) -> new BasketInvWrapper(be),
+                ModBlockEntityTypes.BASKET.get()
+        );
+    }
+
+//	@SubscribeEvent
+//	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+//		event.registerBlockEntity(
+//				Capabilities.ItemHandler.BLOCK,
+//				ModBlockEntityTypes.BASKET.get(),
+//				(be, context) -> new BasketInvWrapper(be)
+//		);
+//	}
 
 	@Override
-	protected void loadAdditional(ValueInput input) {
-		super.loadAdditional(input);
+	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.loadAdditional(compound, registries);
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-		if (!this.tryLoadLootTable(input)) {
-			ContainerHelper.loadAllItems(input, this.items);
+		if (!this.tryLoadLootTable(compound)) {
+			ContainerHelper.loadAllItems(compound, this.items, registries);
 		}
-		this.transferCooldown = input.getIntOr("TransferCooldown", -1);
+		this.transferCooldown = compound.getInt("TransferCooldown");
 	}
 
 	@Override
-	public void saveAdditional(ValueOutput output) {
-		super.saveAdditional(output);
-		if (!this.trySaveLootTable(output)) {
-			ContainerHelper.saveAllItems(output, this.items);
+	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.saveAdditional(compound, registries);
+		if (!this.trySaveLootTable(compound)) {
+			ContainerHelper.saveAllItems(compound, this.items, registries);
 		}
 
-		output.putInt("TransferCooldown", this.transferCooldown);
+		compound.putInt("TransferCooldown", this.transferCooldown);
 	}
 
 	@Override
@@ -83,7 +90,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	protected Component getDefaultName() {
-		return TextUtils.getTranslation("container.basket");
+		return TextUtils.container("basket");
 	}
 
 	// -- STANDARD INVENTORY STUFF --
@@ -118,7 +125,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public void tryTransfer(BooleanSupplier transfer) {
-		if (this.level != null && !this.level.isClientSide()) {
+		if (this.level != null && !this.level.isClientSide) {
 			if (!this.isOnCooldown() && this.getBlockState().getValue(BlockStateProperties.ENABLED)) {
 				boolean flag = false;
 				if (!this.isFull()) {

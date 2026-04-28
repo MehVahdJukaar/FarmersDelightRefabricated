@@ -6,18 +6,15 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
-import vectorwing.farmersdelight.common.tag.ModTags;
-import vectorwing.farmersdelight.common.utility.MathUtils;
-
 
 public class RichSoilFarmlandBlock extends FarmlandBlock
 {
@@ -57,56 +54,55 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
 			turnToRichSoil(null, state, level, pos);
 		}
 	}
 
-	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		int moisture = state.getValue(MOISTURE);
-		if (!isNearWater(level, pos) && !level.isRainingAt(pos.above())) {
-			if (moisture > 0) {
-				level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
-			}
-		} else if (moisture < 7) {
-			level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
-		} else if (moisture == 7) {
-			if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
-				return;
-			}
 
-			BlockPos abovePos = pos.above();
-			BlockState aboveState = level.getBlockState(abovePos);
-			Block aboveBlock = aboveState.getBlock();
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int moisture = state.getValue(MOISTURE);
+        if (!isNearWater(level, pos) && !level.isRainingAt(pos.above())) {
+            if (moisture > 0) {
+                level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
+            }
+        } else if (moisture < 7) {
+            level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
+        } else if (moisture == 7) {
+            if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
+                return;
+            }
 
-			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
-				return;
-			}
+            BlockPos abovePos = pos.above();
+            BlockState aboveState = level.getBlockState(abovePos);
+            Block aboveBlock = aboveState.getBlock();
 
-			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, abovePos, aboveState)) {
-					growable.performBonemeal(level, level.getRandom(), abovePos, aboveState);
-					level.levelEvent(1505, abovePos, 15);
-				}
-			}
-		}
-	}
+            if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
+                return;
+            }
 
-	/*
-	@Override
-	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
+            if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
+                if (growable.isValidBonemealTarget(level, abovePos, aboveState)) {
+                    growable.performBonemeal(level, level.getRandom(), abovePos, aboveState);
+                    level.levelEvent(1505, abovePos, 15);
+                }
+            }
+        }
+    }
+
+//	@Override
+//	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
 //		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
 //		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
-
-		// TODO: Revisit this method to filter out plants correctly. Also, there's a chance Rich Soil Farmland won't need it anymore.
-		if (plantState.getBlock() instanceof CropBlock) {
-			return TriState.TRUE;
-		}
-		return TriState.DEFAULT;
-	}
-	 */
+//
+//		// TODO: Revisit this method to filter out plants correctly. Also, there's a chance Rich Soil Farmland won't need it anymore.
+//		if (plantState.getBlock() instanceof CropBlock) {
+//			return TriState.TRUE;
+//		}
+//		return TriState.DEFAULT;
+//	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -115,7 +111,6 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
-		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
 		entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
 	}
 }

@@ -32,11 +32,11 @@ public class CookingPotTooltip implements ClientTooltipComponent {
 	public int getWidth(@NonNull Font font) {
 		if (!mealStack.isEmpty()) {
 			MutableComponent textServingsOf = mealStack.getCount() == 1
-					? TextUtils.getTranslation("tooltip.cooking_pot.single_serving")
-					: TextUtils.getTranslation("tooltip.cooking_pot.many_servings", mealStack.getCount());
+					? TextUtils.tooltip("cooking_pot.single_serving")
+					: TextUtils.tooltip("cooking_pot.many_servings", mealStack.getCount());
 			return Math.max(font.width(textServingsOf), font.width(mealStack.getHoverName()) + 20);
 		} else {
-			return font.width(TextUtils.getTranslation("tooltip.cooking_pot.empty"));
+			return font.width(TextUtils.tooltip("cooking_pot.empty"));
 		}
 	}
 
@@ -53,8 +53,8 @@ public class CookingPotTooltip implements ClientTooltipComponent {
 
 		if (!mealStack.isEmpty()) {
 			MutableComponent textServingsOf = mealStack.getCount() == 1
-					? TextUtils.getTranslation("tooltip.cooking_pot.single_serving")
-					: TextUtils.getTranslation("tooltip.cooking_pot.many_servings", mealStack.getCount());
+					? TextUtils.tooltip("cooking_pot.single_serving")
+					: TextUtils.tooltip("cooking_pot.many_servings", mealStack.getCount());
 
 			guiGraphics.textWithWordWrap(font, textServingsOf, x, y, 96, gray);
 			guiGraphics.textWithWordWrap(font, mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y + textSpacing + MARGIN, 96, -1);

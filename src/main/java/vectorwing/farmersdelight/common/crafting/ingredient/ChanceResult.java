@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.crafting.ingredient;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -28,11 +27,11 @@ public record ChanceResult(ItemStackTemplate stack, float chance)
 	);
 
 
-	public ItemStack rollOutput(RandomSource rand, int fortuneLevel) {
-		int outputAmount = stack.count();
+	public ItemStack rollOutput(RandomSource random, int fortuneLevel) {
+		int outputAmount = stack.getCount();
 		double fortuneBonus = Configuration.CUTTING_BOARD_FORTUNE_BONUS.get() * fortuneLevel;
-		for (int roll = 0; roll < stack.count(); roll++)
-			if (rand.nextFloat() > chance + fortuneBonus)
+		for (int roll = 0; roll < stack.getCount(); roll++)
+			if (random.nextFloat() > chance + fortuneBonus)
 				outputAmount--;
 		if (outputAmount == 0)
 			return ItemStack.EMPTY;

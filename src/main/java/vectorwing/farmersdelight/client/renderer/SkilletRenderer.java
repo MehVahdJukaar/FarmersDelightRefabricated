@@ -11,15 +11,13 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
-import vectorwing.farmersdelight.client.renderer.state.SkilletRenderState;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Random;
 
@@ -30,19 +28,6 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
 
 	public SkilletRenderer(BlockEntityRendererProvider.Context context) {
         itemModelResolver = context.itemModelResolver();
-	}
-
-	protected int getModelCount(ItemStack stack) {
-		if (stack.getCount() > 48) {
-			return 5;
-		} else if (stack.getCount() > 32) {
-			return 4;
-		} else if (stack.getCount() > 16) {
-			return 3;
-		} else if (stack.getCount() > 1) {
-			return 2;
-		}
-		return 1;
 	}
 
     @Override
@@ -97,5 +82,15 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
                 poseStack.popPose();
             }
         }
+    }
+
+    protected int getModelCount(ItemStack stack) {
+        int modelCount = 1;
+
+        if (stack.getCount() > 1) {
+            modelCount += Mth.ceil(((float) stack.getCount() / stack.getMaxStackSize()) * 4);
+        }
+
+        return modelCount;
     }
 }

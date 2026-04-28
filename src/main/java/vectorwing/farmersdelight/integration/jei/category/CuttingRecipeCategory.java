@@ -24,6 +24,7 @@ import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
 public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<CuttingBoardRecipe>>
 {
 	public static final int OUTPUT_GRID_X = 76;
@@ -35,8 +36,8 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 	private final IDrawable icon;
 
 	public CuttingRecipeCategory(IGuiHelper helper) {
-		title = TextUtils.getTranslation("jei.cutting");
-		Identifier backgroundImage = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
+		title = TextUtils.JEI("cutting");
+		ResourceLocation backgroundImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cutting_board.png");
 		slot = helper.createDrawable(backgroundImage, 0, 58, 18, 18);
 		slotChance = helper.createDrawable(backgroundImage, 18, 58, 18, 18);
 		background = helper.createDrawable(backgroundImage, 0, 0, 117, 57);

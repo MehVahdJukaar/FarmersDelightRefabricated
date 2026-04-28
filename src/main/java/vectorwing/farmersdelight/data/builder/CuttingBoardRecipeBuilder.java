@@ -29,11 +29,15 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	private final Ingredient ingredient;
 	private final Ingredient tool;
 	private Holder<SoundEvent> soundEvent;
+    @Nullable
+    private String namespace;
+    private CuttingRecipeFolder folder;
 
-	private CuttingBoardRecipeBuilder(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, float chance) {
+	public CuttingBoardRecipeBuilder(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, float chance) {
 		this.results.add(new ChanceResult(new ItemStackTemplate(mainResult.asItem(), count), chance));
 		this.ingredient = ingredient;
 		this.tool = tool;
+		this.folder = CuttingRecipeFolder.CUTTING;
 	}
 
 	/**
@@ -90,22 +94,35 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 		return this; // No-op - Cutting Board has no recipe book unlocks
 	}
 
-	@Override
-	public RecipeBuilder group(@Nullable String p_176495_) {
-		return this;
-	}
+    /**
+     * Sets a custom namespace (mod ID) for the recipe. Use this only if the ingredient isn't registered to the mod ID you want.
+     */
+    public CuttingBoardRecipeBuilder setNamespace(String namespace) {
+        this.namespace = namespace;
+        return this;
+    }
 
-	@Override
-	public ResourceKey<Recipe<?>> defaultId() {
-		return RecipeBuilder.getDefaultRecipeId(getResult().getDefaultInstance());
-	}
+    public CuttingBoardRecipeBuilder salvaging() {
+        this.folder = CuttingRecipeFolder.SALVAGING;
+        return this;
+    }
 
-	@SuppressWarnings("unchecked")
-//    @Override
-	public Item getResult() {
-		Holder<Item> itemHolder = this.ingredient.items().toArray(Holder[]::new)[0];
-		return itemHolder.value();
-	}
+    @Override
+    public RecipeBuilder group(@Nullable String p_176495_) {
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Item getResult() {
+        Holder<Item> itemHolder = this.ingredient.items().toArray(Holder[]::new)[0];
+        return itemHolder.value();
+    }
+
+
+    public static Identifier getDefaultRecipeId(ItemLike itemLike) {
+        return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemLike.asItem()));
+    }
 
 	public void build(RecipeOutput output) {
 		Identifier location = BuiltInRegistries.ITEM.getKey(getResult());

@@ -113,16 +113,20 @@ public class BuddingBushBlock extends VegetationBlock
 	public void growPastMaxAge(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 	}
 
-	protected static float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
-		float speed = 1.0F;
-		BlockPos posBelow = pos.below();
+    protected static float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
+        float speed = 1.0F;
+        BlockPos posBelow = pos.below();
 
 		for (int posX = -1; posX <= 1; ++posX) {
 			for (int posZ = -1; posZ <= 1; ++posZ) {
-				float speedBonus = 1.0F;
+				float speedBonus = 0.0F;
 				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				if (stateBelow.hasProperty(FarmlandBlock.MOISTURE) && stateBelow.getValue(FarmlandBlock.MOISTURE) > 0) {
-					speedBonus = 3.0F;
+				TriState soilDecision = stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, state);
+				if (soilDecision.isDefault()) {
+					speedBonus = 1.0F;
+					if (stateBelow.isFertile(level, pos.offset(posX, 0, posZ))) {
+						speedBonus = 3.0F;
+					}
 				}
 
 				if (posX != 0 || posZ != 0) {
@@ -149,17 +153,17 @@ public class BuddingBushBlock extends VegetationBlock
 			}
 		}
 
-		return speed;
+        return speed;
 	}
+
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && super.canSurvive(state, level, pos);
 	}
 
-
 	@Override
-	protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean bl) {
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean bl) {
 		if (entity instanceof Ravager && level instanceof ServerLevel serverLevel && serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
 			level.destroyBlock(pos, true, entity);
 		}

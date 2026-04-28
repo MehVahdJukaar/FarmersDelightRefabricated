@@ -17,8 +17,10 @@ import java.util.function.UnaryOperator;
 
 @Mixin(RecipeBookSettings.class)
 public class RecipeBookSettingsMixin {
-    @Shadow @Final @Mutable
-    public static MapCodec<RecipeBookSettings> MAP_CODEC;
+    @Final
+    @Mutable
+    @Shadow
+    private static Map<RecipeBookType, Pair<String, String>> TAG_FIELDS;
     @Unique
     private RecipeBookSettings.TypeSettings fdrf$cooking = RecipeBookSettings.TypeSettings.DEFAULT;
 

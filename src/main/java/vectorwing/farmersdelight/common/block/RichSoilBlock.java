@@ -1,8 +1,11 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
@@ -11,9 +14,9 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.network.payload.RichSoilBoostParticlesPayload;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.ModTags;
-import vectorwing.farmersdelight.common.utility.MathUtils;
 
 public class RichSoilBlock extends Block
 {
@@ -21,43 +24,66 @@ public class RichSoilBlock extends Block
 		super(properties);
 	}
 
-	public static void init() {
-		TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
-	}
+    public static void init() {
+        TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
+    }
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
-		if (!level.isClientSide()) {
-			BlockPos abovePos = pos.above();
-			BlockState aboveState = level.getBlockState(abovePos);
-			Block aboveBlock = aboveState.getBlock();
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		BlockPos abovePos = pos.above();
+		BlockState aboveState = level.getBlockState(abovePos);
 
-			// Do nothing if the plant is unaffected by rich soil
-			if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
-				return;
-			}
+		if (convertMushroomToColony(aboveState, abovePos, level)) {
+			return;
+		}
 
-			// Convert mushrooms to colonies if it's dark enough
-			if (aboveBlock == Blocks.BROWN_MUSHROOM) {
-				level.setBlockAndUpdate(pos.above(), ModBlocks.BROWN_MUSHROOM_COLONY.get().defaultBlockState());
-				return;
-			}
-			if (aboveBlock == Blocks.RED_MUSHROOM) {
-				level.setBlockAndUpdate(pos.above(), ModBlocks.RED_MUSHROOM_COLONY.get().defaultBlockState());
-				return;
-			}
+		tryBoostingPlantsAboveAndBelow(level, pos, random);
+	}
 
-			if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
-				return;
-			}
+	public static void tryBoostingPlantsAboveAndBelow(ServerLevel level, BlockPos pos, RandomSource random) {
+		if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0 || random.nextFloat() > Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
+			return;
+		}
 
-			// If all else fails, and it's a plant, give it a growth boost now and then!
-			if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-				if (growable.isValidBonemealTarget(level, pos.above(), aboveState)) {
-					growable.performBonemeal(level, level.getRandom(), pos.above(), aboveState);
-					level.levelEvent(1505, pos.above(), 0);
+		BlockPos abovePos = pos.above();
+		BlockState aboveState = level.getBlockState(abovePos);
+		if (!aboveState.is(ModTags.Blocks.PLANTED_FROM_BELOW) && boostPlant(aboveState, abovePos, level)) {
+			return;
+		}
+
+		BlockPos belowPos = pos.below();
+		BlockState belowState = level.getBlockState(belowPos);
+		if (belowState.is(ModTags.Blocks.PLANTED_FROM_BELOW)) {
+			boostPlant(belowState, belowPos, level);
+		}
+	}
+
+	public static boolean boostPlant(BlockState plantState, BlockPos plantPos, ServerLevel level) {
+		if (plantState.is(ModTags.Blocks.UNAFFECTED_BY_RICH_SOIL)) {
+			return false;
+		}
+		if (plantState.getBlock() instanceof BonemealableBlock growable) {
+			if (growable.isValidBonemealTarget(level, plantPos, plantState)) {
+				growable.performBonemeal(level, level.random, plantPos, plantState);
+				for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(level.getChunkAt(plantPos).getPos(), false)) {
+					ServerPlayNetworking.send(player, new RichSoilBoostParticlesPayload(plantPos));
 				}
+				return true;
 			}
 		}
+		return false;
+	}
+
+	public boolean convertMushroomToColony(BlockState targetState, BlockPos targetPos, ServerLevel level) {
+		if (targetState.is(Blocks.BROWN_MUSHROOM)) {
+			level.setBlockAndUpdate(targetPos, ModBlocks.BROWN_MUSHROOM_COLONY.get().defaultBlockState());
+			return true;
+		}
+		if (targetState.is(Blocks.RED_MUSHROOM)) {
+			level.setBlockAndUpdate(targetPos, ModBlocks.RED_MUSHROOM_COLONY.get().defaultBlockState());
+			return true;
+		}
+
+		return false;
 	}
 }

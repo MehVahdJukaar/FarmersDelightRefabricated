@@ -70,21 +70,10 @@ public class CookingPotItemHandler implements ItemHandler {
 	}
 
 	@Override
-	public SingleSlotStorage<ItemVariant> getSlot(int slot) {
-		return itemHandler.getSlot(slot);
+	public int getSlotLimit(int slot) {
+		return itemHandler.getSlotLimit(slot);
 	}
-	@Override
-	public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
-		long inserted = 0;;
-		for (Iterator<SingleStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
-			SingleStackStorage slot = it.next();
-			inserted += slot.insert(resource, maxAmount - inserted, transaction);
-			if (inserted >= maxAmount)
-				break;
-		}
-		return inserted;
-	}
+}
 
 	@Override
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {

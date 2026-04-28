@@ -57,8 +57,8 @@ public class WildCropBlock extends FlowerBlock implements BonemealableBlock
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state) {
-		return (double) rand.nextFloat() < 0.8F;
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return (double) random.nextFloat() < 0.8F;
 	}
 
 	@Override

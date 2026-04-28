@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -29,202 +28,58 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Optional;
 
-public class StoveBlockEntity extends SyncedBlockEntity
+public class StoveBlockEntity extends AbstractStoveBlockEntity
 {
-	private static final VoxelShape GRILLING_AREA = Block.box(3.0F, 0.0F, 3.0F, 13.0F, 1.0F, 13.0F);
-	private static final int INVENTORY_SLOT_COUNT = 6;
-
-	private final ItemStackHandler inventory;
-	private final int[] cookingTimes;
-	private final int[] cookingTimesTotal;
-
-	private final RecipeManager.CachedCheck<SingleRecipeInput, CampfireCookingRecipe> quickCheck;
-
 	public StoveBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBlockEntityTypes.STOVE.get(), pos, state);
-		inventory = createHandler();
-		cookingTimes = new int[INVENTORY_SLOT_COUNT];
-		cookingTimesTotal = new int[INVENTORY_SLOT_COUNT];
-		quickCheck = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
+		super(ModBlockEntityTypes.STOVE.get(), pos, state, RecipeType.CAMPFIRE_COOKING);
 	}
 
-	@Override
-	public void loadAdditional(ValueInput input) {
-		super.loadAdditional(input);
-		inventory.deserialize(input.childOrEmpty("Inventory"));
-		if (input.getIntArray("CookingTimes").isPresent()) {
-			int[] arrayCookingTimes = input.getIntArray("CookingTimes").get();
-			System.arraycopy(arrayCookingTimes, 0, cookingTimes, 0, Math.min(cookingTimesTotal.length, arrayCookingTimes.length));
-		}
+    public static void particleTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stoveEntity) {
+        if (stoveEntity.isEmpty()) return;
+        stoveEntity.addSmokeParticles();
+    }
 
-		if (input.getIntArray("CookingTotalTimes").isPresent()) {
-			int[] arrayCookingTimesTotal = input.getIntArray("CookingTotalTimes").get();
-			System.arraycopy(arrayCookingTimesTotal, 0, cookingTimesTotal, 0, Math.min(cookingTimesTotal.length, arrayCookingTimesTotal.length));
-		}
-	}
+    public void addSmokeParticles() {
+        assert this.level != null;
 
-	@Override
-	public void saveAdditional(ValueOutput output) {
-		writeItems(output);
-		output.putIntArray("CookingTimes", cookingTimes);
-		output.putIntArray("CookingTotalTimes", cookingTimesTotal);
-	}
+        var items = this.getItems();
+        for (int i = 0; i < items.getSlotCount(); ++i) {
+            if (items.getStackInSlot(i).isEmpty()) continue;
+            if (level.random.nextFloat() >= 0.2F) continue;
+            Vec2 itemOffset = this.getStoveItemOffset(i);
+            Direction direction = this.getBlockState().getValue(AbstractStoveBlock.FACING);
+            if (direction.get2DDataValue() % 2 != 0) {
+                //noinspection SuspiciousNameCombination
+                itemOffset = new Vec2(itemOffset.y, itemOffset.x);
+            }
 
-	private void writeItems(ValueOutput output) {
-		super.saveAdditional(output);
-		inventory.serialize(output.child("Inventory"));
-	}
+            double x = (worldPosition.getX() + 0.5D) - (direction.getStepX() * itemOffset.x) + (direction.getClockWise().getStepX() * itemOffset.x);
+            double y = worldPosition.getY() + 1.0D;
+            double z = (worldPosition.getZ() + 0.5D) - (direction.getStepZ() * itemOffset.y) + (direction.getClockWise().getStepZ() * itemOffset.y);
 
-	@Override
-	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        if (level != null) {
-            ItemUtils.dropItems(level, pos, this.getInventory());
+            for (int k = 0; k < 3; ++k) {
+                level.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 5.0E-4D, 0.0D);
+            }
         }
-        super.preRemoveSideEffects(pos, state);
-	}
+    }
 
-	public static void cookingTick(ServerLevel level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
-		boolean isStoveLit = state.getValue(StoveBlock.LIT);
+    @Override
+    protected int getInventorySlotCount() {
+        return 6;
+    }
 
-		if (stove.isStoveBlockedAbove()) {
-			if (!ItemUtils.isInventoryEmpty(stove.inventory)) {
-				ItemUtils.dropItems(level, pos, stove.inventory);
-				stove.inventoryChanged();
-			}
-		} else if (isStoveLit) {
-			stove.cookAndOutputItems(level);
-		} else {
-			for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
-				if (stove.cookingTimes[i] > 0) {
-					stove.cookingTimes[i] = Mth.clamp(stove.cookingTimes[i] - 2, 0, stove.cookingTimesTotal[i]);
-				}
-			}
-		}
-	}
-
-	public static void animationTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stove) {
-		for (int i = 0; i < stove.inventory.getSlotCount(); ++i) {
-			if (!stove.inventory.getStackInSlot(i).isEmpty() && level.getRandom().nextFloat() < 0.2F) {
-				Vec2 stoveItemVector = getStoveItemOffset(i);
-				Direction direction = state.getValue(StoveBlock.FACING);
-				int directionIndex = direction.get2DDataValue();
-				Vec2 offset = directionIndex % 2 == 0 ? stoveItemVector : new Vec2(stoveItemVector.y, stoveItemVector.x);
-
-				double x = ((double) pos.getX() + 0.5D) - (direction.getStepX() * offset.x) + (direction.getClockWise().getStepX() * offset.x);
-				double y = (double) pos.getY() + 1.0D;
-				double z = ((double) pos.getZ() + 0.5D) - (direction.getStepZ() * offset.y) + (direction.getClockWise().getStepZ() * offset.y);
-
-				for (int k = 0; k < 3; ++k) {
-					level.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 5.0E-4D, 0.0D);
-				}
-			}
-		}
-	}
-
-	private void cookAndOutputItems(ServerLevel serverLevel) {
-		if (level == null) return;
-
-		boolean didInventoryChange = false;
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
-			ItemStack stoveStack = inventory.getStackInSlot(i);
-			if (!stoveStack.isEmpty()) {
-				++cookingTimes[i];
-				if (cookingTimes[i] >= cookingTimesTotal[i]) {
-					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(stoveStack, serverLevel);
-					if (recipe.isPresent()) {
-						ItemStack resultStack = recipe.get().value().assemble(new SingleRecipeInput(stoveStack));
-						if (!resultStack.isEmpty()) {ItemUtils.spawnItemEntity(level, resultStack.copy(),
-									worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
-									level.getRandom().nextGaussian() * (double) 0.01F, 0.1F, level.getRandom().nextGaussian() * (double) 0.01F);
-						}
-					}
-					inventory.setStackInSlot(i, ItemStack.EMPTY);
-					didInventoryChange = true;
-				}
-			}
-		}
-
-		if (didInventoryChange) {
-			inventoryChanged();
-		}
-	}
-
-	public int getNextEmptySlot() {
-		for (int i = 0; i < inventory.getSlotCount(); ++i) {
-			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (slotStack.isEmpty()) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	public boolean addItem(ServerLevel serverLevel, ItemStack itemStackIn, int slot) {
-		Optional<RecipeHolder<CampfireCookingRecipe>> optional = serverLevel.recipeAccess()
-				.getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(itemStackIn), level);
-
-		if (optional.isPresent() && 0 <= slot && slot < inventory.getSlotCount()) {
-			ItemStack slotStack = inventory.getStackInSlot(slot);
-			if (slotStack.isEmpty()) {
-				cookingTimesTotal[slot] = optional.get().value().cookingTime();
-				cookingTimes[slot] = 0;
-				inventory.setStackInSlot(slot, itemStackIn.split(1));
-				inventoryChanged();
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public Optional<RecipeHolder<CampfireCookingRecipe>> getMatchingRecipe(ItemStack stack, ServerLevel serverLevel) {
-		return this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel);
-	}
-
-	public ItemStackHandler getInventory() {
-		return this.inventory;
-	}
-
-	public boolean isStoveBlockedAbove() {
-		if (level != null) {
-			BlockState above = level.getBlockState(worldPosition.above());
-			return Shapes.joinIsNotEmpty(GRILLING_AREA, above.getShape(level, worldPosition.above()), BooleanOp.AND);
-		}
-		return false;
-	}
-
-	public static Vec2 getStoveItemOffset(int index) {
-		final float X_OFFSET = 0.3F;
-		final float Y_OFFSET = 0.2F;
-		final Vec2[] OFFSETS = {
-				new Vec2(X_OFFSET, Y_OFFSET),
-				new Vec2(0.0F, Y_OFFSET),
-				new Vec2(-X_OFFSET, Y_OFFSET),
-				new Vec2(X_OFFSET, -Y_OFFSET),
-				new Vec2(0.0F, -Y_OFFSET),
-				new Vec2(-X_OFFSET, -Y_OFFSET),
-		};
-		return OFFSETS[index];
-	}
-
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		CompoundTag tag;
-		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), FarmersDelight.LOGGER)) {
-			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, registries);
-			writeItems(tagValueOutput);
-			tag = tagValueOutput.buildResult();
-		}
-
-		return tag;
-	}
-
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler(INVENTORY_SLOT_COUNT)
-		{
-			@Override
-			public int getSlotLimit(int slot) {
-				return 1;
-			}
-		};
-	}
+    @Override
+    public Vec2 getStoveItemOffset(int index) {
+        final float X_OFFSET = 0.3F;
+        final float Y_OFFSET = 0.2F;
+        final Vec2[] OFFSETS = {
+                new Vec2(X_OFFSET, Y_OFFSET),
+                new Vec2(0.0F, Y_OFFSET),
+                new Vec2(-X_OFFSET, Y_OFFSET),
+                new Vec2(X_OFFSET, -Y_OFFSET),
+                new Vec2(0.0F, -Y_OFFSET),
+                new Vec2(-X_OFFSET, -Y_OFFSET),
+        };
+        return OFFSETS[index];
+    }
 }

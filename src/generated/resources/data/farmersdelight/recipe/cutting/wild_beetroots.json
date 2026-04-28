@@ -1,19 +1,34 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    "farmersdelight:wild_beetroots"
+    {
+      "item": "farmersdelight:wild_beetroots"
+    }
   ],
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "minecraft:beetroot_seeds"
       }
     },
     {
       "item": {
+        "count": 1,
         "id": "minecraft:red_dye"
       }
     }
   ],
-  "tool": "#c:tools/knife"
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "farmersdelight:item_ability",
+        "action": "knife_dig"
+      },
+      {
+        "tag": "c:tools/knife"
+      }
+    ]
+  }
 }

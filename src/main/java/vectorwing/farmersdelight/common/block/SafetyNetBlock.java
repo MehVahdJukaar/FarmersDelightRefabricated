@@ -21,6 +21,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class SafetyNetBlock extends Block implements SimpleWaterloggedBlock
 {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -87,11 +88,11 @@ public class SafetyNetBlock extends Block implements SimpleWaterloggedBlock
 		}
 	}
 
-	private void bounceEntity(Entity entityIn) {
-		Vec3 vec3d = entityIn.getDeltaMovement();
+	private void bounceEntity(Entity entity) {
+		Vec3 vec3d = entity.getDeltaMovement();
 		if (vec3d.y < 0.0D) {
-			double entityWeightOffset = entityIn instanceof LivingEntity ? 0.6D : 0.8D;
-			entityIn.setDeltaMovement(vec3d.x, -vec3d.y * entityWeightOffset, vec3d.z);
+			double entityWeightOffset = entity instanceof LivingEntity ? 0.6D : 0.8D;
+			entity.setDeltaMovement(vec3d.x, -vec3d.y * entityWeightOffset, vec3d.z);
 		}
 	}
 }

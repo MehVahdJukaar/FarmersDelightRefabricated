@@ -44,6 +44,8 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	private final float experience;
 	private final ItemStackTemplate container;
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
+	@Nullable
+	private String namespace;
 
 	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemLike result, int count, int cookingTime, float experience, @Nullable ItemLike container) {
 		this(items, new ItemStackTemplate(result.asItem(), count), cookingTime, experience, container);
@@ -127,23 +129,38 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		return this;
 	}
 
-	public void build(RecipeOutput output) {
-		Identifier location = BuiltInRegistries.ITEM.getKey(result);
-		build(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
+	/**
+	 * Sets a custom namespace (mod ID) for the recipe. Use this only if the result isn't registered to the mod ID you want.
+	 */
+	public CookingPotRecipeBuilder setNamespace(String namespace) {
+		this.namespace = namespace;
+		return this;
 	}
 
-	public void build(RecipeOutput outputIn, String save) {
-		Identifier Identifier = BuiltInRegistries.ITEM.getKey(result);
-		if ((Identifier.parse(save)).equals(Identifier)) {
-			throw new IllegalStateException("Cooking Recipe " + save + " should remove its 'save' argument");
-		} else {
-			build(outputIn, Identifier.parse(save));
-		}
+	public static ResourceLocation getDefaultRecipeId(ItemLike itemLike) {
+		return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemLike.asItem()));
 	}
 
-	public void build(RecipeOutput output, Identifier location) {
-		save(output, ResourceKey.create(Registries.RECIPE, location.withPrefix("cooking/")));
+	/**
+	 * Shorthand for saving recipes in the FD namespace.
+	 */
+	public void saveToFD(RecipeOutput output) {
+		this.setNamespace(FarmersDelight.MODID).save(output);
 	}
+
+	public void save(RecipeOutput output) {
+		ResourceLocation defaultLocation = getDefaultRecipeId(result);
+		save(output, ResourceLocation.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix("cooking/"));
+	}
+
+//	public void build(RecipeOutput outputIn, String save) {
+//		ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(result);
+//		if ((ResourceLocation.parse(save)).equals(resourcelocation)) {
+//			throw new IllegalStateException("Cooking Recipe " + save + " should remove its 'save' argument");
+//		} else {
+//			save(outputIn, ResourceLocation.parse(save));
+//		}
+//	}
 
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {

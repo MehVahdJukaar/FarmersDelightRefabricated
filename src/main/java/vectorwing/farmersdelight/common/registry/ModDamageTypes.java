@@ -15,4 +15,13 @@ public class ModDamageTypes
 	public static DamageSource getSimpleDamageSource(Level level, ResourceKey<DamageType> type) {
 		return new DamageSource(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(type));
 	}
+
+	public static void bootstrapDamageTypes(BootstrapContext<DamageType> context) {
+		context.register(STOVE_BURN, new DamageType(
+				"farmersdelight.stove",
+				DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER,
+				0.1f,
+				DamageEffects.BURNING
+		));
+	}
 }
