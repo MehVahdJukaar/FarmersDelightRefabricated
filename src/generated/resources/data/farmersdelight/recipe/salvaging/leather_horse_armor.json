@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:leather_horse_armor"
-    }
+    "minecraft:leather_horse_armor"
   ],
   "result": [
     {
@@ -20,9 +18,7 @@
         "fabric:type": "farmersdelight:item_ability",
         "action": "shears_dig"
       },
-      {
-        "tag": "c:tools/shear"
-      }
+      "#c:tools/shear"
     ]
   }
 }

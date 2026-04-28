@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.refabricated.mlconfigs.fabric.values;
 
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.ConfigEntry;
 
 import java.util.Objects;

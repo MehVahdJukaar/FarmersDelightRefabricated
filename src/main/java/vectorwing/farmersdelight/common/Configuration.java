@@ -45,21 +45,20 @@ public class Configuration {
     public static Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
     public static Supplier<Boolean> GENERATE_VILLAGE_FARM_FD_CROPS;
 
+	public static final String CATEGORY_DEBUG = "debug";
+	public static Supplier<Boolean> ENABLE_TOMATO_ROPE_PERMANENCE;
+
 	// CLIENT
 	public static final String CATEGORY_CLIENT = "client";
 
-    public static ModConfigSpec.BooleanValue NOURISHED_HUNGER_OVERLAY;
-	public static ModConfigSpec.BooleanValue COMFORT_HEALTH_OVERLAY;
-	public static ModConfigSpec.BooleanValue FOOD_EFFECT_TOOLTIP;
+    public static Supplier<Boolean> NOURISHED_HUNGER_OVERLAY;
+	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY;
+	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP;
 
 	static {
 		ConfigBuilder COMMON_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.COMMON);
 
 		COMMON_BUILDER.push(CATEGORY_SETTINGS);
-		ENABLE_FARMERS_BUY_FD_CROPS = COMMON_BUILDER.comment("If enabled, Novice and Apprentice Farmer villagers will have a chance to buy crops from this mod.")
-			.define("enableFarmerFDTrades", true);
-		ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS = COMMON_BUILDER.comment("If enabled, the Wandering Trader will have a chance to sell seeds and plantables from this mod.")
-			.define("enableWanderingTraderFDTrades", true);
 		ENABLE_ROPE_REELING = COMMON_BUILDER.comment("If enabled, players will be able to reel back rope, bottom to top, when sneak-using with an empty hand on them.")
 			.define("enableRopeReeling", true);
 		CANVAS_SIGN_DARK_BACKGROUND_LIST = COMMON_BUILDER.comment("A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed."+
@@ -87,9 +86,9 @@ public class Configuration {
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
-		ENABLE_VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
+		VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
 			.define("enableVanillaSoupExtraEffects", true);
-		ENABLE_RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")
+		RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")
 			.define("enableRabbitStewBuff", true);
 		ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE = COMMON_BUILDER.comment("If enabled, Pumpkin Pie will require the user to sneak to place it down as a block.")
 			.define("enablePumpkinPieSneakToPlace", false);
@@ -129,11 +128,11 @@ public class Configuration {
 			ConfigBuilder CLIENT_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.CLIENT);
 			CLIENT_BUILDER.comment("Client settings").push("client");
 
-			ENABLE_NOURISHMENT_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
+			NOURISHED_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
 				.define("enableNourishmentHungerOverlay", true);
-			ENABLE_COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
+			COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
 				.define("enableComfortHealthOverlay", true);
-			ENABLE_FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
+			FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
 			.define("enableFoodEffectTooltip", true);
 			CLIENT_BUILDER.pop();
 			CLIENT_CONFIG = CLIENT_BUILDER.build();

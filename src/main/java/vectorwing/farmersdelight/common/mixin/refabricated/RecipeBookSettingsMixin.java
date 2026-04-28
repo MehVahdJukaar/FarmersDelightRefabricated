@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,17 +18,13 @@ import java.util.function.UnaryOperator;
 
 @Mixin(RecipeBookSettings.class)
 public class RecipeBookSettingsMixin {
-    @Final
-    @Mutable
-    @Shadow
-    private static Map<RecipeBookType, Pair<String, String>> TAG_FIELDS;
     @Unique
     private RecipeBookSettings.TypeSettings fdrf$cooking = RecipeBookSettings.TypeSettings.DEFAULT;
 
-    @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void fdrf$modifyCodecs(CallbackInfo ci) {
-        MAP_CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                MAP_CODEC
+    @ModifyExpressionValue(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/codecs/RecordCodecBuilder;mapCodec(Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec;"))
+    private static MapCodec<RecipeBookSettings> fdrf$modifyCodec(MapCodec<RecipeBookSettings> original) {
+         return RecordCodecBuilder.mapCodec(inst -> inst.group(
+                original
                         .forGetter(Function.identity()),
                 RecipeBookSettingsTypeSettingsInvoker.fdrf$invokeCodec("isFarmersDelightCookingGuiOpen", "isFarmersDelightCookingFilteringCraftable")
                         .forGetter(recipeBookSettings -> ((RecipeBookSettingsMixin)(Object)recipeBookSettings).fdrf$cooking)

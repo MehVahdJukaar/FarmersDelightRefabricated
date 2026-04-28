@@ -2,22 +2,13 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "tag": "c:crops/beetroot"
-    },
-    {
-      "tag": "c:foods/vegetable"
-    }
+    "#c:crops/tomato",
+    "#c:crops/onion",
+    "#c:crops/beetroot",
+    "#c:foods/vegetable"
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
     "id": "farmersdelight:ratatouille"
   }
 }

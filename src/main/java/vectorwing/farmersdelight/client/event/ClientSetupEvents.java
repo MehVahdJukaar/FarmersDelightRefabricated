@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
+import vectorwing.farmersdelight.client.particle.SparkleParticle;
 import vectorwing.farmersdelight.client.particle.StarParticle;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
 import vectorwing.farmersdelight.client.renderer.*;
@@ -24,7 +25,7 @@ public class ClientSetupEvents
 		event.registerItem(new IClientItemExtensions() {
 			BlockEntityWithoutLevelRenderer renderer = new SkilletFlipItemModelWrapper();
 			@Override
-			public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+			public @NonNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
 				return renderer;
 			}
 		}, ModItems.SKILLET.get());
@@ -53,7 +54,7 @@ public class ClientSetupEvents
 
 	public static void onRegisterRenderers() {
 		EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
-		BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), StoveRenderer::new);
+		BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), DefaultStoveRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.CANVAS_SIGN.get(), StandingCanvasSignRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_CANVAS_SIGN.get(), HangingCanvasSignRenderer::new);

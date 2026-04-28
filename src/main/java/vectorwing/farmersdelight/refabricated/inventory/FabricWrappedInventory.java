@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -71,7 +71,7 @@ public abstract class FabricWrappedInventory implements ItemHandler {
     }
 
     @Override
-    public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
+    public @NonNull Iterator<StorageView<ItemVariant>> iterator() {
         return getSlots().stream()
                 .map(storageViews -> (StorageView<ItemVariant>)storageViews)
                 .iterator();

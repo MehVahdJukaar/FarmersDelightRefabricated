@@ -6,7 +6,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -53,11 +52,11 @@ public class RopeBlock extends IronBarsBlock
 		return true;
 	}
 
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (stack.is(ModItems.ROPE.get())) {
-			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		}
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override
@@ -103,7 +102,7 @@ public class RopeBlock extends IronBarsBlock
 		return getStateWithConnections(this.defaultBlockState(), context.getLevel(), context.getClickedPos(), context.getClickedFace());
 	}
 
-	public static BlockState getStateWithConnections(BlockState state, Level level, BlockPos pos, Direction clickedFace) {
+	public static BlockState getStateWithConnections(BlockState state, LevelAccessor level, BlockPos pos, Direction clickedFace) {
 		FluidState fluidState = level.getFluidState(pos);
 		BlockPos northPos = pos.north();
 		BlockPos southPos = pos.south();

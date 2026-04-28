@@ -15,6 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.BasketBlock;
 import vectorwing.farmersdelight.common.block.entity.inventory.BasketInvWrapper;
@@ -49,23 +51,23 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 //	}
 
 	@Override
-	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.loadAdditional(compound, registries);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-		if (!this.tryLoadLootTable(compound)) {
-			ContainerHelper.loadAllItems(compound, this.items, registries);
+		if (!this.tryLoadLootTable(input)) {
+			ContainerHelper.loadAllItems(input, items);
 		}
-		this.transferCooldown = compound.getInt("TransferCooldown");
+		this.transferCooldown = input.getIntOr("TransferCooldown", -1);
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		super.saveAdditional(compound, registries);
-		if (!this.trySaveLootTable(compound)) {
-			ContainerHelper.saveAllItems(compound, this.items, registries);
+	public void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		if (!this.trySaveLootTable(output)) {
+			ContainerHelper.saveAllItems(output, this.items);
 		}
 
-		compound.putInt("TransferCooldown", this.transferCooldown);
+		output.putInt("TransferCooldown", this.transferCooldown);
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public void tryTransfer(BooleanSupplier transfer) {
-		if (this.level != null && !this.level.isClientSide) {
+		if (this.level != null && !this.level.isClientSide()) {
 			if (!this.isOnCooldown() && this.getBlockState().getValue(BlockStateProperties.ENABLED)) {
 				boolean flag = false;
 				if (!this.isFull()) {

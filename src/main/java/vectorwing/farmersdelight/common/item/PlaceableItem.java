@@ -4,10 +4,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class PlaceableItem extends BlockItem
 {
@@ -16,7 +17,7 @@ public class PlaceableItem extends BlockItem
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		tooltip.add(TextUtils.PLACEABLE);
+	public void appendHoverText(final ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(TextUtils.PLACEABLE);
 	}
 }

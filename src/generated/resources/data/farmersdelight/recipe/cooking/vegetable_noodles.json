@@ -2,25 +2,14 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    {
-      "tag": "c:crops/carrot"
-    },
-    {
-      "tag": "c:mushrooms"
-    },
-    {
-      "tag": "c:foods/pasta"
-    },
-    {
-      "tag": "c:foods/leafy_green"
-    },
-    {
-      "tag": "c:foods/vegetable"
-    }
+    "#c:crops/carrot",
+    "#c:mushrooms",
+    "#c:foods/pasta",
+    "#c:foods/leafy_green",
+    "#c:foods/vegetable"
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
     "id": "farmersdelight:vegetable_noodles"
   }
 }

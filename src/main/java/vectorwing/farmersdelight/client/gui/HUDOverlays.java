@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.FarmersDelightClient;
 import vectorwing.farmersdelight.common.Configuration;
@@ -44,7 +44,7 @@ public class HUDOverlays
 	public static abstract class BaseOverlay {
 		public abstract void render(Minecraft mc, Player player, GuiGraphicsExtractor guiGraphics, int left, int right, int top, int guiTicks);
 
-		public final void render(@NotNull GuiGraphicsExtractor guiGraphics, @NotNull DeltaTracker deltaTracker) {
+		public final void render(@NonNull GuiGraphicsExtractor guiGraphics, @NonNull DeltaTracker deltaTracker) {
 			Minecraft minecraft = Minecraft.getInstance();
 			if (minecraft.player == null || !shouldRenderOverlay(minecraft, minecraft.player, guiGraphics, minecraft.gui.getGuiTicks()))
 				return;

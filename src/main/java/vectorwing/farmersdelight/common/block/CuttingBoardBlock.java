@@ -10,12 +10,16 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -31,6 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
@@ -39,7 +44,7 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<CuttingBoardBlock> CODEC = simpleCodec(CuttingBoardBlock::new);
 
-	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D);
@@ -60,50 +65,41 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	@Override
 	public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tileEntity = level.getBlockEntity(pos);
-		if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoardEntity) {
-			ItemStack heldStack = player.getItemInHand(hand);
-			ItemStack offhandStack = player.getOffhandItem();
+		if (!(level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity cuttingBoard)) {
+			return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		}
 
-			if (cuttingBoardEntity.isEmpty()) {
-				if (!offhandStack.isEmpty()) {
-					if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ModTags.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
-						return InteractionResult.TRY_WITH_EMPTY_HAND; // Pass to off-hand if that item is placeable
-					}
-					if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ModTags.OFFHAND_EQUIPMENT)) {
-						return InteractionResult.TRY_WITH_EMPTY_HAND; // Items in this tag should not be placed from the off-hand
-					}
-				}
-				if (heldStack.isEmpty()) {
-					return InteractionResult.TRY_WITH_EMPTY_HAND;
-				} else if (cuttingBoardEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
-					Vec3 centerPos = pos.getCenter();
-					level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
-					return InteractionResult.SUCCESS;
-				}
+		ItemStack mainHandStack = player.getMainHandItem();
 
-			} else if (!heldStack.isEmpty()) {
-				ItemStack boardStack = cuttingBoardEntity.getStoredItem().copy();
-				if (cuttingBoardEntity.processStoredItemUsingTool(heldStack, player)) {
-					spawnCuttingParticles(level, pos, boardStack, 5);
-					return InteractionResult.SUCCESS;
-				}
+		if (mainHandStack.isEmpty()) {
+			if (cuttingBoard.isEmpty() || level.isClientSide()) {
 				return InteractionResult.CONSUME;
-
-			} else if (hand.equals(InteractionHand.MAIN_HAND)) {
-				if (!player.isCreative()) {
-					if (!player.getInventory().add(cuttingBoardEntity.removeItem())) {
-						Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), cuttingBoardEntity.removeItem());
-					}
-				} else {
-					cuttingBoardEntity.removeItem();
-				}
-				Vec3 centerPos = pos.getCenter();
-				level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 0.25F, 0.5F);
+			}
+			ItemStack removedStack = cuttingBoard.removeItem();
+			if (!player.isCreative()) {
+				player.getInventory().add(removedStack);
+			}
+			Vec3 centerPos = pos.getCenter();
+			level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), ModSounds.BLOCK_CUTTING_BOARD_REMOVE.get(), SoundSource.BLOCKS, 0.25F, 0.5F);
+			return InteractionResult.SUCCESS;
+		}
+		if (cuttingBoard.canAddItem(mainHandStack)) {
+			if (level.isClientSide()) {
+				return InteractionResult.CONSUME;
+			}
+			ItemStack remainderStack = cuttingBoard.addItem(player.getAbilities().instabuild ? mainHandStack.copy() : mainHandStack);
+			if (!player.isCreative()) {
+				player.setItemSlot(EquipmentSlot.MAINHAND, remainderStack);
+			}
+			Vec3 centerPos = pos.getCenter();
+			level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), ModSounds.BLOCK_CUTTING_BOARD_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.8F);
+			return InteractionResult.SUCCESS_SERVER;
+		} else {
+			if (cuttingBoard.processStoredItemUsingTool(mainHandStack, player)) {
 				return InteractionResult.SUCCESS;
 			}
 		}
-		return InteractionResult.TRY_WITH_EMPTY_HAND;
+		return InteractionResult.CONSUME;
 	}
 
 	@Override
@@ -235,6 +231,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 					}
 				}
 			}
+			return InteractionResult.PASS;
 		}
 	}
 }

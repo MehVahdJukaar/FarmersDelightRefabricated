@@ -1,14 +1,11 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "farmersdelight:wild_onions"
-    }
+    "farmersdelight:wild_onions"
   ],
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:onion"
       }
     },
@@ -21,21 +18,9 @@
     {
       "chance": 0.1,
       "item": {
-        "count": 1,
         "id": "minecraft:lime_dye"
       }
     }
   ],
-  "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
-      {
-        "fabric:type": "farmersdelight:item_ability",
-        "action": "knife_dig"
-      },
-      {
-        "tag": "c:tools/knife"
-      }
-    ]
-  }
+  "tool": "#c:tools/knife"
 }

@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.refabricated.LootModifier;
 
 public class ReplaceItemModifier extends LootModifier
@@ -27,7 +27,7 @@ public class ReplaceItemModifier extends LootModifier
 	}
 
 	@Override
-	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+	protected @NonNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		ItemStack addedStack = new ItemStack(addedItem, addedCount);
 
 		generatedLoot.forEach((item) -> {

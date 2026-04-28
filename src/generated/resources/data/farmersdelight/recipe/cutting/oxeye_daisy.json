@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:oxeye_daisy"
-    }
+    "minecraft:oxeye_daisy"
   ],
   "result": [
     {
@@ -13,16 +11,5 @@
       }
     }
   ],
-  "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
-      {
-        "fabric:type": "farmersdelight:item_ability",
-        "action": "knife_dig"
-      },
-      {
-        "tag": "c:tools/knife"
-      }
-    ]
-  }
+  "tool": "#c:tools/knife"
 }

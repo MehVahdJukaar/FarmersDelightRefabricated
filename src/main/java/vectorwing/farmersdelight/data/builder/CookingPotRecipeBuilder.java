@@ -18,18 +18,18 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotBookCategory;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
@@ -137,7 +137,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		return this;
 	}
 
-	public static ResourceLocation getDefaultRecipeId(ItemLike itemLike) {
+	public static Identifier getDefaultRecipeId(ItemLike itemLike) {
 		return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemLike.asItem()));
 	}
 
@@ -149,18 +149,27 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	}
 
 	public void save(RecipeOutput output) {
-		ResourceLocation defaultLocation = getDefaultRecipeId(result);
-		save(output, ResourceLocation.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix("cooking/"));
+		Identifier defaultLocation = getDefaultRecipeId(result);
+		save(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix("cooking/"));
 	}
 
-//	public void build(RecipeOutput outputIn, String save) {
-//		ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(result);
-//		if ((ResourceLocation.parse(save)).equals(resourcelocation)) {
-//			throw new IllegalStateException("Cooking Recipe " + save + " should remove its 'save' argument");
-//		} else {
-//			save(outputIn, ResourceLocation.parse(save));
-//		}
-//	}
+	public void build(RecipeOutput outputIn, String save) {
+		Identifier resourcelocation = BuiltInRegistries.ITEM.getKey(result);
+		if ((Identifier.parse(save)).equals(resourcelocation)) {
+			throw new IllegalStateException("Cooking Recipe " + save + " should remove its 'save' argument");
+		} else {
+			save(outputIn, Identifier.parse(save));
+		}
+	}
+
+	public void build(RecipeOutput output, Identifier id) {
+		save(output, ResourceKey.create(Registries.RECIPE, id));
+	}
+
+
+	public void save(RecipeOutput output, Identifier id) {
+		build(output, id);
+	}
 
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {

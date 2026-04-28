@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class RopeItem extends FuelBlockItem
 {
@@ -36,7 +36,7 @@ public class RopeItem extends FuelBlockItem
 
 		BlockPos.MutableBlockPos mutablePos = pos.mutable().move(direction);
 
-		while (mutablePos.getY() >= level.getMinBuildHeight()) {
+		while (mutablePos.getY() >= level.getMinY()) {
 			state = level.getBlockState(mutablePos);
 			if (!state.is(this.getBlock())) {
 				FluidState fluid = state.getFluidState();

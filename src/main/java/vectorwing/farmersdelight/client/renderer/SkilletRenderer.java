@@ -15,9 +15,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import vectorwing.farmersdelight.client.renderer.state.SkilletRenderState;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Random;
 
@@ -36,7 +39,7 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
     }
 
     @Override
-    public void extractRenderState(SkilletBlockEntity skilletEntity, SkilletRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+    public void extractRenderState(@NonNull SkilletBlockEntity skilletEntity, @NonNull SkilletRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(skilletEntity, renderState, partialTick, cameraPosition, breakProgress);
 
         renderState.direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
@@ -45,7 +48,6 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
         int posLong = (int) skilletEntity.getBlockPos().asLong();
         renderState.displayItem = new ItemStackRenderState();
         this.itemModelResolver.updateForTopItem(renderState.displayItem, stack, ItemDisplayContext.FIXED, skilletEntity.getLevel(), null, posLong);
-
     }
 
     @Override

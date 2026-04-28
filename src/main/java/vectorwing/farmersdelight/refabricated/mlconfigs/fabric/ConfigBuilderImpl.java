@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigBuilder;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ConfigType;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.values.*;
@@ -36,7 +36,7 @@ public class ConfigBuilderImpl extends ConfigBuilder {
     }
 
     //doesn't load it immediately. happens after registration to mimic forge
-    @NotNull
+    @NonNull
     public FabricConfigHolder build() {
         assert categoryStack.size() == 1;
         return new FabricConfigHolder(this.getName(), mainCategory, this.type, this.changeCallback);
@@ -90,7 +90,6 @@ public class ConfigBuilderImpl extends ConfigBuilder {
         return config;
     }
 
-    @Experimental
     @Override
     public Supplier<Float> define(String name, float defaultValue, float min, float max) {
         var config = new FloatConfigValue(name, defaultValue, min, max);

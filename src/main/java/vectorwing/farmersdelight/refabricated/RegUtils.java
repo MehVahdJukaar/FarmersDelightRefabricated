@@ -65,10 +65,6 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.SOUND_EVENT);
     }
 
-    public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunction(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
-    }
-
     public static <B extends Feature<?>> Supplier<B> regFeature(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.FEATURE);
     }

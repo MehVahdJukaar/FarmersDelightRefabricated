@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +13,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -27,6 +29,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity
@@ -165,7 +168,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(addedStack, serverLevel);
 		if (recipe.isPresent() && getStoredStack().isEmpty()) {
 			if (getBlockState().getValue(SkilletBlock.WATERLOGGED)) {
-				player.sendOverlayMessage(TextUtils.getTranslation("block.skillet.underwater"));
+				player.sendOverlayMessage(TextUtils.block("skillet.underwater"));
 				return addedStack;
 			}
 			boolean wasEmpty = getStoredStack().isEmpty();
@@ -179,7 +182,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				return remainderStack;
 			}
 		} else {
-			player.sendOverlayMessage(TextUtils.getTranslation("block.skillet.invalid_item"));
+			player.sendOverlayMessage(TextUtils.block("skillet.invalid_item"));
 		}
 		return addedStack;
 	}

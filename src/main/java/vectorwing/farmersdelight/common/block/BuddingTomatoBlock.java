@@ -6,12 +6,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 public class BuddingTomatoBlock extends BuddingBushBlock implements BonemealableBlock
@@ -21,20 +19,20 @@ public class BuddingTomatoBlock extends BuddingBushBlock implements Bonemealable
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-		return pState.is(ModBlocks.RICH_SOIL_FARMLAND.get()) || (pState.is(BlockTags.SUPPORTS_CROPS));
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.is(ModBlocks.RICH_SOIL_FARMLAND.get()) || (state.is(BlockTags.SUPPORTS_CROPS));
 	}
 
 	@Override
 	public BlockState updateShape(
-			BlockState state,
-			LevelReader level,
-			ScheduledTickAccess scheduledTickAccess,
-			BlockPos pos,
-			Direction direction,
-			BlockPos neighborPos,
-			BlockState neighborState,
-			RandomSource random) {
+		BlockState state,
+		@NonNull LevelReader level,
+		@NonNull ScheduledTickAccess scheduledTickAccess,
+		@NonNull BlockPos pos,
+		@NonNull Direction direction,
+		@NonNull BlockPos neighborPos,
+		@NonNull BlockState neighborState,
+		@NonNull RandomSource random) {
 		if (state.getValue(BuddingBushBlock.AGE) == 4) {
 			return ModBlocks.TOMATO_CROP.get().defaultBlockState();
 		}

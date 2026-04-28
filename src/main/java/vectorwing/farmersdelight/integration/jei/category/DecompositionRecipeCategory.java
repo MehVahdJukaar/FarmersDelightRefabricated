@@ -77,7 +77,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
         List<ItemStack> accelerators = new ArrayList<>();
-        BuiltInRegistries.BLOCK.get(ModTags.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
+        BuiltInRegistries.BLOCK.get(ModTags.Blocks.COMPOST_ACTIVATORS).ifPresent(s -> s.forEach(f -> accelerators.add(new ItemStack(f.value()))));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).add(organicCompost);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).add(richSoil);

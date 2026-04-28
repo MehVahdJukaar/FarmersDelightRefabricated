@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, BonemealableBlock
@@ -65,7 +65,7 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 
 	@Override
 	public BlockState updateShape(
-			BlockState stateIn,
+			BlockState state,
 			LevelReader level,
 			ScheduledTickAccess scheduledTickAccess,
 			BlockPos currentPos,
@@ -73,8 +73,8 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 			BlockPos facingPos,
 			BlockState facingState,
 			RandomSource random) {
-		BlockState currentState = super.updateShape(stateIn, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
-		DoubleBlockHalf half = stateIn.getValue(HALF);
+		BlockState currentState = super.updateShape(state, level, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
+		DoubleBlockHalf half = state.getValue(HALF);
 		if (!currentState.isAir()) {
 			scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}

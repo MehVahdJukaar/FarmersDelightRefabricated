@@ -13,6 +13,7 @@ import vectorwing.farmersdelight.common.registry.ModRecipeBookCategories;
 
 import java.util.function.Supplier;
 
+// TODO: Delete this.
 public class FarmersDelightASM implements Runnable {
     public static final String COOKING_RECIPE_BOOK_TYPE = "FARMERSDELIGHT_COOKING";
     public static final String COOKING_SEARCH_RECIPE_BOOK_CATEGORY = "FARMERSDELIGHT_COOKING";

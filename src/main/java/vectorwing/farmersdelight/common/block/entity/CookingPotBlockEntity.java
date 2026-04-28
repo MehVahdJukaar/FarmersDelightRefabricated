@@ -48,8 +48,8 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
@@ -62,10 +62,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
@@ -414,7 +411,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	public boolean isHeated() {
-		return this.isHeated(Preconditions.checkNotNull(level), worldPosition);
+		return this.isHeated(Objects.requireNonNull(level), worldPosition);
 	}
 
 	public ItemStackHandler getInventory() {
@@ -505,7 +502,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		return new CookingPotMenu(id, player, this, cookingPotData);
 	}
 
-	@NotNull
+	@NonNull
 	public Storage<ItemVariant> getStorage(@Nullable Direction side) {
 		if (side == null || side.equals(Direction.UP)) {
 			return inputHandler;

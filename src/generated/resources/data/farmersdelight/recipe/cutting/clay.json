@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:clay"
-    }
+    "minecraft:clay"
   ],
   "result": [
     {
@@ -14,15 +12,7 @@
     }
   ],
   "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
-      {
-        "fabric:type": "farmersdelight:item_ability",
-        "action": "shovel_dig"
-      },
-      {
-        "tag": "minecraft:shovels"
-      }
-    ]
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "shovel_dig"
   }
 }

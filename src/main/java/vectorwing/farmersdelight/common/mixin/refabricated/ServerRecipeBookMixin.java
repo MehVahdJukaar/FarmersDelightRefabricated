@@ -8,13 +8,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.payload.SendRecipeBookValuesPayload;
 import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
 @Mixin(ServerRecipeBook.class)
 public class ServerRecipeBookMixin extends RecipeBook {
     @Inject(method = "sendInitialRecipeBook", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", ordinal = 1))
     private void fdrf$sendInitialCategoryRecipeBook(ServerPlayer player, CallbackInfo ci) {
-        ServerPlayNetworking.send(player, new ModNetworking.SendRecipeBookValuesMessage(getBookSettings().isOpen(FDRecipeBookTypes.COOKING), getBookSettings().isFiltering(FDRecipeBookTypes.COOKING)));
+        ServerPlayNetworking.send(player, new SendRecipeBookValuesPayload(getBookSettings().isOpen(FDRecipeBookTypes.COOKING), getBookSettings().isFiltering(FDRecipeBookTypes.COOKING)));
     }
 }

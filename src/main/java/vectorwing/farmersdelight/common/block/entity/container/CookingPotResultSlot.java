@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common.block.entity.container;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
@@ -25,7 +25,7 @@ public class CookingPotResultSlot extends ItemHandlerSlot
 	}
 
 	@Override
-	@NotNull
+	@NonNull
 	public ItemStack remove(int amount) {
 		if (this.hasItem()) {
 			this.removeCount += Math.min(amount, this.getItem().getCount());

@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.recipe.CookingPotRecipeDisplay;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
@@ -62,7 +62,7 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 	}
 
 	@Override
-	@NotNull
+	@NonNull
 	protected Component getRecipeFilterName() {
 		return TextUtils.getTranslation("container.recipe_book.cookable");
 	}

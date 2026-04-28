@@ -9,7 +9,7 @@ package vectorwing.farmersdelight.refabricated.inventory;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 
 public class InvWrapper extends FabricWrappedInventory {
@@ -30,7 +30,7 @@ public class InvWrapper extends FabricWrappedInventory {
         return false;
     }
 
-    @NotNull
+    @NonNull
     public Container getInv() {
         return this.inv;
     }

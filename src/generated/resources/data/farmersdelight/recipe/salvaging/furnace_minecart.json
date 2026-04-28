@@ -1,27 +1,21 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:furnace_minecart"
-    }
+    "minecraft:furnace_minecart"
   ],
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "minecraft:minecart"
       }
     },
     {
       "item": {
-        "count": 1,
         "id": "minecraft:furnace"
       }
     }
   ],
-  "sound": {
-    "sound_id": "minecraft:block.metal.break"
-  },
+  "sound": "minecraft:block.metal.break",
   "tool": {
     "fabric:type": "fabric:any",
     "ingredients": [
@@ -29,9 +23,7 @@
         "fabric:type": "farmersdelight:item_ability",
         "action": "hoe_dig"
       },
-      {
-        "tag": "minecraft:hoes"
-      }
+      "#minecraft:hoes"
     ]
   }
 }

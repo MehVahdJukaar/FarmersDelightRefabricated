@@ -12,7 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
@@ -67,7 +67,7 @@ public class DecompositionClientRecipe implements ReliableClientRecipe {
         }
     }
 
-    private static MutableComponent createTooltip(@NotNull String suffix) {
+    private static MutableComponent createTooltip(@NonNull String suffix) {
         return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
     }
 

@@ -2,22 +2,13 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    {
-      "tag": "c:foods/raw_chicken"
-    },
-    {
-      "tag": "c:crops/carrot"
-    },
-    {
-      "tag": "c:foods/leafy_green"
-    },
-    {
-      "tag": "c:foods/vegetable"
-    }
+    "#c:foods/raw_chicken",
+    "#c:crops/carrot",
+    "#c:foods/leafy_green",
+    "#c:foods/vegetable"
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "count": 1,
     "id": "farmersdelight:chicken_soup"
   }
 }

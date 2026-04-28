@@ -7,8 +7,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemInstance;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import java.util.Locale;
@@ -28,21 +27,21 @@ public enum ItemAbility implements StringRepresentable {
 
     public static final Codec<ItemAbility> CODEC = StringRepresentable.fromEnum(ItemAbility::values);
 
-    public boolean canPerformAction(@NotNull ItemInstance stack) {
+    public boolean canPerformAction(@NonNull ItemInstance stack) {
         return canPerformAction(stack.typeHolder());
     }
 
-    public boolean canPerformAction(@NotNull Holder<Item> itemHolder) {
+    public boolean canPerformAction(@NonNull Holder<Item> itemHolder) {
         //item ability -> tag
 
         return switch (this) {
-            case SHEARS_CARVE, SHEARS_HARVEST, SHEARS_DIG -> stack.is(ConventionalItemTags.SHEAR_TOOLS);
-            case SWORD_DIG -> stack.is(ItemTags.SWORDS);
-            case SHOVEL_DIG -> stack.is(ItemTags.SHOVELS);
-            case PICKAXE_DIG -> stack.is(ItemTags.PICKAXES);
-            case AXE_DIG, AXE_STRIP -> stack.is(ItemTags.AXES);
-            case HOE_DIG -> stack.is(ItemTags.HOES);
-            case KNIFE_DIG, KNIFE_HARVEST -> stack.is(CommonTags.Items.TOOLS_KNIFE);
+            case SHEARS_CARVE, SHEARS_HARVEST, SHEARS_DIG -> itemHolder.is(ConventionalItemTags.SHEAR_TOOLS);
+            case SWORD_DIG -> itemHolder.is(ItemTags.SWORDS);
+            case SHOVEL_DIG -> itemHolder.is(ItemTags.SHOVELS);
+            case PICKAXE_DIG -> itemHolder.is(ItemTags.PICKAXES);
+            case AXE_DIG, AXE_STRIP -> itemHolder.is(ItemTags.AXES);
+            case HOE_DIG -> itemHolder.is(ItemTags.HOES);
+            case KNIFE_DIG, KNIFE_HARVEST -> itemHolder.is(CommonTags.Items.TOOLS_KNIFE);
         };
     }
 }

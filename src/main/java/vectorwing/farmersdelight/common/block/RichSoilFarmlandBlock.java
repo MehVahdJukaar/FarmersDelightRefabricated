@@ -6,15 +6,18 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.MathUtils;
 
 public class RichSoilFarmlandBlock extends FarmlandBlock
 {
@@ -23,7 +26,6 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 	}
 
 	private static boolean isNearWater(LevelReader level, BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
 		for(BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
 			//if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
 			if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
@@ -79,7 +81,7 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
             BlockState aboveState = level.getBlockState(abovePos);
             Block aboveBlock = aboveState.getBlock();
 
-            if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
+            if (aboveState.is(ModTags.Blocks.UNAFFECTED_BY_RICH_SOIL) || aboveBlock instanceof TallFlowerBlock) {
                 return;
             }
 
@@ -105,7 +107,7 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 //	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	public @NonNull BlockState getStateForPlacement(BlockPlaceContext context) {
 		return !this.defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) ? ModBlocks.RICH_SOIL.get().defaultBlockState() : super.getStateForPlacement(context);
 	}
 

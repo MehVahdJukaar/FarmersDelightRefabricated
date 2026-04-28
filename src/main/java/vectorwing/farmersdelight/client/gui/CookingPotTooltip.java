@@ -59,7 +59,7 @@ public class CookingPotTooltip implements ClientTooltipComponent {
 			guiGraphics.textWithWordWrap(font, textServingsOf, x, y, 96, gray);
 			guiGraphics.textWithWordWrap(font, mealStack.getHoverName(), x + ITEM_SIZE + MARGIN, y + textSpacing + MARGIN, 96, -1);
 		} else {
-			MutableComponent textEmpty = TextUtils.getTranslation("tooltip.cooking_pot.empty");
+			MutableComponent textEmpty = TextUtils.tooltip("cooking_pot.empty");
 			guiGraphics.textWithWordWrap(font, textEmpty, x, y, 96, gray);
 		}
 	}

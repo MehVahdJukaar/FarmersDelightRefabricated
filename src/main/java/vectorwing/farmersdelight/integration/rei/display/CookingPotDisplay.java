@@ -14,7 +14,7 @@
 //import net.minecraft.network.codec.StreamCodec;
 //import net.minecraft.resources.Identifier;
 //import net.minecraft.world.item.crafting.RecipeHolder;
-//import org.jetbrains.annotations.Nullable;
+//import org.jspecify.annotations.Nullable;
 //import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 //import vectorwing.farmersdelight.integration.rei.REICategoryIdentifiers;
 //

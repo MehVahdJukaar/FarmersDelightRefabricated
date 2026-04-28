@@ -7,15 +7,14 @@ import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.gui.state.GuiCanvasSignRenderState;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.common.mixin.refabricated.GuiGraphicsExtractorAccessor;
 
 public class CanvasSignEditScreen extends SignEditScreen {
-	@Nullable
-	protected Model.Simple signModel;
+	protected Model.@Nullable Simple signModel;
 	@Nullable
 	protected DyeColor dye;
 	protected final boolean isFrontText;

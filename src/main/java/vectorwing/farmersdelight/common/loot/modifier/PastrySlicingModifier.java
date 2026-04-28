@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.block.PieBlock;
 import vectorwing.farmersdelight.refabricated.LootModifier;
 
@@ -37,7 +37,7 @@ public class PastrySlicingModifier extends LootModifier
 		this.pastrySlice = pastrySlice;
 	}
 
-	@NotNull
+	@NonNull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);

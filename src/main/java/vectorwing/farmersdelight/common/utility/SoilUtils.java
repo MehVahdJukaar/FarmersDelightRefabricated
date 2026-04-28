@@ -9,23 +9,25 @@ import net.minecraft.world.level.block.LilyPadBlock;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
+// FIXME: Move this logic to vanilla block tags.
+// FIXME: Why is this inverted? Way to make my life harder smh...
 public class SoilUtils {
     public static boolean isAbleToPlaceRichSoil(Block block) {
-        if (block.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL))
-            return false;
-
-        if (block.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL))
-            return true;
+//        if (block.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL))
+//            return false;
+//
+//        if (block.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL))
+//            return true;
 
         return !(block instanceof CropBlock || block instanceof PitcherCropBlock || block instanceof NetherWartBlock || block instanceof LilyPadBlock);
     }
 
     public static boolean isAbleToPlaceRichSoilFarmland(Block block) {
-        if (block.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND))
-            return false;
-
-        if (block.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND))
-            return true;
+//        if (block.builtInRegistryHolder().is(ModTags.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND))
+//            return false;
+//
+//        if (block.builtInRegistryHolder().is(ModTags.SURVIVES_RICH_SOIL_FARMLAND))
+//            return true;
 
         return !(block == Blocks.DEAD_BUSH || block == Blocks.LILY_PAD || block == Blocks.RED_MUSHROOM || block == Blocks.BROWN_MUSHROOM || block == Blocks.NETHER_WART);
     }

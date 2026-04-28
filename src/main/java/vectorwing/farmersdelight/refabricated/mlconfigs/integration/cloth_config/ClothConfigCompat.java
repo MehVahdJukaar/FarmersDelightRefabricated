@@ -9,8 +9,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.ConfigEntry;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.ConfigSubCategory;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.FabricConfigHolder;
@@ -142,7 +142,7 @@ public class ClothConfigCompat {
         throw new UnsupportedOperationException("unknown entry: " + entry.getClass().getName());
     }
 
-    private static @NotNull <T extends Enum<T>> EnumListEntry<T> addEnum(ConfigBuilder builder, EnumConfigValue<T> ec) {
+    private static @NonNull <T extends Enum<T>> EnumListEntry<T> addEnum(ConfigBuilder builder, EnumConfigValue<T> ec) {
         var e = builder.entryBuilder()
                 .startEnumSelector(ec.getTranslation(), ec.getEnumClass(), ec.get())
                 .setDefaultValue(ec.getDefaultValue()) // Recommended: Used when user click "Reset"

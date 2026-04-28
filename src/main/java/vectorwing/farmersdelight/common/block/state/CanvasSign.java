@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.block.state;
 
 import net.minecraft.world.item.DyeColor;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 
 ;

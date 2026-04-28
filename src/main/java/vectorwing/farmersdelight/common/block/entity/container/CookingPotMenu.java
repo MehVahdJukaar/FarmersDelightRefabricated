@@ -100,9 +100,9 @@ public class CookingPotMenu extends RecipeBookMenu
 	private static CookingPotBlockEntity getTileEntity(final Inventory playerInventory, final BlockPos data) {
 		Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
 		Objects.requireNonNull(data, "data cannot be null");
-		final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data);
-		if (tileAtPos instanceof CookingPotBlockEntity) {
-			return (CookingPotBlockEntity) tileAtPos;
+		final BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(data);
+		if (blockEntity instanceof CookingPotBlockEntity cookingPotBlockEntity) {
+			return cookingPotBlockEntity;
 		}
 		throw new IllegalStateException("Block entity is not correct! " + blockEntity);
 	}

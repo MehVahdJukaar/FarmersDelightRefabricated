@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.refabricated.LootModifier;
 
@@ -22,7 +22,7 @@ public class FDAddTableLootModifier extends LootModifier {
         this.lootTable = lootTable;
     }
 
-    @NotNull
+    @NonNull
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {

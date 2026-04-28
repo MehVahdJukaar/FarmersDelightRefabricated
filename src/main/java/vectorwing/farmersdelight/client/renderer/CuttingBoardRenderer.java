@@ -12,20 +12,18 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.client.renderer.state.CuttingBoardRenderState;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-import java.util.Random;
-
 public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity, CuttingBoardRenderState>
 {
-    private final Random random = new Random();
     private final ItemModelResolver itemModelResolver;
 
 	public CuttingBoardRenderer(BlockEntityRendererProvider.Context pContext) {
@@ -38,13 +36,18 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 	}
 
 	@Override
-	public void extractRenderState(CuttingBoardBlockEntity cuttingBoardEntity, CuttingBoardRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+	public void extractRenderState(CuttingBoardBlockEntity cuttingBoardEntity, CuttingBoardRenderState renderState, float partialTick, @NonNull Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(cuttingBoardEntity, renderState, partialTick, cameraPosition, breakProgress);
 
 		renderState.direction = cuttingBoardEntity.getBlockState().getValue(CuttingBoardBlock.FACING).getOpposite();
+
 		ItemStack boardStack = cuttingBoardEntity.getStoredItem();
 		renderState.boardStack = boardStack.copy();
+
 		int posLong = (int) cuttingBoardEntity.getBlockPos().asLong();
+		int seed = boardStack.isEmpty() ? 187 : Item.getId(boardStack.getItem()) + boardStack.getDamageValue();
+		renderState.random.setSeed(seed);
+
 		renderState.displayItem = new ItemStackRenderState();
 		this.itemModelResolver.updateForTopItem(renderState.displayItem, boardStack, ItemDisplayContext.FIXED, cuttingBoardEntity.getLevel(), null, posLong);
 		renderState.isItemCarvingBoard = cuttingBoardEntity.isItemCarvingBoard();
@@ -55,24 +58,30 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
         Direction direction = state.direction;
         ItemStack boardStack = state.boardStack;
 
-        int itemRenderCount = this.getModelCount(itemStack);
+        int itemRenderCount = this.getModelCount(boardStack);
 
         for (int i = 0; i < itemRenderCount; i++) {
             poseStack.pushPose();
 
-            // TODO: This.
-            poseStack.pushPose();
+			poseStack.pushPose();
+
+			boolean isBlockItem = boardStack.getItem() instanceof BlockItem;
+
+			float xOffset = itemRenderCount == 1 ? 0 : (state.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
+			float zOffset = itemRenderCount == 1 ? 0 : (state.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
+
+			if (state.isItemCarvingBoard) {
+				renderItemCarved(poseStack, direction, boardStack);
+			} else if (isBlockItem && !boardStack.is(ModTags.Items.FLAT_ON_CUTTING_BOARD)) {
+				renderBlock(poseStack, direction, xOffset, i, zOffset);
+			} else {
+				renderItemLayingDown(poseStack, direction, xOffset, i, zOffset);
+			}
 
 
-            if (state.isItemCarvingBoard) {
-                renderItemCarved(poseStack, direction, boardStack);
-            } else if (state.displayItem.usesBlockLight() && !boardStack.is(ModTags.FLAT_ON_CUTTING_BOARD)) {
-                renderBlock(poseStack, direction);
-            } else {
-                renderItemLayingDown(poseStack, direction);
-            }
+			state.displayItem.submit(poseStack, nodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+			poseStack.popPose();
 
-            state.displayItem.submit(poseStack, nodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
             poseStack.popPose();
         }

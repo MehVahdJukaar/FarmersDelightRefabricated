@@ -2,28 +2,16 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.common.registry.ModSounds;
-
-import java.util.function.BiConsumer;
 
 // Refabricated: Sounds replaced via mixin to ensure other mixins can function with this block.
 public class RopeFenceGateBlock extends FenceGateBlock
@@ -38,12 +26,19 @@ public class RopeFenceGateBlock extends FenceGateBlock
 		super(WoodType.OAK, props);
 	}
 
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		Direction.Axis axis = facing.getAxis();
+	public BlockState updateShape(BlockState state,
+								  LevelReader level,
+								  ScheduledTickAccess ticks,
+								  BlockPos pos,
+								  Direction directionToNeighbour,
+								  BlockPos neighbourPos,
+								  BlockState neighbourState,
+								  RandomSource random) {
+		Direction.Axis axis = directionToNeighbour.getAxis();
 		if (state.getValue(FACING).getClockWise().getAxis() != axis) {
-			return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+			return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
 		} else {
-			boolean isBorderedByWalls = this.isWall(facingState) && this.isWall(level.getBlockState(currentPos.relative(facing.getOpposite())));
+			boolean isBorderedByWalls = this.isWall(state) && this.isWall(level.getBlockState(pos.relative(directionToNeighbour.getOpposite())));
 			return state.setValue(IN_WALL, isBorderedByWalls);
 		}
 	}

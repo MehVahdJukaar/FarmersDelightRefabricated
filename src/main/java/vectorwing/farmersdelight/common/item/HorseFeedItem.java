@@ -23,7 +23,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -56,7 +56,7 @@ public class HorseFeedItem extends Item
 
 			ItemStack heldStack = player.getItemInHand(hand);
 
-			if (target instanceof LivingEntity entity && target.is(ModTags.HORSE_FEED_USERS)) {
+			if (target instanceof LivingEntity entity && target.is(ModTags.EntityTypes.HORSE_FEED_USERS)) {
 				boolean isTameable = entity instanceof AbstractHorse;
 
 				if (entity.isAlive() && (!isTameable || ((AbstractHorse) entity).isTamed()) && heldStack.getItem().equals(ModItems.HORSE_FEED.get())) {

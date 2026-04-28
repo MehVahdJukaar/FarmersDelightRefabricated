@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -21,7 +21,7 @@ fabricApi {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/farmersdelight.accesswidener")
+    accessWidenerPath = file("src/main/resources/farmersdelight.classtweaker")
 }
 
 repositories {

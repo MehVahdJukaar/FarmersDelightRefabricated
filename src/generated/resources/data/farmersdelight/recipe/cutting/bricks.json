@@ -1,0 +1,18 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:bricks"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "minecraft:brick"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "pickaxe_dig"
+  }
+}

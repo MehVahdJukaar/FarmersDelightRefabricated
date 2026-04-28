@@ -12,7 +12,7 @@
 //import net.minecraft.network.chat.Component;
 //import net.minecraft.network.chat.MutableComponent;
 //import net.minecraft.resources.Identifier;
-//import org.jetbrains.annotations.NotNull;
+//import org.jspecify.annotations.NonNull;
 //import vectorwing.farmersdelight.FarmersDelight;
 //import vectorwing.farmersdelight.common.registry.ModBlocks;
 //import vectorwing.farmersdelight.common.tag.ModTags;
@@ -72,7 +72,7 @@
 //        return widgets;
 //    }
 //
-//    private static MutableComponent translateKey(@NotNull String suffix) {
+//    private static MutableComponent translateKey(@NonNull String suffix) {
 //        return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
 //    }
 //

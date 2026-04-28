@@ -35,7 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
@@ -99,17 +99,6 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
-				Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), skillet.getInventory().getStackInSlot(0));
-			}
-
-			super.onRemove(state, level, pos, newState, isMoving);
-		}
 	}
 
 	@Override
@@ -201,7 +190,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	private boolean getTrayState(LevelReader world, BlockPos pos) {
-		return world.getBlockState(pos.below()).is(ModTags.TRAY_HEAT_SOURCES);
+		return world.getBlockState(pos.below()).is(ModTags.Blocks.TRAY_HEAT_SOURCES);
 	}
 
 	/**

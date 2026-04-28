@@ -2,6 +2,9 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -124,7 +127,7 @@ public class FeastBlock extends Block
 				}
 				return InteractionResult.SUCCESS;
 			} else {
-				player.sendOverlayMessage(TextUtils.getTranslation("block.feast.use_container", serving.getCraftingRemainder().create().getHoverName()));
+				player.sendOverlayMessage(TextUtils.block("feast.use_container", serving.getCraftingRemainder().create().getHoverName()));
 			}
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;

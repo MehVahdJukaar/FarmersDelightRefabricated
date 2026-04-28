@@ -1,7 +1,8 @@
 package vectorwing.farmersdelight.data.loot;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -11,22 +12,23 @@ import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import vectorwing.farmersdelight.common.registry.ModChestLootTables;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class FDChestLoot implements LootTableSubProvider
-{
+public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 
 	protected final HolderLookup.Provider registries;
 
-	public FDChestLoot(HolderLookup.Provider registries) {
-		this.registries = registries;
+	public FDChestLoot(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(output, registryLookup, LootContextParamSets.CHEST);
+		this.registries = registryLookup.join();
 	}
-
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 		consumer.accept(ModChestLootTables.ABANDONED_MINESHAFT, LootTable.lootTable()
@@ -198,5 +200,10 @@ public class FDChestLoot implements LootTableSubProvider
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
 						.add(LootItem.lootTableItem(ModItems.RICE.get())
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
+	}
+
+	@Override
+	public String getName() {
+		return "Farmer's Delight Chest Loot";
 	}
 }

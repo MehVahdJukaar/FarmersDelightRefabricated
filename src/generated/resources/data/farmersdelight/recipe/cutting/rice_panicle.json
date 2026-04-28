@@ -1,34 +1,19 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "farmersdelight:rice_panicle"
-    }
+    "farmersdelight:rice_panicle"
   ],
   "result": [
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:rice"
       }
     },
     {
       "item": {
-        "count": 1,
         "id": "farmersdelight:straw"
       }
     }
   ],
-  "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
-      {
-        "fabric:type": "farmersdelight:item_ability",
-        "action": "knife_dig"
-      },
-      {
-        "tag": "c:tools/knife"
-      }
-    ]
-  }
+  "tool": "#c:tools/knife"
 }

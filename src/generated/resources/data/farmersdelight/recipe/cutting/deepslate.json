@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:deepslate"
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "minecraft:cobbled_deepslate"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "pickaxe_dig"
+  }
+}

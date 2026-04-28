@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gamerules.GameRules;
 import org.slf4j.Logger;
@@ -21,11 +20,11 @@ import vectorwing.farmersdelight.common.event.CommonModBusEvents;
 import vectorwing.farmersdelight.common.item.DogFoodItem;
 import vectorwing.farmersdelight.common.item.HorseFeedItem;
 import vectorwing.farmersdelight.common.item.KnifeItem;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.ModNetworking;
+import vectorwing.farmersdelight.common.network.payload.SendNaturalRegenerationValuePayload;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
-import vectorwing.farmersdelight.integration.jei.JEIPlugin;
-import vectorwing.farmersdelight.refabricated.CanItemPerformAbilityCondition;
+import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
 
@@ -66,7 +65,6 @@ public class FarmersDelight implements ModInitializer
 
 		// new stuff
 		VanillaCrateEnabledCondition.init();
-		CanItemPerformAbilityCondition.init();
 		LootModificationEvents.init();
 		ModBiomeModifiers.init();
 		CookingPotBlockEntity.init();
@@ -77,6 +75,7 @@ public class FarmersDelight implements ModInitializer
 		KnifeItem.init();
 		ModNetworking.init();
 		RichSoilBlock.init();
+		CanItemPerformAbility.init();
 		ItemAbilityIngredient.touch();
 		ModConsumeEffectTypes.touch();
 		ModRecipeDisplays.touch();
@@ -85,7 +84,7 @@ public class FarmersDelight implements ModInitializer
 		CompostableHelper.apply();
 
 		ServerPlayerEvents.JOIN.register(serverPlayer ->
-				ServerPlayNetworking.send(serverPlayer, new ModNetworking.SendNaturalRegenerationValueMessage(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
+				ServerPlayNetworking.send(serverPlayer, new SendNaturalRegenerationValuePayload(serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION))));
 
         // Synchronize recipe serializers for JEI/RRV/other recipe viewers
         RecipeSynchronization.synchronizeRecipeSerializer(ModRecipeSerializers.COOKING.get());

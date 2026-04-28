@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -10,12 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
-import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,7 +24,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-@SuppressWarnings("deprecation")
 public class RopeFenceBlock extends CrossCollisionBlock
 {
 	public static final MapCodec<RopeFenceBlock> CODEC = simpleCodec(RopeFenceBlock::new);
@@ -48,20 +45,22 @@ public class RopeFenceBlock extends CrossCollisionBlock
 				.setValue(WATERLOGGED, false));
 	}
 
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (level.isClientSide) {
+	@Override
+	protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (level.isClientSide()) {
 			ItemStack stack = player.getItemInHand(hand);
 			return stack.is(Items.LEAD) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-		} else {
-			return LeadItem.bindPlayerMobs(player, level, pos);
 		}
+		return LeadItem.bindPlayerMobs(player, level, pos);
 	}
 
+	@Override
 	public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return POST;
 	}
 
-	public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
+	@Override
+	public VoxelShape getOcclusionShape(BlockState state) {
 		return POST;
 	}
 
@@ -74,6 +73,7 @@ public class RopeFenceBlock extends CrossCollisionBlock
 		return state.is(ModBlocks.ROPE_FENCE.get());
 	}
 
+	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		BlockGetter level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
@@ -94,16 +94,23 @@ public class RopeFenceBlock extends CrossCollisionBlock
 				.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+	@Override
+	protected BlockState updateShape(BlockState state,
+									 LevelReader level,
+									 ScheduledTickAccess ticks,
+									 BlockPos pos,
+									 Direction directionToNeighbour,
+									 BlockPos neighbourPos,
+									 BlockState neighbourState,
+									 RandomSource random) {
 		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+			ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
-		return facing.getAxis().getPlane() == Direction.Plane.HORIZONTAL
-				? state.setValue(PROPERTY_BY_DIRECTION.get(facing), this.connectsTo(facingState, facingState.isFaceSturdy(level, facingPos, facing.getOpposite()), facing.getOpposite()))
-				: super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+		return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
 	}
 
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(NORTH, EAST, WEST, SOUTH, WATERLOGGED);
 	}

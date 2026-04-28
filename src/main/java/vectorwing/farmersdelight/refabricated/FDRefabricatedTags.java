@@ -1,10 +1,11 @@
 package vectorwing.farmersdelight.refabricated;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -28,6 +29,7 @@ public class FDRefabricatedTags {
 		public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = modBiomeTag("wild_tomatoes_blacklist");
 	}
 
+	// FIXME: 26.1.x: Use vanilla survives tags for this functionality.
 	public static class Blocks {
 		public static final TagKey<Block> SURVIVES_RICH_SOIL = modBlockTag("survives/rich_soil");
 		public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
@@ -40,6 +42,11 @@ public class FDRefabricatedTags {
 		public static final TagKey<EntityType<?>> DROPS_LEATHER = modEntityTag("drops_leather");
 	}
 
+	public static class Items {
+		// Will likely be moved to base package when Farmer's Delight ports to 26.1.
+		public static final TagKey<Item> FLINT_TOOL_MATERIALS = modItemTag("flint_tool_materials");
+	}
+
 	public static class MobEffects {
 		public static final TagKey<MobEffect> HOT_COCOA_IGNORED = modEffectTag("ignored/hot_cocoa");
 		public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = modEffectTag("ignored/milk_bottle");
@@ -47,18 +54,23 @@ public class FDRefabricatedTags {
 
 
 	private static TagKey<Biome> modBiomeTag(String path) {
-		return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<Block> modBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
+
 	private static TagKey<EntityType<?>> modEntityTag(String path) {
-		return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
+	}
+
+	private static TagKey<Item> modItemTag(String path) {
+		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<MobEffect> modEffectTag(String path) {
-		return TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
 
 }

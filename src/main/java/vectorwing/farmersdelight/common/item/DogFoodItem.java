@@ -22,7 +22,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -57,7 +57,7 @@ public class DogFoodItem extends ConsumableItem
 
 			ItemStack itemStack = player.getItemInHand(hand);
 
-			if (target instanceof LivingEntity entity && target.is(ModTags.DOG_FOOD_USERS)) {
+			if (target instanceof LivingEntity entity && target.is(ModTags.EntityTypes.DOG_FOOD_USERS)) {
 				boolean isTameable = entity instanceof TamableAnimal;
 
 				if (entity.isAlive() && (!isTameable || ((TamableAnimal) entity).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {

@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:saddle"
-    }
+    "minecraft:saddle"
   ],
   "result": [
     {
@@ -27,9 +25,7 @@
         "fabric:type": "farmersdelight:item_ability",
         "action": "shears_dig"
       },
-      {
-        "tag": "c:tools/shear"
-      }
+      "#c:tools/shear"
     ]
   }
 }

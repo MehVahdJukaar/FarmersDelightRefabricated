@@ -6,7 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.trading.VillagerTrade;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,7 +17,7 @@ public class VillagerTags extends FabricTagsProvider<VillagerTrade>
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NotNull Provider provider) {
+	protected void addTags(HolderLookup.@NonNull Provider provider) {
         this.builder(VillagerTradeTags.FARMER_LEVEL_1)
                 .addOptional(VillagerTrades.FARMER_1_ONION_EMERALD)
                 .addOptional(VillagerTrades.FARMER_1_TOMATO_EMERALD);

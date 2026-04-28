@@ -33,9 +33,23 @@ import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
+
+import java.util.Set;
 
 public class KnifeItem extends Item
 {
+	/**
+	 * This action is used on cutting recipes which need a knife.
+	 */
+	public static final ItemAbility KNIFE_DIG = ItemAbility.KNIFE_DIG;
+	/**
+	 * This action is used in gameplay interactions where something is harvested.
+	 */
+	public static final ItemAbility KNIFE_HARVEST = ItemAbility.KNIFE_HARVEST;
+
+	public static final Set<ItemAbility> KNIFE_ACTIONS = Set.of(ItemAbility.SHEARS_CARVE, ItemAbility.SWORD_DIG, KNIFE_DIG, KNIFE_HARVEST);
+
     public KnifeItem(Properties properties) {
         super(properties);
     }
@@ -76,7 +90,7 @@ public class KnifeItem extends Item
 
             ItemStack toolStack = player.getItemInHand(hand);
 
-            if (!toolStack.is(ModTags.KNIVES)) {
+            if (!toolStack.is(ModTags.Items.KNIVES)) {
                 return InteractionResult.PASS;
             }
 
@@ -84,7 +98,7 @@ public class KnifeItem extends Item
             BlockState state = level.getBlockState(pos);
             Block block = state.getBlock();
 
-            if (state.is(ModTags.DROPS_CAKE_SLICE)) {
+            if (state.is(ModTags.Blocks.DROPS_CAKE_SLICE)) {
                 level.setBlock(pos, Blocks.CAKE.defaultBlockState().setValue(CakeBlock.BITES, 1), 3);
                 Block.dropResources(state, level, pos);
                 ItemUtils.spawnItemEntity(level, new ItemStack(ModItems.CAKE_SLICE.get()),
@@ -121,7 +135,7 @@ public class KnifeItem extends Item
         BlockState state = level.getBlockState(pos);
         Direction facing = context.getClickedFace();
 
-        if (state.getBlock() == Blocks.PUMPKIN && toolStack.is(ModTags.KNIVES)) {
+        if (state.getBlock() == Blocks.PUMPKIN && toolStack.is(ModTags.Items.KNIVES)) {
             Player player = context.getPlayer();
             if (player != null && !level.isClientSide()) {
                 Direction direction = facing.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : facing;

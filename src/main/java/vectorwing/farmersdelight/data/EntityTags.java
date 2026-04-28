@@ -3,14 +3,9 @@ package vectorwing.farmersdelight.data;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class EntityTags extends FabricTagsProvider.EntityTypeTagsProvider

@@ -10,8 +10,8 @@
 //import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 //import net.minecraft.network.chat.Component;
 //import net.minecraft.resources.Identifier;
-//import org.jetbrains.annotations.NotNull;
-//import org.jetbrains.annotations.Nullable;
+//import org.jspecify.annotations.NonNull;
+//import org.jspecify.annotations.Nullable;
 //import vectorwing.farmersdelight.FarmersDelight;
 //import vectorwing.farmersdelight.common.registry.ModItems;
 //import vectorwing.farmersdelight.common.tag.ModTags;
@@ -85,7 +85,7 @@
 //        return widgets.addSlot(ingredient, x, y).backgroundTexture(BACKGROUND, 119, 0);
 //    }
 //
-//    private static ClientTooltipComponent createTooltip(@NotNull String suffix) {
+//    private static ClientTooltipComponent createTooltip(@NonNull String suffix) {
 //        return ClientTooltipComponent.create(Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix).getVisualOrderText());
 //    }
 //}

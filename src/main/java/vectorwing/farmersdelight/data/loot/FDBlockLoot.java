@@ -2,22 +2,44 @@ package vectorwing.farmersdelight.data.loot;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.minecraft.advancements.criterion.BlockPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.LocationPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import vectorwing.farmersdelight.common.block.*;
+import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class FDBlockLoot extends FabricBlockLootSubProvider
@@ -28,121 +50,123 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 
 	@Override
 	public void generate() {
-        HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        dropSelf(ModBlocks.STOVE.get());
+		HolderLookup.RegistryLookup<Block> blockLookup = this.registries.lookupOrThrow(Registries.BLOCK);
+		HolderLookup.RegistryLookup<Item> itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
+		HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+		dropSelf(ModBlocks.STOVE.get());
 		dropNamedContainer(ModBlocks.WOODEN_BASKET.get());
 		dropNamedContainer(ModBlocks.BAMBOO_BASKET.get());
 		add(ModBlocks.COOKING_POT.get(), (block) -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block)
-				.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
-						.include(DataComponents.CUSTOM_NAME)
-						.include(ModDataComponents.MEAL.get())
-						.include(ModDataComponents.CONTAINER.get())
-				)))));
+			.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+				.include(DataComponents.CUSTOM_NAME)
+				.include(ModDataComponents.MEAL.get())
+				.include(ModDataComponents.CONTAINER.get())
+			)))));
 		add(ModBlocks.SKILLET.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-				.add(LootItem.lootTableItem(block).apply(CopySkilletFunction.builder())))));
+			.add(LootItem.lootTableItem(block).apply(CopySkilletFunction.builder())))));
 		dropSelf(ModBlocks.CUTTING_BOARD.get());
 
 		dropOther(ModBlocks.BUDDING_TOMATO_CROP.get(), ModItems.TOMATO_SEEDS.get());
-		add(ModBlocks.CABBAGE_CROP.get(), createCropDrops(ModBlocks.CABBAGE_CROP.get(), ModItems.CABBAGE.get(), ModItems.CABBAGE_SEEDS.get(), registryLookup));
-		add(ModBlocks.ONION_CROP.get(), createSeedlessCropDrops(ModBlocks.ONION_CROP.get(), ModItems.ONION.get(), registryLookup));
+		add(ModBlocks.CABBAGE_CROP.get(), createCropDrops(ModBlocks.CABBAGE_CROP.get(), ModItems.CABBAGE.get(), ModItems.CABBAGE_SEEDS.get(), enchantmentLookup));
+		add(ModBlocks.ONION_CROP.get(), createSeedlessCropDrops(ModBlocks.ONION_CROP.get(), ModItems.ONION.get(), enchantmentLookup));
 		dropOther(ModBlocks.RICE_CROP.get(), ModItems.RICE.get());
 		add(ModBlocks.RICE_CROP_PANICLES.get(), block -> LootTable.lootTable().withPool(this.applyExplosionDecay(block, LootPool.lootPool()
-				.setRolls(ConstantValue.exactly(1.0F))
-				.add(AlternativesEntry.alternatives(
-						LootItem.lootTableItem(ModItems.RICE.get())
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)))
-								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.Items.KNIVES))),
-						LootItem.lootTableItem(ModItems.RICE_PANICLE.get())
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3))))))));
+			.setRolls(ConstantValue.exactly(1.0F))
+			.add(AlternativesEntry.alternatives(
+				LootItem.lootTableItem(ModItems.RICE.get())
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)))
+					.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemLookup, ModTags.Items.KNIVES))),
+				LootItem.lootTableItem(ModItems.RICE_PANICLE.get())
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3))))))));
 
 		add(ModBlocks.TOMATO_CROP.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
-						.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 1)))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(ModItems.TOMATO_SEEDS.get()))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.ROPELOGGED, false))))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-						.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(ModItems.TOMATO_SEEDS.get()))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.ROPELOGGED, false))))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.TOMATO_CROP_ON_ROPE.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
-						.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 1)))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-						.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.SANDY_SHRUB.get(), block -> LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(AlternativesEntry.alternatives(
-								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
-								LootItem.lootTableItem(Items.BEETROOT_SEEDS)
-										.when(LootItemRandomChanceCondition.randomChance(0.125F))
-										.apply(ApplyExplosionDecay.explosionDecay())
-										.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2))))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(AlternativesEntry.alternatives(
+					LootItem.lootTableItem(block)
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
+					LootItem.lootTableItem(Items.BEETROOT_SEEDS)
+						.when(LootItemRandomChanceCondition.randomChance(0.125F))
+						.apply(ApplyExplosionDecay.explosionDecay())
+						.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 2))))));
 
-		add(ModBlocks.WILD_BEETROOTS.get(), block -> wildCrop(block, Items.BEETROOT, Items.BEETROOT_SEEDS, registryLookup));
-		add(ModBlocks.WILD_CABBAGES.get(), block -> wildCrop(block, ModItems.CABBAGE.get(), ModItems.CABBAGE_SEEDS.get(), registryLookup));
-		add(ModBlocks.WILD_CARROTS.get(), block -> wildCropNoSeeds(block, Items.CARROT, registryLookup));
-		add(ModBlocks.WILD_ONIONS.get(), block -> wildCropNoSeeds(block, ModItems.ONION.get(), registryLookup)
-				//onions drop alliums too
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(Items.ALLIUM))
-						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))));
-		add(ModBlocks.WILD_POTATOES.get(), block -> wildCropNoSeeds(block, Items.POTATO, registryLookup));
-		add(ModBlocks.WILD_TOMATOES.get(), block -> wildCrop(block, ModItems.TOMATO.get(), ModItems.TOMATO_SEEDS.get(), registryLookup));
+		add(ModBlocks.WILD_BEETROOTS.get(), block -> wildCrop(block, Items.BEETROOT, Items.BEETROOT_SEEDS, enchantmentLookup));
+		add(ModBlocks.WILD_CABBAGES.get(), block -> wildCrop(block, ModItems.CABBAGE.get(), ModItems.CABBAGE_SEEDS.get(), enchantmentLookup));
+		add(ModBlocks.WILD_CARROTS.get(), block -> wildCropNoSeeds(block, Items.CARROT, enchantmentLookup));
+		add(ModBlocks.WILD_ONIONS.get(), block -> wildCropNoSeeds(block, ModItems.ONION.get(), enchantmentLookup)
+			//onions drop alliums too
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(Items.ALLIUM))
+				.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))));
+		add(ModBlocks.WILD_POTATOES.get(), block -> wildCropNoSeeds(block, Items.POTATO, enchantmentLookup));
+		add(ModBlocks.WILD_TOMATOES.get(), block -> wildCrop(block, ModItems.TOMATO.get(), ModItems.TOMATO_SEEDS.get(), enchantmentLookup));
 
 		add(ModBlocks.WILD_RICE.get(), block -> LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.add(AlternativesEntry.alternatives(
-								LootItem.lootTableItem(ModItems.WILD_RICE.get())
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
-								LootItem.lootTableItem(ModItems.RICE.get())
-										.when(ExplosionCondition.survivesExplosion())))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties()
-										.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-						.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
-								.setBlock(BlockPredicate.Builder.block().of(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties()
-												.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0))))
-				.withPool(LootPool.lootPool()
-						.add(AlternativesEntry.alternatives(
-								LootItem.lootTableItem(ModItems.WILD_RICE.get())
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
-								LootItem.lootTableItem(ModItems.RICE.get())
-										.when(ExplosionCondition.survivesExplosion())))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties()
-										.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)))
-						.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
-								.setBlock(BlockPredicate.Builder.block().of(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties()
-												.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0)))));
+			.withPool(LootPool.lootPool()
+				.add(AlternativesEntry.alternatives(
+					LootItem.lootTableItem(ModItems.WILD_RICE.get())
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
+					LootItem.lootTableItem(ModItems.RICE.get())
+						.when(ExplosionCondition.survivesExplosion())))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties()
+						.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
+				.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
+					.setBlock(BlockPredicate.Builder.block().of(blockLookup, block)
+						.setProperties(StatePropertiesPredicate.Builder.properties()
+							.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0))))
+			.withPool(LootPool.lootPool()
+				.add(AlternativesEntry.alternatives(
+					LootItem.lootTableItem(ModItems.WILD_RICE.get())
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
+					LootItem.lootTableItem(ModItems.RICE.get())
+						.when(ExplosionCondition.survivesExplosion())))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties()
+						.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)))
+				.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
+					.setBlock(BlockPredicate.Builder.block().of(blockLookup, block)
+						.setProperties(StatePropertiesPredicate.Builder.properties()
+							.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0)))));
 
 		dropSelf(ModBlocks.CARROT_CRATE.get());
 		dropSelf(ModBlocks.POTATO_CRATE.get());
@@ -206,15 +230,14 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 		dropNamedContainer(ModBlocks.CHERRY_CABINET.get());
 		dropNamedContainer(ModBlocks.CRIMSON_CABINET.get());
 		dropNamedContainer(ModBlocks.WARPED_CABINET.get());
-		dropNamedContainer(ModBlocks.PALE_OAK_CABINET.get());
 
 		dropSelf(ModBlocks.CANVAS_RUG.get());
 		dropSelf(ModBlocks.TATAMI.get());
 		add(ModBlocks.FULL_TATAMI_MAT.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-				.setRolls(ConstantValue.exactly(1.0F))
-				.add(LootItem.lootTableItem(block)
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TatamiMatBlock.PART, BedPart.HEAD)))))));
+			.setRolls(ConstantValue.exactly(1.0F))
+			.add(LootItem.lootTableItem(block)
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TatamiMatBlock.PART, BedPart.HEAD)))))));
 		dropSelf(ModBlocks.HALF_TATAMI_MAT.get());
 
 		add(ModBlocks.BROWN_MUSHROOM_COLONY.get(), block -> this.mushroomColony(block, Items.BROWN_MUSHROOM));
@@ -234,11 +257,11 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 		add(ModBlocks.SHEPHERDS_PIE_BLOCK.get(), block -> this.platedFood(block, 4));
 		add(ModBlocks.GLEAMING_SALAD_BLOCK.get(), block -> this.platedFood(block, 4));
 		add(ModBlocks.STUFFED_PUMPKIN_BLOCK.get(), block -> LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(block))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(block))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
 	}
 
 	protected void dropNamedContainer(Block block) {
@@ -248,118 +271,118 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 
 	protected LootTable.Builder mushroomColony(Block block, Item mushroom) {
 		return this.applyExplosionDecay(block, LootTable.lootTable().withPool(LootPool.lootPool()
-				.setRolls(ConstantValue.exactly(1.0F))
-				.add(AlternativesEntry.alternatives(
-						LootItem.lootTableItem(mushroom)
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 0))),
-						LootItem.lootTableItem(mushroom)
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(3.0F)))
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 1))),
-						LootItem.lootTableItem(mushroom)
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 2))),
-						//fully grown should only drop mushrooms if not harvested by shears
-						LootItem.lootTableItem(mushroom)
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(5.0F)))
-								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
-						//if broken with shears at max age, drop self
-						LootItem.lootTableItem(block)
-								.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST))
-								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3)))))));
+			.setRolls(ConstantValue.exactly(1.0F))
+			.add(AlternativesEntry.alternatives(
+				LootItem.lootTableItem(mushroom)
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 0))),
+				LootItem.lootTableItem(mushroom)
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(3.0F)))
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 1))),
+				LootItem.lootTableItem(mushroom)
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 2))),
+				//fully grown should only drop mushrooms if not harvested by shears
+				LootItem.lootTableItem(mushroom)
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(5.0F)))
+					.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
+				//if broken with shears at max age, drop self
+				LootItem.lootTableItem(block)
+					.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST))
+					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3)))))));
 	}
 
 	protected LootTable.Builder createCropDrops(Block block, Item cropItem, Item seeds, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
 		LootItemCondition.Builder maxAgeCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
 		return this.applyExplosionDecay(block, LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.add(LootItem.lootTableItem(cropItem)
-								.when(maxAgeCondition)
-								.otherwise(LootItem.lootTableItem(seeds))))
-				.withPool(LootPool.lootPool()
-						.when(maxAgeCondition)
-						.add(LootItem.lootTableItem(seeds)
-								.apply(ApplyBonusCount.addBonusBinomialDistributionCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5714286F, 3)))));
+			.withPool(LootPool.lootPool()
+				.add(LootItem.lootTableItem(cropItem)
+					.when(maxAgeCondition)
+					.otherwise(LootItem.lootTableItem(seeds))))
+			.withPool(LootPool.lootPool()
+				.when(maxAgeCondition)
+				.add(LootItem.lootTableItem(seeds)
+					.apply(ApplyBonusCount.addBonusBinomialDistributionCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5714286F, 3)))));
 	}
 
 	protected LootTable.Builder createSeedlessCropDrops(Block block, Item cropItem, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
 		LootItemCondition.Builder maxAgeCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
 		return this.applyExplosionDecay(block, LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.add(LootItem.lootTableItem(cropItem)))
-				.withPool(LootPool.lootPool()
-						.when(maxAgeCondition)
-						.add(LootItem.lootTableItem(cropItem)
-								.apply(ApplyBonusCount.addBonusBinomialDistributionCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5714286F, 3)))));
+			.withPool(LootPool.lootPool()
+				.add(LootItem.lootTableItem(cropItem)))
+			.withPool(LootPool.lootPool()
+				.when(maxAgeCondition)
+				.add(LootItem.lootTableItem(cropItem)
+					.apply(ApplyBonusCount.addBonusBinomialDistributionCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5714286F, 3)))));
 
 
 	}
 
 	protected LootTable.Builder wildCrop(Block block, Item crop, Item seeds, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
 		return LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(crop))
-						.when(LootItemRandomChanceCondition.randomChance(0.2F))
-						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert()))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(AlternativesEntry.alternatives(
-								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
-								LootItem.lootTableItem(seeds)
-										.apply(ApplyExplosionDecay.explosionDecay())
-										.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(crop))
+				.when(LootItemRandomChanceCondition.randomChance(0.2F))
+				.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert()))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(AlternativesEntry.alternatives(
+					LootItem.lootTableItem(block)
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
+					LootItem.lootTableItem(seeds)
+						.apply(ApplyExplosionDecay.explosionDecay())
+						.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));
 	}
 
 	protected LootTable.Builder wildCropNoSeeds(Block block, Item crop, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
 		return LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(AlternativesEntry.alternatives(
-								LootItem.lootTableItem(block)
-										.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
-								LootItem.lootTableItem(crop)
-										.apply(ApplyExplosionDecay.explosionDecay())
-										.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(AlternativesEntry.alternatives(
+					LootItem.lootTableItem(block)
+						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
+					LootItem.lootTableItem(crop)
+						.apply(ApplyExplosionDecay.explosionDecay())
+						.apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE), 2)))));
 	}
 
 	protected LootTable.Builder platedFood(Block block, int servings) {
 		return LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(block))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(Items.BOWL))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(block))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(Items.BOWL))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}
 
 	protected LootTable.Builder platedFoodExtraDrop(Block block, Item extraDrop, int servings) {
 		return LootTable.lootTable()
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(block))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(Items.BOWL))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()))
-				.withPool(LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
-						.add(LootItem.lootTableItem(extraDrop))
-						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(block))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(Items.BOWL))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()))
+			.withPool(LootPool.lootPool()
+				.setRolls(ConstantValue.exactly(1.0F))
+				.add(LootItem.lootTableItem(extraDrop))
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}
 }

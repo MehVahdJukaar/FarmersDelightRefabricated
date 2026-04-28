@@ -1,17 +1,6 @@
 {
   "parent": "farmersdelight:main/eat_nourishing_food",
   "criteria": {
-    "gleaming_salad": {
-      "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:gleaming_salad_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
-      },
-      "trigger": "minecraft:placed_block"
-    },
     "honey_glazed_ham": {
       "conditions": {
         "location": [
@@ -85,7 +74,6 @@
       "stuffed_pumpkin",
       "honey_glazed_ham",
       "shepherds_pie",
-      "gleaming_salad",
       "rice_roll_medley"
     ]
   ],

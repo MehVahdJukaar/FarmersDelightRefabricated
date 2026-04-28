@@ -13,7 +13,7 @@ import vectorwing.farmersdelight.common.item.component.consumable.ExtinguishCons
 import vectorwing.farmersdelight.common.item.component.consumable.HealConsumeEffect;
 import vectorwing.farmersdelight.common.item.component.consumable.RemoveRandomStatusEffectsConsumeEffect;
 import vectorwing.farmersdelight.common.registry.ModEffects;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.Map;
 
@@ -91,8 +91,6 @@ public class FoodValues
 			.nutrition(2).saturationModifier(0.1f).build();
 	public static final FoodProperties CAKE_SLICE = (new FoodProperties.Builder())
 			.nutrition(2).saturationModifier(0.1f).build();
-			.nutrition(2).saturationModifier(0.1f).fast()
-			.effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 0, false, false), 1.0F).build();
 	public static final FoodProperties PIE_SLICE = (new FoodProperties.Builder())
 			.nutrition(3).saturationModifier(0.3f).build();
 	public static final FoodProperties FRUIT_SALAD = (new FoodProperties.Builder())
@@ -184,6 +182,8 @@ public class FoodValues
 			.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties SHEPHERDS_PIE = (new FoodProperties.Builder())
 			.nutrition(14).saturationModifier(0.75f).build();
+	public static final FoodProperties GLEAMING_SALAD = (new FoodProperties.Builder())
+		.nutrition(14).saturationModifier(0.75f).build();
 
 	public static final FoodProperties DOG_FOOD = (new FoodProperties.Builder())
 			.nutrition(4).saturationModifier(0.2f).build();
@@ -221,14 +221,14 @@ public class FoodValues
 
 		// Bone Broth counts as a drink in base FD.
 		public static final Consumable BONE_BROTH = Consumables.defaultDrink()
-				.onConsume(new ApplyStatusEffectsConsumeEffect(comfort(SHORT_DURATION)))
+				.onConsume(new ApplyStatusEffectsConsumeEffect(nourishment(SHORT_DURATION)))
 				.build();
 
 		public static final Consumable HOT_COCOA = Consumables.defaultDrink()
-				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(ModTags.HOT_COCOA_IGNORED, true))
+				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(FDRefabricatedTags.MobEffects.HOT_COCOA_IGNORED, true))
 				.build();
 		public static final Consumable MILK_BOTTLE = Consumables.defaultDrink()
-				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(ModTags.MILK_BOTTLE_IGNORED))
+				.onConsume(new RemoveRandomStatusEffectsConsumeEffect(FDRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED))
 				.build();
 		public static final Consumable MELON_JUICE = Consumables.defaultDrink()
 				.onConsume(new HealConsumeEffect(2.0F))
@@ -269,9 +269,9 @@ public class FoodValues
 
 		// Vanilla SoupItems
 		public static final Map<Item, ApplyStatusEffectsConsumeEffect> VANILLA_SOUP_EFFECTS = (new ImmutableMap.Builder<Item, ApplyStatusEffectsConsumeEffect>())
-				.put(Items.MUSHROOM_STEW, new ApplyStatusEffectsConsumeEffect(comfort(MEDIUM_DURATION)))
-				.put(Items.BEETROOT_SOUP, new ApplyStatusEffectsConsumeEffect(comfort(MEDIUM_DURATION)))
-				.put(Items.RABBIT_STEW, new ApplyStatusEffectsConsumeEffect(comfort(LONG_DURATION)))
+				.put(Items.MUSHROOM_STEW, new ApplyStatusEffectsConsumeEffect(nourishment(MEDIUM_DURATION)))
+				.put(Items.BEETROOT_SOUP, new ApplyStatusEffectsConsumeEffect(nourishment(MEDIUM_DURATION)))
+				.put(Items.RABBIT_STEW, new ApplyStatusEffectsConsumeEffect(nourishment(LONG_DURATION)))
 				.build();
 	}
 }

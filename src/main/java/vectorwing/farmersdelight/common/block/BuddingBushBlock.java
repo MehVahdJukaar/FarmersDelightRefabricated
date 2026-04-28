@@ -121,12 +121,12 @@ public class BuddingBushBlock extends VegetationBlock
 			for (int posZ = -1; posZ <= 1; ++posZ) {
 				float speedBonus = 0.0F;
 				BlockState stateBelow = level.getBlockState(posBelow.offset(posX, 0, posZ));
-				TriState soilDecision = stateBelow.canSustainPlant(level, posBelow.offset(posX, 0, posZ), net.minecraft.core.Direction.UP, state);
-				if (soilDecision.isDefault()) {
-					speedBonus = 1.0F;
-					if (stateBelow.isFertile(level, pos.offset(posX, 0, posZ))) {
-						speedBonus = 3.0F;
-					}
+				speedBonus = 1.0F;
+				// Refabricated: No NeoForge hooks here.
+				if (stateBelow.getOptionalValue(BlockStateProperties.MOISTURE)
+					.map(integer -> integer > 0)
+					.orElse(false)) {
+					speedBonus = 3.0F;
 				}
 
 				if (posX != 0 || posZ != 0) {

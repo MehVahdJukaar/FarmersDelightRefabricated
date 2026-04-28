@@ -8,14 +8,14 @@
     "announce_to_chat": false,
     "background": "minecraft:block/bricks",
     "description": {
-      "translate": "advancements.farmersdelight.root.description"
+      "translate": "farmersdelight.advancement.root.desc"
     },
     "icon": {
       "id": "farmersdelight:cooking_pot"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.farmersdelight.root.title"
+      "translate": "farmersdelight.advancement.root"
     }
   },
   "requirements": [

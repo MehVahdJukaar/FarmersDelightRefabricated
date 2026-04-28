@@ -32,7 +32,7 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class StructureUpdater implements DataProvider
 	}
 
 	@Override
-	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
+	public CompletableFuture<?> run(@NonNull CachedOutput cache) {
 		try {
 
 			Resource resource = new Resource(resources, resources.getResource(PackType.SERVER_DATA, id));
@@ -100,7 +100,7 @@ public class StructureUpdater implements DataProvider
 		return template.save(new CompoundTag());
 	}
 
-	@NotNull
+	@NonNull
 	@Override
 	public String getName() {
 		return "Update structure files in " + id.toString();

@@ -28,9 +28,9 @@ public record ChanceResult(ItemStackTemplate stack, float chance)
 
 
 	public ItemStack rollOutput(RandomSource random, int fortuneLevel) {
-		int outputAmount = stack.getCount();
+		int outputAmount = stack.count();
 		double fortuneBonus = Configuration.CUTTING_BOARD_FORTUNE_BONUS.get() * fortuneLevel;
-		for (int roll = 0; roll < stack.getCount(); roll++)
+		for (int roll = 0; roll < stack.count(); roll++)
 			if (random.nextFloat() > chance + fortuneBonus)
 				outputAmount--;
 		if (outputAmount == 0)

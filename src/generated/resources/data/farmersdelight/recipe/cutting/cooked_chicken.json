@@ -1,9 +1,7 @@
 {
   "type": "farmersdelight:cutting",
   "ingredients": [
-    {
-      "item": "minecraft:cooked_chicken"
-    }
+    "minecraft:cooked_chicken"
   ],
   "result": [
     {
@@ -14,21 +12,9 @@
     },
     {
       "item": {
-        "count": 1,
         "id": "minecraft:bone_meal"
       }
     }
   ],
-  "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
-      {
-        "fabric:type": "farmersdelight:item_ability",
-        "action": "knife_dig"
-      },
-      {
-        "tag": "c:tools/knife"
-      }
-    ]
-  }
+  "tool": "#c:tools/knife"
 }

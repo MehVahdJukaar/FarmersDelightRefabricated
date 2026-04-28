@@ -95,8 +95,6 @@ public class TextUtils
 		MutableComponent mutableComponent;
 
 		if (consumeEffectList.isEmpty()) {
-			tooltipAdder.accept(NO_EFFECTS);
-		} else {
 			for (ConsumeEffect possibleConsumeEffect : consumeEffectList) {
 				if (!(possibleConsumeEffect instanceof ApplyStatusEffectsConsumeEffect statusEffectsEffect))
 					continue;

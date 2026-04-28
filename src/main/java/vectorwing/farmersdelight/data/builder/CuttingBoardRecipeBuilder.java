@@ -12,15 +12,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
+
+import java.util.Objects;
 
 @MethodsReturnNonnullByDefault
 public class CuttingBoardRecipeBuilder implements RecipeBuilder
@@ -50,7 +51,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	/**
 	 * Creates a new builder for a cutting recipe, providing a chance for the main output to drop.
 	 */
-	public static CuttingBoardRecipeBuilder cuttingRecipe(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, int chance) {
+	public static CuttingBoardRecipeBuilder cuttingRecipe(Ingredient ingredient, Ingredient tool, ItemLike mainResult, int count, float chance) {
 		return new CuttingBoardRecipeBuilder(ingredient, tool, mainResult, count, chance);
 	}
 
@@ -112,11 +113,16 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Item getResult() {
-        Holder<Item> itemHolder = this.ingredient.items().toArray(Holder[]::new)[0];
-        return itemHolder.value();
+	@Override
+	public ResourceKey<Recipe<?>> defaultId() {
+		return ResourceKey.create(Registries.RECIPE, getDefaultRecipeId(getResult()));
+	}
+
+	public Item getResult() {
+		return ingredient.items()
+			.findFirst()
+			.map(Holder::value)
+			.orElseThrow();
     }
 
 
@@ -124,9 +130,13 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
         return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemLike.asItem()));
     }
 
-	public void build(RecipeOutput output) {
-		Identifier location = BuiltInRegistries.ITEM.getKey(getResult());
-		build(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, location.getPath()));
+	public void saveToFD(RecipeOutput output) {
+		setNamespace(FarmersDelight.MODID).save(output);
+	}
+
+	public void save(RecipeOutput output) {
+		Identifier defaultLocation = getDefaultRecipeId(getResult());
+		build(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix(folder.getSerializedName() + "/"));
 	}
 
 	public void build(RecipeOutput outputIn, String save) {
@@ -139,7 +149,12 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 	}
 
 	public void build(RecipeOutput output, Identifier id) {
-		save(output, ResourceKey.create(Registries.RECIPE, id.withPrefix("cutting/")));
+		save(output, ResourceKey.create(Registries.RECIPE, id));
+	}
+
+
+	public void save(RecipeOutput output, Identifier id) {
+		build(output, id);
 	}
 
 	@Override

@@ -8,8 +8,8 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 
@@ -29,7 +29,7 @@ public class CookingPotItemHandler implements ItemHandler {
 		this.side = side;
 	}
 
-	public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+	public boolean isItemValid(int slot, @NonNull ItemStack stack) {
 		return itemHandler.isItemValid(slot, stack);
 	}
 
@@ -39,13 +39,13 @@ public class CookingPotItemHandler implements ItemHandler {
 	}
 
 	@Override
-	public @NotNull ItemStack getStackInSlot(int slot) {
-		return itemHandler.getStackInSlot(slot);
+	public SingleSlotStorage<ItemVariant> getSlot(int slot) {
+		return itemHandler.getSlot(slot);
 	}
 
 	@Override
-	public int getSlotLimit(int slot) {
-		return itemHandler.getSlotLimit(slot);
+	public @NonNull ItemStack getStackInSlot(int slot) {
+		return itemHandler.getStackInSlot(slot);
 	}
 
 	@Override
@@ -53,15 +53,15 @@ public class CookingPotItemHandler implements ItemHandler {
 		this.itemHandler.setStackInSlot(slot, stack);
 	}
 
-	@NotNull
-	public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+	@NonNull
+	public ItemStack insertItem(int slot, @NonNull ItemStack stack, boolean simulate) {
 		if (side == null || side.equals(Direction.UP)) {
 			return slot < SLOTS_INPUT ? itemHandler.insertItem(slot, stack, simulate) : stack;
 		}
 		return slot == SLOT_CONTAINER_INPUT ? itemHandler.insertItem(slot, stack, simulate) : stack;
 	}
 
-	@NotNull
+	@NonNull
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
 		if (side == null || side.equals(Direction.UP)) {
 			return slot < SLOTS_INPUT ? itemHandler.extractItem(slot, amount, simulate) : ItemStack.EMPTY;
@@ -73,7 +73,19 @@ public class CookingPotItemHandler implements ItemHandler {
 	public int getSlotLimit(int slot) {
 		return itemHandler.getSlotLimit(slot);
 	}
-}
+
+	@Override
+	public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
+		StoragePreconditions.notBlankNotNegative(resource, maxAmount);
+		long inserted = 0;;
+		for (Iterator<SingleStackStorage> it = getInsertableSlotsFor(resource); it.hasNext(); ) {
+			SingleStackStorage slot = it.next();
+			inserted += slot.insert(resource, maxAmount - inserted, transaction);
+			if (inserted >= maxAmount)
+				break;
+		}
+		return inserted;
+	}
 
 	@Override
 	public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {

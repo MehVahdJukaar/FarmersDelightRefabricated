@@ -12,6 +12,8 @@ public class ModParticleTypes {
             () -> FabricParticleTypes.simple(true));
     public static final Supplier<SimpleParticleType> STEAM = regParticle("steam",
             () -> FabricParticleTypes.simple(true));
+	public static final Supplier<SimpleParticleType> SPARKLE = regParticle("sparkle",
+		() -> FabricParticleTypes.simple(true));
 
     public static void touch() {
 

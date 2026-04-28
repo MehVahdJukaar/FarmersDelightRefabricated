@@ -25,7 +25,7 @@ public class RiceItem extends BlockItem
 			Player player = context.getPlayer();
 			BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
 			if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.is(BlockTags.SUPPORTS_CROPS))) {
-				player.sendOverlayMessage(TextUtils.getTranslation("block.rice.invalid_placement"));
+				player.sendOverlayMessage(TextUtils.block("rice.invalid_placement"));
 			}
 		}
 		return !result.consumesAction() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()) : result;

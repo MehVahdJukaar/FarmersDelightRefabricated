@@ -7,12 +7,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
 public record SendRecipeBookValuesPayload(boolean open, boolean filtering) implements CustomPacketPayload {
-	public static final ResourceLocation ID = FarmersDelight.res("send_recipe_book_values");
+	public static final Identifier ID = FarmersDelight.id("send_recipe_book_values");
 	public static final Type<SendRecipeBookValuesPayload> TYPE = new Type<>(ID);
 	public static final StreamCodec<RegistryFriendlyByteBuf, SendRecipeBookValuesPayload> STREAM_CODEC = StreamCodec.of(SendRecipeBookValuesPayload::write, SendRecipeBookValuesPayload::new);
 

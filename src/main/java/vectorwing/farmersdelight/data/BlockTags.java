@@ -1,17 +1,16 @@
 package vectorwing.farmersdelight.data;
 
-import mezz.jei.api.constants.Tags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
@@ -20,14 +19,14 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class BlockTags extends FabricTagProvider.BlockTagProvider
+public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 {
-	public BlockTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public BlockTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, lookupProvider);
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NotNull Provider provider) {
+	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		this.registerModTags();
 		this.registerMinecraftTags();
 		this.registerNeoForgeTags();
@@ -100,7 +99,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				.addTag(net.minecraft.tags.BlockTags.CANDLE_CAKES)
 				.addTag(ModTags.Blocks.STRAW_BLOCKS)
 				.addTag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
-		tag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
+		tagBuilder(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
 
 	}
 
@@ -114,9 +113,9 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.SANDY_SHRUB.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
 				ModBlocks.SANDY_SHRUB.get());
-		tagBuilder(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
 				ModBlocks.RICH_SOIL.get());
-		tagBuilder(net.minecraft.tags.BlockTags.MUSHROOM_GROW_BLOCK).add(
+		tagBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
 				ModBlocks.ORGANIC_COMPOST.get(),
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.CROPS).add(
@@ -206,7 +205,6 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.WILD_TOMATOES.get(),
 				ModBlocks.WILD_ONIONS.get()
 		);
-		tagBuilder(net.minecraft.tags.BlockTags.TALL_FLOWERS).add(ModBlocks.WILD_RICE.get());
 		tagBuilder(net.minecraft.tags.BlockTags.DIRT).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.MAINTAINS_FARMLAND).add(
@@ -225,6 +223,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
     protected void registerNeoForgeTags() {
+		tagBuilder(ConventionalBlockTags.TALL_FLOWERS).add(ModBlocks.WILD_RICE.get());
         tagBuilder(ConventionalBlockTags.ROPES).add(ModBlocks.ROPE.get());
         //This is a neoforge tag. i think we alreadey have a mixin that takes care of this
         //tagBuilder(ConventionalBlockTags.VILLAGER_FARMLANDS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
@@ -245,7 +244,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
     }
 
     protected void registerCommonTags() {
-        tag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
+        tagBuilder(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
         tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
         tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
         tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
@@ -272,9 +271,9 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				ModBlocks.CHOCOLATE_PIE.get(),
 				ModBlocks.PUMPKIN_PIE.get()
 		);
-		getOrCreateTagBuilder(ModTags.Blocks.TERRAIN)
+		tagBuilder(ModTags.Blocks.TERRAIN)
 				.addTag(net.minecraft.tags.BlockTags.DIRT)
-				.forceAddTag(net.minecraft.tags.BlockTags.SAND); // Refabricated: Must be force added.
+				.addTag(net.minecraft.tags.BlockTags.SAND);
 		tagBuilder(ModTags.Blocks.STRAW_BLOCKS).add(
 				ModBlocks.RICE_BAG.get(),
 				ModBlocks.ROPE.get(),
@@ -304,13 +303,13 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				.add(ModBlocks.BAMBOO_CABINET.get())
 				.add(ModBlocks.CRIMSON_CABINET.get())
 				.add(ModBlocks.WARPED_CABINET.get());
-		tag(ModTags.Blocks.CABINETS).addTag(ModTags.Blocks.CABINETS_WOODEN);
+		tagBuilder(ModTags.Blocks.CABINETS).addTag(ModTags.Blocks.CABINETS_WOODEN);
 		tagBuilder(ModTags.Blocks.MUSHROOM_COLONIES)
 				.add(ModBlocks.BROWN_MUSHROOM_COLONY.get())
 				.add(ModBlocks.RED_MUSHROOM_COLONY.get());
 		tagBuilder(ModTags.Blocks.ROPES).add(ModBlocks.ROPE.get())
-				.addOptional(ResourceLocation.parse("quark:rope"))
-				.addOptional(ResourceLocation.parse("supplementaries:rope"));
+				.addOptional(Identifier.parse("quark:rope"))
+				.addOptional(Identifier.parse("supplementaries:rope"));
 		tagBuilder(ModTags.Blocks.TRAY_HEAT_SOURCES).add(
 						Blocks.LAVA)
 				.addTag(net.minecraft.tags.BlockTags.CAMPFIRES)
@@ -322,7 +321,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				.addTag(ModTags.Blocks.TRAY_HEAT_SOURCES);
 		tagBuilder(ModTags.Blocks.HEAT_CONDUCTORS).add(
 						Blocks.HOPPER)
-				.addOptional(ResourceLocation.parse("create:chute"));
+				.addOptional(Identifier.parse("create:chute"));
 		tagBuilder(ModTags.Blocks.COMPOST_ACTIVATORS).add(
 						Blocks.BROWN_MUSHROOM,
 						Blocks.RED_MUSHROOM,
@@ -347,7 +346,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 						ModBlocks.SANDY_SHRUB.get())
 				.addTag(ModTags.Blocks.MUSHROOM_COLONIES)
 				.addTag(ModTags.Blocks.WILD_CROPS)
-				.addTag(net.minecraft.tags.BlockTags.TALL_FLOWERS);
+				.addTag(ConventionalBlockTags.TALL_FLOWERS);
 		tagBuilder(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON).add(ModBlocks.RICH_SOIL.get());
 		tagBuilder(ModTags.Blocks.DROPS_CAKE_SLICE).add(
 				Blocks.CANDLE_CAKE,
@@ -405,12 +404,12 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
 	public class RefabricatedTagBuilder {
-		private FabricTagProvider<Block>.FabricTagBuilder valueLookupBuilder;
+		private TagAppender<Block, Block> valueLookupBuilder;
 
 		private TagBuilder rawBuilder;
 
 		public RefabricatedTagBuilder(TagKey<Block> tag) {
-			this.valueLookupBuilder = getOrCreateTagBuilder(tag);
+			this.valueLookupBuilder = valueLookupBuilder(tag);
 
 			this.rawBuilder = getOrCreateRawBuilder(tag);
 		}
@@ -435,7 +434,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			return this;
 		}
 
-		public BlockTags.RefabricatedTagBuilder addOptional(ResourceLocation item) {
+		public BlockTags.RefabricatedTagBuilder addOptional(Identifier item) {
 			rawBuilder = rawBuilder.addOptionalElement(item);
 			return this;
 		}

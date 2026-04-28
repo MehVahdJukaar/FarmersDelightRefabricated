@@ -3,36 +3,17 @@ package vectorwing.farmersdelight.common.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
-import net.minecraft.util.ProblemReporter;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.TagValueOutput;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.block.StoveBlock;
+import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
-import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-import java.util.Optional;
-
-public class StoveBlockEntity extends AbstractStoveBlockEntity
-{
-	public StoveBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBlockEntityTypes.STOVE.get(), pos, state, RecipeType.CAMPFIRE_COOKING);
-	}
+public class StoveBlockEntity extends AbstractStoveBlockEntity {
+    public StoveBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntityTypes.STOVE.get(), pos, state, RecipeType.CAMPFIRE_COOKING);
+    }
 
     public static void particleTick(Level level, BlockPos pos, BlockState state, StoveBlockEntity stoveEntity) {
         if (stoveEntity.isEmpty()) return;
@@ -45,7 +26,7 @@ public class StoveBlockEntity extends AbstractStoveBlockEntity
         var items = this.getItems();
         for (int i = 0; i < items.getSlotCount(); ++i) {
             if (items.getStackInSlot(i).isEmpty()) continue;
-            if (level.random.nextFloat() >= 0.2F) continue;
+            if (level.getRandom().nextFloat() >= 0.2F) continue;
             Vec2 itemOffset = this.getStoveItemOffset(i);
             Direction direction = this.getBlockState().getValue(AbstractStoveBlock.FACING);
             if (direction.get2DDataValue() % 2 != 0) {
@@ -65,21 +46,21 @@ public class StoveBlockEntity extends AbstractStoveBlockEntity
 
     @Override
     protected int getInventorySlotCount() {
-        return 6;
-    }
+		return 6;
+	}
 
-    @Override
-    public Vec2 getStoveItemOffset(int index) {
-        final float X_OFFSET = 0.3F;
-        final float Y_OFFSET = 0.2F;
-        final Vec2[] OFFSETS = {
-                new Vec2(X_OFFSET, Y_OFFSET),
-                new Vec2(0.0F, Y_OFFSET),
-                new Vec2(-X_OFFSET, Y_OFFSET),
-                new Vec2(X_OFFSET, -Y_OFFSET),
-                new Vec2(0.0F, -Y_OFFSET),
-                new Vec2(-X_OFFSET, -Y_OFFSET),
-        };
-        return OFFSETS[index];
-    }
+	@Override
+	public Vec2 getStoveItemOffset(int index) {
+		final float X_OFFSET = 0.3F;
+		final float Y_OFFSET = 0.2F;
+		final Vec2[] OFFSETS = {
+			new Vec2(X_OFFSET, Y_OFFSET),
+			new Vec2(0.0F, Y_OFFSET),
+			new Vec2(-X_OFFSET, Y_OFFSET),
+			new Vec2(X_OFFSET, -Y_OFFSET),
+			new Vec2(0.0F, -Y_OFFSET),
+			new Vec2(-X_OFFSET, -Y_OFFSET),
+		};
+		return OFFSETS[index];
+	}
 }

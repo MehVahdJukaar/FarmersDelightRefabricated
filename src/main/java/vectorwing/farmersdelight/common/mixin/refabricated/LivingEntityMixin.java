@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
