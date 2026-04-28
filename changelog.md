@@ -6,7 +6,8 @@
 - Moved Farmer's Delight specific tags to `vectorwing.farmersdelight.refabricated.FDRefabricatedTags` package. The original fields are now deprecated and redirect over to this class.
   - The deprecated fields will be removed when the `26.1` branch is updated.
 - Swapped out the Farmer's Delight Refabricated config lang entries to use the same lang entries as Farmer's Delight NeoForge.
-- Fixed Rich Soil using the `farmersdelight:survives/rich_soil_farmland` block tag instead of the `farmersdelight:survives/rich_soil` block tag to determine what is allowed to be placed on RIch Soil.
+- Removed the `farmersdelight:survives/*` and `farmersdelight:does_not_survive/*` block tags in favor of vanilla's supports plant block tags.
+- Added `farmersdelight:grows_mushroom_colonies` block tag, deprecating the original `farmersdelight:mushroom_colonies_growable_on` tag.
 
 *Minor note: This version is unrelated to any of the latest branches' 3.3.0, treat versioning as separate between branches.*
 
