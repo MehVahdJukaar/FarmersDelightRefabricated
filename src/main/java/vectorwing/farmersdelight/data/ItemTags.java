@@ -12,6 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jspecify.annotations.NonNull;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
@@ -289,6 +290,8 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 			CommonTags.Items.STORAGE_BLOCKS_RICE_PANICLE,
 			CommonTags.Items.STORAGE_BLOCKS_STRAW
 		);
+		tagBuilder(ConventionalItemTags.HIDDEN_FROM_RECIPE_VIEWERS)
+			.add(ModItems.DEBUG_PUMPKIN_PIE.get());
 	}
 
 	public void registerCommonTags() {
