@@ -23,17 +23,16 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.item.crafting.RecipeAccess;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
@@ -65,7 +64,6 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
         ItemStorage.SIDED.registerForBlockEntity(CuttingBoardBlockEntity::getStorage, ModBlockEntityTypes.CUTTING_BOARD.get());
     }
 
-    @NonNull
     public Storage<ItemVariant> getStorage(@Nullable Direction side) {
         return getInventory();
     }
@@ -94,8 +92,9 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 
 	public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {
 		if (!(level instanceof ServerLevel serverLevel)) {
-			return player.level().recipeAccess().propertySet(ModRecipePropertySets.CUTTING_BOARD_INPUT).test(getStoredItem()) &&
-					player.level().recipeAccess().propertySet(ModRecipePropertySets.CUTTING_BOARD_TOOL).test(toolStack);
+			RecipeAccess recipeAccess = level.recipeAccess();
+			return recipeAccess.propertySet(ModRecipePropertySets.CUTTING_BOARD_INPUT).test(getStoredItem()) &&
+				recipeAccess.propertySet(ModRecipePropertySets.CUTTING_BOARD_TOOL).test(toolStack);
 		}
 
 		if (isItemCarvingBoard) return false;
