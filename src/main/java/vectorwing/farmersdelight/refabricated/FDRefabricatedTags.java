@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
 
 public class FDRefabricatedTags {
-	// TODO: 26.1.x: Utilize subdirectories for some of these tags.
+	// TODO: 26.1.x: Swap out whitelist and blacklist tags for 'fabric:remove' entries.
 	public static class Biomes {
 		public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");
 		public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = modBiomeTag("has_red_mushroom_colony");
