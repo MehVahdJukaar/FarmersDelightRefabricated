@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.refabricated;
 
-import com.google.common.collect.Maps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -9,14 +8,12 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
-import net.minecraft.util.DependencySorter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.duck.TagLoaderSpecificResourceDuck;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 // Average Chrys witch-craft class.
 public class TagUtils {
@@ -64,7 +61,6 @@ public class TagUtils {
                 tagRegistryLocation + "/" + tagKey.location().getPath() + ".json");
 
 		((TagLoaderSpecificResourceDuck) tagLoader).fdrf$setSpecificResourceToLoad(tagPath);
-
 		Map<Identifier, List<TagLoader.EntryWithSource>> loaded = tagLoader.load(resourceManager);
 		return tagLoader.build(loaded);
 	}
