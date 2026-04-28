@@ -55,6 +55,7 @@ public class LootModificationEvents {
 
     private static final ResourceKey<LootTable> BLOCKS_APPLE_PIE = key("blocks/apple_pie");
     private static final ResourceKey<LootTable> BLOCKS_CHOCOLATE_PIE = key("blocks/chocolate_pie");
+	private static final ResourceKey<LootTable> BLOCKS_PUMPKIN_PIE = key("blocks/pumpkin_pie");
     private static final ResourceKey<LootTable> BLOCKS_RICE_PANICLES = key("blocks/rice_panicles");
     private static final ResourceKey<LootTable> BLOCKS_SANDY_SHRUB = key("blocks/sandy_shrub");
     private static final ResourceKey<LootTable> BLOCKS_SWEET_BERRY_CHEESECAKE = key("blocks/sweet_berry_cheesecake");
@@ -254,7 +255,10 @@ public class LootModificationEvents {
         // slicing_chocolate_pie
         if (key == BLOCKS_CHOCOLATE_PIE)
             pastrySlicing(tableBuilder, ModBlocks.CHOCOLATE_PIE.get(), ModItems.CHOCOLATE_PIE_SLICE.get(), PieBlock.BITES, 4);
-        // slicing_sweet_berry_cheesecake
+		// slicing_pumpkin_pie
+		if (key == BLOCKS_PUMPKIN_PIE)
+			pastrySlicing(tableBuilder, ModBlocks.PUMPKIN_PIE.get(), ModItems.PUMPKIN_PIE_SLICE.get(), PieBlock.BITES, 4);
+		// slicing_sweet_berry_cheesecake
         if (key == BLOCKS_SWEET_BERRY_CHEESECAKE)
             pastrySlicing(tableBuilder, ModBlocks.SWEET_BERRY_CHEESECAKE.get(), ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(), PieBlock.BITES, 4);
     }
