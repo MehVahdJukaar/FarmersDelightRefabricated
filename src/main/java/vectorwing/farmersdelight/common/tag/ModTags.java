@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 /**
  * References to tags under the Farmer's Delight namespace.
@@ -38,6 +37,7 @@ public class ModTags
 		public static final TagKey<Block> TRAY_HEAT_SOURCES = modBlockTag("tray_heat_sources");
 
 		// Blocks in which Mushroom Colonies can keep growing on. These blocks cannot form new colonies.
+		@Deprecated
 		public static final TagKey<Block> MUSHROOM_COLONY_GROWABLE_ON = modBlockTag("mushroom_colony_growable_on");
 
 		// Blocks which are planted beneath a soil block. Used by Rich Soil to ensure such blocks can only be bonemealed if planted below it.

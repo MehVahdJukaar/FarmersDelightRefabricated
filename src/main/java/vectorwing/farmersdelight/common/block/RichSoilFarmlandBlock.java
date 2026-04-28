@@ -48,13 +48,6 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 		return super.canSurvive(state, level, pos) || aboveState.getBlock().equals(Blocks.MELON) || aboveState.getBlock().equals(Blocks.PUMPKIN);
 	}
 
-	public boolean isFertile(BlockState state, BlockGetter world, BlockPos pos) {
-		if (state.is(ModBlocks.RICH_SOIL_FARMLAND.get()))
-			return state.getValue(RichSoilFarmlandBlock.MOISTURE) > 0;
-
-		return false;
-	}
-
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
@@ -93,18 +86,6 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
             }
         }
     }
-
-//	@Override
-//	public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plantState) {
-//		PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
-//		return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
-//
-//		// TODO: Revisit this method to filter out plants correctly. Also, there's a chance Rich Soil Farmland won't need it anymore.
-//		if (plantState.getBlock() instanceof CropBlock) {
-//			return TriState.TRUE;
-//		}
-//		return TriState.DEFAULT;
-//	}
 
 	@Override
 	public @NonNull BlockState getStateForPlacement(BlockPlaceContext context) {

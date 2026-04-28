@@ -34,7 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.common.utility.SoilUtils;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 public class MushroomColonyBlock extends VegetationBlock implements BonemealableBlock
@@ -119,12 +119,8 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
 		BlockState floorState = level.getBlockState(floorPos);
-		if (floorState.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)) {
+		if (floorState.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT) || floorState.is(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES)) {
 			return true;
-		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilBlock) {
-			return SoilUtils.isAbleToPlaceRichSoil(this);
-		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilFarmlandBlock) {
-			return SoilUtils.isAbleToPlaceRichSoilFarmland(this);
 		} else {
 			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && this.mayPlaceOn(state, level, pos);
 		}
@@ -138,7 +134,7 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int age = state.getValue(COLONY_AGE);
 		BlockState groundState = level.getBlockState(pos.below());
-		if (age < getMaxAge() && groundState.is(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON) && random.nextInt(4) == 0) {
+		if (age < getMaxAge() && groundState.is(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES) && random.nextInt(4) == 0) {
 			level.setBlock(pos, state.setValue(COLONY_AGE, age + 1), 2);
 		}
 	}

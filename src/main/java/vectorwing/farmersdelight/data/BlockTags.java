@@ -15,6 +15,7 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -113,7 +114,25 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.SANDY_SHRUB.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
 				ModBlocks.SANDY_SHRUB.get());
+		tagBuilder(net.minecraft.tags.BlockTags.GROWS_CROPS).add(
+				ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_AZALEA).add(
+				ModBlocks.RICH_SOIL.get(),
+				ModBlocks.RICH_SOIL_FARMLAND.get() // This probably shouldn't support Azalea but this is left in for parity with OG FD.
+		);
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
+				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BIG_DRIPLEAF).add(
+				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER).add(
+				ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
+				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SMALL_DRIPLEAF).add(
+				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SUGAR_CANE).add(
+				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
 				ModBlocks.ORGANIC_COMPOST.get(),
@@ -347,7 +366,9 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				.addTag(ModTags.Blocks.MUSHROOM_COLONIES)
 				.addTag(ModTags.Blocks.WILD_CROPS)
 				.addTag(ConventionalBlockTags.TALL_FLOWERS);
-		tagBuilder(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON).add(ModBlocks.RICH_SOIL.get());
+		tagBuilder(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES).add(
+				ModBlocks.RICH_SOIL.get())
+				.addTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON);
 		tagBuilder(ModTags.Blocks.DROPS_CAKE_SLICE).add(
 				Blocks.CANDLE_CAKE,
 				Blocks.WHITE_CANDLE_CAKE,

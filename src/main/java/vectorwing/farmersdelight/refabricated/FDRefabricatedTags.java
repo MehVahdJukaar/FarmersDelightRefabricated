@@ -29,13 +29,8 @@ public class FDRefabricatedTags {
 		public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = modBiomeTag("wild_tomatoes_blacklist");
 	}
 
-	// FIXME: 26.1.x: Use vanilla survives tags for this functionality.
 	public static class Blocks {
-		public static final TagKey<Block> SURVIVES_RICH_SOIL = modBlockTag("survives/rich_soil");
-		public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
-
-		public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
-		public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = modBlockTag("does_not_survive/rich_soil_farmland");
+		public static final TagKey<Block> GROWS_MUSHROOM_COLONIES = modBlockTag("grows_mushroom_colonies");
 	}
 
 	public static class EntityTypes {
