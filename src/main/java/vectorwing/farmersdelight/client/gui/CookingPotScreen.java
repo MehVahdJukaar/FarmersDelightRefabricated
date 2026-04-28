@@ -35,14 +35,12 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 	@Override
 	public void init() {
-		if (Configuration.ENABLE_COOKING_POT_RECIPE_BOOK.get()) {
-			super.init();
-		} else {
+		super.init();
+		if (!Configuration.ENABLE_COOKING_POT_RECIPE_BOOK.get()) {
 			RecipeBookComponent<?> component = ((AbstractRecipeBookScreenAccessor)this).fdrf$getRecipeBookComponent();
 			if (component.isVisible()) {
 				component.toggleVisibility();
 			}
-			this.addWidget(component);
 		}
 		titleLabelX = 28;
 	}

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPotMenu>
 {
-	private static final SearchRecipeBookCategory COOKING_SEARCH_CATEGORY = SearchRecipeBookCategory.valueOf("FARMERSDELIGHT_COOKING");
+	private static final SearchRecipeBookCategory COOKING_SEARCH_CATEGORY = SearchRecipeBookCategory.FARMERSDELIGHT_COOKING;
 
 	protected static final WidgetSprites RECIPE_BOOK_BUTTONS = new WidgetSprites(
 			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),

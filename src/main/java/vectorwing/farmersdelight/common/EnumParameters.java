@@ -1,9 +1,9 @@
 package vectorwing.farmersdelight.common;
 
-import vectorwing.farmersdelight.refabricated.FarmersDelightASM;
-
 /**
- * Refabricated: Deprecated: Look at {@link FarmersDelightASM}.
+ * Refabricated: Deprecated: Replaces with class tweakers.
+ * @see net.minecraft.world.inventory.RecipeBookType#FARMERSDELIGHT_COOKING
+ * @see net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory#FARMERSDELIGHT_COOKING
  */
 @Deprecated
 public class EnumParameters

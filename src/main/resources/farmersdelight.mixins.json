@@ -39,7 +39,8 @@
     "refabricated.GuiMixin",
     "refabricated.HumanoidMobRendererMixin",
     "refabricated.HumanoidModelMixin",
-    "refabricated.HumanoidRenderStateMixin"
+    "refabricated.HumanoidRenderStateMixin",
+    "refabricated.SearchRecipeBookCategoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1
