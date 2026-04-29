@@ -137,7 +137,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 		boolean placeFoodSuccess = stoveEntity.placeFood(player, player.getAbilities().instabuild ? heldStack.copy() : heldStack, maybeRecipe.get());
 		if (!placeFoodSuccess) return InteractionResult.CONSUME;
 		level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.5F, 1.0F);
-		return InteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS_SERVER;
 	}
 
 	public void ignite(@Nullable Entity entity, LevelAccessor level, BlockPos pos, BlockState state) {
