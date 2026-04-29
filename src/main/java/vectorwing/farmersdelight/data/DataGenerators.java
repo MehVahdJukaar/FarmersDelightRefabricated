@@ -15,6 +15,7 @@ import vectorwing.farmersdelight.common.world.WildCropGeneration;
 import vectorwing.farmersdelight.data.advancement.FDAdvancementGenerator;
 import vectorwing.farmersdelight.data.loot.FDBlockLoot;
 import vectorwing.farmersdelight.data.loot.FDChestLoot;
+import vectorwing.farmersdelight.refabricated.data.RefabricatedMobEffectTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -37,7 +38,10 @@ public class DataGenerators implements DataGeneratorEntrypoint
         pack.addProvider(VillagerTrades::new);
         pack.addProvider(VillagerTags::new);
 		pack.addProvider(SoundDefinitions::new);
-//		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
+		//		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
+
+		// Refabricated specific.
+		pack.addProvider(RefabricatedMobEffectTags::new);
 	}
 
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {

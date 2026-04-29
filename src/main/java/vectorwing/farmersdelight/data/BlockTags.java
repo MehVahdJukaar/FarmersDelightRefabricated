@@ -29,6 +29,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 	@Override
 	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		this.registerModTags();
+		this.registerRefabricatedTags();
 		this.registerMinecraftTags();
 		this.registerNeoForgeTags();
 		this.registerCommonTags();
@@ -366,9 +367,6 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				.addTag(ModTags.Blocks.MUSHROOM_COLONIES)
 				.addTag(ModTags.Blocks.WILD_CROPS)
 				.addTag(ConventionalBlockTags.TALL_FLOWERS);
-		tagBuilder(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES).add(
-				ModBlocks.RICH_SOIL.get())
-			.addTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON);
 		tagBuilder(ModTags.Blocks.DROPS_CAKE_SLICE).add(
 				Blocks.CANDLE_CAKE,
 				Blocks.WHITE_CANDLE_CAKE,
@@ -389,6 +387,12 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				Blocks.BLACK_CANDLE_CAKE);
 		tagBuilder(ModTags.Blocks.CAMPFIRE_SIGNAL_SMOKE).add(ModBlocks.STRAW_BALE.get()).add(ModBlocks.RICE_BALE.get());
 		tagBuilder(ModTags.Blocks.PLANTED_FROM_BELOW).add(Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT);
+	}
+
+	private void registerRefabricatedTags() {
+		tagBuilder(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES)
+			.add(ModBlocks.RICH_SOIL.get())
+			.addTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON);
 	}
 
 	private void registerCompatibilityTags() {

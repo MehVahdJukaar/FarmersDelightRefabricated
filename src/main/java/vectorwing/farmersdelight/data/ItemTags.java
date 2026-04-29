@@ -17,6 +17,7 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.CompatibilityTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -34,6 +35,7 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 
 		this.registerMinecraftTags();
 		this.registerModTags();
+		this.registerRefabricatedTags();
 		this.registerConventionalTags();
 		this.registerCommonTags();
 		this.registerCompatibilityTags();
@@ -213,6 +215,11 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 			.addOptional(Identifier.parse("supplementaries:quiver"))
 			.addOptional(Identifier.parse("autumnity:turkey"))
 			.addOptional(Identifier.parse("autumnity:cooked_turkey"));
+	}
+
+	private void registerRefabricatedTags() {
+		tagBuilder(FDRefabricatedTags.Items.FLINT_TOOL_MATERIALS)
+			.add(Items.FLINT);
 	}
 
 	private void registerConventionalTags() {

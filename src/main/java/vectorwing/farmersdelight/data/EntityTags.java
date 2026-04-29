@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.entity.EntityType;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,5 +29,15 @@ public class EntityTags extends FabricTagsProvider.EntityTypeTagsProvider
 				EntityType.HORSE,
 				EntityType.DONKEY,
 				EntityType.MULE);
+		valueLookupBuilder(FDRefabricatedTags.EntityTypes.DROPS_LEATHER)
+			.add(
+				EntityType.COW,
+				EntityType.MOOSHROOM,
+				EntityType.HORSE,
+				EntityType.DONKEY,
+				EntityType.MULE,
+				EntityType.LLAMA,
+				EntityType.TRADER_LLAMA
+			);
 	}
 }

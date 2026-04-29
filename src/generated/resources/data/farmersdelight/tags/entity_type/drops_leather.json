@@ -1,10 +1,11 @@
 {
   "values": [
     "minecraft:cow",
-    "minecraft:donkey",
-    "minecraft:horse",
-    "minecraft:llama",
     "minecraft:mooshroom",
+    "minecraft:horse",
+    "minecraft:donkey",
+    "minecraft:mule",
+    "minecraft:llama",
     "minecraft:trader_llama"
   ]
 }
