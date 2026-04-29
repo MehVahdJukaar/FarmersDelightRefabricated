@@ -51,10 +51,10 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		this(items, new ItemStackTemplate(result.asItem(), count), cookingTime, experience, container);
 	}
 
-	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStackTemplate resultIn, int cookingTime, float experience, @Nullable ItemLike container) {
+	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStackTemplate result, int cookingTime, float experience, @Nullable ItemLike container) {
 		this.items = items;
-		this.result = resultIn.item().value();
-		this.resultStack = resultIn;
+		this.result = result.item().value();
+		this.resultStack = result;
 		this.cookingTime = cookingTime;
 		this.experience = experience;
 		this.container = container != null ? new ItemStackTemplate(container.asItem()) : null;
@@ -69,8 +69,8 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		return new CookingPotRecipeBuilder(items, mainResult, count, cookingTime, experience, container);
 	}
 
-	public CookingPotRecipeBuilder addIngredient(TagKey<Item> tagIn) {
-		return addIngredient(Ingredient.of(items.getOrThrow(tagIn)));
+	public CookingPotRecipeBuilder addIngredient(TagKey<Item> tag) {
+		return addIngredient(Ingredient.of(items.getOrThrow(tag)));
 	}
 
 	public CookingPotRecipeBuilder addIngredient(ItemLike itemIn) {
