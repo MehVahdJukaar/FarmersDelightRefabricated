@@ -36,7 +36,7 @@ public class RopeFenceBlock extends CrossCollisionBlock
 	}
 
 	public RopeFenceBlock(Properties properties) {
-		super(1.0F, 1.0F, 16.0F, 16.0F, 24.0F, properties);
+		super(1.0F, 16.0F, 1.0F, 16.0F, 24.0F, properties);
 		this.registerDefaultState(this.stateDefinition.any()
 				.setValue(NORTH, false)
 				.setValue(EAST, false)
@@ -56,7 +56,7 @@ public class RopeFenceBlock extends CrossCollisionBlock
 
 	@Override
 	public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return POST;
+		return this.getShape(state, level, pos, context);
 	}
 
 	@Override
@@ -107,7 +107,9 @@ public class RopeFenceBlock extends CrossCollisionBlock
 			ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
-		return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+		return directionToNeighbour.getAxis().getPlane() == Direction.Plane.HORIZONTAL
+			? state.setValue(PROPERTY_BY_DIRECTION.get(directionToNeighbour), this.connectsTo(neighbourState, neighbourState.isFaceSturdy(level, neighbourPos, directionToNeighbour.getOpposite()), directionToNeighbour.getOpposite()))
+			: super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
 	}
 
 	@Override
