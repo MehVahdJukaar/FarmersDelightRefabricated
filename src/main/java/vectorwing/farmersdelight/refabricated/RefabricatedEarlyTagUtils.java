@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.refabricated;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -56,11 +57,13 @@ public class RefabricatedEarlyTagUtils {
 
 	// Do it this way to ensure that 'fabric:remove' values are handled correctly.
     private static <T> Map<Identifier, List<Holder<T>>> loadTagEarly(TagLoader<Holder<T>> tagLoader, TagKey<T> tagKey) {
-        String tagRegistryLocation = (tagKey.registry().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE) ? "" : tagKey.registry().identifier().getNamespace() + "/")  + tagKey.registry().identifier().getPath();
-		Identifier tagPath = Identifier.fromNamespaceAndPath(tagKey.location().getNamespace(), "tags/" +
-                tagRegistryLocation + "/" + tagKey.location().getPath() + ".json");
+        String tagRegistryLocation = (tagKey.registry().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE) ? "" : tagKey.registry().identifier().getNamespace() + "/")
+			+ tagKey.registry().identifier().getPath();
+		FileToIdConverter converter = FileToIdConverter.json("tags/" + tagRegistryLocation);
 
+		Identifier tagPath = converter.idToFile(tagKey.location());
 		((TagLoaderSpecificResourceDuck) tagLoader).fdrf$setSingleTag(tagPath);
+
 		Map<Identifier, List<TagLoader.EntryWithSource>> loaded = tagLoader.load(resourceManager);
 		return tagLoader.build(loaded);
 	}
