@@ -1,1 +1,1 @@
-- Fixed Big Dripleaf, Crops and Most Regular Vegetation being unable to be placed on Rich Soil Farmland.
+- Fixed Big Dripleaf, Crops and Most Regular Vegetation being unable to be placed on Rich Soil Farmland. [#310](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/310)
