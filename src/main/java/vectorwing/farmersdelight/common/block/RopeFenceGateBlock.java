@@ -38,6 +38,7 @@ public class RopeFenceGateBlock extends FenceGateBlock
 		super(WoodType.OAK, props);
 	}
 
+	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
 		Direction.Axis axis = facing.getAxis();
 		if (state.getValue(FACING).getClockWise().getAxis() != axis) {
