@@ -36,7 +36,7 @@ public class SoundDefinitions extends FabricSoundsProvider
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_CUTTING_BOARD_REMOVE, SoundEvents.WOOD_HIT);
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_STOVE_CRACKLE, SoundEvents.CAMPFIRE_CRACKLE);
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_ROPE_FENCE_GATE_CLOSE, SoundEvents.LEAD_TIED);
-		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_ROPE_FENCE_GATE_OPEN, SoundEvents.LEAD_BREAK);
+		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_ROPE_FENCE_GATE_OPEN, SoundEvents.LEAD_UNTIED);
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_CABINET_CLOSE, SoundEvents.BARREL_CLOSE);
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_CABINET_OPEN, SoundEvents.BARREL_OPEN);
 		this.generateExistingSoundWithSubtitle(exporter, ModSounds.BLOCK_TOMATOES_PICK_TOMATOES, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);

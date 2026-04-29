@@ -97,7 +97,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:item.lead.break"
+        "name": "minecraft:item.lead.untied"
       }
     ],
     "subtitle": "Rope Fence Gate unties"
