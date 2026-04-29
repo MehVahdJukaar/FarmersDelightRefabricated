@@ -94,29 +94,27 @@ public class TextUtils
 		List<Pair<Holder<Attribute>, AttributeModifier>> attributeList = new ArrayList<>();
 		MutableComponent mutableComponent;
 
-		if (consumeEffectList.isEmpty()) {
-			for (ConsumeEffect possibleConsumeEffect : consumeEffectList) {
-				if (!(possibleConsumeEffect instanceof ApplyStatusEffectsConsumeEffect statusEffectsEffect))
-					continue;
+		for (ConsumeEffect possibleConsumeEffect : consumeEffectList) {
+			if (!(possibleConsumeEffect instanceof ApplyStatusEffectsConsumeEffect statusEffectsEffect))
+				continue;
 
-				List<MobEffectInstance> effectList = statusEffectsEffect.effects();
-				for (MobEffectInstance instance : effectList) {
-					mutableComponent = Component.translatable(instance.getDescriptionId());
-					MobEffect effect = instance.getEffect().value();
-					effect.createModifiers(instance.getAmplifier(), (attributeHolder, attributeModifier) -> {
-						attributeList.add(new Pair<>(attributeHolder, attributeModifier));
-					});
+			List<MobEffectInstance> effectList = statusEffectsEffect.effects();
+			for (MobEffectInstance instance : effectList) {
+				mutableComponent = Component.translatable(instance.getDescriptionId());
+				MobEffect effect = instance.getEffect().value();
+				effect.createModifiers(instance.getAmplifier(), (attributeHolder, attributeModifier) -> {
+					attributeList.add(new Pair<>(attributeHolder, attributeModifier));
+				});
 
-					if (instance.getAmplifier() > 0) {
-						mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, Component.translatable("potion.potency." + instance.getAmplifier()));
-					}
-
-					if (instance.getDuration() > 20) {
-						mutableComponent = Component.translatable("potion.withDuration", mutableComponent, MobEffectUtil.formatDuration(instance, durationFactor, tickRate));
-					}
-
-					tooltipAdder.accept(mutableComponent.withStyle(effect.getCategory().getTooltipFormatting()));
+				if (instance.getAmplifier() > 0) {
+					mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, Component.translatable("potion.potency." + instance.getAmplifier()));
 				}
+
+				if (instance.getDuration() > 20) {
+					mutableComponent = Component.translatable("potion.withDuration", mutableComponent, MobEffectUtil.formatDuration(instance, durationFactor, tickRate));
+				}
+
+				tooltipAdder.accept(mutableComponent.withStyle(effect.getCategory().getTooltipFormatting()));
 			}
 		}
 

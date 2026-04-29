@@ -96,11 +96,11 @@ public class ConsumableItem extends Item
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 			if (this.hasCustomTooltip) {
-				MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + BuiltInRegistries.ITEM.getKey(this).getPath());
+				MutableComponent textEmpty = TextUtils.tooltip(BuiltInRegistries.ITEM.getKey(this).getPath());
 				tooltipAdder.accept(textEmpty.withStyle(ChatFormatting.BLUE));
 			}
 			if (this.hasFoodEffectTooltip) {
-				TextUtils.addFoodEffectTooltip(stack, tooltipAdder::accept, 1.0F, context.tickRate());
+				TextUtils.addFoodEffectTooltip(stack, tooltipAdder, 1.0F, context.tickRate());
 			}
 		}
 	}

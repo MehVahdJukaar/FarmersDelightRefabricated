@@ -92,7 +92,7 @@ public class DogFoodItem extends ConsumableItem
 			return;
 		}
 
-		MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.dog_food.when_feeding");
+		MutableComponent textWhenFeeding = TextUtils.tooltip("dog_food.when_feeding");
 		tooltipAdder.accept(textWhenFeeding.withStyle(ChatFormatting.GRAY));
 
 		for (MobEffectInstance effectInstance : EFFECTS) {
