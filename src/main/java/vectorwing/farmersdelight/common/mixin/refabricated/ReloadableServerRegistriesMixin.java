@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vectorwing.farmersdelight.refabricated.TagUtils;
+import vectorwing.farmersdelight.refabricated.RefabricatedEarlyTagUtils;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 /**
- * @see TagUtils
+ * @see RefabricatedEarlyTagUtils
  */
 @Mixin(ReloadableServerRegistries.class)
 public class ReloadableServerRegistriesMixin {
@@ -27,11 +27,11 @@ public class ReloadableServerRegistriesMixin {
         if (lootDataType != LootDataType.TABLE)
             return;
 
-        TagUtils.setLootTableResourceManager(resourceManager);
+        RefabricatedEarlyTagUtils.setLootTableResourceManager(resourceManager);
     }
 
     @Inject(method = "lambda$reload$1", at = @At("RETURN"))
     private static void fdrf$clearLootTableAccess(LayeredRegistryAccess layeredRegistryAccess, HolderLookup.Provider provider, List list, CallbackInfoReturnable<ReloadableServerRegistries.LoadResult> cir) {
-        TagUtils.resetEarlyTagCollections();
+        RefabricatedEarlyTagUtils.resetEarlyTagCollections();
     }
 }

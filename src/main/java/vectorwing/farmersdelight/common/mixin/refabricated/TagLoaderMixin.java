@@ -19,18 +19,18 @@ import java.util.Map;
 public class TagLoaderMixin implements TagLoaderSpecificResourceDuck {
 	@Unique
 	@Nullable
-	private Identifier tagPath = null;
+	private Identifier fdrf$singleTagPath = null;
 
 	@ModifyExpressionValue(method = "load", at = @At(value = "INVOKE", target = "Lnet/minecraft/resources/FileToIdConverter;listMatchingResourceStacks(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;"))
 	private Map<Identifier, List<Resource>> fdrf$onlyLoadSingleTagIfSpecified(Map<Identifier, List<Resource>> original, @Local(argsOnly = true) ResourceManager resourceManager) {
-		if (tagPath != null) {
-			return Map.of(tagPath, resourceManager.getResourceStack(tagPath));
+		if (fdrf$singleTagPath != null) {
+			return Map.of(fdrf$singleTagPath, resourceManager.getResourceStack(fdrf$singleTagPath));
 		}
 		return original;
 	}
 
 	@Override
-	public void fdrf$setSpecificResourceToLoad(Identifier tagPath) {
-		this.tagPath = tagPath;
+	public void fdrf$setSingleTag(Identifier tagPath) {
+		this.fdrf$singleTagPath = tagPath;
 	}
 }

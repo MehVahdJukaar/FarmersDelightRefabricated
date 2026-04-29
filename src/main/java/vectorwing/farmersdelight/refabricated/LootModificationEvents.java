@@ -198,7 +198,7 @@ public class LootModificationEvents {
             // Make sure we only add to the necessary entity loot tables by loading the tag early.
             // Otherwise, you'd be modifying every entity with a condition that's never true, which seems like a no-no.
             // TODO: Figure out if we need to even load the tag early or if we should modify no matter what with a `this` entity property.
-            if (entityType.isPresent() && TagUtils.isDropsLeatherTag(entityType.get(), lookup)) {
+            if (entityType.isPresent() && RefabricatedEarlyTagUtils.isDropsLeatherTag(entityType.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER)
                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
                                 EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
@@ -243,7 +243,7 @@ public class LootModificationEvents {
         if (key.identifier().getPath().startsWith("blocks/")) {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
             var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.identifier().withPath(s -> s.substring(7))));
-            if (block.isPresent() && TagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
+            if (block.isPresent() && RefabricatedEarlyTagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
                 tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
                         .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES)))));
             }

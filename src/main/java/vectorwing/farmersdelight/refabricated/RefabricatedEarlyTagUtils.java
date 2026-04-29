@@ -16,7 +16,7 @@ import vectorwing.farmersdelight.refabricated.duck.TagLoaderSpecificResourceDuck
 import java.util.*;
 
 // Average Chrys witch-craft class.
-public class TagUtils {
+public class RefabricatedEarlyTagUtils {
     private static ResourceManager resourceManager;
     // Vanilla loads tags after Loot Tables are loaded, so we need to do something about that.
     private static Collection<Holder<Block>> earlyDropsCakeTag;
@@ -55,12 +55,12 @@ public class TagUtils {
     }
 
 	// Do it this way to ensure that 'fabric:remove' values are handled correctly.
-    public static <T> Map<Identifier, List<Holder<T>>> loadTagEarly(TagLoader<Holder<T>> tagLoader, TagKey<T> tagKey) {
+    private static <T> Map<Identifier, List<Holder<T>>> loadTagEarly(TagLoader<Holder<T>> tagLoader, TagKey<T> tagKey) {
         String tagRegistryLocation = (tagKey.registry().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE) ? "" : tagKey.registry().identifier().getNamespace() + "/")  + tagKey.registry().identifier().getPath();
 		Identifier tagPath = Identifier.fromNamespaceAndPath(tagKey.location().getNamespace(), "tags/" +
                 tagRegistryLocation + "/" + tagKey.location().getPath() + ".json");
 
-		((TagLoaderSpecificResourceDuck) tagLoader).fdrf$setSpecificResourceToLoad(tagPath);
+		((TagLoaderSpecificResourceDuck) tagLoader).fdrf$setSingleTag(tagPath);
 		Map<Identifier, List<TagLoader.EntryWithSource>> loaded = tagLoader.load(resourceManager);
 		return tagLoader.build(loaded);
 	}
