@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "fried_egg": {
+    "has_pie_crust": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:eggs"
+            "items": "farmersdelight:pie_crust"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:fried_egg_from_campfire_cooking"
+        "recipe": "farmersdelight:pumpkin_pie_from_pie_crust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "fried_egg"
+      "has_pie_crust"
     ]
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:fried_egg_from_campfire_cooking"
+      "farmersdelight:pumpkin_pie_from_pie_crust"
     ]
   }
 }

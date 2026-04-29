@@ -6,6 +6,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -66,7 +67,7 @@ public class CookingRecipes
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.GLOW_BERRY_CUSTARD.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 			.addIngredient(Items.GLOW_BERRIES)
 			.addIngredient(ConventionalTags.DRINKS_MILK)
-			.addIngredient(ConventionalItemTags.EGGS)
+			.addIngredient(ItemTags.EGGS)
 			.addIngredient(Items.SUGAR)
 			.unlockedByAnyIngredient(Items.GLOW_BERRIES, Items.MILK_BUCKET, ModItems.MILK_BOTTLE.get())
 			.setRecipeBookCategory(CookingPotBookCategory.MISC)
@@ -101,7 +102,7 @@ public class CookingRecipes
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.BAKED_COD_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 			.addIngredient(CommonTags.Items.FOODS_RAW_COD)
 			.addIngredient(ConventionalItemTags.POTATO_CROPS)
-			.addIngredient(ConventionalItemTags.EGGS)
+			.addIngredient(ItemTags.EGGS)
 			.addIngredient(CommonTags.Items.CROPS_TOMATO)
 			.unlockedByAnyIngredient(Items.COD, Items.POTATO, ModItems.TOMATO.get(), Items.EGG)
 			.setRecipeBookCategory(CookingPotBookCategory.MEALS)
@@ -170,7 +171,7 @@ public class CookingRecipes
 			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.FRIED_RICE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 			.addIngredient(CommonTags.Items.CROPS_RICE)
-			.addIngredient(ConventionalItemTags.EGGS)
+			.addIngredient(ItemTags.EGGS)
 			.addIngredient(ConventionalItemTags.CARROT_CROPS)
 			.addIngredient(CommonTags.Items.CROPS_ONION)
 			.unlockedByAnyIngredient(ModItems.RICE.get(), Items.EGG, Items.CARROT, ModItems.ONION.get())
@@ -186,7 +187,7 @@ public class CookingRecipes
 			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.NOODLE_SOUP.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 			.addIngredient(CommonTags.Items.FOODS_PASTA)
-			.addIngredient(ConventionalItemTags.EGGS)
+			.addIngredient(ItemTags.EGGS)
 			.addIngredient(Items.DRIED_KELP)
 			.addIngredient(CommonTags.Items.FOODS_RAW_PORK)
 			.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.DRIED_KELP, Items.PORKCHOP)

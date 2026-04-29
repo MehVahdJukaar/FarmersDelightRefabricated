@@ -4,7 +4,7 @@
   "key": {
     "#": "minecraft:dried_kelp",
     "R": "farmersdelight:cooked_rice",
-    "X": "minecraft:carrot"
+    "X": "#c:foods/vegetable"
   },
   "pattern": [
     "RXR",

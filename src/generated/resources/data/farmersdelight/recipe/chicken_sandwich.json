@@ -5,7 +5,7 @@
     "#c:foods/bread",
     "#c:foods/cooked_chicken",
     "#c:foods/leafy_green",
-    "minecraft:carrot"
+    "#c:crops/carrot"
   ],
   "result": {
     "id": "farmersdelight:chicken_sandwich"

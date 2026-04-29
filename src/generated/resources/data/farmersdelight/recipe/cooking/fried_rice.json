@@ -3,7 +3,7 @@
   "experience": 1.0,
   "ingredients": [
     "#c:crops/rice",
-    "#c:eggs",
+    "#minecraft:eggs",
     "#c:crops/carrot",
     "#c:crops/onion"
   ],

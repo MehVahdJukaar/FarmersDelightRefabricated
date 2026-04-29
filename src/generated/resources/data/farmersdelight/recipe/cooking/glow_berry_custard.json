@@ -4,7 +4,7 @@
   "ingredients": [
     "minecraft:glow_berries",
     "#c:drinks/milk",
-    "#c:eggs",
+    "#minecraft:eggs",
     "minecraft:sugar"
   ],
   "result": {

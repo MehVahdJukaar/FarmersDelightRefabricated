@@ -3,8 +3,8 @@
   "category": "misc",
   "ingredients": [
     "minecraft:sweet_berries",
-    "minecraft:wheat",
-    "minecraft:wheat"
+    "#c:crops/wheat",
+    "#c:crops/wheat"
   ],
   "result": {
     "count": 8,

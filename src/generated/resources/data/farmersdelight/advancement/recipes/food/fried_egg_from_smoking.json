@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:eggs"
+            "items": "#minecraft:eggs"
           }
         ]
       },

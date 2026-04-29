@@ -3,10 +3,10 @@
   "category": "misc",
   "group": "cake",
   "key": {
-    "e": "#c:eggs",
+    "e": "#minecraft:eggs",
     "m": "#c:drinks/milk",
     "s": "minecraft:sugar",
-    "w": "minecraft:wheat"
+    "w": "#c:crops/wheat"
   },
   "pattern": [
     "mmm",

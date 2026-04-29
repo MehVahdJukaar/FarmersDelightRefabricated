@@ -117,6 +117,8 @@ public class CuttingRecipes
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.CHOCOLATE_PIE.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CHOCOLATE_PIE_SLICE.get(), 4)
 				.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PUMPKIN_PIE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.PUMPKIN_PIE_SLICE.get(), 4)
+			.saveToFD(output);
 	}
 
 	private static void cuttingFlowers(HolderGetter<Item> holderGetter, RecipeOutput output) {

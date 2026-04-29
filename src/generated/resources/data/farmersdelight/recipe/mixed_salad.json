@@ -4,7 +4,7 @@
   "ingredients": [
     "#c:foods/leafy_green",
     "#c:crops/tomato",
-    "minecraft:beetroot",
+    "#c:crops/beetroot",
     "minecraft:bowl"
   ],
   "result": {

@@ -4,7 +4,7 @@
   "ingredients": [
     "#c:foods/raw_cod",
     "#c:crops/potato",
-    "#c:eggs",
+    "#minecraft:eggs",
     "#c:crops/tomato"
   ],
   "recipe_book_tab": "meals",

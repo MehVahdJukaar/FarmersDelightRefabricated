@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "M": "#c:drinks/milk",
-    "w": "minecraft:wheat"
+    "w": "#c:crops/wheat"
   },
   "pattern": [
     "wMw",

@@ -1,11 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
+  "group": "fd_dough",
   "ingredients": [
-    "minecraft:wheat",
-    "minecraft:wheat",
-    "minecraft:wheat",
-    "#c:eggs"
+    "#c:crops/wheat",
+    "#c:crops/wheat",
+    "#c:crops/wheat",
+    "#minecraft:eggs"
   ],
   "result": {
     "count": 3,

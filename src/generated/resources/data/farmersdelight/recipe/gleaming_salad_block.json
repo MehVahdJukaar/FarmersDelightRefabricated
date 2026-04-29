@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glow_berries",
+    "minecraft:honey_bottle",
+    "minecraft:glow_berries",
+    "#c:crops/tomato",
+    "minecraft:golden_carrot",
+    "#c:crops/beetroot",
+    "farmersdelight:cabbage",
+    "minecraft:bowl",
+    "farmersdelight:cabbage"
+  ],
+  "result": {
+    "id": "farmersdelight:gleaming_salad_block"
+  }
+}

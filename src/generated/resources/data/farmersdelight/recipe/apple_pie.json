@@ -3,7 +3,7 @@
   "category": "misc",
   "group": "fd_apple_pie",
   "key": {
-    "#": "minecraft:wheat",
+    "#": "#c:crops/wheat",
     "O": "farmersdelight:pie_crust",
     "a": "minecraft:apple",
     "x": "minecraft:sugar"

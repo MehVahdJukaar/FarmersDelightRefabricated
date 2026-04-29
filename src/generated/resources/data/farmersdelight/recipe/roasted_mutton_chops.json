@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     "farmersdelight:cooked_mutton_chops",
-    "minecraft:beetroot",
+    "#c:crops/beetroot",
     "minecraft:bowl",
     "farmersdelight:cooked_rice",
     "#c:crops/tomato"

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "fried_egg": {
+    "has_glow_berries": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:eggs"
+            "items": "farmersdelight:glow_berry_custard"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:fried_egg_from_campfire_cooking"
+        "recipe": "farmersdelight:gleaming_salad_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "fried_egg"
+      "has_glow_berries"
     ]
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:fried_egg_from_campfire_cooking"
+      "farmersdelight:gleaming_salad_block"
     ]
   }
 }

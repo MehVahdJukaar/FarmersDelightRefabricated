@@ -3,12 +3,12 @@
   "category": "misc",
   "key": {
     "#": "farmersdelight:canvas",
-    "b": "minecraft:bamboo"
+    "/": "minecraft:bamboo"
   },
   "pattern": [
-    "b b",
+    "/ /",
     "# #",
-    "b#b"
+    "/#/"
   ],
   "result": {
     "id": "farmersdelight:bamboo_basket"

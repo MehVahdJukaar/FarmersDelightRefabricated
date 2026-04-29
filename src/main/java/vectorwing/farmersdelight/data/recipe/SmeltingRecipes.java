@@ -12,6 +12,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -25,7 +26,7 @@ public class SmeltingRecipes
 {
 	public static void register(HolderLookup.Provider registryLookup, RecipeOutput output) {
 		HolderGetter<Item> holderGetter = registryLookup.lookupOrThrow(Registries.ITEM);
-		foodSmeltingRecipes("fried_egg", holderGetter, ConventionalItemTags.EGGS, ModItems.FRIED_EGG.get(), 0.35F, output);
+		foodSmeltingRecipes("fried_egg", holderGetter, ItemTags.EGGS, ModItems.FRIED_EGG.get(), 0.35F, output);
 		foodSmeltingRecipes("beef_patty", ModItems.MINCED_BEEF.get(), ModItems.BEEF_PATTY.get(), 0.35F, output);
 		foodSmeltingRecipes("cooked_chicken_cuts", ModItems.CHICKEN_CUTS.get(), ModItems.COOKED_CHICKEN_CUTS.get(), 0.35F, output);
 		foodSmeltingRecipes("cooked_cod_slice", ModItems.COD_SLICE.get(), ModItems.COOKED_COD_SLICE.get(), 0.35F, output);
