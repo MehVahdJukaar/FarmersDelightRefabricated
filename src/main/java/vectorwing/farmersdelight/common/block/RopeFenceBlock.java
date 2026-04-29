@@ -56,7 +56,7 @@ public class RopeFenceBlock extends CrossCollisionBlock
 
 	@Override
 	public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return this.getShape(state, level, pos, context);
+		return POST;
 	}
 
 	@Override
