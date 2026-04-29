@@ -1,3 +1,1 @@
-- Removed Fabric ASM/Manningham Hills from mod dependencies.
-- Fixed Mule being missing from `farmersdelight:drops_leather` entity type tag.
-- Re-added missing gameplay related tags.
+- Fixed Big Dripleaf, Crops and Most Regular Vegetation being unable to be placed on Rich Soil Farmland.

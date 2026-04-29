@@ -119,22 +119,24 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.RICH_SOIL_FARMLAND.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_AZALEA).add(
 				ModBlocks.RICH_SOIL.get(),
-				ModBlocks.RICH_SOIL_FARMLAND.get() // This probably shouldn't support Azalea but this is left in for parity with OG FD.
+				ModBlocks.RICH_SOIL_FARMLAND.get()
 		);
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BIG_DRIPLEAF).add(
-				ModBlocks.RICH_SOIL.get());
+				ModBlocks.RICH_SOIL.get(),
+				ModBlocks.RICH_SOIL_FARMLAND.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER).add(
 				ModBlocks.RICH_SOIL_FARMLAND.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
-				ModBlocks.RICH_SOIL.get());
+				ModBlocks.RICH_SOIL_FARMLAND.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SMALL_DRIPLEAF).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SUGAR_CANE).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(
-				ModBlocks.RICH_SOIL.get());
+				ModBlocks.RICH_SOIL.get(),
+				ModBlocks.RICH_SOIL_FARMLAND.get());
 		tagBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
 				ModBlocks.ORGANIC_COMPOST.get(),
 				ModBlocks.RICH_SOIL.get());
