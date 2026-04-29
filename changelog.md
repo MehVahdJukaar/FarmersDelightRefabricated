@@ -1,1 +1,2 @@
-- Fixed Pumpkin Pie Slices not dropping from Pumpkin Pie upon breaking the block with a knife.
+- Make recipe book enum extensions transitive.
+  - This is a potential fix for a NullPointerException when importing the mod into the developer environment.

@@ -30,8 +30,8 @@ mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
 
 # Enum Extensions
-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_SEARCH
-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MEALS
-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_DRINKS
-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MISC
+transitive-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_SEARCH
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MEALS
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_DRINKS
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MISC
