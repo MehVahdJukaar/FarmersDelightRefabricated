@@ -31,8 +31,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         ClientTooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
         ClientSetupEvents.onRegisterRenderers();
         ClientSetupEvents.registerParticles();
-
-        MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
+		ClientSetupEvents.registerMenuScreens();
 
         ItemModels.ID_MAPPER.put(SkilletFlipItemRenderer.ID, SkilletFlipItemRenderer.Unbaked.CODEC);
         ModNetworking.initClient();
