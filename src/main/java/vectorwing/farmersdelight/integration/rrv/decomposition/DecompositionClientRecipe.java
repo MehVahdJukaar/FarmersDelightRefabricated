@@ -16,6 +16,7 @@ import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class DecompositionClientRecipe implements ReliableClientRecipe {
 
 	@Override
     public ReliableClientRecipeType getViewType() {
-        return DecompositionViewType.INSTANCE; //Here you need your type's instance you created before
+        return DecompositionClientRecipeType.INSTANCE; //Here you need your type's instance you created before
     }
 
     @Override
@@ -68,7 +69,7 @@ public class DecompositionClientRecipe implements ReliableClientRecipe {
     }
 
     private static MutableComponent createTooltip(@NonNull String suffix) {
-        return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
+        return TextUtils.JEI("decomposition" + suffix);
     }
 
     @Override

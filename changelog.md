@@ -1,1 +1,2 @@
-- Fixed various recipe disparities and missing recipes.
+- Fixed cutting board issue.
+- Fixed missing translations on JEI/RRV integrations.

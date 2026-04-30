@@ -1,5 +1,5 @@
 {
   "type": "rrv:info",
   "key": ["farmersdelight:wild_carrots", "minecraft:carrot"],
-  "text": "farmersdelight.jei.info.wild_carrots"
+  "text": "jei.farmersdelight.info.wild_carrots"
 }

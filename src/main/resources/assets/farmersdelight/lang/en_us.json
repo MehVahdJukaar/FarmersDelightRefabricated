@@ -356,6 +356,9 @@
   "death.attack.farmersdelight.stove": "%1$s was grilled to perfection",
   "death.attack.farmersdelight.stove.player": "%1$s was thrown on the grill by Chef %2$s",
 
+  "gui.jei.category.smelting.time.seconds": "%ss",
+  "gui.jei.category.smelting.experience": "%s XP",
+
   "jei.farmersdelight.cooking": "Cooking",
   "jei.farmersdelight.cutting": "Cutting Board",
   "jei.farmersdelight.chance": "%1$s%% chance",

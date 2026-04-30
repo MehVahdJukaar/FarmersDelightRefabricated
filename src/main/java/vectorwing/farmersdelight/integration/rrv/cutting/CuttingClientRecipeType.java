@@ -7,6 +7,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CuttingClientRecipeType implements ReliableClientRecipeType {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("farmersdelight.jei.cutting");
+        return TextUtils.JEI("cutting");
     }
 
     @Override

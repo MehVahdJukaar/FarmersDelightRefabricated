@@ -71,15 +71,15 @@ public class CookingPotClientRecipe implements ReliableClientRecipe {
         if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
             List<Component> tooltip = new ArrayList<>();
             if (cookTime > 0) {
-                tooltip.add(Component.translatable("eiv.cooking.time", this.cookTime/20));
+                tooltip.add(Component.translatable("gui.jei.category.smelting.time.seconds", this.cookTime/20));
             }
             if (experience > 0) {
-                tooltip.add(Component.translatable("eiv.cooking.experience", this.experience));
+                tooltip.add(Component.translatable("gui.jei.category.smelting.experience", this.experience));
             }
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, tooltip, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, tooltip, Optional.empty(), mouseX+recipePosition.left(), mouseY+recipePosition.top());
         }
         if (ClientRenderUtils.isCursorInsideBounds(103, 17, 18, 18, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, this.result.getByIndex(0), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, this.result.getByIndex(0), mouseX+recipePosition.left(), mouseY+recipePosition.top());
         }
     }
 

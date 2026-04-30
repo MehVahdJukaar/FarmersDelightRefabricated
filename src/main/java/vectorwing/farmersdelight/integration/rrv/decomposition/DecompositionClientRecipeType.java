@@ -7,14 +7,15 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
-public class DecompositionViewType implements ReliableClientRecipeType {
+public class DecompositionClientRecipeType implements ReliableClientRecipeType {
 
-    protected static final DecompositionViewType INSTANCE = new DecompositionViewType();
+    protected static final DecompositionClientRecipeType INSTANCE = new DecompositionClientRecipeType();
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("emi.category.farmersdelight.decomposition");
+        return TextUtils.JEI("decomposition");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DecompositionViewType implements ReliableClientRecipeType {
 
     @Override
     public void placeSlots(RecipeViewMenu.SlotDefinition slotDefinition) {
-        //Tell EIV where your slots are located by calling slotDefinition.addItemSlot();
+        //Tell RRV where your slots are located by calling slotDefinition.addItemSlot();
         //NOTE: Slot position is relative to your gui texture
 
         slotDefinition.addItemSlot(0, 9, 26);

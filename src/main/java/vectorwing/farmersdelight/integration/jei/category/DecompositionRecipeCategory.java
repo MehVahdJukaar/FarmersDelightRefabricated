@@ -40,7 +40,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     private final ItemStack richSoil;
 
     public DecompositionRecipeCategory(IGuiHelper helper) {
-        title = TextUtils.getTranslation("jei.decomposition");
+        title = TextUtils.JEI("decomposition");
         Identifier backgroundImage = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/decomposition.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 118, 80);
         organicCompost = new ItemStack(ModBlocks.ORGANIC_COMPOST.get());
