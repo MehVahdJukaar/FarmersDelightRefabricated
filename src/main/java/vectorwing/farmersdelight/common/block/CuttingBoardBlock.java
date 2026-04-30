@@ -225,6 +225,9 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 						heldStack.getItem() instanceof ShearsItem) {
 					boolean success = ((CuttingBoardBlockEntity) tileEntity).carveToolOnBoard(player.getAbilities().instabuild ? heldStack.copy() : heldStack);
 					if (success) {
+						if (!player.getAbilities().instabuild) {
+							heldStack.shrink(1);
+						}
 						Vec3 centerPos = pos.getCenter();
 						level.playSound(null, centerPos.x(), centerPos.y(), centerPos.z(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
 						return InteractionResult.SUCCESS;
