@@ -29,13 +29,6 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
         super(output, registryLookup);
     }
 
-    protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-		return Advancement.Builder.advancement().parent(parent).display(display,
-				TextUtils.getTranslation("advancement." + name),
-				TextUtils.getTranslation("advancement." + name + ".desc"),
-				null, frame, showToast, announceToChat, hidden);
-	}
-
     @Override
     public void generateAdvancement(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
         AdvancementHolder farmersDelight = Advancement.Builder.advancement()
@@ -219,9 +212,9 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 
 	protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 		return Advancement.Builder.advancement().parent(parent).display(display,
-				TextUtils.advancement(name + ".title"),
-				TextUtils.advancement(name + ".description"),
-				null, frame, showToast, announceToChat, hidden);
+			TextUtils.advancement(name + ".title"),
+			TextUtils.advancement(name + ".description"),
+			null, frame, showToast, announceToChat, hidden);
 	}
 
 	private String getNameId(String id) {

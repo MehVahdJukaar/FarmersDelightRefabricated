@@ -36,9 +36,9 @@ public class TagUtils {
     public static boolean isCandleDropsCakeSliceTag(Holder<Block> block, HolderLookup<Block> lookup) {
         if (earlyDropsCakeTag == null) {
             TagLoader<Holder<Block>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.BLOCK, rl)), "tags/block");
-            var dropsLeatherMap = loadTag(ModTags.DROPS_CAKE_SLICE);
+            var dropsLeatherMap = loadTag(ModTags.Blocks.DROPS_CAKE_SLICE);
             Map<ResourceLocation, Collection<Holder<Block>>> loaded = loader.build(dropsLeatherMap);
-            earlyDropsCakeTag = loaded.get(ModTags.DROPS_CAKE_SLICE.location());
+            earlyDropsCakeTag = loaded.get(ModTags.Blocks.DROPS_CAKE_SLICE.location());
             if (earlyDropsCakeTag == null)
                 earlyDropsCakeTag = List.of();
         }
@@ -50,9 +50,9 @@ public class TagUtils {
     public static boolean isDropsLeatherTag(Holder<EntityType<?>> entityType, HolderLookup<EntityType<?>> lookup) {
         if (earlyDropsLeatherTag == null) {
             TagLoader<Holder<EntityType<?>>> loader = new TagLoader<>(rl -> lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, rl)), "tags/entity_type");
-            var dropsLeatherMap = loadTag(ModTags.DROPS_LEATHER);
+            var dropsLeatherMap = loadTag(FDRefabricatedTags.EntityTypes.DROPS_LEATHER);
             Map<ResourceLocation, Collection<Holder<EntityType<?>>>> loaded = loader.build(dropsLeatherMap);
-            earlyDropsLeatherTag = loaded.get(ModTags.DROPS_LEATHER.location());
+            earlyDropsLeatherTag = loaded.get(FDRefabricatedTags.EntityTypes.DROPS_LEATHER.location());
             if (earlyDropsLeatherTag == null)
                 earlyDropsLeatherTag = List.of();
         }

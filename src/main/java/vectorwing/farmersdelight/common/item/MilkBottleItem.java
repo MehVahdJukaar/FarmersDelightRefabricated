@@ -7,6 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ public class MilkBottleItem extends DrinkableItem
 
 		while (itr.hasNext()) {
 			MobEffectInstance effect = itr.next();
-			if (!effect.getEffect().is(ModTags.MILK_BOTTLE_IGNORED)) {
+			if (!effect.getEffect().is(FDRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED)) {
 				compatibleEffects.add(effect.getEffect());
 			}
 		}

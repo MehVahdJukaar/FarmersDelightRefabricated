@@ -24,8 +24,8 @@
     "client": [
       "vectorwing.farmersdelight.client.FarmersDelightClient"
     ],
-    "mm:early_risers": [
-      "vectorwing.farmersdelight.refabricated.FarmersDelightASM"
+    "fabric-datagen": [
+      "vectorwing.farmersdelight.data.DataGenerators"
     ],
     "jei_mod_plugin": [
       "vectorwing.farmersdelight.integration.jei.JEIPlugin"
@@ -46,9 +46,9 @@
   "mixins": [
     "${mod_id}.mixins.json"
   ],
-  "accessWidener": "${mod_id}.accesswidener",
+  "accessWidener": "${mod_id}.classtweaker",
   "depends": {
-    "fabricloader": ">=0.16",
+    "fabricloader": ">=0.19",
     "fabric-api": "*",
     "minecraft": ">=${minecraft_min_version} <=${minecraft_max_version}"
   }

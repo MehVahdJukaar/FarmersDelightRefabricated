@@ -12,7 +12,7 @@
               "conditions": [
                 {
                   "ability": "shears_harvest",
-                  "condition": "neoforge:can_item_perform_ability"
+                  "condition": "farmersdelight:can_item_perform_ability"
                 }
               ],
               "name": "farmersdelight:sandy_shrub"
@@ -45,6 +45,5 @@
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "farmersdelight:blocks/sandy_shrub"
+  ]
 }

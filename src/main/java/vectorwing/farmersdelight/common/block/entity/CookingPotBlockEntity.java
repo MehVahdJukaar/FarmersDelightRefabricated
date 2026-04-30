@@ -24,6 +24,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -62,7 +63,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
-public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder
+public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder, Clearable
 {
 	public static final int MEAL_DISPLAY_SLOT = 6;
 	public static final int CONTAINER_SLOT = 7;
@@ -586,4 +587,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
     public BlockPos getScreenOpeningData(ServerPlayer serverPlayer) {
         return this.getBlockPos();
     }
+
+	@Override
+	public void clearContent() {
+		ItemUtils.clearItems(inventory);
+	}
 }

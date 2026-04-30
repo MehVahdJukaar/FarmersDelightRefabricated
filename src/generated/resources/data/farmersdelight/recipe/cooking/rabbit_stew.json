@@ -15,17 +15,14 @@
     {
       "tag": "c:crops/carrot"
     },
-    {
-      "fabric:type": "fabric:any",
-      "ingredients": [
-        {
-          "item": "minecraft:brown_mushroom"
-        },
-        {
-          "item": "minecraft:red_mushroom"
-        }
-      ]
-    }
+    [
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      }
+    ]
   ],
   "recipe_book_tab": "meals",
   "result": {

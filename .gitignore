@@ -27,3 +27,6 @@ docsOut
 forge*changelog.txt
 /mods/omega-config-base-1.2.3-1.18.1.jar
 /mods/
+
+# Farmer's Delight Refabricated
+.cache

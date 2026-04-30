@@ -25,7 +25,7 @@ public class ItemUtils
 	 * @return true if either condition matches
 	 */
 	public static boolean isValidTool(ItemStack stack, ItemAbility toolAction, TagKey<Item> fallbackTag) {
-		return stack.canPerformAction(toolAction) || stack.is(fallbackTag);
+		return toolAction.canPerformAction(stack) || stack.is(fallbackTag);
 	}
 
 	public static boolean isKnife(ItemStack stack) {
@@ -36,6 +36,12 @@ public class ItemUtils
         for (int slot = 0; slot < inventory.getSlotCount(); slot++)
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
                     inventory.extractItem(slot, inventory.getSlotLimit(slot), false));
+	}
+
+	public static void clearItems(ItemStackHandler inventory) {
+		for (int i = 0; i < inventory.getSlotCount(); i++) {
+			inventory.setStackInSlot(i, ItemStack.EMPTY);
+		}
 	}
 
 	public static boolean doesInventoryHaveItems(ItemHandler inventory) {

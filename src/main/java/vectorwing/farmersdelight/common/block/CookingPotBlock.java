@@ -84,7 +84,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 					}
 					level.playSound(null, pos, ModSounds.BLOCK_FOOD_TAKE_PORTION.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 				} else {
-					player.openMenu(cookingPotEntity, pos);
+					player.openMenu(cookingPotEntity);
 				}
 			}
 			return ItemInteractionResult.SUCCESS;

@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -73,22 +74,21 @@ public class SkilletItem extends BlockItem
 
 	@Override
 	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
-		return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
-	}
-
-	//TODO: use above instead?
-	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		if (oldStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())
-				!= newStack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
-				oldStack.get(ModDataComponents.COOKING_TIME_LENGTH.get())
-						!= newStack.get(ModDataComponents.COOKING_TIME_LENGTH.get()) ||
-				oldStack.get(ModDataComponents.SKILLET_INGREDIENT.get()) !=
-						newStack.get(ModDataComponents.SKILLET_INGREDIENT.get())) {
+		if (compareComponents(oldStack, newStack, ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
+			compareComponents(oldStack, newStack, ModDataComponents.COOKING_TIME_LENGTH.get()) ||
+			compareComponents(oldStack, newStack, ModDataComponents.SKILLET_INGREDIENT.get())) {
 			return false;
 		}
 
-		return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
+		return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
+	}
+
+	// Refabricated: Slightly more readable way of handling what FD does.
+	private static boolean compareComponents(ItemStack oldStack, ItemStack newStack, DataComponentType<?> componentType) {
+		if (!oldStack.has(componentType) || !newStack.has(componentType))
+			return false;
+
+		return !oldStack.get(componentType).equals(newStack.get(componentType));
 	}
 
 	public static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed) {
@@ -298,7 +298,7 @@ public class SkilletItem extends BlockItem
 	protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
 		super.updateCustomBlockEntityTag(pos, level, player, stack, state);
 		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
-			skillet.setSkilletItem(stack, level.registryAccess());
+			skillet.setSkilletItem(stack);
 			return true;
 		}
 		return false;

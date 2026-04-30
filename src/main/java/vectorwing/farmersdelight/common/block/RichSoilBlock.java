@@ -62,13 +62,11 @@ public class RichSoilBlock extends Block
 			return false;
 		}
 		if (plantState.getBlock() instanceof BonemealableBlock growable) {
-			if (growable.isValidBonemealTarget(level, plantPos, plantState) && CommonHooks.canCropGrow(level, plantPos, plantState, true)) {
+			if (growable.isValidBonemealTarget(level, plantPos, plantState)) {
 				growable.performBonemeal(level, level.random, plantPos, plantState);
-				//TODO: why packet and not just use block event?
 				for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(level.getChunkAt(plantPos).getPos(), false)) {
 					ServerPlayNetworking.send(player, new RichSoilBoostParticlesPayload(plantPos));
 				}
-				CommonHooks.fireCropGrowPost(level, plantPos, plantState);
 				return true;
 			}
 		}
@@ -87,23 +85,4 @@ public class RichSoilBlock extends Block
 
 		return false;
 	}
-
-//	@Override
-//	@Nullable
-//	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
-//		if (toolAction.equals(ItemAbilities.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
-//			return ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState();
-//		}
-//		return null;
-//	}
-//
-//
-//	@Override
-//	public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, Direction facing, BlockState plantState) {
-//		return TriState.DEFAULT;
-//
-		// TODO: Figure out how to correctly configure Rich Soil's plant compatibility, since PlantType was removed
-//		PlantType plantType = plantState.getPlantType(level, pos.relative(facing));
-//		return plantType != PlantType.CROP && plantType != PlantType.NETHER && plantType != PlantType.WATER;
-//	}
 }

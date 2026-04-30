@@ -122,7 +122,7 @@ public class CookingRecipes
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.CABBAGE_ROLLS.get(), 1, FAST_COOKING, SMALL_EXP)
 				.addIngredient(CommonTags.Items.CROPS_CABBAGE)
-				.addIngredient(CompoundIngredient.of(
+				.addIngredient(DefaultCustomIngredients.any(
 						Ingredient.of(ConventionalItemTags.RAW_MEAT_FOODS),
 						Ingredient.of(CommonTags.Items.FOODS_SAFE_RAW_FISH),
 						Ingredient.of(ConventionalItemTags.VEGETABLE_FOODS),

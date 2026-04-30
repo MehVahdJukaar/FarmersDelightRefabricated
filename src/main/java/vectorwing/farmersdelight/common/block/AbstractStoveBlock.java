@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
-import mezz.jei.api.constants.Tags;
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,6 +41,7 @@ import vectorwing.farmersdelight.common.block.entity.AbstractStoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractStoveBlock extends BaseEntityBlock {
@@ -56,6 +57,12 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 				.setValue(FACING, Direction.NORTH)
 				.setValue(LIT, false)
 		);
+		LandPathNodeTypesRegistry.registerDynamic(
+			this,
+			(state, world, pos, neighbor) -> {
+				AbstractStoveBlock block = (AbstractStoveBlock) state.getBlock();
+				return block.getBlockPathType(state, world, pos, null);
+			});
 	}
 
 	@Override
@@ -98,7 +105,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 	}
 
 	protected ItemInteractionResult tryToExtinguish(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if ( heldStack.canPerformAction(ItemAbilities.SHOVEL_DIG)) {
+		if (ItemAbility.SHOVEL_DIG.canPerformAction(heldStack)) {
 			if (!level.isClientSide()) {
 				level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
 			}
@@ -112,7 +119,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 				level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 			extinguish(player, level, pos, state);
-			if (!player.getAbilities().instabuild) player.setItemInHand(hand, heldStack.getCraftingRemainingItem());
+			if (!player.getAbilities().instabuild) player.setItemInHand(hand, heldStack.getRecipeRemainder());
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
@@ -213,7 +220,6 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 	}
 
 	@Nullable
-	@Override
 	public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
 		return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
 	}

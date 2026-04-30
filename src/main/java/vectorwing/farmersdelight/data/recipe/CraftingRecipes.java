@@ -1,8 +1,10 @@
 package vectorwing.farmersdelight.data.recipe;
 
-import mezz.jei.api.constants.Tags;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -22,8 +24,16 @@ import vectorwing.farmersdelight.common.tag.ConventionalTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
-public class CraftingRecipes {
-	public static void register(RecipeOutput output) {
+import java.util.concurrent.CompletableFuture;
+
+// Extend FabricRecipeProvider to allow conditional recipes.
+public class CraftingRecipes extends FabricRecipeProvider {
+	public CraftingRecipes(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
+	}
+
+	@Override
+	public void buildRecipes(RecipeOutput output) {
 		recipesVanillaAlternatives(output);
 		recipesBlocks(output);
 		recipesCanvasSigns(output);
@@ -178,7 +188,7 @@ public class CraftingRecipes {
 		canvasSignDyeing(output, ModItems.BLACK_CANVAS_SIGN.get(), ModItems.BLACK_HANGING_CANVAS_SIGN.get(), ConventionalItemTags.BLACK_DYES);
 	}
 
-	private static void recipesBlocks(RecipeOutput output) {
+	private void recipesBlocks(RecipeOutput output) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModBlocks.STOVE.get())
 			.pattern("iii")
 			.pattern("B B")
@@ -366,21 +376,21 @@ public class CraftingRecipes {
 			.pattern("###")
 			.define('#', Items.BEETROOT)
 			.unlockedBy("has_beetroot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BEETROOT))
-			.save(output.withConditions(VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("beetroot_crate"));
+			.save(withConditions(output, VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("beetroot_crate"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CARROT_CRATE.get())
 			.pattern("###")
 			.pattern("###")
 			.pattern("###")
 			.define('#', Items.CARROT)
 			.unlockedBy("has_carrot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CARROT))
-			.save(output.withConditions(VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("carrot_crate"));
+			.save(withConditions(output, VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("carrot_crate"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.POTATO_CRATE.get())
 			.pattern("###")
 			.pattern("###")
 			.pattern("###")
 			.define('#', Items.POTATO)
 			.unlockedBy("has_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.POTATO))
-			.save(output.withConditions(VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("potato_crate"));
+			.save(withConditions(output, VanillaCrateEnabledCondition.INSTANCE), RecipeUtils.FDLocation("potato_crate"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CABBAGE_CRATE.get(), 1)
 			.pattern("###")
 			.pattern("###")

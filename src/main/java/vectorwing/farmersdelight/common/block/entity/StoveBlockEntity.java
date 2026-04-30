@@ -25,7 +25,7 @@ public class StoveBlockEntity extends AbstractStoveBlockEntity
 		assert this.level != null;
 
 		var items = this.getItems();
-		for (int i = 0; i < items.getSlots(); ++i) {
+		for (int i = 0; i < items.getSlotCount(); ++i) {
 			if (items.getStackInSlot(i).isEmpty()) continue;
 			if (level.random.nextFloat() >= 0.2F) continue;
 			Vec2 itemOffset = this.getStoveItemOffset(i);

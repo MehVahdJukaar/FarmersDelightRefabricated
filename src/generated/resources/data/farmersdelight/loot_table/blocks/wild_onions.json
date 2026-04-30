@@ -12,7 +12,7 @@
               "conditions": [
                 {
                   "ability": "shears_harvest",
-                  "condition": "neoforge:can_item_perform_ability"
+                  "condition": "farmersdelight:can_item_perform_ability"
                 }
               ],
               "name": "farmersdelight:wild_onions"
@@ -46,7 +46,7 @@
           "condition": "minecraft:inverted",
           "term": {
             "ability": "shears_harvest",
-            "condition": "neoforge:can_item_perform_ability"
+            "condition": "farmersdelight:can_item_perform_ability"
           }
         }
       ],
@@ -69,6 +69,5 @@
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "farmersdelight:blocks/wild_onions"
+  ]
 }

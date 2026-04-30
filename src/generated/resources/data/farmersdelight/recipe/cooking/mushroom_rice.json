@@ -11,17 +11,14 @@
     {
       "tag": "c:crops/rice"
     },
-    {
-      "fabric:type": "fabric:any",
-      "ingredients": [
-        {
-          "item": "minecraft:carrot"
-        },
-        {
-          "item": "minecraft:potato"
-        }
-      ]
-    }
+    [
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:potato"
+      }
+    ]
   ],
   "recipe_book_tab": "meals",
   "result": {

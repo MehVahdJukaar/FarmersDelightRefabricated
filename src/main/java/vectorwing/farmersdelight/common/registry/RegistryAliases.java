@@ -1,20 +1,20 @@
 package vectorwing.farmersdelight.common.registry;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
 public class RegistryAliases
 {
-	//we cant have this unless we do mega hacky mixins can't we? todo
 	public static void addRegistryAliases() {
 		addBlockAlias("basket", "bamboo_basket");
 		addItemAlias("basket", "bamboo_basket");
 	}
 
 	public static void addBlockAlias(String oldName, String newName) {
-		ModBlocks.BLOCKS.addAlias(RecipeUtils.FDLocation(oldName), RecipeUtils.FDLocation(newName));
+		BuiltInRegistries.BLOCK.addAlias(RecipeUtils.FDLocation(oldName), RecipeUtils.FDLocation(newName));
 	}
 
 	public static void addItemAlias(String oldName, String newName) {
-		ModItems.ITEMS.addAlias(RecipeUtils.FDLocation(oldName), RecipeUtils.FDLocation(newName));
+		BuiltInRegistries.ITEM.addAlias(RecipeUtils.FDLocation(oldName), RecipeUtils.FDLocation(newName));
 	}
 }

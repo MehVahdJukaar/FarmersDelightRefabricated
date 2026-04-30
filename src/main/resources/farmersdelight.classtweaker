@@ -1,4 +1,4 @@
-accessWidener   v2  named
+classTweaker v2 named
 
 accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
 
@@ -28,3 +28,10 @@ mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map
 
 #datafixers
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
+
+# Enum Extensions
+transitive-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_SEARCH
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MEALS
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_DRINKS
+transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MISC
