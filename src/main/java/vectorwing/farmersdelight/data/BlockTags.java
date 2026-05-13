@@ -91,6 +91,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 				Blocks.JACK_O_LANTERN,
 				Blocks.COBWEB,
 				Blocks.CAKE,
+				ModBlocks.RICE_BAG.get(),
 				ModBlocks.APPLE_PIE.get(),
 				ModBlocks.SWEET_BERRY_CHEESECAKE.get(),
 				ModBlocks.CHOCOLATE_PIE.get(),
@@ -276,7 +277,6 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			.addTag(net.minecraft.tags.BlockTags.DIRT)
 			.forceAddTag(net.minecraft.tags.BlockTags.SAND); // Refabricated: Must be force added.
 		tagBuilder(ModTags.Blocks.STRAW_BLOCKS).add(
-			ModBlocks.RICE_BAG.get(),
 			ModBlocks.ROPE.get(),
 			ModBlocks.SAFETY_NET.get(),
 			ModBlocks.CANVAS_RUG.get(),
