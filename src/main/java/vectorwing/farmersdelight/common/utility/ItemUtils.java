@@ -3,6 +3,8 @@ package vectorwing.farmersdelight.common.utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
@@ -10,14 +12,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.tag.ModTags;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.Optional;
 
@@ -34,12 +35,6 @@ public class ItemUtils
 	 */
 	public static boolean isValidTool(ItemStack stack, ItemAbility toolAction, TagKey<Item> fallbackTag) {
 		return toolAction.canPerformAction(stack) || stack.is(fallbackTag);
-	}
-
-	public static void clearItems(ItemStackHandler inventory) {
-		for (int i = 0; i < inventory.getSlots(); i++) {
-			inventory.setStackInSlot(i, ItemStack.EMPTY);
-		}
 	}
 
 	public static boolean isKnife(ItemStack stack) {
@@ -80,7 +75,12 @@ public class ItemUtils
 	 * @return The enchantment's level, if the stack is enchanted with it. Returns 0 if not, or if the enchantment is disabled.
 	 */
 	public static int getValidatedEnchantmentLevel(ResourceKey<Enchantment> enchantment, HolderLookup.Provider registries, ItemStack stack) {
-		Optional<Holder.Reference<Enchantment>> fortune = registries.holder(enchantment);
-		return fortune.map(stack::getEnchantmentLevel).orElse(0);
+		Optional<Holder.Reference<Enchantment>> fortune = registries.lookupOrThrow(Registries.ENCHANTMENT).get( enchantment);
+		return fortune.map(e->ItemUtils.getEnchantmentLevel(stack, e)).orElse(0);
+	}
+
+	public static int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+		ItemEnchantments itemenchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+		return itemenchantments.getLevel(enchantment);
 	}
 }

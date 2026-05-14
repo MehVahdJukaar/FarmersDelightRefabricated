@@ -372,42 +372,42 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void registerCompatibilityTags() {
-		tag(CompatibilityTags.CREATE_FAN_TRANSPARENT).add(ModBlocks.SAFETY_NET.get());
-		tag(CompatibilityTags.CREATE_PASSIVE_BOILER_HEATERS).add(ModBlocks.STOVE.get());
-		tag(CompatibilityTags.CREATE_BRITTLE).add(
+		tagBuilder(CompatibilityTags.CREATE_FAN_TRANSPARENT).add(ModBlocks.SAFETY_NET.get());
+		tagBuilder(CompatibilityTags.CREATE_PASSIVE_BOILER_HEATERS).add(ModBlocks.STOVE.get());
+		tagBuilder(CompatibilityTags.CREATE_BRITTLE).add(
 				ModBlocks.CUTTING_BOARD.get(),
 				ModBlocks.FULL_TATAMI_MAT.get(),
 				ModBlocks.HALF_TATAMI_MAT.get())
 			.addTag(ModTags.Blocks.FEASTS)
 			.addTag(ModTags.Blocks.PIES);
 
-		tag(CompatibilityTags.SABLE_SUPER_LIGHT)
+		tagBuilder(CompatibilityTags.SABLE_SUPER_LIGHT)
 			.add(ModBlocks.CUTTING_BOARD.get())
 			.add(ModBlocks.CANVAS_RUG.get())
 			.add(ModBlocks.FULL_TATAMI_MAT.get())
 			.add(ModBlocks.HALF_TATAMI_MAT.get())
 			.add(ModBlocks.SAFETY_NET.get());
-		tag(CompatibilityTags.SABLE_LIGHT)
+		tagBuilder(CompatibilityTags.SABLE_LIGHT)
 			.addTag(ModTags.Blocks.CABINETS)
 			.add(ModBlocks.WOODEN_BASKET.get())
 			.add(ModBlocks.BAMBOO_BASKET.get());
 
-		tag(CompatibilityTags.SERENE_SEASONS_AUTUMN_CROPS_BLOCK).add(
+		tagBuilder(CompatibilityTags.SERENE_SEASONS_AUTUMN_CROPS_BLOCK).add(
 			ModBlocks.CABBAGE_CROP.get(),
 			ModBlocks.ONION_CROP.get(),
 			ModBlocks.RICE_CROP.get(),
 			ModBlocks.RICE_CROP_PANICLES.get());
-		tag(CompatibilityTags.SERENE_SEASONS_SPRING_CROPS_BLOCK).add(
+		tagBuilder(CompatibilityTags.SERENE_SEASONS_SPRING_CROPS_BLOCK).add(
 			ModBlocks.ONION_CROP.get());
-		tag(CompatibilityTags.SERENE_SEASONS_SUMMER_CROPS_BLOCK).add(
+		tagBuilder(CompatibilityTags.SERENE_SEASONS_SUMMER_CROPS_BLOCK).add(
 			ModBlocks.BUDDING_TOMATO_CROP.get(),
 			ModBlocks.TOMATO_CROP.get(),
 			ModBlocks.TOMATO_CROP_ON_ROPE.get(),
 			ModBlocks.RICE_CROP.get(),
 			ModBlocks.RICE_CROP_PANICLES.get());
-		tag(CompatibilityTags.SERENE_SEASONS_WINTER_CROPS_BLOCK).add(
+		tagBuilder(CompatibilityTags.SERENE_SEASONS_WINTER_CROPS_BLOCK).add(
 			ModBlocks.CABBAGE_CROP.get());
-		tag(CompatibilityTags.SERENE_SEASONS_UNBREAKABLE_FERTILE_CROPS).add(
+		tagBuilder(CompatibilityTags.SERENE_SEASONS_UNBREAKABLE_FERTILE_CROPS).add(
 			ModBlocks.ONION_CROP.get());
 	}
 
