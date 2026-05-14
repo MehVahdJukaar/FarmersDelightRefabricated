@@ -32,7 +32,7 @@ public class StandingCanvasSignRenderer extends AbstractCanvasSignRenderer<Stand
     }
 
     @Override
-    protected SpriteId getSignSprite(DyeColor color) {
+    protected SpriteId getSignSprite(@Nullable DyeColor color) {
         return ModAtlases.getCanvasSignMaterial(color);
     }
 
