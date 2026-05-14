@@ -54,6 +54,7 @@ public class FarmersDelightClient implements ClientModInitializer {
 
         // render type stuff
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
+				 ModBlocks.TOMATO_CROP_ON_ROPE.get(), ModBlocks.SKILLET.get(),
                 ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
                 ModBlocks.CABBAGE_CROP.get(), ModBlocks.CUTTING_BOARD.get(), ModBlocks.ONION_CROP.get(),
                 ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.WILD_CARROTS.get(),
