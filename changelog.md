@@ -11,6 +11,8 @@
   - Rope Fence and Rope Fence Gate: Smelts 1 item each;
 - (1.21+) Added Sable weight tagging to FD blocks which aren't covered by default tagging;
 - (1.21+) TomatoBlock now has broader compatibility checks for integration with different supports (thanks, MehVahdJukaar!);
+- (1.21+) Fuel values have been moved into a NeoForge datamap, `furnace_fuels.json`:
+  - The `FuelItem` and `FuelBlockItem` classes have been deprecated, and will be removed in the next major/minor update;
 
 ### Fixes
 - Fixed occasional crash with a tag reference load order;

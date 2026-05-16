@@ -133,55 +133,6 @@ public class ModTags
 		public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
 	}
 
-	// Refabricated: new tags.
-	// Deprecated: Look at vectorwing.farmersdelight.refabricated.FDRefabricatedTags instead.
-	@Deprecated
-	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_BROWN_MUSHROOM_COLONY;
-	@Deprecated
-	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_RED_MUSHROOM_COLONY;
-	@Deprecated
-	public static final TagKey<Biome> HAS_WILD_CABBAGE = FDRefabricatedTags.Biomes.HAS_WILD_CABBAGE;
-	@Deprecated
-	public static final TagKey<Biome> HAS_WILD_BEETROOTS = FDRefabricatedTags.Biomes.HAS_WILD_BEETROOTS;
-	@Deprecated
-	public static final TagKey<Biome> WILD_CARROTS_WHITELIST = FDRefabricatedTags.Biomes.WILD_CARROTS_WHITELIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_CARROTS_BLACKLIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_ONIONS_WHITELIST = FDRefabricatedTags.Biomes.WILD_ONIONS_WHITELIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_ONIONS_BLACKLIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_POTATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_POTATOES_WHITELIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_POTATOES_BLACKLIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_RICE_WHITELIST = FDRefabricatedTags.Biomes.WILD_RICE_WHITELIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_RICE_BLACKLIST = FDRefabricatedTags.Biomes.WILD_RICE_BLACKLIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_WHITELIST;
-	@Deprecated
-	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_BLACKLIST;
-
-	@Deprecated
-	public static final TagKey<Block> SURVIVES_RICH_SOIL = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL;
-	@Deprecated
-	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL;
-
-	@Deprecated
-	public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL_FARMLAND;
-	@Deprecated
-	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND;
-
-	@Deprecated
-	public static final TagKey<EntityType<?>> DROPS_LEATHER = FDRefabricatedTags.EntityTypes.DROPS_LEATHER;
-
-	@Deprecated
-	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = FDRefabricatedTags.MobEffects.HOT_COCOA_IGNORED;
-	@Deprecated
-	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = FDRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED;
-
 	private static TagKey<Item> modItemTag(String path) {
 		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, path));
 	}
@@ -266,4 +217,53 @@ public class ModTags
 	public static final TagKey<EntityType<?>> HORSE_FEED_USERS = modEntityTag("horse_feed_users");
 	@Deprecated(forRemoval = true)
 	public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
+
+	// Deprecated: Look at vectorwing.farmersdelight.refabricated.FDRefabricatedTags instead.
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_BROWN_MUSHROOM_COLONY;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_RED_MUSHROOM_COLONY;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_WILD_CABBAGE = FDRefabricatedTags.Biomes.HAS_WILD_CABBAGE;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_WILD_BEETROOTS = FDRefabricatedTags.Biomes.HAS_WILD_BEETROOTS;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_CARROTS_WHITELIST = FDRefabricatedTags.Biomes.WILD_CARROTS_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_CARROTS_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_ONIONS_WHITELIST = FDRefabricatedTags.Biomes.WILD_ONIONS_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_ONIONS_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_POTATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_POTATOES_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_POTATOES_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_RICE_WHITELIST = FDRefabricatedTags.Biomes.WILD_RICE_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_RICE_BLACKLIST = FDRefabricatedTags.Biomes.WILD_RICE_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_BLACKLIST;
+
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> SURVIVES_RICH_SOIL = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL;
+
+	@Deprecated
+	public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL_FARMLAND;
+	@Deprecated
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND;
+
+	@Deprecated
+	public static final TagKey<EntityType<?>> DROPS_LEATHER = FDRefabricatedTags.EntityTypes.DROPS_LEATHER;
+
+	@Deprecated
+	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = FDRefabricatedTags.MobEffects.HOT_COCOA_IGNORED;
+	@Deprecated
+	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = FDRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED;
+
 }
