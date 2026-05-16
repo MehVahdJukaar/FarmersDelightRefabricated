@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 public class WildCropBlock extends FlowerBlock implements BonemealableBlock
 {
@@ -35,7 +36,7 @@ public class WildCropBlock extends FlowerBlock implements BonemealableBlock
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(BlockTags.DIRT) || state.is(BlockTags.SAND);
+		return state.is(FDRefabricatedTags.Blocks.GROWS_WILD_CROPS);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, BonemealableBlock
 {
@@ -48,8 +49,8 @@ public class WildRiceBlock extends DoublePlantBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
-		return state.is(BlockTags.DIRT) || state.is(BlockTags.SAND);
+	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.is(FDRefabricatedTags.Blocks.GROWS_WILD_CROPS);
 	}
 
 	@Override

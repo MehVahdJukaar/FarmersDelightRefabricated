@@ -395,6 +395,9 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		tagBuilder(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES)
 			.add(ModBlocks.RICH_SOIL.get())
 			.addTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON);
+		tagBuilder(FDRefabricatedTags.Blocks.GROWS_WILD_CROPS)
+			.addTag(net.minecraft.tags.BlockTags.SUBSTRATE_OVERWORLD)
+			.addTag(net.minecraft.tags.BlockTags.SAND);
 	}
 
 	private void registerCompatibilityTags() {
