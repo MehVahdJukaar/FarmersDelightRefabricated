@@ -62,6 +62,7 @@ public class FarmersDelight implements ModInitializer
 		CommonModBusEvents.init();
 
 		CommonSetup.init();
+		RegistryAliases.addRegistryAliases();
 
 		// new stuff
 		VanillaCrateEnabledCondition.init();

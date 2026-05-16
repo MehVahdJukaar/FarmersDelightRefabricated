@@ -4,7 +4,8 @@
 - Fixed Colored Canvas Signs not rendering properly. [#302](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/302)
 - Fixed Wild Crops being unable to grow on Grass Blocks, Mud Blocks and Moss Blocks. [#314](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/314)
 - Fixed Copper Knives being missing from the Knives tag. [#317](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/317)
-- Fixed Root Farmer's Delight advancement having a missing translation key. [#317](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/318)
+- Fixed Root Farmer's Delight advancement having a missing translation key. [#318](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/318)
+- Fixed Legacy Baskets not being corrected into Bamboo Baskets. [#319](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/319)
 - Fixed Comfort advancement still existing after Comfort's removal. [#326](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/326)
 - Fixed Gleaming Salad not counting towards the Place Feast advancement. [#327](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/327)
 - Fixed Tomato on Rope Block interactions when removed.
