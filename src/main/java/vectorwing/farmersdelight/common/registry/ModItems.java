@@ -17,6 +17,7 @@ import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -94,8 +95,9 @@ public class ModItems
 				.attributes(KnifeItem.createAttributes(material, 0.5F, -2.0F))
 				.component(DataComponents.TOOL, new Tool(
 						List.of(
-								Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
-								Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.Blocks.MINEABLE_WITH_KNIFE), material.speed())
+							Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
+							Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.Blocks.MINEABLE_WITH_KNIFE), material.speed()),
+							Tool.Rule.overrideSpeed(holderGetter.getOrThrow(FDRefabricatedTags.Blocks.KNIFE_INSTANTLY_MINES), Float.MAX_VALUE)
 						), 1.0F, 1, false))
 				.component(DataComponents.WEAPON, new Weapon(2));
 	}

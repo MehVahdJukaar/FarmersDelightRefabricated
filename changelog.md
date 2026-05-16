@@ -1,5 +1,7 @@
 # Changelog
 - Updated to match upstream 1.3.2. Changes are below.
+- Fixed Wild Crops being unable to grow on Grass Blocks, Mud Blocks and Moss Blocks. [#314](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/314)
+- 
 - Fixed Tomato on Rope Block interactions when removed.
 
 ## 1.3.2

@@ -30,6 +30,7 @@ public class FDRefabricatedTags {
 	}
 
 	public static class Blocks {
+		public static final TagKey<Block> KNIFE_INSTANTLY_MINES = modBlockTag("knife_instantly_mines");
 		public static final TagKey<Block> GROWS_MUSHROOM_COLONIES = modBlockTag("grows_mushroom_colonies");
 		public static final TagKey<Block> GROWS_WILD_CROPS = modBlockTag("grows_wild_crops");
 	}

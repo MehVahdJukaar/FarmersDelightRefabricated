@@ -398,6 +398,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		tagBuilder(FDRefabricatedTags.Blocks.GROWS_WILD_CROPS)
 			.addTag(net.minecraft.tags.BlockTags.SUBSTRATE_OVERWORLD)
 			.addTag(net.minecraft.tags.BlockTags.SAND);
+		tagBuilder(FDRefabricatedTags.Blocks.KNIFE_INSTANTLY_MINES)
+			.addTag(net.minecraft.tags.BlockTags.SWORD_INSTANTLY_MINES);
 	}
 
 	private void registerCompatibilityTags() {
