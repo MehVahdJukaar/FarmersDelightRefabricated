@@ -38,8 +38,8 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 
 		AdvancementHolder farmersDelight = Advancement.Builder.advancement()
 				.display(ModItems.COOKING_POT.get(),
-						TextUtils.getTranslation("advancement.root"),
-						TextUtils.getTranslation("advancement.root.desc"),
+						TextUtils.advancement("root.title"),
+						TextUtils.advancement("root.description"),
 						Identifier.parse("minecraft:block/bricks"),
 						AdvancementType.TASK, false, false, false)
 				.addCriterion("seeds", InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{}))
@@ -169,11 +169,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 				.addCriterion("cooking_pot", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.COOKING_POT.get()))
 				.save(consumer, getNameId("main/place_cooking_pot"));
 
-		AdvancementHolder comforting = getAdvancement(dinnerIsServed, ModItems.BAKED_COD_STEW.get(), "eat_comfort_food", AdvancementType.TASK, true, false, false)
-				.addCriterion("comfort", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.Builder.effects().and(ModEffects.COMFORT)))
-				.save(consumer, getNameId("main/eat_comfort_food"));
-
-		AdvancementHolder nourishing = getAdvancement(comforting, ModItems.STEAK_AND_POTATOES.get(), "eat_nourishing_food", AdvancementType.TASK, true, false, false)
+		AdvancementHolder nourishing = getAdvancement(dinnerIsServed, ModItems.STEAK_AND_POTATOES.get(), "eat_nourishing_food", AdvancementType.TASK, true, false, false)
 				.addCriterion("nourishment", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.Builder.effects().and(ModEffects.NOURISHMENT)))
 				.save(consumer, getNameId("main/eat_nourishing_food"));
 
@@ -182,6 +178,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 				.addCriterion("stuffed_pumpkin", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.STUFFED_PUMPKIN_BLOCK.get()))
 				.addCriterion("honey_glazed_ham", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.HONEY_GLAZED_HAM_BLOCK.get()))
 				.addCriterion("shepherds_pie", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.SHEPHERDS_PIE_BLOCK.get()))
+				.addCriterion("gleaming_salad", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.GLEAMING_SALAD_BLOCK.get()))
 				.addCriterion("rice_roll_medley", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
 				.save(consumer, getNameId("main/place_feast"));
