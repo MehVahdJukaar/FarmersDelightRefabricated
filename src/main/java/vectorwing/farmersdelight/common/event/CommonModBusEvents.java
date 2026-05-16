@@ -33,16 +33,16 @@ public class CommonModBusEvents
 			});
 		}
 		// Handle Rabbit Stew first.
-		if (Configuration.RABBIT_STEW_BUFF.get()) {
+		if (Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
 			context.modify(Items.RABBIT_STEW, builder -> builder
 					.set(DataComponents.FOOD, FoodValues.RABBIT_STEW_BUFF));
 		}
 
-		if (Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get() || Configuration.RABBIT_STEW_BUFF.get()) {
+		if (Configuration.ENABLE_VANILLA_SOUP_EXTRA_EFFECTS.get() || Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
 			for (Item item : FoodValues.ConsumableValues.VANILLA_SOUP_EFFECTS.keySet()) {
 				context.modify(item, builder -> {
 					List<MobEffectInstance> effects = new ArrayList<>();
-					if (item == Items.RABBIT_STEW && Configuration.RABBIT_STEW_BUFF.get()) {
+					if (item == Items.RABBIT_STEW && Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
 						effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 200, 1));
 					}
 					builder.set(DataComponents.CONSUMABLE, addVanillaSoupEffect(builder, item, effects));
@@ -58,7 +58,7 @@ public class CommonModBusEvents
 		if (!additionalEffects.isEmpty()) {
 			onConsumeEffects.add(new ApplyStatusEffectsConsumeEffect(additionalEffects));
 		}
-		if (Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get()) {
+		if (Configuration.ENABLE_VANILLA_SOUP_EXTRA_EFFECTS.get()) {
 			onConsumeEffects.add(FoodValues.ConsumableValues.VANILLA_SOUP_EFFECTS.get(item));
 		}
 		return new Consumable(consumable.consumeSeconds(), consumable.animation(), consumable.sound(), consumable.hasConsumeParticles(), onConsumeEffects);

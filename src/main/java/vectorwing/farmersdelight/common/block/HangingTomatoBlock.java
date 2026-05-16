@@ -6,20 +6,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.refabricated.block.ReplaceOnRemoval;
 
-@SuppressWarnings("deprecation")
-public class HangingTomatoBlock extends TomatoBlock
+public class HangingTomatoBlock extends TomatoBlock implements ReplaceOnRemoval
 {
 	public HangingTomatoBlock(Properties properties) {
 		super(properties, false);
@@ -33,17 +28,11 @@ public class HangingTomatoBlock extends TomatoBlock
 		}
 	}
 
-	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-		this.playerWillDestroy(level, pos, state, player);
-		placeRope(level, pos);
-	}
-
-	// TODO: Mixin to remove logic.
-	public void onRemove(BlockState state, BlockState newState, LevelAccessor level, BlockPos pos, int updateFlags) {
+	public boolean onRemove(BlockState state, BlockState newState, LevelAccessor level, BlockPos pos, int updateFlags) {
 		if (Configuration.ENABLE_TOMATO_ROPE_PERMANENCE.get() && (updateFlags ^ Block.UPDATE_MOVE_BY_PISTON) != 0 && !state.is(newState.getBlock()) && newState.isAir()) {
-			placeRope(level, pos);
+			return placeRope(level, pos);
 		}
+		return true;
 	}
 
 	public static boolean placeRope(LevelAccessor level, BlockPos pos) {
@@ -52,8 +41,8 @@ public class HangingTomatoBlock extends TomatoBlock
 			configuredRopeBlock = ModBlocks.ROPE.get();
 		}
 		BlockState finalRopeState = configuredRopeBlock.equals(ModBlocks.ROPE.get())
-				? RopeBlock.getStateWithConnections(ModBlocks.ROPE.get().defaultBlockState(), level, pos, Direction.UP)
-				: configuredRopeBlock.defaultBlockState();
+			? RopeBlock.getStateWithConnections(ModBlocks.ROPE.get().defaultBlockState(), level, pos, Direction.UP)
+			: configuredRopeBlock.defaultBlockState();
 
 		return level.setBlock(pos, finalRopeState, level.isClientSide() ? 11 : 3);
 	}

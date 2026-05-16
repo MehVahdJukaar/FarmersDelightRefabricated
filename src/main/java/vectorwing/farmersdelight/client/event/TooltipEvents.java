@@ -12,14 +12,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
 public class TooltipEvents
 {
 	public static void addTooltipToVanillaSoups(ItemStack stack, Item.TooltipContext tooltipContext, TooltipFlag tooltipType, List<Component> lines) {
-		if (!Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+		if (!Configuration.ENABLE_VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 

@@ -88,7 +88,7 @@ public class DogFoodItem extends ConsumableItem
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+		if (!Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 

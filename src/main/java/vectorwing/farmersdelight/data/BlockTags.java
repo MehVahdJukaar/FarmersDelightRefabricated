@@ -31,7 +31,6 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		this.registerModTags();
 		this.registerRefabricatedTags();
-		this.registerRefabricatedTags();
 		this.registerMinecraftTags();
 		this.registerNeoForgeTags();
 		this.registerCommonTags();
@@ -117,11 +116,31 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.SANDY_SHRUB.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
 				ModBlocks.SANDY_SHRUB.get());
-		tagBuilder(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
-				ModBlocks.RICH_SOIL.get());
-		tagBuilder(net.minecraft.tags.BlockTags.MUSHROOM_GROW_BLOCK).add(
-				ModBlocks.ORGANIC_COMPOST.get(),
-				ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.GROWS_CROPS).add(
+			ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_AZALEA).add(
+			ModBlocks.RICH_SOIL.get(),
+			ModBlocks.RICH_SOIL_FARMLAND.get()
+		);
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
+			ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BIG_DRIPLEAF).add(
+			ModBlocks.RICH_SOIL.get(),
+			ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER).add(
+			ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
+			ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SMALL_DRIPLEAF).add(
+			ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SUGAR_CANE).add(
+			ModBlocks.RICH_SOIL.get());
+		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(
+			ModBlocks.RICH_SOIL.get(),
+			ModBlocks.RICH_SOIL_FARMLAND.get());
+		tagBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
+			ModBlocks.ORGANIC_COMPOST.get(),
+			ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.CROPS).add(
 				ModBlocks.CABBAGE_CROP.get(),
 				ModBlocks.ONION_CROP.get(),
@@ -209,7 +228,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.WILD_TOMATOES.get(),
 				ModBlocks.WILD_ONIONS.get()
 		);
-		tagBuilder(net.minecraft.tags.BlockTags.TALL_FLOWERS).add(ModBlocks.WILD_RICE.get());
+		tagBuilder(ConventionalBlockTags.TALL_FLOWERS).add(ModBlocks.WILD_RICE.get());
 		tagBuilder(net.minecraft.tags.BlockTags.DIRT).add(
 				ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.MAINTAINS_FARMLAND).add(
@@ -349,8 +368,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.SANDY_SHRUB.get())
 			.addTag(ModTags.Blocks.MUSHROOM_COLONIES)
 			.addTag(ModTags.Blocks.WILD_CROPS)
-			.addTag(net.minecraft.tags.BlockTags.TALL_FLOWERS);
-		tagBuilder(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON).add(ModBlocks.RICH_SOIL.get());
+			.addTag(ConventionalBlockTags.TALL_FLOWERS);
 		tagBuilder(ModTags.Blocks.DROPS_CAKE_SLICE).add(
 			Blocks.CANDLE_CAKE,
 			Blocks.WHITE_CANDLE_CAKE,

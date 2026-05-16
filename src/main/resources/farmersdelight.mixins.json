@@ -20,6 +20,7 @@
     "refabricated.GhostSlotsInvoker",
     "refabricated.GuiGraphicsExtractorAccessor",
     "refabricated.ItemStackMixin",
+    "refabricated.LevelMixin",
     "refabricated.LivingEntityMixin",
     "refabricated.MinecraftServerMixin",
     "refabricated.PlayerMixin",

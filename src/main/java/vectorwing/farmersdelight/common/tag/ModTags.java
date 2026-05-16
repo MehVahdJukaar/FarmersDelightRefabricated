@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 /**
  * References to tags under the Farmer's Delight namespace.
@@ -235,7 +236,6 @@ public class ModTags
 	@Deprecated(forRemoval = true)
 	public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
 
-	// Deprecated: Look at vectorwing.farmersdelight.refabricated.FDRefabricatedTags instead.
 	@Deprecated(forRemoval = true)
 	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_BROWN_MUSHROOM_COLONY;
 	@Deprecated(forRemoval = true)
@@ -264,16 +264,6 @@ public class ModTags
 	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_WHITELIST;
 	@Deprecated(forRemoval = true)
 	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_BLACKLIST;
-
-	@Deprecated(forRemoval = true)
-	public static final TagKey<Block> SURVIVES_RICH_SOIL = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL;
-	@Deprecated(forRemoval = true)
-	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL;
-
-	@Deprecated
-	public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL_FARMLAND;
-	@Deprecated
-	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND;
 
 	@Deprecated
 	public static final TagKey<EntityType<?>> DROPS_LEATHER = FDRefabricatedTags.EntityTypes.DROPS_LEATHER;

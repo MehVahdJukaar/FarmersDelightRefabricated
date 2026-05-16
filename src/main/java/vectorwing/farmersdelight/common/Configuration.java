@@ -132,7 +132,7 @@ public class Configuration {
 				.define("enableNourishmentHungerOverlay", true);
 			ENABLE_COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
 				.define("enableComfortHealthOverlay", true);
-			FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
+			ENABLE_FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
 			.define("enableFoodEffectTooltip", true);
 			CLIENT_BUILDER.pop();
 			CLIENT_CONFIG = CLIENT_BUILDER.build();

@@ -289,7 +289,7 @@ public class ModBlocks
 	public static final Supplier<Block> TOMATO_CROP = regBlock("tomatoes",
 			TomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP_ON_ROPE = regBlock("tomatoes_on_rope",
-			TomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL));
+			HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL));
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 			RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",
