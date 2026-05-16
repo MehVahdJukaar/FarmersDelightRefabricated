@@ -11,7 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
@@ -38,11 +40,11 @@ public class RopeFenceBlock extends CrossCollisionBlock
 	public RopeFenceBlock(Properties properties) {
 		super(1.0F, 16.0F, 1.0F, 16.0F, 24.0F, properties);
 		this.registerDefaultState(this.stateDefinition.any()
-				.setValue(NORTH, false)
-				.setValue(EAST, false)
-				.setValue(SOUTH, false)
-				.setValue(WEST, false)
-				.setValue(WATERLOGGED, false));
+			.setValue(NORTH, false)
+			.setValue(EAST, false)
+			.setValue(SOUTH, false)
+			.setValue(WEST, false)
+			.setValue(WATERLOGGED, false));
 	}
 
 	@Override
@@ -87,11 +89,11 @@ public class RopeFenceBlock extends CrossCollisionBlock
 		BlockState southState = level.getBlockState(southPos);
 		BlockState westState = level.getBlockState(westPos);
 		return super.getStateForPlacement(context)
-				.setValue(NORTH, this.connectsTo(northState, northState.isFaceSturdy(level, northPos, Direction.SOUTH), Direction.SOUTH))
-				.setValue(EAST, this.connectsTo(eastState, eastState.isFaceSturdy(level, eastPos, Direction.WEST), Direction.WEST))
-				.setValue(SOUTH, this.connectsTo(southState, southState.isFaceSturdy(level, southPos, Direction.NORTH), Direction.NORTH))
-				.setValue(WEST, this.connectsTo(westState, westState.isFaceSturdy(level, westPos, Direction.EAST), Direction.EAST))
-				.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+			.setValue(NORTH, this.connectsTo(northState, northState.isFaceSturdy(level, northPos, Direction.SOUTH), Direction.SOUTH))
+			.setValue(EAST, this.connectsTo(eastState, eastState.isFaceSturdy(level, eastPos, Direction.WEST), Direction.WEST))
+			.setValue(SOUTH, this.connectsTo(southState, southState.isFaceSturdy(level, southPos, Direction.NORTH), Direction.NORTH))
+			.setValue(WEST, this.connectsTo(westState, westState.isFaceSturdy(level, westPos, Direction.EAST), Direction.EAST))
+			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override

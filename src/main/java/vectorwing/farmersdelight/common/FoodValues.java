@@ -131,25 +131,25 @@ public class FoodValues
 
 	// Bowl Foods
 	public static final FoodProperties COOKED_RICE = (new FoodProperties.Builder())
-			.nutrition(6).saturationModifier(0.4f).build();
+		.nutrition(6).saturationModifier(0.4f).build();
 	public static final FoodProperties BONE_BROTH = (new FoodProperties.Builder())
-			.nutrition(8).saturationModifier(0.7f).build();
+		.nutrition(8).saturationModifier(0.7f).build();
 	public static final FoodProperties BEEF_STEW = (new FoodProperties.Builder())
-			.nutrition(12).saturationModifier(0.8f).build();
+		.nutrition(12).saturationModifier(0.8f).build();
 	public static final FoodProperties VEGETABLE_SOUP = (new FoodProperties.Builder())
-			.nutrition(12).saturationModifier(0.8f).build();
+		.nutrition(12).saturationModifier(0.8f).build();
 	public static final FoodProperties FISH_STEW = (new FoodProperties.Builder())
-			.nutrition(12).saturationModifier(0.8f).build();
+		.nutrition(12).saturationModifier(0.8f).build();
 	public static final FoodProperties CHICKEN_SOUP = (new FoodProperties.Builder())
-			.nutrition(14).saturationModifier(0.75f).build();
+		.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties FRIED_RICE = (new FoodProperties.Builder())
-			.nutrition(14).saturationModifier(0.75f).build();
+		.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties PUMPKIN_SOUP = (new FoodProperties.Builder())
-			.nutrition(14).saturationModifier(0.75f).build();
+		.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties BAKED_COD_STEW = (new FoodProperties.Builder())
-			.nutrition(14).saturationModifier(0.75f).build();
+		.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties NOODLE_SOUP = (new FoodProperties.Builder())
-			.nutrition(14).saturationModifier(0.75f).build();
+		.nutrition(14).saturationModifier(0.75f).build();
 
 	// Plated Foods
 	public static final FoodProperties BACON_AND_EGGS = (new FoodProperties.Builder())

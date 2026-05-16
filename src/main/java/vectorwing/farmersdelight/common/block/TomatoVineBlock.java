@@ -34,6 +34,15 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 // Renamed to TomatoBlock. This class will be removed in the next minor/major release.
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.common.tag.ModTags;
+
+// Renamed to TomatoBlock. This class will be removed in the next minor/major release.
 @Deprecated(forRemoval = true)
 public class TomatoVineBlock extends TomatoBlock
 {

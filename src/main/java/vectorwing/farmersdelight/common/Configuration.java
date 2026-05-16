@@ -31,8 +31,8 @@ public class Configuration {
     public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
 
     public static final String CATEGORY_OVERRIDES = "overrides";
-    public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS;
-    public static Supplier<Boolean> RABBIT_STEW_BUFF;
+    public static Supplier<Boolean> ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
+    public static Supplier<Boolean> ENABLE_RABBIT_STEW_BUFF;
     public static Supplier<Boolean> ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
     public static Supplier<Boolean> ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
 
@@ -51,9 +51,9 @@ public class Configuration {
 	// CLIENT
 	public static final String CATEGORY_CLIENT = "client";
 
-    public static Supplier<Boolean> NOURISHED_HUNGER_OVERLAY;
-	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY;
-	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP;
+    public static Supplier<Boolean> ENABLE_NOURISHMENT_HUNGER_OVERLAY;
+	public static Supplier<Boolean> ENABLE_COMFORT_HEALTH_OVERLAY;
+	public static Supplier<Boolean> ENABLE_FOOD_EFFECT_TOOLTIP;
 
 	static {
 		ConfigBuilder COMMON_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.COMMON);
@@ -86,9 +86,9 @@ public class Configuration {
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
-		VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
+		ENABLE_VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
 			.define("enableVanillaSoupExtraEffects", true);
-		RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")
+		ENABLE_RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")
 			.define("enableRabbitStewBuff", true);
 		ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE = COMMON_BUILDER.comment("If enabled, Pumpkin Pie will require the user to sneak to place it down as a block.")
 			.define("enablePumpkinPieSneakToPlace", false);
@@ -128,9 +128,9 @@ public class Configuration {
 			ConfigBuilder CLIENT_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.CLIENT);
 			CLIENT_BUILDER.comment("Client settings").push("client");
 
-			NOURISHED_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
+			ENABLE_NOURISHMENT_HUNGER_OVERLAY = CLIENT_BUILDER.comment("If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.")
 				.define("enableNourishmentHungerOverlay", true);
-			COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
+			ENABLE_COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
 				.define("enableComfortHealthOverlay", true);
 			FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
 			.define("enableFoodEffectTooltip", true);
@@ -143,6 +143,21 @@ public class Configuration {
 	}
 
 	public static void touch() {
-
 	}
+
+	// Backwards compatibility configs.
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> ENABLE_RECIPE_BOOK_COOKING_POT =  ENABLE_COOKING_POT_RECIPE_BOOK;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS =  ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> RABBIT_STEW_BUFF =  ENABLE_RABBIT_STEW_BUFF;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD =  ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> NOURISHMENT_HUNGER_OVERLAY =  ENABLE_NOURISHMENT_HUNGER_OVERLAY;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY =  ENABLE_COMFORT_HEALTH_OVERLAY;
+	@Deprecated(forRemoval = true)
+	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP =  ENABLE_FOOD_EFFECT_TOOLTIP;
 }

@@ -150,6 +150,12 @@ public class ModItems
 	public static final Supplier<Item> BAMBOO_BASKET = registerFuelBlockWithTab("bamboo_basket",
 			ModBlocks.BAMBOO_BASKET.get(), basicItem(), 300);
 
+	/**
+	 * Deprecated reference added for backwards compatibility. Use BAMBOO_BASKET instead.
+	 */
+	@Deprecated(forRemoval = true)
+	public static final Supplier<Item> BASKET = BAMBOO_BASKET;
+
 	public static final Supplier<Item> CARROT_CRATE = registerBlockWithTab("carrot_crate",
 			BlockItem::new, ModBlocks.CARROT_CRATE.get(), basicItem());
 	public static final Supplier<Item> POTATO_CRATE = registerBlockWithTab("potato_crate",

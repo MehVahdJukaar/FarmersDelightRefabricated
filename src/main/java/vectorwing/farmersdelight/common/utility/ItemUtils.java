@@ -1,17 +1,26 @@
 package vectorwing.farmersdelight.common.utility;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 import vectorwing.farmersdelight.refabricated.inventory.ItemHandler;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+
+import java.util.Optional;
 
 /**
  * Util for handling ItemStacks and inventories containing them.
@@ -56,5 +65,22 @@ public class ItemUtils
 		ItemEntity entity = new ItemEntity(level, x, y, z, stack);
 		entity.setDeltaMovement(xMotion, yMotion, zMotion);
 		level.addFreshEntity(entity);
+	}
+
+	/**
+	 * Checks if the enchantment is registered, and if so, gets that enchantment's level on the passed stack. Defaults to 0 in all edge cases.
+	 * @param enchantment The ResourceKey for the enchantment
+	 * @param registries The provider for registry lookup
+	 * @param stack The stack to be queried
+	 * @return The enchantment's level, if the stack is enchanted with it. Returns 0 if not, or if the enchantment is disabled.
+	 */
+	public static int getValidatedEnchantmentLevel(ResourceKey<Enchantment> enchantment, HolderLookup.Provider registries, ItemStack stack) {
+		Optional<Holder.Reference<Enchantment>> fortune = registries.lookupOrThrow(Registries.ENCHANTMENT).get( enchantment);
+		return fortune.map(e->ItemUtils.getEnchantmentLevel(stack, e)).orElse(0);
+	}
+
+	public static int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+		ItemEnchantments itemenchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+		return itemenchantments.getLevel(enchantment);
 	}
 }

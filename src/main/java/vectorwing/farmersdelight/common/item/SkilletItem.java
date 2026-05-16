@@ -69,6 +69,7 @@ public class SkilletItem extends BlockItem {
                 .add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(FD_ATTACK_KNOCKBACK_UUID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
     }
+
 	@Override
 	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		if (compareComponents(oldStack, newStack, ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ||
@@ -113,14 +114,10 @@ public class SkilletItem extends BlockItem {
 
 	@Override
 	public int getUseDuration(ItemStack stack, LivingEntity entity) {
-		Optional<Holder.Reference<Enchantment>> fireAspect = entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
-        if (fireAspect.isEmpty()) {
-            return 0;
-        }
-        int fireAspectLevel = fireAspect.map(stack.getEnchantments()::getLevel).orElse(0);
-        int cookingTime = stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH.get(), 0);
-        return SkilletBlock.getSkilletCookingTime(cookingTime, fireAspectLevel);
-    }
+		int fireAspectLevel = ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, entity.level().registryAccess(), stack);
+		int cookingTime = stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH.get(), 0);
+		return SkilletBlock.getSkilletCookingTime(cookingTime, fireAspectLevel);
+	}
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {

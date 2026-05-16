@@ -155,13 +155,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public void setSkilletItem(ItemStack stack) {
 		skilletStack = stack.copy();
-        if (level != null) {
-            Optional<Holder.Reference<Enchantment>> fireAspect = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
-            fireAspectLevel = fireAspect.map(enchantment -> stack.getEnchantments().getLevel(enchantment)).orElse(0);
-            inventoryChanged();
-        } else {
-            fireAspectLevel = 0;
-        }
+		fireAspectLevel = ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, level.registryAccess(), stack);
+		inventoryChanged();
 	}
 
 	public ItemStack addItemToCook(ItemStack addedStack, Player player, ServerLevel serverLevel) {
