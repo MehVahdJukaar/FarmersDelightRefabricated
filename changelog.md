@@ -8,6 +8,7 @@
 - Fixed Legacy Baskets not being corrected into Bamboo Baskets. [#319](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/319)
 - Fixed Comfort advancement still existing after Comfort's removal. [#326](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/326)
 - Fixed Gleaming Salad not counting towards the Place Feast advancement. [#327](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/327)
+- Fixed BlockItems with 2D item models appearing upright on Cutting Boards. [#330](https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues/330)
 - Fixed Tomato on Rope Block interactions when removed.
 
 ## 1.3.2

@@ -65,7 +65,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 			poseStack.pushPose();
 
-			boolean isBlockItem = boardStack.getItem() instanceof BlockItem;
+			boolean isBlockItem = state.displayItem.usesBlockLight();
 
 			float xOffset = itemRenderCount == 1 ? 0 : (state.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
 			float zOffset = itemRenderCount == 1 ? 0 : (state.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
