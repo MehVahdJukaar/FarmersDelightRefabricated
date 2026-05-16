@@ -166,7 +166,7 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 			ModItems.SWEET_BERRY_CHEESECAKE.get(),
 			ModItems.CHOCOLATE_PIE.get()
 		);
-		tagBuilder(ModTags.Items.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		tagBuilder(ModTags.Items.KNIVES).add(ModItems.FLINT_KNIFE.get(), ModItems.COPPER_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 		tagBuilder(ModTags.Items.KNIFE_ENCHANTABLE).addTag(ModTags.Items.KNIVES);
 		tagBuilder(ModTags.Items.STRAW_HARVESTERS).addTag(ModTags.Items.KNIVES);
 		tagBuilder(ModTags.Items.CANVAS_SIGNS)
@@ -346,7 +346,7 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 		tagBuilder(CommonTags.Items.STORAGE_BLOCKS_RICE_PANICLE).add(ModItems.RICE_BALE.get());
 		tagBuilder(CommonTags.Items.STORAGE_BLOCKS_STRAW).add(ModItems.STRAW_BALE.get());
 
-		tagBuilder(CommonTags.Items.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
+		tagBuilder(CommonTags.Items.TOOLS_KNIFE).add(ModItems.FLINT_KNIFE.get(), ModItems.COPPER_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.DIAMOND_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(), ModItems.NETHERITE_KNIFE.get());
 	}
 
 	public void registerCompatibilityTags() {
