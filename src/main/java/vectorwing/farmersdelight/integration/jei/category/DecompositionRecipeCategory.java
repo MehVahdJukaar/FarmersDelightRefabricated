@@ -104,6 +104,6 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     }
 
     private static MutableComponent translateKey(String suffix) {
-        return Component.translatable(FarmersDelight.MODID + ".jei.decomposition" + suffix);
+		return TextUtils.JEI("decomposition" +  suffix);
     }
 }
