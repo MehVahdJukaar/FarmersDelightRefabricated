@@ -25,6 +25,8 @@ mutable field net/minecraft/world/entity/npc/villager/Villager FOOD_POINTS Ljava
 
 accessible class net/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack
 
+accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING_ALT Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
+
 #datafixers
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
 

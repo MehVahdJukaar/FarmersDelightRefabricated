@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.loot.function;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,7 +14,6 @@ import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
 public class CopySkilletFunction extends LootItemConditionalFunction
 {
 	public static final Identifier ID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "copy_skillet");

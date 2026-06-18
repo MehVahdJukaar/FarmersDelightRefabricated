@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -13,7 +12,6 @@ import vectorwing.farmersdelight.data.recipe.SmeltingRecipes;
 
 import java.util.concurrent.CompletableFuture;
 
-@MethodsReturnNonnullByDefault
 public class Recipes extends FabricRecipeProvider
 {
 

@@ -1,11 +1,11 @@
 package vectorwing.farmersdelight.client.gui;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
@@ -48,8 +48,7 @@ public class CookingPotTooltip implements ClientTooltipComponent {
 
 	@Override
 	public void extractText(@NonNull GuiGraphicsExtractor guiGraphics, @NonNull Font font, int x, int y) {
-		Integer color = ChatFormatting.GRAY.getColor();
-		int gray = color == null ? -1 : ARGB.opaque(color);
+		int gray = ARGB.opaque(TextColor.GRAY.getValue());
 
 		if (!mealStack.isEmpty()) {
 			MutableComponent textServingsOf = mealStack.getCount() == 1

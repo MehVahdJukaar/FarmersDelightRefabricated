@@ -7,7 +7,6 @@
   ],
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "block": "farmersdelight:tomatoes",
@@ -25,7 +24,6 @@
       ],
       "functions": [
         {
-          "add": false,
           "count": {
             "type": "minecraft:uniform",
             "max": 2.0,
@@ -45,7 +43,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "block": "farmersdelight:tomatoes",
@@ -64,7 +61,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "block": "farmersdelight:tomatoes",

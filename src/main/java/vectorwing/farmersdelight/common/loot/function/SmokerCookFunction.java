@@ -2,10 +2,12 @@ package vectorwing.farmersdelight.common.loot.function;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -14,7 +16,6 @@ import vectorwing.farmersdelight.FarmersDelight;
 import java.util.List;
 import java.util.Optional;
 
-@MethodsReturnNonnullByDefault
 public class SmokerCookFunction extends LootItemConditionalFunction
 {
 	public static final Identifier ID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "smoker_cook");

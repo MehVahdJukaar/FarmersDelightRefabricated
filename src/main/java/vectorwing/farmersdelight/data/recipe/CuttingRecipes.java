@@ -84,7 +84,7 @@ public class CuttingRecipes
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.COOKED_MUTTON), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.COOKED_MUTTON_CHOPS.get(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.INK_SAC), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLACK_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.INK_SAC), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.black(), 2)
 				.saveToFD(output);
 	}
 
@@ -122,56 +122,56 @@ public class CuttingRecipes
 	}
 
 	private static void cuttingFlowers(HolderGetter<Item> holderGetter, RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WITHER_ROSE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLACK_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WITHER_ROSE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.black(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CORNFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLUE_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CORNFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.blue(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BLUE_ORCHID), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_BLUE_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BLUE_ORCHID), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightBlue(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AZURE_BLUET), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AZURE_BLUET), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OXEYE_DAISY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OXEYE_DAISY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WHITE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WHITE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ALLIUM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.MAGENTA_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ALLIUM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.magenta(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ORANGE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.ORANGE_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ORANGE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PINK_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.PINK_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PINK_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.pink(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.RED_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.RED_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.RED_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.red(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPPY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.RED_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPPY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.red(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LILY_OF_THE_VALLEY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.WHITE_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LILY_OF_THE_VALLEY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.white(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.YELLOW_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.yellow(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TORCHFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.ORANGE_DYE, 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TORCHFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_BEETROOTS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BEETROOT_SEEDS, 1)
-				.addResult(Items.RED_DYE)
+				.addResult(Items.DYE.red())
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_CABBAGES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CABBAGE_SEEDS.get(), 1)
-				.addResultWithChance(Items.YELLOW_DYE, 0.5F, 2)
+				.addResultWithChance(Items.DYE.yellow(), 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_CARROTS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.CARROT, 1)
-				.addResultWithChance(Items.LIGHT_GRAY_DYE, 0.5F, 2)
+				.addResultWithChance(Items.DYE.lightGray(), 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_ONIONS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.ONION.get(), 1)
-				.addResult(Items.MAGENTA_DYE, 2)
-				.addResultWithChance(Items.LIME_DYE, 0.1F)
+				.addResult(Items.DYE.magenta(), 2)
+				.addResultWithChance(Items.DYE.lime(), 0.1F)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_POTATOES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.POTATO, 1)
-				.addResultWithChance(Items.PURPLE_DYE, 0.5F, 2)
+				.addResultWithChance(Items.DYE.purple(), 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_RICE.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.RICE.get(), 1)
 				.addResultWithChance(ModItems.STRAW.get(), 0.5F)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_TOMATOES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.TOMATO_SEEDS.get(), 1)
 				.addResultWithChance(ModItems.TOMATO.get(), 0.2F)
-				.addResultWithChance(Items.GREEN_DYE, 0.1F)
+				.addResultWithChance(Items.DYE.green(), 0.1F)
 				.saveToFD(output);
 	}
 

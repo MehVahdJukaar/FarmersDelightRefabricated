@@ -6,13 +6,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WallSignBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
-import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
 public class WallCanvasSignBlock extends WallSignBlock implements CanvasSign
 {
@@ -26,11 +24,6 @@ public class WallCanvasSignBlock extends WallSignBlock implements CanvasSign
 	@Nullable
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
-	}
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return ModBlockEntityTypes.CANVAS_SIGN.get().create(pos, state);
 	}
 
 	@Override

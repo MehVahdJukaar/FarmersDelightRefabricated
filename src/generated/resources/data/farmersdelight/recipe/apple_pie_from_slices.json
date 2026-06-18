@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "fd_apple_pie",
   "key": {
     "#": "farmersdelight:apple_pie_slice"

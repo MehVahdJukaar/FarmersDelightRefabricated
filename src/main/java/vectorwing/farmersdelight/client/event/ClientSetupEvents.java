@@ -12,7 +12,9 @@ import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
 import vectorwing.farmersdelight.client.particle.SparkleParticle;
 import vectorwing.farmersdelight.client.particle.StarParticle;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
-import vectorwing.farmersdelight.client.renderer.*;
+import vectorwing.farmersdelight.client.renderer.CuttingBoardRenderer;
+import vectorwing.farmersdelight.client.renderer.DefaultStoveRenderer;
+import vectorwing.farmersdelight.client.renderer.SkilletRenderer;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
@@ -39,8 +41,6 @@ public class ClientSetupEvents
 		EntityRenderers.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.STOVE.get(), DefaultStoveRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.CUTTING_BOARD.get(), CuttingBoardRenderer::new);
-		BlockEntityRenderers.register(ModBlockEntityTypes.CANVAS_SIGN.get(), StandingCanvasSignRenderer::new);
-		BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_CANVAS_SIGN.get(), HangingCanvasSignRenderer::new);
 		BlockEntityRenderers.register(ModBlockEntityTypes.SKILLET.get(), SkilletRenderer::new);
 	}
 

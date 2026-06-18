@@ -1,11 +1,8 @@
 package vectorwing.farmersdelight.common.entity;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,12 +12,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.UnknownNullability;
 import vectorwing.farmersdelight.common.registry.ModEntityTypes;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
-@MethodsReturnNonnullByDefault
 public class RottenTomatoEntity extends ThrowableItemProjectile
 {
 	public RottenTomatoEntity(EntityType<? extends RottenTomatoEntity> entityType, Level level) {

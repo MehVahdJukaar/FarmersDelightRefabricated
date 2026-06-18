@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "fd_hanging_canvas_sign",
   "ingredients": [
     "#farmersdelight:hanging_canvas_signs",

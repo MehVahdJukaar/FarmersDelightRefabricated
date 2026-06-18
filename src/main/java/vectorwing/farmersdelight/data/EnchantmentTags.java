@@ -1,15 +1,17 @@
 package vectorwing.farmersdelight.data;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.EnchantmentTagsProvider;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EnchantmentTags extends EnchantmentTagsProvider
+public class EnchantmentTags extends FabricTagsProvider<Enchantment>
 {
-	public EnchantmentTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, lookupProvider);
+	public EnchantmentTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+		super(output, Registries.ENCHANTMENT, provider);
 	}
 
 	@Override

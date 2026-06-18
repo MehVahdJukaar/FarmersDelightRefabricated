@@ -42,6 +42,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 
 		// Refabricated specific.
 		pack.addProvider(RefabricatedMobEffectTags::new);
+		pack.addProvider(ItemModels::new);
 	}
 
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
