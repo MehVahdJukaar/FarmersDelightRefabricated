@@ -33,7 +33,6 @@
     "refabricated.TagLoaderMixin"
   ],
   "client": [
-    "CanvasSignEditScreenMixin",
     "HideBlockBreakProgressMixin",
     "refabricated.AbstractRecipeBookScreenAccessor",
     "refabricated.CuboidItemModelWrapperAccessor",

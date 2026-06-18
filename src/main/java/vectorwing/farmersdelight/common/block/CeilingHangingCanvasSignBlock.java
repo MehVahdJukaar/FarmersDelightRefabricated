@@ -5,18 +5,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
-import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
-
 
 public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock implements CanvasSign
 {
@@ -30,11 +24,6 @@ public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock imple
 	@Nullable
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
-	}
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return ModBlockEntityTypes.HANGING_CANVAS_SIGN.get().create(pos, state);
 	}
 
 	@Override
