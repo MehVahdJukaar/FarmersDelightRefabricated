@@ -1,15 +1,14 @@
 package vectorwing.farmersdelight.data.builder;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -23,7 +22,6 @@ import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 
 import java.util.Objects;
 
-@MethodsReturnNonnullByDefault
 public class CuttingBoardRecipeBuilder implements RecipeBuilder
 {
 	private final NonNullList<ChanceResult> results = NonNullList.createWithCapacity(4);

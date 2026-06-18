@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -23,7 +22,6 @@ import java.util.stream.Stream;
 /**
  * Ingredient that checks if the given stack can perform a ItemAbility from Forge.
  */
-@MethodsReturnNonnullByDefault
 public class ItemAbilityIngredient implements CustomIngredient
 {
 	public static final Serializer SERIALIZER = new Serializer();

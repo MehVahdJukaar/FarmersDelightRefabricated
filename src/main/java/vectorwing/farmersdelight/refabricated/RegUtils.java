@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.refabricated;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.triggers.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleType;
