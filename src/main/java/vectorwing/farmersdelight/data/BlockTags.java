@@ -272,7 +272,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				.add(ModBlockItemIds.CHERRY_CABINET)
 				.add(ModBlockItemIds.BAMBOO_CABINET)
 				.add(ModBlockItemIds.CRIMSON_CABINET)
-				.add(ModBlockItemIds.WARPED_CABINET);
+				.add(ModBlockItemIds.WARPED_CABINET)
+				.add(ModBlockItemIds.PALE_OAK_CABINET);
 		tagBuilder(ModTags.Blocks.CABINETS).addTag(ModTags.Blocks.CABINETS_WOODEN);
 		tagBuilder(ModTags.Blocks.MUSHROOM_COLONIES)
 			.add(ModBlockItemIds.BROWN_MUSHROOM_COLONY)

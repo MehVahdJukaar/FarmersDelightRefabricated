@@ -58,7 +58,7 @@
           },
           {
             "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:dirt",
+            "blocks": "#minecraft:substrate_overworld",
             "offset": [
               0,
               -1,
