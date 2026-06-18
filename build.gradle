@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -13,6 +13,7 @@ base {
 
 fabricApi {
     configureDataGeneration {
+        client = true
         outputDirectory = file("src/generated/resources")
         strictValidation = false
         createSourceSet = true
