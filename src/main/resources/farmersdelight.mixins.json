@@ -36,11 +36,13 @@
     "HideBlockBreakProgressMixin",
     "refabricated.AbstractRecipeBookScreenAccessor",
     "refabricated.CuboidItemModelWrapperAccessor",
+    "refabricated.HangingSignEditScreenMixin",
     "refabricated.HudMixin",
     "refabricated.HumanoidMobRendererMixin",
     "refabricated.HumanoidModelMixin",
     "refabricated.HumanoidRenderStateMixin",
-    "refabricated.SearchRecipeBookCategoryMixin"
+    "refabricated.SearchRecipeBookCategoryMixin",
+    "refabricated.SignEditScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
