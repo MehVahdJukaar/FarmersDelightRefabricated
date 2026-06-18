@@ -30,6 +30,12 @@
     "jei_mod_plugin": [
       "vectorwing.farmersdelight.integration.jei.JEIPlugin"
     ],
+    "rei_client": [
+      "vectorwing.farmersdelight.integration.rei.client.ClientREIPlugin"
+    ],
+    "rei_common": [
+      "vectorwing.farmersdelight.integration.rei.CommonREIPlugin"
+    ],
     "modmenu": [
       "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
     ],

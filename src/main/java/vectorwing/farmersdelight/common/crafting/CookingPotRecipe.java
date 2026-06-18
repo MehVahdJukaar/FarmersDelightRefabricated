@@ -23,6 +23,7 @@ import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class CookingPotRecipe implements Recipe<RecipeWrapper>
@@ -169,7 +170,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		result = 31 * result + (category() != null ? category().hashCode() : 0);
 		result = 31 * result + inputItems.hashCode();
 		result = 31 * result + this.result.hashCode();
-		result = 31 * result + container.hashCode();
+		result = 31 * result + Objects.requireNonNullElse(container, ItemStack.EMPTY).hashCode();
 		result = 31 * result + (getExperience() != 0.0f ? Float.floatToIntBits(getExperience()) : 0);
 		result = 31 * result + getCookTime();
 		return result;

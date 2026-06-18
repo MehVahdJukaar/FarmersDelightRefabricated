@@ -102,17 +102,18 @@ dependencies {
 //     localRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     compileOnly("me.shedaniel.cloth:basic-math:0.6.1")
-    compileOnly("dev.architectury:architectury-neoforge:18.0.3")
-    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}") {
+    compileOnly("dev.architectury:architectury-fabric:20.0.7")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}") {
         exclude(group: "dev.architectury")
     }
-    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rei_version}") {
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}") {
         exclude(group: "dev.architectury")
     }
     // Uncomment the below to test REI.
 //      localRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") {
 //          exclude(group: "dev.architectury")
 //      }
+//    localRuntime("dev.architectury:architectury-fabric:20.0.7")
 
 //    compileOnly("dev.emi:emi-fabric:${emi_version}:api") {
 //        exclude(group: "net.fabricmc.fabric-api")

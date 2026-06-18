@@ -91,7 +91,7 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 						ChanceResult output = recipeOutputs.get(index);
 						float chance = output.chance();
 						if (chance != 1)
-							tooltip.add(TextUtils.getTranslation("jei.chance", chance < 0.01 ? "<1" : (int) (chance * 100))
+							tooltip.add(TextUtils.JEI("chance", chance < 0.01 ? "<1" : (int) (chance * 100))
 									.withStyle(ChatFormatting.GOLD));
 					});
 		}
