@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "farmersdelight:salmon_slice",
     "farmersdelight:salmon_slice",

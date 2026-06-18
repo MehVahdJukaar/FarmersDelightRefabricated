@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "#c:foods/cooked_bacon",
     "#c:foods/cooked_bacon",

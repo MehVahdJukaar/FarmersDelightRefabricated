@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "farmersdelight:cooked_mutton_chops",
     "#c:crops/beetroot",
