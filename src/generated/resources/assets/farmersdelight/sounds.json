@@ -6,7 +6,7 @@
         "name": "minecraft:block.barrel.close"
       }
     ],
-    "subtitle": "Cabinet closes"
+    "subtitle": "subtitles.farmersdelight.block.cabinet.close"
   },
   "block.cabinet.open": {
     "sounds": [
@@ -15,14 +15,14 @@
         "name": "minecraft:block.barrel.open"
       }
     ],
-    "subtitle": "Cabinet opens"
+    "subtitle": "subtitles.farmersdelight.block.cabinet.open"
   },
   "block.cooking_pot.boil": {
     "sounds": [
       "farmersdelight:block/cooking_pot/boil_water1",
       "farmersdelight:block/cooking_pot/boil_water2"
     ],
-    "subtitle": "Cooking Pot boils"
+    "subtitle": "subtitles.farmersdelight.block.cooking_pot.boil"
   },
   "block.cooking_pot.boil_soup": {
     "sounds": [
@@ -39,14 +39,14 @@
         "name": "minecraft:block.wood.place"
       }
     ],
-    "subtitle": "Tool carved on board"
+    "subtitle": "subtitles.farmersdelight.block.cutting_board.carve_tool"
   },
   "block.cutting_board.knife_cut": {
     "sounds": [
       "farmersdelight:block/cutting_board/knife1",
       "farmersdelight:block/cutting_board/knife2"
     ],
-    "subtitle": "Knife cuts"
+    "subtitle": "subtitles.farmersdelight.block.cutting_board.knife_cut"
   },
   "block.cutting_board.place_item": {
     "sounds": [
@@ -55,7 +55,7 @@
         "name": "minecraft:block.wood.place"
       }
     ],
-    "subtitle": "Item placed on board"
+    "subtitle": "subtitles.farmersdelight.block.cutting_board.place_item"
   },
   "block.cutting_board.remove_item": {
     "sounds": [
@@ -64,7 +64,7 @@
         "name": "minecraft:block.wood.hit"
       }
     ],
-    "subtitle": "Item removed from board"
+    "subtitle": "subtitles.farmersdelight.block.cutting_board.remove_item"
   },
   "block.food.slice": {
     "sounds": [
@@ -73,7 +73,7 @@
         "name": "minecraft:block.wool.break"
       }
     ],
-    "subtitle": "Food sliced"
+    "subtitle": "subtitles.farmersdelight.block.food.slice"
   },
   "block.food.take_portion": {
     "sounds": [
@@ -82,7 +82,7 @@
         "name": "minecraft:item.armor.equip_generic"
       }
     ],
-    "subtitle": "Portion served"
+    "subtitle": "subtitles.farmersdelight.block.food.take_portion"
   },
   "block.rope_fence_gate.close": {
     "sounds": [
@@ -91,7 +91,7 @@
         "name": "minecraft:item.lead.tied"
       }
     ],
-    "subtitle": "Rope Fence Gate ties"
+    "subtitle": "subtitles.farmersdelight.block.rope_fence_gate.close"
   },
   "block.rope_fence_gate.open": {
     "sounds": [
@@ -100,14 +100,14 @@
         "name": "minecraft:item.lead.untied"
       }
     ],
-    "subtitle": "Rope Fence Gate unties"
+    "subtitle": "subtitles.farmersdelight.block.rope_fence_gate.open"
   },
   "block.skillet.add_food": {
     "sounds": [
       "farmersdelight:block/skillet/add_food1",
       "farmersdelight:block/skillet/add_food2"
     ],
-    "subtitle": "Skillet hisses"
+    "subtitle": "subtitles.farmersdelight.block.skillet.add_food"
   },
   "block.skillet.sizzle": {
     "sounds": [
@@ -115,7 +115,7 @@
       "farmersdelight:block/skillet/sizzle2",
       "farmersdelight:block/skillet/sizzle3"
     ],
-    "subtitle": "Skillet sizzles"
+    "subtitle": "subtitles.farmersdelight.block.skillet.sizzle"
   },
   "block.stove.crackle": {
     "sounds": [
@@ -124,7 +124,7 @@
         "name": "minecraft:block.campfire.crackle"
       }
     ],
-    "subtitle": "Stove crackles"
+    "subtitle": "subtitles.farmersdelight.block.stove.crackle"
   },
   "block.tomatoes.pick_tomatoes": {
     "sounds": [
@@ -133,7 +133,7 @@
         "name": "minecraft:block.sweet_berry_bush.pick_berries"
       }
     ],
-    "subtitle": "Tomatoes pop"
+    "subtitle": "subtitles.farmersdelight.block.tomatoes.pick_tomatoes"
   },
   "entity.rotten_tomato.hit": {
     "sounds": [
@@ -142,7 +142,7 @@
         "name": "minecraft:entity.slime.attack"
       }
     ],
-    "subtitle": "Rotten Tomato splatters"
+    "subtitle": "subtitles.farmersdelight.entity.rotten_tomato.hit"
   },
   "entity.rotten_tomato.throw": {
     "sounds": [
@@ -151,7 +151,7 @@
         "name": "minecraft:entity.snowball.throw"
       }
     ],
-    "subtitle": "Rotten Tomato flies"
+    "subtitle": "subtitles.farmersdelight.entity.rotten_tomato.throw"
   },
   "item.skillet.attack.strong": {
     "sounds": [

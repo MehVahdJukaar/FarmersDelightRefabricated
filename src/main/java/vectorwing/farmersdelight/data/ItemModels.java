@@ -2,16 +2,136 @@ package vectorwing.farmersdelight.data;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.world.level.block.Block;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 /**
  * Credits to Vazkii and team for some references on mass-reading blocks to datagen!
  */
 
-@Deprecated
-public abstract class ItemModels extends FabricModelProvider
+public class ItemModels extends FabricModelProvider
 {
 	public ItemModels(FabricPackOutput output) {
 		super(output);
+	}
+
+	@Override
+	public void generateBlockStateModels(BlockModelGenerators generators) {
+		sign(generators, ModBlocks.CANVAS_SIGN.get(), ModBlocks.CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.HANGING_CANVAS_SIGN.get(), ModBlocks.HANGING_CANVAS_WALL_SIGN.get());
+
+		sign(generators, ModBlocks.WHITE_CANVAS_SIGN.get(), ModBlocks.WHITE_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.WHITE_HANGING_CANVAS_SIGN.get(), ModBlocks.WHITE_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.ORANGE_CANVAS_SIGN.get(), ModBlocks.ORANGE_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.ORANGE_HANGING_CANVAS_SIGN.get(), ModBlocks.ORANGE_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.MAGENTA_CANVAS_SIGN.get(), ModBlocks.MAGENTA_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.MAGENTA_HANGING_CANVAS_SIGN.get(), ModBlocks.MAGENTA_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.LIGHT_BLUE_CANVAS_SIGN.get(), ModBlocks.LIGHT_BLUE_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.LIGHT_BLUE_HANGING_CANVAS_SIGN.get(), ModBlocks.LIGHT_BLUE_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.YELLOW_CANVAS_SIGN.get(), ModBlocks.YELLOW_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.YELLOW_HANGING_CANVAS_SIGN.get(), ModBlocks.YELLOW_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.LIME_CANVAS_SIGN.get(), ModBlocks.LIME_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.LIME_HANGING_CANVAS_SIGN.get(), ModBlocks.LIME_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.PINK_CANVAS_SIGN.get(), ModBlocks.PINK_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.PINK_HANGING_CANVAS_SIGN.get(), ModBlocks.PINK_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.GRAY_CANVAS_SIGN.get(), ModBlocks.GRAY_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.GRAY_HANGING_CANVAS_SIGN.get(), ModBlocks.GRAY_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.LIGHT_GRAY_CANVAS_SIGN.get(), ModBlocks.LIGHT_GRAY_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.LIGHT_GRAY_HANGING_CANVAS_SIGN.get(), ModBlocks.LIGHT_GRAY_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.CYAN_CANVAS_SIGN.get(), ModBlocks.CYAN_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.CYAN_HANGING_CANVAS_SIGN.get(), ModBlocks.CYAN_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.PURPLE_CANVAS_SIGN.get(), ModBlocks.PURPLE_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.PURPLE_HANGING_CANVAS_SIGN.get(), ModBlocks.PURPLE_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.BLUE_CANVAS_SIGN.get(), ModBlocks.BLUE_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.BLUE_HANGING_CANVAS_SIGN.get(), ModBlocks.BLUE_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.BROWN_CANVAS_SIGN.get(), ModBlocks.BROWN_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.BROWN_HANGING_CANVAS_SIGN.get(), ModBlocks.BROWN_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.GREEN_CANVAS_SIGN.get(), ModBlocks.GREEN_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.GREEN_HANGING_CANVAS_SIGN.get(), ModBlocks.GREEN_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.RED_CANVAS_SIGN.get(), ModBlocks.RED_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.RED_HANGING_CANVAS_SIGN.get(), ModBlocks.RED_HANGING_CANVAS_WALL_SIGN.get());
+		sign(generators, ModBlocks.BLACK_CANVAS_SIGN.get(), ModBlocks.BLACK_CANVAS_WALL_SIGN.get());
+		hangingSign(generators, ModBlocks.BLACK_HANGING_CANVAS_SIGN.get(), ModBlocks.BLACK_HANGING_CANVAS_WALL_SIGN.get());
+	}
+
+	@Override
+	public void generateItemModels(ItemModelGenerators generators) {
+
+	}
+
+	private static void sign(final BlockModelGenerators generators, final Block sign, final Block wallSign) {
+		TextureMapping mapping = new TextureMapping()
+			.put(TextureSlot.ALL, TextureMapping.getBlockTexture(sign))
+			.put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(ModBlocks.TATAMI.get()));
+		MultiVariant standingRot0 = BlockModelGenerators.plainVariant(
+			ModelTemplates.SIGN_ROT_0.create(ModelLocationUtils.getModelLocation(sign, "_rot_0"), mapping, generators.modelOutput)
+		);
+		MultiVariant standingRot1 = BlockModelGenerators.plainVariant(
+			ModelTemplates.SIGN_ROT_1.create(ModelLocationUtils.getModelLocation(sign, "_rot_1"), mapping, generators.modelOutput)
+		);
+		MultiVariant standingRot2 = BlockModelGenerators.plainVariant(
+			ModelTemplates.SIGN_ROT_2.create(ModelLocationUtils.getModelLocation(sign, "_rot_2"), mapping, generators.modelOutput)
+		);
+		MultiVariant standingRot3 = BlockModelGenerators.plainVariant(
+			ModelTemplates.SIGN_ROT_3.create(ModelLocationUtils.getModelLocation(sign, "_rot_3"), mapping, generators.modelOutput)
+		);
+		generators.blockStateOutput.accept(BlockModelGenerators.createSign(sign, standingRot0, standingRot1, standingRot2, standingRot3));
+		MultiVariant wallModel = BlockModelGenerators.plainVariant(ModelTemplates.WALL_SIGN.create(wallSign, mapping, generators.modelOutput));
+		generators.blockStateOutput
+			.accept(MultiVariantGenerator.dispatch(wallSign, wallModel).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT));
+		generators.registerSimpleFlatItemModel(sign.asItem());
+	}
+
+	private static void hangingSign(final BlockModelGenerators generators, final Block hangingSign, final Block wallSign) {
+		TextureMapping mapping = new TextureMapping()
+			.put(TextureSlot.ALL, TextureMapping.getBlockTexture(hangingSign))
+			.put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(ModBlocks.TATAMI.get()));
+		generators.blockStateOutput
+			.accept(
+				BlockModelGenerators.createHangingSign(
+					hangingSign,
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.HANGING_SIGN_ROT_0.create(ModelLocationUtils.getModelLocation(hangingSign, "_rot_0"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.HANGING_SIGN_ROT_1.create(ModelLocationUtils.getModelLocation(hangingSign, "_rot_1"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.HANGING_SIGN_ROT_2.create(ModelLocationUtils.getModelLocation(hangingSign, "_rot_2"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.HANGING_SIGN_ROT_3.create(ModelLocationUtils.getModelLocation(hangingSign, "_rot_3"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.ATTACHED_HANGING_SIGN_ROT_0
+							.create(ModelLocationUtils.getModelLocation(hangingSign, "_attached_rot_0"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.ATTACHED_HANGING_SIGN_ROT_1
+							.create(ModelLocationUtils.getModelLocation(hangingSign, "_attached_rot_1"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.ATTACHED_HANGING_SIGN_ROT_2
+							.create(ModelLocationUtils.getModelLocation(hangingSign, "_attached_rot_2"), mapping, generators.modelOutput)
+					),
+					BlockModelGenerators.plainVariant(
+						ModelTemplates.ATTACHED_HANGING_SIGN_ROT_3
+							.create(ModelLocationUtils.getModelLocation(hangingSign, "_attached_rot_3"), mapping, generators.modelOutput)
+					)
+				)
+			);
+		MultiVariant wallModel = BlockModelGenerators.plainVariant(ModelTemplates.WALL_HANGING_SIGN.create(wallSign, mapping, generators.modelOutput));
+		generators.blockStateOutput
+			.accept(MultiVariantGenerator.dispatch(wallSign, wallModel).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT));
+		generators.registerSimpleFlatItemModel(hangingSign.asItem());
 	}
 
 //	public static final String GENERATED = "item/generated";
