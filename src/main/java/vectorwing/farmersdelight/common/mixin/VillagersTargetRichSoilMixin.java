@@ -21,7 +21,7 @@ public class VillagersTargetRichSoilMixin
 	@WrapOperation(method = "doTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;)V",
 			at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableSet;contains(Ljava/lang/Object;)Z"))
 	public boolean detectModdedFarmland(ImmutableSet<Block> instance, Object o, Operation<Boolean> original, @Local(argsOnly = true) Villager body) {
-		if (body.getVillagerData().profession() == VillagerProfession.FARMER) {
+		if (body.getVillagerData().profession().is(VillagerProfession.FARMER)) {
 			return original.call(instance, o) || o instanceof FarmlandBlock;
 		} else {
 			return original.call(instance, o);

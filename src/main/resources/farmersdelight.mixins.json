@@ -37,7 +37,7 @@
     "HideBlockBreakProgressMixin",
     "refabricated.AbstractRecipeBookScreenAccessor",
     "refabricated.CuboidItemModelWrapperAccessor",
-    "refabricated.GuiMixin",
+    "refabricated.HudMixin",
     "refabricated.HumanoidMobRendererMixin",
     "refabricated.HumanoidModelMixin",
     "refabricated.HumanoidRenderStateMixin",

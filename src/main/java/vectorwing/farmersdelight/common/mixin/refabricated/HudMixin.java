@@ -1,8 +1,8 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vectorwing.farmersdelight.client.gui.HUDOverlays;
 
 
-@Mixin(value = Gui.class, priority = 999) // Before AppleSkin
-public class GuiMixin {
+@Mixin(value = Hud.class, priority = 999) // Before AppleSkin
+public class HudMixin {
     @Unique
     private DeltaTracker farmersdelightrefabricated$deltaTracker;
 

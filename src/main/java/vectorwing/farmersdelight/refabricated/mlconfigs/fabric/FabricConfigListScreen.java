@@ -59,7 +59,7 @@ public class FabricConfigListScreen extends Screen {
 
     protected void addExtraButtons() {
         this.addRenderableWidget(Button.builder(
-                        CommonComponents.GUI_DONE, button -> this.minecraft.setScreen(this.parent))
+                        CommonComponents.GUI_DONE, button -> this.minecraft.gui.setScreen(this.parent))
                 .bounds(this.width / 2 - 155 + 160, this.height - 29, 150, 20).build());
     }
 
@@ -95,7 +95,7 @@ public class FabricConfigListScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 
     protected class ConfigList extends ContainerObjectSelectionList<ConfigButton> {
@@ -191,7 +191,7 @@ public class FabricConfigListScreen extends Screen {
 
         protected ConfigButton(ModConfigHolder spec, int width, int buttonWidth) {
             this(Button.builder(Component.literal(spec.getFileName()), b ->
-                    Minecraft.getInstance().setScreen(spec.makeScreen(FabricConfigListScreen.this, FabricConfigListScreen.this.background))
+                    Minecraft.getInstance().gui.setScreen(spec.makeScreen(FabricConfigListScreen.this, FabricConfigListScreen.this.background))
             ).bounds(width / 2 - buttonWidth / 2, 0, buttonWidth, 20).build());
         }
 

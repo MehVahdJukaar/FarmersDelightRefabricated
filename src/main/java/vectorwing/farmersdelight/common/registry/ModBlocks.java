@@ -115,7 +115,7 @@ public class ModBlocks
 	public static final Supplier<Block> ROPE = regBlock(ModBlockItemIds.ROPE,
 			RopeBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.brown()).noCollision().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> SAFETY_NET = regBlock(ModBlockItemIds.SAFETY_NET,
-			SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.brown()).strength(0.2F).sound(SoundType.WOOL));
+			SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.brown()).strength(0.2F).sound(SoundType.WOOL).bounceRestitution(0.6F));
 	public static final Supplier<Block> ROPE_FENCE = regBlock(ModBlockItemIds.ROPE_FENCE,
 			RopeFenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F));
 	public static final Supplier<Block> ROPE_FENCE_GATE = regBlock(ModBlockItemIds.ROPE_FENCE_GATE,
