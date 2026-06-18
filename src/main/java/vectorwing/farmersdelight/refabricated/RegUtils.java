@@ -7,6 +7,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -37,8 +38,10 @@ public class RegUtils {
         return () -> object;
     }
 
-    public static <B extends EntityType<?>> Supplier<B> regEntity(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.ENTITY_TYPE);
+    public static <B extends EntityType<?>> Supplier<B> regEntity(ResourceKey<EntityType<?>> key, Supplier<B> supplier) {
+	    B object = supplier.get();
+	    Registry.register(BuiltInRegistries.ENTITY_TYPE, key.identifier(), object);
+	    return () -> object;
     }
 
     public static <B extends MenuType<?>> Supplier<B> regMenu(String name, Supplier<B> supplier) {
@@ -103,12 +106,16 @@ public class RegUtils {
         return supp;
     }
 
-    public static <B extends Item> Supplier<B> regItem(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.ITEM);
+    public static <B extends Item> Supplier<B> regItem(ResourceKey<Item> key, Supplier<B> supplier) {
+	    B object = supplier.get();
+	    Registry.register(BuiltInRegistries.ITEM, key.identifier(), object);
+	    return () -> object;
     }
 
-    public static <B extends Block> Supplier<B> regBlock(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.BLOCK);
+    public static <B extends Block> Supplier<B> regBlock(ResourceKey<Block> key, Supplier<B> supplier) {
+	    B object = supplier.get();
+	    Registry.register(BuiltInRegistries.BLOCK, key.identifier(), object);
+	    return () -> object;
     }
 
     public static <B extends CriterionTrigger<?>> Supplier<B> regTrigger(String name, Supplier<B> supplier) {
