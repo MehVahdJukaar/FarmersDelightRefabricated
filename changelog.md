@@ -1,1 +1,2 @@
 - Canvas signs now keep their contents when upgrading a world from 26.1.
+- Nourishment effect should now tick correctly.

@@ -20,10 +20,7 @@ public class NourishmentEffect extends MobEffect
 		super(MobEffectCategory.BENEFICIAL, 0xF3B300);
 	}
 
-	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-		if (!(entity.level() instanceof ServerLevel serverLevel)) {
-			return true;
-		}
+	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
 
 		if (entity instanceof Player player) {
 			FoodData foodData = player.getFoodData();
