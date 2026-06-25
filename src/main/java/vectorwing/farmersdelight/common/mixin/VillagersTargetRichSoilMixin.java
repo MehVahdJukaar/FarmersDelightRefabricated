@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.sensing.SecondaryPoiSensor;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -22,7 +22,7 @@ public class VillagersTargetRichSoilMixin
 			at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableSet;contains(Ljava/lang/Object;)Z"))
 	public boolean detectModdedFarmland(ImmutableSet<Block> instance, Object o, Operation<Boolean> original, @Local(argsOnly = true) Villager body) {
 		if (body.getVillagerData().profession() == VillagerProfession.FARMER) {
-			return original.call(instance, o) || o instanceof FarmlandBlock;
+			return original.call(instance, o) || o instanceof FarmBlock;
 		} else {
 			return original.call(instance, o);
 		}

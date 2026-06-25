@@ -18,6 +18,7 @@
     {
       "chance": 0.75,
       "item": {
+        "count": 1,
         "id": "minecraft:oak_planks"
       }
     }

@@ -1,4 +1,4 @@
-classTweaker v2 official
+classTweaker v2 named
 
 accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
 
@@ -23,7 +23,7 @@ accessible class net/minecraft/stats/RecipeBookSettings$TypeSettings
 accessible method net/minecraft/stats/RecipeBookSettings$TypeSettings <init> (ZZ)V
 mutable field net/minecraft/world/entity/npc/villager/Villager FOOD_POINTS Ljava/util/Map;
 
-accessible class net/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack
+accessible class net/minecraft/client/gui/GuiGraphics$ScissorStack
 
 #datafixers
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData

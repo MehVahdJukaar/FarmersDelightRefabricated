@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 @Mixin(V3818_3.class)
 public class V3818_3Mixin
 {
-	@ModifyArg(method = "lambda$registerTypes$0", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DSL;optionalFieldsLazy(Ljava/util/Map;)Lcom/mojang/datafixers/types/templates/TypeTemplate;"))
+	@ModifyArg(method = "method_57277", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DSL;optionalFieldsLazy(Ljava/util/Map;)Lcom/mojang/datafixers/types/templates/TypeTemplate;"))
 	private static Map<String, Supplier<TypeTemplate>> addFDCustomComponents(Map<String, Supplier<TypeTemplate>> fields, @Local(argsOnly = true) Schema schema) {
 		var map = new HashMap<>(fields);
 

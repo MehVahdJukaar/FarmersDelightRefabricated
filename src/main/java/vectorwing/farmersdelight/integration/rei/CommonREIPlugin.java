@@ -11,7 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -44,9 +44,9 @@ public class CommonREIPlugin implements REICommonPlugin {
                 .fill(CuttingDisplay::new);
         registry.add(new DecompositionDisplay());
         registry.add(new DefaultShapelessDisplay(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, FarmersDelight.id("wheat_dough_from_water")), new ShapelessRecipe(
-			new Recipe.CommonInfo(false),
-				new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, "farmersdelight.dough"),
-                new ItemStackTemplate(ModItems.WHEAT_DOUGH.get()),
+					"farmersdelight.dough",
+				CraftingBookCategory.MISC,
+                new ItemStack(ModItems.WHEAT_DOUGH.get()),
                 List.of(Ingredient.of(Items.WHEAT), Ingredient.of(Items.WATER_BUCKET))
         ))));
   }

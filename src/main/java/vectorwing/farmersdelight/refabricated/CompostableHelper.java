@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.refabricated;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -16,7 +16,7 @@ public class CompostableHelper {
             var j = je.getAsJsonObject().get("values");
             for (var v : j.getAsJsonObject().asMap().entrySet()) {
                 Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey().toString()));
-                CompostableRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
+				CompostingChanceRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
             }
         }
     }

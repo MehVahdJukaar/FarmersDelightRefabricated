@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 /**
  * Credits to Vazkii and team for some references on mass-reading blocks to datagen!
@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 @Deprecated
 public abstract class ItemModels extends FabricModelProvider
 {
-	public ItemModels(FabricPackOutput output) {
+	public ItemModels(FabricDataOutput output) {
 		super(output);
 	}
 

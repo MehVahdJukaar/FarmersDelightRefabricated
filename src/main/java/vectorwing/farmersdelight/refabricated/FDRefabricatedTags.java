@@ -33,6 +33,12 @@ public class FDRefabricatedTags {
 		public static final TagKey<Block> KNIFE_INSTANTLY_MINES = modBlockTag("knife_instantly_mines");
 		public static final TagKey<Block> GROWS_MUSHROOM_COLONIES = modBlockTag("grows_mushroom_colonies");
 		public static final TagKey<Block> GROWS_WILD_CROPS = modBlockTag("grows_wild_crops");
+		public static final TagKey<Block> SURVIVES_RICH_SOIL = modBlockTag("survives/rich_soil");
+		public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
+
+		public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
+		public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = modBlockTag("does_not_survive/rich_soil_farmland");
+
 	}
 
 	public static class EntityTypes {

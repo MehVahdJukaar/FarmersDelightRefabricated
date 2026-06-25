@@ -8,6 +8,7 @@
     "#c:crops/carrot"
   ],
   "result": {
+    "count": 1,
     "id": "farmersdelight:chicken_sandwich"
   }
 }

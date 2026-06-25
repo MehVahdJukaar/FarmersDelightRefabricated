@@ -110,9 +110,9 @@ public class FeastBlock extends Block
 		ItemStack heldStack = player.getItemInHand(hand);
 
 		if (servings > 0) {
-			if (serving.getCraftingRemainder() == null || ItemStack.isSameItem(heldStack, serving.getCraftingRemainder().create())) {
+			if (serving.getRecipeRemainder().isEmpty() || ItemStack.isSameItem(heldStack, serving.getRecipeRemainder())) {
 				level.setBlock(pos, state.setValue(getServingsProperty(), servings - 1), 3);
-				if (!player.getAbilities().instabuild && serving.getCraftingRemainder() != null) {
+				if (!player.getAbilities().instabuild && !serving.getRecipeRemainder().isEmpty()) {
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {
@@ -127,7 +127,7 @@ public class FeastBlock extends Block
 				}
 				return InteractionResult.SUCCESS;
 			} else {
-				player.sendOverlayMessage(TextUtils.block("feast.use_container", serving.getCraftingRemainder().create().getHoverName()));
+				player.displayClientMessage(TextUtils.block("feast.use_container", serving.getRecipeRemainder().getHoverName()), true);
 			}
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;

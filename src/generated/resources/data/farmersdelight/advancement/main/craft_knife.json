@@ -67,6 +67,7 @@
       "translate": "advancements.farmersdelight.craft_knife.description"
     },
     "icon": {
+      "count": 1,
       "id": "farmersdelight:flint_knife"
     },
     "title": {

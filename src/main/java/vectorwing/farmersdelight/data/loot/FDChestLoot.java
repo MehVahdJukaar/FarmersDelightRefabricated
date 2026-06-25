@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data.loot;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -21,11 +21,11 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class FDChestLoot extends SimpleFabricLootTableSubProvider {
+public class FDChestLoot extends SimpleFabricLootTableProvider {
 
 	protected final HolderLookup.Provider registries;
 
-	public FDChestLoot(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public FDChestLoot(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup, LootContextParamSets.CHEST);
 		this.registries = registryLookup.join();
 	}

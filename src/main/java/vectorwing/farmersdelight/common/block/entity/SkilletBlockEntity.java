@@ -98,7 +98,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		if (cookingTime >= cookingTimeTotal) {
 			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(cookingStack, level);
 			if (recipe.isPresent()) {
-				ItemStack resultStack = recipe.get().value().assemble(new SingleRecipeInput(cookingStack));
+				ItemStack resultStack = recipe.get().value().assemble(new SingleRecipeInput(cookingStack), level.registryAccess());
 				Direction direction = getBlockState().getValue(SkilletBlock.FACING).getClockWise();
 				ItemUtils.spawnItemEntity(level, resultStack.copy(),
 						worldPosition.getX() + 0.5, worldPosition.getY() + 0.3, worldPosition.getZ() + 0.5,
@@ -163,7 +163,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getMatchingRecipe(addedStack, serverLevel);
 		if (recipe.isPresent() && getStoredStack().isEmpty()) {
 			if (getBlockState().getValue(SkilletBlock.WATERLOGGED)) {
-				player.sendOverlayMessage(TextUtils.block("skillet.underwater"));
+				player.displayClientMessage(TextUtils.block("skillet.underwater"), true);
 				return addedStack;
 			}
 			boolean wasEmpty = getStoredStack().isEmpty();
@@ -177,7 +177,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				return remainderStack;
 			}
 		} else {
-			player.sendOverlayMessage(TextUtils.block("skillet.invalid_item"));
+			player.displayClientMessage(TextUtils.block("skillet.invalid_item"), true);
 		}
 		return addedStack;
 	}

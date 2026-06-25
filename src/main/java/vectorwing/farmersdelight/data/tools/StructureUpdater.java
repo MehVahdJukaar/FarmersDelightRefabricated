@@ -11,7 +11,7 @@ package vectorwing.farmersdelight.data.tools;
 import com.google.common.hash.Hashing;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerUpper;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -44,11 +44,11 @@ import java.util.concurrent.CompletableFuture;
 public class StructureUpdater implements DataProvider
 {
 	private final Identifier id;
-	private final FabricPackOutput output;
+	private final FabricDataOutput output;
 	private final PackResources resources;
 
 	public StructureUpdater(
-			FabricPackOutput output,
+			FabricDataOutput output,
 			String basePath, String modid
 	) {
 		this.id = Identifier.fromNamespaceAndPath(modid, basePath);

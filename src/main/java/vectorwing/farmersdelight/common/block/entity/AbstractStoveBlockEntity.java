@@ -140,7 +140,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 
 			var input = new SingleRecipeInput(ingredient);
 			ItemStack result = this.quickRecipeLookup.getRecipeFor(input, level)
-				.map((recipe) -> recipe.value().assemble(input))
+				.map((recipe) -> recipe.value().assemble(input, level.registryAccess()))
 				.orElse(ingredient);
 
 			if (!result.isItemEnabled(level.enabledFeatures())) continue;

@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.entity.EntityType;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -9,9 +9,9 @@ import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EntityTags extends FabricTagsProvider.EntityTypeTagsProvider
+public class EntityTags extends FabricTagProvider.EntityTypeTagProvider
 {
-	public EntityTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public EntityTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, lookupProvider);
 	}
 

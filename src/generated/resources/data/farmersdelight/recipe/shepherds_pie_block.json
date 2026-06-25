@@ -13,6 +13,7 @@
     "#c:crops/onion"
   ],
   "result": {
+    "count": 1,
     "id": "farmersdelight:shepherds_pie_block"
   }
 }

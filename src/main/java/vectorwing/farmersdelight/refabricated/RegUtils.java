@@ -23,7 +23,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.function.Consumer;
@@ -97,11 +99,13 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.MOB_EFFECT);
     }
 
-    public static <B extends LootItemFunction> Supplier<MapCodec<B>> regLootFunc(Identifier name, MapCodec<B> value) {
-        Supplier<MapCodec<B>> supp = () -> Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, name, value);
-        supp.get();
-        return supp;
-    }
+	public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunc(String name, Supplier<B> supplier) {
+		return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
+	}
+
+	public static <B extends LootItemConditionType> Supplier<B> regLootCond(String name, Supplier<B> supplier) {
+		return register(name, supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
+	}
 
     public static <B extends Item> Supplier<B> regItem(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.ITEM);
@@ -115,9 +119,9 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.TRIGGER_TYPES);
     }
 
-    public static <B extends LootItemCondition> Supplier<MapCodec<B>> regLootCond(String name, MapCodec<B> supplier) {
-        return register(name, ()-> supplier, BuiltInRegistries.LOOT_CONDITION_TYPE);
-    }
+	public static <B extends LootItemFunctionType<?>> Supplier<B> regLootFunction(String name, Supplier<B> supplier) {
+		return register(name, supplier, BuiltInRegistries.LOOT_FUNCTION_TYPE);
+	}
 
     public static <B extends RecipeBookCategory> Supplier<B> regRecipeBookCategory(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.RECIPE_BOOK_CATEGORY);

@@ -13,6 +13,7 @@
     "minecraft:baked_potato"
   ],
   "result": {
+    "count": 1,
     "id": "farmersdelight:roast_chicken_block"
   }
 }

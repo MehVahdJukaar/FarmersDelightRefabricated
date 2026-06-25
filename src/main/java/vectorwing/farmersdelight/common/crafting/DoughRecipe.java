@@ -15,13 +15,23 @@ import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 
 public class DoughRecipe extends CustomRecipe
 {
-	public static final DoughRecipe INSTANCE = new DoughRecipe();
+	public static final DoughRecipe INSTANCE = new DoughRecipe(CraftingBookCategory.MISC);
 	public static final MapCodec<DoughRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
 	public static final StreamCodec<RegistryFriendlyByteBuf, DoughRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
-	public static final RecipeSerializer<DoughRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+	public static final RecipeSerializer<DoughRecipe> SERIALIZER = new RecipeSerializer<>() {
+		@Override
+		public MapCodec<DoughRecipe> codec() {
+			return MAP_CODEC;
+		}
 
-	public DoughRecipe() {
-		super();
+		@Override
+		public StreamCodec<RegistryFriendlyByteBuf, DoughRecipe> streamCodec() {
+			return STREAM_CODEC;
+		}
+	};
+
+	public DoughRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override
@@ -48,7 +58,7 @@ public class DoughRecipe extends CustomRecipe
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput input) {
+	public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
 		return new ItemStack(ModItems.WHEAT_DOUGH.get());
 	}
 

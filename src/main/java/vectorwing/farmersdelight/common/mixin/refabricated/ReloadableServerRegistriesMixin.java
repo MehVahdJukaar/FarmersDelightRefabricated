@@ -6,7 +6,6 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.storage.loot.LootDataType;
-import net.minecraft.world.level.storage.loot.Validatable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,15 +21,15 @@ import java.util.concurrent.Executor;
  */
 @Mixin(ReloadableServerRegistries.class)
 public class ReloadableServerRegistriesMixin {
-    @Inject(method = "lambda$reload$0", at = @At(value = "HEAD"))
-    private static <T extends Validatable> void fdrf$setLootTableAccess(RegistryOps registryOps, ResourceManager resourceManager, Executor executor, LootDataType<T> lootDataType, CallbackInfoReturnable<CompletableFuture> cir) {
+    @Inject(method = "method_58276", at = @At(value = "HEAD"))
+    private static <T> void fdrf$setLootTableAccess(RegistryOps registryOps, ResourceManager resourceManager, Executor executor, LootDataType<T> lootDataType, CallbackInfoReturnable<CompletableFuture> cir) {
         if (lootDataType != LootDataType.TABLE)
             return;
 
         RefabricatedEarlyTagUtils.setLootTableResourceManager(resourceManager);
     }
 
-    @Inject(method = "lambda$reload$1", at = @At("RETURN"))
+    @Inject(method = "method_61247", at = @At("RETURN"))
     private static void fdrf$clearLootTableAccess(LayeredRegistryAccess layeredRegistryAccess, HolderLookup.Provider provider, List list, CallbackInfoReturnable<ReloadableServerRegistries.LoadResult> cir) {
         RefabricatedEarlyTagUtils.resetEarlyTagCollections();
     }

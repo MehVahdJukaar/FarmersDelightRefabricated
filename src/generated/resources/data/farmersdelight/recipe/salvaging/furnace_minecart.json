@@ -6,11 +6,13 @@
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "minecraft:minecart"
       }
     },
     {
       "item": {
+        "count": 1,
         "id": "minecraft:furnace"
       }
     }

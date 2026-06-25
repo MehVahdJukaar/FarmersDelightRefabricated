@@ -135,7 +135,7 @@ public class SkilletItem extends BlockItem {
 			RecipePropertySet propertySet = level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT);
             if (propertySet.test(cookingStack)) {
                 if (player.isUnderWater()) {
-                    player.sendOverlayMessage(TextUtils.item("skillet.underwater"));
+                    player.displayClientMessage(TextUtils.item("skillet.underwater"), true);
                     return InteractionResult.PASS;
                 }
 				if (level instanceof ServerLevel serverLevel) {
@@ -152,7 +152,7 @@ public class SkilletItem extends BlockItem {
 				}
                 return InteractionResult.CONSUME;
             } else {
-                player.sendOverlayMessage(TextUtils.item("skillet.how_to_cook"));
+                player.displayClientMessage(TextUtils.item("skillet.how_to_cook"), true);
             }
         }
         return InteractionResult.PASS;
@@ -205,7 +205,7 @@ public class SkilletItem extends BlockItem {
                 Optional<RecipeHolder<CampfireCookingRecipe>> cookingRecipe = getCookingRecipe(cookingStack, serverLevel);
 
                 cookingRecipe.ifPresent((recipe) -> {
-                    ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
+                    ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack), serverLevel.registryAccess());
                     if (!player.getInventory().add(resultStack)) {
                         player.drop(resultStack, false);
                     }

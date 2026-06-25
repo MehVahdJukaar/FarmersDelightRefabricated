@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -67,7 +67,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Map.entry;
 
-public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedMenuProvider<BlockPos>, HeatableBlockEntity, Nameable, RecipeCraftingHolder
+public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, HeatableBlockEntity, Nameable, RecipeCraftingHolder
 {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
@@ -286,8 +286,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		ItemStack mealStack = getMeal();
 		if (!mealStack.isEmpty() && !mealContainerStack.isEmpty()) {
 			return mealContainerStack;
-		} else if (mealStack.getCraftingRemainder() != null) {
-			return mealStack.getCraftingRemainder().create();
+		} else if (!mealStack.getRecipeRemainder().isEmpty()) {
+			return mealStack.getRecipeRemainder();
 		}
         return ItemStack.EMPTY;
 	}
@@ -301,7 +301,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 	protected boolean canCook(CookingPotRecipe recipe) {
 		if (hasInput()) {
-			ItemStack resultStack = recipe.assemble(new RecipeWrapper(this.inventory));
+			ItemStack resultStack = recipe.assemble(new RecipeWrapper(this.inventory), level.registryAccess());
 			if (resultStack.isEmpty()) {
 				return false;
 			} else {
@@ -330,9 +330,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		cookTime = 0;
         if (recipe.value().container() != null) {
-            mealContainerStack = recipe.value().container().create();
+            mealContainerStack = recipe.value().container().copy();
         }
-		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory));
+		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory), level.registryAccess());
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
 			inventory.setStackInSlot(MEAL_DISPLAY_SLOT, resultStack.copy());
@@ -343,8 +343,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (slotStack.getCraftingRemainder() != null) {
-				ejectIngredientRemainder(slotStack.getCraftingRemainder().create());
+			if (!slotStack.getRecipeRemainder().isEmpty()) {
+				ejectIngredientRemainder(slotStack.getRecipeRemainder().copy());
 			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
 				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
 			}
@@ -472,7 +472,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	}
 
 	private boolean doesMealHaveContainer(ItemStack meal) {
-		return !mealContainerStack.isEmpty() || meal.getCraftingRemainder() != null && !meal.getCraftingRemainder().create().isEmpty();
+		return !mealContainerStack.isEmpty() || !meal.getRecipeRemainder().isEmpty() && !meal.getRecipeRemainder().copy().isEmpty();
 	}
 
 	public boolean isContainerValid(ItemStack containerItem) {

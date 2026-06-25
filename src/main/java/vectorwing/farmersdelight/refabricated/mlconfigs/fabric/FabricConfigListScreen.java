@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.refabricated.mlconfigs.fabric;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
@@ -68,16 +68,16 @@ public class FabricConfigListScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.centeredText(this.font, this.title, this.width / 2, 15, 16777215);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        super.render(graphics, mouseX, mouseY, partialTick);
+        graphics.drawCenteredString(this.font, this.title, this.width / 2, 15, 16777215);
 
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, mouseX, mouseY)) {
-            graphics.textWithWordWrap(this.font, Component.translatable("gui.farmersdelight.open_mod_page", this.modId), mouseX, mouseY, 200, -1);
+            graphics.drawWordWrap(this.font, Component.translatable("gui.farmersdelight.open_mod_page", this.modId), mouseX, mouseY, 200, -1);
         }
         int titleWidth = this.font.width(this.title) + 35;
-        graphics.fakeItem(this.mainIcon, (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
-        graphics.fakeItem(this.mainIcon, (this.width / 2) - titleWidth / 2, 2 + 8);
+        graphics.renderItem(this.mainIcon, (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
+        graphics.renderItem(this.mainIcon, (this.width / 2) - titleWidth / 2, 2 + 8);
     }
 
     private boolean isMouseWithin(int x, int y, int width, int height, int mouseX, int mouseY) {
@@ -196,10 +196,10 @@ public class FabricConfigListScreen extends Screen {
         }
 
         @Override
-        public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
+        public void renderContent(GuiGraphics graphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
             this.children.forEach((button) -> {
                 button.setY(getContentY());
-                button.extractRenderState(graphics, mouseX, mouseY, partialTick);
+                button.render(graphics, mouseX, mouseY, partialTick);
             });
         }
 

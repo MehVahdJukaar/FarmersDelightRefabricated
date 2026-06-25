@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
@@ -39,25 +39,25 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	private CookingPotBookCategory category;
 	private final NonNullList<Ingredient> ingredients = NonNullList.create();
 	private final Item result;
-	private final ItemStackTemplate resultStack;
+	private final ItemStack resultStack;
 	private final int cookingTime;
 	private final float experience;
-	private final ItemStackTemplate container;
+	private final ItemStack container;
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 	@Nullable
 	private String namespace;
 
 	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemLike result, int count, int cookingTime, float experience, @Nullable ItemLike container) {
-		this(items, new ItemStackTemplate(result.asItem(), count), cookingTime, experience, container);
+		this(items, new ItemStack(result.asItem(), count), cookingTime, experience, container);
 	}
 
-	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStackTemplate result, int cookingTime, float experience, @Nullable ItemLike container) {
+	public CookingPotRecipeBuilder(HolderGetter<Item> items, ItemStack result, int cookingTime, float experience, @Nullable ItemLike container) {
 		this.items = items;
-		this.result = result.item().value();
+		this.result = result.getItem();
 		this.resultStack = result;
 		this.cookingTime = cookingTime;
 		this.experience = experience;
-		this.container = container != null ? new ItemStackTemplate(container.asItem()) : null;
+		this.container = container != null ? new ItemStack(container.asItem()) : null;
 		this.category = null;
 	}
 
@@ -98,11 +98,6 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	@Override
 	public RecipeBuilder group(@Nullable String p_176495_) {
 		return this;
-	}
-
-	@Override
-	public ResourceKey<Recipe<?>> defaultId() {
-		return RecipeBuilder.getDefaultRecipeId(resultStack);
 	}
 
 	public CookingPotRecipeBuilder setRecipeBookCategory(CookingPotBookCategory category) {

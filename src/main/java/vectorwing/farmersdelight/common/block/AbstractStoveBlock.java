@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
-import net.fabricmc.fabric.api.registry.LandPathTypeRegistry;
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,7 +54,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 				.setValue(FACING, Direction.NORTH)
 				.setValue(LIT, false)
 		);
-		LandPathTypeRegistry.registerDynamic(
+		LandPathNodeTypesRegistry.registerDynamic(
 			this,
 			(state, world, pos, neighbor) -> {
 				AbstractStoveBlock block = (AbstractStoveBlock) state.getBlock();
@@ -116,9 +116,9 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 				level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 			extinguish(player, level, pos, state);
-			ItemStackTemplate template = heldStack.getCraftingRemainder();
-			if (!player.getAbilities().instabuild && template != null) {
-				player.setItemInHand(hand, template.create());
+			ItemStack template = heldStack.getRecipeRemainder();
+			if (!player.getAbilities().instabuild && !template.isEmpty()) {
+				player.setItemInHand(hand, template.copy());
 			}
 			return InteractionResult.SUCCESS;
 		}
@@ -219,7 +219,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock {
 
 	@Nullable
 	public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
-		return state.getValue(LIT) ? PathType.FIRE : null;
+		return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
 	}
 
 	@Override

@@ -224,6 +224,7 @@
     },
     "frame": "challenge",
     "icon": {
+      "count": 1,
       "id": "farmersdelight:honey_glazed_ham"
     },
     "title": {

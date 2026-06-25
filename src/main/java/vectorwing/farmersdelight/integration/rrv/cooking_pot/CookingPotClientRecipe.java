@@ -7,11 +7,11 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewScreen;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.client.gui.CookingPotScreen;
 import vectorwing.farmersdelight.common.utility.ClientRenderUtils;
@@ -29,7 +29,7 @@ public class CookingPotClientRecipe implements ReliableClientRecipe {
     private final float experience;
 	private final Identifier id;
 
-	public CookingPotClientRecipe(Identifier identifier, List<Ingredient> ingredients, ItemStackTemplate result, ItemStackTemplate container, float experience, int cookTime) {
+	public CookingPotClientRecipe(Identifier identifier, List<Ingredient> ingredients, ItemStack result, ItemStack container, float experience, int cookTime) {
 		this.id = identifier;
 		this.ingredients = new ArrayList<>();
 
@@ -45,11 +45,10 @@ public class CookingPotClientRecipe implements ReliableClientRecipe {
 	}
 
 	@Override
-    public ReliableClientRecipeType getType() {
+    public ReliableClientRecipeType getViewType() {
         return CookingPotClientRecipeType.INSTANCE;
     }
 
-	@Override
 	public Identifier getId() {
 		return id;
 	}
@@ -66,8 +65,8 @@ public class CookingPotClientRecipe implements ReliableClientRecipe {
     }
 
     @Override
-    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.item(this.result.getByIndex(0), 103, 17);
+    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        guiGraphics.renderItem(this.result.getByIndex(0), 103, 17);
         if ((mouseX > 65 && mouseX < 90) && mouseY < 37 && mouseY > 5) {
             List<Component> tooltip = new ArrayList<>();
             if (cookTime > 0) {

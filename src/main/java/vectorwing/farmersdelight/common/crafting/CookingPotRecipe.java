@@ -3,12 +3,13 @@ package vectorwing.farmersdelight.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -33,15 +34,15 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	private final String group;
 	private final CookingPotBookCategory category;
 	private final List<Ingredient> inputItems;
-	private final ItemStackTemplate result;
+	private final ItemStack result;
     @Nullable
-	private final ItemStackTemplate container;
+	private final ItemStack container;
 	private final float experience;
 	private final int cookTime;
 
 	private PlacementInfo placementInfo;
 
-	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStackTemplate output, Optional<ItemStackTemplate> container, float experience, int cookTime) {
+	public CookingPotRecipe(String group, @Nullable CookingPotBookCategory tab, List<Ingredient> inputItems, ItemStack output, Optional<ItemStack> container, float experience, int cookTime) {
 		this.group = group;
 		this.category = tab;
 		this.inputItems = inputItems;
@@ -55,7 +56,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		return inputItems;
 	}
 
-	public ItemStackTemplate result() {
+	public ItemStack result() {
 		return result;
 	}
 
@@ -64,27 +65,27 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 		return this.category;
 	}
 
-	public ItemStackTemplate container() {
+	public ItemStack container() {
 		if (container == null) {
-            ItemStackTemplate template = result.create().getCraftingRemainder();
+            ItemStack template = result.getRecipeRemainder();
             if (template != null) {
                 return template;
             }
-            Item item = CookingPotBlockEntity.INGREDIENT_REMAINDER_OVERRIDES.get(result.item().value());
+            Item item = CookingPotBlockEntity.INGREDIENT_REMAINDER_OVERRIDES.get(result.getItem());
             if (item != null) {
-                return new ItemStackTemplate(item);
+                return new ItemStack(item);
             }
         }
         return container;
 	}
 
-	public Optional<ItemStackTemplate> containerOverride() {
+	public Optional<ItemStack> containerOverride() {
 		return Optional.ofNullable(container);
 	}
 
 	@Override
-	public ItemStack assemble(RecipeWrapper inv) {
-		return this.result.create();
+	public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
+		return this.result.copy();
 	}
 
 	@Override
@@ -110,7 +111,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 	@Override
 	public List<RecipeDisplay> display() {
 		return List.of(new CookingPotRecipeDisplay(this.input().stream().map(Ingredient::display).toList(),
-				container == null ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(container.item(), container.count(), container.components()))),
+				container == null ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(container)),
 				new SlotDisplay.ItemStackSlotDisplay(this.result()),
 				new SlotDisplay.ItemSlotDisplay(ModItems.COOKING_POT.get()),
 				cookTime,
@@ -182,8 +183,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 				Codec.STRING.optionalFieldOf("group", "").forGetter(CookingPotRecipe::group),
 				CookingPotBookCategory.CODEC.optionalFieldOf("recipe_book_tab", CookingPotBookCategory.MISC).forGetter(CookingPotRecipe::category),
 				Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(CookingPotRecipe::input),
-				ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
-				ItemStackTemplate.CODEC.optionalFieldOf("container").forGetter(CookingPotRecipe::containerOverride),
+				ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+				ItemStack.CODEC.optionalFieldOf("container").forGetter(CookingPotRecipe::containerOverride),
 				Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(CookingPotRecipe::getExperience),
 				Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(CookingPotRecipe::getCookTime)
 		).apply(inst, CookingPotRecipe::new));
@@ -207,8 +208,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			String group = buffer.readUtf();
             CookingPotBookCategory tab = CookingPotBookCategory.STREAM_CODEC.decode(buffer);
             List<Ingredient> inputItems = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-            Optional<ItemStackTemplate> container = ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).decode(buffer);
+            ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);
+            Optional<ItemStack> container = ByteBufCodecs.optional(ItemStack.STREAM_CODEC).decode(buffer);
             float experience = buffer.readFloat();
 			int cookTime = buffer.readVarInt();
 			return new CookingPotRecipe(group, tab, inputItems, output, container, experience, cookTime);
@@ -218,8 +219,8 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			buffer.writeUtf(recipe.group);
             CookingPotBookCategory.STREAM_CODEC.encode(buffer, recipe.category);
 			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.inputItems);
-			ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.result);
-			ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).encode(buffer, Optional.ofNullable(recipe.container));
+			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
+			ByteBufCodecs.optional(ItemStack.STREAM_CODEC).encode(buffer, Optional.ofNullable(recipe.container));
 			buffer.writeFloat(recipe.experience);
 			buffer.writeVarInt(recipe.cookTime);
 		}

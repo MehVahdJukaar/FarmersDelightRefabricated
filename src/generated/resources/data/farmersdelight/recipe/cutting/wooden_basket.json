@@ -6,11 +6,13 @@
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "farmersdelight:canvas"
       }
     },
     {
       "item": {
+        "count": 1,
         "id": "minecraft:stick"
       }
     }

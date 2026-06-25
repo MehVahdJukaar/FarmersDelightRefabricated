@@ -39,7 +39,7 @@
     "modmenu": [
       "vectorwing.farmersdelight.integration.modmenu.ModMenuCompat"
     ],
-    "rrv_client": [
+    "rrv": [
       "vectorwing.farmersdelight.integration.rrv.RRVPlugin"
     ]
   },
@@ -51,8 +51,5 @@
     "fabricloader": ">=0.19",
     "fabric-api": "*",
     "minecraft": "${minecraft_required}"
-  },
-  "conflicts": {
-    "rrv": "<8.0.0"
   }
 }

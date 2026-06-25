@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common.mixin.refabricated;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -17,23 +17,23 @@ public class GuiMixin {
     @Unique
     private DeltaTracker farmersdelightrefabricated$deltaTracker;
 
-    @Inject(method = "extractHotbarAndDecorations", at = @At("HEAD"))
-    private void farmersdelightrefabricated$captureDeltaTracker(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    @Inject(method = "renderHotbarAndDecorations", at = @At("HEAD"))
+    private void farmersdelightrefabricated$captureDeltaTracker(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         farmersdelightrefabricated$deltaTracker = deltaTracker;
     }
 
-    @Inject(method = "extractHotbarAndDecorations", at = @At("TAIL"))
-    private void farmersdelightrefabricated$clearDeltaTracker(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    @Inject(method = "renderHotbarAndDecorations", at = @At("TAIL"))
+    private void farmersdelightrefabricated$clearDeltaTracker(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         farmersdelightrefabricated$deltaTracker = null;
     }
 
-    @Inject(method = "extractHearts", at = @At("TAIL"))
-    private void farmersdelightrefabricated$renderHearts(GuiGraphicsExtractor guiGraphics, Player player, int x, int y, int height, int offsetHeartIndex, float maxHealth, int currentHealth, int displayHealth, int absorptionAmount, boolean renderHighlight, CallbackInfo ci) {
+    @Inject(method = "renderHearts", at = @At("TAIL"))
+    private void farmersdelightrefabricated$renderHearts(GuiGraphics guiGraphics, Player player, int x, int y, int height, int offsetHeartIndex, float maxHealth, int currentHealth, int displayHealth, int absorptionAmount, boolean renderHighlight, CallbackInfo ci) {
         HUDOverlays.ComfortOverlay.INSTANCE.render(guiGraphics, farmersdelightrefabricated$deltaTracker);
     }
 
-    @Inject(method = "extractFood", at = @At("TAIL"))
-    private void farmersdelightrefabricated$renderNourishment(GuiGraphicsExtractor guiGraphics, Player player, int y, int x, CallbackInfo ci) {
+    @Inject(method = "renderFood", at = @At("TAIL"))
+    private void farmersdelightrefabricated$renderNourishment(GuiGraphics guiGraphics, Player player, int y, int x, CallbackInfo ci) {
         HUDOverlays.NourishmentOverlay.INSTANCE.render(guiGraphics, farmersdelightrefabricated$deltaTracker);
     }
 }

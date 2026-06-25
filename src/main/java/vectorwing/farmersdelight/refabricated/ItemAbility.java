@@ -6,7 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemInstance;
+import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 
@@ -27,8 +27,8 @@ public enum ItemAbility implements StringRepresentable {
 
     public static final Codec<ItemAbility> CODEC = StringRepresentable.fromEnum(ItemAbility::values);
 
-    public boolean canPerformAction(@NonNull ItemInstance stack) {
-        return canPerformAction(stack.typeHolder());
+    public boolean canPerformAction(@NonNull ItemStack stack) {
+        return canPerformAction(stack.getItem().builtInRegistryHolder());
     }
 
     public boolean canPerformAction(@NonNull Holder<Item> itemHolder) {

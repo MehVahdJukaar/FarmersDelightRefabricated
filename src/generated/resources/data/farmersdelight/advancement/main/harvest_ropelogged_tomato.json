@@ -26,6 +26,7 @@
       "translate": "advancements.farmersdelight.harvest_ropelogged_tomato.description"
     },
     "icon": {
+      "count": 1,
       "id": "farmersdelight:tomato"
     },
     "title": {

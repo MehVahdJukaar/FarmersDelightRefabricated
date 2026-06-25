@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TagAppender;
@@ -22,9 +22,9 @@ import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class ItemTags extends FabricTagsProvider.ItemTagsProvider
+public class ItemTags extends FabricTagProvider.ItemTagProvider
 {
-	public ItemTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> provider, FabricTagsProvider.BlockTagsProvider blockTagProvider) {
+	public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider) {
 		super(output, provider, blockTagProvider);
 	}
 
@@ -251,7 +251,7 @@ public class ItemTags extends FabricTagsProvider.ItemTagsProvider
 
 		tagBuilder(ConventionalItemTags.VEGETABLE_FOODS).add(ModItems.ONION.get(), ModItems.TOMATO.get());
 		tagBuilder(ConventionalItemTags.COOKIE_FOODS).add(ModItems.HONEY_COOKIE.get(), ModItems.SWEET_BERRY_COOKIE.get());
-		tagBuilder(ConventionalItemTags.DOUGH_FOODS).addTag(CommonTags.Items.FOODS_DOUGH_WHEAT);
+		tagBuilder(CommonTags.Items.FOODS_DOUGH).addTag(CommonTags.Items.FOODS_DOUGH_WHEAT);
 		tagBuilder(ConventionalItemTags.RAW_MEAT_FOODS).addTags(CommonTags.Items.FOODS_RAW_CHICKEN, CommonTags.Items.FOODS_RAW_PORK, CommonTags.Items.FOODS_RAW_BEEF, CommonTags.Items.FOODS_RAW_MUTTON);
 		tagBuilder(ConventionalItemTags.RAW_FISH_FOODS).addTags(CommonTags.Items.FOODS_RAW_COD, CommonTags.Items.FOODS_RAW_SALMON);
 		tagBuilder(ConventionalItemTags.COOKED_MEAT_FOODS).addTags(CommonTags.Items.FOODS_COOKED_CHICKEN, CommonTags.Items.FOODS_COOKED_PORK, CommonTags.Items.FOODS_COOKED_BEEF, CommonTags.Items.FOODS_COOKED_MUTTON);

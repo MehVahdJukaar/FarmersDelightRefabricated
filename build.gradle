@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom-remap' version '1.16-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
@@ -16,6 +16,7 @@ fabricApi {
         outputDirectory = file("src/generated/resources")
         strictValidation = false
         createSourceSet = true
+        client = true
         modId = project.mod_id
     }
 }
@@ -79,55 +80,57 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    mappings(loom.officialMojangMappings())
 
-    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     //config stuff. optional
-    compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_version}")
-    compileOnly("curse.maven:yacl-667299:7353769")
-    compileOnly("maven.modrinth:modmenu:${project.modmenu_version}")
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
+    modCompileOnly("curse.maven:yacl-667299:7437843")
+    modCompileOnly("maven.modrinth:modmenu:${project.modmenu_version}")
 //    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 //    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
     // modLocalRuntime("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
 
-    compileOnly("mezz.jei:jei-26.1.2-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-26.1.2-fabric-api:${jei_version}") {
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}") {
         transitive = false
     }
     // Uncomment the below to test JEI.
-//     localRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+//     modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    compileOnly("me.shedaniel.cloth:basic-math:0.6.1")
-    compileOnly("dev.architectury:architectury-fabric:20.0.7")
-    compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}") {
+    modCompileOnly("me.shedaniel.cloth:basic-math:0.6.1")
+    modCompileOnly("dev.architectury:architectury-fabric:19.0.1")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}") {
         exclude(group: "dev.architectury")
     }
-    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}") {
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}") {
         exclude(group: "dev.architectury")
     }
     // Uncomment the below to test REI.
-//      localRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") {
+//      modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") {
 //          exclude(group: "dev.architectury")
 //      }
-//    localRuntime("dev.architectury:architectury-fabric:20.0.7")
+//    modLocalRuntime("dev.architectury:architectury-fabric:20.0.7")
 
-//    compileOnly("dev.emi:emi-fabric:${emi_version}:api") {
+//    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
     // Uncomment the below to test EMI.
-//    localRuntime("dev.emi:emi-fabric:${emi_version}") {
+//    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
 //        exclude(group: "net.fabricmc.fabric-api")
 //    }
 
-    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+    modCompileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
         exclude(group: "eu.pb4")
     }
     // Uncomment the below to test RRV.
-     localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
+     modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}") {
         exclude(group: "net.fabricmc.fabric-api")
         exclude(group: "eu.pb4")
      }

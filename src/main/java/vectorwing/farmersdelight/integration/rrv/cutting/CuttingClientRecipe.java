@@ -5,14 +5,14 @@ import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
@@ -27,7 +27,7 @@ public class CuttingClientRecipe implements ReliableClientRecipe {
     private final SlotContent tool;
 	private final Identifier id;
 
-	public CuttingClientRecipe(Identifier identifier, Ingredient input, List<ItemStackTemplate> results, Ingredient tool, List<ChanceResult> rollableResults) {
+	public CuttingClientRecipe(Identifier identifier, Ingredient input, List<ItemStack> results, Ingredient tool, List<ChanceResult> rollableResults) {
 		this.id = identifier;
 		this.results = new ArrayList<>();
 		this.rollableResults = new LinkedHashMap<>();
@@ -46,11 +46,10 @@ public class CuttingClientRecipe implements ReliableClientRecipe {
 	}
 
 	@Override
-    public ReliableClientRecipeType getType() {
+    public ReliableClientRecipeType getViewType() {
         return CuttingClientRecipeType.INSTANCE;
     }
 
-	@Override
 	public Identifier getId() {
 		return id;
 	}
@@ -97,7 +96,7 @@ public class CuttingClientRecipe implements ReliableClientRecipe {
         RecipeViewMenu.OptionalSlotRenderer GUARANTEED_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,0,58, 18,18, 256,256);
         RecipeViewMenu.OptionalSlotRenderer CHANCE_OUTPUT = (guiGraphics, mouseX, mouseY, partialTicks) -> guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, 0,0,18,58, 18,18, 256,256);
 
-        void render(GuiGraphicsExtractor var1, int var2, int var3, float var4);
+        void render(GuiGraphics var1, int var2, int var3, float var4);
     }
 
     @Override

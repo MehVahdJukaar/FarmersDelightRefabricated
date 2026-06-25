@@ -34,6 +34,7 @@
       "translate": "advancements.farmersdelight.hit_raider_with_rotten_tomato.description"
     },
     "icon": {
+      "count": 1,
       "id": "farmersdelight:rotten_tomato"
     },
     "title": {

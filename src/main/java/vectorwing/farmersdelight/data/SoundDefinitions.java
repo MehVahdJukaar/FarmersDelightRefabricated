@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.data;
 
 import net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricSoundsProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class SoundDefinitions extends FabricSoundsProvider
 {
-	protected SoundDefinitions(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	protected SoundDefinitions(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
@@ -62,7 +62,7 @@ public class SoundDefinitions extends FabricSoundsProvider
 			definition.subtitle(subtitle);
 		}
 		for (int i = 1; i <= numberOfSounds; i++) {
-			definition.sound(SoundTypeBuilder.RegistrationBuilder.ofFile(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, baseSoundDirectory + (numberOfSounds > 1 ? i : ""))));
+			definition.sound(SoundTypeBuilder.EntryBuilder.ofFile(Identifier.fromNamespaceAndPath(FarmersDelight.MODID, baseSoundDirectory + (numberOfSounds > 1 ? i : ""))));
 		}
 		exporter.add(event.get(), definition);
 	}
@@ -77,7 +77,7 @@ public class SoundDefinitions extends FabricSoundsProvider
 			definition.subtitle(TextUtils.subtitleKey(event.get().location().getPath()));
 		}
 		exporter.add(event.get(), definition
-				.sound(SoundTypeBuilder.RegistrationBuilder.ofEvent(referencedSound)));
+				.sound(SoundTypeBuilder.EntryBuilder.ofEvent(referencedSound)));
 	}
 
 	@Override

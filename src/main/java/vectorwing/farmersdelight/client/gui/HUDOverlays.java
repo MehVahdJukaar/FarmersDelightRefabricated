@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.client.gui;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -42,9 +42,9 @@ public class HUDOverlays
 	}
 
 	public static abstract class BaseOverlay {
-		public abstract void render(Minecraft mc, Player player, GuiGraphicsExtractor guiGraphics, int left, int right, int top, int guiTicks);
+		public abstract void render(Minecraft mc, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks);
 
-		public final void render(@NonNull GuiGraphicsExtractor guiGraphics, @NonNull DeltaTracker deltaTracker) {
+		public final void render(@NonNull GuiGraphics guiGraphics, @NonNull DeltaTracker deltaTracker) {
 			Minecraft minecraft = Minecraft.getInstance();
 			if (minecraft.player == null || !shouldRenderOverlay(minecraft, minecraft.player, guiGraphics, minecraft.gui.getGuiTicks()))
 				return;
@@ -56,7 +56,7 @@ public class HUDOverlays
 			render(minecraft, minecraft.player, guiGraphics, left, right, top, minecraft.gui.getGuiTicks());
 		}
 
-		public boolean shouldRenderOverlay(Minecraft minecraft, Player player, GuiGraphicsExtractor guiGraphics, int guiTicks) {
+		public boolean shouldRenderOverlay(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int guiTicks) {
 			return !minecraft.options.hideGui && minecraft.gameMode != null && minecraft.gameMode.canHurtPlayer();
 		}
 	}
@@ -69,7 +69,7 @@ public class HUDOverlays
 		public static final NourishmentOverlay INSTANCE = new NourishmentOverlay();
 
 		@Override
-		public void render(Minecraft minecraft, Player player, GuiGraphicsExtractor guiGraphics, int left, int right, int top, int guiTicks) {
+		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {
 			FoodData stats = player.getFoodData();
 
 			boolean isPlayerHealingWithSaturation =
@@ -83,7 +83,7 @@ public class HUDOverlays
 		}
 
 		@Override
-		public boolean shouldRenderOverlay(Minecraft mc, Player player, GuiGraphicsExtractor guiGraphics, int guiTicks) {
+		public boolean shouldRenderOverlay(Minecraft mc, Player player, GuiGraphics guiGraphics, int guiTicks) {
 			if (!super.shouldRenderOverlay(mc, player, guiGraphics, guiTicks))
 				return false;
 
@@ -99,7 +99,7 @@ public class HUDOverlays
 		public static final ComfortOverlay INSTANCE = new ComfortOverlay();
 
 		@Override
-		public void render(Minecraft minecraft, Player player, GuiGraphicsExtractor guiGraphics, int left, int right, int top, int guiTicks) {
+		public void render(Minecraft minecraft, Player player, GuiGraphics guiGraphics, int left, int right, int top, int guiTicks) {
 			FoodData stats = player.getFoodData();
 
 			boolean isPlayerEligibleForComfort = stats.getSaturationLevel() == 0.0F
@@ -112,7 +112,7 @@ public class HUDOverlays
 		}
 
 		@Override
-		public boolean shouldRenderOverlay(Minecraft mc, Player player, GuiGraphicsExtractor guiGraphics, int guiTicks) {
+		public boolean shouldRenderOverlay(Minecraft mc, Player player, GuiGraphics guiGraphics, int guiTicks) {
 			if (!super.shouldRenderOverlay(mc, player, guiGraphics, guiTicks))
 				return false;
 
@@ -120,7 +120,7 @@ public class HUDOverlays
 		}
 	}
 
-	public static void drawNourishmentOverlay(FoodData foodData, Minecraft minecraft, GuiGraphicsExtractor graphics, int right, int top, boolean naturalHealing) {
+	public static void drawNourishmentOverlay(FoodData foodData, Minecraft minecraft, GuiGraphics graphics, int right, int top, boolean naturalHealing) {
 		float saturation = foodData.getSaturationLevel();
 		int foodLevel = foodData.getFoodLevel();
 		int ticks = minecraft.gui.getGuiTicks();
@@ -149,7 +149,7 @@ public class HUDOverlays
 		}
 	}
 
-	public static void drawComfortOverlay(Player player, Minecraft minecraft, GuiGraphicsExtractor graphics, int left, int top) {
+	public static void drawComfortOverlay(Player player, Minecraft minecraft, GuiGraphics graphics, int left, int top) {
 		int ticks = minecraft.gui.getGuiTicks();
 		Random rand = new Random();
 		rand.setSeed(ticks * 312871L);

@@ -12,7 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
@@ -55,7 +55,7 @@ public class ConsumableItem extends Item
 			this.affectConsumer(stack, level, consumer);
 		}
 
-		ItemStackTemplate containerStack = stack.getCraftingRemainder();
+		ItemStack containerStack = stack.getRecipeRemainder();
 
 		if (stack.get(DataComponents.FOOD) != null || stack.get(DataComponents.CONSUMABLE) != null) {
 			super.finishUsingItem(stack, level, consumer);
@@ -72,13 +72,13 @@ public class ConsumableItem extends Item
 			}
 		}
 
-        if (containerStack != null) {
+        if (!containerStack.isEmpty()) {
             if (stack.isEmpty()) {
-                return containerStack.create();
+                return containerStack.copy();
             } else {
                 if (consumer instanceof Player player && !((Player) consumer).getAbilities().instabuild) {
-                    if (!player.getInventory().add(containerStack.create())) {
-                        player.drop(containerStack.create(), false);
+                    if (!player.getInventory().add(containerStack.copy())) {
+                        player.drop(containerStack.copy(), false);
                     }
                 }
             }

@@ -34,6 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.SoilUtils;
 import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
@@ -115,12 +116,17 @@ public class MushroomColonyBlock extends VegetationBlock implements Bonemealable
 		return state.isSolidRender();
 	}
 
+
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockPos floorPos = pos.below();
 		BlockState floorState = level.getBlockState(floorPos);
-		if (floorState.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT) || floorState.is(FDRefabricatedTags.Blocks.GROWS_MUSHROOM_COLONIES)) {
+		if (floorState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
 			return true;
+		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilBlock) {
+			return SoilUtils.isAbleToPlaceRichSoil(this);
+		} else if (state.is(this) && floorState.getBlock() instanceof RichSoilFarmlandBlock) {
+			return SoilUtils.isAbleToPlaceRichSoilFarmland(this);
 		} else {
 			return level.getRawBrightness(pos, 0) < PLACING_LIGHT_LEVEL && this.mayPlaceOn(state, level, pos);
 		}

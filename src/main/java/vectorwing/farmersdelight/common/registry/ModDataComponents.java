@@ -45,7 +45,7 @@ public class ModDataComponents
 	// Enchantment Effects
 	public static final Supplier<DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>>> BACKSTABBING = regEnchComponent(
 			"backstabbing", builder -> builder.persistent(
-					ConditionalEffect.codec(EnchantmentValueEffect.CODEC).listOf()
+					ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE).listOf()
 			));
 
 

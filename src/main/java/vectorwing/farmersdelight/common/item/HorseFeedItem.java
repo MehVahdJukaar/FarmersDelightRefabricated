@@ -56,7 +56,7 @@ public class HorseFeedItem extends Item
 
 			ItemStack heldStack = player.getItemInHand(hand);
 
-			if (target instanceof LivingEntity entity && target.is(ModTags.EntityTypes.HORSE_FEED_USERS)) {
+			if (target instanceof LivingEntity entity && target.getType().is(ModTags.EntityTypes.HORSE_FEED_USERS)) {
 				boolean isTameable = entity instanceof AbstractHorse;
 
 				if (entity.isAlive() && (!isTameable || ((AbstractHorse) entity).isTamed()) && heldStack.getItem().equals(ModItems.HORSE_FEED.get())) {

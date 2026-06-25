@@ -12,11 +12,11 @@ import vectorwing.farmersdelight.common.network.payload.SendRecipeBookValuesPayl
 public class ModNetworking {
 
     public static void init() {
-        PayloadTypeRegistry.clientboundPlay().register(SendRecipeBookValuesPayload.TYPE, SendRecipeBookValuesPayload.STREAM_CODEC);
-		PayloadTypeRegistry.clientboundPlay().register(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC);
-		PayloadTypeRegistry.clientboundPlay().register(SendNaturalRegenerationValuePayload.TYPE, SendNaturalRegenerationValuePayload.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(SendRecipeBookValuesPayload.TYPE, SendRecipeBookValuesPayload.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(RichSoilBoostParticlesPayload.TYPE, RichSoilBoostParticlesPayload.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(SendNaturalRegenerationValuePayload.TYPE, SendNaturalRegenerationValuePayload.STREAM_CODEC);
 
-        PayloadTypeRegistry.serverboundPlay().register(FlipSkilletPayload.TYPE, FlipSkilletPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(FlipSkilletPayload.TYPE, FlipSkilletPayload.STREAM_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(FlipSkilletPayload.TYPE, (payload, context) -> payload.handle(context.server(), context.player()));
     }
 

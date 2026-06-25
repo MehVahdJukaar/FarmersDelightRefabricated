@@ -16,6 +16,7 @@
       "translate": "advancements.farmersdelight.eat_nourishing_food.description"
     },
     "icon": {
+      "count": 1,
       "id": "farmersdelight:steak_and_potatoes"
     },
     "title": {

@@ -8,8 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.registry.ModLootFunctions;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,14 +28,14 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		super(conditionsIn);
 	}
 
-    @Override
+	@Override
 	protected ItemStack run(ItemStack stack, LootContext context) {
 		if (stack.isEmpty()) {
 			return stack;
 		} else {
 			Optional<RecipeHolder<SmokingRecipe>> recipe = context.getLevel().recipeAccess().getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), context.getLevel());
 			if (recipe.isPresent()) {
-				ItemStack result = recipe.get().value().assemble(new SingleRecipeInput(stack)).copy();
+				ItemStack result = recipe.get().value().assemble(new SingleRecipeInput(stack), context.getLevel().registryAccess()).copy();
 				result.setCount(result.getCount() * stack.getCount());
 				return result;
 			} else {
@@ -42,8 +44,8 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		}
 	}
 
-    @Override
-    public MapCodec<? extends LootItemConditionalFunction> codec() {
-        return CODEC;
-    }
+	@Override
+	public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
+		return ModLootFunctions.SMOKER_COOK.get();
+	}
 }

@@ -6,12 +6,14 @@
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "minecraft:gravel"
       }
     },
     {
       "chance": 0.1,
       "item": {
+        "count": 1,
         "id": "minecraft:flint"
       }
     }

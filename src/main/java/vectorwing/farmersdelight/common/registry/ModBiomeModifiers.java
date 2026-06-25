@@ -67,7 +67,7 @@ public class ModBiomeModifiers {
 
         @Override
         public boolean test(BiomeSelectionContext context) {
-            Holder<Biome> biome = context.getBiomeHolder();
+            Holder<Biome> biome = context.getBiomeRegistryEntry();
             float temp = biome.value().getBaseTemperature();
             if (denied != null && biome.is(denied)) return false;
             return biome.is(allowed) && temp >= minTemperature && temp <= maxTemperature;

@@ -44,7 +44,7 @@ public class RottenTomatoEntity extends ThrowableItemProjectile
 	public void handleEntityEvent(byte id) {
 		ItemStack entityStack = new ItemStack(this.getDefaultItem());
 		if (id == 3) {
-			ParticleOptions iparticledata = new ItemParticleOption(ParticleTypes.ITEM, entityStack.getItem());
+			ParticleOptions iparticledata = new ItemParticleOption(ParticleTypes.ITEM, entityStack);
 
 			for (int i = 0; i < 12; ++i) {
 				this.level().addParticle(iparticledata, this.getX(), this.getY(), this.getZ(),

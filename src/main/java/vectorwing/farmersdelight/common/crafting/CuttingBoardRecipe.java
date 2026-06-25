@@ -5,13 +5,14 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
@@ -53,8 +54,8 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 	}
 
 	@Override
-	public ItemStack assemble(CuttingBoardRecipeInput inv) {
-		return this.results.get(0).stack().create().copy();
+	public ItemStack assemble(CuttingBoardRecipeInput inv, HolderLookup.Provider provider) {
+		return this.results.get(0).stack().copy();
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class CuttingBoardRecipe implements Recipe<CuttingBoardRecipeInput>
 		return this.tool;
 	}
 
-	public List<ItemStackTemplate> getResults() {
+	public List<ItemStack> getResults() {
 		return getRollableResults().stream()
 				.map(ChanceResult::stack)
 				.collect(Collectors.toList());

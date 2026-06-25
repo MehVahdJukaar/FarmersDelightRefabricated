@@ -6,11 +6,13 @@
   "result": [
     {
       "item": {
+        "count": 1,
         "id": "farmersdelight:rice"
       }
     },
     {
       "item": {
+        "count": 1,
         "id": "farmersdelight:straw"
       }
     }

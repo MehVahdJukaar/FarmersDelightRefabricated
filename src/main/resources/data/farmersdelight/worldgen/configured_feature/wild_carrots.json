@@ -50,7 +50,7 @@
                 },
                 {
                   "type": "minecraft:matching_block_tag",
-                  "tag": "minecraft:substrate_overworld"
+                  "tag": "minecraft:dirt"
                 }
               ]
             }
@@ -96,7 +96,7 @@
                 },
                 {
                   "type": "minecraft:matching_block_tag",
-                  "tag": "minecraft:substrate_overworld",
+                  "tag": "minecraft:dirt",
                   "offset": [
                     0,
                     -1,

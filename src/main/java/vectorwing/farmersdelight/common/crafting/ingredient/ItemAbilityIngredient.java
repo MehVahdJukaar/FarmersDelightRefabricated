@@ -51,11 +51,11 @@ public class ItemAbilityIngredient implements CustomIngredient
 
 	@Override
 	public boolean test(@Nullable ItemStack stack) {
-		return stack != null &&  itemAbility.canPerformAction(stack.typeHolder());
+		return stack != null &&  itemAbility.canPerformAction(stack);
 	}
 
 	@Override
-	public Stream<Holder<Item>> items() {
+	public Stream<Holder<Item>> getMatchingItems() {
 		dissolve();
 		return itemStacks.stream();
 	}
@@ -92,7 +92,7 @@ public class ItemAbilityIngredient implements CustomIngredient
 		}
 
 		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, ItemAbilityIngredient> getStreamCodec() {
+		public StreamCodec<RegistryFriendlyByteBuf, ItemAbilityIngredient> getPacketCodec() {
 			return STREAM_CODEC;
 		}
 	}

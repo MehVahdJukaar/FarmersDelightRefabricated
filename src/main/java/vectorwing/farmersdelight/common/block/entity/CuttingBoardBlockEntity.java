@@ -120,9 +120,9 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 			if (player instanceof ServerPlayer) {
 				ModAdvancements.USE_CUTTING_BOARD.get().trigger((ServerPlayer) player);
 				if (!getStoredItem().isEmpty()) {
-					player.sendOverlayMessage(TextUtils.block("cutting_board.remaining_items", getStoredItem().getCount()));
+					player.displayClientMessage(TextUtils.block("cutting_board.remaining_items", getStoredItem().getCount()), true);
 				} else {
-					player.sendOverlayMessage(Component.empty());
+					player.displayClientMessage(Component.empty(), true);
 				}
 			}
 		});
@@ -136,17 +136,17 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity
 			if (recipe.get().value().getTool().test(toolStack)) {
 				return recipe;
 			} else if (player != null) {
-				player.sendOverlayMessage(TextUtils.block("cutting_board.invalid_tool"));
+				player.displayClientMessage(TextUtils.block("cutting_board.invalid_tool"), true);
 			}
 		} else if (player != null) {
-			player.sendOverlayMessage(TextUtils.block("cutting_board.invalid_item"));
+			player.displayClientMessage(TextUtils.block("cutting_board.invalid_item"), true);
 		}
 
 		return Optional.empty();
 	}
 
 	public void spawnCuttingParticles(ServerLevel level, BlockPos pos, ItemStack stack) {
-		level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack.getItem()), pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05D);
+		level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05D);
 	}
 
 	public void playProcessingSound(@Nullable SoundEvent sound, ItemStack tool, ItemStack boardItem) {

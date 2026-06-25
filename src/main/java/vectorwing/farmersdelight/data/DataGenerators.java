@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.data;
 import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -35,8 +35,6 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(FDAdvancementGenerator::new);
 		pack.addProvider(FDBlockLoot::new);
 		pack.addProvider(FDChestLoot::new);
-        pack.addProvider(VillagerTrades::new);
-        pack.addProvider(VillagerTags::new);
 		pack.addProvider(SoundDefinitions::new);
 		//		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 
@@ -46,7 +44,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 
 	private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
 
-		public DynamicRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+		public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
 			super(output, lookup);
 		}
 

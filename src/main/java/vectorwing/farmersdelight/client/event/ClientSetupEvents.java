@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.client.event;
 
-import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -49,8 +49,8 @@ public class ClientSetupEvents
 	}
 
 	public static void registerParticles() {
-        ParticleProviderRegistry.getInstance().register(ModParticleTypes.STAR.get(), StarParticle.Factory::new);
-        ParticleProviderRegistry.getInstance().register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
-        ParticleProviderRegistry.getInstance().register(ModParticleTypes.SPARKLE.get(), SparkleParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.STAR.get(), StarParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.STEAM.get(), SteamParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.SPARKLE.get(), SparkleParticle.Factory::new);
 	}
 }

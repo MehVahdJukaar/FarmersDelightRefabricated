@@ -1,5 +1,5 @@
 {
-  "feature": "farmersdelight:wild_carrots",
+  "feature": "farmersdelight:patch_wild_carrots",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -7,10 +7,6 @@
     },
     {
       "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:count",
-      "count": 64
     },
     {
       "type": "minecraft:heightmap",

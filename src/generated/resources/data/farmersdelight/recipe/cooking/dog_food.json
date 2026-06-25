@@ -8,6 +8,7 @@
     "#c:crops/rice"
   ],
   "result": {
+    "count": 1,
     "id": "farmersdelight:dog_food"
   }
 }

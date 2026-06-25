@@ -17,6 +17,8 @@ public class Configuration {
 
     // COMMON
     public static final String CATEGORY_SETTINGS = "settings";
+	public static Supplier<Boolean> FARMERS_BUY_FD_CROPS;
+	public static Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
     public static Supplier<Boolean> ENABLE_ROPE_REELING;
     public static Supplier<List<String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
 

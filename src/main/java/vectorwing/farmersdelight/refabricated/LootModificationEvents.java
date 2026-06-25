@@ -178,7 +178,7 @@ public class LootModificationEvents {
                                     .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
                                             List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.ANY))
                                     )).build())
-                    )).build()));
+                    ))));
             tableBuilder.pool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
                             .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))

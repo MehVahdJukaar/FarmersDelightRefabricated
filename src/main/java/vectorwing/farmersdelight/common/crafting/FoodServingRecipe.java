@@ -17,15 +17,25 @@ import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 
 public class FoodServingRecipe extends CustomRecipe
 {
-	public static final FoodServingRecipe INSTANCE = new FoodServingRecipe();
+	public static final FoodServingRecipe INSTANCE = new FoodServingRecipe(CraftingBookCategory.MISC);
 	public static final MapCodec<FoodServingRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
 	public static final StreamCodec<RegistryFriendlyByteBuf, FoodServingRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
-	public static final RecipeSerializer<FoodServingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+	public static final RecipeSerializer<FoodServingRecipe> SERIALIZER = new RecipeSerializer<>() {
+		@Override
+		public MapCodec<FoodServingRecipe> codec() {
+			return MAP_CODEC;
+		}
+
+		@Override
+		public StreamCodec<RegistryFriendlyByteBuf, FoodServingRecipe> streamCodec() {
+			return STREAM_CODEC;
+		}
+	};
 
 
 
-	public FoodServingRecipe() {
-		super();
+	public FoodServingRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override
@@ -57,7 +67,7 @@ public class FoodServingRecipe extends CustomRecipe
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput input) {
+	public ItemStack assemble(CraftingInput input, HolderLookup.Provider context) {
 		for (int i = 0; i < input.size(); ++i) {
 			ItemStack selectedStack = input.getItem(i);
 			if (!selectedStack.isEmpty() && selectedStack.is(ModItems.COOKING_POT.get())) {
@@ -76,8 +86,8 @@ public class FoodServingRecipe extends CustomRecipe
 
 		for (int i = 0; i < remainders.size(); ++i) {
 			ItemStack selectedStack = input.getItem(i);
-			if (selectedStack.getCraftingRemainder() != null) {
-				remainders.set(i, selectedStack.getCraftingRemainder().create());
+			if (!selectedStack.getRecipeRemainder().isEmpty()) {
+				remainders.set(i, selectedStack.getRecipeRemainder());
 			} else if (selectedStack.is(ModItems.COOKING_POT.get())) {
 				CookingPotBlockEntity.takeServingFromItem(selectedStack);
 				ItemStack newCookingPotStack = selectedStack.copy();

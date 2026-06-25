@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TagAppender;
@@ -21,9 +21,9 @@ import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class BlockTags extends FabricTagsProvider.BlockTagsProvider
+public class BlockTags extends FabricTagProvider.BlockTagProvider
 {
-	public BlockTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public BlockTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, lookupProvider);
 	}
 
@@ -116,29 +116,12 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlocks.SANDY_SHRUB.get());
 		tagBuilder(net.minecraft.tags.BlockTags.REPLACEABLE_BY_TREES).add(
 				ModBlocks.SANDY_SHRUB.get());
-		tagBuilder(net.minecraft.tags.BlockTags.GROWS_CROPS).add(
-			ModBlocks.RICH_SOIL_FARMLAND.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_AZALEA).add(
-			ModBlocks.RICH_SOIL.get(),
-			ModBlocks.RICH_SOIL_FARMLAND.get()
-		);
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BAMBOO).add(
+		valueLookupBuilder(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
 			ModBlocks.RICH_SOIL.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_BIG_DRIPLEAF).add(
+		tagBuilder(net.minecraft.tags.BlockTags.DIRT).add(
 			ModBlocks.RICH_SOIL.get(),
 			ModBlocks.RICH_SOIL_FARMLAND.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER).add(
-			ModBlocks.RICH_SOIL_FARMLAND.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(
-			ModBlocks.RICH_SOIL_FARMLAND.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SMALL_DRIPLEAF).add(
-			ModBlocks.RICH_SOIL.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_SUGAR_CANE).add(
-			ModBlocks.RICH_SOIL.get());
-		tagBuilder(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(
-			ModBlocks.RICH_SOIL.get(),
-			ModBlocks.RICH_SOIL_FARMLAND.get());
-		tagBuilder(net.minecraft.tags.BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT).add(
+		tagBuilder(net.minecraft.tags.BlockTags.MUSHROOM_GROW_BLOCK).add(
 			ModBlocks.ORGANIC_COMPOST.get(),
 			ModBlocks.RICH_SOIL.get());
 		tagBuilder(net.minecraft.tags.BlockTags.CROPS).add(
@@ -397,7 +380,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 			.add(ModBlocks.RICH_SOIL.get())
 			.addTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON);
 		tagBuilder(FDRefabricatedTags.Blocks.GROWS_WILD_CROPS)
-			.addTag(net.minecraft.tags.BlockTags.SUBSTRATE_OVERWORLD)
+			.addTag(net.minecraft.tags.BlockTags.DIRT)
 			.addTag(net.minecraft.tags.BlockTags.SAND);
 		tagBuilder(FDRefabricatedTags.Blocks.KNIFE_INSTANTLY_MINES)
 			.addTag(net.minecraft.tags.BlockTags.SWORD_INSTANTLY_MINES);

@@ -8,7 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -24,8 +24,8 @@ public class RiceItem extends BlockItem
 		if (result.equals(InteractionResult.FAIL)) {
 			Player player = context.getPlayer();
 			BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
-			if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.SUBSTRATE_OVERWORLD) || targetState.is(BlockTags.SUPPORTS_CROPS))) {
-				player.sendOverlayMessage(TextUtils.block("rice.invalid_placement"));
+			if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.getBlock() instanceof FarmBlock)) {
+				player.displayClientMessage(TextUtils.block("rice.invalid_placement"), true);
 			}
 		}
 		return !result.consumesAction() ? this.use(context.getLevel(), context.getPlayer(), context.getHand()) : result;
