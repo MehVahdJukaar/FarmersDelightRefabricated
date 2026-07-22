@@ -88,7 +88,9 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 	@Override
     public void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
-        super.renderBackground(gui, mouseX, mouseY, partialTicks);
+		if (this.minecraft == null)
+			return;
+
         gui.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
 		// Render heat icon
