@@ -1,1 +1,1 @@
-- Nourishment effect should now tick correctly.
+- Fixed incorrect translation on Cooking Pots (thanks @Its-Hans!)

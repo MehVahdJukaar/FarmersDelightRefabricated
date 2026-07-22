@@ -52,8 +52,8 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 
 	private void renderHeatIndicatorTooltip(GuiGraphics gui, int mouseX, int mouseY) {
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
-			String key = "container.cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
-			gui.setTooltipForNextFrame(TextUtils.getTranslation(key), mouseX, mouseY);
+			String key = "cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
+			gui.setTooltipForNextFrame(TextUtils.container(key), mouseX, mouseY);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu> i
 				ItemStack containerStack = this.menu.blockEntity.getContainer();
 				if (!containerStack.isEmpty()) {
 					String container = !containerStack.isEmpty() ? containerStack.getItem().getDescriptionId() : "";
-					tooltip.add(TextUtils.getTranslation("container.cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
+					tooltip.add(TextUtils.container("cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY));
 				}
 
 				gui.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
