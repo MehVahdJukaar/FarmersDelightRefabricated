@@ -154,7 +154,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
         minecraftVersions.addAll(minecraft_supported_versions.split(","))
-        javaVersions.add(JavaVersion.VERSION_25)
+        javaVersions.add(JavaVersion.VERSION_21)
 
         clientRequired = true
         serverRequired = true
@@ -208,7 +208,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 25
+    it.options.release = 21
 }
 
 java {
@@ -217,8 +217,8 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
