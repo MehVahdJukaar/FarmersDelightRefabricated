@@ -140,7 +140,7 @@ var changelogFile = rootProject.file("changelog.md")
 var changelogText = changelogFile.exists() ? changelogFile.text : ""
 
 publishMods {
-    file = jar.archiveFile
+    file = remapJar.archiveFile
     changelog = changelogText
     type = STABLE
     displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
