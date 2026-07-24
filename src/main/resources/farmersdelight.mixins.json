@@ -3,6 +3,7 @@
   "required": true,
   "package": "vectorwing.farmersdelight.common.mixin",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "vectorwing.farmersdelight.common.mixin.refabricated.FarmersDelightMixinPlugin",
   "mixins": [
     "CampfireBaleMixin",
     "CuttingBoardDispenserMixin",
@@ -14,7 +15,6 @@
     "datafix.ItemStackComponentizationFixMixin",
     "datafix.V1460Mixin",
     "datafix.V3818_3Mixin",
-    "refabricated.FenceGateBlockMixin",
     "refabricated.FoodDataAccessor",
     "refabricated.GameRulesTypeAccessor",
     "refabricated.GhostSlotsInvoker",
@@ -37,7 +37,6 @@
     "HideBlockBreakProgressMixin",
     "refabricated.AbstractRecipeBookScreenAccessor",
     "refabricated.CuboidItemModelWrapperAccessor",
-    "refabricated.GuiMixin",
     "refabricated.HumanoidMobRendererMixin",
     "refabricated.HumanoidModelMixin",
     "refabricated.HumanoidRenderStateMixin",

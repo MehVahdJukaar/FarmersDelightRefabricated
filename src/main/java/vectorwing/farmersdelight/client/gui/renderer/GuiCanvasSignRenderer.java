@@ -15,11 +15,9 @@ import vectorwing.farmersdelight.client.gui.state.GuiCanvasSignRenderState;
 import vectorwing.farmersdelight.common.registry.ModAtlases;
 
 public class GuiCanvasSignRenderer extends PictureInPictureRenderer<GuiCanvasSignRenderState> {
-	private final SpriteGetter materials;
 
-	public GuiCanvasSignRenderer(MultiBufferSource.BufferSource bufferSource, SpriteGetter materials) {
+	public GuiCanvasSignRenderer(MultiBufferSource.BufferSource bufferSource) {
 		super(bufferSource);
-		this.materials = materials;
 	}
 
 	@Override
@@ -32,7 +30,7 @@ public class GuiCanvasSignRenderer extends PictureInPictureRenderer<GuiCanvasSig
 		poseStack.translate(0.0F, -0.75F, 0.0F);
 		SpriteId material = ModAtlases.getCanvasSignMaterial(guiSignRenderState.dye());
 		Model.Simple model = guiSignRenderState.signModel();
-		VertexConsumer vertexConsumer = material.buffer(this.materials, this.bufferSource, model::renderType);
+		VertexConsumer vertexConsumer = material.buffer(Minecraft.getInstance().getAtlasManager(), this.bufferSource, model::renderType);
 		model.renderToBuffer(poseStack, vertexConsumer, 15728880, OverlayTexture.NO_OVERLAY);
 	}
 

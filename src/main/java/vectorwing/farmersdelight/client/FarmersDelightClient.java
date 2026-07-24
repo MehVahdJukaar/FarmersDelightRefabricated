@@ -45,7 +45,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         });
 
         // rendering stuff
-        PictureInPictureRendererRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.bufferSource(), ctx.minecraft().getAtlasManager()));
+        PictureInPictureRendererRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.bufferSource()));
 
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.id("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
     }
