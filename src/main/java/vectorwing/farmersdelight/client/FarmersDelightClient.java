@@ -3,10 +3,12 @@ package vectorwing.farmersdelight.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
@@ -20,6 +22,7 @@ import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.network.ModNetworking;
 import vectorwing.farmersdelight.common.network.payload.FlipSkilletPayload;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 
@@ -45,7 +48,17 @@ public class FarmersDelightClient implements ClientModInitializer {
             return false;
         });
 
-        // rendering stuff
+		// render type stuff
+		BlockRenderLayerMap.putBlocks(ChunkSectionLayer.CUTOUT,
+			ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get(),
+			ModBlocks.CABBAGE_CROP.get(), ModBlocks.CUTTING_BOARD.get(), ModBlocks.ONION_CROP.get(),
+			ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.WILD_CARROTS.get(),
+			ModBlocks.WILD_ONIONS.get(), ModBlocks.WILD_POTATOES.get(), ModBlocks.WILD_RICE.get(), ModBlocks.WILD_TOMATOES.get(),
+			ModBlocks.RICE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
+			ModBlocks.ROAST_CHICKEN_BLOCK.get(), ModBlocks.SANDY_SHRUB.get(), ModBlocks.ROPE.get(),
+			ModBlocks.CANVAS_RUG.get(), ModBlocks.COOKING_POT.get(), ModBlocks.SAFETY_NET.get());
+
+		// rendering stuff
 		SpecialGuiElementRegistry.register(ctx -> new GuiCanvasSignRenderer(ctx.vertexConsumers(), ctx.client().getAtlasManager()));
 
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.id("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
