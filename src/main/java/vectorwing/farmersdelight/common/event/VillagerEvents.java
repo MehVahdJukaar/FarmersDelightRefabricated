@@ -54,7 +54,7 @@ public class VillagerEvents
 		return new FDItemListing(new VillagerTrades.ItemsForEmeralds(new ItemStack(item), 1, 1, maxTrades, xp, 0.05F), predicate);
 	}
 
-	private static record FDItemListing(VillagerTrades.ItemListing listing, Supplier<Boolean> predicate) implements VillagerTrades.ItemListing {
+	private record FDItemListing(VillagerTrades.ItemListing listing, Supplier<Boolean> predicate) implements VillagerTrades.ItemListing {
 
 		@Override
 		public MerchantOffer getOffer(ServerLevel serverLevel, Entity trader, RandomSource random) {

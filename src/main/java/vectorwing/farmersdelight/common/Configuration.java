@@ -12,50 +12,50 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class Configuration {
-    public static ModConfigHolder COMMON_CONFIG;
-    public static ModConfigHolder CLIENT_CONFIG;
+	public static final ModConfigHolder COMMON_CONFIG;
+	public static final ModConfigHolder CLIENT_CONFIG;
 
-    // COMMON
-    public static final String CATEGORY_SETTINGS = "settings";
-	public static Supplier<Boolean> FARMERS_BUY_FD_CROPS;
-	public static Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
-    public static Supplier<Boolean> ENABLE_ROPE_REELING;
-    public static Supplier<List<String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
+	// COMMON
+	public static final String CATEGORY_SETTINGS = "settings";
+	public static final Supplier<Boolean> FARMERS_BUY_FD_CROPS;
+	public static final Supplier<Boolean> WANDERING_TRADER_SELLS_FD_ITEMS;
+	public static final Supplier<Boolean> ENABLE_ROPE_REELING;
+	public static final Supplier<List<String>> CANVAS_SIGN_DARK_BACKGROUND_LIST;
 
-    public static final String CATEGORY_FARMING = "farming";
-    public static Supplier<Double> RICH_SOIL_BOOST_CHANCE;
-    public static Supplier<Boolean> ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
-    public static Supplier<String> DEFAULT_TOMATO_VINE_ROPE;
+	public static final String CATEGORY_FARMING = "farming";
+	public static final Supplier<Double> RICH_SOIL_BOOST_CHANCE;
+	public static final Supplier<Boolean> ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES;
+	public static final Supplier<String> DEFAULT_TOMATO_VINE_ROPE;
 
-    public static final String CATEGORY_CRAFTING = "crafting";
-    public static Supplier<Boolean> ENABLE_COOKING_POT_RECIPE_BOOK;
-    public static Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
-    public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
+	public static final String CATEGORY_CRAFTING = "crafting";
+	public static final Supplier<Boolean> ENABLE_COOKING_POT_RECIPE_BOOK;
+	public static final Supplier<Boolean> ENABLE_VANILLA_CROP_CRATES;
+	public static final Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
 
-    public static final String CATEGORY_OVERRIDES = "overrides";
-    public static Supplier<Boolean> ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
-    public static Supplier<Boolean> ENABLE_RABBIT_STEW_BUFF;
-    public static Supplier<Boolean> ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
-    public static Supplier<Boolean> ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
+	public static final String CATEGORY_OVERRIDES = "overrides";
+	public static final Supplier<Boolean> ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
+	public static final Supplier<Boolean> ENABLE_RABBIT_STEW_BUFF;
+	public static final Supplier<Boolean> ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
+	public static final Supplier<Boolean> ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
 
-    public static final String CATEGORY_OVERRIDES_STACK_SIZE = "stack_size";
-    public static Supplier<Boolean> ENABLE_STACKABLE_SOUP_ITEMS;
-    public static Supplier<List<String>> SOUP_ITEM_LIST;
+	public static final String CATEGORY_OVERRIDES_STACK_SIZE = "stack_size";
+	public static final Supplier<Boolean> ENABLE_STACKABLE_SOUP_ITEMS;
+	public static final Supplier<List<String>> SOUP_ITEM_LIST;
 
-    public static final String CATEGORY_WORLD = "world";
-    public static Supplier<Boolean> GENERATE_FD_CHEST_LOOT;
-    public static Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
-    public static Supplier<Boolean> GENERATE_VILLAGE_FARM_FD_CROPS;
+	public static final String CATEGORY_WORLD = "world";
+	public static final Supplier<Boolean> GENERATE_FD_CHEST_LOOT;
+	public static final Supplier<Boolean> GENERATE_VILLAGE_COMPOST_HEAPS;
+	public static final Supplier<Boolean> GENERATE_VILLAGE_FARM_FD_CROPS;
 
 	public static final String CATEGORY_DEBUG = "debug";
-	public static Supplier<Boolean> ENABLE_TOMATO_ROPE_PERMANENCE;
+	public static final Supplier<Boolean> ENABLE_TOMATO_ROPE_PERMANENCE;
 
 	// CLIENT
 	public static final String CATEGORY_CLIENT = "client";
 
-    public static Supplier<Boolean> ENABLE_NOURISHMENT_HUNGER_OVERLAY;
-	public static Supplier<Boolean> ENABLE_COMFORT_HEALTH_OVERLAY;
-	public static Supplier<Boolean> ENABLE_FOOD_EFFECT_TOOLTIP;
+	public static final Supplier<Boolean> ENABLE_NOURISHMENT_HUNGER_OVERLAY;
+	public static final Supplier<Boolean> ENABLE_COMFORT_HEALTH_OVERLAY;
+	public static final Supplier<Boolean> ENABLE_FOOD_EFFECT_TOOLTIP;
 
 	static {
 		ConfigBuilder COMMON_BUILDER = ConfigBuilder.create(FarmersDelight.MODID, ConfigType.COMMON);
@@ -63,7 +63,7 @@ public class Configuration {
 		COMMON_BUILDER.push(CATEGORY_SETTINGS);
 		ENABLE_ROPE_REELING = COMMON_BUILDER.comment("If enabled, players will be able to reel back rope, bottom to top, when sneak-using with an empty hand on them.")
 			.define("enableRopeReeling", true);
-		CANVAS_SIGN_DARK_BACKGROUND_LIST = COMMON_BUILDER.comment("A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed."+
+		CANVAS_SIGN_DARK_BACKGROUND_LIST = COMMON_BUILDER.comment("A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed." +
 				"Dyes: [\"white\", \"orange\", \"magenta\", \"light_blue\", \"yellow\", \"lime\", \"pink\", \"gray\", \"light_gray\", \"cyan\", \"purple\", \"blue\", \"brown\", \"green\", \"red\", \"black\"]")
 			.define("canvasSignDarkBackgroundList", ImmutableList.of("gray", "purple", "blue", "brown", "green", "red", "black"));
 		COMMON_BUILDER.pop();
@@ -85,6 +85,10 @@ public class Configuration {
 			.define("enableVanillaCropCrates", true);
 		CUTTING_BOARD_FORTUNE_BONUS = COMMON_BUILDER.comment("How much (in decimal percentage) should each level of Fortune increase the odds of obtaining rare results on the Cutting Board? Set to 0.0 to disable.")
 			.define("cuttingBoardFortuneBonus", 0.1, 0.0, 1.0);
+		FARMERS_BUY_FD_CROPS = COMMON_BUILDER.comment("If enabled, Novice and Apprentice Farmer villagers will have a chance to buy crops from this mod.")
+			.define("farmersBuyFDCrops", true);
+		WANDERING_TRADER_SELLS_FD_ITEMS = COMMON_BUILDER.comment("If enabled, the Wandering Trader will have a chance to sell seeds and plantables from this mod.")
+			.define("wanderingTraderSellsFDItems", true);
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
@@ -135,11 +139,14 @@ public class Configuration {
 			ENABLE_COMFORT_HEALTH_OVERLAY = CLIENT_BUILDER.comment("If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.")
 				.define("enableComfortHealthOverlay", true);
 			ENABLE_FOOD_EFFECT_TOOLTIP = CLIENT_BUILDER.comment("If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.")
-			.define("enableFoodEffectTooltip", true);
+				.define("enableFoodEffectTooltip", true);
 			CLIENT_BUILDER.pop();
 			CLIENT_CONFIG = CLIENT_BUILDER.build();
 			CLIENT_CONFIG.forceLoad();
-		}else{
+		} else {
+			ENABLE_NOURISHMENT_HUNGER_OVERLAY = () -> true;
+			ENABLE_COMFORT_HEALTH_OVERLAY = () -> true;
+			ENABLE_FOOD_EFFECT_TOOLTIP = () -> true;
 			CLIENT_CONFIG = null;
 		}
 	}
@@ -149,17 +156,17 @@ public class Configuration {
 
 	// Backwards compatibility configs.
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> ENABLE_RECIPE_BOOK_COOKING_POT =  ENABLE_COOKING_POT_RECIPE_BOOK;
+	public static Supplier<Boolean> ENABLE_RECIPE_BOOK_COOKING_POT = ENABLE_COOKING_POT_RECIPE_BOOK;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS =  ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
+	public static Supplier<Boolean> VANILLA_SOUP_EXTRA_EFFECTS = ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> RABBIT_STEW_BUFF =  ENABLE_RABBIT_STEW_BUFF;
+	public static Supplier<Boolean> RABBIT_STEW_BUFF = ENABLE_RABBIT_STEW_BUFF;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD =  ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
+	public static Supplier<Boolean> DISPENSER_TOOLS_CUTTING_BOARD = ENABLE_DISPENSER_TOOLS_CUTTING_BOARD;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> NOURISHMENT_HUNGER_OVERLAY =  ENABLE_NOURISHMENT_HUNGER_OVERLAY;
+	public static Supplier<Boolean> NOURISHMENT_HUNGER_OVERLAY = ENABLE_NOURISHMENT_HUNGER_OVERLAY;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY =  ENABLE_COMFORT_HEALTH_OVERLAY;
+	public static Supplier<Boolean> COMFORT_HEALTH_OVERLAY = ENABLE_COMFORT_HEALTH_OVERLAY;
 	@Deprecated(forRemoval = true)
-	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP =  ENABLE_FOOD_EFFECT_TOOLTIP;
+	public static Supplier<Boolean> FOOD_EFFECT_TOOLTIP = ENABLE_FOOD_EFFECT_TOOLTIP;
 }
