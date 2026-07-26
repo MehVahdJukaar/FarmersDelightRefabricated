@@ -1,1 +1,1 @@
-- Fixed transparent blocks.
+- fixed a crash with villager trades
