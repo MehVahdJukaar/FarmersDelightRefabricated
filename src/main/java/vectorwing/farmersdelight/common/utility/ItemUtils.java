@@ -4,6 +4,7 @@ import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelp
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -36,6 +37,18 @@ public class ItemUtils
 	public static void dropItems(Level level, BlockPos pos, ItemStackHandler inventory) {
 		for (int slot = 0; slot < inventory.getSlotCount(); slot++)
 			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
+	}
+
+	@Deprecated(forRemoval = true)
+	public static void dropItems(Level level, BlockPos pos, io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler inventory) {
+		for(int slot = 0; slot < inventory.getSlotCount(); ++slot) {
+			Containers.dropItemStack(level, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), inventory.getStackInSlot(slot));
+		}
+	}
+
+	@Deprecated(forRemoval = true)
+	public static boolean isInventoryEmpty(Container inventory) {
+		return inventory.isEmpty();
 	}
 
 	public static void clearItems(ItemStackHandler inventory) {
