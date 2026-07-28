@@ -12,10 +12,10 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -25,11 +25,9 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 import vectorwing.farmersdelight.integration.jei.resource.DecompositionDummy;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy>
 {
@@ -79,7 +77,8 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, DecompositionDummy recipe, IFocusGroup focusGroup) {
-		List<ItemStack> accelerators = ForgeRegistries.BLOCKS.tags().getTag(ModTags.Blocks.COMPOST_ACTIVATORS).stream().map(ItemStack::new).collect(Collectors.toList());
+		List<ItemStack> accelerators = BuiltInRegistries.BLOCK.getTag(ModTags.Blocks.COMPOST_ACTIVATORS).get().stream()
+			.map(holders -> new ItemStack(holders.value().asItem())).collect(Collectors.toList());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 26).addItemStack(organicCompost);
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26).addItemStack(richSoil);

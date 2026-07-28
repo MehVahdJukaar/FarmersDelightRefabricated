@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.tag;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -116,10 +117,10 @@ public class CommonTags
 	}
 
 	private static TagKey<Block> forgeBlockTag(String path) {
-		return BlockTags.create(new ResourceLocation("forge", path));
+		return TagKey.create(Registries.BLOCK, new ResourceLocation("c", path));
 	}
 
 	private static TagKey<Item> forgeItemTag(String path) {
-		return ItemTags.create(new ResourceLocation("forge", path));
+		return TagKey.create(Registries.ITEM, new ResourceLocation("c", path));
 	}
 }

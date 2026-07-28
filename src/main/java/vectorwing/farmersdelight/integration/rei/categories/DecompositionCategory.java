@@ -63,7 +63,7 @@ public class DecompositionCategory implements DisplayCategory<DecompositionDispl
 
         widgets.add(Widgets.createSlot(new Point( startPoint.x + 9, startPoint.y + 26)).entry(EntryStacks.of(ModBlocks.ORGANIC_COMPOST.get())));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 93, startPoint.y + 26)).entry(EntryStacks.of(ModBlocks.RICH_SOIL.get())));
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 64, startPoint.y + 54)).entries(EntryIngredients.ofItemTag(ModTags.COMPOST_ACTIVATORS)));
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 64, startPoint.y + 54)).entries(EntryIngredients.ofItemTag(ModTags.Blocks.COMPOST_ACTIVATORS)));
 
         widgets.add(Widgets.createTooltip(new Rectangle( startPoint.x + 40, startPoint.y + 38, 11, 11), translateKey(".light")));
         widgets.add(Widgets.createTooltip(new Rectangle(startPoint.x + 53, startPoint.y + 38, 11, 11), translateKey(".fluid")));

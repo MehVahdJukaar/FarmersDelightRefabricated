@@ -3,7 +3,6 @@ package vectorwing.farmersdelight.common.crafting;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import io.github.fabricators_of_create.porting_lib.util.CraftingHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -23,6 +22,7 @@ import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.EnumSet;
 

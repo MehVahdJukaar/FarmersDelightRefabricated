@@ -3,7 +3,6 @@ package vectorwing.farmersdelight.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
@@ -17,7 +16,7 @@ import vectorwing.farmersdelight.client.gui.CookingPotScreen;
 import vectorwing.farmersdelight.client.recipebook.RecipeCategories;
 import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
 import vectorwing.farmersdelight.common.item.SkilletItem;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.ModNetworking;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
@@ -29,7 +28,9 @@ public class FarmersDelightClient implements ClientModInitializer {
     public void onInitializeClient() {
         ItemTooltipCallback.EVENT.register(TooltipEvents::addTooltipToVanillaSoups);
         TooltipComponentCallback.EVENT.register(ClientSetupEvents::registerCustomTooltipRenderers);
-        ClientSetupEvents.onRegisterRenderers();
+        ClientSetupEvents.init();
+		ClientSetupEvents.onRegisterRenderers();
+		ClientSetupEvents.onEntityRendererRegister();
         ClientSetupEvents.registerParticles();
 
         MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);

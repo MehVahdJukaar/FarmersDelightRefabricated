@@ -1,4 +1,4 @@
-package vectorwing.farmersdelight.common.networking;
+package vectorwing.farmersdelight.common.network;
 
 import me.pepperbell.simplenetworking.C2SPacket;
 import me.pepperbell.simplenetworking.S2CPacket;

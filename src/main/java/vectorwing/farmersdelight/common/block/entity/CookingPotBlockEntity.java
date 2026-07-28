@@ -1,9 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
 import com.google.common.collect.Lists;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -48,6 +45,8 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.List;
 import java.util.Map;
@@ -80,7 +79,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 			entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE)
 	);
 
-	private final ItemStackHandlerContainer inventory;
+	private final ItemStackHandler inventory;
 	private final CookingPotItemHandler inputHandler;
 	private final CookingPotItemHandler outputHandler;
 
@@ -426,7 +425,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return this.isHeated(level, worldPosition);
 	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
@@ -538,8 +537,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		return writeItems(new CompoundTag());
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer(INVENTORY_SIZE)
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler(INVENTORY_SIZE)
 		{
 			@Override
 			public int getSlotLimit(int slot) {

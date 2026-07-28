@@ -32,7 +32,7 @@ public class DefaultStoveRenderer<T extends AbstractStoveBlockEntity> implements
 		var items = stove.getItems();
 		int posLong = (int) stove.getBlockPos().asLong();
 
-		for (int i = 0; i < items.getSlots(); ++i) {
+		for (int i = 0; i < items.getSlotCount(); ++i) {
 			ItemStack stoveStack = items.getStackInSlot(i);
 			if (stoveStack.isEmpty()) continue;
 

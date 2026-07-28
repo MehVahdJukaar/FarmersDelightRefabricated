@@ -26,10 +26,8 @@ import vectorwing.farmersdelight.common.utility.RecipeUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
 {

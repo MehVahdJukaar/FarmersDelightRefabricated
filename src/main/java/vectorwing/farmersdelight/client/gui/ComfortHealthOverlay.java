@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -10,11 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModEffects;
@@ -26,29 +22,22 @@ public class ComfortHealthOverlay
 	protected static int healthIconsOffset;
 	private static final ResourceLocation MOD_ICONS_TEXTURE = new ResourceLocation(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
-	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new ComfortHealthOverlay());
-	}
-
 	static ResourceLocation PLAYER_HEALTH_ELEMENT = new ResourceLocation("minecraft", "player_health");
 
-	@SubscribeEvent
-	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-		if (event.getOverlay() == GuiOverlayManager.findOverlay(PLAYER_HEALTH_ELEMENT)) {
-			Minecraft mc = Minecraft.getInstance();
-			ForgeGui gui = (ForgeGui) mc.gui;
-			if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-				renderComfortOverlay(gui, event.getGuiGraphics());
-			}
+	public static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
+		Minecraft mc = Minecraft.getInstance();
+		var gui = mc.gui;
+		if (!mc.options.hideGui) {
+			renderComfortOverlay(gui, graphics);
 		}
 	}
 
-	public static void renderComfortOverlay(ForgeGui gui, GuiGraphics graphics) {
+	public static void renderComfortOverlay(Gui gui, GuiGraphics graphics) {
 		if (!Configuration.ENABLE_COMFORT_HEALTH_OVERLAY.get()) {
 			return;
 		}
 
-		healthIconsOffset = gui.leftHeight;
+		healthIconsOffset = 49; //leftHeight... no equivalent stuff here. will break when mre hearts are displayed
 		Minecraft minecraft = Minecraft.getInstance();
 		Player player = minecraft.player;
 

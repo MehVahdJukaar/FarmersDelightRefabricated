@@ -20,3 +20,6 @@ accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
 accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl <init> (Lnet/minecraft/client/resources/model/ModelBakery;Ljava/util/function/BiFunction;Lnet/minecraft/resources/ResourceLocation;)V
 accessible field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
 mutable field net/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessorList list Ljava/util/List;
+accessible field net/minecraft/world/entity/animal/Cat TEMPT_INGREDIENT Lnet/minecraft/world/item/crafting/Ingredient;
+mutable field net/minecraft/world/entity/animal/Cat TEMPT_INGREDIENT Lnet/minecraft/world/item/crafting/Ingredient;
+mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map;

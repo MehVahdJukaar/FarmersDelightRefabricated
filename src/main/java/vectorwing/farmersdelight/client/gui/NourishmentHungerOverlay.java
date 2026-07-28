@@ -2,17 +2,13 @@ package vectorwing.farmersdelight.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.level.GameRules;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModEffects;
@@ -29,30 +25,23 @@ public class NourishmentHungerOverlay
 	public static int foodIconsOffset;
 	private static final ResourceLocation MOD_ICONS_TEXTURE = new ResourceLocation(FarmersDelight.MODID, "textures/gui/fd_icons.png");
 
-	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new NourishmentHungerOverlay());
-	}
-
 	static ResourceLocation FOOD_LEVEL_ELEMENT = new ResourceLocation("minecraft", "food_level");
 
-	@SubscribeEvent
-	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-		if (event.getOverlay() == GuiOverlayManager.findOverlay(FOOD_LEVEL_ELEMENT)) {
-			Minecraft mc = Minecraft.getInstance();
-			ForgeGui gui = (ForgeGui) mc.gui;
-			boolean isMounted = mc.player != null && mc.player.getVehicle() instanceof LivingEntity;
-			if (!isMounted && !mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-				renderNourishmentOverlay(gui, event.getGuiGraphics());
-			}
+	public static void onRenderGuiOverlayPost(GuiGraphics graphics, float partialTicks) {
+		Minecraft mc = Minecraft.getInstance();
+		var gui = mc.gui;
+		boolean isMounted = mc.player != null && mc.player.getVehicle() instanceof LivingEntity;
+		if (!isMounted && !mc.options.hideGui) {
+			renderNourishmentOverlay(gui, graphics);
 		}
 	}
 
-	public static void renderNourishmentOverlay(ForgeGui gui, GuiGraphics graphics) {
+	public static void renderNourishmentOverlay(Gui gui, GuiGraphics graphics) {
 		if (!Configuration.ENABLE_NOURISHMENT_HUNGER_OVERLAY.get()) {
 			return;
 		}
 
-		foodIconsOffset = gui.rightHeight;
+		foodIconsOffset = 49;
 		Minecraft minecraft = Minecraft.getInstance();
 		Player player = minecraft.player;
 

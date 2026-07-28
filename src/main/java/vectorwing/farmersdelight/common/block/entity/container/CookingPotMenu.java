@@ -2,9 +2,6 @@ package vectorwing.farmersdelight.common.block.entity.container;
 
 
 import com.mojang.datafixers.util.Pair;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,6 +17,9 @@ import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModMenuTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper>
 	public static final int INDEX_OUTPUT = 8;
 
 	public final CookingPotBlockEntity blockEntity;
-	public final ItemStackHandlerContainer inventory;
+	public final ItemStackHandler inventory;
 	private final ContainerData cookingPotData;
 	private final ContainerLevelAccess canInteractWithCallable;
 	protected final Level level;
@@ -57,7 +57,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper>
 		int borderSlotSize = 18;
 		for (int row = 0; row < 2; ++row) {
 			for (int column = 0; column < 3; ++column) {
-				this.addSlot(new SlotItemHandler(inventory, (row * 3) + column,
+				this.addSlot(new ItemHandlerSlot(inventory, (row * 3) + column,
 						inputStartX + (column * borderSlotSize),
 						inputStartY + (row * borderSlotSize)));
 			}
@@ -67,7 +67,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper>
 		this.addSlot(new CookingPotMealSlot(inventory, 6, 124, 26));
 
 		// Bowl Input
-		this.addSlot(new SlotItemHandler(inventory, 7, 92, 55)
+		this.addSlot(new ItemHandlerSlot(inventory, 7, 92, 55)
 		{
 			public Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
 				return Pair.of(InventoryMenu.BLOCK_ATLAS, EMPTY_CONTAINER_SLOT_BOWL);

@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -36,14 +37,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.AbstractStoveBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 @SuppressWarnings("deprecation")
@@ -61,6 +62,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 				.setValue(FACING, Direction.NORTH)
 				.setValue(LIT, false)
 		);
+		LandPathNodeTypesRegistry.registerDynamic(this, (state, world, pos, neighbor) -> getBlockPathType(state, world, pos));
 	}
 
 	@Override
@@ -106,7 +108,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 	protected InteractionResult tryToExtinguish(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack heldStack = player.getItemInHand(hand);
 
-		if (heldStack.canPerformAction(ToolActions.SHOVEL_DIG)) {
+		if (ItemAbility.SHOVEL_DIG.canPerformAction(heldStack)) {
 			if (!level.isClientSide()) {
 				level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
 			}
@@ -120,7 +122,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 				level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 			extinguish(player, level, pos, state);
-			if (!player.getAbilities().instabuild) player.setItemInHand(hand, heldStack.getCraftingRemainingItem());
+			if (!player.getAbilities().instabuild) player.setItemInHand(hand, heldStack.getRecipeRemainder());
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 
@@ -222,9 +224,17 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 		return createTickerHelper(serverType, clientType, AbstractStoveBlockEntity::serverTick);
 	}
 
+
+	/**
+	 * Refabricated: Deprecated but kept for cross-loader code. Use {@link StoveBlock#getBlockPathType(BlockState, BlockGetter, BlockPos)} instead.
+	 */
 	@Nullable
-	@Override
 	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
+		return state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
+	}
+
+	@Nullable
+	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos) {
 		return state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
 	}
 
