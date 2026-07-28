@@ -7,10 +7,10 @@
       "tag": "c:foods/raw_meats/raw_beef"
     },
     {
-      "tag": "forge:crops/carrot"
+      "tag": "c:crops/carrot"
     },
     {
-      "tag": "forge:crops/potato"
+      "tag": "c:crops/potato"
     }
   ],
   "recipe_book_tab": "meals",

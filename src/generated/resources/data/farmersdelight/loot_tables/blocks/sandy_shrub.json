@@ -11,8 +11,10 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "action": "shears_harvest",
-                  "condition": "forge:can_tool_perform_action"
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "tag": "c:shears"
+                  }
                 }
               ],
               "name": "farmersdelight:sandy_shrub"

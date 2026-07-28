@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.AnyIngredient;
 import net.minecraft.core.Position;
@@ -37,7 +38,8 @@ public class CommonSetup
 		registerCompostables();
 		registerDispenserBehaviors();
 		registerItemSetAdditions();
-		registerStackSizeOverrides();
+		ServerLifecycleEvents.SERVER_STARTED.register(server ->
+			registerStackSizeOverrides());
 		ModAdvancements.register();
 	}
 

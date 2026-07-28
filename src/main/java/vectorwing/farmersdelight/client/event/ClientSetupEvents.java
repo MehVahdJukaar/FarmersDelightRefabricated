@@ -21,7 +21,6 @@ import vectorwing.farmersdelight.common.registry.*;
 public class ClientSetupEvents
 {
 	public static void init() {
-		MenuScreens.register(ModMenuTypes.COOKING_POT.get(), CookingPotScreen::new);
 		ItemProperties.register(ModItems.SKILLET.get(), new ResourceLocation("cooking"),
 			(stack, world, entity, s) -> stack.getTagElement("Cooking") != null ? 1 : 0);
 	}

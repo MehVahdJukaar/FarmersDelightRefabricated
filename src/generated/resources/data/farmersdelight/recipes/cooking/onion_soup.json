@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "forge:crops/onion"
+      "tag": "c:crops/onion"
     },
     {
-      "tag": "forge:crops/onion"
+      "tag": "c:crops/onion"
     },
     {
-      "tag": "forge:bread"
+      "tag": "c:bread"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     }
   ],
   "recipe_book_tab": "meals",

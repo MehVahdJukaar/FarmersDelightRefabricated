@@ -27,7 +27,7 @@
       "action": "shears_dig"
     },
     {
-      "tag": "forge:shears"
+      "tag": "c:shears"
     }
   ]
 }

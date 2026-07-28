@@ -17,7 +17,7 @@
       "action": "knife_dig"
     },
     {
-      "tag": "forge:tools/knives"
+      "tag": "c:tools/knives"
     }
   ]
 }

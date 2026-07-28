@@ -8,16 +8,16 @@
     },
     [
       {
-        "tag": "forge:raw_meat"
+        "tag": "c:raw_meat"
       },
       {
-        "tag": "forge:raw_fishes"
+        "tag": "c:raw_fishes"
       },
       {
-        "tag": "forge:vegetables"
+        "tag": "c:vegetables"
       },
       {
-        "tag": "forge:mushrooms"
+        "tag": "c:mushrooms"
       }
     ]
   ],

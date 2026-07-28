@@ -12,13 +12,13 @@
       "item": "minecraft:glow_berries"
     },
     {
-      "tag": "forge:crops/tomato"
+      "tag": "c:crops/tomato"
     },
     {
       "item": "minecraft:golden_carrot"
     },
     {
-      "tag": "forge:crops/beetroot"
+      "tag": "c:crops/beetroot"
     },
     {
       "item": "farmersdelight:cabbage"
