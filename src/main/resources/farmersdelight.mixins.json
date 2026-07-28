@@ -12,15 +12,21 @@
     "KeepRichSoilGiantTreeMixin",
     "KeepRichSoilTreeMixin",
     "KeepRichSoilUntrampledMixin",
+    "LivingEntityMixin",
+    "NourishmentAlwaysEatMixin",
     "PitcherCropBlockMixin",
+    "PlacePumpkinPieMixin",
     "RabbitsEatCabbageMixin",
     "RecipeBookSettingsMixin",
+    "RopeFenceConnectionMixin",
     "ServerRecipeBookMixin",
     "SoupItemMixin",
     "StemBlockMixin",
     "SugarCaneBlockMixin",
+    "VillagersTargetRichSoilMixin",
     "accessor.LootContextAccessor",
-    "accessor.RecipeManagerAccessor"
+    "accessor.RecipeManagerAccessor",
+    "refabricated.FenceGateBlockMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",

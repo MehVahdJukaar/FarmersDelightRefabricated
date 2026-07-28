@@ -2,149 +2,262 @@ package vectorwing.farmersdelight.common.tag;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.refabricated.FDRefabricatedTags;
 
 /**
  * References to tags under the Farmer's Delight namespace.
  * These tags are used for mod mechanics.
+ * <p>
+ * For add-ons: I recommend copying these as local tag references in your code, as these are not actual registries. The tags below are subject to changes which may break add-ons referencing them.
  */
 public class ModTags
 {
-	// Blocks that are efficiently mined with a Knife.
-	public static final TagKey<Block> MINEABLE_WITH_KNIFE = modBlockTag("mineable/knife");
+	public static class Blocks
+	{
+		// Blocks which cause Campfires to emit signal smoke when placed underneath them.
+		public static final TagKey<Block> CAMPFIRE_SIGNAL_SMOKE = modBlockTag("campfire_signal_smoke");
 
-	// Blocks commonly present in biome surfaces. Populated by "minecraft:dirt" and "minecraft:sand" by default.
-	public static final TagKey<Block> TERRAIN = modBlockTag("terrain");
+		// Blocks which accelerate decomposition of Organic Compost if placed adjacent to it.
+		public static final TagKey<Block> COMPOST_ACTIVATORS = modBlockTag("compost_activators");
 
-	// Blocks made mostly of straw.
-	public static final TagKey<Block> STRAW_BLOCKS = modBlockTag("straw_blocks");
+		// Blocks which should drop a Cake Slice when sliced by a knife. Populated by all candle cakes by default.
+		public static final TagKey<Block> DROPS_CAKE_SLICE = modBlockTag("drops_cake_slice");
 
-	// Blocks that represent the wild form of a farmable crop.
-	public static final TagKey<Block> WILD_CROPS = modBlockTag("wild_crops");
+		// Blocks which can transfer heat to cooking workstations, if directly above a heat source.
+		public static final TagKey<Block> HEAT_CONDUCTORS = modBlockTag("heat_conductors");
 
-	// Blocks that represent a rope, for gameplay purposes.
-	public static final TagKey<Block> ROPES = modBlockTag("ropes");
+		// Blocks which can heat up cooking workstations.
+		public static final TagKey<Block> HEAT_SOURCES = modBlockTag("heat_sources");
 
-	// Blocks that can heat up cooking workstations.
-	public static final TagKey<Block> HEAT_SOURCES = modBlockTag("heat_sources");
+		// Blocks which can heat up cooking workstations, while also rendering a tray to support such blocks. Included in HEAT_SOURCES.
+		public static final TagKey<Block> TRAY_HEAT_SOURCES = modBlockTag("tray_heat_sources");
 
-	// Blocks that can transfer heat to cooking workstations, if directly above a heat source.
-	public static final TagKey<Block> HEAT_CONDUCTORS = modBlockTag("heat_conductors");
+		// Blocks in which Mushroom Colonies can keep growing on. These blocks cannot form new colonies.
+		public static final TagKey<Block> MUSHROOM_COLONY_GROWABLE_ON = modBlockTag("mushroom_colony_growable_on");
 
-	// Blocks to which a Cooking Pot/Skillet will render a tray over. Included in HEAT_SOURCES.
-	public static final TagKey<Block> TRAY_HEAT_SOURCES = modBlockTag("tray_heat_sources");
+		// Blocks which are planted beneath a soil block. Used by Rich Soil to ensure such blocks can only be bonemealed if planted below it.
+		public static final TagKey<Block> PLANTED_FROM_BELOW = modBlockTag("planted_from_below");
 
-	// Blocks that accelerate decomposition of Organic Compost if placed adjacent to it.
-	public static final TagKey<Block> COMPOST_ACTIVATORS = modBlockTag("compost_activators");
+		// Blocks which represent a feast: a larger, placeable meal which can serve many portions.
+		public static final TagKey<Block> FEASTS = modBlockTag("feasts");
 
-	// Blocks in which Mushroom Colonies can keep growing on, if it's dark enough. These blocks cannot form new colonies.
-	public static final TagKey<Block> MUSHROOM_COLONY_GROWABLE_ON = modBlockTag("mushroom_colony_growable_on");
+		// Blocks which represent a pie: a placeable dessert which uses a Pie Crust, and usually provides 4 slices.
+		public static final TagKey<Block> PIES = modBlockTag("pies");
 
-	// Blocks that should not have their growth boosted by Rich Soil, if planted on it.
-	public static final TagKey<Block> UNAFFECTED_BY_RICH_SOIL = modBlockTag("unaffected_by_rich_soil");
+		// Blocks made mostly of straw. Populates MINEABLE_WITH_KNIFE.
+		public static final TagKey<Block> STRAW_BLOCKS = modBlockTag("straw_blocks");
 
-	// Candle cakes that should drop the vanilla cake slice when sliced by a knife.
-	public static final TagKey<Block> DROPS_CAKE_SLICE = modBlockTag("drops_cake_slice");
+		// Blocks commonly present in biome surfaces. Populated by "minecraft:dirt" and "minecraft:sand" by default.
+		public static final TagKey<Block> TERRAIN = modBlockTag("terrain");
 
-	// Blocks which cause Campfires to emit signal smoke when placed underneath them.
-	public static final TagKey<Block> CAMPFIRE_SIGNAL_SMOKE = modBlockTag("campfire_signal_smoke");
+		// Blocks which should not have their growth boosted by Rich Soil, if planted on it.
+		public static final TagKey<Block> UNAFFECTED_BY_RICH_SOIL = modBlockTag("unaffected_by_rich_soil");
 
-	////////////////
+		public static final TagKey<Block> CABINETS = modBlockTag("cabinets");
 
-	// Items that represent a meal: prepared food contained in a bowl or plate.
-	public static final TagKey<Item> MEALS = modItemTag("meals");
+		public static final TagKey<Block> CABINETS_WOODEN = modBlockTag("cabinets/wooden");
 
-	// Items that represent a drink: a bottled consumable that isn't a potion.
-	public static final TagKey<Item> DRINKS = modItemTag("drinks");
+		public static final TagKey<Block> MUSHROOM_COLONIES = modBlockTag("mushroom_colonies");
 
-	// Items that represent a feast: a larger, placeable meal which can serve many portions.
-	public static final TagKey<Item> FEASTS = modItemTag("feasts");
+		public static final TagKey<Block> MINEABLE_WITH_KNIFE = modBlockTag("mineable/knife");
 
-	// Items that represent the wild form of a farmable crop.
-	public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
+		public static final TagKey<Block> ROPES = modBlockTag("ropes");
 
-	// Items (ideally tools) that can obtain straw when harvesting grassy plants. Populated by all knives by default.
-	public static final TagKey<Item> STRAW_HARVESTERS = modItemTag("straw_harvesters");
+		public static final TagKey<Block> WILD_CROPS = modBlockTag("wild_crops");
+	}
 
-	// Foods that drop from mobs that wolves prey upon (sheep, rabbit and chicken).
-	public static final TagKey<Item> WOLF_PREY = modItemTag("wolf_prey");
+	public static class Items
+	{
+		// Items that represent a multi-ingredient food which isn't contained in a bowl or plate.
+		public static final TagKey<Item> SNACKS = modItemTag("snacks");
 
-	// Foods and items that serve as filling for Cabbage Rolls
-	public static final TagKey<Item> CABBAGE_ROLL_INGREDIENTS = modItemTag("cabbage_roll_ingredients");
+		// Items which represent a meal: prepared food contained in a bowl or plate.
+		public static final TagKey<Item> MEALS = modItemTag("meals");
 
-	// Items commonly held in the off-hand. Cutting Boards won't let them be placed from the off-hand, for convenience.
-	public static final TagKey<Item> OFFHAND_EQUIPMENT = modItemTag("offhand_equipment");
+		// Items which represent a drink: a bottled consumable that isn't a potion.
+		public static final TagKey<Item> DRINKS = modItemTag("drinks");
 
-	// Knife items for game logic.
-	public static final TagKey<Item> KNIVES = modItemTag("tools/knives");
+		// Items which represent sweets: prepared foods made with sugar and/or sweet ingredients. Usually classified as desserts.
+		public static final TagKey<Item> SWEETS = modItemTag("sweets");
 
-	// Canvas Signs items for crafting.
-	public static final TagKey<Item> CANVAS_SIGNS = modItemTag("canvas_signs");
+		// Items which represent a feast: a larger, placeable meal which can serve many portions.
+		public static final TagKey<Item> FEASTS = modItemTag("feasts");
 
-	// Canvas Signs items for crafting.
-	public static final TagKey<Item> HANGING_CANVAS_SIGNS = modItemTag("hanging_canvas_signs");
+		// Items which represent a pie: a placeable dessert which uses a Pie Crust, and usually provides 4 slices.
+		public static final TagKey<Item> PIES = modItemTag("pies");
 
-	// Wooden Cabinet items for crafting.
-	public static final TagKey<Item> WOODEN_CABINETS = modItemTag("cabinets/wooden");
+		// Items which should render in 2D, laying down flat, when placed on the Cutting Board.
+		public static final TagKey<Item> FLAT_ON_CUTTING_BOARD = modItemTag("flat_on_cutting_board");
 
-	// All Cabinet items for crafting.
-	public static final TagKey<Item> CABINETS = modItemTag("cabinets");
+		// Items commonly used to contain products. Used by the Cooking Pot for sneak-clicking actions.
+		public static final TagKey<Item> SERVING_CONTAINERS = modItemTag("serving_containers");
 
-	// Items commonly used to contain products. Used by the Cooking Pot for sneak-clicking actions.
-	public static final TagKey<Item> SERVING_CONTAINERS = modItemTag("serving_containers");
+		// Items (ideally tools) which can obtain straw when harvesting grassy plants. Populated by all knives by default.
+		public static final TagKey<Item> STRAW_HARVESTERS = modItemTag("straw_harvesters");
 
-	// Items which render in 2D, laying down flat, when placed on the Cutting Board.
-	public static final TagKey<Item> FLAT_ON_CUTTING_BOARD = modItemTag("flat_on_cutting_board");
+		public static final TagKey<Item> CABINETS = modItemTag("cabinets");
 
-	// Entities that should be able to eat Dog Food when tame. Defaults to tamed Wolves.
-	public static final TagKey<EntityType<?>> DOG_FOOD_USERS = modEntityTag("dog_food_users");
+		public static final TagKey<Item> CABINETS_WOODEN = modItemTag("cabinets/wooden");
 
-	// Entities that should be able to eat Horse Feed when tame. Defaults to most vanilla mounts, except Pigs and Striders.
-	public static final TagKey<EntityType<?>> HORSE_FEED_USERS = modEntityTag("horse_feed_users");
+		public static final TagKey<Item> CANVAS_SIGNS = modItemTag("canvas_signs");
 
-	// Entities that should be given a TemptGoal for Horse Feed, allowing players to call them with it.
-	public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
+		public static final TagKey<Item> HANGING_CANVAS_SIGNS = modItemTag("hanging_canvas_signs");
 
-    // new tags
-    public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = modBiomeTag("has_brown_mushroom_colony");
-    public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = modBiomeTag("has_red_mushroom_colony");
-    public static final TagKey<Biome> HAS_WILD_CABBAGE = modBiomeTag("has_wild_cabbage");
-    public static final TagKey<Biome> HAS_WILD_BEETROOTS = modBiomeTag("has_wild_beetroots");
-    public static final TagKey<Biome> WILD_CARROTS_WHITELIST = modBiomeTag("wild_carrots_whitelist");
-    public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = modBiomeTag("wild_carrots_blacklist");
-    public static final TagKey<Biome> WILD_ONIONS_WHITELIST = modBiomeTag("wild_onions_whitelist");
-    public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = modBiomeTag("wild_onions_blacklist");
-    public static final TagKey<Biome> WILD_POTATOES_WHITELIST = modBiomeTag("wild_potatoes_whitelist");
-    public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = modBiomeTag("wild_potatoes_blacklist");
-    public static final TagKey<Biome> WILD_RICE_WHITELIST = modBiomeTag("wild_rice_whitelist");
-    public static final TagKey<Biome> WILD_RICE_BLACKLIST = modBiomeTag("wild_rice_blacklist");
-    public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = modBiomeTag("wild_tomatoes_whitelist");
-    public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = modBiomeTag("wild_tomatoes_blacklist");
+		public static final TagKey<Item> KNIVES = modItemTag("tools/knives");
 
-    public static final TagKey<Block> SURVIVES_RICH_SOIL = modBlockTag("survives/rich_soil");
-    public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = modBlockTag("does_not_survive/rich_soil");
+		public static final TagKey<Item> MUSHROOM_COLONIES = modItemTag("mushroom_colonies");
 
-    public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = modBlockTag("survives/rich_soil_farmland");
-    public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = modBlockTag("does_not_survive/rich_soil_farmland");
+		public static final TagKey<Item> WILD_CROPS = modItemTag("wild_crops");
+	}
+
+	public static class EntityTypes
+	{
+		// Entities which should be able to eat Dog Food when tame. Defaults to tamed Wolves.
+		public static final TagKey<EntityType<?>> DOG_FOOD_USERS = modEntityTag("dog_food_users");
+
+		// Entities which should be able to eat Horse Feed when tame. Defaults to most vanilla mounts, except Pigs and Striders.
+		public static final TagKey<EntityType<?>> HORSE_FEED_USERS = modEntityTag("horse_feed_users");
+
+		// Entities which should be given a TemptGoal for Horse Feed, allowing players to call them with it.
+		public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
+	}
 
 	private static TagKey<Item> modItemTag(String path) {
 		return TagKey.create(Registries.ITEM, new ResourceLocation(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<Block> modBlockTag(String path) {
-		return TagKey.create(Registries.BLOCK, new ResourceLocation(FarmersDelight.MODID, path));
+		return TagKey.create(Registries.BLOCK,new ResourceLocation(FarmersDelight.MODID, path));
 	}
 
 	private static TagKey<EntityType<?>> modEntityTag(String path) {
 		return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FarmersDelight.MODID, path));
 	}
 
-    private static TagKey<Biome> modBiomeTag(String path) {
-        return TagKey.create(Registries.BIOME, new ResourceLocation(FarmersDelight.MODID, path));
-    }
+	/**
+	 * The following tag references are deprecated, and should no longer be used by add-ons. Please use the sub-classed tag references moving forward, or create local tag references in your add-on.
+	 * They were re-introduced to prevent crashes, but they will be removed in the next major/minor release.
+	 */
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> CAMPFIRE_SIGNAL_SMOKE = modBlockTag("campfire_signal_smoke");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> COMPOST_ACTIVATORS = modBlockTag("compost_activators");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> DROPS_CAKE_SLICE = modBlockTag("drops_cake_slice");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> HEAT_CONDUCTORS = modBlockTag("heat_conductors");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> HEAT_SOURCES = modBlockTag("heat_sources");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> TRAY_HEAT_SOURCES = modBlockTag("tray_heat_sources");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> MUSHROOM_COLONY_GROWABLE_ON = modBlockTag("mushroom_colony_growable_on");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> MINEABLE_WITH_KNIFE = modBlockTag("mineable/knife");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> TERRAIN = modBlockTag("terrain");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> STRAW_BLOCKS = modBlockTag("straw_blocks");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> WILD_CROPS = modBlockTag("wild_crops");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> CABINETS = modBlockTag("cabinets");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> WOODEN_CABINETS = modBlockTag("cabinets/wooden");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> MUSHROOM_COLONIES = modBlockTag("mushroom_colonies");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> ROPES = modBlockTag("ropes");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> UNAFFECTED_BY_RICH_SOIL = modBlockTag("unaffected_by_rich_soil");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> MEALS = modItemTag("meals");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> DRINKS = modItemTag("drinks");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> FEASTS = modItemTag("feasts");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> WILD_CROPS_ITEM = modItemTag("wild_crops");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> STRAW_HARVESTERS = modItemTag("straw_harvesters");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> KNIVES = modItemTag("tools/knives");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> CANVAS_SIGNS = modItemTag("canvas_signs");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> HANGING_CANVAS_SIGNS = modItemTag("hanging_canvas_signs");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> WOODEN_CABINET_ITEMS = modItemTag("cabinets/wooden");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> CABINET_ITEMS = modItemTag("cabinets");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> MUSHROOM_COLONY_ITEMS = modItemTag("mushroom_colonies");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> SERVING_CONTAINERS = modItemTag("serving_containers");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Item> FLAT_ON_CUTTING_BOARD = modItemTag("flat_on_cutting_board");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<EntityType<?>> DOG_FOOD_USERS = modEntityTag("dog_food_users");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<EntityType<?>> HORSE_FEED_USERS = modEntityTag("horse_feed_users");
+	@Deprecated(forRemoval = true)
+	public static final TagKey<EntityType<?>> HORSE_FEED_TEMPTED = modEntityTag("horse_feed_tempted");
+
+	// Deprecated: Look at vectorwing.farmersdelight.refabricated.FDRefabricatedTags instead.
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_BROWN_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_BROWN_MUSHROOM_COLONY;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_RED_MUSHROOM_COLONY = FDRefabricatedTags.Biomes.HAS_RED_MUSHROOM_COLONY;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_WILD_CABBAGE = FDRefabricatedTags.Biomes.HAS_WILD_CABBAGE;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> HAS_WILD_BEETROOTS = FDRefabricatedTags.Biomes.HAS_WILD_BEETROOTS;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_CARROTS_WHITELIST = FDRefabricatedTags.Biomes.WILD_CARROTS_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_CARROTS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_CARROTS_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_ONIONS_WHITELIST = FDRefabricatedTags.Biomes.WILD_ONIONS_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_ONIONS_BLACKLIST = FDRefabricatedTags.Biomes.WILD_ONIONS_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_POTATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_POTATOES_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_POTATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_POTATOES_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_RICE_WHITELIST = FDRefabricatedTags.Biomes.WILD_RICE_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_RICE_BLACKLIST = FDRefabricatedTags.Biomes.WILD_RICE_BLACKLIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_TOMATOES_WHITELIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_WHITELIST;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Biome> WILD_TOMATOES_BLACKLIST = FDRefabricatedTags.Biomes.WILD_TOMATOES_BLACKLIST;
+
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> SURVIVES_RICH_SOIL = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL;
+	@Deprecated(forRemoval = true)
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL;
+
+	@Deprecated
+	public static final TagKey<Block> SURVIVES_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.SURVIVES_RICH_SOIL_FARMLAND;
+	@Deprecated
+	public static final TagKey<Block> DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND = FDRefabricatedTags.Blocks.DOES_NOT_SURVIVE_RICH_SOIL_FARMLAND;
+
+	@Deprecated
+	public static final TagKey<EntityType<?>> DROPS_LEATHER = FDRefabricatedTags.EntityTypes.DROPS_LEATHER;
+
+	@Deprecated
+	public static final TagKey<MobEffect> HOT_COCOA_IGNORED = FDRefabricatedTags.MobEffects.HOT_COCOA_IGNORED;
+	@Deprecated
+	public static final TagKey<MobEffect> MILK_BOTTLE_IGNORED = FDRefabricatedTags.MobEffects.MILK_BOTTLE_IGNORED;
+
 }

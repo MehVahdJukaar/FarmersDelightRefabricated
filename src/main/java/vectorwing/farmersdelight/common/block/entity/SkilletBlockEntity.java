@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.block.entity;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
@@ -27,16 +27,15 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Optional;
 
 import static vectorwing.farmersdelight.common.item.SkilletItem.FLIP_TIME;
 
-;
-
-public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity
+public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlockEntity, Clearable
 {
-	private final ItemStackHandlerContainer inventory = createHandler();
+	private final ItemStackHandler inventory = createHandler();
 	private int cookingTime;
 	private int cookingTimeTotal;
 	private ResourceLocation lastRecipeID;
@@ -56,7 +55,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		boolean isHeated = skillet.isHeated(level, pos);
 
 		if (state.getValue(SkilletBlock.WATERLOGGED)) {
-			if (!ItemUtils.isInventoryEmpty(skillet.inventory)) {
+			if (ItemUtils.doesInventoryHaveItems(skillet.inventory)) {
 				ItemUtils.dropItems(level, pos, skillet.inventory);
 				skillet.inventoryChanged();
 			}
@@ -118,7 +117,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 						direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 
 				cookingTime = 0;
-				inventory.removeItem(0, 1);
+				inventory.extractItem(0, 1, false);
 			}
 		}
 	}
@@ -189,12 +188,12 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		Optional<CampfireCookingRecipe> recipe = getMatchingRecipe(new SimpleContainer(addedStack));
 		if (recipe.isPresent()) {
 			if (getBlockState().getValue(SkilletBlock.WATERLOGGED)) {
-				player.displayClientMessage(TextUtils.getTranslation("block.skillet.underwater"), true);
+				player.displayClientMessage(TextUtils.block("skillet.underwater"), true);
 				return addedStack;
 			}
 			cookingTimeTotal = SkilletBlock.getSkilletCookingTime(recipe.get().getCookingTime(), fireAspectLevel);
 			boolean wasEmpty = getStoredStack().isEmpty();
-			ItemStack remainderStack =  ItemUtils.insertItem(inventory, 0, addedStack.copy(), false);
+			ItemStack remainderStack = inventory.insertItem(0, addedStack.copy(), false);
 			if (!ItemStack.matches(remainderStack, addedStack)) {
 				lastRecipeID = recipe.get().getId();
 				cookingTime = 0;
@@ -204,16 +203,16 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				return remainderStack;
 			}
 		} else {
-			player.displayClientMessage(TextUtils.getTranslation("block.skillet.invalid_item"), true);
+			player.displayClientMessage(TextUtils.block("skillet.invalid_item"), true);
 		}
 		return addedStack;
 	}
 
 	public ItemStack removeItem() {
-		return inventory.removeItem(0, getStoredStack().getMaxStackSize());
+		return inventory.extractItem(0, getStoredStack().getMaxStackSize(), false);
 	}
 
-	public ItemStackHandlerContainer getInventory() {
+	public ItemStackHandler getInventory() {
 		return inventory;
 	}
 
@@ -225,8 +224,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 		return !getStoredStack().isEmpty();
 	}
 
-	private ItemStackHandlerContainer createHandler() {
-		return new ItemStackHandlerContainer()
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler()
 		{
 			@Override
 			protected void onContentsChanged(int slot) {
@@ -238,5 +237,10 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
+	}
+
+	@Override
+	public void clearContent() {
+		ItemUtils.clearItems(inventory);
 	}
 }

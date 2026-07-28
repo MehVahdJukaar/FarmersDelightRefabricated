@@ -27,7 +27,6 @@ public class CuttingEmiRecipe implements EmiRecipe {
         this.tool = tool;
         this.input = input;
         this.outputs = outputs;
-
     }
 
     @Override
@@ -57,7 +56,7 @@ public class CuttingEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 111;
+        return 107;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class CuttingEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 0, 0, 111, 44, 4, 7);
+        widgets.addTexture(BACKGROUND, 0, 0, 107, 44, 4, 7);
 
         widgets.addSlot(tool, 11, 0).drawBack(false);
         widgets.addSlot(input, 11, 19).drawBack(false);

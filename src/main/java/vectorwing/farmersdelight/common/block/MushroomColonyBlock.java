@@ -1,8 +1,9 @@
 package vectorwing.farmersdelight.common.block;
 
-import io.github.fabricators_of_create.porting_lib.mixin.common.BushBlockMixin;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -28,7 +29,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.SoilUtils;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.function.Supplier;
 
@@ -50,6 +53,42 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		super(properties);
 		this.mushroomType = mushroomType;
 		this.registerDefaultState(this.stateDefinition.any().setValue(COLONY_AGE, 0));
+	}
+
+	@Override
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		int age = state.getValue(COLONY_AGE);
+		ItemStack heldStack = player.getItemInHand(hand);
+
+		if (age > 0) {
+			ItemStack mushroomStack = getCloneItemStack(level, pos, state);
+			if (ItemUtils.isValidTool(heldStack, ItemAbility.SHEARS_HARVEST, Tags.Items.SHEARS)) {
+				level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
+				level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				popResource(level, pos, mushroomStack);
+				if (!level.isClientSide) {
+					heldStack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
+					((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.001D);
+				}
+
+				return InteractionResult.sidedSuccess(level.isClientSide);
+			}
+			if (ItemUtils.isKnife(heldStack)) {
+				int colonyAge = state.getValue(COLONY_AGE);
+				mushroomStack.setCount(colonyAge);
+				level.setBlock(pos, state.setValue(COLONY_AGE, 0), 2);
+				level.playSound(null, pos, this.soundType.getBreakSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+				popResource(level, pos, mushroomStack);
+				if (!level.isClientSide) {
+					heldStack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
+					((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.1D);
+				}
+
+				return InteractionResult.sidedSuccess(level.isClientSide);
+			}
+		}
+
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -81,24 +120,6 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 		}
 	}
 
-	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		int age = state.getValue(COLONY_AGE);
-		ItemStack heldStack = player.getItemInHand(hand);
-
-		if (age > 0 && heldStack.is(Tags.Items.SHEARS)) {
-			Block.popResource(level, pos, getCloneItemStack(level, pos, state));
-			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
-			level.setBlock(pos, state.setValue(COLONY_AGE, age - 1), 2);
-			if (!level.isClientSide) {
-				heldStack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
-			}
-			return InteractionResult.SUCCESS;
-		}
-
-		return InteractionResult.PASS;
-	}
-
 	public int getMaxAge() {
 		return 3;
 	}
@@ -107,7 +128,7 @@ public class MushroomColonyBlock extends BushBlock implements BonemealableBlock
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int age = state.getValue(COLONY_AGE);
 		BlockState groundState = level.getBlockState(pos.below());
-		if (age < getMaxAge() && groundState.is(ModTags.MUSHROOM_COLONY_GROWABLE_ON) && random.nextInt(4) == 0) {
+		if (age < getMaxAge() && groundState.is(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON) && random.nextInt(4) == 0) {
 			level.setBlock(pos, state.setValue(COLONY_AGE, age + 1), 2);
 		}
 	}

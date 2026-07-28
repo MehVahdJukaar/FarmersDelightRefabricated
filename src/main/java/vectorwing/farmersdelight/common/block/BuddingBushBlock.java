@@ -9,7 +9,6 @@ import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,11 +45,11 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(Blocks.FARMLAND);
+		return state.getBlock() instanceof FarmBlock;
 	}
 
 	@Override
-	public PlantType getPlantType(BlockGetter world, BlockPos pos) {
+	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
 		return PlantType.CROP;
 	}
 

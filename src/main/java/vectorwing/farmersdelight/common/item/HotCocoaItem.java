@@ -30,7 +30,7 @@ public class HotCocoaItem extends DrinkableItem
 			}
 		}
 
-		if (compatibleEffects.size() > 0) {
+		if (!compatibleEffects.isEmpty()) {
 			MobEffectInstance selectedEffect = consumer.getEffect(compatibleEffects.get(level.random.nextInt(compatibleEffects.size())));
 			// There is no equivalent for MobEffectEvent, people are expected to mixin with instances like this on Fabric, so we don't bother.
 			if (selectedEffect != null) {

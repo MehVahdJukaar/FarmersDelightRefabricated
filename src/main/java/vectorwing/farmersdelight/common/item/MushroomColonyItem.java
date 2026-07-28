@@ -9,8 +9,8 @@ import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 
 public class MushroomColonyItem extends BlockItem
 {
-	public MushroomColonyItem(Block blockIn, Properties properties) {
-		super(blockIn, properties);
+	public MushroomColonyItem(Block block, Properties properties) {
+		super(block, properties);
 	}
 
 	@Override

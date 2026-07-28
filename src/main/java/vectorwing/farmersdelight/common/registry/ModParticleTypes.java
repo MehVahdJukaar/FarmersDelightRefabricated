@@ -16,4 +16,6 @@ public class ModParticleTypes
 			() -> FabricParticleTypes.simple(true));
 	public static final RegistryObject<SimpleParticleType> STEAM = PARTICLE_TYPES.register("steam",
 			() -> FabricParticleTypes.simple(true));
+	public static final RegistryObject<SimpleParticleType> SPARKLE = PARTICLE_TYPES.register("sparkle",
+			() -> FabricParticleTypes.simple(true));
 }

@@ -10,7 +10,7 @@
       "tag": "c:crops/onion"
     },
     {
-      "item": "minecraft:beetroot"
+      "tag": "forge:crops/beetroot"
     },
     {
       "tag": "c:foods/vegetables"

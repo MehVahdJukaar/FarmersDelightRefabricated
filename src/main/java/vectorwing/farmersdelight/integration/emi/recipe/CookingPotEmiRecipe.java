@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookingPotEmiRecipe implements EmiRecipe {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+    private static final ResourceLocation BACKGROUND = new ResourceLocation(FarmersDelight.MODID, "textures/gui/jei/cooking_pot.png");
+    private static final ResourceLocation WIDGETS = new ResourceLocation(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
 
     private final ResourceLocation id;
     private final List<EmiIngredient> inputs;
@@ -80,7 +81,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 117;
+        return 116;
     }
 
     @Override
@@ -90,7 +91,7 @@ public class CookingPotEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(BACKGROUND, 0, 0, 116, 56, 29, 16);
+        widgets.addTexture(BACKGROUND, 0, 0, 116, 56, 0, 0);
 
         int borderSlotSize = 18;
         for (int row = 0; row < 2; ++row) {
@@ -106,14 +107,14 @@ public class CookingPotEmiRecipe implements EmiRecipe {
         addSlot(widgets, output, 94, 38).recipeContext(this);
 
         // Arrow
-        widgets.addAnimatedTexture(BACKGROUND, 60, 9, 24, 17, 176, 15, 1000 * 10, true, false, false);
+        widgets.addAnimatedTexture(WIDGETS, 60, 9, 24, 17, 176, 15, 1000 * 10, true, false, false);
         // Heat Indicator
-        widgets.addTexture(BACKGROUND, 18, 39, 17, 15, 176, 0);
+        widgets.addTexture(WIDGETS, 18, 39, 17, 15, 176, 0);
         // Time Icon
-        widgets.addTexture(BACKGROUND, 64, 2, 8, 11, 176, 32);
+        widgets.addTexture(WIDGETS, 64, 2, 8, 11, 176, 32);
         // Experience Icon
         if (experience > 0) {
-            widgets.addTexture(BACKGROUND, 63,21, 9, 9, 176, 43);
+            widgets.addTexture(WIDGETS, 63,21, 9, 9, 176, 43);
         }
 
         widgets.addTooltip((mouseX, mouseY) -> {

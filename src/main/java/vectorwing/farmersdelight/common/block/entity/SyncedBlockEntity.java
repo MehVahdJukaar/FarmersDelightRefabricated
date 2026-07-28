@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class SyncedBlockEntity extends BlockEntity
 {
-	public SyncedBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
-		super(tileEntityTypeIn, pos, state);
+	public SyncedBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
+		super(blockEntityType, pos, state);
 	}
 
 	@Override

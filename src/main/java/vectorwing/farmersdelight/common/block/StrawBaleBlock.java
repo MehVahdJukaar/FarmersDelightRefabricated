@@ -14,11 +14,11 @@ public class StrawBaleBlock extends HayBlock
 		FlammableBlockRegistry.getDefaultInstance().add(this, this.getFlammability(null, null, null, null), this.getFireSpreadSpeed(null, null, null, null));
 	}
 
-	public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+	public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction face) {
 		return 60;
 	}
 
-	public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+	public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction face) {
 		return 20;
 	}
 }

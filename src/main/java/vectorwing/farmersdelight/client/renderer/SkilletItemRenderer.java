@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
@@ -18,8 +19,7 @@ public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicI
     }
 
     @Override
-    public void render(ItemStack stack, ItemDisplayContext mode, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        //render block
+	public void render(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {        //render block
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
 
@@ -49,7 +49,7 @@ public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicI
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
-            if (mode != ItemDisplayContext.GUI) {
+            if (displayContext != ItemDisplayContext.GUI) {
                 var itemRenderer = Minecraft.getInstance().getItemRenderer();
                 itemRenderer.renderStatic(ingredientStack, ItemDisplayContext.FIXED, packedLight,
                         packedOverlay, poseStack, buffer, null, 0);
@@ -60,7 +60,7 @@ public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicI
 
         poseStack.pushPose();
 
-        if (animation != 0 && mode.firstPerson()) {
+        if (animation != 0 && displayContext.firstPerson()) {
             poseStack.translate(0, 0, 1);
             poseStack.mulPose(Axis.XN.rotationDegrees(Mth.sin(animation * Mth.TWO_PI) * 6));
             poseStack.translate(0F, 0, -1);

@@ -20,7 +20,7 @@ import vectorwing.farmersdelight.common.event.VillagerEvents;
 import vectorwing.farmersdelight.common.item.DogFoodItem;
 import vectorwing.farmersdelight.common.item.HorseFeedItem;
 import vectorwing.farmersdelight.common.item.KnifeItem;
-import vectorwing.farmersdelight.common.networking.ModNetworking;
+import vectorwing.farmersdelight.common.network.ModNetworking;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.world.VillageStructures;
 
@@ -62,6 +62,8 @@ public class FarmersDelight implements ModInitializer
         CommonEvents.init();
         CommonSetup.init();
         VillagerEvents.init();
+
+		RegistryAliases.addRegistryAliases();
 
         CommonSetup.registerDispenserBehaviors();
 

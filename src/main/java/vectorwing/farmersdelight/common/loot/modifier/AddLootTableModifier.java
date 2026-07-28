@@ -29,8 +29,8 @@ public class AddLootTableModifier extends LootModifier
 
 	private final ResourceLocation lootTable;
 
-	protected AddLootTableModifier(LootItemCondition[] conditionsIn, ResourceLocation lootTable) {
-		super(conditionsIn);
+	public AddLootTableModifier(LootItemCondition[] conditions, ResourceLocation lootTable) {
+		super(conditions);
 		this.lootTable = lootTable;
 	}
 

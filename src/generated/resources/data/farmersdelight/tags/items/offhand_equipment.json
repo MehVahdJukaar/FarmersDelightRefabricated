@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#c:shields",
-    {
-      "id": "create:extendo_grip",
-      "required": false
-    }
-  ]
-}

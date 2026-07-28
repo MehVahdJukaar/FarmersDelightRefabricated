@@ -1,8 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -22,8 +20,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
@@ -31,6 +31,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class DogFoodItem extends ConsumableItem
@@ -44,80 +45,79 @@ public class DogFoodItem extends ConsumableItem
 		super(properties);
 	}
 
-    public static void init(){
-        UseEntityCallback.EVENT.register(DogFoodItem.DogFoodEvent::onDogFoodApplied);
-    }
+	@Mod.EventBusSubscriber(modid = FarmersDelight.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+	public static class DogFoodEvent
+	{
+		@SubscribeEvent
+		@SuppressWarnings("unused")
+		public static void onDogFoodApplied(PlayerInteractEvent.EntityInteract event) {
+			Player player = event.getEntity();
+			Entity target = event.getTarget();
+			ItemStack itemStack = event.getItemStack();
 
-    public static class DogFoodEvent
-    {
-        public static InteractionResult onDogFoodApplied(Player player, Level level, InteractionHand hand, Entity target,
-                                                         @Nullable EntityHitResult entityHitResult) {
-            ItemStack itemStack = player.getItemInHand(hand);
+			if (target instanceof LivingEntity entity && target.getType().is(ModTags.EntityTypes.DOG_FOOD_USERS)) {
+				boolean isTameable = entity instanceof TamableAnimal;
 
-            if (target instanceof LivingEntity entity && target.getType().is(ModTags.DOG_FOOD_USERS)) {
-                boolean isTameable = entity instanceof TamableAnimal;
+				if (entity.isAlive() && (!isTameable || ((TamableAnimal) entity).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {
+					entity.setHealth(entity.getMaxHealth());
+					for (MobEffectInstance effect : EFFECTS) {
+						entity.addEffect(new MobEffectInstance(effect));
+					}
+					entity.level().playSound(null, target.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
 
-                if (entity.isAlive() && (!isTameable || ((TamableAnimal) entity).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {
-                    entity.setHealth(entity.getMaxHealth());
-                    for (MobEffectInstance effect : EFFECTS) {
-                        entity.addEffect(new MobEffectInstance(effect));
-                    }
-                    entity.level().playSound(null, target.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+					for (int i = 0; i < 5; ++i) {
+						double xSpeed = MathUtils.RAND.nextGaussian() * 0.02D;
+						double ySpeed = MathUtils.RAND.nextGaussian() * 0.02D;
+						double zSpeed = MathUtils.RAND.nextGaussian() * 0.02D;
+						entity.level().addParticle(ModParticleTypes.STAR.get(), entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
+					}
 
-                    for (int i = 0; i < 5; ++i) {
-                        double xSpeed = MathUtils.RAND.nextGaussian() * 0.02D;
-                        double ySpeed = MathUtils.RAND.nextGaussian() * 0.02D;
-                        double zSpeed = MathUtils.RAND.nextGaussian() * 0.02D;
-                        entity.level().addParticle(ModParticleTypes.STAR.get(), entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
-                    }
+					if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
+						player.addItem(itemStack.getCraftingRemainingItem());
+						itemStack.shrink(1);
+					}
 
-                    if (itemStack.getRecipeRemainder() != ItemStack.EMPTY && !player.isCreative()) {
-                        player.addItem(itemStack.getRecipeRemainder());
-                        itemStack.shrink(1);
-                    }
+					event.setCancellationResult(InteractionResult.SUCCESS);
+					event.setCanceled(true);
+				}
+			}
+		}
+	}
 
-                    return InteractionResult.SUCCESS;
-                }
-            }
-            return InteractionResult.PASS;
-        }
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+		if (!Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
+			return;
+		}
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
-            return;
-        }
+		MutableComponent textWhenFeeding = TextUtils.tooltip("dog_food.when_feeding");
+		tooltip.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
 
-        MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.dog_food.when_feeding");
-        tooltip.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
+		for (MobEffectInstance effectInstance : EFFECTS) {
+			MutableComponent effectDescription = Component.literal(" ");
+			MutableComponent effectName = Component.translatable(effectInstance.getDescriptionId());
+			effectDescription.append(effectName);
+			MobEffect effect = effectInstance.getEffect();
 
-        for (MobEffectInstance effectInstance : EFFECTS) {
-            MutableComponent effectDescription = Component.literal(" ");
-            MutableComponent effectName = Component.translatable(effectInstance.getDescriptionId());
-            effectDescription.append(effectName);
-            MobEffect effect = effectInstance.getEffect();
+			if (effectInstance.getAmplifier() > 0) {
+				effectDescription.append(" ").append(Component.translatable("potion.potency." + effectInstance.getAmplifier()));
+			}
 
-            if (effectInstance.getAmplifier() > 0) {
-                effectDescription.append(" ").append(Component.translatable("potion.potency." + effectInstance.getAmplifier()));
-            }
+			if (effectInstance.getDuration() > 20) {
+				effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(")");
+			}
 
-            if (effectInstance.getDuration() > 20) {
-                effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(")");
-            }
+			tooltip.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
+		}
+	}
 
-            tooltip.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()));
-        }
-    }
-
-    @Override
-    public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
-        if (target instanceof Wolf wolf) {
-            if (wolf.isAlive() && wolf.isTame()) {
-                return InteractionResult.SUCCESS;
-            }
-        }
-        return InteractionResult.PASS;
-    }
+	@Override
+	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+		if (target instanceof Wolf wolf) {
+			if (wolf.isAlive() && wolf.isTame()) {
+				return InteractionResult.SUCCESS;
+			}
+		}
+		return InteractionResult.PASS;
+	}
 }
-

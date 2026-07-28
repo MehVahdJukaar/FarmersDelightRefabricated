@@ -56,7 +56,7 @@ public class HorseFeedItem extends Item
 
 			ItemStack heldStack = player.getItemInHand(hand);
 
-			if (target instanceof LivingEntity entity && target.getType().is(ModTags.HORSE_FEED_USERS)) {
+			if (target instanceof LivingEntity entity && target.getType().is(ModTags.EntityTypes.HORSE_FEED_USERS)) {
 				boolean isTameable = entity instanceof AbstractHorse;
 
 				if (entity.isAlive() && (!isTameable || ((AbstractHorse) entity).isTamed()) && heldStack.getItem().equals(ModItems.HORSE_FEED.get())) {
@@ -86,12 +86,11 @@ public class HorseFeedItem extends Item
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltip, isAdvanced);
-		if (!Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+		if (!Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 			return;
 		}
 
-		MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.horse_feed.when_feeding");
+		MutableComponent textWhenFeeding = TextUtils.tooltip("horse_feed.when_feeding");
 		tooltip.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
 
 		for (MobEffectInstance effectInstance : EFFECTS) {
@@ -113,7 +112,7 @@ public class HorseFeedItem extends Item
 	}
 
 	@Override
-	public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
+	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
 		if (target instanceof Horse horse) {
 			if (horse.isAlive() && horse.isTamed()) {
 				return InteractionResult.SUCCESS;

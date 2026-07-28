@@ -15,7 +15,13 @@
       "item": "minecraft:light_gray_dye"
     }
   ],
-  "tool": {
-    "tag": "c:tools/knives"
-  }
+  "tool": [
+    {
+      "fabric:type": "farmersdelight:tool_action",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knives"
+    }
+  ]
 }

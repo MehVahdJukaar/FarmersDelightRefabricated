@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import vectorwing.farmersdelight.common.block.StoveBlock;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 import vectorwing.farmersdelight.common.item.SkilletItem;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 import java.util.Random;
 
@@ -24,11 +25,11 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity> 
     public SkilletRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    @Override
-    public void render(SkilletBlockEntity skilletEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-        Direction direction = skilletEntity.getBlockState().getValue(StoveBlock.FACING);
-        ItemStackHandlerContainer inventory = skilletEntity.getInventory();
-        int posLong = (int) skilletEntity.getBlockPos().asLong();
+	@Override
+	public void render(SkilletBlockEntity skillet, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+		Direction direction = skillet.getBlockState().getValue(StoveBlock.FACING);
+		ItemStackHandler inventory = skillet.getInventory();
+		int posLong = (int) skillet.getBlockPos().asLong();
 
         ItemStack stack = inventory.getStackInSlot(0);
         int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
@@ -51,7 +52,7 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity> 
                 // epic flip last item
                 if(i == itemRenderCount - 1) {
                     long gameTime = Minecraft.getInstance().level.getGameTime();
-                    long time = skilletEntity.lastFlippedTime;
+                    long time = skillet.lastFlippedTime;
                     float animation = ((gameTime - time) + partialTicks) / SkilletItem.FLIP_TIME;
                     if (animation < 1) {
                         float maxH = 0.5f;
@@ -61,29 +62,20 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity> 
                 }
 
 
-                // Rotate item flat on the skillet. Use X and Y from now on
-                poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+				if (skillet.getLevel() != null)
+					Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, packedLight, packedOverlay, poseStack, buffer, skillet.getLevel(), posLong);
+				poseStack.popPose();
+			}
+		}
+	}
 
-                // Resize the items
-                poseStack.scale(0.5F, 0.5F, 0.5F);
+	protected int getModelCount(ItemStack stack) {
+		int modelCount = 1;
 
-                if (skilletEntity.getLevel() != null)
-                    Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, combinedLight, combinedOverlay, poseStack, buffer, skilletEntity.getLevel(), posLong);
-                poseStack.popPose();
-            }
-        }
-    }
+		if (stack.getCount() > 1) {
+			modelCount += Mth.ceil(((float) stack.getCount() / stack.getMaxStackSize()) * 4);
+		}
 
-    protected int getModelCount(ItemStack stack) {
-        if (stack.getCount() > 48) {
-            return 5;
-        } else if (stack.getCount() > 32) {
-            return 4;
-        } else if (stack.getCount() > 16) {
-            return 3;
-        } else if (stack.getCount() > 1) {
-            return 2;
-        }
-        return 1;
-    }
+		return modelCount;
+	}
 }

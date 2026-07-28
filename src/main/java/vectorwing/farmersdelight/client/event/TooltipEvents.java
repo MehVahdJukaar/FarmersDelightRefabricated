@@ -10,21 +10,28 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
 public class TooltipEvents
 {
     public static void addTooltipToVanillaSoups(ItemStack stack, TooltipFlag tooltipType, List<Component> lines) {
-        if (!Configuration.VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.FOOD_EFFECT_TOOLTIP.get()) {
-            return;
-        }
+		Item food = stack.getItem();
+		FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
 
-        Item food = stack.getItem();
-        FoodProperties soupEffects = FoodValues.VANILLA_SOUP_EFFECTS.get(food);
+		if (food.equals(Items.PUMPKIN_PIE)) {
+			lines.add(Configuration.ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE.get() ? TextUtils.PLACEABLE_SNEAKING : TextUtils.PLACEABLE);
+		}
+
+		if (!Configuration.ENABLE_VANILLA_SOUP_EXTRA_EFFECTS.get() || !Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
+			return;
+		}
 
         if (soupEffects != null) {
             for (Pair<MobEffectInstance, Float> pair : soupEffects.getEffects()) {

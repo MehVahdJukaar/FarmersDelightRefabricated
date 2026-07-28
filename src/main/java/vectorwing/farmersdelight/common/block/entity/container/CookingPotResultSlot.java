@@ -1,21 +1,21 @@
 package vectorwing.farmersdelight.common.block.entity.container;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-public class CookingPotResultSlot extends SlotItemHandler
+public class CookingPotResultSlot extends ItemHandlerSlot
 {
-	public final CookingPotBlockEntity tileEntity;
+	public final CookingPotBlockEntity cookingPot;
 	private final Player player;
 	private int removeCount;
 
-	public CookingPotResultSlot(Player player, CookingPotBlockEntity tile, ItemStackHandler inventoryIn, int index, int xPosition, int yPosition) {
-		super(inventoryIn, index, xPosition, yPosition);
-		this.tileEntity = tile;
+	public CookingPotResultSlot(Player player, CookingPotBlockEntity blockEntity, ItemStackHandler inventory, int index, int xPosition, int yPosition) {
+		super(inventory, index, xPosition, yPosition);
+		this.cookingPot = blockEntity;
 		this.player = player;
 	}
 
@@ -35,9 +35,9 @@ public class CookingPotResultSlot extends SlotItemHandler
 	}
 
 	@Override
-	public void onTake(Player thePlayer, ItemStack stack) {
+	public void onTake(Player player, ItemStack stack) {
 		this.checkTakeAchievements(stack);
-		super.onTake(thePlayer, stack);
+		super.onTake(player, stack);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class CookingPotResultSlot extends SlotItemHandler
 		stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
 
 		if (!this.player.level().isClientSide) {
-			tileEntity.awardUsedRecipes(this.player, tileEntity.getDroppableInventory());
+			cookingPot.awardUsedRecipes(this.player, cookingPot.getDroppableInventory());
 		}
 
 		this.removeCount = 0;
