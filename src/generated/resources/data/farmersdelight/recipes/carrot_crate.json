@@ -1,30 +1,21 @@
 {
-  "type": "c:conditional",
-  "recipes": [
+  "fabric:load_conditions": [
     {
-      "conditions": [
-        {
-          "type": "farmersdelight:vanilla_crates_enabled"
-        }
-      ],
-      "recipe": {
-        "type": "minecraft:crafting_shaped",
-        "category": "building",
-        "key": {
-          "#": {
-            "item": "minecraft:carrot"
-          }
-        },
-        "pattern": [
-          "###",
-          "###",
-          "###"
-        ],
-        "result": {
-          "item": "farmersdelight:carrot_crate"
-        },
-        "show_notification": true
-      }
+      "condition": "farmersdelight:vanilla_crates_enabled"
     }
-  ]
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:carrot"
+    }
+  },
+  "result": {
+    "item": "farmersdelight:carrot_crate"
+  }
 }

@@ -14,13 +14,7 @@
       "item": "minecraft:flint"
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "shovel_dig"
-    },
-    {
+  "tool": {
       "tag": "minecraft:shovels"
-    }
-  ]
+ }
 }

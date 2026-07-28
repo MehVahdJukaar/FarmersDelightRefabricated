@@ -16,13 +16,7 @@
       "item": "minecraft:iron_nugget"
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "shears_dig"
-    },
-    {
+  "tool": {
       "tag": "c:shears"
-    }
-  ]
+ }
 }

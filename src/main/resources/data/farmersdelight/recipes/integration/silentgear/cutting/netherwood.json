@@ -14,9 +14,8 @@
     }
   ],
   "tool": {
-    "fabric:type": "farmersdelight:tool_action",
-    "action": "axe_strip"
-  },
+      "tag": "minecraft:axes"
+ },
   "result": [
     {
       "item": "silentgear:stripped_netherwood_log"

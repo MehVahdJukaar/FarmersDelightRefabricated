@@ -11,13 +11,7 @@
       "item": "minecraft:blue_dye"
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "knife_dig"
-    },
-    {
-      "tag": "c:tools/knives"
-    }
-  ]
+  "tool": {
+        "tag": "c:tools/knives"
+ }
 }

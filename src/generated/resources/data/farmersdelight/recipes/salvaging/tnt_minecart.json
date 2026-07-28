@@ -14,13 +14,7 @@
     }
   ],
   "sound": "minecraft:block.metal.break",
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "hoe_dig"
-    },
-    {
+  "tool": {
       "tag": "minecraft:hoes"
-    }
-  ]
+ }
 }

@@ -37,13 +37,7 @@
       "item": "minecraft:crimson_planks"
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "axe_dig"
-    },
-    {
-      "tag": "minecraft:axes"
-    }
-  ]
+  "tool": {
+        "tag": "minecraft:axes"
+ }
 }

@@ -9,7 +9,7 @@ import vectorwing.farmersdelight.common.Configuration;
 
 public class VanillaCrateEnabledCondition implements ConditionJsonProvider
 {
-	private static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
+	public static final ResourceLocation ID = new ResourceLocation(FarmersDelight.MODID, "vanilla_crates_enabled");
 	public static final VanillaCrateEnabledCondition INSTANCE = new VanillaCrateEnabledCondition();
 
 	public boolean test() {

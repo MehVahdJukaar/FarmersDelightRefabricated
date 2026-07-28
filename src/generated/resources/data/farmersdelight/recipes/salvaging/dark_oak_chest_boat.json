@@ -13,13 +13,7 @@
       "item": "minecraft:chest"
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:tool_action",
-      "action": "hoe_dig"
-    },
-    {
+  "tool": {
       "tag": "minecraft:hoes"
-    }
-  ]
+ }
 }
