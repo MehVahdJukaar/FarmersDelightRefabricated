@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableList;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 import java.util.List;
+import java.util.function.Supplier;
 
+@SuppressWarnings("all")
 public class Configuration
 {
 	public static ModConfigSpec COMMON_CONFIG;
@@ -151,5 +153,5 @@ public class Configuration
 	@Deprecated(forRemoval = true)
 	public static ModConfigSpec.BooleanValue COMFORT_HEALTH_OVERLAY = ENABLE_COMFORT_HEALTH_OVERLAY;
 	@Deprecated(forRemoval = true)
-	public static ModConfigSpec.BooleanValue FOOD_EFFECT_TOOLTIP = ENABLE_FOOD_EFFECT_TOOLTIP;
+	public static Supplier FOOD_EFFECT_TOOLTIP = ENABLE_FOOD_EFFECT_TOOLTIP;
 }

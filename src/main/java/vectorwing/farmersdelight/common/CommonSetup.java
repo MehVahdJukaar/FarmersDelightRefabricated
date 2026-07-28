@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
+import vectorwing.farmersdelight.common.crafting.ingredient.ToolActionIngredient;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -45,6 +46,7 @@ public class CommonSetup
 		ResourceConditions.register(VanillaCrateEnabledCondition.ID,
 			json -> new VanillaCrateEnabledCondition.Serializer().read(json).test());
 		ModAdvancements.register();
+		ToolActionIngredient.register();
 	}
 
 	public static void registerStackSizeOverrides() {
