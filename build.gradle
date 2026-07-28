@@ -1,8 +1,7 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'fabric-loom' version '1.16-SNAPSHOT'
     id 'maven-publish'
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-    id "com.modrinth.minotaur" version "2.8.4"
+    id "me.modmuss50.mod-publish-plugin" version "2.1.1"
 }
 
 version = mod_version + "+refabricated"
@@ -12,11 +11,17 @@ base {
     archivesName = "FarmersDelight"
 }
 
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "1000"
+            options.compilerArgs << "-Xmaxwarns" << "1000"
+        }
+    }
+}
+
 loom {
     accessWidenerPath = file("src/main/resources/farmersdelight.accesswidener")
-    mixin {
-        defaultRefmapName = "farmersdelight.refmap.json"
-    }
 }
 
 sourceSets.main.resources {
@@ -79,7 +84,6 @@ repositories {
         }
     }
     mavenCentral() // Mixin Extras
-    mavenLocal() // Porting Lib (temporary)
 }
 
 dependencies {
@@ -99,7 +103,7 @@ dependencies {
 
     include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
         exclude (group: "net.fabricmc.fabric-api")
-    }\
+    }
 
     for (String module in port_lib_modules.split(",")) {
         include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
@@ -120,76 +124,61 @@ dependencies {
     modCompileOnly("dev.architectury:architectury-fabric:9.2.14")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
-    // Uncomment the below to test REI.
-    // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+//     Uncomment the below to test REI.
+//      modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     modCompileOnly("dev.emi:emi-fabric:${emi_version}:api") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Uncomment the below to test EMI.
-
-    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-
+//    modLocalRuntime("dev.emi:emi-fabric:${emi_version}") {
+//        exclude(group: "net.fabricmc.fabric-api")
+//    }
 }
-
-
-var env = System.getenv()
-var modLoader = name
 
 var changelogFile = rootProject.file("changelog.md")
 var changelogText = changelogFile.exists() ? changelogFile.text : ""
 
-if (env.MODRINTH_TOKEN) {
-    modrinth {
-        projectId = modrinth_project_id
-        versionName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
-        uploadFile = tasks.remapJar
-        gameVersions = project.minecraft_supported_versions.split(",").toList()
-        loaders = ["fabric", "quilt"]
-        changelog = changelogText
-        versionNumber = mod_version
-        versionType = "release"
+publishMods {
+    file = remapJar.archiveFile
+    changelog = changelogText
+    type = STABLE
+    displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
+    version = mod_version
 
-        dependencies {
-            required.project "fabric-api"
-            embedded.project "porting_lib"
-            optional.project "crafttweaker"
-            optional.project "jei"
-            optional.project "rei"
-            optional.project "emi"
-        }
-    }
-}
+    modLoaders.add("fabric")
 
-if (env.CURSEFORGE_TOKEN) {
     curseforge {
-        apiKey = env.CURSEFORGE_TOKEN
-        project {
-            id = project_id
-            changelog = changelogText
-            changelogType = 'markdown'
-            releaseType = 'release'
-            for (String mcVersion : project.minecraft_supported_versions.split(",")) {
-                addGameVersion mcVersion
-            }
-            addGameVersion "Fabric"
-            addGameVersion "Quilt"
+        projectId = curseforge_project_id
 
-            mainArtifact(tasks.remapJar) {
-                displayName = "Farmer's Delight Refabricated ${mod_version.split("-")[1]} - ${minecraft_version}"
-            }
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
-            relations {
-                requiredDependency "fabric-api"
-                embeddedLibrary "porting-lib"
-                optionalDependency "crafttweaker"
-                optionalDependency "jei"
-                optionalDependency "roughly-enough-items"
-                optionalDependency "emi"
-            }
-        }
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+        javaVersions.add(JavaVersion.VERSION_17)
+
+        clientRequired = true
+        serverRequired = true
+
+        requires("fabric-api")
+//        optional("crafttweaker")
+        optional("jei")
+        optional("roughly-enough-items")
+        optional("emi")
+//        optional("rrv")
+    }
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = modrinth_project_id
+
+        minecraftVersions.addAll(minecraft_supported_versions.split(","))
+
+        requires("fabric-api")
+//        optional("crafttweaker")
+        optional("jei")
+        optional("rei")
+        optional("emi")
+//        optional("rrv")
     }
 }
 
@@ -208,7 +197,6 @@ processResources {
             mod_credits          : mod_credits,
             mod_homepage         : mod_homepage,
             mod_github           : mod_github,
-            port_lib_version     : port_lib_version,
             fabric_loader_version: fabric_loader_version,
             fabric_api_version   : fabric_api_version
     ]
@@ -245,7 +233,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId project.archivesBaseName
+            artifactId project.base.archivesName.get()
             version project.version
             from components.java
         }
@@ -254,7 +242,7 @@ publishing {
     repositories {
         maven {
             name "greenhouse"
-            url "https://repo.greenhouse.house/releases"
+            url "https://maven.greenhouse.lgbt/releases"
             credentials {
                 username System.getenv('MAVEN_USERNAME')
                 password System.getenv('MAVEN_PASSWORD')
