@@ -1,7 +1,7 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
     id 'maven-publish'
-    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id "me.modmuss50.mod-publish-plugin" version "2.2.0"
 }
 
 version = mod_version + "+refabricated"
