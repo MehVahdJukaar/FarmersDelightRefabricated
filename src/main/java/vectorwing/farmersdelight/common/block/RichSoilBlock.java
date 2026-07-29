@@ -1,14 +1,14 @@
 package vectorwing.farmersdelight.common.block;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
+import net.fabricmc.fabric.api.registry.BlockTransformerRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.Configuration;
@@ -23,7 +23,7 @@ public class RichSoilBlock extends Block
 	}
 
     public static void init() {
-        TillableBlockRegistry.register(ModBlocks.RICH_SOIL.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState()));
+        BlockTransformerRegistry.registerTilling(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState());
     }
 
 	@Override
@@ -45,24 +45,24 @@ public class RichSoilBlock extends Block
 
 		BlockPos abovePos = pos.above();
 		BlockState aboveState = level.getBlockState(abovePos);
-		if (!aboveState.is(ModTags.Blocks.PLANTED_FROM_BELOW) && boostPlant(aboveState, abovePos, level)) {
+		if (!aboveState.is(ModTags.Blocks.PLANTED_FROM_BELOW) && boostPlant(aboveState, abovePos, level, BonemealSource.INTERACTION)) {
 			return;
 		}
 
 		BlockPos belowPos = pos.below();
 		BlockState belowState = level.getBlockState(belowPos);
 		if (belowState.is(ModTags.Blocks.PLANTED_FROM_BELOW)) {
-			boostPlant(belowState, belowPos, level);
+			boostPlant(belowState, belowPos, level, BonemealSource.INTERACTION);
 		}
 	}
 
-	public static boolean boostPlant(BlockState plantState, BlockPos plantPos, ServerLevel level) {
+	public static boolean boostPlant(BlockState plantState, BlockPos plantPos, ServerLevel level, BonemealSource source) {
 		if (plantState.is(ModTags.Blocks.UNAFFECTED_BY_RICH_SOIL)) {
 			return false;
 		}
 		if (plantState.getBlock() instanceof BonemealableBlock growable) {
-			if (growable.isValidBonemealTarget(level, plantPos, plantState)) {
-				growable.performBonemeal(level, level.getRandom(), plantPos, plantState);
+			if (growable.isValidBonemealTarget(level, plantPos, plantState, source)) {
+				growable.performBonemeal(level, level.getRandom(), plantPos, plantState, source);
 				for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(level.getChunkAt(plantPos).getPos(), false)) {
 					ServerPlayNetworking.send(player, new RichSoilBoostParticlesPayload(plantPos));
 				}

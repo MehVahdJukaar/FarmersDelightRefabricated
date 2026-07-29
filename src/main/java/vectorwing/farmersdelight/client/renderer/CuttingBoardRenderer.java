@@ -125,7 +125,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		// Rotate item to be carved on the surface, A little less so for hoes and pickaxes.
 		Item toolItem = itemStack.getItem();
 		float poseAngle;
-		if (itemStack.is(ItemTags.PICKAXES)|| toolItem instanceof HoeItem) {
+		if (itemStack.is(ItemTags.PICKAXES)|| itemStack.is(ItemTags.HOES)) {
 			poseAngle = 225.0F;
 		} else if (toolItem instanceof TridentItem) {
 			poseAngle = 135.0F;

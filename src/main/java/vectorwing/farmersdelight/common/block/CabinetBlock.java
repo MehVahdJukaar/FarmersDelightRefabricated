@@ -28,7 +28,6 @@ import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 @SuppressWarnings("deprecation")
 public class CabinetBlock extends BaseEntityBlock
 {
-	public static final MapCodec<CabinetBlock> CODEC = simpleCodec(CabinetBlock::new);
 
 	public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -36,11 +35,6 @@ public class CabinetBlock extends BaseEntityBlock
 	public CabinetBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

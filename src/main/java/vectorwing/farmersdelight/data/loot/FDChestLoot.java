@@ -3,7 +3,9 @@ package vectorwing.farmersdelight.data.loot;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
@@ -31,6 +33,8 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 	}
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+		HolderLookup.RegistryLookup<Enchantment> enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		consumer.accept(ModChestLootTables.ABANDONED_MINESHAFT, LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
@@ -54,14 +58,15 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 						.add(EmptyLootItem.emptyItem().setWeight(2))
 				));
 
+
 		consumer.accept(ModChestLootTables.BASTION_HOGLIN_STABLE, LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModItems.DIAMOND_KNIFE.get())
 								.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(enchantments)))
 						.add(LootItem.lootTableItem(ModItems.GOLDEN_KNIFE.get()).setWeight(2)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(enchantments)))
 						.add(EmptyLootItem.emptyItem().setWeight(2))
 
 				).withPool(LootPool.lootPool()
@@ -78,7 +83,7 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModItems.DIAMOND_KNIFE.get())
 								.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.8F, 1.0F)))
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(enchantments)))
 						.add(LootItem.lootTableItem(ModItems.DIAMOND_KNIFE.get()))
 						.add(EmptyLootItem.emptyItem().setWeight(6))
 				));
@@ -87,9 +92,9 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModItems.DIAMOND_KNIFE.get())
-								.apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F))))
+								.apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(20.0F, 39.0F))))
 						.add(LootItem.lootTableItem(ModItems.IRON_KNIFE.get())
-								.apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F))))
+								.apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(20.0F, 39.0F))))
 						.add(EmptyLootItem.emptyItem().setWeight(6))
 				));
 
@@ -107,7 +112,7 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModItems.GOLDEN_KNIFE.get())
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(enchantments)))
 						.add(EmptyLootItem.emptyItem().setWeight(3))
 				));
 
@@ -205,5 +210,10 @@ public class FDChestLoot extends SimpleFabricLootTableSubProvider {
 	@Override
 	public String getName() {
 		return "Farmer's Delight Chest Loot";
+	}
+
+	@Override
+	public void run() {
+
 	}
 }

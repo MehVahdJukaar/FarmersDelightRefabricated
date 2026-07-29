@@ -2,10 +2,13 @@ package vectorwing.farmersdelight.refabricated;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.Compostable;
+import net.minecraft.world.level.storage.loot.providers.number.ResolvableNumber;
 
 //This is hacky and tbh not even needed but hey
 public class CompostableHelper {
@@ -16,7 +19,11 @@ public class CompostableHelper {
             var j = je.getAsJsonObject().get("values");
             for (var v : j.getAsJsonObject().asMap().entrySet()) {
                 Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey().toString()));
-                CompostableRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
+				DefaultItemComponentEvents.MODIFY.register(modifyContext -> {
+					modifyContext.modify(i, builder->{
+						builder.set(DataComponents.COMPOSTABLE, new Compostable(new ResolvableNumber.Constant(v.getValue().getAsJsonObject().get("chance").getAsFloat())));
+					});
+				});
             }
         }
     }

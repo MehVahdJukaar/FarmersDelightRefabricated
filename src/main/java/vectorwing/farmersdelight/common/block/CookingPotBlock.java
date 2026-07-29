@@ -42,7 +42,6 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import java.util.Optional;
 
 public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
 
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<CookingPotSupport> SUPPORT = EnumProperty.create("support", CookingPotSupport.class);
@@ -54,11 +53,6 @@ public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterlogge
     public CookingPotBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, CookingPotSupport.NONE).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

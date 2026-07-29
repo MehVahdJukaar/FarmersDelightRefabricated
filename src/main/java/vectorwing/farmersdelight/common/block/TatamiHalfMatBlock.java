@@ -21,17 +21,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 @SuppressWarnings("deprecation")
 public class TatamiHalfMatBlock extends HorizontalDirectionalBlock
 {
-	public static final MapCodec<TatamiHalfMatBlock> CODEC = simpleCodec(TatamiHalfMatBlock::new);
 
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
 	public TatamiHalfMatBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

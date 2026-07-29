@@ -41,15 +41,25 @@ import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class FDBlockLoot extends FabricBlockLootSubProvider
 {
+	private final CompletableFuture<HolderLookup.Provider> lookup;
+	private HolderLookup.Provider registries;
+
 	public FDBlockLoot(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
+		this.lookup = registryLookup;
 	}
 
 	@Override
 	public void generate() {
+		try {
+			this.registries = lookup.get();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new RuntimeException(e);
+		}
 		HolderLookup.RegistryLookup<Block> blockLookup = this.registries.lookupOrThrow(Registries.BLOCK);
 		HolderLookup.RegistryLookup<Item> itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
 		HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
@@ -74,46 +84,39 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 			.setRolls(ConstantValue.exactly(1.0F))
 			.add(AlternativesEntry.alternatives(
 				LootItem.lootTableItem(ModItems.RICE.get())
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)))
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)))
 					.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemLookup, ModTags.Items.KNIVES))),
 				LootItem.lootTableItem(ModItems.RICE_PANICLE.get())
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3))))))));
+					.when(hasBlockStateProperties(block,StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3))))))));
 
 		add(ModBlocks.TOMATO_CROP.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
 				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO_SEEDS.get()))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.ROPELOGGED, false))))
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.ROPELOGGED, false))))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.TOMATO_CROP_ON_ROPE.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
 				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.SANDY_SHRUB.get(), block -> LootTable.lootTable()
@@ -147,8 +150,7 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 					LootItem.lootTableItem(ModItems.RICE.get())
 						.when(ExplosionCondition.survivesExplosion())))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties()
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties()
 						.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
 					.setBlock(BlockPredicate.Builder.block().of(blockLookup, block)
@@ -160,8 +162,7 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST)),
 					LootItem.lootTableItem(ModItems.RICE.get())
 						.when(ExplosionCondition.survivesExplosion())))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties()
+				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties()
 						.hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)))
 				.when(LocationCheck.checkLocation(LocationPredicate.Builder.location()
 					.setBlock(BlockPredicate.Builder.block().of(blockLookup, block)
@@ -236,8 +237,7 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 		add(ModBlocks.FULL_TATAMI_MAT.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
 			.setRolls(ConstantValue.exactly(1.0F))
 			.add(LootItem.lootTableItem(block)
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TatamiMatBlock.PART, BedPart.HEAD)))))));
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(TatamiMatBlock.PART, BedPart.HEAD)))))));
 		dropSelf(ModBlocks.HALF_TATAMI_MAT.get());
 
 		add(ModBlocks.BROWN_MUSHROOM_COLONY.get(), block -> this.mushroomColony(block, Items.BROWN_MUSHROOM));
@@ -260,8 +260,11 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
+	}
+
+	private LootItemCondition.Builder hasBlockStateProperties(Block block, StatePropertiesPredicate.Builder builder) {
+		return MatchBlock.blockMatches(registries.lookupOrThrow(Registries.BLOCK), block, builder);
 	}
 
 	protected void dropNamedContainer(Block block) {
@@ -275,31 +278,26 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 			.add(AlternativesEntry.alternatives(
 				LootItem.lootTableItem(mushroom)
 					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 0))),
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 0))),
 				LootItem.lootTableItem(mushroom)
 					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(3.0F)))
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 1))),
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 1))),
 				LootItem.lootTableItem(mushroom)
 					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 2))),
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 2))),
 				//fully grown should only drop mushrooms if not harvested by shears
 				LootItem.lootTableItem(mushroom)
 					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(5.0F)))
 					.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST).invert())
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
 				//if broken with shears at max age, drop self
 				LootItem.lootTableItem(block)
 					.when(CanItemPerformAbility.canItemPerformAbility(ItemAbility.SHEARS_HARVEST))
-					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3)))))));
+					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3)))))));
 	}
 
 	protected LootTable.Builder createCropDrops(Block block, Item cropItem, Item seeds, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
-		LootItemCondition.Builder maxAgeCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
+		LootItemCondition.Builder maxAgeCondition = hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
 		return this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.add(LootItem.lootTableItem(cropItem)
@@ -312,7 +310,7 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 	}
 
 	protected LootTable.Builder createSeedlessCropDrops(Block block, Item cropItem, HolderLookup.RegistryLookup<Enchantment> registryLookup) {
-		LootItemCondition.Builder maxAgeCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
+		LootItemCondition.Builder maxAgeCondition = hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, CropBlock.MAX_AGE));
 		return this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.add(LootItem.lootTableItem(cropItem)))
@@ -358,13 +356,11 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(Items.BOWL))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}
 
 	protected LootTable.Builder platedFoodExtraDrop(Block block, Item extraDrop, int servings) {
@@ -372,17 +368,14 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(Items.BOWL))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()))
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()))
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(extraDrop))
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-					.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
+				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}
 }

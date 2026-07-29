@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignTextSlot;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jspecify.annotations.Nullable;
@@ -32,8 +33,8 @@ public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock imple
 
 		if (level.getBlockEntity(pos) instanceof SignBlockEntity sign && state.getBlock() instanceof CanvasSign canvasSignBlock) {
 			if (canvasSignBlock.isDarkBackground()) {
-				sign.updateText((signText) -> signText.setColor(DyeColor.WHITE), true);
-				sign.updateText((signText) -> signText.setColor(DyeColor.WHITE), false);
+				sign.updateText((signText) -> signText.asMutable().setColor(DyeColor.WHITE).asImmutable(), SignTextSlot.FRONT);
+				sign.updateText((signText) -> signText.asMutable().setColor(DyeColor.WHITE).asImmutable(), SignTextSlot.BACK);
 			}
 		}
 	}

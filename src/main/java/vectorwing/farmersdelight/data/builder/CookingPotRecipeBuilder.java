@@ -25,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.crafting.CookingPotBookCategory;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.data.Recipes;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -172,7 +173,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {
 		Advancement.Builder advancementBuilder = output.advancement()
-				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
+				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(Recipes.recipeContext.lookup(Registries.RECIPE).getOrThrow(resourceKey)))
 				.rewards(AdvancementRewards.Builder.recipe(resourceKey))
 				.requirements(AdvancementRequirements.Strategy.OR);
 		this.criteria.forEach(advancementBuilder::addCriterion);

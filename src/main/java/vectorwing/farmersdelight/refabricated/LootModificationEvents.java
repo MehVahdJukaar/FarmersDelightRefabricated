@@ -96,46 +96,46 @@ public class LootModificationEvents {
             return;
 
         if (key == BuiltInLootTables.ABANDONED_MINESHAFT)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_ABANDONED_MINESHAFT)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_ABANDONED_MINESHAFT))));
 
         if (key == BuiltInLootTables.BASTION_HOGLIN_STABLE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_BASTION_HOGLIN_STABLE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_BASTION_HOGLIN_STABLE))));
 
         if (key == BuiltInLootTables.BASTION_TREASURE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_BASTION_TREASURE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_BASTION_TREASURE))));
 
         if (key == BuiltInLootTables.END_CITY_TREASURE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_END_CITY_TREASURE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_END_CITY_TREASURE))));
 
         if (key == BuiltInLootTables.PILLAGER_OUTPOST)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_PILLAGER_OUTPOST)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_PILLAGER_OUTPOST))));
 
         if (key == BuiltInLootTables.RUINED_PORTAL)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_RUINED_PORTAL)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_RUINED_PORTAL))));
 
         if (key == BuiltInLootTables.SHIPWRECK_SUPPLY)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_SHIPWRECK_SUPPLY)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_SHIPWRECK_SUPPLY))));
 
         if (key == BuiltInLootTables.SIMPLE_DUNGEON)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_SIMPLE_DUNGEON)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_SIMPLE_DUNGEON))));
 
         if (key == BuiltInLootTables.VILLAGE_BUTCHER)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_BUTCHER)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_BUTCHER))));
 
         if (key == BuiltInLootTables.VILLAGE_DESERT_HOUSE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_DESERT_HOUSE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_DESERT_HOUSE))));
 
         if (key == BuiltInLootTables.VILLAGE_PLAINS_HOUSE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_PLAINS_HOUSE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_PLAINS_HOUSE))));
 
         if (key == BuiltInLootTables.VILLAGE_SAVANNA_HOUSE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_SAVANNA_HOUSE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_SAVANNA_HOUSE))));
 
         if (key == BuiltInLootTables.VILLAGE_SNOWY_HOUSE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_SNOWY_HOUSE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_SNOWY_HOUSE))));
 
         if (key == BuiltInLootTables.VILLAGE_TAIGA_HOUSE)
-            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(FD_VILLAGE_TAIGA_HOUSE)));
+            tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.lookupOrThrow(Registries.LOOT_TABLE).getOrThrow(FD_VILLAGE_TAIGA_HOUSE))));
     }
 
     private static void scavengingLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
@@ -166,12 +166,12 @@ public class LootModificationEvents {
                                             EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
                                     )
                             ).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(false)))
-                            ).and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, 0.5F, 0.1F)))))
+                            ).and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries.lookupOrThrow(Registries.ENCHANTMENT), 0.5F, 0.1F)))))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.SMOKED_HAM.get())
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
                                     EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES)))
                             ).and(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))
-                            ).and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, 0.5F, 0.1F))))));
+                            ).and(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries.lookupOrThrow(Registries.ENCHANTMENT), 0.5F, 0.1F))))));
         }
         // scavenging_pumpkin
         if (key == BLOCKS_PUMPKIN) {
@@ -267,8 +267,7 @@ public class LootModificationEvents {
         for (int value : property.getPossibleValues()) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(slice).apply(SetItemCountFunction.setCount(ConstantValue.exactly(maxValue - value))))
                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
-                            .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, value)))));
+                            .and(MatchBlock.blockMatches(registries.lookupOrThrow(Registries.BLOCK), block, StatePropertiesPredicate.Builder.properties().hasProperty(property, value)))));
         }
     }
 
@@ -280,13 +279,11 @@ public class LootModificationEvents {
         if (key == BLOCKS_RICE_PANICLES)
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.STRAW_HARVESTERS))
-                            .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RICE_CROP_PANICLES.get())
-                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 3))))));
+                            .and(MatchBlock.blockMatches(registries.lookupOrThrow(Registries.BLOCK), ModBlocks.RICE_CROP_PANICLES.get(), StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 3))))));
         if (key == BLOCKS_WHEAT)
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.STRAW.get())
                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.STRAW_HARVESTERS))
-                            .and(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WHEAT)
-                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))))));
+                            .and(MatchBlock.blockMatches(registries.lookupOrThrow(Registries.BLOCK), Blocks.WHEAT, StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))))));
     }
 
     public static void strawChance02(LootTable.Builder tableBuilder, HolderLookup.Provider registries) {

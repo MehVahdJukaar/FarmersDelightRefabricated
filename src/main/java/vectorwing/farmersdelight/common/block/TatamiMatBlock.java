@@ -23,18 +23,12 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class TatamiMatBlock extends HorizontalDirectionalBlock
 {
-	public static final MapCodec<TatamiMatBlock> CODEC = simpleCodec(TatamiMatBlock::new);
 	public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
 	public TatamiMatBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(PART, BedPart.FOOT));
-	}
-
-	@Override
-	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-		return CODEC;
 	}
 
 	private static Direction getDirectionToOther(BedPart part, Direction direction) {

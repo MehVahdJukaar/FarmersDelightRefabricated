@@ -151,7 +151,7 @@ public class ModBlocks
 	public static final Supplier<Block> FULL_TATAMI_MAT = regBlock(ModBlockItemIds.FULL_TATAMI_MAT,
 			TatamiMatBlock::new, Block.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F));
 	public static final Supplier<Block> HALF_TATAMI_MAT = regBlock(ModBlockItemIds.HALF_TATAMI_MAT,
-			TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F).pushReaction(PushReaction.DESTROY));
+			TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F).pushReaction(PushReaction.POPPED));
 
 	public static final Supplier<Block> CANVAS_SIGN = regCanvasSign(ModBlockItemIds.CANVAS_SIGN, null);
 	public static final Supplier<Block> WHITE_CANVAS_SIGN = regCanvasSign(ModBlockItemIds.DYED_CANVAS_SIGN.white(), DyeColor.WHITE);
@@ -288,7 +288,7 @@ public class ModBlocks
 	public static final Supplier<Block> TOMATO_CROP = regBlock(ModBlockItemIds.TOMATO_CROP,
 			TomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP_ON_ROPE = regBlock(ModBlockIds.TOMATO_CROP_ON_ROPE,
-			HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL));
+			HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.PUSH_PULL));
 	public static final Supplier<Block> RICE_CROP = regBlock(ModBlockItemIds.RICE_CROP,
 			RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock(ModBlockItemIds.RICE_CROP_PANICLES,

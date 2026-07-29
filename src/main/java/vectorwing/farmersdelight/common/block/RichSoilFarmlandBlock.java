@@ -22,7 +22,7 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 public class RichSoilFarmlandBlock extends FarmlandBlock
 {
 	public RichSoilFarmlandBlock(Properties properties) {
-		super(properties);
+		super(ModBlocks.RICH_SOIL.get(), properties);
 	}
 
 	private static boolean isNearWater(LevelReader level, BlockPos pos) {
@@ -79,8 +79,8 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
             }
 
             if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-                if (growable.isValidBonemealTarget(level, abovePos, aboveState)) {
-                    growable.performBonemeal(level, level.getRandom(), abovePos, aboveState);
+                if (growable.isValidBonemealTarget(level, abovePos, aboveState, BonemealSource.INTERACTION)) {
+                    growable.performBonemeal(level, level.getRandom(), abovePos, aboveState, BonemealSource.INTERACTION);
                     level.levelEvent(1505, abovePos, 15);
                 }
             }

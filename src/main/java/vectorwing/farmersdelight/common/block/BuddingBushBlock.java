@@ -30,7 +30,6 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 @SuppressWarnings("deprecation")
 public class BuddingBushBlock extends VegetationBlock
 {
-	public static final MapCodec<BuddingBushBlock> CODEC = simpleCodec(BuddingBushBlock::new);
 
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 4);
@@ -43,11 +42,6 @@ public class BuddingBushBlock extends VegetationBlock
 
 	public BuddingBushBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

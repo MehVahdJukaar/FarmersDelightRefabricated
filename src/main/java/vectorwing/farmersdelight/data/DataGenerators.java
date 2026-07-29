@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.data;
 
-import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -18,6 +17,7 @@ import vectorwing.farmersdelight.data.loot.FDChestLoot;
 import vectorwing.farmersdelight.refabricated.data.RefabricatedMobEffectTags;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public class DataGenerators implements DataGeneratorEntrypoint
 {
@@ -62,13 +62,18 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		private static <T> BootstrapContext<T> createContext(HolderLookup.Provider registries, Entries entries) {
 			return new BootstrapContext<>() {
 				@Override
-				public Holder.Reference<T> register(ResourceKey<T> resourceKey, T object, Lifecycle lifecycle) {
+				public Holder.Reference<T> register(ResourceKey<T> resourceKey, T object) {
 					return (Holder.Reference<T>) entries.add(resourceKey, object);
 				}
 
 				@Override
 				public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> resourceKey) {
 					return registries.lookupOrThrow(resourceKey);
+				}
+
+				@Override
+				public <S> Stream<Holder.Reference<S>> listContextElements(ResourceKey<? extends Registry<? extends S>> key) {
+					return Stream.empty();
 				}
 			};
 		}
@@ -81,7 +86,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, WildCropGeneration::bootstrapConfiguredFeatures);
+        registryBuilder.add(Registries.FEATURE, WildCropGeneration::bootstrapConfiguredFeatures);
         registryBuilder.add(Registries.PLACED_FEATURE, WildCropGeneration::bootstrapPlacedFeatures);
         registryBuilder.add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrapDamageTypes);
         registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
