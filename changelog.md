@@ -1,1 +1,1 @@
-- Fixed incorrect translation on Cooking Pots (thanks @Its-Hans!)
+- Fixed crash with Sinytra Connector. This is still not considered a supported environment.
