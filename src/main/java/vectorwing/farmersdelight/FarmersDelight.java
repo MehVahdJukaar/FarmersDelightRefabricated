@@ -44,7 +44,7 @@ public class FarmersDelight implements ModInitializer
 
         ModSounds.SOUNDS.register();
         ModBlocks.BLOCKS.register();
-        ModEffects.register();
+        ModEffects.EFFECTS.register();
         ModParticleTypes.PARTICLE_TYPES.register();
         ModItems.ITEMS.register();
         ModEntityTypes.ENTITIES.register();
