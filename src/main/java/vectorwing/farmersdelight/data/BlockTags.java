@@ -63,6 +63,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			ModBlocks.BAMBOO_CABINET.get(),
 			ModBlocks.CRIMSON_CABINET.get(),
 			ModBlocks.WARPED_CABINET.get(),
+			ModBlocks.PALE_OAK_CABINET.get(),
 			ModBlocks.SANDY_SHRUB.get(),
 			ModBlocks.ROAST_CHICKEN_BLOCK.get(),
 			ModBlocks.STUFFED_PUMPKIN_BLOCK.get(),

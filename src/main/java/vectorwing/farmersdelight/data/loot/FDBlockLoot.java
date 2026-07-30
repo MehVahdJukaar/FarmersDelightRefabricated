@@ -231,6 +231,7 @@ public class FDBlockLoot extends FabricBlockLootTableProvider
 		dropNamedContainer(ModBlocks.CHERRY_CABINET.get());
 		dropNamedContainer(ModBlocks.CRIMSON_CABINET.get());
 		dropNamedContainer(ModBlocks.WARPED_CABINET.get());
+		dropNamedContainer(ModBlocks.PALE_OAK_CABINET.get());
 
 		dropSelf(ModBlocks.CANVAS_RUG.get());
 		dropSelf(ModBlocks.TATAMI.get());

@@ -1,1 +1,1 @@
-- fixed a crash with villager trades
+- Fixed Pale Oak Cabinets not being mineable.
