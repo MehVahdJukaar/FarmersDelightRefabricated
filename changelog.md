@@ -1,1 +1,1 @@
-- Fixed crash with Sinytra Connector. This is still not considered a supported environment.
+- Fixed Pale Oak Cabinets not being mineable.
