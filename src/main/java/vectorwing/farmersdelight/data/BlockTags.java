@@ -62,6 +62,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 			ModBlockItemIds.ACACIA_CABINET,
 			ModBlockItemIds.DARK_OAK_CABINET,
 			ModBlockItemIds.MANGROVE_CABINET,
+			ModBlockItemIds.PALE_OAK_CABINET,	
 			ModBlockItemIds.CHERRY_CABINET,
 			ModBlockItemIds.BAMBOO_CABINET,
 			ModBlockItemIds.CRIMSON_CABINET,

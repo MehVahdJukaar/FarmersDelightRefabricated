@@ -1,1 +1,1 @@
-- Fixed incorrect translation on Cooking Pots (thanks @Its-Hans!)
+- Fixed Pale Oak Cabinets not being mineable.
