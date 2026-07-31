@@ -1,1 +1,2 @@
-- Fixed Pale Oak Cabinets not being mineable.
+- Fixed bug with required containers persisting between recipes.
+- Fixed incorrect translation in Cooking Pot.

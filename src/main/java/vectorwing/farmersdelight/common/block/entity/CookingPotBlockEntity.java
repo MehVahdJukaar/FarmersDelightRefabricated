@@ -331,7 +331,9 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		cookTime = 0;
         if (recipe.value().container() != null) {
             mealContainerStack = recipe.value().container().create();
-        }
+        } else {
+			mealContainerStack = ItemStack.EMPTY;
+		}
 		ItemStack resultStack = recipe.value().assemble(new RecipeWrapper(this.inventory));
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
