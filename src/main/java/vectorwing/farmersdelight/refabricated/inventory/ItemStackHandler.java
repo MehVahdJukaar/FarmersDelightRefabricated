@@ -30,7 +30,7 @@ public class ItemStackHandler extends FabricWrappedInventory {
 	}
 
 	public int getSlotLimit(int slot) {
-		return 99;
+		return getStackInSlot(slot).getMaxStackSize();
 	}
 
 	protected int getStackLimit(int slot, ItemStack stack) {

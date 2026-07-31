@@ -118,7 +118,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 		if (compound != null) {
 			CompoundTag inventoryTag = compound.getCompound("Inventory");
 			if (inventoryTag.contains("Items", 9)) {
-				ItemStackHandler handler = new ItemStackHandler();
+				ItemStackHandler handler = new ItemStackHandler(INVENTORY_SIZE);
 				handler.deserializeNBT(inventoryTag);
 				return handler.getStackInSlot(6);
 			}
