@@ -3,8 +3,8 @@
 <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated">
   <img src="http://cf.way2muchnoise.eu/full_993166_downloads.svg" alt="Curseforge Downloads">
 </a>
-<a href="https://discord.greenhouse.house/">
-  <img alt="Greenhouse Discord" src="https://img.shields.io/discord/790151253144895508?color=brightgreen&label=Discord">
+<a href="https://discord.cassian.cc/">
+  <img alt="Cassian's Discord" src="https://img.shields.io/discord/790151253144895508?color=brightgreen&label=Discord">
 </a>
 <br>
 <img src="https://cdn.modrinth.com/data/cached_images/55f4eef09b087d3b08a792e1c7c224e5796cbb71.png" width="50%">
