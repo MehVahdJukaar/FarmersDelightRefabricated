@@ -34,14 +34,17 @@ I am open to constructive feedback about the mod's code: if you spot any glaring
 [Addons/Integration support for both ports.](./information/Addons_And_Integrations.md)
 
 ### Depending on Farmer's Delight Refabricated
-Starting from 2.0.7, Farmer's Delight Refabricated can be depended on within development environments through the Greenhouse Maven (https://maven.greenhouse.lgbt/).
+Starting from 2.5.0, Farmer's Delight Refabricated can be depended on within development environments through Cassian's Maven (https://maven.cassian.cc/).
 
 To do so, assuming you have a field in your gradle.properties named `fdrf_version`.
 ```groovy
 repositories {
     maven {
-        name = "Greenhouse Maven"
-        url = 'https://maven.greenhouse.lgbt/releases/'
+        name = "Cassian's Maven"
+        url = 'https://maven.cassian.cc/'
+        content {
+            includeGroup "vectorwing"
+        }
     }
     maven { url "https://mvn.devos.one/releases/" } // Porting Lib
     maven {
