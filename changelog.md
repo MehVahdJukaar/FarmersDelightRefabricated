@@ -1,2 +1,2 @@
 ### Fixed
-- Crash from breaking Cooking Pots.
+- Minimum Fabric Loader version is now marked correctly.
