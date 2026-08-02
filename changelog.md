@@ -1,2 +1,2 @@
 ### Fixed
-- Minimum Fabric Loader version is now marked correctly.
+- Food that doesn't require a bowl cannot be removed from the cooking pot (#360)
