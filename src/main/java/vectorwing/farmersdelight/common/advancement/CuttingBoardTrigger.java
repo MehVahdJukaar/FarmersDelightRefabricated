@@ -5,7 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 
 import java.util.Optional;
@@ -22,11 +24,11 @@ public class CuttingBoardTrigger extends SimpleCriterionTrigger<CuttingBoardTrig
 	}
 
 	public static record TriggerInstance(
-			Optional<ContextAwarePredicate> player) implements SimpleInstance
+			Optional<Holder<LootItemCondition>> player) implements SimpleInstance
 	{
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
 				builder -> builder.group(
-								EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player))
+								LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player))
 						.apply(builder, TriggerInstance::new)
 		);
 
