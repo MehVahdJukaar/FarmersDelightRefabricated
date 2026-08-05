@@ -1,1 +1,2 @@
-- Fixed incorrect translation on Cooking Pots (thanks @Its-Hans!)
+- Fixed bug with required containers persisting between recipes.
+- Fixed incorrect translation in Cooking Pot.
