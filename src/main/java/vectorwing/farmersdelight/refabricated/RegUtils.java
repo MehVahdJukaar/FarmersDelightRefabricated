@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -48,11 +48,13 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.MENU);
     }
 
-    public static <B extends PlacementModifierType<?>> Supplier<B> regPlacementMod(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.PLACEMENT_MODIFIER_TYPE);
-    }
+	public static <B extends PlacementModifier> Supplier<MapCodec<B>> regPlacementMod(String name, MapCodec<B> value) {
+		Supplier<MapCodec<B>> supp = () -> Registry.register(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE, FarmersDelight.id(name), value);
+		supp.get();
+		return supp;
+	}
 
-    public static <B extends RecipeSerializer<?>> Supplier<B> regRecipeSerializer(String name, Supplier<B> supplier) {
+	public static <B extends RecipeSerializer<?>> Supplier<B> regRecipeSerializer(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.RECIPE_SERIALIZER);
     }
 
