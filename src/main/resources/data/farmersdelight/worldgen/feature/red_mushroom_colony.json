@@ -1,0 +1,127 @@
+{
+  "type": "farmersdelight:in_order",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "age",
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "id": "farmersdelight:red_mushroom_colony",
+              "properties": {
+                "age": "0"
+              }
+            }
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 3,
+            "min_inclusive": 0
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:offset",
+          "x": {
+            "type": "minecraft:trapezoid",
+            "max": 4,
+            "min": -4,
+            "plateau": 0
+          },
+          "y": {
+            "type": "minecraft:trapezoid",
+            "max": 3,
+            "min": -3,
+            "plateau": 0
+          },
+          "z": {
+            "type": "minecraft:trapezoid",
+            "max": 4,
+            "min": -4,
+            "plateau": 0
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:mycelium",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "id": "minecraft:red_mushroom"
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:offset",
+          "x": {
+            "type": "minecraft:trapezoid",
+            "max": 6,
+            "min": -6,
+            "plateau": 0
+          },
+          "y": {
+            "type": "minecraft:trapezoid",
+            "max": 3,
+            "min": -3,
+            "plateau": 0
+          },
+          "z": {
+            "type": "minecraft:trapezoid",
+            "max": 6,
+            "min": -6,
+            "plateau": 0
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:mycelium",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
