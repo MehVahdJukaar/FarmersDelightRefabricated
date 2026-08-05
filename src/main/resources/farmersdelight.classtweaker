@@ -29,6 +29,7 @@ accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_
 #datafixers
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
 
+extendable class net/minecraft/core/Holder
 # Enum Extensions
 transitive-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
 transitive-extend-enum net/minecraft/client/gui/screens/recipebook/SearchRecipeBookCategory FARMERSDELIGHT_COOKING
