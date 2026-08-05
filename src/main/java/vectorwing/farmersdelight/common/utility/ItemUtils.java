@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -74,12 +75,12 @@ public class ItemUtils
 	 * @param stack The stack to be queried
 	 * @return The enchantment's level, if the stack is enchanted with it. Returns 0 if not, or if the enchantment is disabled.
 	 */
-	public static int getValidatedEnchantmentLevel(ResourceKey<Enchantment> enchantment, HolderLookup.Provider registries, ItemStack stack) {
+	public static int getValidatedEnchantmentLevel(ResourceKey<Enchantment> enchantment, HolderLookup.Provider registries, DataComponentGetter stack) {
 		Optional<Holder.Reference<Enchantment>> fortune = registries.lookupOrThrow(Registries.ENCHANTMENT).get( enchantment);
 		return fortune.map(e->ItemUtils.getEnchantmentLevel(stack, e)).orElse(0);
 	}
 
-	public static int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+	public static int getEnchantmentLevel(DataComponentGetter stack, Holder<Enchantment> enchantment) {
 		ItemEnchantments itemenchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
 		return itemenchantments.getLevel(enchantment);
 	}

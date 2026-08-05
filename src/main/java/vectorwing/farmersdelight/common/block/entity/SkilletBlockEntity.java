@@ -2,9 +2,9 @@ package vectorwing.farmersdelight.common.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
+import net.minecraft.core.component.*;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -13,7 +13,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -153,9 +152,18 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
         return skilletStack;
     }
 
-	public void setSkilletItem(ItemStack stack) {
-		skilletStack = stack.copy();
-		fireAspectLevel = ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, level.registryAccess(), stack);
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		super.applyImplicitComponents(components);
+		var map = DataComponentPatch.builder();
+		for (DataComponentType<?> dataComponentType : BuiltInRegistries.DATA_COMPONENT_TYPE) {
+			TypedDataComponent<?> typed = components.getTyped(dataComponentType);
+			if (typed != null) {
+				map.set(typed);
+			}
+		}
+		skilletStack = new ItemStack(ModItems.SKILLET.get().builtInRegistryHolder(), 1, map.build());
+		fireAspectLevel = ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, level.registryAccess(), components);
 		inventoryChanged();
 	}
 

@@ -262,17 +262,6 @@ public class SkilletItem extends BlockItem {
         return level.recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(stack), level);
     }
 
-    @Override
-    protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
-        super.updateCustomBlockEntityTag(pos, level, player, stack, state);
-        BlockEntity tileEntity = level.getBlockEntity(pos);
-        if (tileEntity instanceof SkilletBlockEntity skillet) {
-            skillet.setSkilletItem(stack);
-            return true;
-        }
-        return false;
-    }
-
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
         if (!level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.MAINHAND);
