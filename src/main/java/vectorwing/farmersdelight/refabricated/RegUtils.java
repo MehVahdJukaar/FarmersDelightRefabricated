@@ -68,9 +68,11 @@ public class RegUtils {
         return register(name, supplier, BuiltInRegistries.SOUND_EVENT);
     }
 
-    public static <B extends Feature<?>> Supplier<B> regFeature(String name, Supplier<B> supplier) {
-        return register(name, supplier, BuiltInRegistries.FEATURE);
-    }
+	public static <B extends Feature> Supplier<MapCodec<B>> regFeature(String name, MapCodec<B> value) {
+		Supplier<MapCodec<B>> supp = () -> Registry.register(BuiltInRegistries.FEATURE_TYPE, FarmersDelight.id(name), value);
+		supp.get();
+		return supp;
+	}
 
     public static <B extends BlockEntityType<?>> Supplier<B> regBlockEntity(String name, Supplier<B> supplier) {
         return register(name, supplier, BuiltInRegistries.BLOCK_ENTITY_TYPE);

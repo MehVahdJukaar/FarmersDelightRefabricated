@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -67,7 +68,7 @@ public class CookingPotBlock extends BaseEntityBlock implements SimpleWaterlogge
                 ItemStack servingStack = cookingPotEntity.useHeldItemOnMeal(heldStack);
                 if (servingStack != ItemStack.EMPTY) {
                     if (!player.getInventory().add(servingStack)) {
-                        player.drop(servingStack, false);
+                        player.drop(servingStack, false, Prediction.SERVER_ONLY);
                     }
                     level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_GENERIC.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 } else {

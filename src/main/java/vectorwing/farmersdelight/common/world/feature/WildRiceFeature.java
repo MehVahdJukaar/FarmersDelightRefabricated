@@ -14,6 +14,8 @@ import vectorwing.farmersdelight.common.block.WildRiceBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 public class WildRiceFeature implements Feature {
+	public static MapCodec<WildRiceFeature> CODEC = MapCodec.unit(new WildRiceFeature());
+
 	public WildRiceFeature() {
 		super();
 	}

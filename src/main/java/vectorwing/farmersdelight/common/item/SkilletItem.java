@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -186,7 +187,7 @@ public class SkilletItem extends BlockItem {
             ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
             if (!storedStack.getStack().isEmpty()) {
                 ItemStack cookingStack = storedStack.getStack();
-                player.getInventory().placeItemBackInInventory(cookingStack);
+                player.getInventory().placeItemBackInInventory(cookingStack, Prediction.PREDICTED);
                 stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
                 stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
                 stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
@@ -207,7 +208,7 @@ public class SkilletItem extends BlockItem {
                 cookingRecipe.ifPresent((recipe) -> {
                     ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
                     if (!player.getInventory().add(resultStack)) {
-                        player.drop(resultStack, false);
+                        player.drop(resultStack, false, Prediction.SERVER_ONLY);
                     }
                     if (player instanceof ServerPlayer) {
                         CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
