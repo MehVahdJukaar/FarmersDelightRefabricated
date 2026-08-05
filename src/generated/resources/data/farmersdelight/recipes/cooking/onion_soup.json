@@ -10,10 +10,10 @@
       "tag": "c:crops/onion"
     },
     {
-      "tag": "c:bread"
+      "tag": "c:foods/breads"
     },
     {
-      "tag": "c:milk"
+      "tag": "c:milks"
     }
   ],
   "recipe_book_tab": "meals",

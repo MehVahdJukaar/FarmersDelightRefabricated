@@ -9,7 +9,7 @@
       "item": "farmersdelight:cooked_rice"
     },
     "X": {
-      "tag": "c:vegetables"
+      "tag": "c:foods/vegetables"
     }
   },
   "pattern": [

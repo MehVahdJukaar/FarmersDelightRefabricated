@@ -8,13 +8,13 @@
     },
     [
       {
-        "tag": "c:raw_meat"
+        "tag": "c:foods/raw_meats"
       },
       {
-        "tag": "c:raw_fishes"
+        "tag": "c:foods/raw_fishes"
       },
       {
-        "tag": "c:vegetables"
+        "tag": "c:foods/vegetables"
       },
       {
         "tag": "c:mushrooms"
