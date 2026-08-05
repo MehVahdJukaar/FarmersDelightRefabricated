@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.mixin.refabricated;
 import net.minecraft.client.gui.screens.inventory.HangingSignEditScreen;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignTextSlot;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -21,7 +22,7 @@ public class HangingSignEditScreenMixin {
 	private Identifier texture;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void fdrf$fixSignTextures(SignBlockEntity sign, boolean isFrontText, boolean shouldFilter, CallbackInfo ci) {
+	private void fdrf$fixSignTextures(SignBlockEntity sign, SignTextSlot slot, boolean shouldFilter, CallbackInfo ci) {
 		if (sign.getBlockState().getBlock() instanceof CanvasSign canvas) {
 			texture = FarmersDelight.id("textures/gui/hanging_signs/canvas" + (canvas.getBackgroundColor() == null ? "" : "_" + canvas.getBackgroundColor().getName()) + ".png");
 		}
