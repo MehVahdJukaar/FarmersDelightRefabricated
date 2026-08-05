@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/rabbit_stew"
+        "recipes": "farmersdelight:cooking/rabbit_stew"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

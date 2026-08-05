@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:sweet_berry_cookie"
+        "recipes": "farmersdelight:sweet_berry_cookie"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

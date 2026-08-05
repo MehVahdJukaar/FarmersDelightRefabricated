@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/beef_stew"
+        "recipes": "farmersdelight:cooking/beef_stew"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

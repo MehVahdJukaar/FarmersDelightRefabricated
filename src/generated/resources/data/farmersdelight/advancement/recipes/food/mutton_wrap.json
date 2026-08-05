@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:mutton_wrap"
+        "recipes": "farmersdelight:mutton_wrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

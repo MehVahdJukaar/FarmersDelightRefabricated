@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/cooked_rice"
+        "recipes": "farmersdelight:cooking/cooked_rice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

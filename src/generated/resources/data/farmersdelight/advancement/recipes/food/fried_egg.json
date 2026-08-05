@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:fried_egg"
+        "recipes": "farmersdelight:fried_egg"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

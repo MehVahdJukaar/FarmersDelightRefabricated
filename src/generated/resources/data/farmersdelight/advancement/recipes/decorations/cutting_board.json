@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cutting_board"
+        "recipes": "farmersdelight:cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

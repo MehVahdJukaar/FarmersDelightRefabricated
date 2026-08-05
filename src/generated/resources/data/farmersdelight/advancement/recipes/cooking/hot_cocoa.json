@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/hot_cocoa"
+        "recipes": "farmersdelight:cooking/hot_cocoa"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:bacon_sandwich"
+        "recipes": "farmersdelight:bacon_sandwich"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

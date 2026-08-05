@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:dark_oak_cabinet"
+        "recipes": "farmersdelight:dark_oak_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

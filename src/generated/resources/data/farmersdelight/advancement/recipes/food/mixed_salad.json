@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:mixed_salad"
+        "recipes": "farmersdelight:mixed_salad"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

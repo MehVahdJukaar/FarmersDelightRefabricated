@@ -18,7 +18,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:potato_crate"
+        "recipes": "farmersdelight:potato_crate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

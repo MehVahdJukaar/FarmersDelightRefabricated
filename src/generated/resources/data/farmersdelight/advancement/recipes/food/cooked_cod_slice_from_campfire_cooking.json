@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooked_cod_slice_from_campfire_cooking"
+        "recipes": "farmersdelight:cooked_cod_slice_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

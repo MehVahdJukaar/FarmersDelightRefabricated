@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:chicken_sandwich"
+        "recipes": "farmersdelight:chicken_sandwich"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

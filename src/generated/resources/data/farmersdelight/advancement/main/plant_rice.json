@@ -3,12 +3,10 @@
   "criteria": {
     "plant_rice": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:rice",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:rice"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:salmon_roll"
+        "recipes": "farmersdelight:salmon_roll"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

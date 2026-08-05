@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/dumplings"
+        "recipes": "farmersdelight:cooking/dumplings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

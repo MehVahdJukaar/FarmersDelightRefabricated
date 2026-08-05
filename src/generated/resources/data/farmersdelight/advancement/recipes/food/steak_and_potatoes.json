@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:steak_and_potatoes"
+        "recipes": "farmersdelight:steak_and_potatoes"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

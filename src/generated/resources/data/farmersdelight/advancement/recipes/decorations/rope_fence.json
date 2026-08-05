@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:rope_fence"
+        "recipes": "farmersdelight:rope_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:hamburger"
+        "recipes": "farmersdelight:hamburger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

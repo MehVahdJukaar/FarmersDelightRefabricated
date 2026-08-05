@@ -1,40 +1,36 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
   "pools": [
     {
-      "conditions": [
-        {
-          "block": "farmersdelight:tomatoes_on_rope",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "3"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "farmersdelight:tomatoes_on_rope",
+        "state": {
+          "age": "3"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "farmersdelight:tomato"
         }
       ],
-      "functions": [
+      "modifier": [
         {
+          "type": "minecraft:set_count",
           "count": {
             "type": "minecraft:uniform",
             "max": 2.0,
             "min": 1.0
-          },
-          "function": "minecraft:set_count"
+          }
         },
         {
+          "type": "minecraft:apply_bonus",
           "enchantment": "minecraft:fortune",
           "formula": "minecraft:uniform_bonus_count",
-          "function": "minecraft:apply_bonus",
           "parameters": {
             "bonusMultiplier": 1
           }
@@ -43,19 +39,22 @@
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "block": "farmersdelight:tomatoes_on_rope",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "3"
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "farmersdelight:tomatoes_on_rope",
+            "state": {
+              "age": "3"
+            }
+          },
+          {
+            "type": "minecraft:random_chance",
+            "chance": 0.05
           }
-        },
-        {
-          "chance": 0.05,
-          "condition": "minecraft:random_chance"
-        }
-      ],
+        ]
+      },
       "entries": [
         {
           "type": "minecraft:item",

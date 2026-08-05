@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/pasta_with_mutton_chop"
+        "recipes": "farmersdelight:cooking/pasta_with_mutton_chop"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

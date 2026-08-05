@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:stove"
+        "recipes": "farmersdelight:stove"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

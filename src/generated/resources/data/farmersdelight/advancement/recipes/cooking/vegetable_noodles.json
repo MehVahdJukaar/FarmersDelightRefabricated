@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/vegetable_noodles"
+        "recipes": "farmersdelight:cooking/vegetable_noodles"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

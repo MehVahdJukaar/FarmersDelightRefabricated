@@ -18,7 +18,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/fried_rice"
+        "recipes": "farmersdelight:cooking/fried_rice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:roasted_mutton_chops"
+        "recipes": "farmersdelight:roasted_mutton_chops"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

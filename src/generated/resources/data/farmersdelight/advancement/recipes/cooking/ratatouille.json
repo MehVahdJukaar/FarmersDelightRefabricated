@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/ratatouille"
+        "recipes": "farmersdelight:cooking/ratatouille"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

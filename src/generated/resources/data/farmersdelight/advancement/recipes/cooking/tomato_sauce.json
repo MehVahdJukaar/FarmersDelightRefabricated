@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/tomato_sauce"
+        "recipes": "farmersdelight:cooking/tomato_sauce"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

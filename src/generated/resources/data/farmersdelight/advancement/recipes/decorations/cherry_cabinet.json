@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cherry_cabinet"
+        "recipes": "farmersdelight:cherry_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

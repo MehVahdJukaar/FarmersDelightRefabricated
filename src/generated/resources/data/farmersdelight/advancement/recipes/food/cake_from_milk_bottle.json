@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cake_from_milk_bottle"
+        "recipes": "farmersdelight:cake_from_milk_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

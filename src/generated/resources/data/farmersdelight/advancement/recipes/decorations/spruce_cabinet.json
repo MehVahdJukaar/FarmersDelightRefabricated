@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:spruce_cabinet"
+        "recipes": "farmersdelight:spruce_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

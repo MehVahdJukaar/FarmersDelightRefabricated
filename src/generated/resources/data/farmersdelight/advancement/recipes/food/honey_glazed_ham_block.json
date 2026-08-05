@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:honey_glazed_ham_block"
+        "recipes": "farmersdelight:honey_glazed_ham_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:netherite_knife_smithing"
+        "recipes": "farmersdelight:netherite_knife_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

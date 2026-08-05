@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:apple_pie_from_slices"
+        "recipes": "farmersdelight:apple_pie_from_slices"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

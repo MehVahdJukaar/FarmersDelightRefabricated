@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:straw"
+        "recipes": "farmersdelight:straw"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

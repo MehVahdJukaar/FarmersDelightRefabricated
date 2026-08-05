@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:half_tatami_mat"
+        "recipes": "farmersdelight:half_tatami_mat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

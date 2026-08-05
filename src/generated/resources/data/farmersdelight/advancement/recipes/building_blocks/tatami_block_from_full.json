@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:tatami_block_from_full"
+        "recipes": "farmersdelight:tatami_block_from_full"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

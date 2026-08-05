@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/dog_food"
+        "recipes": "farmersdelight:cooking/dog_food"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

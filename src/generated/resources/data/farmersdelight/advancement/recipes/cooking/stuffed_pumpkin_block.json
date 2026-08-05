@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/stuffed_pumpkin_block"
+        "recipes": "farmersdelight:cooking/stuffed_pumpkin_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

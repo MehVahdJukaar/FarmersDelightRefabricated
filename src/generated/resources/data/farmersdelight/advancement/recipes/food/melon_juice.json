@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:melon_juice"
+        "recipes": "farmersdelight:melon_juice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:birch_cabinet"
+        "recipes": "farmersdelight:birch_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

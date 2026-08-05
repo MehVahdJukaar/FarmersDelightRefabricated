@@ -3,67 +3,55 @@
   "criteria": {
     "gleaming_salad": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:gleaming_salad_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:gleaming_salad_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "honey_glazed_ham": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:honey_glazed_ham_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:honey_glazed_ham_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "rice_roll_medley": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:rice_roll_medley_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:rice_roll_medley_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "roast_chicken": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:roast_chicken_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:roast_chicken_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "shepherds_pie": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:shepherds_pie_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:shepherds_pie_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "stuffed_pumpkin": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:stuffed_pumpkin_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:stuffed_pumpkin_block"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

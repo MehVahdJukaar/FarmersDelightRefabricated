@@ -3,19 +3,17 @@
   "criteria": {
     "harvest_ropelogged_tomato": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "block": {
-                "blocks": "farmersdelight:tomatoes_on_rope",
-                "state": {
-                  "age": "0"
-                }
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "farmersdelight:tomatoes_on_rope",
+              "state": {
+                "age": "0"
               }
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:default_block_use"
     }

@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:organic_compost_from_rotten_flesh"
+        "recipes": "farmersdelight:organic_compost_from_rotten_flesh"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

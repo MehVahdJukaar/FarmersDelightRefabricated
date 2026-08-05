@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/vegetable_soup"
+        "recipes": "farmersdelight:cooking/vegetable_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

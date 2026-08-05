@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:paper_from_tree_bark"
+        "recipes": "farmersdelight:paper_from_tree_bark"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

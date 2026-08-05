@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:stuffed_potato"
+        "recipes": "farmersdelight:stuffed_potato"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

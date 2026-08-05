@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/squid_ink_pasta"
+        "recipes": "farmersdelight:cooking/squid_ink_pasta"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

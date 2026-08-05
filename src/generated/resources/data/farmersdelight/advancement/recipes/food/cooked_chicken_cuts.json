@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooked_chicken_cuts"
+        "recipes": "farmersdelight:cooked_chicken_cuts"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

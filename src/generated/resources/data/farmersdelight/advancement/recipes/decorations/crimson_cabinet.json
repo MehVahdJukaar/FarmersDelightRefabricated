@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:crimson_cabinet"
+        "recipes": "farmersdelight:crimson_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/glow_berry_custard"
+        "recipes": "farmersdelight:cooking/glow_berry_custard"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:hanging_canvas_sign"
+        "recipes": "farmersdelight:hanging_canvas_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

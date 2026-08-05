@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:pie_crust"
+        "recipes": "farmersdelight:pie_crust"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

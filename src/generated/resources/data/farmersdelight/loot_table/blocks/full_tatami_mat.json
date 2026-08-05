@@ -2,23 +2,19 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "farmersdelight:full_tatami_mat",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "part": "head"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "farmersdelight:full_tatami_mat",
+            "state": {
+              "part": "head"
             }
-          ],
+          },
           "name": "farmersdelight:full_tatami_mat"
         }
       ],

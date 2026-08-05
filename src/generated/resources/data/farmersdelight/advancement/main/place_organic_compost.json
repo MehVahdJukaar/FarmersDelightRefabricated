@@ -3,12 +3,10 @@
   "criteria": {
     "place_organic_compost": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:organic_compost",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:organic_compost"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

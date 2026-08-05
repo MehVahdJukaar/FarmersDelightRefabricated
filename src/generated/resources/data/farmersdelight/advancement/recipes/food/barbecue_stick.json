@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:barbecue_stick"
+        "recipes": "farmersdelight:barbecue_stick"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

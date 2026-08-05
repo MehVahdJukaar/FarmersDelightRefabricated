@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:safety_net"
+        "recipes": "farmersdelight:safety_net"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

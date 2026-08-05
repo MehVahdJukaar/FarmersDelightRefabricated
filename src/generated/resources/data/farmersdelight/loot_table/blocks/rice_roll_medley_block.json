@@ -2,15 +2,13 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "block": "farmersdelight:rice_roll_medley_block",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "servings": "8"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "farmersdelight:rice_roll_medley_block",
+        "state": {
+          "servings": "8"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
@@ -20,18 +18,16 @@
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "condition": "minecraft:inverted",
-          "term": {
-            "block": "farmersdelight:rice_roll_medley_block",
-            "condition": "minecraft:block_state_property",
-            "properties": {
-              "servings": "8"
-            }
+      "condition": {
+        "type": "minecraft:inverted",
+        "term": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:rice_roll_medley_block",
+          "state": {
+            "servings": "8"
           }
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",

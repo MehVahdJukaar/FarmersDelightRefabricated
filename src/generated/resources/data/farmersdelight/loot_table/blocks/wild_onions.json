@@ -8,24 +8,22 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "ability": "shears_harvest",
-                  "condition": "farmersdelight:can_item_perform_ability"
-                }
-              ],
+              "condition": {
+                "type": "farmersdelight:can_item_perform_ability",
+                "ability": "shears_harvest"
+              },
               "name": "farmersdelight:wild_onions"
             },
             {
               "type": "minecraft:item",
-              "functions": [
+              "modifier": [
                 {
-                  "function": "minecraft:explosion_decay"
+                  "type": "minecraft:explosion_decay"
                 },
                 {
+                  "type": "minecraft:apply_bonus",
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:uniform_bonus_count",
-                  "function": "minecraft:apply_bonus",
                   "parameters": {
                     "bonusMultiplier": 2
                   }
@@ -39,31 +37,27 @@
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "condition": "minecraft:inverted",
-          "term": {
-            "ability": "shears_harvest",
-            "condition": "farmersdelight:can_item_perform_ability"
-          }
+      "condition": {
+        "type": "minecraft:inverted",
+        "term": {
+          "type": "farmersdelight:can_item_perform_ability",
+          "ability": "shears_harvest"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:allium"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 3.0,
-            "min": 1.0
-          },
-          "function": "minecraft:set_count"
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 3.0,
+          "min": 1.0
         }
-      ],
+      },
       "rolls": 1.0
     }
   ]

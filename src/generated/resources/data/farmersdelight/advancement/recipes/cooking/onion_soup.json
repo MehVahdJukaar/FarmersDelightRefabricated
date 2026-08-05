@@ -18,7 +18,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/onion_soup"
+        "recipes": "farmersdelight:cooking/onion_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

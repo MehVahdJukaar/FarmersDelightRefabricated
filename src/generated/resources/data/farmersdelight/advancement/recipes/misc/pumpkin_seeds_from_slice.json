@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:pumpkin_seeds_from_slice"
+        "recipes": "farmersdelight:pumpkin_seeds_from_slice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

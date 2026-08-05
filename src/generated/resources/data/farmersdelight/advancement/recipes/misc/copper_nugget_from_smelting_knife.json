@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:copper_nugget_from_smelting_knife"
+        "recipes": "farmersdelight:copper_nugget_from_smelting_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

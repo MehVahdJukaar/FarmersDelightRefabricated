@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:golden_knife"
+        "recipes": "farmersdelight:golden_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

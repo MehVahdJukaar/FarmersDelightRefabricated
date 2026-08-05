@@ -17,7 +17,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/noodle_soup"
+        "recipes": "farmersdelight:cooking/noodle_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

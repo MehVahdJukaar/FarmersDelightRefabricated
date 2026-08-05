@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:rice"
+        "recipes": "farmersdelight:rice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:tomato_crate"
+        "recipes": "farmersdelight:tomato_crate"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

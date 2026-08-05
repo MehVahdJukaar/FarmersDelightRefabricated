@@ -16,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/cabbage_rolls"
+        "recipes": "farmersdelight:cooking/cabbage_rolls"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

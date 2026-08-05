@@ -1,10 +1,8 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
   "pools": [
     {
       "entries": [
@@ -13,102 +11,94 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "farmersdelight:red_mushroom_colony",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "0"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "farmersdelight:red_mushroom_colony",
+                "state": {
+                  "age": "0"
                 }
-              ],
-              "functions": [
-                {
-                  "count": 2.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2.0
+              },
               "name": "minecraft:red_mushroom"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "farmersdelight:red_mushroom_colony",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "1"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "farmersdelight:red_mushroom_colony",
+                "state": {
+                  "age": "1"
                 }
-              ],
-              "functions": [
-                {
-                  "count": 3.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 3.0
+              },
               "name": "minecraft:red_mushroom"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "farmersdelight:red_mushroom_colony",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "2"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "farmersdelight:red_mushroom_colony",
+                "state": {
+                  "age": "2"
                 }
-              ],
-              "functions": [
-                {
-                  "count": 4.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 4.0
+              },
               "name": "minecraft:red_mushroom"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:inverted",
-                  "term": {
-                    "ability": "shears_harvest",
-                    "condition": "farmersdelight:can_item_perform_ability"
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:inverted",
+                    "term": {
+                      "type": "farmersdelight:can_item_perform_ability",
+                      "ability": "shears_harvest"
+                    }
+                  },
+                  {
+                    "type": "minecraft:match_block",
+                    "blocks": "farmersdelight:red_mushroom_colony",
+                    "state": {
+                      "age": "3"
+                    }
                   }
-                },
-                {
-                  "block": "farmersdelight:red_mushroom_colony",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "3"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "count": 5.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+                ]
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 5.0
+              },
               "name": "minecraft:red_mushroom"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "ability": "shears_harvest",
-                  "condition": "farmersdelight:can_item_perform_ability"
-                },
-                {
-                  "block": "farmersdelight:red_mushroom_colony",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "3"
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "farmersdelight:can_item_perform_ability",
+                    "ability": "shears_harvest"
+                  },
+                  {
+                    "type": "minecraft:match_block",
+                    "blocks": "farmersdelight:red_mushroom_colony",
+                    "state": {
+                      "age": "3"
+                    }
                   }
-                }
-              ],
+                ]
+              },
               "name": "farmersdelight:red_mushroom_colony"
             }
           ]

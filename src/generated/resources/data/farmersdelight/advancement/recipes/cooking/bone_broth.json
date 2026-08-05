@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/bone_broth"
+        "recipes": "farmersdelight:cooking/bone_broth"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

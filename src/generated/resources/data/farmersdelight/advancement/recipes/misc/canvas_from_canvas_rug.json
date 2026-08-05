@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:canvas_from_canvas_rug"
+        "recipes": "farmersdelight:canvas_from_canvas_rug"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:packed_mud_from_straw"
+        "recipes": "farmersdelight:packed_mud_from_straw"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

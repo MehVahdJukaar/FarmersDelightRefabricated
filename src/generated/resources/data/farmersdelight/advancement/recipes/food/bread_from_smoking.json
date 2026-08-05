@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:bread_from_smoking"
+        "recipes": "farmersdelight:bread_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

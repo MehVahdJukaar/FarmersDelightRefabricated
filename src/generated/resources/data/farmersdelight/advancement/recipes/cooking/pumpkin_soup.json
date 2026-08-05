@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/pumpkin_soup"
+        "recipes": "farmersdelight:cooking/pumpkin_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
