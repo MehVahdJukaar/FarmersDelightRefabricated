@@ -24,9 +24,4 @@ public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock imple
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return ModBlockEntityTypes.HANGING_CANVAS_SIGN.get().create(pos, state);
-	}
 }
