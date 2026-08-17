@@ -1,7 +1,7 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
-    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id "me.modmuss50.mod-publish-plugin" version "2.2.0"
 }
 
 version = mod_version + "+refabricated"
@@ -74,6 +74,22 @@ repositories {
             includeGroup( "cc.cassian.rrv")
         }
     }
+    maven {
+        name = "NeoForge"
+        url = uri("https://maven.neoforged.net/releases/")
+        content {
+            includeGroupAndSubgroups("net.neoforged")
+            includeGroupAndSubgroups("cpw.mods")
+            includeGroupAndSubgroups("net.minecraftforge")
+        }
+    }
+    maven {
+        name = "Xander Maven"
+        url = uri("https://maven.isxander.dev/releases")
+        content {
+            includeGroupAndSubgroups("dev.isxander")
+        }
+    }
 }
 
 dependencies {
@@ -86,9 +102,10 @@ dependencies {
 
     //config stuff. optional
     compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_version}")
-    compileOnly("curse.maven:yacl-667299:7353769")
+    compileOnly("dev.isxander:yet-another-config-lib:${project.yacl_version}")
+    localRuntime("dev.isxander:yet-another-config-lib:${project.yacl_version}")
     compileOnly("maven.modrinth:modmenu:${project.modmenu_version}")
-//    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    localRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 //    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
@@ -132,6 +149,9 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
         exclude(group: "eu.pb4")
      }
+    compileOnly("net.neoforged:neoforge:26.1.2.71:universal")
+    compileOnly("net.neoforged.fancymodloader:loader:11.0.0")
+
 }
 
 var changelogFile = rootProject.file("changelog.md")

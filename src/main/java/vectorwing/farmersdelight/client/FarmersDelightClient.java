@@ -40,6 +40,7 @@ public class FarmersDelightClient implements ClientModInitializer {
         });
 
         // rendering stuff
+
         ConditionalItemModelProperties.ID_MAPPER.put(FarmersDelight.id("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
     }
 }
