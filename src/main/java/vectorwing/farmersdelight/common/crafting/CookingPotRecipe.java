@@ -103,7 +103,7 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 			ItemStack itemstack = inv.getItem(j);
 			if (!itemstack.isEmpty()) {
 				++i;
-				stackedContents.accountStack(itemstack);
+				stackedContents.accountStack(itemstack, 1);
 			}
 		}
 		return i == this.inputItems.size() && stackedContents.canCraft(this, null);
