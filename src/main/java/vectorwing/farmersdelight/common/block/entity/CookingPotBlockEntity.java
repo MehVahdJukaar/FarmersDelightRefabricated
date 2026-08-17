@@ -308,7 +308,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 				ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 				if (storedMealStack.isEmpty()) {
 					return true;
-				} else if (!ItemStack.isSameItem(storedMealStack, resultStack)) {
+				} else if (!ItemStack.isSameItemSameComponents(storedMealStack, resultStack)) {
 					return false;
 				} else if (storedMealStack.getCount() + resultStack.getCount() <= Math.max(64, storedMealStack.getMaxStackSize())) {
 					return true;
@@ -338,7 +338,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
 			inventory.setStackInSlot(MEAL_DISPLAY_SLOT, resultStack.copy());
-		} else if (ItemStack.isSameItem(storedMealStack, resultStack)) {
+		} else if (ItemStack.isSameItemSameComponents(storedMealStack, resultStack)) {
 			storedMealStack.grow(resultStack.getCount());
 		}
 		cookingPot.setRecipeUsed(recipe);
@@ -440,7 +440,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		int mealCount = Math.min(mealStack.getCount(), mealStack.getMaxStackSize() - outputStack.getCount());
 		if (outputStack.isEmpty()) {
 			inventory.setStackInSlot(OUTPUT_SLOT, mealStack.split(mealCount));
-		} else if (ItemStack.isSameItem(mealStack, outputStack)) {
+		} else if (ItemStack.isSameItemSameComponents(mealStack, outputStack)) {
 			mealStack.shrink(mealCount);
 			outputStack.grow(mealCount);
 		}
@@ -457,7 +457,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			if (outputStack.isEmpty()) {
 				containerInputStack.shrink(mealCount);
 				inventory.setStackInSlot(OUTPUT_SLOT, mealStack.split(mealCount));
-			} else if (outputStack.getItem() == mealStack.getItem()) {
+			} else if (ItemStack.isSameItemSameComponents(outputStack, mealStack)) {
 				mealStack.shrink(mealCount);
 				containerInputStack.shrink(mealCount);
 				outputStack.grow(mealCount);

@@ -37,7 +37,6 @@
   "block.farmersdelight.rice_bale": "Rice Bale",
   "block.farmersdelight.rice_bag": "Bag of Rice",
   "block.farmersdelight.straw_bale": "Straw Bale",
-
   "block.farmersdelight.canvas_sign": "Canvas Sign",
   "block.farmersdelight.white_canvas_sign": "White Canvas Sign",
   "block.farmersdelight.orange_canvas_sign": "Orange Canvas Sign",
@@ -55,7 +54,6 @@
   "block.farmersdelight.green_canvas_sign": "Green Canvas Sign",
   "block.farmersdelight.red_canvas_sign": "Red Canvas Sign",
   "block.farmersdelight.black_canvas_sign": "Black Canvas Sign",
-
   "block.farmersdelight.canvas_wall_sign": "Canvas Wall Sign",
   "block.farmersdelight.white_canvas_wall_sign": "White Canvas Wall Sign",
   "block.farmersdelight.orange_canvas_wall_sign": "Orange Canvas Wall Sign",
@@ -73,7 +71,6 @@
   "block.farmersdelight.green_canvas_wall_sign": "Green Canvas Wall Sign",
   "block.farmersdelight.red_canvas_wall_sign": "Red Canvas Wall Sign",
   "block.farmersdelight.black_canvas_wall_sign": "Black Canvas Wall Sign",
-
   "block.farmersdelight.hanging_canvas_sign": "Hanging Canvas Sign",
   "block.farmersdelight.white_hanging_canvas_sign": "White Hanging Canvas Sign",
   "block.farmersdelight.orange_hanging_canvas_sign": "Orange Hanging Canvas Sign",
@@ -91,7 +88,6 @@
   "block.farmersdelight.green_hanging_canvas_sign": "Green Hanging Canvas Sign",
   "block.farmersdelight.red_hanging_canvas_sign": "Red Hanging Canvas Sign",
   "block.farmersdelight.black_hanging_canvas_sign": "Black Hanging Canvas Sign",
-
   "block.farmersdelight.wall_hanging_canvas_sign": "Wall Hanging Canvas Sign",
   "block.farmersdelight.white_wall_hanging_canvas_sign": "White Wall Hanging Canvas Sign",
   "block.farmersdelight.orange_wall_hanging_canvas_sign": "Orange Wall Hanging Canvas Sign",
@@ -109,7 +105,6 @@
   "block.farmersdelight.green_wall_hanging_canvas_sign": "Green Wall Hanging Canvas Sign",
   "block.farmersdelight.red_wall_hanging_canvas_sign": "Red Wall Hanging Canvas Sign",
   "block.farmersdelight.black_wall_hanging_canvas_sign": "Black Wall Hanging Canvas Sign",
-
   "block.farmersdelight.budding_tomatoes": "Budding Tomato Vine",
   "block.farmersdelight.tomatoes": "Tomato Vine",
   "block.farmersdelight.tomatoes_on_rope": "Tomato Vine on Rope",
@@ -119,7 +114,6 @@
   "block.farmersdelight.rice_panicles": "Rice Panicles",
   "block.farmersdelight.brown_mushroom_colony": "Brown Mushroom Colony",
   "block.farmersdelight.red_mushroom_colony": "Red Mushroom Colony",
-
   "block.farmersdelight.sandy_shrub": "Sandy Shrub",
   "block.farmersdelight.wild_cabbages": "Wild Cabbage",
   "block.farmersdelight.wild_tomatoes": "Tomato Shrub",
@@ -128,12 +122,10 @@
   "block.farmersdelight.wild_potatoes": "Wild Potato",
   "block.farmersdelight.wild_beetroots": "Sea Beet",
   "block.farmersdelight.wild_rice": "Wild Rice",
-
   "block.farmersdelight.apple_pie": "Apple Pie",
   "block.farmersdelight.sweet_berry_cheesecake": "Sweet Berry Cheesecake",
   "block.farmersdelight.chocolate_pie": "Chocolate Pie",
   "block.farmersdelight.pumpkin_pie": "Pumpkin Pie",
-
   "item.farmersdelight.tomato": "Tomato",
   "item.farmersdelight.cabbage": "Cabbage",
   "item.farmersdelight.onion": "Onion",
@@ -142,11 +134,9 @@
   "item.farmersdelight.tomato_seeds": "Tomato Seeds",
   "item.farmersdelight.rice_panicle": "Rice Panicle",
   "item.farmersdelight.rotten_tomato": "Rotten Tomato",
-
   "item.farmersdelight.straw": "Straw",
   "item.farmersdelight.canvas": "Canvas",
   "item.farmersdelight.tree_bark": "Tree Bark",
-
   "item.farmersdelight.tomato_sauce": "Tomato Sauce",
   "item.farmersdelight.fried_egg": "Fried Egg",
   "item.farmersdelight.milk_bottle": "Milk Bottle",
@@ -171,7 +161,6 @@
   "item.farmersdelight.cooked_mutton_chops": "Cooked Mutton Chops",
   "item.farmersdelight.ham": "Ham",
   "item.farmersdelight.smoked_ham": "Smoked Ham",
-
   "item.farmersdelight.pie_crust": "Pie Crust",
   "item.farmersdelight.cake_slice": "Slice of Cake",
   "item.farmersdelight.apple_pie_slice": "Slice of Apple Pie",
@@ -183,16 +172,13 @@
   "item.farmersdelight.honey_cookie": "Honey Cookie",
   "item.farmersdelight.melon_popsicle": "Melon Popsicle",
   "item.farmersdelight.glow_berry_custard": "Glow Berry Custard",
-
   "item.farmersdelight.earthworm": "Earthworm",
-
   "item.farmersdelight.flint_knife": "Flint Knife",
   "item.farmersdelight.copper_knife": "Copper Knife",
   "item.farmersdelight.iron_knife": "Iron Knife",
   "item.farmersdelight.golden_knife": "Golden Knife",
   "item.farmersdelight.diamond_knife": "Diamond Knife",
   "item.farmersdelight.netherite_knife": "Netherite Knife",
-
   "item.farmersdelight.barbecue_stick": "Barbecue on a Stick",
   "item.farmersdelight.egg_sandwich": "Egg Sandwich",
   "item.farmersdelight.chicken_sandwich": "Chicken Sandwich",
@@ -206,7 +192,6 @@
   "item.farmersdelight.cod_roll": "Cod Roll",
   "item.farmersdelight.kelp_roll": "Kelp Roll",
   "item.farmersdelight.kelp_roll_slice": "Kelp Roll Slice",
-
   "item.farmersdelight.cooked_rice": "Cooked Rice",
   "item.farmersdelight.mixed_salad": "Mixed Salad",
   "item.farmersdelight.nether_salad": "Nether Salad",
@@ -220,7 +205,6 @@
   "item.farmersdelight.noodle_soup": "Noodle Soup",
   "item.farmersdelight.onion_soup": "Onion Soup",
   "item.farmersdelight.bone_broth": "Bone Broth",
-
   "item.farmersdelight.bacon_and_eggs": "Bacon and Eggs",
   "item.farmersdelight.pasta_with_meatballs": "Pasta with Meatballs",
   "item.farmersdelight.pasta_with_mutton_chop": "Pasta with Mutton Chop",
@@ -231,7 +215,6 @@
   "item.farmersdelight.squid_ink_pasta": "Squid Ink Pasta",
   "item.farmersdelight.grilled_salmon": "Grilled Salmon",
   "item.farmersdelight.mushroom_rice": "Mushroom Rice",
-
   "block.farmersdelight.roast_chicken_block": "Roast Chicken",
   "item.farmersdelight.roast_chicken": "Plate of Roast Chicken",
   "block.farmersdelight.stuffed_pumpkin_block": "Stuffed Pumpkin",
@@ -243,22 +226,16 @@
   "block.farmersdelight.gleaming_salad_block": "Gleaming Salad",
   "item.farmersdelight.gleaming_salad": "Bowl of Gleaming Salad",
   "block.farmersdelight.rice_roll_medley_block": "Rice Roll Medley",
-
   "item.farmersdelight.dog_food": "Dog Food",
   "item.farmersdelight.horse_feed": "Horse Feed",
-
   "entity.farmersdelight.rotten_tomato": "Rotten Tomato",
-
   "effect.farmersdelight.nourishment": "Nourishment",
   "effect.farmersdelight.nourishment.description": "Prevents the food meter from decreasing, except when healing with saturation",
   "effect.farmersdelight.comfort": "Comfort",
   "effect.farmersdelight.comfort.description": "Provides natural regeneration, regardless of how hungry you are.",
-
   "enchantment.farmersdelight.backstabbing": "Backstabbing",
   "enchantment.farmersdelight.backstabbing.description": "Amplifies damage when striking a target from behind.",
-
   "itemGroup.farmersdelight": "Farmer's Delight",
-
   "container.farmersdelight.recipe_book.cookable": "Showing Cookable",
   "container.farmersdelight.cooking_pot": "Cooking Pot",
   "container.farmersdelight.cooking_pot.served_on": "Served on: %s",
@@ -266,7 +243,6 @@
   "container.farmersdelight.cooking_pot.heated": "Heated",
   "container.farmersdelight.basket": "Basket",
   "container.farmersdelight.cabinet": "Cabinet",
-
   "tooltip.farmersdelight.cooking_pot.empty": "Empty",
   "tooltip.farmersdelight.cooking_pot.single_serving": "Holds 1 serving of:",
   "tooltip.farmersdelight.cooking_pot.many_servings": "Holds %s servings of:",
@@ -278,10 +254,8 @@
   "tooltip.farmersdelight.placeable": "Placeable",
   "tooltip.farmersdelight.placeable_sneaking": "Placeable when sneaking",
   "tooltip.farmersdelight.debug_item": "Debug item — Not meant for gameplay",
-
   "advancements.farmersdelight.root.title": "Farmer's Delight",
   "advancements.farmersdelight.root.description": "A world of flavor awaits you!",
-
   "advancements.farmersdelight.craft_knife.title": "Hunt and Gather",
   "advancements.farmersdelight.craft_knife.description": "Craft a Knife to scavenge extra goods from plants and animals",
   "advancements.farmersdelight.harvest_straw.title": "Grasping at Straws",
@@ -296,7 +270,6 @@
   "advancements.farmersdelight.use_cutting_board.description": "With a tool in hand, use a Cutting Board to break down an item",
   "advancements.farmersdelight.obtain_netherite_knife.title": "If You Can't Take the Heat...",
   "advancements.farmersdelight.obtain_netherite_knife.description": "Spend a whole Netherite Ingot to upgrade your knife! Or get out of the kitchen.",
-
   "advancements.farmersdelight.get_fd_seed.title": "Crops of the Wild",
   "advancements.farmersdelight.get_fd_seed.description": "Four new crops may be found in the wild, across many climates... or maybe in a chest somewhere.",
   "advancements.farmersdelight.plant_rice.title": "Dipping Your Roots",
@@ -309,7 +282,6 @@
   "advancements.farmersdelight.get_mushroom_colony.description": "Shear a fully mature Mushroom Colony. To grow them like this, you'll need a very rich soil...",
   "advancements.farmersdelight.plant_all_crops.title": "Crop Rotation",
   "advancements.farmersdelight.plant_all_crops.description": "Cultivate every food-related plant you can find, such as vegetables, fruits, fungi or roots!",
-
   "advancements.farmersdelight.place_campfire.title": "Bonfire Lit",
   "advancements.farmersdelight.place_campfire.description": "Place down a Campfire to cook some food",
   "advancements.farmersdelight.use_skillet.title": "Portable Cooking",
@@ -324,7 +296,6 @@
   "advancements.farmersdelight.place_feast.description": "Some meals are big enough to be placed down and shared with friends!",
   "advancements.farmersdelight.master_chef.title": "Master Chef",
   "advancements.farmersdelight.master_chef.description": "Eat a course of every meal available!",
-
   "subtitles.farmersdelight.block.cooking_pot.boil": "Cooking Pot boils",
   "subtitles.farmersdelight.block.cutting_board.place_item": "Item placed on board",
   "subtitles.farmersdelight.block.cutting_board.remove_item": "Item removed from board",
@@ -342,7 +313,6 @@
   "subtitles.farmersdelight.block.food.slice": "Food sliced",
   "subtitles.farmersdelight.entity.rotten_tomato.throw": "Rotten Tomato flies",
   "subtitles.farmersdelight.entity.rotten_tomato.hit": "Rotten Tomato splatters",
-
   "block.farmersdelight.feast.use_container": "You need a %s to eat this.",
   "block.farmersdelight.rice.invalid_placement": "This seed must be planted in shallow water.",
   "block.farmersdelight.cutting_board.invalid_item": "This doesn't seem cuttable...",
@@ -352,7 +322,6 @@
   "block.farmersdelight.skillet.underwater": "Can't cook while flooded...",
   "item.farmersdelight.skillet.how_to_cook": "Use your other hand to hold ingredients!",
   "item.farmersdelight.skillet.underwater": "Can't cook underwater...",
-
   "death.attack.farmersdelight.stove": "%1$s was grilled to perfection",
   "death.attack.farmersdelight.stove.player": "%1$s was thrown on the grill by Chef %2$s",
 
@@ -366,7 +335,6 @@
   "jei.farmersdelight.decomposition.light": "Sped up by sunlight",
   "jei.farmersdelight.decomposition.fluid": "Sped up by adjacent water",
   "jei.farmersdelight.decomposition.accelerators": "Sped up by adjacent activators (see below)",
-
   "jei.farmersdelight.info.dough": "Wheat can be turned into Dough by crafting it with a Water Bucket. But don't worry, the bucket's water won't be depleted!",
   "jei.farmersdelight.info.straw": "A dry plant fiber used in crafting. Obtained by cutting grassy crops and plants with a Knife.",
   "jei.farmersdelight.info.knife": "A lightweight melee weapon, with fast swings and gentle damage.\n\nThey can harvest Straw from grasses, and guarantee secondary drops from animals.",
@@ -378,11 +346,9 @@
   "jei.farmersdelight.info.wild_potatoes": "Potatoes can be commonly found as a wild plant in cold lands, such as mountains and taigas.",
   "jei.farmersdelight.info.wild_tomatoes": "Tomatoes can be commonly found as a wild plant in arid lands, such as savannas and deserts.",
   "jei.farmersdelight.info.wild_rice": "Rice can be commonly found as a wild plant in the ponds of wet lands, such as swamps and jungles.",
-
   "emi.category.farmersdelight.cooking": "Cooking",
   "emi.category.farmersdelight.cutting": "Cutting Board",
   "emi.category.farmersdelight.decomposition": "Decomposition",
-
   "tag.item.c.crops.cabbage": "Cabbage Crops",
   "tag.item.c.crops.grain": "Grain Crops",
   "tag.item.c.crops.onion": "Onion Crops",
@@ -423,7 +389,6 @@
   "tag.item.c.storage_blocks.rice": "Rice Storage Blocks",
   "tag.item.c.storage_blocks.rice_panicle": "Rice Panicle Storage Blocks",
   "tag.item.c.storage_blocks.straw": "Straw Storage Blocks",
-
   "tag.block.farmersdelight.cabinets": "Cabinets",
   "tag.block.farmersdelight.cabinets.wooden": "Wooden Cabinets",
   "tag.block.farmersdelight.campfire_signal_smoke": "Campfire Signal Smoke",
@@ -443,7 +408,6 @@
   "tag.block.farmersdelight.tray_heat_sources": "Heat Sources with a Tray",
   "tag.block.farmersdelight.unaffected_by_rich_soil": "Unaffected by Rich Soil",
   "tag.block.farmersdelight.wild_crops": "Wild Crops",
-
   "tag.item.farmersdelight.cabinets": "Cabinets",
   "tag.item.farmersdelight.cabinets.wooden": "Wooden Cabinets",
   "tag.item.farmersdelight.canvas_signs": "Canvas Signs",
@@ -461,14 +425,11 @@
   "tag.item.farmersdelight.sweets": "Sweets",
   "tag.item.farmersdelight.tools.knives": "Knives",
   "tag.item.farmersdelight.wild_crops": "Wild Crops",
-
   "farmersdelight.configuration.title": "Farmer's Delight — Settings",
-
   "farmersdelight.configuration.section.farmersdelight.client.toml": "Client settings",
   "farmersdelight.configuration.section.farmersdelight.client.toml.title": "Client settings",
   "farmersdelight.configuration.section.farmersdelight.common.toml": "Common settings",
   "farmersdelight.configuration.section.farmersdelight.common.toml.title": "Common settings",
-
   "farmersdelight.configuration.settings": "Game Settings",
   "farmersdelight.configuration.farming": "Farming",
   "farmersdelight.configuration.crafting": "Crafting",
@@ -477,7 +438,6 @@
   "farmersdelight.configuration.world": "World Generation",
   "farmersdelight.configuration.debug": "Debug Settings",
   "farmersdelight.configuration.debug.tooltip": "§lWarning:§r This section is not meant for standard gameplay.",
-
   "farmersdelight.configuration.enableFarmerFDTrades": "Special Farmer Trades",
   "farmersdelight.configuration.enableFarmerFDTrades.tooltip": "If enabled, Novice and Apprentice Farmer villagers will have a chance to buy crops from this mod.",
   "farmersdelight.configuration.enableWanderingTraderFDTrades": "Special Wandering Trader Trades",
@@ -486,21 +446,18 @@
   "farmersdelight.configuration.enableRopeReeling.tooltip": "If enabled, players will be able to reel back rope, bottom to top, when sneak-using with an empty hand on them.",
   "farmersdelight.configuration.canvasSignDarkBackgroundList": "Dark Background Canvas Signs",
   "farmersdelight.configuration.canvasSignDarkBackgroundList.tooltip": "A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed.\n\nDyes:\n[\"white\", \"orange\", \"magenta\", \"light_blue\", \"yellow\", \"lime\", \"pink\", \"gray\", \"light_gray\", \"cyan\", \"purple\", \"blue\", \"brown\", \"green\", \"red\", \"black\"]",
-
   "farmersdelight.configuration.richSoilBoostChance": "Rich Soil Boost Chance",
   "farmersdelight.configuration.richSoilBoostChance.tooltip": "The chance (in decimal percentage) of Rich Soil providing a bone meal boost to a crop planted on it. Set to 0.0 to disable.",
   "farmersdelight.configuration.enableTomatoVineClimbingTaggedRopes": "Tomato Vine Climbs Tagged Ropes",
   "farmersdelight.configuration.enableTomatoVineClimbingTaggedRopes.tooltip": "If enabled, tomato crops will be able to climb any rope tagged as farmersdelight:ropes. If disabled, this will be restricted to this mod's rope only.\n\n§lBeware: this will convert these blocks into the block specified in defaultTomatoVineRope.§r",
   "farmersdelight.configuration.defaultTomatoVineRope": "Default Tomato Vine Rope",
   "farmersdelight.configuration.defaultTomatoVineRope.tooltip": "Which rope should Tomato Vines leave behind when broken?",
-
   "farmersdelight.configuration.enableCookingPotRecipeBook": "Cooking Pot Recipe Book",
   "farmersdelight.configuration.enableCookingPotRecipeBook.tooltip": "If enabled, the Cooking Pot will provide a Recipe Book on its interface, similar to the one on Crafting Tables and Furnaces.",
   "farmersdelight.configuration.enableVanillaCropCrates": "Vanilla Crop Crates",
   "farmersdelight.configuration.enableVanillaCropCrates.tooltip": "If enabled, storage crates (3x3) for vanilla crops (similar to Quark and Thermal Cultivation) will become craftable.",
   "farmersdelight.configuration.cuttingBoardFortuneBonus": "Cutting Board Fortune Bonus",
   "farmersdelight.configuration.cuttingBoardFortuneBonus.tooltip": "How much (in decimal percentage) should each level of Fortune increase the odds of obtaining rare results on the Cutting Board? Set to 0.0 to disable.",
-
   "farmersdelight.configuration.enableVanillaSoupExtraEffects": "Vanilla Soup Extra Effects",
   "farmersdelight.configuration.enableVanillaSoupExtraEffects.tooltip": "If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.",
   "farmersdelight.configuration.enableRabbitStewBuff": "Rabbit Stew Buff",
@@ -509,22 +466,18 @@
   "farmersdelight.configuration.enablePumpkinPieSneakToPlace.tooltip": "If enabled, Pumpkin Pie will require the user to sneak to place it down as a block.",
   "farmersdelight.configuration.enableCuttingBoardDispenserBehavior": "Cutting Board Dispenser Behavior",
   "farmersdelight.configuration.enableCuttingBoardDispenserBehavior.tooltip": "If enabled, the Dispenser will be able to operate a Cutting Board in front of itself, using stored items as cutting tools.",
-
   "farmersdelight.configuration.enableStackableSoupItems": "Stackable Soup Items",
   "farmersdelight.configuration.enableStackableSoupItems.tooltip": "If enabled, any BowlFoodItem in the following list will become stackable to 16, much like Farmer's Delight's meals.",
   "farmersdelight.configuration.soupItemList": "Soup Items",
   "farmersdelight.configuration.soupItemList.tooltip": "List of targeted food items. They must extend the BowlFoodItem class in code to be affected. Defaults to vanilla soups and stews.",
-
   "farmersdelight.configuration.generateFDChestLoot": "Generate Mod Chest Loot",
   "farmersdelight.configuration.generateFDChestLoot.tooltip": "If enabled, new loot pools will be added to chest loot across the game, containing items from this mod (ropes, crops, tools etc).",
   "farmersdelight.configuration.generateVillageCompostHeaps": "Generate Village Compost Heaps",
   "farmersdelight.configuration.generateVillageCompostHeaps.tooltip": "If enabled, Compost Heaps (structures containing Organic Compost piles) will sometimes generate across Villages.",
   "farmersdelight.configuration.generateFDCropsOnVillageFarms": "Generate Mod Crops on Village Farms",
   "farmersdelight.configuration.generateFDCropsOnVillageFarms.tooltip": "If enabled, crops from Farmer's Delight will sometimes replace standard crops in village farm plots.",
-
   "farmersdelight.configuration.enableTomatoRopePermanence": "Tomato Rope Permanence",
   "farmersdelight.configuration.enableTomatoRopePermanence.tooltip": "Tomato crops hanging on rope will force-place a Rope block when broken. Due to technical limitations, this affects things such as commands, making them fail to 'setblock' this block on the first attempt.\n\nDisable this if this block is preventing you from editing a region in creative or with commands. For normal gameplay, I recommend leaving this enabled.",
-
   "farmersdelight.configuration.enableNourishmentHungerOverlay": "Nourishment Hunger Overlay",
   "farmersdelight.configuration.enableNourishmentHungerOverlay.tooltip": "If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect.",
   "farmersdelight.configuration.enableComfortHealthOverlay": "Comfort Health Overlay",
@@ -532,5 +485,25 @@
   "farmersdelight.configuration.enableFoodEffectTooltip": "Food Effect Tooltip",
   "farmersdelight.configuration.enableFoodEffectTooltip.tooltip": "If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.",
 
-  "gui.farmersdelight.open_mod_page": "Open mod page"
+  "gui.farmersdelight.open_mod_page": "Open mod page",
+  "farmersdelight.configuration.open_mod_page": "Open %s CurseForge page",
+  "tag.block.farmersdelight.does_not_survive.rich_soil": "Rich Soil",
+  "tag.block.farmersdelight.does_not_survive.rich_soil_farmland": "Rich Soil Farmland",
+  "tag.block.farmersdelight.survives.rich_soil": "Rich Soil",
+  "tag.block.farmersdelight.survives.rich_soil_farmland": "Rich Soil Farmland",
+  "tag.entity_type.farmersdelight.drops_leather": "Drops Leather",
+  "tag.worldgen.farmersdelight.biome.has_brown_mushroom_colony": "Has Brown Mushroom Colony",
+  "tag.worldgen.farmersdelight.biome.has_red_mushroom_colony": "Has Red Mushroom Colony",
+  "tag.worldgen.farmersdelight.biome.has_wild_beetroots": "Has Wild Beetroots",
+  "tag.worldgen.farmersdelight.biome.has_wild_cabbage": "Has Wild Cabbage",
+  "tag.worldgen.farmersdelight.biome.wild_carrots_blacklist": "Wild Carrots Blacklist",
+  "tag.worldgen.farmersdelight.biome.wild_carrots_whitelist": "Wild Carrots Whitelist",
+  "tag.worldgen.farmersdelight.biome.wild_onions_blacklist": "Wild Onions Blacklist",
+  "tag.worldgen.farmersdelight.biome.wild_onions_whitelist": "Wild Onions Whitelist",
+  "tag.worldgen.farmersdelight.biome.wild_potatoes_blacklist": "Wild Potatoes Blacklist",
+  "tag.worldgen.farmersdelight.biome.wild_potatoes_whitelist": "Wild Potatoes Whitelist",
+  "tag.worldgen.farmersdelight.biome.wild_rice_blacklist": "Wild Rice Blacklist",
+  "tag.worldgen.farmersdelight.biome.wild_rice_whitelist": "Wild Rice Whitelist",
+  "tag.worldgen.farmersdelight.biome.wild_tomatoes_blacklist": "Wild Tomatoes Blacklist",
+  "tag.worldgen.farmersdelight.biome.wild_tomatoes_whitelist": "Wild Tomatoes Whitelist"
 }

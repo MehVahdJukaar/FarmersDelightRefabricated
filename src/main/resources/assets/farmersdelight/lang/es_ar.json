@@ -525,5 +525,7 @@
   "farmersdelight.configuration.enableComfortHealthOverlay": "Interfaz de Comodidad",
   "farmersdelight.configuration.enableComfortHealthOverlay.tooltip": "Si está habilitado, una interfaz deslizante aparecerá en la barra de vida del jugador cuando tenga el efecto de Comodidad.",
   "farmersdelight.configuration.enableFoodEffectTooltip": "Descripción de efectos de comida",
-  "farmersdelight.configuration.enableFoodEffectTooltip.tooltip": "Si está habilitado, los objetos de comida tendrán descripciones mostrando que efectos otorgan al comerlos, si es que poseen alguno. Aplica tanto a comidas del juego base como a las de este mod."
+  "farmersdelight.configuration.enableFoodEffectTooltip.tooltip": "Si está habilitado, los objetos de comida tendrán descripciones mostrando que efectos otorgan al comerlos, si es que poseen alguno. Aplica tanto a comidas del juego base como a las de este mod.",
+
+  "farmersdelight.configuration.open_mod_page": "Abrir la página de %s en CurseForge"
 }
