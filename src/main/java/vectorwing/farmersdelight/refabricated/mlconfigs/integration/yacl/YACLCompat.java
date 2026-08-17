@@ -6,6 +6,7 @@ import dev.isxander.yacl3.gui.controllers.LabelController;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.ConfigEntry;
 import vectorwing.farmersdelight.refabricated.mlconfigs.fabric.ConfigSubCategory;
@@ -34,7 +35,7 @@ public class YACLCompat {
             //skips stray config values
             if (!(en instanceof ConfigSubCategory c)) continue;
             var mainCat = ConfigCategory.createBuilder()
-                    .name(Component.translatable(c.getName()));
+                    .name(Component.translatableWithFallback(c.getName(), WordUtils.capitalizeFully(c.getName())));
 
 
             for (var entry : c.getEntries()) {

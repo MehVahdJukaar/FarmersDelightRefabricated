@@ -14,6 +14,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.mlconfigs.ModConfigHolder;
@@ -30,15 +31,15 @@ public class FabricConfigListScreen extends Screen {
     protected final ModConfigHolder[] configs;
     @Nullable
     protected final Identifier background;
-    private final ItemStack mainIcon;
+    private final Item mainIcon;
     private final String modId;
     private final String modURL;
 
     protected ConfigList list;
 
-    public FabricConfigListScreen(String modId, ItemStack mainIcon, Component displayName, @Nullable Identifier background,
-                                  Screen parent,
-                                  ModConfigHolder... specs) {
+    public FabricConfigListScreen(String modId, Item mainIcon, Component displayName, @Nullable Identifier background,
+								  Screen parent,
+								  ModConfigHolder... specs) {
         super(displayName);
         this.parent = parent;
         this.configs = specs;
@@ -70,14 +71,16 @@ public class FabricConfigListScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.centeredText(this.font, this.title, this.width / 2, 15, 16777215);
+        graphics.centeredText(this.font, this.title, this.width / 2, 15, -1);
 
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, mouseX, mouseY)) {
             graphics.textWithWordWrap(this.font, Component.translatable("gui.farmersdelight.open_mod_page", this.modId), mouseX, mouseY, 200, -1);
         }
         int titleWidth = this.font.width(this.title) + 35;
-        graphics.fakeItem(this.mainIcon, (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
-        graphics.fakeItem(this.mainIcon, (this.width / 2) - titleWidth / 2, 2 + 8);
+		if (Minecraft.getInstance().level != null) {
+			graphics.fakeItem(this.mainIcon.getDefaultInstance(), (this.width / 2) + titleWidth / 2 - 17, 2 + 8);
+			graphics.fakeItem(this.mainIcon.getDefaultInstance(), (this.width / 2) - titleWidth / 2, 2 + 8);
+		}
     }
 
     private boolean isMouseWithin(int x, int y, int width, int height, int mouseX, int mouseY) {
@@ -87,7 +90,7 @@ public class FabricConfigListScreen extends Screen {
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
         if (modURL != null && isMouseWithin((this.width / 2) - 90, 2 + 6, 180, 16 + 2, (int) event.x(), (int) event.y())) {
-            defaultHandleGameClickEvent(new ClickEvent.OpenUrl(URI.create(modURL)), minecraft, this);
+            defaultHandleClickEvent(new ClickEvent.OpenUrl(URI.create(modURL)), minecraft, this);
             return true;
         }
         return super.mouseClicked(event, isDoubleClick);
