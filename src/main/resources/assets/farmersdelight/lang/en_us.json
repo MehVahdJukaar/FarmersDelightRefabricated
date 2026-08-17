@@ -530,5 +530,7 @@
   "farmersdelight.configuration.enableComfortHealthOverlay": "Comfort Health Overlay",
   "farmersdelight.configuration.enableComfortHealthOverlay.tooltip": "If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect.",
   "farmersdelight.configuration.enableFoodEffectTooltip": "Food Effect Tooltip",
-  "farmersdelight.configuration.enableFoodEffectTooltip.tooltip": "If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod."
+  "farmersdelight.configuration.enableFoodEffectTooltip.tooltip": "If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod.",
+
+  "gui.farmersdelight.open_mod_page": "Open mod page"
 }

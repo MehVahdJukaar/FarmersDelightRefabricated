@@ -82,6 +82,13 @@ repositories {
             includeGroupAndSubgroups("net.minecraftforge")
         }
     }
+    maven {
+        name = "Xander Maven"
+        url = uri("https://maven.isxander.dev/releases")
+        content {
+            includeGroupAndSubgroups("dev.isxander")
+        }
+    }
 }
 
 dependencies {
@@ -94,9 +101,10 @@ dependencies {
 
     //config stuff. optional
     compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_version}")
-    compileOnly("curse.maven:yacl-667299:7353769")
+    compileOnly("dev.isxander:yet-another-config-lib:${project.yacl_version}")
+    localRuntime("dev.isxander:yet-another-config-lib:${project.yacl_version}")
     compileOnly("maven.modrinth:modmenu:${project.modmenu_version}")
-//    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    localRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 //    modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-fabric-${minecraft_version}:${crafttweaker_version}")
     // Uncomment the below to test CraftTweaker.
