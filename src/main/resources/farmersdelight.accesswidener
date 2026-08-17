@@ -23,3 +23,5 @@ mutable field net/minecraft/world/level/levelgen/structure/templatesystem/Struct
 accessible field net/minecraft/world/entity/animal/Cat TEMPT_INGREDIENT Lnet/minecraft/world/item/crafting/Ingredient;
 mutable field net/minecraft/world/entity/animal/Cat TEMPT_INGREDIENT Lnet/minecraft/world/item/crafting/Ingredient;
 mutable field net/minecraft/world/entity/npc/Villager FOOD_POINTS Ljava/util/Map;
+accessible field net/minecraft/world/level/block/entity/SignBlockEntity frontText Lnet/minecraft/world/level/block/entity/SignText;
+accessible field net/minecraft/world/level/block/entity/SignBlockEntity backText Lnet/minecraft/world/level/block/entity/SignText;
