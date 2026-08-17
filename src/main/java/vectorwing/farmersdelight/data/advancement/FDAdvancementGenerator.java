@@ -45,7 +45,7 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 		var damageTypes = provider.lookupOrThrow(Registries.DAMAGE_TYPE);
 
 		AdvancementHolder farmersDelight = Advancement.Builder.advancement()
-				.display(ModItems.COOKING_POT.get(),
+				.rootDisplay(ModItems.COOKING_POT.get(),
 						TextUtils.advancement("root.title"),
 						TextUtils.advancement("root.description"),
 						Identifier.parse("minecraft:block/bricks"),
@@ -232,10 +232,10 @@ public class FDAdvancementGenerator extends FabricAdvancementProvider {
 	}
 
 	protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-		return Advancement.Builder.advancement().parent(parent).display(display,
+		return Advancement.Builder.advancement().parent(parent).display(display.asItem(),
 			TextUtils.advancement(name + ".title"),
 			TextUtils.advancement(name + ".description"),
-			null, frame, showToast, announceToChat, hidden);
+			frame, showToast, announceToChat, hidden);
 	}
 
 	private Identifier getNameId(String id) {
