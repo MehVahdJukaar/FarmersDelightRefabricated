@@ -92,7 +92,7 @@ public class FoodValues
 			.effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 0, false, false), 1.0F).build();
 	public static final FoodProperties FRUIT_SALAD = (new FoodProperties.Builder())
 			.nutrition(6).saturationModifier(0.6f)
-			.effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F).build();
+			.effect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F).build();
 	public static final FoodProperties GLOW_BERRY_CUSTARD = (new FoodProperties.Builder())
 			.nutrition(7).saturationModifier(0.6f).alwaysEdible()
 			.effect(new MobEffectInstance(MobEffects.GLOWING, 100, 0), 1.0F).build();

@@ -72,12 +72,6 @@ public class ModItems
 	@Deprecated(forRemoval = true)
 	public static final Supplier<Item> BASKET = BAMBOO_BASKET;
 
-	/**
-	 * Deprecated reference added for backwards compatibility. Use BAMBOO_BASKET instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static final Supplier<Item> BASKET = BAMBOO_BASKET;
-
 	public static final Supplier<Item> CARROT_CRATE = registerWithTab("carrot_crate",
 			() -> new BlockItem(ModBlocks.CARROT_CRATE.get(), basicItem()));
 	public static final Supplier<Item> POTATO_CRATE = registerWithTab("potato_crate",

@@ -101,7 +101,7 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			.addTag(net.minecraft.tags.BlockTags.CANDLE_CAKES)
 			.addTag(ModTags.Blocks.STRAW_BLOCKS)
 			.addTag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
-		tagBuilder(ConventionalBlockTags.MINEABLE_WITH_KNIFE);
+		tagBuilder(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
 	}
 
 	protected void registerMinecraftTags() {
@@ -225,16 +225,16 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
     protected void registerCommonTags() {
-        tag(ConventionalBlockTags.MINEABLE_WITH_KNIFE);
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
-        tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
+        tag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
+        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
 		tagBuilder(net.minecraft.tags.BlockTags.CLIMBABLE).add(
 			ModBlocks.ROPE.get(),
 			ModBlocks.TOMATO_CROP_ON_ROPE.get());
@@ -362,15 +362,15 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 		tagBuilder(ConventionalBlockTags.FENCE_GATES).add(ModBlocks.ROPE_FENCE_GATE.get());
 
 		tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).addTags(
-			ConventionalBlockTags.STORAGE_BLOCKS_CARROT,
-			ConventionalBlockTags.STORAGE_BLOCKS_POTATO,
-			ConventionalBlockTags.STORAGE_BLOCKS_BEETROOT,
-			ConventionalBlockTags.STORAGE_BLOCKS_CABBAGE,
-			ConventionalBlockTags.STORAGE_BLOCKS_TOMATO,
-			ConventionalBlockTags.STORAGE_BLOCKS_ONION,
-			ConventionalBlockTags.STORAGE_BLOCKS_RICE,
-			ConventionalBlockTags.STORAGE_BLOCKS_RICE_PANICLE,
-			ConventionalBlockTags.STORAGE_BLOCKS_STRAW
+			CommonTags.Blocks.STORAGE_BLOCKS_CARROT,
+			CommonTags.Blocks.STORAGE_BLOCKS_POTATO,
+			CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT,
+			CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE,
+			CommonTags.Blocks.STORAGE_BLOCKS_TOMATO,
+			CommonTags.Blocks.STORAGE_BLOCKS_ONION,
+			CommonTags.Blocks.STORAGE_BLOCKS_RICE,
+			CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE,
+			CommonTags.Blocks.STORAGE_BLOCKS_STRAW
 		);
 	}
 
