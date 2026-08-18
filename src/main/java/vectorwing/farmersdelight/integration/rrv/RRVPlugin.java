@@ -2,11 +2,8 @@ package vectorwing.farmersdelight.integration.rrv;
 
 import cc.cassian.rrv.api.ReliableRecipeViewerPlugin;
 import cc.cassian.rrv.api.recipe.ItemView;
-import cc.cassian.rrv.common.builtin.info.InfoClientRecipe;
-import cc.cassian.rrv.common.builtin.info.InfoServerRecipe;
 import cc.cassian.rrv.common.builtin.shapeless.ShapelessServerRecipe;
 import cc.cassian.rrv.common.recipe.ServerRecipeManager;
-import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +16,6 @@ import vectorwing.farmersdelight.integration.rrv.cutting.CuttingClientRecipe;
 import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionServerRecipe;
 import vectorwing.farmersdelight.integration.rrv.decomposition.DecompositionClientRecipe;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

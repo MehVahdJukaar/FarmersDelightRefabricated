@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version '1.16-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom-remap' version '1.17-SNAPSHOT'
     id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
