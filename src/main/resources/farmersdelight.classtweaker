@@ -28,6 +28,9 @@ accessible class net/minecraft/client/gui/GuiGraphics$ScissorStack
 #datafixers
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
 
+accessible field net/minecraft/world/level/block/entity/SignBlockEntity frontText Lnet/minecraft/world/level/block/entity/SignText;
+accessible field net/minecraft/world/level/block/entity/SignBlockEntity backText Lnet/minecraft/world/level/block/entity/SignText;
+
 # Enum Extensions
 transitive-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
 transitive-extend-enum net/minecraft/client/gui/screens/recipebook/SearchRecipeBookCategory FARMERSDELIGHT_COOKING

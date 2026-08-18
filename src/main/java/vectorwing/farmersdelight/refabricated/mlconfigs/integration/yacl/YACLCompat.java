@@ -34,8 +34,7 @@ public class YACLCompat {
             //skips stray config values
             if (!(en instanceof ConfigSubCategory c)) continue;
             var mainCat = ConfigCategory.createBuilder()
-                    .name(Component.translatable(c.getName()));
-
+				.name(Component.translatableWithFallback(c.getName(), WordUtils.capitalizeFully(c.getName())));
 
             for (var entry : c.getEntries()) {
                 if (entry instanceof ConfigSubCategory subCat) {
