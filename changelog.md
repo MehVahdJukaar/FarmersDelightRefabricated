@@ -1,5 +1,2 @@
-- Fixed a bug causing the config screen to not work.
-- Fix EMI default recipe config causing log spam.
-- Fixed Rope reeling not working if the rope is touching the void layer (minimum build height);
-- Fixed suppressed packet error due to an unsafe property check in TomatoBlock;
-- Fixed Canvas Signs not keeping text color when NBT-copied (such as CTRL + middle-click);
+- Worked around another crash caused by Sinytra Connector.
+- Fixed onions not generating.
