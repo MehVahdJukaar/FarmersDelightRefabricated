@@ -1,11 +1,13 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,6 +34,8 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import org.jspecify.annotations.Nullable;
+import vectorwing.farmersdelight.integration.launchpad.LaunchpadClientEvents;
+import vectorwing.farmersdelight.integration.launchpad.LaunchpadEvents;
 
 @SuppressWarnings("deprecation")
 public class TomatoBlock extends CropBlock
@@ -100,7 +105,7 @@ public class TomatoBlock extends CropBlock
 		if (level.getRawBrightness(pos, 0) >= 9) {
 			int age = this.getAge(state);
 			if (age < this.getMaxAge()) {
-				float speed = getGrowthSpeed(state.getBlock(), level, pos);
+				float speed = getGrowthSpeed(state, level, pos);
 				if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
 					level.setBlock(pos, state.setValue(getAgeProperty(), age + 1), 2);
 				}
@@ -261,5 +266,12 @@ public class TomatoBlock extends CropBlock
 		Block configuredRopeBlock = BuiltInRegistries.BLOCK.getValue(Identifier.parse(Configuration.DEFAULT_TOMATO_VINE_ROPE.get()));
 		Block finalRopeBlock = configuredRopeBlock != null ? configuredRopeBlock : ModBlocks.ROPE.get();
 		level.setBlockAndUpdate(pos, finalRopeBlock.defaultBlockState());
+	}
+
+	protected float getGrowthSpeed(BlockState state, ServerLevel level, BlockPos pos) {
+		if (FabricLoader.getInstance().isModLoaded("launchpad")) {
+			return LaunchpadEvents.getGrowthSpeed(state, level, pos);
+		}
+		else return getGrowthSpeed(state.getBlock(), level, pos);
 	}
 }
