@@ -13,6 +13,7 @@
   "block.farmersdelight.dark_oak_cabinet": "짙은 참나무 식료품 선반",
   "block.farmersdelight.mangrove_cabinet": "맹그로브나무 식료품 선반",
   "block.farmersdelight.cherry_cabinet": "벚나무 식료품 선반",
+  "block.farmersdelight.pale_oak_cabinet": "창백한 참나무 식료품 선반",
   "block.farmersdelight.bamboo_cabinet": "대나무 식료품 선반",
   "block.farmersdelight.crimson_cabinet": "진홍빛 식료품 선반",
   "block.farmersdelight.warped_cabinet": "뒤틀린 식료품 선반",
@@ -186,6 +187,7 @@
   "item.farmersdelight.earthworm": "지렁이",
 
   "item.farmersdelight.flint_knife": "부싯돌 식칼",
+  "item.farmersdelight.copper_knife": "구리 식칼",
   "item.farmersdelight.iron_knife": "철 식칼",
   "item.farmersdelight.golden_knife": "금 식칼",
   "item.farmersdelight.diamond_knife": "다이아몬드 식칼",
@@ -353,6 +355,9 @@
 
   "death.attack.farmersdelight.stove": "%1$s이(가) 완벽하게 구워졌습니다",
   "death.attack.farmersdelight.stove.player": "%1$s이(가) 요리사 %2$s에게 조리되었습니다",
+
+  "gui.jei.category.smelting.time.seconds": "%s초",
+  "gui.jei.category.smelting.experience": "%s 경험치",
 
   "jei.farmersdelight.cooking": "조리",
   "jei.farmersdelight.cutting": "도마",
