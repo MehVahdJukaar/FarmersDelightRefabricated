@@ -1,2 +1,3 @@
 - Worked around another crash caused by Sinytra Connector.
 - Fixed onions not generating.
+- Updated ko_kr translations (thanks @DOMANG!)
