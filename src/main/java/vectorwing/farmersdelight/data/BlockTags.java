@@ -233,16 +233,23 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 	}
 
     protected void registerCommonTags() {
-        tag(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
-        tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
+		tagBuilder(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_APPLE).add(ModBlocks.APPLE_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CHORUS_FRUIT).add(ModBlocks.CHORUS_FRUIT_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BROWN_MUSHROOM).add(ModBlocks.BROWN_MUSHROOM_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RED_MUSHROOM).add(ModBlocks.RED_MUSHROOM_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_SWEET_BERRIES).add(ModBlocks.SWEET_BERRIES_BAG.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_GLOW_BERRIES).add(ModBlocks.GLOW_BERRIES_BAG.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_COCOA_BEANS).add(ModBlocks.COCOA_BEANS_BAG.get());
 		tagBuilder(net.minecraft.tags.BlockTags.CLIMBABLE).add(
 			ModBlocks.ROPE.get(),
 			ModBlocks.TOMATO_CROP_ON_ROPE.get());
@@ -387,26 +394,6 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			CommonTags.Blocks.STORAGE_BLOCKS_GLOW_BERRIES,
 			CommonTags.Blocks.STORAGE_BLOCKS_COCOA_BEANS
 		);
-	}
-
-	protected void registerCommonTags() {
-		tagBuilder(CommonTags.Blocks.MINEABLE_WITH_KNIFE);
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CARROT).add(ModBlocks.CARROT_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_POTATO).add(ModBlocks.POTATO_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BEETROOT).add(ModBlocks.BEETROOT_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CABBAGE).add(ModBlocks.CABBAGE_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_APPLE).add(ModBlocks.APPLE_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CHORUS_FRUIT).add(ModBlocks.CHORUS_FRUIT_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BROWN_MUSHROOM).add(ModBlocks.BROWN_MUSHROOM_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RED_MUSHROOM).add(ModBlocks.RED_MUSHROOM_CRATE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_SWEET_BERRIES).add(ModBlocks.SWEET_BERRIES_BAG.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_GLOW_BERRIES).add(ModBlocks.GLOW_BERRIES_BAG.get());
-		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_COCOA_BEANS).add(ModBlocks.COCOA_BEANS_BAG.get());
 	}
 
 	protected void registerModTags() {

@@ -76,7 +76,7 @@ public class RichSoilBlock extends Block
 	}
 
 	public boolean convertMushroomToColony(BlockState targetState, BlockPos targetPos, ServerLevel level) {
-		MushroomColony mushroomColony = targetState.getBlock().builtInRegistryHolder().getData(ModDataMaps.MUSHROOM_COLONIES);
+		MushroomColony mushroomColony = ModDataMaps.MUSHROOM_COLONIES.getData(targetState.getBlock().builtInRegistryHolder());
 		if (mushroomColony != null) {
 			level.setBlockAndUpdate(targetPos, mushroomColony.colonyBlock().defaultBlockState());
 			return true;

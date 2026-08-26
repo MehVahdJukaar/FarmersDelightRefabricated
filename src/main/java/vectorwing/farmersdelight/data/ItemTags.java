@@ -90,7 +90,7 @@ public class ItemTags extends FabricTagProvider.ItemTagProvider
 
 
 	private void registerModTags() {
-		tag(ModTags.Items.SNACKS).add(
+		tagBuilder(ModTags.Items.SNACKS).add(
 			ModItems.MEAT_SKEWER.get(),
 			ModItems.VEGETABLE_SKEWER.get(),
 			ModItems.COOKED_MEAT_SKEWER.get(),

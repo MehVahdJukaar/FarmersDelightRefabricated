@@ -35,9 +35,12 @@
   "client": [
     "CanvasSignEditScreenMixin",
     "HideBlockBreakProgressMixin",
+    "refabricated.ArmPoseMixin",
+    "refabricated.AvatarRendererMixin",
     "refabricated.ClientRecipeBookMixin",
     "refabricated.GuiMixin",
     "refabricated.HumanoidModelMixin",
+    "refabricated.ItemInHandRendererMixin",
     "refabricated.RecipeBookCategoriesMixin"
   ],
   "injectors": {

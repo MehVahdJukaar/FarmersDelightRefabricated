@@ -6,16 +6,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.IArmPoseTransformer;
 import vectorwing.farmersdelight.common.item.SkilletItem;
 import vectorwing.farmersdelight.common.registry.ModDataComponents;
 
 public class ModArmPoses
 {
-	public static class HandCookingArmPose implements IArmPoseTransformer
+	//FIXME USAGES
+	public static class HandCookingArmPose
 	{
-		@Override
-		public void applyTransform(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm) {
+		public static void applyTransform(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm) {
 			ItemStack stack = entity.getUseItem();
 			if (!stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
 				return;
@@ -29,10 +28,9 @@ public class ModArmPoses
 		}
 	}
 
-	public static class SkilletArmPose implements IArmPoseTransformer
+	public static class SkilletArmPose
 	{
-		@Override
-		public void applyTransform(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm) {
+		public static void applyTransform(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm) {
 			ItemStack stack = entity.getUseItem();
 			if (!stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
 				return;

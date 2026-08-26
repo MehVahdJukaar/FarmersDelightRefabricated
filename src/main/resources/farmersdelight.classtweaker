@@ -32,9 +32,14 @@ accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$I
 accessible field net/minecraft/world/level/block/entity/SignBlockEntity frontText Lnet/minecraft/world/level/block/entity/SignText;
 accessible field net/minecraft/world/level/block/entity/SignBlockEntity backText Lnet/minecraft/world/level/block/entity/SignText;
 
+accessible method net/minecraft/client/renderer/ItemInHandRenderer applyItemArmTransform (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V
+
 # Enum Extensions
 transitive-extend-enum net/minecraft/world/inventory/RecipeBookType FARMERSDELIGHT_COOKING
 transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_SEARCH
 transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MEALS
 transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_DRINKS
 transitive-extend-enum net/minecraft/client/RecipeBookCategories FARMERSDELIGHT_COOKING_MISC
+
+transitive-extend-enum net/minecraft/client/model/HumanoidModel$ArmPose FARMERSDELIGHT_SKILLET_FLIP
+transitive-extend-enum net/minecraft/client/model/HumanoidModel$ArmPose FARMERSDELIGHT_HAND_COOKING

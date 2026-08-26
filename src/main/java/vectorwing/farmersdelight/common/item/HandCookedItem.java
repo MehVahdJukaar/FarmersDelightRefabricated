@@ -38,7 +38,7 @@ public class HandCookedItem extends Item
 		if (GameplayUtils.isPlayerNearHeatSource(player, level)) {
 			Optional<RecipeHolder<CampfireCookingRecipe>> recipeHolder = RecipeUtils.getCampfireCookingRecipe(skewerStack, level);
 			if (recipeHolder.isPresent()) {
-				skewerStack.set(ModDataComponents.COOKING_TIME_LENGTH, 120);
+				skewerStack.set(ModDataComponents.COOKING_TIME_LENGTH.get(), 120);
 				player.startUsingItem(hand);
 				return InteractionResultHolder.consume(skewerStack);
 			}
@@ -49,18 +49,18 @@ public class HandCookedItem extends Item
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
 		if (entity instanceof Player player && !player.getUseItem().equals(stack)) {
-			stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+			stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 		}
 	}
 
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-		stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+		stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 	}
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-		if (!stack.has(ModDataComponents.COOKING_TIME_LENGTH)) {
+		if (!stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
 			return super.finishUsingItem(stack, level, entity);
 		}
 		if (entity instanceof Player player) {
@@ -75,20 +75,20 @@ public class HandCookedItem extends Item
 					CriteriaTriggers.USING_ITEM.trigger((ServerPlayer) player, stack);
 				}
 			});
-			stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+			stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 		}
 		return stack;
 	}
 
 	@Override
 	public int getUseDuration(ItemStack stack, LivingEntity entity) {
-		return stack.has(ModDataComponents.COOKING_TIME_LENGTH)
-			? stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH, 0)
+		return stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())
+			? stack.getOrDefault(ModDataComponents.COOKING_TIME_LENGTH.get(), 0)
 			: super.getUseDuration(stack, entity);
 	}
 
 	public UseAnim getUseAnimation(ItemStack stack) {
-		return stack.has(ModDataComponents.COOKING_TIME_LENGTH) ? UseAnim.NONE : super.getUseAnimation(stack);
+		return stack.has(ModDataComponents.COOKING_TIME_LENGTH.get()) ? UseAnim.NONE : super.getUseAnimation(stack);
 	}
 
 	@Override

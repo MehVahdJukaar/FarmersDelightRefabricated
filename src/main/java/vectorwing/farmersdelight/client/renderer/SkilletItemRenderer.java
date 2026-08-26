@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.Mth;
@@ -78,23 +79,5 @@ public class SkilletItemRenderer implements BuiltinItemRendererRegistry.DynamicI
 		mc.getBlockRenderer().renderSingleBlock(state, poseStack, buffer, packedLight, packedOverlay);
 
 		poseStack.popPose();
-	}
-
-	public static class ArmPoseTransformer {
-		public static void applyTransform(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm) {
-			ItemStack stack = entity.getUseItem();
-			if (stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get())) {
-				long time = stack.get(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
-				float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
-				float animation = ((entity.level().getGameTime() - time) + partialTicks) / SkilletItem.FLIP_TIME;
-				animation = Mth.clamp(animation, 0, 1);
-
-				if (arm == HumanoidArm.LEFT) {
-					model.leftArm.xRot = (-Mth.sin(animation * Mth.TWO_PI) * 15 - 20) * (float) (Math.PI / 180.0);
-				} else {
-					model.rightArm.xRot = (-Mth.sin(animation * Mth.TWO_PI) * 15 - 20) * (float) (Math.PI / 180.0);
-				}
-            }
-		}
 	}
 }

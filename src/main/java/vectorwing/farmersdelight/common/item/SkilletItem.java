@@ -194,10 +194,10 @@ public class SkilletItem extends BlockItem
 	}
 
 	private void clearSkillet(ItemStack stack, Player player) {
-		ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
+		ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY);
 		if (!storedStack.getStack().isEmpty()) {
-			stack.remove(ModDataComponents.SKILLET_INGREDIENT);
-			stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
+			stack.remove(ModDataComponents.SKILLET_INGREDIENT.get());
+			stack.remove(ModDataComponents.COOKING_TIME_LENGTH.get());
 			stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
 			stack.remove(ModDataComponents.SKILLET_FLIPPED.get());
 		}

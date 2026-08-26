@@ -1,99 +1,86 @@
 package vectorwing.farmersdelight.data;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import vectorwing.farmersdelight.common.registry.ModItems;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-@SuppressWarnings("deprecation")
-public class DataMaps
-{
-	protected DataMaps(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+import com.google.gson.JsonElement;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
+
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import vectorwing.farmersdelight.common.datamap.MushroomColony;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.common.registry.ModDataMaps;
+
+/// There's something deeply funny about using Fabric's data generator for NeoForge data.
+public class DataMaps implements DataProvider {
+	private final FabricDataOutput output;
+
+	public DataMaps(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+		this.output = output;
+	}
+
+	private static final List<Consumer<BiConsumer<String, JsonElement>>> SUBMITTERS = List.of(
+		DataMaps::colonies
+	);
+
+	private static void colonies(BiConsumer<String, JsonElement> consumer) {
+		var map = new HashMap<Holder<Block>, MushroomColony>();
+		map.put(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.BROWN_MUSHROOM_COLONY.get()));
+		map.put(Blocks.RED_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.RED_MUSHROOM_COLONY.get()));
+
+
+        Codec<MushroomColony> chance = ModDataMaps.MUSHROOM_COLONIES.codec().fieldOf("chance").codec();
+        Codec<Map<Holder<Block>, MushroomColony>> mapCodec = Codec.unboundedMap(BuiltInRegistries.BLOCK.holderByNameCodec(), chance).fieldOf("values").codec();
+        consumer.accept("block/compostables", mapCodec.encodeStart(JsonOps.INSTANCE, map).getOrThrow());
+	}
+
+	private static void collect(BiConsumer<String, JsonElement> consumer) {
+		for (final var submitter : SUBMITTERS) {
+			submitter.accept(consumer);
+		}
 	}
 
 	@Override
-	protected void gather(HolderLookup.@NotNull Provider provider) {
-		builder(ModDataMaps.MUSHROOM_COLONIES)
-			.add(block(Blocks.BROWN_MUSHROOM), new MushroomColony(ModBlocks.BROWN_MUSHROOM_COLONY.get()), false)
-			.add(block(Blocks.RED_MUSHROOM), new MushroomColony(ModBlocks.RED_MUSHROOM_COLONY.get()), false);
-		// builder(NeoForgeDataMaps.FURNACE_FUELS)
-		// 	// 0.5 items
-		// 	.add(item(ModItems.HALF_TATAMI_MAT.get()), new FurnaceFuel(100), false)
-		// 	.add(item(ModItems.STRAW.get()), new FurnaceFuel(100), false)
-		// 	// 1 item
-		// 	.add(item(ModItems.CUTTING_BOARD.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.ROPE.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.SAFETY_NET.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.FULL_TATAMI_MAT.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.CANVAS_RUG.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.ROPE_FENCE.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.ROPE_FENCE_GATE.get()), new FurnaceFuel(200), false)
-		// 	.add(item(ModItems.TREE_BARK.get()), new FurnaceFuel(200), false)
-		// 	// 1.5 items
-		// 	.add(item(ModItems.WOODEN_BASKET.get()), new FurnaceFuel(300), false)
-		// 	.add(item(ModItems.BAMBOO_BASKET.get()), new FurnaceFuel(300), false)
-		// 	.add(ModTags.Items.CABINETS_WOODEN, new FurnaceFuel(300), false)
-		// 	// 2 items
-		// 	.add(item(ModItems.TATAMI.get()), new FurnaceFuel(400), false)
-		// 	.add(item(ModItems.CANVAS.get()), new FurnaceFuel(400), false)
-		// 	// 5 items
-		// 	.add(item(ModItems.STRAW_BALE.get()), new FurnaceFuel(1000), false)
-		// 	// Exclusions
-		// 	.remove(ModItems.CRIMSON_CABINET.get().builtInRegistryHolder())
-		// 	.remove(ModItems.WARPED_CABINET.get().builtInRegistryHolder());
-		// builder(NeoForgeDataMaps.COMPOSTABLES)
-		// 	// 30% chance
-		// 	.add(item(ModItems.TREE_BARK.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.STRAW.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.CABBAGE_SEEDS.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.TOMATO_SEEDS.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.RICE.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.RICE_PANICLE.get()), new Compostable(0.3F), false)
-		// 	.add(item(ModItems.SANDY_SHRUB.get()), new Compostable(0.3F), false)
-		// 	// 50% chance
-		// 	.add(item(ModItems.PUMPKIN_SLICE.get()), new Compostable(0.5F), false)
-		// 	.add(item(ModItems.CABBAGE_LEAF.get()), new Compostable(0.5F), false)
-		// 	.add(item(ModItems.KELP_ROLL_SLICE.get()), new Compostable(0.5F), false)
-		// 	// 65% chance
-		// 	.add(item(ModItems.CABBAGE.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.ONION.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.TOMATO.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_CABBAGES.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_ONIONS.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_TOMATOES.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_CARROTS.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_POTATOES.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_BEETROOTS.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.WILD_RICE.get()), new Compostable(0.65F), false)
-		// 	.add(item(ModItems.PIE_CRUST.get()), new Compostable(0.65F), false)
-		// 	// 85% chance
-		// 	.add(item(ModItems.RICE_BALE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.SWEET_BERRY_COOKIE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.HONEY_COOKIE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.CAKE_SLICE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.APPLE_PIE_SLICE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.CHOCOLATE_PIE_SLICE.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.RAW_PASTA.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.ROTTEN_TOMATO.get()), new Compostable(0.85F), false)
-		// 	.add(item(ModItems.KELP_ROLL.get()), new Compostable(0.85F), false)
-		// 	// 100% chance
-		// 	.add(item(ModItems.APPLE_PIE.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.SWEET_BERRY_CHEESECAKE.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.CHOCOLATE_PIE.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.DUMPLINGS.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.STUFFED_PUMPKIN_BLOCK.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.BROWN_MUSHROOM_COLONY.get()), new Compostable(1.0F), false)
-		// 	.add(item(ModItems.RED_MUSHROOM_COLONY.get()), new Compostable(1.0F), false);
+	public CompletableFuture<?> run(CachedOutput cache) {
+		final var elements = new HashMap<String, JsonElement>();
+
+		collect((name, elem) -> {
+			if (elements.put(name, elem) != null) {
+				throw new IllegalArgumentException("An element with name " + name + " has already been added.");
+			}
+		});
+
+		final var paths = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "data_maps");
+
+		return CompletableFuture.allOf(
+			elements.entrySet().stream().map(x ->
+					DataProvider.saveStable(
+						cache,
+						x.getValue(),
+						paths.json(ResourceLocation.fromNamespaceAndPath("farmersdelight", x.getKey()))
+					)
+				)
+				.toArray(CompletableFuture[]::new)
+		);
 	}
 
-	private static ResourceKey<Item> item(Item item) {
-		return BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow();
-	}
-
-	private static ResourceKey<Block> block(Block block) {
-		return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+	@Override
+	public String getName() {
+		return "Farmer's Delight Data Maps";
 	}
 }

@@ -16,16 +16,12 @@ public class CommonModBusEvents
 		DefaultItemComponentEvents.MODIFY.register(CommonModBusEvents::onModifyDefaultComponents);
 	}
 
-	@SubscribeEvent
-	public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
-		event.register(ModDataMaps.MUSHROOM_COLONIES);
-	}
+	//FIXME
+//	public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
+//		event.register(ModDataMaps.MUSHROOM_COLONIES);
+//	}
 
-	@SubscribeEvent
-	public static void onModifyDefaultComponents(DefaultItemComponentEvents.ModifyContext event) {
-		if (DatagenModLoader.isRunningDataGen()) {
-			return;
-		}
+	public static void onModifyDefaultComponents(DefaultItemComponentEvents.ModifyContext context) {
 		if (Configuration.ENABLE_STACKABLE_SOUP_ITEMS.get()) {
 			Configuration.SOUP_ITEM_LIST.get().forEach((key) -> {
 				Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(key));
