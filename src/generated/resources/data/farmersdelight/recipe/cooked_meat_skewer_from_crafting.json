@@ -5,22 +5,28 @@
     {
       "item": "minecraft:stick"
     },
-    [
-      {
-        "tag": "c:foods/cooked_meat"
-      },
-      {
-        "tag": "c:foods/cooked_fish"
-      }
-    ],
-    [
-      {
-        "tag": "c:foods/cooked_meat"
-      },
-      {
-        "tag": "c:foods/cooked_fish"
-      }
-    ]
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/raw_meat"
+        },
+        {
+          "tag": "c:foods/cooked_fish"
+        }
+      ]
+    },
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/raw_meat"
+        },
+        {
+          "tag": "c:foods/cooked_fish"
+        }
+      ]
+    }
   ],
   "result": {
     "count": 1,

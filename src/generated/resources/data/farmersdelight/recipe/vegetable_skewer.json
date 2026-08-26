@@ -5,22 +5,28 @@
     {
       "item": "minecraft:stick"
     },
-    [
-      {
-        "tag": "c:foods/vegetable"
-      },
-      {
-        "tag": "c:mushrooms"
-      }
-    ],
-    [
-      {
-        "tag": "c:foods/vegetable"
-      },
-      {
-        "tag": "c:mushrooms"
-      }
-    ]
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/vegetable"
+        },
+        {
+          "tag": "c:mushrooms"
+        }
+      ]
+    },
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/vegetable"
+        },
+        {
+          "tag": "c:mushrooms"
+        }
+      ]
+    }
   ],
   "result": {
     "count": 1,

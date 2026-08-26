@@ -34,6 +34,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(Recipes::new);
 		pack.addProvider(FDAdvancementGenerator::new);
 		pack.addProvider(FDBlockLoot::new);
+		pack.addProvider(DataMaps::new);
 //		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 	}
 

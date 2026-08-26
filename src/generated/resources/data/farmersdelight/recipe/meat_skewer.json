@@ -5,22 +5,28 @@
     {
       "item": "minecraft:stick"
     },
-    [
-      {
-        "tag": "c:foods/raw_meat"
-      },
-      {
-        "tag": "c:foods/safe_raw_fish"
-      }
-    ],
-    [
-      {
-        "tag": "c:foods/raw_meat"
-      },
-      {
-        "tag": "c:foods/safe_raw_fish"
-      }
-    ]
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/raw_meat"
+        },
+        {
+          "tag": "c:foods/safe_raw_fish"
+        }
+      ]
+    },
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "tag": "c:foods/raw_meat"
+        },
+        {
+          "tag": "c:foods/safe_raw_fish"
+        }
+      ]
+    }
   ],
   "result": {
     "count": 1,

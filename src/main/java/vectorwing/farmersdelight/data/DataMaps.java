@@ -43,10 +43,9 @@ public class DataMaps implements DataProvider {
 		map.put(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.BROWN_MUSHROOM_COLONY.get()));
 		map.put(Blocks.RED_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.RED_MUSHROOM_COLONY.get()));
 
-
-        Codec<MushroomColony> chance = ModDataMaps.MUSHROOM_COLONIES.codec().fieldOf("chance").codec();
-        Codec<Map<Holder<Block>, MushroomColony>> mapCodec = Codec.unboundedMap(BuiltInRegistries.BLOCK.holderByNameCodec(), chance).fieldOf("values").codec();
-        consumer.accept("block/compostables", mapCodec.encodeStart(JsonOps.INSTANCE, map).getOrThrow());
+        Codec<MushroomColony> colony = ModDataMaps.MUSHROOM_COLONIES.codec();
+        Codec<Map<Holder<Block>, MushroomColony>> mapCodec = Codec.unboundedMap(BuiltInRegistries.BLOCK.holderByNameCodec(), colony).fieldOf("values").codec();
+        consumer.accept("block/mushroom_colonies", mapCodec.encodeStart(JsonOps.INSTANCE, map).getOrThrow());
 	}
 
 	private static void collect(BiConsumer<String, JsonElement> consumer) {
