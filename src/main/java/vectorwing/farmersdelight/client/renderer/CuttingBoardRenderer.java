@@ -93,10 +93,10 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate item to face the cutting board's front side
 		float f = -direction.toYRot();
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Rotate item flat on the cutting board. Use X and Y from now on
-		matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F));
+		matrixStackIn.rotateDegrees(Axis.XP, 90.0F);
 
 		// Resize the item
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);
@@ -108,7 +108,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate block to face the cutting board's front side
 		float f = -direction.toYRot();
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Resize the block
 		matrixStackIn.scale(0.8F, 0.8F, 0.8F);
@@ -120,7 +120,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate item to face the cutting board's front side
 		float f = -direction.toYRot() + 180;
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Rotate item to be carved on the surface, A little less so for hoes and pickaxes.
 		Item toolItem = itemStack.getItem();
@@ -132,7 +132,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		} else {
 			poseAngle = 180.0F;
 		}
-		matrixStackIn.mulPose(Axis.ZP.rotationDegrees(poseAngle));
+		matrixStackIn.rotateDegrees(Axis.ZP, poseAngle);
 
 		// Resize the item
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);

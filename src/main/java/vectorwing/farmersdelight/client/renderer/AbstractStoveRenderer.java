@@ -65,10 +65,10 @@ public abstract class AbstractStoveRenderer<T extends AbstractStoveBlockEntity, 
 
 			// Rotate item to face the stove's front side
 			float f = -direction.toYRot();
-			poseStack.mulPose(Axis.YP.rotationDegrees(f));
+			poseStack.rotateDegrees(Axis.YP, f);
 
 			// Rotate item flat on the stove. Use X and Y from now on
-			poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+			poseStack.rotateDegrees(Axis.XP, 90.0F);
 
 			// Neatly align items according to their index
 			Vec2 itemOffset = getStoveItemOffset(i);
