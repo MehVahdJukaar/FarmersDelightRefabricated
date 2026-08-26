@@ -69,6 +69,10 @@ public class ModBlocks
 			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final Supplier<Block> APPLE_CRATE = regBlock("apple_crate",
 		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> GOLDEN_APPLE_CRATE = regBlock("golden_apple_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> GOLDEN_CARROT_CRATE = regBlock("golden_carrot_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final Supplier<Block> CHORUS_FRUIT_CRATE = regBlock("chorus_fruit_crate",
 		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final Supplier<Block> BROWN_MUSHROOM_CRATE = regBlock("brown_mushroom_crate",

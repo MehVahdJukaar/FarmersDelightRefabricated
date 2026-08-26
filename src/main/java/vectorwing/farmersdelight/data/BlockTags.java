@@ -51,6 +51,8 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 			ModBlocks.TOMATO_CRATE.get(),
 			ModBlocks.ONION_CRATE.get(),
 			ModBlocks.APPLE_CRATE.get(),
+			ModBlocks.GOLDEN_APPLE_CRATE.get(),
+			ModBlocks.GOLDEN_CARROT_CRATE.get(),
 			ModBlocks.CHORUS_FRUIT_CRATE.get(),
 			ModBlocks.BROWN_MUSHROOM_CRATE.get(),
 			ModBlocks.RED_MUSHROOM_CRATE.get(),
@@ -241,9 +243,12 @@ public class BlockTags extends FabricTagProvider.BlockTagProvider
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_TOMATO).add(ModBlocks.TOMATO_CRATE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_ONION).add(ModBlocks.ONION_CRATE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_APPLE).add(ModBlocks.APPLE_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_GOLDEN_APPLE).add(ModBlocks.GOLDEN_APPLE_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_GOLDEN_CARROT).add(ModBlocks.GOLDEN_CARROT_CRATE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_CHORUS_FRUIT).add(ModBlocks.CHORUS_FRUIT_CRATE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_BROWN_MUSHROOM).add(ModBlocks.BROWN_MUSHROOM_CRATE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RED_MUSHROOM).add(ModBlocks.RED_MUSHROOM_CRATE.get());
+		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_EGG).add(ModBlocks.EGG_CARTON.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_STRAW).add(ModBlocks.STRAW_BALE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE_PANICLE).add(ModBlocks.RICE_BALE.get());
 		tagBuilder(CommonTags.Blocks.STORAGE_BLOCKS_RICE).add(ModBlocks.RICE_BAG.get());
