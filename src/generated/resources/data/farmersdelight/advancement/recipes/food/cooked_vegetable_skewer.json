@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_onion_crate": {
+    "cooked_vegetable_skewer": {
       "conditions": {
         "items": [
           {
-            "items": "farmersdelight:onion_crate"
+            "items": "farmersdelight:vegetable_skewer"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:onion"
+        "recipe": "farmersdelight:cooked_vegetable_skewer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_onion_crate"
+      "cooked_vegetable_skewer"
     ]
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:onion"
+      "farmersdelight:cooked_vegetable_skewer"
     ]
   }
 }

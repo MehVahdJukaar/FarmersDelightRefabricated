@@ -1,32 +1,32 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "farmersdelight:tomato"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    },
-    "has_tomato_crate": {
+    "has_stick": {
       "conditions": {
         "items": [
           {
-            "items": "farmersdelight:tomato_crate"
+            "items": "minecraft:stick"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "farmersdelight:vegetable_skewer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe",
-      "has_tomato_crate"
+      "has_stick"
     ]
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:tomato"
+      "farmersdelight:vegetable_skewer"
     ]
   }
 }

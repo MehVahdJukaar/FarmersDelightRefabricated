@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cabbage_crate": {
+    "has_stick": {
       "conditions": {
         "items": [
           {
-            "items": "farmersdelight:cabbage_crate"
+            "items": "minecraft:stick"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cabbage"
+        "recipe": "farmersdelight:meat_skewer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_cabbage_crate"
+      "has_stick"
     ]
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:cabbage"
+      "farmersdelight:meat_skewer"
     ]
   }
 }

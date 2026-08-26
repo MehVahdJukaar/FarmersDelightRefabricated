@@ -24,23 +24,6 @@ public class ClientSetupEvents
 			(stack, world, entity, s) -> stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT.get(), ItemStackWrapper.EMPTY).getStack().isEmpty() ? 0 : 1);
 	}
 
-//	public static void registerClientExtensions() {
-//		event.registerItem(new IClientItemExtensions()
-//		{
-//			BlockEntityWithoutLevelRenderer renderer = ;
-//
-//			@Override
-//			public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-//				return renderer;
-//			}
-//		}, ModItems.SKILLET.get());
-//	}
-//
-//	@SubscribeEvent
-//	public static void registerRecipeBookCategories(RegisterRecipeBookCategoriesEvent event) {
-//		RecipeCategories.init(event);
-//	}
-
     public static ClientTooltipComponent registerCustomTooltipRenderers(TooltipComponent data) {
         if (CookingPotTooltip.CookingPotTooltipComponent.class.isAssignableFrom(data.getClass())) {
             return new CookingPotTooltip((CookingPotTooltip.CookingPotTooltipComponent) data);
@@ -48,10 +31,11 @@ public class ClientSetupEvents
         return null;
     }
 
-//    @SubscribeEvent(priority = EventPriority.LOW)
-//    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-//		HUDOverlays.register(event);
-//    }
+	// @SubscribeEvent
+	// public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+	// 	event.registerItem(new SkilletItemClientExtension(), ModItems.SKILLET.get());
+	// 	event.registerItem(new HandCookedItemClientExtension(), ModItems.MEAT_SKEWER.get(), ModItems.VEGETABLE_SKEWER.get());
+	// }
 
     public static void onRegisterRenderers() {
         EntityRendererRegistry.register(ModEntityTypes.ROTTEN_TOMATO.get(), ThrownItemRenderer::new);

@@ -8,6 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -66,12 +67,28 @@ public class ModBlocks
 			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final Supplier<Block> ONION_CRATE = regBlock("onion_crate",
 			() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> APPLE_CRATE = regBlock("apple_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> CHORUS_FRUIT_CRATE = regBlock("chorus_fruit_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> BROWN_MUSHROOM_CRATE = regBlock("brown_mushroom_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> RED_MUSHROOM_CRATE = regBlock("red_mushroom_crate",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> EGG_CARTON = regBlock("egg_carton",
+		() -> new SlabBlock(Block.Properties.ofFullCopy(Blocks.OAK_SLAB).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final Supplier<Block> STRAW_BALE = regBlock("straw_bale",
+			() -> new StrawBaleBlock(Block.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
 	public static final Supplier<Block> RICE_BALE = regBlock("rice_bale",
 			() -> new RiceBaleBlock(Block.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
 	public static final Supplier<Block> RICE_BAG = regBlock("rice_bag",
 			() -> new Block(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
-	public static final Supplier<Block> STRAW_BALE = regBlock("straw_bale",
-			() -> new StrawBaleBlock(Block.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
+	public static final Supplier<Block> SWEET_BERRIES_BAG = regBlock("sweet_berries_bag",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+	public static final Supplier<Block> GLOW_BERRIES_BAG = regBlock("glow_berries_bag",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL).lightLevel((state) -> 10)));
+	public static final Supplier<Block> COCOA_BEANS_BAG = regBlock("cocoa_beans_bag",
+		() -> new Block(Block.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
 
 	// Building
 	public static final Supplier<Block> ROPE = regBlock("rope",
