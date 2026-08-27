@@ -42,10 +42,7 @@ public class DataMaps implements DataProvider {
 		var map = new HashMap<Holder<Block>, MushroomColony>();
 		map.put(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.BROWN_MUSHROOM_COLONY.get()));
 		map.put(Blocks.RED_MUSHROOM.builtInRegistryHolder(), new MushroomColony(ModBlocks.RED_MUSHROOM_COLONY.get()));
-
-        Codec<MushroomColony> colony = ModDataMaps.MUSHROOM_COLONIES.codec();
-        Codec<Map<Holder<Block>, MushroomColony>> mapCodec = Codec.unboundedMap(BuiltInRegistries.BLOCK.holderByNameCodec(), colony).fieldOf("values").codec();
-        consumer.accept("block/mushroom_colonies", mapCodec.encodeStart(JsonOps.INSTANCE, map).getOrThrow());
+        consumer.accept("block/" + ModDataMaps.MUSHROOM_COLONIES.id().getPath(), ModDataMaps.MUSHROOM_COLONIES.mapCodec().encodeStart(JsonOps.INSTANCE, map).getOrThrow());
 	}
 
 	private static void collect(BiConsumer<String, JsonElement> consumer) {

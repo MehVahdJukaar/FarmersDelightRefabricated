@@ -24,6 +24,7 @@ import vectorwing.farmersdelight.common.world.VillageStructures;
 import vectorwing.farmersdelight.refabricated.CanItemPerformAbility;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.LootModificationEvents;
+import vectorwing.farmersdelight.refabricated.datamap.RefabricatedDataMapReloadListener;
 
 public class FarmersDelight implements ModInitializer {
 	public static final String MODID = "farmersdelight";
@@ -81,5 +82,6 @@ public class FarmersDelight implements ModInitializer {
 		ItemAbilityIngredient.touch();
 
 		CompostableHelper.apply();
+		RefabricatedDataMapReloadListener.init();
 	}
 }

@@ -4,7 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.common.datamap.MushroomColony;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
-import vectorwing.farmersdelight.refabricated.RefabricatedDataMapType;
+import vectorwing.farmersdelight.refabricated.datamap.RefabricatedDataMapType;
 
 public class ModDataMaps
 {
