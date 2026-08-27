@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.registry.BlockTransformerRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,7 +23,7 @@ public class RichSoilBlock extends Block
 	}
 
     public static void init() {
-        BlockTransformerRegistry.registerTilling(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState());
+        BlockTransformerHelper.registerTilling(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState());
     }
 
 	@Override
