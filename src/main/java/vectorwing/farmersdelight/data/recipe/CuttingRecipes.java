@@ -247,6 +247,9 @@ public class CuttingRecipes
 		salvagePlankFromFurniture(holderGetter, output, WoodType.PALE_OAK,
 				Items.PALE_OAK_PLANKS, Items.PALE_OAK_DOOR, Items.PALE_OAK_TRAPDOOR, Items.PALE_OAK_SIGN, Items.PALE_OAK_HANGING_SIGN, Items.PALE_OAK_FENCE, Items.PALE_OAK_FENCE_GATE,
 				Items.PALE_OAK_PRESSURE_PLATE, Items.PALE_OAK_BUTTON, Items.PALE_OAK_BOAT, ModItems.PALE_OAK_CABINET.get());
+		salvagePlankFromFurniture(holderGetter, output, WoodType.POPLAR,
+			Items.POPLAR_PLANKS, Items.POPLAR_DOOR, Items.POPLAR_TRAPDOOR, Items.POPLAR_SIGN, Items.POPLAR_HANGING_SIGN, Items.POPLAR_FENCE, Items.POPLAR_FENCE_GATE,
+			Items.POPLAR_PRESSURE_PLATE, Items.POPLAR_BUTTON, Items.POPLAR_BOAT, ModItems.POPLAR_CABINET.get());
         salvagePlankFromFurniture(holderGetter, output, WoodType.BAMBOO,
                 Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN, Items.BAMBOO_FENCE, Items.BAMBOO_FENCE_GATE,
                 Items.BAMBOO_PRESSURE_PLATE, Items.BAMBOO_BUTTON, Items.BAMBOO_RAFT, ModItems.BAMBOO_CABINET.get());
@@ -338,6 +341,10 @@ public class CuttingRecipes
 			.salvaging()
 			.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PALE_OAK_CHEST_BOAT), hoes, Items.PALE_OAK_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPLAR_CHEST_BOAT), hoes, Items.POPLAR_BOAT)
 			.addResult(Items.CHEST)
 			.salvaging()
 			.saveToFD(output);
