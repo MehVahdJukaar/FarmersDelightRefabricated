@@ -1,0 +1,35 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    [
+      "minecraft:pale_oak_door",
+      "minecraft:pale_oak_trapdoor",
+      "minecraft:pale_oak_sign",
+      "minecraft:pale_oak_hanging_sign",
+      "minecraft:pale_oak_fence",
+      "minecraft:pale_oak_fence_gate",
+      "minecraft:pale_oak_pressure_plate",
+      "minecraft:pale_oak_button",
+      "minecraft:pale_oak_boat",
+      "farmersdelight:pale_oak_cabinet"
+    ]
+  ],
+  "result": [
+    {
+      "chance": 0.75,
+      "item": {
+        "id": "minecraft:pale_oak_planks"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "farmersdelight:item_ability",
+        "action": "axe_dig"
+      },
+      "#minecraft:axes"
+    ]
+  }
+}
