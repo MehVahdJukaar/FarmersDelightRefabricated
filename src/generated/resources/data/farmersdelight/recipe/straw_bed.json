@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": "farmersdelight:straw_bale"
+  },
+  "pattern": [
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "farmersdelight:straw_bed"
+  }
+}

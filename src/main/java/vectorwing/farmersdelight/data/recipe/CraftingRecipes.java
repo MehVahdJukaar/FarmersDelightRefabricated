@@ -561,6 +561,11 @@ public class CraftingRecipes {
 		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ModItems.DIAMOND_KNIFE.get()), Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.COMBAT, ModItems.NETHERITE_KNIFE.get())
 			.unlocks("has_netherite_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_INGOT))
 			.save(output, FarmersDelight.MODID + ":netherite_knife_smithing");
+		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.DECORATIONS, ModItems.STRAW_BED.get(), 4)
+			.define('X', ModItems.STRAW_BALE.get())
+			.pattern("XXX")
+			.unlockedBy("has_straw_block", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.STRAW_BALE.get())).unlockedBy("has_straw_bed", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.STRAW_BED.get()))
+			.save(output);
 	}
 
 	private static void recipesMaterials(HolderGetter<Item> holderGetter, RecipeOutput output) {

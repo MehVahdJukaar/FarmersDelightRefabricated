@@ -78,7 +78,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		);
 		tagBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE).add(
 			ModBlockItemIds.RICE_BALE,
-			ModBlockItemIds.STRAW_BALE
+			ModBlockItemIds.STRAW_BALE,
+			ModBlockItemIds.STRAW_BED
 		);
 		tagBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(
 			ModBlockItemIds.STOVE,
@@ -193,6 +194,12 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlockItemIds.FULL_TATAMI_MAT,
 				ModBlockItemIds.HALF_TATAMI_MAT,
 				ModBlockItemIds.CUTTING_BOARD
+		);
+		tagBuilder(net.minecraft.tags.BlockTags.BLOCKS_MOTION_NO_LEAVES).add(
+			ModBlockItemIds.STRAW_BED
+		);
+		tagBuilder(net.minecraft.tags.BlockTags.WASHED_AWAY_BY_FLUIDS).add(
+			ModBlockItemIds.STRAW_BED
 		);
 	}
 

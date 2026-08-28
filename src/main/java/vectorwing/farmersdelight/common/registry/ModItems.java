@@ -13,6 +13,7 @@ import net.minecraft.world.food.VillagerFood;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.*;
@@ -600,6 +601,10 @@ public class ModItems
             DogFoodItem::new, bowlFoodItem(FoodValues.DOG_FOOD));
 	public static final Supplier<Item> HORSE_FEED = registerWithTab(ModItemIds.HORSE_FEED,
 			HorseFeedItem::new, basicItem().stacksTo(16));
+
+	// Refabricated
+	public static final Supplier<Item> STRAW_BED = registerBlockWithTab(ModBlockItemIds.STRAW_BED,
+		BlockItem::new, ModBlocks.STRAW_BED.get(), basicItem().stacksTo(16).compostable(NumberProviders.COMPOSTABLE_MEDIUM_HIGH));
 
     // Hidden (Debug) Items
     public static final Supplier<Item> DEBUG_PUMPKIN_PIE = registerHidden(ModItemIds.DEBUG_PUMPKIN_PIE,

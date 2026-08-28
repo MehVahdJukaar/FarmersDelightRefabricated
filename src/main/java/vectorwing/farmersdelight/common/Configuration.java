@@ -31,6 +31,7 @@ public class Configuration {
     public static Supplier<Double> CUTTING_BOARD_FORTUNE_BONUS;
 
     public static final String CATEGORY_OVERRIDES = "overrides";
+	public static Supplier<Boolean> ENABLE_VANILLA_STRAW_BED_RENAME;
     public static Supplier<Boolean> ENABLE_VANILLA_SOUP_EXTRA_EFFECTS;
     public static Supplier<Boolean> ENABLE_RABBIT_STEW_BUFF;
     public static Supplier<Boolean> ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE;
@@ -86,6 +87,8 @@ public class Configuration {
 		COMMON_BUILDER.pop();
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
+		ENABLE_VANILLA_STRAW_BED_RENAME = COMMON_BUILDER.comment("If enabled, renames the Straw Bed to Hay Bed as it is clearly not made of Straw.")
+			.define("enableVanillaStrawBedRename", true);
 		ENABLE_VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
 			.define("enableVanillaSoupExtraEffects", true);
 		ENABLE_RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")

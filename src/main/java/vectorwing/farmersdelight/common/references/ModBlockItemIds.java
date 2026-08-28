@@ -91,6 +91,9 @@ public class ModBlockItemIds {
 	public static final BlockItemId GLEAMING_SALAD_BLOCK = id("gleaming_salad_block");
 	public static final BlockItemId RICE_ROLL_MEDLEY_BLOCK = id("rice_roll_medley_block");
 
+	// Refabricated
+	public static final BlockItemId STRAW_BED = id("straw_bed");
+
 	private static ColorCollection<BlockItemId> createSimpleColored(final String baseName) {
 		return ColorCollection.prefixWithColor(ColorCollection.create(baseName)).map(ModBlockItemIds::id);
 	}

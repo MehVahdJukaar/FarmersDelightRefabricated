@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_straw_bed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "farmersdelight:straw_bed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_straw_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "farmersdelight:straw_bale"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "farmersdelight:straw_bed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_straw_block",
+      "has_straw_bed"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "farmersdelight:straw_bed"
+    ]
+  }
+}

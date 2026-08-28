@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -48,6 +49,11 @@ public class CommonModBusEvents
 					builder.set(DataComponents.CONSUMABLE, addVanillaSoupEffect(builder, item, effects));
 				});
 			}
+		}
+		if (Configuration.ENABLE_VANILLA_STRAW_BED_RENAME.get()) {
+			context.modify(Items.STRAW_BED, builder -> {
+				builder.set(DataComponents.ITEM_NAME, Component.translatable("block.farmersdelight.hay_bed"));
+			});
 		}
 
 	}

@@ -2,6 +2,7 @@ package vectorwing.farmersdelight.common.registry;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
@@ -9,6 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StrawBedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -314,6 +316,9 @@ public class ModBlocks
             Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()));
     public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock(ModBlockItemIds.RICE_ROLL_MEDLEY_BLOCK,
             RiceRollMedleyBlock::new, Block.Properties.ofFullCopy(Blocks.CAKE));
+
+	// Refabricated
+	public static final Supplier<Block> STRAW_BED = regBlock(ModBlockItemIds.STRAW_BED, StrawBedBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).sound(SoundType.STRAW_BED).strength(0.2F).noOcclusion().ignitedByLava().pushReaction(PushReaction.POPPED));
 
 	public static void touch() {
 
