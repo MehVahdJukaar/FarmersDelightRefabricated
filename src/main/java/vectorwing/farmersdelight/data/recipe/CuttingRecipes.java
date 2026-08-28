@@ -244,6 +244,9 @@ public class CuttingRecipes
         salvagePlankFromFurniture(holderGetter, output, WoodType.CHERRY,
                 Items.CHERRY_PLANKS, Items.CHERRY_DOOR, Items.CHERRY_TRAPDOOR, Items.CHERRY_SIGN, Items.CHERRY_HANGING_SIGN, Items.CHERRY_FENCE, Items.CHERRY_FENCE_GATE,
                 Items.CHERRY_PRESSURE_PLATE, Items.CHERRY_BUTTON, Items.CHERRY_BOAT, ModItems.CHERRY_CABINET.get());
+		salvagePlankFromFurniture(holderGetter, output, WoodType.PALE_OAK,
+				Items.PALE_OAK_PLANKS, Items.PALE_OAK_DOOR, Items.PALE_OAK_TRAPDOOR, Items.PALE_OAK_SIGN, Items.PALE_OAK_HANGING_SIGN, Items.PALE_OAK_FENCE, Items.PALE_OAK_FENCE_GATE,
+				Items.PALE_OAK_PRESSURE_PLATE, Items.PALE_OAK_BUTTON, Items.PALE_OAK_BOAT, ModItems.PALE_OAK_CABINET.get());
         salvagePlankFromFurniture(holderGetter, output, WoodType.BAMBOO,
                 Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN, Items.BAMBOO_FENCE, Items.BAMBOO_FENCE_GATE,
                 Items.BAMBOO_PRESSURE_PLATE, Items.BAMBOO_BUTTON, Items.BAMBOO_RAFT, ModItems.BAMBOO_CABINET.get());
@@ -331,6 +334,10 @@ public class CuttingRecipes
 			.salvaging()
 			.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CHERRY_CHEST_BOAT), hoes, Items.CHERRY_BOAT)
+			.addResult(Items.CHEST)
+			.salvaging()
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PALE_OAK_CHEST_BOAT), hoes, Items.PALE_OAK_BOAT)
 			.addResult(Items.CHEST)
 			.salvaging()
 			.saveToFD(output);
