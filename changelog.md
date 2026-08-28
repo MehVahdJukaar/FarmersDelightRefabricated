@@ -1,3 +1,2 @@
-- Worked around another crash caused by Sinytra Connector.
-- Fixed onions not generating.
-- Updated ko_kr translations (thanks @DOMANG!)
+- Added Salvaging recipes for blocks made from Pale Oak.
+- Updated Pale Oak Cabinet textures to match upstream Farmer's Delight (thanks @vectorwing!).
