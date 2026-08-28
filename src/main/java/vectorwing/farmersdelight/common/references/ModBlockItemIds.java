@@ -40,6 +40,7 @@ public class ModBlockItemIds {
 	public static final BlockItemId CHERRY_CABINET = id("cherry_cabinet");
 	public static final BlockItemId BAMBOO_CABINET = id("bamboo_cabinet");
 	public static final BlockItemId PALE_OAK_CABINET = id("pale_oak_cabinet");
+	public static final BlockItemId POPLAR_CABINET = id("poplar_cabinet");
 	public static final BlockItemId CRIMSON_CABINET = id("crimson_cabinet");
 	public static final BlockItemId WARPED_CABINET = id("warped_cabinet");
 	public static final BlockItemId CANVAS_RUG = id("canvas_rug");

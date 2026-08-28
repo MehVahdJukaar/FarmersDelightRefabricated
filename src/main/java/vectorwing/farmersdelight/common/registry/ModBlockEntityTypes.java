@@ -34,6 +34,7 @@ public class ModBlockEntityTypes
 							ModBlocks.BAMBOO_CABINET.get(),
 							ModBlocks.CHERRY_CABINET.get(),
 							ModBlocks.PALE_OAK_CABINET.get(),
+							ModBlocks.POPLAR_CABINET.get(),
 							ModBlocks.CRIMSON_CABINET.get(),
 							ModBlocks.WARPED_CABINET.get())
 					.build());

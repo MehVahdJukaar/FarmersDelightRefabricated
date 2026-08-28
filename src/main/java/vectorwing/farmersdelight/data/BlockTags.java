@@ -62,7 +62,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 			ModBlockItemIds.ACACIA_CABINET,
 			ModBlockItemIds.DARK_OAK_CABINET,
 			ModBlockItemIds.MANGROVE_CABINET,
-			ModBlockItemIds.PALE_OAK_CABINET,	
+			ModBlockItemIds.PALE_OAK_CABINET,
+			ModBlockItemIds.POPLAR_CABINET,
 			ModBlockItemIds.CHERRY_CABINET,
 			ModBlockItemIds.BAMBOO_CABINET,
 			ModBlockItemIds.CRIMSON_CABINET,
@@ -274,7 +275,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				.add(ModBlockItemIds.BAMBOO_CABINET)
 				.add(ModBlockItemIds.CRIMSON_CABINET)
 				.add(ModBlockItemIds.WARPED_CABINET)
-				.add(ModBlockItemIds.PALE_OAK_CABINET);
+				.add(ModBlockItemIds.PALE_OAK_CABINET)
+				.add(ModBlockItemIds.POPLAR_CABINET);
 		tagBuilder(ModTags.Blocks.CABINETS).addTag(ModTags.Blocks.CABINETS_WOODEN);
 		tagBuilder(ModTags.Blocks.MUSHROOM_COLONIES)
 			.add(ModBlockItemIds.BROWN_MUSHROOM_COLONY)

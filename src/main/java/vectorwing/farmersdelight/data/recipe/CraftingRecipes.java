@@ -318,6 +318,15 @@ public class CraftingRecipes {
 			.unlockedBy("has_pale_oak_trapdoor", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PALE_OAK_TRAPDOOR))
 			.group("fd_cabinet")
 			.save(output);
+		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.DECORATIONS, ModBlocks.POPLAR_CABINET.get())
+			.pattern("___")
+			.pattern("D D")
+			.pattern("___")
+			.define('_', Items.POPLAR_SLAB)
+			.define('D', Items.POPLAR_TRAPDOOR)
+			.unlockedBy("has_poplar_trapdoor", InventoryChangeTrigger.TriggerInstance.hasItems(Items.POPLAR_TRAPDOOR))
+			.group("fd_cabinet")
+			.save(output);
 		ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.DECORATIONS, ModBlocks.BAMBOO_CABINET.get())
 			.pattern("___")
 			.pattern("D D")

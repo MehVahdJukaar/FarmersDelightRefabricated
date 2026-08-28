@@ -140,6 +140,8 @@ public class ModBlocks
 			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.BAMBOO_WOOD));
 	public static final Supplier<Block> PALE_OAK_CABINET = regBlock(ModBlockItemIds.PALE_OAK_CABINET,
 			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
+	public static final Supplier<Block> POPLAR_CABINET = regBlock(ModBlockItemIds.POPLAR_CABINET,
+		CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL));
 	public static final Supplier<Block> CRIMSON_CABINET = regBlock(ModBlockItemIds.CRIMSON_CABINET,
 			CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD));
 	public static final Supplier<Block> WARPED_CABINET = regBlock(ModBlockItemIds.WARPED_CABINET,

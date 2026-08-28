@@ -198,6 +198,8 @@ public class ModItems
 			ModBlocks.BAMBOO_CABINET.get(), basicItem(), 300);
 	public static final Supplier<Item> PALE_OAK_CABINET = registerFuelBlockWithTab(ModBlockItemIds.PALE_OAK_CABINET,
 			ModBlocks.PALE_OAK_CABINET.get(), basicItem(), 300);
+	public static final Supplier<Item> POPLAR_CABINET = registerFuelBlockWithTab(ModBlockItemIds.POPLAR_CABINET,
+		ModBlocks.POPLAR_CABINET.get(), basicItem(), 300);
 	public static final Supplier<Item> CRIMSON_CABINET = registerBlockWithTab(ModBlockItemIds.CRIMSON_CABINET,
 			BlockItem::new, ModBlocks.CRIMSON_CABINET.get(), basicItem());
 	public static final Supplier<Item> WARPED_CABINET = registerBlockWithTab(ModBlockItemIds.WARPED_CABINET,
