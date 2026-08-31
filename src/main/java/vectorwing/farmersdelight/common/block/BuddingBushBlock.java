@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import io.github.fabricators_of_create.porting_lib.common.util.PlantType;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.tag.ConventionalTags;
 
 /**
  * A bush which grows, representing the earlier stage of another plant.
@@ -45,7 +47,7 @@ public class BuddingBushBlock extends BushBlock
 
 	@Override
 	public boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.getBlock() instanceof FarmBlock;
+		return state.getBlock() instanceof FarmBlock || state.is(ConventionalTags.FARMLAND);
 	}
 
 	@Override

@@ -12,6 +12,9 @@ import net.minecraft.world.level.block.Block;
  */
 public class ConventionalTags
 {
+	// Farmland tag. This is *not conventional*, but Regions Unexplored uses it anyway instead of extending `FarmBlock`.
+	public static final TagKey<Block> FARMLAND = cBlockTag("farmland");
+
 	// Blocks that are efficiently mined with a Knife.
 	public static final TagKey<Block> MINEABLE_WITH_KNIFE = cBlockTag("mineable/knife");
 
