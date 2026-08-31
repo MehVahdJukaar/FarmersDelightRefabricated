@@ -301,15 +301,15 @@ public class ModBlocks
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock("roast_chicken_block",
-			(properties) -> new RotatedFeastBlock(properties, ModItems.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, "roast_chicken", true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock("stuffed_pumpkin_block",
-			(properties) -> new FeastBlock(properties, ModItems.STUFFED_PUMPKIN, false, true), feastProperties());
+			(properties) -> new FeastBlock(properties, "stuffed_pumpkin", false, true), feastProperties());
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock("honey_glazed_ham_block",
-			(properties) -> new RotatedFeastBlock(properties, ModItems.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, "honey_glazed_ham", true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock("shepherds_pie_block",
-			(properties) -> new RotatedFeastBlock(properties, ModItems.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, "shepherds_pie", true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock("gleaming_salad_block",
-			(properties) -> new GleamingSaladBlock(properties.lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true), feastProperties());
+			(properties) -> new GleamingSaladBlock(properties.lightLevel(glowingFeastBlockEmission()), "gleaming_salad", true), feastProperties());
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 		RiceRollMedleyBlock::new, feastProperties());
 
