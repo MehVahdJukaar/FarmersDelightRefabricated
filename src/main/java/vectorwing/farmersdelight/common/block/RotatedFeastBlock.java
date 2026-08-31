@@ -1,6 +1,8 @@
 package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,6 +27,11 @@ public class RotatedFeastBlock extends FeastBlock
 	 * @param containerShape	the container shape. This is optional, set it to {@code null} if the block has no plate.
 	 */
 	public RotatedFeastBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers, VoxelShape[] feastShapes, @Nullable VoxelShape containerShape) {
+		super(properties, servingItem, hasLeftovers, true);
+		this.combinedShapes = containerShape == null ? ShapeUtils.buildRotatedFoodShapes(feastShapes) : ShapeUtils.buildPlatedFoodShapes(feastShapes, containerShape);
+	}
+
+	public RotatedFeastBlock(Properties properties, ResourceKey<Item> servingItem, boolean hasLeftovers, VoxelShape[] feastShapes, @Nullable VoxelShape containerShape) {
 		super(properties, servingItem, hasLeftovers, true);
 		this.combinedShapes = containerShape == null ? ShapeUtils.buildRotatedFoodShapes(feastShapes) : ShapeUtils.buildPlatedFoodShapes(feastShapes, containerShape);
 	}
