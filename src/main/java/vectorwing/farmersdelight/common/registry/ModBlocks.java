@@ -334,4 +334,8 @@ public class ModBlocks
 			() -> new GleamingSaladBlock(feastProperties().lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock("rice_roll_medley_block",
 			() -> new RiceRollMedleyBlock(feastProperties()));
+
+	public static void touch() {
+
+	}
 }

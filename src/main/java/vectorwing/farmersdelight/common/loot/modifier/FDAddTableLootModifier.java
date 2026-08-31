@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
+import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +23,6 @@ public class FDAddTableLootModifier extends LootModifier {
 		this.lootTable = lootTable;
 	}
 
-	@Nonnull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		if (Configuration.GENERATE_FD_CHEST_LOOT.get()) {
@@ -31,8 +31,8 @@ public class FDAddTableLootModifier extends LootModifier {
 		return generatedLoot;
 	}
 
-	@Override
-	public MapCodec<? extends IGlobalLootModifier> codec() {
-		return CODEC.get();
+//	@Override
+	public MapCodec<?> codec() {
+		return null;
 	}
 }

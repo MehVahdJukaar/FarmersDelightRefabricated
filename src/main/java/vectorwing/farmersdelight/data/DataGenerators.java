@@ -16,6 +16,7 @@ import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.data.advancement.FDAdvancementGenerator;
 import vectorwing.farmersdelight.common.world.WildCropGeneration;
 import vectorwing.farmersdelight.data.loot.FDBlockLoot;
+import vectorwing.farmersdelight.data.loot.FDChestLoot;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -34,6 +35,7 @@ public class DataGenerators implements DataGeneratorEntrypoint
 		pack.addProvider(Recipes::new);
 		pack.addProvider(FDAdvancementGenerator::new);
 		pack.addProvider(FDBlockLoot::new);
+		pack.addProvider(FDChestLoot::new);
 //		pack.addProvider((output, registriesFuture) -> new StructureUpdater(output, "structures/village/houses", FarmersDelight.MODID));
 	}
 

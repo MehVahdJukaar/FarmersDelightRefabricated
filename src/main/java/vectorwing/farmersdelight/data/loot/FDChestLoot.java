@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.data.loot;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
@@ -11,20 +13,28 @@ import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import vectorwing.farmersdelight.common.registry.ModChestLootTables;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
-public class FDChestLoot implements LootTableSubProvider
-{
+public class FDChestLoot extends SimpleFabricLootTableProvider {
 
 	protected final HolderLookup.Provider registries;
 
-	public FDChestLoot(HolderLookup.Provider registries) {
-		this.registries = registries;
+	public FDChestLoot(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries, LootContextParamSets.CHEST);
+		try {
+			this.registries = registries.get();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
