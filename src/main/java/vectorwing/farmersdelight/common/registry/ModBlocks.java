@@ -68,7 +68,11 @@ public class ModBlocks
 	}
 
 	private static Supplier<Block> regBlock(final BlockItemId id, final Function<BlockBehaviour.Properties, Block> function, final BlockBehaviour.Properties properties) {
-		return regBlock(id.block(), function, properties);
+		return regBlock(id.block(), function, properties); 
+	}
+
+	private static Block.Properties feastProperties() {
+		return BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY);
 	}
 
 	// Workstations
@@ -296,22 +300,17 @@ public class ModBlocks
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock(ModBlockItemIds.ROAST_CHICKEN_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, () -> ModItems.ROAST_CHICKEN.get(), true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE),
-			Block.Properties.ofFullCopy(Blocks.CAKE));
+			(properties) -> new RotatedFeastBlock(properties, ModItems.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock(ModBlockItemIds.STUFFED_PUMPKIN_BLOCK,
-			(properties) -> new FeastBlock(properties, () -> ModItems.STUFFED_PUMPKIN.get(), false, true),
-			Block.Properties.ofFullCopy(Blocks.PUMPKIN));
+			(properties) -> new FeastBlock(properties, ModItems.STUFFED_PUMPKIN, false, true), feastProperties());
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock(ModBlockItemIds.HONEY_GLAZED_HAM_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, () -> ModItems.HONEY_GLAZED_HAM.get(), true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE),
-			Block.Properties.ofFullCopy(Blocks.CAKE));
+			(properties) -> new RotatedFeastBlock(properties, ModItems.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock(ModBlockItemIds.SHEPHERDS_PIE_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, () -> ModItems.SHEPHERDS_PIE.get(), true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE),
-			Block.Properties.ofFullCopy(Blocks.CAKE));
-    public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock(ModBlockItemIds.GLEAMING_SALAD_BLOCK,
-            (properties) -> new GleamingSaladBlock(properties, () -> ModItems.GLEAMING_SALAD.get(), true),
-            Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()));
-    public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock(ModBlockItemIds.RICE_ROLL_MEDLEY_BLOCK,
-            RiceRollMedleyBlock::new, Block.Properties.ofFullCopy(Blocks.CAKE));
+			(properties) -> new RotatedFeastBlock(properties, ModItems.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock(ModBlockItemIds.GLEAMING_SALAD_BLOCK,
+			(properties) -> new GleamingSaladBlock(properties.lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true), feastProperties());
+	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock(ModBlockItemIds.RICE_ROLL_MEDLEY_BLOCK,
+		RiceRollMedleyBlock::new, feastProperties());
 
 	public static void touch() {
 
