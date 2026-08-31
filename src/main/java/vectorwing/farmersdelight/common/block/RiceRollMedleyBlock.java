@@ -42,7 +42,7 @@ public class RiceRollMedleyBlock extends FeastBlock {
     );
 
     public RiceRollMedleyBlock(Properties properties) {
-        super(properties, () -> ModItems.SALMON_ROLL.get(), true, false);
+        super(properties, "salmon_roll", true, false);
     }
 
     @Override

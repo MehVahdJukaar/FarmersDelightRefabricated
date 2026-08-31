@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 
 import java.util.function.Supplier;
@@ -23,6 +25,10 @@ public class GleamingSaladBlock extends FeastBlock
 
 	public GleamingSaladBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers) {
 		super(properties, servingItem, hasLeftovers);
+	}
+
+	public GleamingSaladBlock(Properties properties, String servingItem, boolean hasLeftovers) {
+		this(properties, ()-> BuiltInRegistries.ITEM.get(FarmersDelight.res(servingItem)), hasLeftovers);
 	}
 
 	@Override
