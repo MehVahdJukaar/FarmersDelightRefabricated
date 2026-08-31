@@ -37,6 +37,10 @@ public class ModBlocks
 		return (state) -> state.getValue(FeastBlock.SERVINGS) * 3;
 	}
 
+	private static Block.Properties feastProperties() {
+		return BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY);
+	}
+
 	// Workstations
 	public static final Supplier<Block> STOVE = BLOCKS.register("stove",
 			() -> new StoveBlock(Block.Properties.copy(Blocks.BRICKS).lightLevel(litBlockEmission(13))));
@@ -322,16 +326,16 @@ public class ModBlocks
 			() -> new RicePaniclesBlock(Block.Properties.copy(Blocks.WHEAT)));
 
 	// Feasts
-	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = BLOCKS.register("roast_chicken_block",
-			() -> new RotatedFeastBlock(Block.Properties.copy(Blocks.OAK_PLANKS), ModItems.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE));
-	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = BLOCKS.register("stuffed_pumpkin_block",
-			() -> new FeastBlock(Block.Properties.copy(Blocks.PUMPKIN), ModItems.STUFFED_PUMPKIN, false, true));
-	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = BLOCKS.register("honey_glazed_ham_block",
-			() -> new RotatedFeastBlock(Block.Properties.copy(Blocks.OAK_PLANKS), ModItems.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE));
-	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = BLOCKS.register("shepherds_pie_block",
-			() -> new RotatedFeastBlock(Block.Properties.copy(Blocks.OAK_PLANKS), ModItems.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE));
-	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = BLOCKS.register("gleaming_salad_block",
-			() -> new GleamingSaladBlock(Block.Properties.copy(Blocks.OAK_PLANKS).lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
-	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = BLOCKS.register("rice_roll_medley_block",
-			() -> new RiceRollMedleyBlock(Block.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> ROAST_CHICKEN_BLOCK = BLOCKS.register("roast_chicken_block",
+			() -> new RotatedFeastBlock(feastProperties(), ModItems.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE));
+	public static final RegistryObject<Block> STUFFED_PUMPKIN_BLOCK = BLOCKS.register("stuffed_pumpkin_block",
+			() -> new FeastBlock(feastProperties(), ModItems.STUFFED_PUMPKIN, false, true));
+	public static final RegistryObject<Block> HONEY_GLAZED_HAM_BLOCK = BLOCKS.register("honey_glazed_ham_block",
+			() -> new RotatedFeastBlock(feastProperties(), ModItems.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE));
+	public static final RegistryObject<Block> SHEPHERDS_PIE_BLOCK = BLOCKS.register("shepherds_pie_block",
+			() -> new RotatedFeastBlock(feastProperties(), ModItems.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE));
+	public static final RegistryObject<Block> GLEAMING_SALAD_BLOCK = BLOCKS.register("gleaming_salad_block",
+			() -> new GleamingSaladBlock(feastProperties().lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true));
+	public static final RegistryObject<Block> RICE_ROLL_MEDLEY_BLOCK = BLOCKS.register("rice_roll_medley_block",
+			() -> new RiceRollMedleyBlock(feastProperties()));
 }
