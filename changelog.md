@@ -1,2 +1,2 @@
 ### Fixes
-- Crash interacting with Feasts.
+- Wandering traders now sell Farmer's Delight crops, rather than incorrectly buying them.
