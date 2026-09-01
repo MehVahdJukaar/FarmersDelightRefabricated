@@ -9,8 +9,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 12.0,
-              "min": 4.0
+              "max": 12,
+              "min": 4
             }
           },
           "name": "farmersdelight:onion",
@@ -22,8 +22,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 1.0
+              "max": 3,
+              "min": 1
             }
           },
           "name": "farmersdelight:onion_crate",
@@ -36,8 +36,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     }
   ]

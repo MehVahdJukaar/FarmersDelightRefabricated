@@ -11,7 +11,7 @@
           "name": "farmersdelight:onion"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -36,7 +36,7 @@
           "name": "farmersdelight:onion"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

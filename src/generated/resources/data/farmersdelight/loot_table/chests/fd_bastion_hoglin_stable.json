@@ -35,7 +35,7 @@
           "weight": 2
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -45,8 +45,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 2.0
+              "max": 5,
+              "min": 2
             }
           },
           "name": "farmersdelight:ham",
@@ -58,8 +58,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 2.0
+              "max": 5,
+              "min": 2
             }
           },
           "name": "farmersdelight:smoked_ham",
@@ -72,8 +72,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     }
   ]

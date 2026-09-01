@@ -15,7 +15,7 @@
           "type": "minecraft:empty"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -29,8 +29,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 6.0,
-              "min": 2.0
+              "max": 6,
+              "min": 2
             }
           },
           "name": "farmersdelight:minced_beef",
@@ -42,8 +42,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 6.0,
-              "min": 2.0
+              "max": 6,
+              "min": 2
             }
           },
           "name": "farmersdelight:bacon",
@@ -55,8 +55,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 6.0,
-              "min": 2.0
+              "max": 6,
+              "min": 2
             }
           },
           "name": "farmersdelight:mutton_chops",
@@ -68,8 +68,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     }
   ]

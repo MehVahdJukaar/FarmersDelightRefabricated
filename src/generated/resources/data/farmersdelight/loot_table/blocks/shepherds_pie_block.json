@@ -15,7 +15,7 @@
           "name": "farmersdelight:shepherds_pie_block"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -34,7 +34,7 @@
           "name": "minecraft:bowl"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

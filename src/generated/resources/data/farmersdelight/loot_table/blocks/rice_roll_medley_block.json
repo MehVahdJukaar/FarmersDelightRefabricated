@@ -15,7 +15,7 @@
           "name": "farmersdelight:rice_roll_medley_block"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -34,7 +34,7 @@
           "name": "minecraft:bowl"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

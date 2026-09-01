@@ -32,7 +32,7 @@ import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.block.PieBlock;
@@ -189,7 +189,7 @@ public class LootModificationEvents {
                     )).build()));
             tableBuilder.pool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(ModItems.PUMPKIN_SLICE.get())
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
+                            .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(4)))
                     ).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
                             .and(MatchTool.toolMatches(ItemPredicate.Builder.item().withComponents(DataComponentMatchers.Builder.components()
                                     .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
@@ -252,7 +252,7 @@ public class LootModificationEvents {
             HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
             var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.identifier().withPath(s -> s.substring(7))));
             if (block.isPresent() && RefabricatedEarlyTagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
+                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(7)))
                         .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES)))));
             }
         }
@@ -270,7 +270,7 @@ public class LootModificationEvents {
     public static void pastrySlicing(LootTable.Builder tableBuilder, Block block, ItemLike slice, IntegerProperty property, int maxValue, HolderLookup.Provider registries) {
         tableBuilder.modifyPools(builder -> builder.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES)).invert()));
         for (int value : property.getPossibleValues()) {
-            tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(slice).apply(SetItemCountFunction.setCount(ConstantValue.exactly(maxValue - value))))
+            tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(slice).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(maxValue - value))))
                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
                             .and(MatchBlock.blockMatches(registries.lookupOrThrow(Registries.BLOCK), block, StatePropertiesPredicate.Builder.properties().hasProperty(property, value)))));
         }

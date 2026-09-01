@@ -45,7 +45,7 @@
       "modifier": {
         "type": "minecraft:explosion_decay"
       },
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

@@ -20,7 +20,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 2.0
+                "count": 2
               },
               "name": "minecraft:brown_mushroom"
             },
@@ -35,7 +35,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 3.0
+                "count": 3
               },
               "name": "minecraft:brown_mushroom"
             },
@@ -50,7 +50,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 4.0
+                "count": 4
               },
               "name": "minecraft:brown_mushroom"
             },
@@ -77,7 +77,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 5.0
+                "count": 5
               },
               "name": "minecraft:brown_mushroom"
             },
@@ -104,7 +104,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

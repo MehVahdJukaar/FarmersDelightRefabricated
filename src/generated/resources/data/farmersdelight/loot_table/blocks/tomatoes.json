@@ -23,8 +23,8 @@
           "type": "minecraft:set_count",
           "count": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 1.0
+            "max": 2,
+            "min": 1
           }
         },
         {
@@ -36,7 +36,7 @@
           }
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -52,7 +52,7 @@
           "name": "farmersdelight:tomato_seeds"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -77,7 +77,7 @@
           "name": "farmersdelight:rotten_tomato"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

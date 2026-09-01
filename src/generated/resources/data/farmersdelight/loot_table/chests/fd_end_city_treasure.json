@@ -9,8 +9,8 @@
             "type": "minecraft:enchant_with_levels",
             "levels": {
               "type": "minecraft:uniform",
-              "max": 39.0,
-              "min": 20.0
+              "max": 39,
+              "min": 20
             },
             "options": "#minecraft:on_random_loot"
           },
@@ -22,8 +22,8 @@
             "type": "minecraft:enchant_with_levels",
             "levels": {
               "type": "minecraft:uniform",
-              "max": 39.0,
-              "min": 20.0
+              "max": 39,
+              "min": 20
             },
             "options": "#minecraft:on_random_loot"
           },
@@ -34,7 +34,7 @@
           "weight": 6
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

@@ -75,7 +75,7 @@ public class ModBlocks
 	}
 
 	private static Block.Properties feastProperties() {
-		return BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY);
+		return BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED);
 	}
 
 	// Workstations

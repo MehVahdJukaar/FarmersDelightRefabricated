@@ -34,7 +34,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -54,11 +54,11 @@
         "type": "minecraft:set_count",
         "count": {
           "type": "minecraft:uniform",
-          "max": 3.0,
-          "min": 1.0
+          "max": 3,
+          "min": 1
         }
       },
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

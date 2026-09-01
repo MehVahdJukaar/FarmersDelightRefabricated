@@ -8,7 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.Compostable;
-import net.minecraft.world.level.storage.loot.providers.number.ResolvableNumber;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 
 //This is hacky and tbh not even needed but hey
 public class CompostableHelper {
@@ -21,7 +21,7 @@ public class CompostableHelper {
                 Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey().toString()));
 				DefaultItemComponentEvents.MODIFY.register(modifyContext -> {
 					modifyContext.modify(i, builder->{
-						builder.set(DataComponents.COMPOSTABLE, new Compostable(new ResolvableNumber.Constant(v.getValue().getAsJsonObject().get("chance").getAsFloat())));
+						builder.set(DataComponents.COMPOSTABLE, new Compostable(new ResolvableInt.Constant((int) (v.getValue().getAsJsonObject().get("chance").getAsFloat()*100))));
 					});
 				});
             }
