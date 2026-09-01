@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -61,6 +64,14 @@ public class FeastBlock extends Block
 	public FeastBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers, boolean hasServingParticles) {
 		super(properties);
 		this.servingItem = servingItem;
+		this.hasLeftovers = hasLeftovers;
+		this.hasServingParticles = hasServingParticles;
+		this.registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(getServingsProperty(), getMaxServings()));
+	}
+
+	public FeastBlock(Properties properties, ResourceKey<Item> servingItem, boolean hasLeftovers, boolean hasServingParticles) {
+		super(properties);
+		this.servingItem = ()-> BuiltInRegistries.ITEM.getValue(servingItem);
 		this.hasLeftovers = hasLeftovers;
 		this.hasServingParticles = hasServingParticles;
 		this.registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(getServingsProperty(), getMaxServings()));

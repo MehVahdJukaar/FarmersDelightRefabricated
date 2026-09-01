@@ -1,11 +1,11 @@
 {
   "gives": {
-    "id": "minecraft:emerald"
+    "id": "farmersdelight:onion"
   },
   "max_uses": 1.0,
   "reputation_discount": 0.05,
   "wants": {
-    "id": "farmersdelight:onion"
+    "id": "minecraft:emerald"
   },
   "xp": 12.0
 }

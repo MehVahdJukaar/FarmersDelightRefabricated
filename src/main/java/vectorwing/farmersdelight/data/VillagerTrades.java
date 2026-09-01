@@ -64,7 +64,7 @@ public class VillagerTrades extends FabricDynamicRegistryProvider
     }
 
     public static VillagerTrade itemForEmeraldTrade(ItemLike item, int maxTrades, int xp) {
-        return VillagerTrade.builder(new TradeCost(item, 1), new ItemStackTemplate(Items.EMERALD, 1), maxTrades, xp, 0.05f).build();
+        return VillagerTrade.builder(new TradeCost(Items.EMERALD, 1), new ItemStackTemplate(item.asItem(), 1), maxTrades, xp, 0.05f).build();
     }
 
     public static ResourceKey<VillagerTrade> resourceKey(final String path) {

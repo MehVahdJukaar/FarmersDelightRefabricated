@@ -23,6 +23,7 @@ import vectorwing.farmersdelight.common.BlockShapes;
 import vectorwing.farmersdelight.common.block.*;
 import vectorwing.farmersdelight.common.references.ModBlockIds;
 import vectorwing.farmersdelight.common.references.ModBlockItemIds;
+import vectorwing.farmersdelight.common.references.ModItemIds;
 import vectorwing.farmersdelight.refabricated.RegUtils;
 
 import java.util.Optional;
@@ -304,15 +305,15 @@ public class ModBlocks
 
 	// Feasts
 	public static final Supplier<Block> ROAST_CHICKEN_BLOCK = regBlock(ModBlockItemIds.ROAST_CHICKEN_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, ModItems.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, ModItemIds.ROAST_CHICKEN, true, BlockShapes.ROAST_CHICKEN_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> STUFFED_PUMPKIN_BLOCK = regBlock(ModBlockItemIds.STUFFED_PUMPKIN_BLOCK,
-			(properties) -> new FeastBlock(properties, ModItems.STUFFED_PUMPKIN, false, true), feastProperties());
+			(properties) -> new FeastBlock(properties, ModItemIds.STUFFED_PUMPKIN, false, true), feastProperties());
 	public static final Supplier<Block> HONEY_GLAZED_HAM_BLOCK = regBlock(ModBlockItemIds.HONEY_GLAZED_HAM_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, ModItems.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, ModItemIds.HONEY_GLAZED_HAM, true, BlockShapes.HONEY_GLAZED_HAM_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> SHEPHERDS_PIE_BLOCK = regBlock(ModBlockItemIds.SHEPHERDS_PIE_BLOCK,
-			(properties) -> new RotatedFeastBlock(properties, ModItems.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
+			(properties) -> new RotatedFeastBlock(properties, ModItemIds.SHEPHERDS_PIE, true, BlockShapes.SHEPHERDS_PIE_SHAPES, BlockShapes.TRAY_SHAPE), feastProperties());
 	public static final Supplier<Block> GLEAMING_SALAD_BLOCK = regBlock(ModBlockItemIds.GLEAMING_SALAD_BLOCK,
-			(properties) -> new GleamingSaladBlock(properties.lightLevel(glowingFeastBlockEmission()), ModItems.GLEAMING_SALAD, true), feastProperties());
+			(properties) -> new GleamingSaladBlock(properties.lightLevel(glowingFeastBlockEmission()), "gleaming_salad", true), feastProperties());
 	public static final Supplier<Block> RICE_ROLL_MEDLEY_BLOCK = regBlock(ModBlockItemIds.RICE_ROLL_MEDLEY_BLOCK,
 		RiceRollMedleyBlock::new, feastProperties());
 

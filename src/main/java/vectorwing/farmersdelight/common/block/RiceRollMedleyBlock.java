@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.common.references.ModItemIds;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class RiceRollMedleyBlock extends FeastBlock {
     );
 
     public RiceRollMedleyBlock(Properties properties) {
-        super(properties, () -> ModItems.SALMON_ROLL.get(), true);
+        super(properties, ModItemIds.SALMON_ROLL, true, false);
     }
 
     @Override

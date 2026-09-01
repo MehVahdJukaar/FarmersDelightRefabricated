@@ -42,8 +42,8 @@ public class FarmersDelight implements ModInitializer
 		Configuration.touch();
 
 		ModSounds.touch();
-		ModItems.touch();
 		ModBlocks.touch();
+		ModItems.touch();
 		ModEffects.touch();
 		ModParticleTypes.touch();
 		ModDataComponents.touch();
