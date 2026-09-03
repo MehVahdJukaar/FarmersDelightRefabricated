@@ -5,10 +5,10 @@
       "feature": {
         "type": "minecraft:simple_block",
         "to_place": {
-          "type": "minecraft:randomized_int_state_provider",
+          "type": "minecraft:randomized_int",
           "property": "age",
           "source": {
-            "type": "minecraft:simple_state_provider",
+            "type": "minecraft:simple",
             "state": {
               "id": "farmersdelight:red_mushroom_colony",
               "properties": {
@@ -72,7 +72,7 @@
       "feature": {
         "type": "minecraft:simple_block",
         "to_place": {
-          "type": "minecraft:simple_state_provider",
+          "type": "minecraft:simple",
           "state": {
             "id": "minecraft:red_mushroom"
           }

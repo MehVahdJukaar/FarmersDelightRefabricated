@@ -5,7 +5,7 @@
       "feature": {
         "type": "minecraft:simple_block",
         "to_place": {
-          "type": "minecraft:simple_state_provider",
+          "type": "minecraft:simple",
           "state": {
             "id": "farmersdelight:wild_onions"
           }
@@ -60,7 +60,7 @@
       "feature": {
         "type": "minecraft:simple_block",
         "to_place": {
-          "type": "minecraft:simple_state_provider",
+          "type": "minecraft:simple",
           "state": {
             "id": "minecraft:allium"
           }
