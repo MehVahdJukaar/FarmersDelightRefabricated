@@ -310,13 +310,11 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 
 		for (int i = 0; i < MEAL_DISPLAY_SLOT; ++i) {
 			ItemStack slotStack = inventory.getStackInSlot(i);
-			if (!slotStack.getRecipeRemainder().isEmpty()) {
+			CraftRemainderOverride override = ModDataMaps.CRAFT_REMAINDER_OVERRIDES.getData(slotStack.getItemHolder());
+			if (override != null) {
+				ejectIngredientRemainder(override.remainderItem().getDefaultInstance());
+			} else if (!slotStack.getRecipeRemainder().isEmpty()) {
 				ejectIngredientRemainder(slotStack.getRecipeRemainder());
-			} else {
-				CraftRemainderOverride override = ModDataMaps.CRAFT_REMAINDER_OVERRIDES.getData(slotStack.getItemHolder());
-				if (override != null) {
-					ejectIngredientRemainder(override.remainderItem().getDefaultInstance());
-				}
 			}
 			if (!slotStack.isEmpty()) {
 				slotStack.shrink(1);
