@@ -11,7 +11,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.datamap.MushroomColony;
 import vectorwing.farmersdelight.common.registry.ModDataMaps;
 
 import java.util.Map;
@@ -32,7 +31,7 @@ public class RefabricatedDataMapReloadListener extends SimpleJsonResourceReloadL
 		ModDataMaps.MUSHROOM_COLONIES.map.clear();
 		preparations.forEach((id, je) -> {
 			if (id.equals(ModDataMaps.MUSHROOM_COLONIES.id())) {
-				ModDataMaps.MUSHROOM_COLONIES.map.putAll(ModDataMaps.MUSHROOM_COLONIES.mapCodec().parse(JsonOps.INSTANCE, je).getOrThrow());
+				ModDataMaps.MUSHROOM_COLONIES.map.putAll(ModDataMaps.MUSHROOM_COLONIES.blockCodec().parse(JsonOps.INSTANCE, je).getOrThrow());
 			}
 		});
 	}

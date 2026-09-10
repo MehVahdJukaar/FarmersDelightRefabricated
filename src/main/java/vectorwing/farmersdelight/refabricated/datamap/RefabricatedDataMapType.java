@@ -1,14 +1,13 @@
 package vectorwing.farmersdelight.refabricated.datamap;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import vectorwing.farmersdelight.common.datamap.MushroomColony;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +46,12 @@ public final class RefabricatedDataMapType<R, T> {
 		return codec;
 	}
 
-	public Codec<Map<Holder<Block>, T>> mapCodec() {
+	public Codec<Map<Holder<Block>, T>> blockCodec() {
 		return Codec.unboundedMap(BuiltInRegistries.BLOCK.holderByNameCodec(), codec).fieldOf("values").codec();
+	}
+
+	public Codec<Map<Holder<Item>, T>> itemCodec() {
+		return Codec.unboundedMap(BuiltInRegistries.ITEM.holderByNameCodec(), codec).fieldOf("values").codec();
 	}
 
 	public Codec<T> networkCodec() {

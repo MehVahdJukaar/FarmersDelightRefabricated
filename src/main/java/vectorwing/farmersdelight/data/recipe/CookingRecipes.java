@@ -39,18 +39,18 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.APPLE_CIDER.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(Items.APPLE)
-				.addIngredient(Items.APPLE)
-				.addIngredient(Items.SUGAR)
-				.unlockedByItems("has_apple", Items.APPLE)
-				.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-				.save(output);
+			.addIngredient(Items.APPLE)
+			.addIngredient(Items.APPLE)
+			.addIngredient(Items.SUGAR)
+			.unlockedByItems("has_apple", Items.APPLE)
+			.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.TOMATO_SAUCE.get(), 1, FAST_COOKING, SMALL_EXP)
-				.addIngredient(CommonTags.Items.CROPS_TOMATO)
-				.addIngredient(CommonTags.Items.CROPS_TOMATO)
-				.unlockedByItems("has_tomato", ModItems.TOMATO.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MISC)
-				.save(output);
+			.addIngredient(CommonTags.Items.CROPS_TOMATO)
+			.addIngredient(CommonTags.Items.CROPS_TOMATO)
+			.unlockedByItems("has_tomato", ModItems.TOMATO.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MISC)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.DOG_FOOD.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(Items.ROTTEN_FLESH)
 				.addIngredient(Items.BONE_MEAL)
@@ -71,11 +71,11 @@ public class CookingRecipes
 
 	private static void cookMinecraftSoups(RecipeOutput output) {
 		CookingPotRecipeBuilder.cookingPotRecipe(Items.MUSHROOM_STEW, 1, NORMAL_COOKING, MEDIUM_EXP, Items.BOWL)
-				.addIngredient(Items.BROWN_MUSHROOM)
-				.addIngredient(Items.RED_MUSHROOM)
-				.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.saveToFD(output);
+			.addIngredient(Items.BROWN_MUSHROOM)
+			.addIngredient(Items.RED_MUSHROOM)
+			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.saveToFD(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(Items.BEETROOT_SOUP, 1, NORMAL_COOKING, MEDIUM_EXP, Items.BOWL)
 				.addIngredient(ConventionalItemTags.BEETROOT_CROPS)
 				.addIngredient(ConventionalItemTags.BEETROOT_CROPS)
@@ -140,10 +140,10 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.COOKED_RICE.get(), 1, FAST_COOKING, SMALL_EXP)
-				.addIngredient(CommonTags.Items.CROPS_RICE)
-				.unlockedByItems("has_rice", ModItems.RICE.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MISC)
-				.save(output);
+			.addIngredient(CommonTags.Items.CROPS_RICE)
+			.unlockedByItems("has_rice", ModItems.RICE.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MISC)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.DUMPLINGS.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(CommonTags.Items.FOODS_DOUGH)
 				.addIngredient(CommonTags.Items.CROPS_CABBAGE)
@@ -158,12 +158,12 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MISC)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.FISH_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(CommonTags.Items.FOODS_SAFE_RAW_FISH)
-				.addIngredient(ModItems.TOMATO_SAUCE.get())
-				.addIngredient(CommonTags.Items.CROPS_ONION)
-				.unlockedByAnyIngredient(Items.SALMON, Items.COD, Items.TROPICAL_FISH, ModItems.TOMATO_SAUCE.get(), ModItems.ONION.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.save(output);
+			.addIngredient(CommonTags.Items.FOODS_SAFE_RAW_FISH)
+			.addIngredient(ModItems.TOMATO_SAUCE.get())
+			.addIngredient(CommonTags.Items.CROPS_ONION)
+			.unlockedByAnyIngredient(Items.SALMON, Items.COD, Items.TROPICAL_FISH, ModItems.TOMATO_SAUCE.get(), ModItems.ONION.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.FRIED_RICE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(CommonTags.Items.CROPS_RICE)
 				.addIngredient(ConventionalItemTags.EGGS)
@@ -173,13 +173,13 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.MUSHROOM_RICE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(Items.BROWN_MUSHROOM)
-				.addIngredient(Items.RED_MUSHROOM)
-				.addIngredient(CommonTags.Items.CROPS_RICE)
-				.addIngredient(Ingredient.of(Items.CARROT, Items.POTATO))
-				.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, ModItems.RICE.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.save(output);
+			.addIngredient(Items.BROWN_MUSHROOM)
+			.addIngredient(Items.RED_MUSHROOM)
+			.addIngredient(CommonTags.Items.CROPS_RICE)
+			.addIngredient(Ingredient.of(Items.CARROT, Items.POTATO))
+			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, ModItems.RICE.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.NOODLE_SOUP.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(CommonTags.Items.FOODS_PASTA)
 				.addIngredient(ConventionalItemTags.EGGS)
@@ -197,19 +197,19 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.PASTA_WITH_MEATBALLS.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(ModItems.MINCED_BEEF.get())
-				.addIngredient(CommonTags.Items.FOODS_PASTA)
-				.addIngredient(ModItems.TOMATO_SAUCE.get())
-				.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.BEEF, ModItems.TOMATO_SAUCE.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.save(output);
+			.addIngredient(ModItems.MINCED_BEEF.get())
+			.addIngredient(CommonTags.Items.FOODS_PASTA)
+			.addIngredient(ModItems.TOMATO_SAUCE.get())
+			.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.BEEF, ModItems.TOMATO_SAUCE.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.PASTA_WITH_MUTTON_CHOP.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(CommonTags.Items.FOODS_RAW_MUTTON)
-				.addIngredient(CommonTags.Items.FOODS_PASTA)
-				.addIngredient(ModItems.TOMATO_SAUCE.get())
-				.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.MUTTON, ModItems.TOMATO_SAUCE.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.save(output);
+			.addIngredient(CommonTags.Items.FOODS_RAW_MUTTON)
+			.addIngredient(CommonTags.Items.FOODS_PASTA)
+			.addIngredient(ModItems.TOMATO_SAUCE.get())
+			.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.MUTTON, ModItems.TOMATO_SAUCE.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.PUMPKIN_SOUP.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
 				.addIngredient(ModItems.PUMPKIN_SLICE.get())
 				.addIngredient(CommonTags.Items.FOODS_LEAFY_GREEN)
@@ -227,13 +227,13 @@ public class CookingRecipes
 				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 				.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.SQUID_INK_PASTA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-				.addIngredient(CommonTags.Items.FOODS_SAFE_RAW_FISH)
-				.addIngredient(CommonTags.Items.FOODS_PASTA)
-				.addIngredient(CommonTags.Items.CROPS_TOMATO)
-				.addIngredient(Items.INK_SAC)
-				.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.INK_SAC, ModItems.TOMATO.get())
-				.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-				.save(output);
+			.addIngredient(CommonTags.Items.FOODS_SAFE_RAW_FISH)
+			.addIngredient(CommonTags.Items.FOODS_PASTA)
+			.addIngredient(CommonTags.Items.CROPS_TOMATO)
+			.addIngredient(Items.INK_SAC)
+			.unlockedByAnyIngredient(ModItems.RAW_PASTA.get(), Items.INK_SAC, ModItems.TOMATO.get())
+			.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(ModItems.STUFFED_PUMPKIN_BLOCK.get(), 1, SLOW_COOKING, LARGE_EXP, Items.PUMPKIN)
 				.addIngredient(CommonTags.Items.CROPS_RICE)
 				.addIngredient(CommonTags.Items.CROPS_ONION)

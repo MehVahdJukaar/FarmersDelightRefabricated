@@ -33,9 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -48,6 +46,7 @@ import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.block.entity.inventory.CookingPotItemHandler;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.common.datamap.CraftRemainderOverride;
 import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 import vectorwing.farmersdelight.common.registry.*;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -57,11 +56,8 @@ import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import static java.util.Map.entry;
 
 public class CookingPotBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder, Clearable
 {
@@ -69,23 +65,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 	public static final int CONTAINER_SLOT = 7;
 	public static final int OUTPUT_SLOT = 8;
 	public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
-
-	public static final Map<Item, Item> INGREDIENT_REMAINDER_OVERRIDES = Map.ofEntries(
-			entry(Items.POWDER_SNOW_BUCKET, Items.BUCKET),
-			entry(Items.AXOLOTL_BUCKET, Items.BUCKET),
-			entry(Items.COD_BUCKET, Items.BUCKET),
-			entry(Items.PUFFERFISH_BUCKET, Items.BUCKET),
-			entry(Items.SALMON_BUCKET, Items.BUCKET),
-			entry(Items.TROPICAL_FISH_BUCKET, Items.BUCKET),
-			entry(Items.SUSPICIOUS_STEW, Items.BOWL),
-			entry(Items.MUSHROOM_STEW, Items.BOWL),
-			entry(Items.RABBIT_STEW, Items.BOWL),
-			entry(Items.BEETROOT_SOUP, Items.BOWL),
-			entry(Items.POTION, Items.GLASS_BOTTLE),
-			entry(Items.SPLASH_POTION, Items.GLASS_BOTTLE),
-			entry(Items.LINGERING_POTION, Items.GLASS_BOTTLE),
-			entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE)
-	);
 
 	private final ItemStackHandler inventory;
 	private final ItemHandler inputHandler;
@@ -117,19 +96,22 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
     }
 
     /*
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ModBlockEntityTypes.COOKING_POT.get(),
-                (be, context) -> {
-                    if (context == Direction.UP) {
-                        return be.inputHandler;
-                    }
-                    return be.outputHandler;
-                }
-        );
-    }
-     */
+  
+	@SubscribeEvent
+	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.COOKING_POT.get(),
+			(be, context) -> {
+				if (context == Direction.UP) {
+					return be.inputHandler;
+				}
+				return be.outputHandler;
+			}
+		);
+	}
+
+    */
 
 	public static ItemStack getMealFromItem(ItemStack cookingPotStack) {
 		if (!cookingPotStack.is(ModItems.COOKING_POT.get())) {
@@ -330,8 +312,11 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 			ItemStack slotStack = inventory.getStackInSlot(i);
 			if (!slotStack.getRecipeRemainder().isEmpty()) {
 				ejectIngredientRemainder(slotStack.getRecipeRemainder());
-			} else if (INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem())) {
-				ejectIngredientRemainder(INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
+			} else {
+				CraftRemainderOverride override = ModDataMaps.CRAFT_REMAINDER_OVERRIDES.getData(slotStack.getItemHolder());
+				if (override != null) {
+					ejectIngredientRemainder(override.remainderItem().getDefaultInstance());
+				}
 			}
 			if (!slotStack.isEmpty()) {
 				slotStack.shrink(1);
@@ -346,7 +331,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements Extended
 		double y = worldPosition.getY() + 0.7;
 		double z = worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.25);
 		ItemUtils.spawnItemEntity(level, remainderStack, x, y, z,
-				direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
+			direction.getStepX() * 0.08F, 0.25F, direction.getStepZ() * 0.08F);
 	}
 
 	@Override

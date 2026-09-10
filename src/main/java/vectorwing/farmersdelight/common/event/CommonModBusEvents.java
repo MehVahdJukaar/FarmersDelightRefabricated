@@ -16,9 +16,10 @@ public class CommonModBusEvents
 		DefaultItemComponentEvents.MODIFY.register(CommonModBusEvents::onModifyDefaultComponents);
 	}
 
-	//FIXME
 //	public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
 //		event.register(ModDataMaps.MUSHROOM_COLONIES);
+// 		event.register(ModDataMaps.CRAFT_REMAINDER_OVERRIDES);
+// 
 //	}
 
 	public static void onModifyDefaultComponents(DefaultItemComponentEvents.ModifyContext context) {
