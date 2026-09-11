@@ -25,7 +25,7 @@ public record CanItemPerformAbility(ItemAbility ability) implements LootItemCond
 
     @Override
     public boolean test(LootContext context) {
-        ItemInstance stack = context.getParameter(LootContextParams.TOOL);
+        ItemInstance stack = context.getOptional(LootContextParams.TOOL);
         return ability.canPerformAction(stack);
     }
 

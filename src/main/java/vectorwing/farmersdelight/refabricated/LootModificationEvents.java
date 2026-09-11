@@ -7,7 +7,6 @@ import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
@@ -28,8 +27,8 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
-import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
@@ -40,9 +39,9 @@ import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-
-import static vectorwing.farmersdelight.refabricated.LootTableHolder.lootTableReference;
 
 /**
  * Events for modifying vanilla/FD loot tables based on Farmer's Delight's Loot Modifiers.
@@ -86,7 +85,6 @@ public class LootModificationEvents {
 
     public static void init() {
         LootTableEvents.MODIFY.register(LootModificationEvents::modifyTable);
-		LootTableEvents.ALL_LOADED.register((resourceManager, lootRegistry) -> LootTableHolder.lootRegistry = lootRegistry);
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
@@ -101,46 +99,50 @@ public class LootModificationEvents {
 			return;
 
 		if (key == BuiltInLootTables.ABANDONED_MINESHAFT)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_ABANDONED_MINESHAFT))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_ABANDONED_MINESHAFT))));
 
 		if (key == BuiltInLootTables.BASTION_HOGLIN_STABLE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_BASTION_HOGLIN_STABLE))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_BASTION_HOGLIN_STABLE))));
 
 		if (key == BuiltInLootTables.BASTION_TREASURE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_BASTION_TREASURE))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_BASTION_TREASURE))));
 
 		if (key == BuiltInLootTables.END_CITY_TREASURE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_END_CITY_TREASURE))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_END_CITY_TREASURE))));
 
 		if (key == BuiltInLootTables.PILLAGER_OUTPOST)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_PILLAGER_OUTPOST))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_PILLAGER_OUTPOST))));
 
 		if (key == BuiltInLootTables.RUINED_PORTAL)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_RUINED_PORTAL))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_RUINED_PORTAL))));
 
 		if (key == BuiltInLootTables.SHIPWRECK_SUPPLY)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_SHIPWRECK_SUPPLY))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_SHIPWRECK_SUPPLY))));
 
 		if (key == BuiltInLootTables.SIMPLE_DUNGEON)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_SIMPLE_DUNGEON))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_SIMPLE_DUNGEON))));
 
 		if (key == BuiltInLootTables.VILLAGE_BUTCHER)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference((FD_VILLAGE_BUTCHER))));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, (FD_VILLAGE_BUTCHER))));
 
 		if (key == BuiltInLootTables.VILLAGE_DESERT_HOUSE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(FD_VILLAGE_DESERT_HOUSE)));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, FD_VILLAGE_DESERT_HOUSE)));
 
 		if (key == BuiltInLootTables.VILLAGE_PLAINS_HOUSE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(FD_VILLAGE_PLAINS_HOUSE)));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, FD_VILLAGE_PLAINS_HOUSE)));
 
 		if (key == BuiltInLootTables.VILLAGE_SAVANNA_HOUSE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(FD_VILLAGE_SAVANNA_HOUSE)));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, FD_VILLAGE_SAVANNA_HOUSE)));
 
 		if (key == BuiltInLootTables.VILLAGE_SNOWY_HOUSE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(FD_VILLAGE_SNOWY_HOUSE)));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, FD_VILLAGE_SNOWY_HOUSE)));
 
 		if (key == BuiltInLootTables.VILLAGE_TAIGA_HOUSE)
-			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(FD_VILLAGE_TAIGA_HOUSE)));
+			tableBuilder.withPool(LootPool.lootPool().add(lootTableReference(registries, FD_VILLAGE_TAIGA_HOUSE)));
+	}
+
+	private static LootPoolEntryContainer lootTableReference(HolderLookup.Provider registries, ResourceKey<LootTable> lootTable) {
+		return NestedLootTable.lootTableReference(registries.getOrThrow(lootTable)).build();
 	}
 
     private static void scavengingLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {

@@ -23,7 +23,7 @@ public class RichSoilBlock extends Block
 	}
 
     public static void init() {
-        BlockTransformerHelper.registerTilling(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState());
+        BlockTransformerHelper.registerTilling(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get());
     }
 
 	@Override
