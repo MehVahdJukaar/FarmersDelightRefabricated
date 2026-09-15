@@ -4,6 +4,7 @@ plugins {
     id "me.modmuss50.mod-publish-plugin" version "2.2.0"
 }
 
+mod_version = minecraft_major_version + "-" + mod_version
 version = mod_version + "+refabricated"
 group = mod_group_id
 
