@@ -41,7 +41,7 @@ public class DecompositionClientRecipe implements ReliableClientRecipe {
 	}
 
 	@Override
-    public ReliableClientRecipeType getViewType() {
+    public ReliableClientRecipeType getType() {
         return DecompositionClientRecipeType.INSTANCE; //Here you need your type's instance you created before
     }
 

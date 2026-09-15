@@ -1,2 +1,3 @@
 ### Fixes
-- Wandering traders now sell Farmer's Delight crops, rather than incorrectly buying them.
+- Use of deprecated RRV code.
+- Removing items from cutting boards not swinging the player's hand.
