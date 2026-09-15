@@ -209,6 +209,8 @@ public class CuttingRecipes
 		stripLogForBark(holderGetter, output, Items.CHERRY_WOOD, Items.STRIPPED_CHERRY_WOOD);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_LOG, Items.STRIPPED_PALE_OAK_LOG);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_WOOD, Items.STRIPPED_PALE_OAK_WOOD);
+		stripLogForBark(holderGetter, output, Items.POPLAR_LOG, Items.STRIPPED_POPLAR_LOG);
+		stripLogForBark(holderGetter, output, Items.POPLAR_WOOD, Items.STRIPPED_POPLAR_WOOD);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_BLOCK), new ItemAbilityIngredient(ItemAbility.AXE_STRIP).toVanilla(), Items.STRIPPED_BAMBOO_BLOCK)
 				.addResult(ModItems.STRAW.get())
 				.addSound(SoundEvents.AXE_STRIP).saveToFD(output);

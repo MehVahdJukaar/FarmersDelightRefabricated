@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:poplar_log"
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "minecraft:stripped_poplar_log"
+      }
+    },
+    {
+      "item": {
+        "id": "farmersdelight:tree_bark"
+      }
+    }
+  ],
+  "sound": "minecraft:item.axe.strip",
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "axe_strip"
+  }
+}
