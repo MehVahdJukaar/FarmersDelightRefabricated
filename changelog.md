@@ -1,2 +1,3 @@
 ### Fixes
-- Wool Slabs and Stairs are now mineable with Knives.
+- Added cutting recipes for flowers introduced in 1.21.4-26.1.
+- Compostables now behave correctly.
