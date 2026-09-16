@@ -5,8 +5,8 @@
   },
   "experience": 1.0,
   "ingredients": [
-    "minecraft:brown_mushroom",
-    "minecraft:red_mushroom"
+    "#minecraft:mushrooms",
+    "#minecraft:mushrooms"
   ],
   "recipe_book_tab": "meals",
   "result": {

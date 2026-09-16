@@ -8,10 +8,7 @@
     "#c:crops/potato",
     "minecraft:rabbit",
     "#c:crops/carrot",
-    [
-      "minecraft:brown_mushroom",
-      "minecraft:red_mushroom"
-    ]
+    "#minecraft:mushrooms"
   ],
   "recipe_book_tab": "meals",
   "result": {

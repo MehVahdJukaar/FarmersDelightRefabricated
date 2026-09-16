@@ -76,9 +76,9 @@ public class CookingRecipes
 
 	private static void cookMinecraftSoups(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, Items.MUSHROOM_STEW, 1, NORMAL_COOKING, MEDIUM_EXP, Items.BOWL)
-			.addIngredient(Items.BROWN_MUSHROOM)
-			.addIngredient(Items.RED_MUSHROOM)
-			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)
+			.addIngredient(ItemTags.MUSHROOMS)
+			.addIngredient(ItemTags.MUSHROOMS)
+			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.SHELF_MUSHROOM)
 			.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 			.saveToFD(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, Items.BEETROOT_SOUP, 1, NORMAL_COOKING, MEDIUM_EXP, Items.BOWL)
@@ -92,8 +92,8 @@ public class CookingRecipes
 			.addIngredient(ConventionalItemTags.POTATO_CROPS)
 			.addIngredient(Items.RABBIT)
 			.addIngredient(ConventionalItemTags.CARROT_CROPS)
-			.addIngredient(Ingredient.of(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM))
-			.unlockedByAnyIngredient(Items.RABBIT, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, Items.CARROT, Items.POTATO)
+			.addIngredient(ItemTags.MUSHROOMS)
+			.unlockedByAnyIngredient(Items.RABBIT, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, Items.SHELF_MUSHROOM, Items.CARROT, Items.POTATO)
 			.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 			.saveToFD(output);
 	}
@@ -178,11 +178,11 @@ public class CookingRecipes
 			.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.MUSHROOM_RICE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-			.addIngredient(Items.BROWN_MUSHROOM)
-			.addIngredient(Items.RED_MUSHROOM)
+			.addIngredient(ItemTags.MUSHROOMS)
+			.addIngredient(ItemTags.MUSHROOMS)
 			.addIngredient(CommonTags.Items.CROPS_RICE)
 			.addIngredient(Ingredient.of(Items.CARROT, Items.POTATO))
-			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, ModItems.RICE.get())
+			.unlockedByAnyIngredient(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.SHELF_MUSHROOM, ModItems.RICE.get())
 			.setRecipeBookCategory(CookingPotBookCategory.MEALS)
 			.save(output);
 		CookingPotRecipeBuilder.cookingPotRecipe(holderGetter, ModItems.NOODLE_SOUP.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
