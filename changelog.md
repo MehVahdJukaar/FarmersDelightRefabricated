@@ -1,3 +1,2 @@
 ### Fixes
-- Use of deprecated RRV code.
-- Removing items from cutting boards not swinging the player's hand.
+- Wool Slabs and Stairs are now mineable with Knives.

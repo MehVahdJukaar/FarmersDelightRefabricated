@@ -105,6 +105,8 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				ModBlockItemIds.CHOCOLATE_PIE).add(
 				ModBlockIds.PUMPKIN_PIE)
 			.addTag(net.minecraft.tags.BlockTags.WOOL_CARPETS)
+			.addTag(net.minecraft.tags.BlockTags.WOOL_SLABS)
+			.addTag(net.minecraft.tags.BlockTags.WOOL_STAIRS)
 			.addTag(net.minecraft.tags.BlockTags.WOOL)
 			.addTag(net.minecraft.tags.BlockTags.CANDLE_CAKES)
 			.addTag(ModTags.Blocks.STRAW_BLOCKS)
