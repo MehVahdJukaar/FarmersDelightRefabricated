@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:open_eyeblossom"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 2,
+        "id": "minecraft:orange_dye"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

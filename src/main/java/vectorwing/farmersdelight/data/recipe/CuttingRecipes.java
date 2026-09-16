@@ -150,6 +150,14 @@ public class CuttingRecipes
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TORCHFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
 				.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLOSED_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.gray(), 2)
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OPEN_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CACTUS_FLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.pink(), 2)
+			.saveToFD(output);
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GOLDEN_DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.yellow(), 2)
+			.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_BEETROOTS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BEETROOT_SEEDS, 1)
 				.addResult(Items.DYE.red())
 				.saveToFD(output);

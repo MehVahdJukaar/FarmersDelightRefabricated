@@ -1,3 +1,2 @@
 ### Fixes
-- Use of deprecated RRV code.
-- Removing items from cutting boards not swinging the player's hand.
+- Added cutting recipes for flowers introduced in 1.21.4-26.1.
