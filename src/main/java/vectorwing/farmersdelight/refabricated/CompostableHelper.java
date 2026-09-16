@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.Compostable;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 
 //This is hacky and tbh not even needed but hey
@@ -21,7 +22,16 @@ public class CompostableHelper {
                 Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey().toString()));
 				DefaultItemComponentEvents.MODIFY.register(modifyContext -> {
 					modifyContext.modify(i, builder->{
-						builder.set(DataComponents.COMPOSTABLE, new Compostable(new ResolvableInt.Constant((int) (v.getValue().getAsJsonObject().get("chance").getAsFloat()*100))));
+						int chance = (int) (v.getValue().getAsJsonObject().get("chance").getAsFloat()*100);
+						var compostable = switch (chance) {
+							case 100 -> ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE;
+							case 85 -> ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH;
+							case 65 -> ContextIntProviders.COMPOSTABLE_MEDIUM;
+							case 50 -> ContextIntProviders.COMPOSTABLE_LOW_MEDIUM;
+							case 30 -> ContextIntProviders.COMPOSTABLE_LOW;
+							default -> throw new IllegalStateException("Unexpected value: " + chance);
+						};
+						builder.set(DataComponents.COMPOSTABLE, new Compostable(compostable));
 					});
 				});
             }
