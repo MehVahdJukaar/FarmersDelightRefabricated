@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:cactus_flower"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 2,
+        "id": "minecraft:pink_dye"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}
