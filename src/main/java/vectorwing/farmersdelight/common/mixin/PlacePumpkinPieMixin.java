@@ -2,8 +2,10 @@ package vectorwing.farmersdelight.common.mixin;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,11 +27,15 @@ public class PlacePumpkinPieMixin
 
 		if (Configuration.ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE.get()) {
 			Player player = context.getPlayer();
-			if (player != null && player.isSecondaryUseActive()) {
-				cir.setReturnValue(ModItems.DEBUG_PUMPKIN_PIE.get().useOn(context));
-			}
-		} else {
-			cir.setReturnValue(ModItems.DEBUG_PUMPKIN_PIE.get().useOn(context));
+			if (player == null || !player.isSecondaryUseActive())
+				return;
+		}
+
+		//dont use useOn here, not safe anymore in 26.3..
+		BlockItem pie = (BlockItem) ModItems.DEBUG_PUMPKIN_PIE.get();
+		InteractionResult placed = pie.place(new BlockPlaceContext(context));
+		if (placed.consumesAction()) {
+			cir.setReturnValue(placed);
 		}
 	}
 }
