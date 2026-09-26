@@ -101,14 +101,13 @@ public class SkilletItem extends BlockItem
 			if (!livingEntity.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SKILLET.get())) return;
 
 			float pitch = 0.9F + (livingEntity.getRandom().nextFloat() * 0.2F);
-			if (livingEntity instanceof Player player) {
-				if (attackPower > 0.8F) {
-					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
-				} else {
-					player.playSound(ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), 0.8F, 0.9F);
-				}
+			//cant use player.playSound as that one expects to be called on both side to work.
+			Level level = livingEntity.level();
+			SoundSource soundSource = livingEntity.getSoundSource();
+			if (livingEntity instanceof Player && attackPower <= 0.8F) {
+				level.playSound(null, livingEntity, ModSounds.ITEM_SKILLET_ATTACK_WEAK.get(), soundSource, 0.8F, 0.9F);
 			} else {
-				livingEntity.playSound(ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), 1.0F, pitch);
+				level.playSound(null, livingEntity, ModSounds.ITEM_SKILLET_ATTACK_STRONG.get(), soundSource, 1.0F, pitch);
 			}
 			attackPower = 0.0F;
 		}
@@ -184,11 +183,11 @@ public class SkilletItem extends BlockItem
 					//why does it need to play early? idk
 					//plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
 					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
-				} else if (level.isClientSide && level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
-					level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				} else if (level.isClientSide && (level.random.nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3)) {
+					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
 				}
 			} else if (level.isClientSide && level.random.nextInt(50) == 0) {
-				level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
+				level.playSound(player, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F);
 			}
 		}
 	}
