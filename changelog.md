@@ -1,3 +1,3 @@
 ### Fixes
-- Missing pumpkin pie tooltip.
-- Crash placing Pumpkin Pie.
+- Reversed models on the Stove.
+- Canvas signs not placing with the correct text colour.
