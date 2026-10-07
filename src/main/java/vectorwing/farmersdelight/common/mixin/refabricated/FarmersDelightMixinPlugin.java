@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.mixin.refabricated;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -32,6 +33,7 @@ public class FarmersDelightMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public List<String> getMixins() {
 		if (FabricLoader.getInstance().isModLoaded("launchpad")) return List.of("refabricated.LaunchpadFenceGateBlockMixin");
+		if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)) return List.of("refabricated.FenceGateBlockMixin");
 		return List.of("refabricated.GuiMixin", "refabricated.FenceGateBlockMixin");
 	}
 
