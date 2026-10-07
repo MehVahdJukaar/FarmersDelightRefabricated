@@ -367,6 +367,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				Blocks.BIG_DRIPLEAF,
 				Blocks.BIG_DRIPLEAF_STEM,
 				Blocks.PINK_PETALS,
+				Blocks.WILDFLOWERS,
 				ModBlocks.SANDY_SHRUB.get())
 			.addTag(ModTags.Blocks.MUSHROOM_COLONIES)
 			.addTag(ModTags.Blocks.WILD_CROPS)

@@ -54,5 +54,8 @@
   },
   "conflicts": {
     "rrv": "<8.0.0"
+  },
+  "custom": {
+    "launchpad:compatible": true
   }
 }
