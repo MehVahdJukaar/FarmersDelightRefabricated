@@ -20,6 +20,7 @@ public class NourishmentEffect extends MobEffect
 		super(MobEffectCategory.BENEFICIAL, 0xF3B300);
 	}
 
+	@Override
 	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
 
 		if (entity instanceof Player player) {

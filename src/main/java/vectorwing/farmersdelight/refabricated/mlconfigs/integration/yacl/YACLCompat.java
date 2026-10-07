@@ -47,7 +47,19 @@ public class YACLCompat {
                     addEntriesRecursive(mainCat, subBuilder, subCat);
 
                     mainCat.group(subBuilder.build());
-                } else {
+                } else if (entry instanceof ListStringConfigValue<?> lc) {
+					mainCat.group(ListOption.<String>createBuilder()
+						.name(lc.getTranslation())
+						.description(OptionDescription.of(lc.getDescription()))
+						.binding(
+							lc.getDefaultValue(),
+							lc,
+							lc::set
+						)
+						.controller(StringControllerBuilder::create)
+						.initial("")
+						.build());
+				} else {
                     mainCat.option(buildEntry(entry));
                 }
             }
@@ -69,7 +81,19 @@ public class YACLCompat {
                 // optional
                 addEntriesRecursive(builder, subCategoryBuilder, cc);
                 //subCategoryBuilder.group(scb.build());
-            } else subCategoryBuilder.option(buildEntry(entry));
+            } else if (entry instanceof ListStringConfigValue<?> lc) {
+				builder.group(ListOption.<String>createBuilder()
+					.name(lc.getTranslation())
+					.description(OptionDescription.of(lc.getDescription()))
+					.binding(
+						lc.getDefaultValue(),
+						lc,
+						lc::set
+					)
+					.controller(StringControllerBuilder::create)
+					.initial("")
+					.build());
+			} else subCategoryBuilder.option(buildEntry(entry));
         }
     }
 

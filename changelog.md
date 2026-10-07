@@ -1,3 +1,5 @@
 ### Fixes
-- Reversed models on the Stove.
-- Canvas signs not placing with the correct text colour.
+- Fixed knifes taking additional durability damage.
+- Skillet sounds not playing correctly.
+- Wildflowers being affected by Rich Soil.
+- Untranslatable sound effects.

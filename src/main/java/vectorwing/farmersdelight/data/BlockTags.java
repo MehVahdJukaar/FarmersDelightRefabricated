@@ -324,6 +324,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 				BlockItemIds.TWISTING_VINES,
 				BlockItemIds.BIG_DRIPLEAF,
 				BlockItemIds.PINK_PETALS,
+				BlockItemIds.WILDFLOWERS,
 				ModBlockItemIds.SANDY_SHRUB).add(
 				BlockIds.TWISTING_VINES_PLANT,
 				BlockIds.BIG_DRIPLEAF_STEM)
