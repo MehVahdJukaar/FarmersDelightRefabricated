@@ -19,6 +19,7 @@ fabricApi {
         strictValidation = false
         createSourceSet = true
         modId = project.mod_id
+        client = true
     }
 }
 

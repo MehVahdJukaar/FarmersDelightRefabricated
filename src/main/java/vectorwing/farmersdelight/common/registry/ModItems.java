@@ -96,7 +96,7 @@ public class ModItems
 							Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.Blocks.MINEABLE_WITH_KNIFE), material.speed()),
 							Tool.Rule.overrideSpeed(holderGetter.getOrThrow(FDRefabricatedTags.Blocks.KNIFE_INSTANTLY_MINES), Float.MAX_VALUE)
 						), 1.0F, 1, false))
-				.component(DataComponents.WEAPON, new Weapon(2));
+				.component(DataComponents.WEAPON, new Weapon(1));
 	}
 
 	public static Item.Properties foodItem(FoodProperties food) {
