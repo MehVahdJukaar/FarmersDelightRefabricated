@@ -201,8 +201,22 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 			ModBlockItemIds.STRAW_BED
 		);
 		tagBuilder(net.minecraft.tags.BlockTags.WASHED_AWAY_BY_FLUIDS).add(
-			ModBlockItemIds.STRAW_BED
-		);
+			ModBlockItemIds.STRAW_BED,
+			ModBlockItemIds.CABBAGE_CROP,
+			ModBlockItemIds.ONION_CROP,
+			ModBlockItemIds.TOMATO_CROP,
+			ModBlockItemIds.RICE_CROP_PANICLES,
+			ModBlockItemIds.WILD_CABBAGES,
+			ModBlockItemIds.WILD_ONIONS,
+			ModBlockItemIds.WILD_TOMATOES,
+			ModBlockItemIds.WILD_CARROTS,
+			ModBlockItemIds.WILD_POTATOES,
+			ModBlockItemIds.WILD_BEETROOTS,
+			ModBlockItemIds.SANDY_SHRUB,
+			ModBlockItemIds.BROWN_MUSHROOM_COLONY,
+			ModBlockItemIds.RED_MUSHROOM_COLONY
+			)
+			.add(ModBlockIds.BUDDING_TOMATO_CROP);
 	}
 
 	protected void registerNeoForgeTags() {
