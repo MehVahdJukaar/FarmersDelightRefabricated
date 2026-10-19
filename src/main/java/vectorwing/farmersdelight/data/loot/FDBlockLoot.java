@@ -14,9 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -262,6 +260,7 @@ public class FDBlockLoot extends FabricBlockLootSubProvider
 				.setRolls(ContextIntProviders.exactly(1))
 				.add(LootItem.lootTableItem(block))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
+		this.add(ModBlocks.STRAW_BED.get(), (block) -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
 	}
 
 	private LootItemCondition.Builder hasBlockStateProperties(Block block, StatePropertiesPredicate.Builder builder) {

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "farmersdelight:straw_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "farmersdelight:straw_bed"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}
