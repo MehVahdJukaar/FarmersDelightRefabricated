@@ -322,6 +322,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider
 		tagBuilder(ModTags.Blocks.COMPOST_ACTIVATORS).add(
 				BlockItemIds.BROWN_MUSHROOM,
 				BlockItemIds.RED_MUSHROOM,
+				BlockItemIds.SHELF_MUSHROOM,
 				BlockItemIds.PODZOL,
 				BlockItemIds.MYCELIUM,
 				ModBlockItemIds.ORGANIC_COMPOST,
