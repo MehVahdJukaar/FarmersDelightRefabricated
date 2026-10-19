@@ -34,7 +34,7 @@ public class FarmersDelightMixinPlugin implements IMixinConfigPlugin {
 	public List<String> getMixins() {
 		if (FabricLoader.getInstance().isModLoaded("launchpad")) return List.of("refabricated.LaunchpadFenceGateBlockMixin");
 		if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)) return List.of("refabricated.FenceGateBlockMixin");
-		return List.of("refabricated.GuiMixin", "refabricated.FenceGateBlockMixin");
+		return List.of("refabricated.HudMixin", "refabricated.FenceGateBlockMixin");
 	}
 
 	@Override

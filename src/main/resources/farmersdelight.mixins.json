@@ -13,7 +13,6 @@
     "datafix.ItemStackComponentizationFixMixin",
     "datafix.V1460Mixin",
     "datafix.V3818_3Mixin",
-    "refabricated.FenceGateBlockMixin",
     "refabricated.FoodDataAccessor",
     "refabricated.GameRulesTypeAccessor",
     "refabricated.ItemStackMixin",
@@ -35,7 +34,6 @@
     "refabricated.AbstractRecipeBookScreenAccessor",
     "refabricated.CuboidItemModelWrapperAccessor",
     "refabricated.HangingSignEditScreenMixin",
-    "refabricated.HudMixin",
     "refabricated.GhostSlotsInvoker",
     "refabricated.GuiGraphicsExtractorAccessor",
     "refabricated.HumanoidMobRendererMixin",
@@ -44,6 +42,7 @@
     "refabricated.SearchRecipeBookCategoryMixin",
     "refabricated.SignEditScreenMixin"
   ],
+  "plugin": "vectorwing.farmersdelight.common.mixin.refabricated.FarmersDelightMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }
