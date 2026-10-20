@@ -6,13 +6,16 @@ import net.minecraft.advancements.predicates.*;
 import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemInstance;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -29,6 +33,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -82,6 +87,27 @@ public class LootModificationEvents {
 
     public static void init() {
         LootTableEvents.MODIFY.register(LootModificationEvents::modifyTable);
+		// scavenging_leather
+        // needed since tags load after tables
+		LootTableEvents.MODIFY_DROPS.register(LootModificationEvents::modifyDrops);
+    }
+
+    private static void modifyDrops(Holder<LootTable> table, LootContext context, List<ItemStack> drops) {
+        boolean killedWithKnife = context.getOptionalParameter(LootContextParams.ATTACKING_ENTITY) instanceof LivingEntity attacker
+                && attacker.getMainHandItem().is(ModTags.Items.KNIVES);
+        if (killedWithKnife && context.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity entity
+                && entity.typeHolder().is(FDRefabricatedTags.EntityTypes.DROPS_LEATHER)
+                && entity.getLootTable().filter(table::is).isPresent()) {
+            drops.add(new ItemStack(Items.LEATHER));
+        }
+
+        BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+        ItemInstance tool = context.getOptionalParameter(LootContextParams.TOOL);
+        boolean slicedWithKnife = tool != null && tool.is(ModTags.Items.KNIVES);
+        if (slicedWithKnife && state != null && state.is(ModTags.Blocks.DROPS_CAKE_SLICE)
+                && state.getBlock().getLootTable().filter(table::is).isPresent()) {
+            drops.add(new ItemStack(ModItems.CAKE_SLICE.get(), 7));
+        }
     }
 
     private static void modifyTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source, HolderLookup.Provider registries) {
@@ -193,22 +219,6 @@ public class LootModificationEvents {
                             ).invert()))
                     .build());
         }
-        // scavenging_leather
-        if (key.identifier().getPath().startsWith("entities/")) {
-            HolderLookup<EntityType<?>> lookup = registries.lookupOrThrow(Registries.ENTITY_TYPE);
-            var entityType = lookup.get(ResourceKey.create(Registries.ENTITY_TYPE, key.identifier()
-                    .withPath(s -> s.substring(9))));
-            // Make sure we only add to the necessary entity loot tables by loading the tag early.
-            // Otherwise, you'd be modifying every entity with a condition that's never true, which seems like a no-no.
-            // TODO: Figure out if we need to even load the tag early or if we should modify no matter what with a `this` entity property.
-            if (entityType.isPresent() && RefabricatedEarlyTagUtils.isDropsLeatherTag(entityType.get(), lookup)) {
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER)
-                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(
-                                EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES))
-                        )))));
-            }
-        }
-
         // scavenging_rabbit_hide
         if (key == ENTITIES_RABBIT) {
             tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.RABBIT_HIDE)
@@ -242,15 +252,6 @@ public class LootModificationEvents {
         // slicing_cake
         if (key == BLOCKS_CAKE)
             pastrySlicing(tableBuilder, Blocks.CAKE, ModItems.CAKE_SLICE.get(), CakeBlock.BITES, 7, registries);
-        // slicing_candle_cake
-        if (key.identifier().getPath().startsWith("blocks/")) {
-            HolderLookup<Block> lookup = registries.lookupOrThrow(Registries.BLOCK);
-            var block = lookup.get(ResourceKey.create(Registries.BLOCK, key.identifier().withPath(s -> s.substring(7))));
-            if (block.isPresent() && RefabricatedEarlyTagUtils.isCandleDropsCakeSliceTag(block.get(), lookup)) {
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.CAKE_SLICE.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(7.0F)))
-                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), ModTags.Items.KNIVES)))));
-            }
-        }
         // slicing_chocolate_pie
         if (key == BLOCKS_CHOCOLATE_PIE)
             pastrySlicing(tableBuilder, ModBlocks.CHOCOLATE_PIE.get(), ModItems.CHOCOLATE_PIE_SLICE.get(), PieBlock.BITES, 4, registries);

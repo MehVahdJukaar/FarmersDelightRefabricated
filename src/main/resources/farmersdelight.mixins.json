@@ -25,10 +25,8 @@
     "refabricated.RecipeBookSettingsTypeSettingsInvoker",
     "refabricated.RecipeBookTypeMixin",
     "refabricated.RecipeManagerMixin",
-    "refabricated.ReloadableServerRegistriesMixin",
     "refabricated.ServerRecipeBookMixin",
-    "refabricated.SignBlockEntityMixin",
-    "refabricated.TagLoaderMixin"
+    "refabricated.SignBlockEntityMixin"
   ],
   "client": [
     "HideBlockBreakProgressMixin",
