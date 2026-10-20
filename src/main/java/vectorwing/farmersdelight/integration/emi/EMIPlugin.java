@@ -54,8 +54,7 @@ public class EMIPlugin implements EmiPlugin {
         registry.addRecipe(new DecompositionEmiRecipe());
 
 		for (InfoRecipe infoRecipe : InfoRecipe.infoRecipes()) {
-			ResourceLocation id = BuiltInRegistries.ITEM.getKey(infoRecipe.stacks().getFirst().getItem()).withPrefix("/info/"); // e.g. 'farmersdelight:/info/ham'
-			registry.addRecipe(new EmiInfoRecipe(infoRecipe.stacks().stream().map(stack-> (EmiIngredient) EmiStack.of(stack)).toList(), List.of(infoRecipe.info()), id));
+			registry.addRecipe(new EmiInfoRecipe(infoRecipe.stacks().stream().map(stack-> (EmiIngredient) EmiStack.of(stack)).toList(), List.of(infoRecipe.info()), infoRecipe.id()));
 		}
 
         addSpecialRecipes(registry);

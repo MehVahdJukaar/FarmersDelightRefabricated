@@ -1,6 +1,8 @@
 package vectorwing.farmersdelight.integration;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -37,5 +39,9 @@ public record InfoRecipe(List<ItemStack> stacks, MutableComponent info) {
 			new InfoRecipe(List.of(new ItemStack(ModItems.WILD_RICE.get()), new ItemStack(ModItems.RICE.get()), new ItemStack(ModItems.RICE_PANICLE.get())), TextUtils.JEI("info.wild_rice"))
 
 		);
+	}
+
+	public ResourceLocation id() {
+		return BuiltInRegistries.ITEM.getKey(stacks().getFirst().getItem()).withPrefix("/info/"); // e.g. 'farmersdelight:/info/ham';
 	}
 }
