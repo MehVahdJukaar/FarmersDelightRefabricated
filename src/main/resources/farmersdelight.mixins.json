@@ -26,9 +26,7 @@
     "refabricated.RecipeBookSettingsTypeSettingsInvoker",
     "refabricated.RecipeBookTypeMixin",
     "refabricated.RecipeManagerMixin",
-    "refabricated.ReloadableServerRegistriesMixin",
-    "refabricated.ServerRecipeBookMixin",
-    "refabricated.TagLoaderMixin"
+    "refabricated.ServerRecipeBookMixin"
   ],
   "client": [
     "CanvasSignEditScreenMixin",
