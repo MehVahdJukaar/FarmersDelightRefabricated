@@ -50,7 +50,7 @@ public abstract class AbstractStoveRenderer<T extends AbstractStoveBlockEntity, 
 
 	@Override
 	public void submit(S state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector submitNodeCollector, @NonNull CameraRenderState camera) {
-		Direction direction = state.facing.getOpposite();
+		Direction direction = state.facing;
 
 		var items = state.stoveStacks;
 

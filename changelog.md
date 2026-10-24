@@ -1,5 +1,4 @@
 ### Fixes
-- Fixed knifes taking additional durability damage.
-- Skillet sounds not playing correctly.
-- Wildflowers being affected by Rich Soil.
-- Untranslatable sound effects.
+- Tags are no longer loaded early, fixing a compatibility issue with REI.
+- Bug causing items to be cooked immediately when reloading worlds.
+- Backported bugfix for stoves rendering items backwards.
