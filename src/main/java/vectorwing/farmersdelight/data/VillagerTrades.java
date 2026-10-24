@@ -1,14 +1,9 @@
 package vectorwing.farmersdelight.data;
 
-import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -38,24 +33,25 @@ public class VillagerTrades extends FabricDynamicRegistryProvider
     public static final ResourceKey<VillagerTrade> WANDERING_TRADER_RICE_EMERALD = resourceKey("wandering_trader/rice_emerald");
     public static final ResourceKey<VillagerTrade> WANDERING_TRADER_ONION_EMERALD = resourceKey("wandering_trader/onion_emerald");
 
-    public static void init(final BootstrapContext<VillagerTrade> context) {
-        onVillagerTrades(context);
-        onWandererTrades(context);
+	@Override
+	protected void configure(HolderLookup.Provider registries, Entries entries) {
+		onVillagerTrades(entries);
+		onWandererTrades(entries);
+	}
+
+    public static void onVillagerTrades(Entries context) {
+        context.add(FARMER_1_ONION_EMERALD, emeraldsForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
+        context.add(FARMER_1_TOMATO_EMERALD, emeraldsForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
+
+        context.add(FARMER_2_CABBAGE_EMERALD, emeraldsForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
+        context.add(FARMER_2_RICE_EMERALD, emeraldsForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
     }
 
-    public static void onVillagerTrades(final BootstrapContext<VillagerTrade> context) {
-        context.register(FARMER_1_ONION_EMERALD, emeraldsForItemsTrade(ModItems.ONION.get(), 26, 16, 2));
-        context.register(FARMER_1_TOMATO_EMERALD, emeraldsForItemsTrade(ModItems.TOMATO.get(), 26, 16, 2));
-
-        context.register(FARMER_2_CABBAGE_EMERALD, emeraldsForItemsTrade(ModItems.CABBAGE.get(), 16, 16, 5));
-        context.register(FARMER_2_RICE_EMERALD, emeraldsForItemsTrade(ModItems.RICE.get(), 20, 16, 5));
-    }
-
-    public static void onWandererTrades(BootstrapContext<VillagerTrade> context) {
-        context.register(WANDERING_TRADER_CABBAGE_EMERALD, itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12));
-        context.register(WANDERING_TRADER_TOMATO_EMERALD, itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12));
-        context.register(WANDERING_TRADER_RICE_EMERALD, itemForEmeraldTrade(ModItems.RICE.get(), 1, 12));
-        context.register(WANDERING_TRADER_ONION_EMERALD, itemForEmeraldTrade(ModItems.ONION.get(), 1, 12));
+    public static void onWandererTrades(Entries context) {
+        context.add(WANDERING_TRADER_CABBAGE_EMERALD, itemForEmeraldTrade(ModItems.CABBAGE_SEEDS.get(), 1, 12));
+        context.add(WANDERING_TRADER_TOMATO_EMERALD, itemForEmeraldTrade(ModItems.TOMATO_SEEDS.get(), 1, 12));
+        context.add(WANDERING_TRADER_RICE_EMERALD, itemForEmeraldTrade(ModItems.RICE.get(), 1, 12));
+        context.add(WANDERING_TRADER_ONION_EMERALD, itemForEmeraldTrade(ModItems.ONION.get(), 1, 12));
     }
 
     public static VillagerTrade emeraldsForItemsTrade(ItemLike item, int count, int maxTrades, int xp) {
@@ -68,21 +64,6 @@ public class VillagerTrades extends FabricDynamicRegistryProvider
 
     public static ResourceKey<VillagerTrade> resourceKey(final String path) {
         return ResourceKey.create(Registries.VILLAGER_TRADE, FarmersDelight.id(path));
-    }
-
-    @Override
-    protected void configure(HolderLookup.Provider registries, Entries entries) {
-        init(new BootstrapContext<>() {
-            @Override
-            public Holder.Reference<VillagerTrade> register(ResourceKey<VillagerTrade> resourceKey, VillagerTrade object, Lifecycle lifecycle) {
-                return (Holder.Reference<VillagerTrade>) entries.add(resourceKey, object);
-            }
-
-            @Override
-            public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> resourceKey) {
-                return registries.lookupOrThrow(resourceKey);
-            }
-        });
     }
 
     @Override
