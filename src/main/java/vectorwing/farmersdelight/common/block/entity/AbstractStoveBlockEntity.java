@@ -79,8 +79,8 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 	@Override
 	public void saveAdditional(ValueOutput output) {
 		writeItems(output);
-		output.putIntArray("CookingTimes", this.cookingTimesTotal);
-		output.putIntArray("CookingTotalTimes", this.cookingTimes);
+		output.putIntArray("CookingTimes", this.cookingTimes);
+		output.putIntArray("CookingTotalTimes", this.cookingTimesTotal);
 	}
 
 	private void writeItems(ValueOutput output) {
