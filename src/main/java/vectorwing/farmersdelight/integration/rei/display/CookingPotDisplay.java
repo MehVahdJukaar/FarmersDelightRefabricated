@@ -46,7 +46,7 @@ public class CookingPotDisplay extends BasicDisplay implements CraftingDisplay {
             ));
 
     public CookingPotDisplay(RecipeHolder<CookingPotRecipe> recipe) {
-        this(EntryIngredients.ofIngredients(recipe.value().input()), List.of(EntryIngredients.of(recipe.value().result())), Optional.of(recipe.id().identifier()), EntryIngredients.of(recipe.value().container()), recipe.value().getCookTime(), recipe.value().getExperience());
+        this(EntryIngredients.ofIngredients(recipe.value().input()), List.of(EntryIngredients.of(recipe.value().result())), Optional.of(recipe.id().identifier()), Optional.ofNullable(recipe.value().container()).map(EntryIngredients::of).orElseGet(EntryIngredient::empty), recipe.value().getCookTime(), recipe.value().getExperience());
     }
 
     public CookingPotDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<Identifier> location, EntryIngredient container, int cookTime, float experience) {
